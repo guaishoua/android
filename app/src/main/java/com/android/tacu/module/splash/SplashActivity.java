@@ -26,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
     private boolean isGestureAndFingerLock = false;
 
     private Handler timerHandler = new Handler();
+    private Thread thread = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,13 +55,14 @@ public class SplashActivity extends AppCompatActivity {
         Locale userLocale = LanguageUtils.getUserLocale(this);
         LanguageUtils.updateLocale(userLocale);
 
-       new Thread(new Runnable() {
+        thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 ConvertMoneyUtils.setSpConvertBean();
                 ConvertMoneyUtils.setSpBaseCoinScale();
             }
-        }).start();
+        });
+        thread.start();
     }
 
     @Override
@@ -104,6 +106,10 @@ public class SplashActivity extends AppCompatActivity {
         if (timerHandler != null) {
             timerHandler.removeCallbacksAndMessages(null);
             timerHandler = null;
+        }
+        if (thread != null) {
+            thread.interrupt();
+            thread = null;
         }
         super.onDestroy();
     }

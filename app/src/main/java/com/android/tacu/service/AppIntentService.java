@@ -7,7 +7,11 @@ import android.support.annotation.Nullable;
 
 import com.alibaba.security.rp.RPSDK;
 import com.android.tacu.BuildConfig;
+import com.github.moduth.blockcanary.BlockCanary;
+import com.github.moduth.blockcanary.BlockCanaryContext;
+import com.github.moduth.blockcanary.internal.BlockInfo;
 import com.mob.MobSDK;
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
@@ -17,13 +21,17 @@ import com.zendesk.sdk.network.impl.ZendeskConfig;
 import com.zopim.android.sdk.api.ZopimChat;
 import com.zopim.android.sdk.widget.ChatWidgetService;
 
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 在Application里用的 将一些第三方的放到这里 优化app启动速度
  * Created by jiazhen on 2018/8/21.
  */
 public class AppIntentService extends IntentService {
 
-    private static final String ACTION_INIT = "com.tacu.android.action.INIT";
+    private static final String ACTION_INIT = "com.android.tacu.action.INIT";
 
     public AppIntentService() {
         super("AppIntentService");
@@ -52,9 +60,9 @@ public class AppIntentService extends IntentService {
             ossAuthSetting();
 
             //内存检测
-            //leakcanarySetting();
+            leakcanarySetting();
             //App界面卡顿检测工具
-            //blockSetting();
+            blockSetting();
         }
     }
 
@@ -62,7 +70,6 @@ public class AppIntentService extends IntentService {
      * 腾讯bugly
      */
     private void buglySetting() {
-        //CrashReport.setIsDevelopmentDevice(getApplicationContext(), true);, true);//ADT
         //17增加了BuildConfig特性，可以通过获取BuildConfig类的DEBUG变量来设置是否是开发设备 (测试阶段建议设置成true，发布时设置为false)
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(getApplicationContext());
         if (BuildConfig.DEBUG) {
@@ -132,25 +139,25 @@ public class AppIntentService extends IntentService {
     /**
      * 内存检测
      */
-    /*private void leakcanarySetting() {
+    private void leakcanarySetting() {
         if (BuildConfig.DEBUG) {
             if (LeakCanary.isInAnalyzerProcess(getApplicationContext())) {
                 return;
             }
             LeakCanary.install(getApplication());
         }
-    }*/
+    }
 
     /**
      * App界面卡顿检测工具
      */
-    /*private void blockSetting() {
+    private void blockSetting() {
         if (BuildConfig.DEBUG) {
             BlockCanary.install(getApplicationContext(), new AppBlockCanaryContext()).start();
         }
-    }*/
+    }
 
-    /*private class AppBlockCanaryContext extends BlockCanaryContext {
+    private class AppBlockCanaryContext extends BlockCanaryContext {
 
         public String provideQualifier() {
             return "unknown";
@@ -212,5 +219,5 @@ public class AppIntentService extends IntentService {
 
         public void onBlock(Context context, BlockInfo blockInfo) {
         }
-    }*/
+    }
 }
