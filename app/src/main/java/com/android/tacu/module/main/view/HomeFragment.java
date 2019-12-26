@@ -241,7 +241,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @OnClick(R.id.tv_help)
     void helpClick() {
-        //jumpTo(WebviewActivity.createActivity(getContext(), Constant.ZENDESK_HELP, false, null));
         //在线聊天
         PreChatForm defaultPreChat = new PreChatForm.Builder()
                 .name(PreChatForm.Field.OPTIONAL_EDITABLE)

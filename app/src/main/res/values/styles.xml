@@ -19,6 +19,7 @@
     <!--启动页-->
     <style name="AppLauncherTheme" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
+        <item name="android:background">@drawable/launcher_screen</item>
     </style>
 
     <!--全局Activity的跳转动画-->
