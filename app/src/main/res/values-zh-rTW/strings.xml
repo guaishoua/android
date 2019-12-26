@@ -79,54 +79,14 @@
     <string name="vol">成交量</string>
 
     <!--资产-->
-    <string name="date_select">日期选择</string>
     <string name="recharge">充幣</string>
     <string name="withdrawals">提幣</string>
     <string name="node_profit">平台昨日單節點收益</string>
-    <string name="node_manage">CHEX节点</string>
-    <string name="node_apply">申請節點</string>
-    <string name="node_unlock">解鎖節點</string>
-    <string name="node_available_num">可用數量</string>
-    <string name="node_available_unlock_num">可解鎖節點數量</string>
-    <string name="node_start_date">初始收益日期</string>
-    <string name="node_apply_num">申請節點數量</string>
-    <string name="node_unlock_num">解鎖節點數量</string>
-    <string name="node_pwd">交易密碼</string>
-    <string name="node_scale">*10萬CHEX=1節點</string>
-    <string name="node_apply_text">申請</string>
-    <string name="node_unlock_text">解鎖</string>
-    <string name="node_apply_isempty">申請節點數量不可為空！</string>
-    <string name="node_unlock_isempty">解鎖節點數量不可為空！</string>
-    <string name="node_pwd_isempty">交易密碼不可為空！</string>
     <string name="transfer">劃轉</string>
     <string name="service_charge">手續費：</string>
     <string name="transfer_record">劃轉記錄</string>
     <string name="bind_phone_hint">驗證已綁定的手機號</string>
     <string name="bind_email_hint">驗證已綁定的郵箱</string>
-    <string name="confrim">确定</string>
-    <string name="node_agress">將優先解鎖申請時間最晚的節點，本人知曉，確認解鎖</string>
-    <string name="node_hint">1.節點鎖倉時間自申請之日起第二天的00:00開始生效。\n2.連續鎖倉30天後開始收益，收益將在第二天中午12:00發放。</string>
-    <string name="node_profit_total">總收益</string>
-    <string name="node_yesterday">待發放收益</string>
-    <string name="node_profit_record">收益記錄</string>
-    <string name="node_create">申請時間</string>
-    <string name="node_num">申請節點數</string>
-    <string name="node_unlock_num2">鎖倉節點數</string>
-    <string name="node_total">節點總收益:</string>
-    <string name="node_create_profit">初始收益日期</string>
-    <string name="node_profit_create">發放日期</string>
-    <string name="node_profit_num">數量</string>
-    <string name="node_one_profit">單節點收益</string>
-    <string name="node_one_profit2">單節點收益(CHEX)</string>
-    <string name="node_state_profit">發放狀態</string>
-    <string name="node_state">節點狀態</string>
-    <string name="node_unlock_time">鎖倉天數</string>
-    <string name="node_details">節點詳情</string>
-    <string name="node_distributed">已發放</string>
-    <string name="node_no">未發放</string>
-    <string name="node_lock">鎖倉</string>
-    <string name="node_unlock2">解倉</string>
-    <string name="node_unlock_date">解鎖時間</string>
     <string name="node_know">知道了</string>
     <string name="address">地址</string>
     <string name="payment_id">%1$s (未填寫將無法到賬！)</string>
@@ -134,7 +94,6 @@
     <string name="save_image">保存二維碼</string>
     <string name="fee">手續費</string>
     <string name="coins_text">禁止向非 %1$s 地址充值，除%2$s之外的資產，任何充入%3$s地址的非%4$s資產將不可找回。使用%5$s地址充值需要%6$s個網絡確認才能到賬。目前不支持使用智能合約或區塊獎勵（Coinbase）的轉賬充值，智能合約或區塊獎勵的轉賬將不會上賬，請您諒解。</string>
-    <string name="select_coins">幣種選擇</string>
     <string name="asset_hint">總資產折合</string>
     <string name="asset_search">已有資產</string>
     <string name="fee2">手續費：</string>
@@ -359,10 +318,6 @@
 
     <!--实名认证 第三步-->
     <string name="identity_authentication">身份認證</string>
-    <string name="real_one">1.請掃描二維碼添加微信。</string>
-    <string name="real_two">2.請發送您的姓名及UID，客服人員審核通過後即可進行視頻認證。</string>
-    <string name="real_three">3.準備好身份證件，按要求錄制壹個小視頻。</string>
-    <string name="real_video">視頻認證1</string>
 
     <!--修改交易和登录密码-->
     <string name="old_pwd">原密碼</string>
@@ -431,14 +386,10 @@
     <string name="curency">幣種</string>
     <string name="num">數量</string>
     <string name="winning_details">獲獎詳情</string>
-    <string name="create_date">創建日期</string>
-    <string name="out_time">發放時間</string>
     <string name="invite_uid">被邀請人UID</string>
-    <string name="state">狀態</string>
     <string name="register_source">註冊來源</string>
     <string name="register_date">註冊日期</string>
     <string name="invited_record">邀請記錄</string>
-    <string name="winning_record">獲獎記錄</string>
     <string name="invited_poster">分享海報到</string>
     <string name="invite_hint">請選擇要分享海報</string>
     <!--交易-->
@@ -485,61 +436,7 @@
     <!--登录注册-->
     <string name="search_coin">搜索幣種</string>
     <!--獎勵資產專區-->
-    <string name="reward_asset_model">獎勵資產專區</string>
-    <string name="reward_total_asset">獎勵總資產</string>
-    <string name="shanxibao">閃息寶</string>
-    <string name="wenxibao">穩息寶</string>
-    <string name="interest_record">收益記錄</string>
-    <string name="interest_history">歷史收益</string>
-    <string name="interest_history_chex">歷史收益(CHEX)</string>
-    <string name="yesterday_asset_usdt">昨日資產(USDT)</string>
-    <string name="yesterday_interest_chex">昨日收益(CHEX)</string>
-    <string name="chex_price_usdt">兌換CHEX價格(USDT)</string>
-    <string name="receive">領取</string>
-    <string name="half_year_profit">半年年化(%)</string>
-    <string name="one_year_profit">一年年化(%)</string>
-    <string name="history_activity">歷史活動</string>
-    <string name="detail">明細</string>
-    <string name="lock_profit">鎖倉收益</string>
-    <string name="lock_profit_chex">已獲收益(CHEX)</string>
-    <string name="lock_record">鎖倉記錄</string>
-    <string name="apply_lock">申請鎖倉</string>
-    <string name="node_total_profit">總收益(CHEX)</string>
-    <string name="lessthan_200">不足200USDT</string>
     <!--獎勵總資產-->
-    <string name="reward_time">發放時間</string>
-    <string name="reward_status">發放狀態</string>
-    <string name="reward_name">獎勵名稱</string>
-    <string name="reward_coin">獎勵幣種</string>
-    <string name="reward_num">獎勵數量</string>
-    <string name="interest">收益</string>
-    <string name="your_chex_lock_num">您的CHEX鎖倉總數量：</string>
-    <string name="haved_profit_chex">已獲收益(CHEX)</string>
-    <string name="prediction_profit_chex">預計收益(CHEX)</string>
-    <string name="can_use_chex">可用CHEX數量</string>
-    <string name="input_lock_num">輸入申請鎖倉數量</string>
-    <string name="wan">萬</string>
-    <string name="lock_tip">*最少鎖倉10萬CHEX</string>
-    <string name="lock_cycle">鎖倉週期</string>
-    <string name="year_rate">年利率</string>
-    <string name="prediction_profit">預計收益</string>
-    <string name="month_12">12個月</string>
-    <string name="month_6">6個月</string>
-    <string name="apply_lock_tip">1、計息：按照自然天數計算，包括鎖倉日期當日，不包括到期日期當日。\n2、解倉發放收益：到期日期當日的14:00整，平臺將用戶的本金和收益自動發放至用戶帳戶。</string>
-    <string name="profit">收益</string>
-    <string name="lock_chex_num">鎖倉CHEX數量(萬)</string>
-    <string name="lock_time">鎖倉時間</string>
-    <string name="lock_end_time">到期日期</string>
-    <string name="shanxibao_describe">1.凡在GlobalEX持倉總資產等值不少於300 USDT的用戶，每日可享受年化收益6%獎勵並折算成CHEX發放至個人帳戶。每日24:00對用戶持倉資產數量進行快照並按照當時的市場價進行核算。滿足條件的用戶將每日享受年化收益6%的獎勵。
-    \n2.快照時間：每日24:00\n3.兌換USDT價格：按照GlobalEX每日24:00的市場價進行等值核算。\n4.兌換CHEX價格：按照CHEX每日均價=當日CHEX成交總金額/當日CHEX成交總數\n5.統計範圍：用戶持可用資產和掛單資產計入獎勵範圍，鎖倉資產不計入獎勵範圍。</string>
-    <string name="wenxibao_describe">凡在GlobalEX持有CHEX，鎖倉半年可享受年化收益10%；鎖倉1年，可享受年化收益12%，期滿後同時支付本息和。\n鎖倉數量：每次鎖倉不低於十萬CHEX，可增加鎖倉數額，超出部分為1萬的整數倍即可。</string>
-    <string name="have_received">已領取</string>
-    <string name="nohave_received">未領取</string>
-    <string name="locking_chex">鎖倉中</string>
-    <string name="locked_chex">已結清</string>
-    <string name="lock_describe">鎖倉收益=已獲收益+預計收益</string>
-    <string name="apply_locknum_error">申請鎖倉數量錯誤!</string>
-    <string name="apply_locknum">申請鎖倉數量</string>
 
     <!--修改交易密码-->
     <string name="new_trade_pwd">新交易密碼</string>
@@ -566,8 +463,8 @@
 
     <string name="please_bind_phone">請先綁定手機號</string>
 
-    <string name="refresh_string">globalex</string>
-    <string name="exit">再按壹次退出GlobalEX</string>
+    <string name="refresh_string">tacu</string>
+    <string name="exit">再按壹次退出TACU</string>
     <string name="splash_string">環球區塊鏈數字貨幣交易所</string>
     <string name="register_fast">立即註冊</string>
     <string name="get_sms_code">獲取驗證碼</string>
@@ -614,7 +511,7 @@
     <string name="history_deal">歷史成交</string>
     <string name="change_left_hand">切換左手</string>
     <string name="change_right_hand">切換右手</string>
-    <string name="xieyi">我已閱讀並同意《GlobalEX用戶協議》</string>
+    <string name="xieyi">我已閱讀並同意《TACU用戶協議》</string>
     <string name="yonghu_xieyi">用戶協議</string>
 
     <string name="hint_common_add_new_address">輸入或長按粘貼地址</string>

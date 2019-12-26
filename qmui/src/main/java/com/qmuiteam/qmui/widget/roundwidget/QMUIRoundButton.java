@@ -2,7 +2,6 @@ package com.qmuiteam.qmui.widget.roundwidget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.Button;
 
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;

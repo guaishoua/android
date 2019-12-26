@@ -48,14 +48,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.view.WindowInsets;
 import android.widget.FrameLayout;
 
 import com.qmuiteam.qmui.QMUIInterpolatorStaticHolder;
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.util.QMUICollapsingTextHelper;
 import com.qmuiteam.qmui.util.QMUILangHelper;
-import com.qmuiteam.qmui.util.QMUINotchHelper;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.util.QMUIViewOffsetHelper;
 

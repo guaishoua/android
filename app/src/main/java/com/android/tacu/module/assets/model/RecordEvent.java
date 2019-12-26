@@ -17,9 +17,6 @@ public class RecordEvent implements Serializable {
     private String startTime;
     private String endTime;
 
-    public RecordEvent() {
-    }
-
     public RecordEvent(Integer currencyId, String currencyNameEn, String startTime, String endTime) {
         this.currencyId = currencyId;
         this.currencyNameEn = currencyNameEn;

@@ -81,54 +81,14 @@
     <string name="vol">成交量</string>
 
     <!--资产-->
-    <string name="date_select">日期选择</string>
     <string name="recharge">充币</string>
     <string name="withdrawals">提币</string>
     <string name="node_profit">平台昨日单节点收益</string>
-    <string name="node_manage">CHEX节点</string>
-    <string name="node_apply">申请节点</string>
-    <string name="node_unlock">解锁节点</string>
-    <string name="node_available_num">可用数量</string>
-    <string name="node_available_unlock_num">可解锁节点数量</string>
-    <string name="node_start_date">初始收益日期</string>
-    <string name="node_apply_num">申请节点数量</string>
-    <string name="node_unlock_num">解锁节点数量</string>
-    <string name="node_pwd">交易密码</string>
-    <string name="node_scale">*10万CHEX=1节点</string>
-    <string name="node_apply_text">申请</string>
-    <string name="node_unlock_text">解锁</string>
-    <string name="node_apply_isempty">申请节点数量不可为空！</string>
-    <string name="node_unlock_isempty">解锁节点数量不可为空！</string>
-    <string name="node_pwd_isempty">交易密码不可为空！</string>
     <string name="transfer">划转</string>
     <string name="service_charge">手续费：</string>
     <string name="transfer_record">划转记录</string>
     <string name="bind_phone_hint">验证已绑定的手机号</string>
     <string name="bind_email_hint">验证已绑定的邮箱</string>
-    <string name="confrim">确定</string>
-    <string name="node_agress">将优先解锁申请时间最晚的节点，本人知晓，确认解锁</string>
-    <string name="node_hint">1.节点锁仓时间自申请之日起第二天的00:00开始生效。\n2.连续锁仓30天后开始收益，收益将在第二天中午12:00发放。</string>
-    <string name="node_profit_total">总收益</string>
-    <string name="node_yesterday">待发放收益</string>
-    <string name="node_profit_record">收益记录</string>
-    <string name="node_create">申请时间</string>
-    <string name="node_num">申请节点数</string>
-    <string name="node_unlock_num2">锁仓节点数</string>
-    <string name="node_total">节点总收益:</string>
-    <string name="node_create_profit">初始收益日期</string>
-    <string name="node_profit_create">发放日期</string>
-    <string name="node_profit_num">数量</string>
-    <string name="node_one_profit">单节点收益</string>
-    <string name="node_one_profit2">单节点收益(CHEX)</string>
-    <string name="node_state_profit">发放状态</string>
-    <string name="node_state">节点状态</string>
-    <string name="node_unlock_time">锁仓天数</string>
-    <string name="node_details">节点详情</string>
-    <string name="node_distributed">已发放</string>
-    <string name="node_no">未发放</string>
-    <string name="node_lock">锁仓</string>
-    <string name="node_unlock2">解仓</string>
-    <string name="node_unlock_date">解锁时间</string>
     <string name="node_know">知道了</string>
     <string name="address">地址</string>
     <string name="payment_id">%1$s (未填写将无法到账！)</string>
@@ -136,7 +96,6 @@
     <string name="save_image">保存二维码</string>
     <string name="fee">手续费</string>
     <string name="coins_text">禁止向非 %1$s 地址充值，除%2$s之外的资产，任何充入%3$s地址的非%4$s资产将不可找回。使用%5$s地址充值需要%6$s个网络确认才能到账。目前不支持使用智能合约或区块奖励（Coinbase）的转账充值，智能合约或区块奖励的转账将不会上账，请您谅解。</string>
-    <string name="select_coins">币种选择</string>
     <string name="asset_hint">总资产折合</string>
     <string name="asset_search">已有资产</string>
     <string name="fee2">手续费：</string>
@@ -171,7 +130,7 @@
     <string name="history">流水</string>
     <string name="please_select_address">选择提币地址</string>
     <string name="min_extract">最小提币数量</string>
-    <string name="paymentid">%1$s (从GlobalEX转出至其它平台或个人钱包时需要)</string>
+    <string name="paymentid">%1$s (从TACU转出至其它平台或个人钱包时需要)</string>
     <string name="Mailbox_verification">邮箱验证码</string>
     <string name="mobile_phone_number_verification">手机验证码</string>
     <string name="google_auth">谷歌验证码</string>
@@ -263,7 +222,7 @@
     <string name="clase_ga">解除谷歌绑定</string>
     <string name="Temporarily_not_set">暂不设置</string>
     <string name="copy">複製</string>
-    <string name="google_hint">"1.下载谷歌验证器APP,iOS用户登录App Store搜索“Authenticator”下载。安卓用户登录应用商店或使用手机浏览器搜索“谷歌验证器”下载。\n2. 在谷歌验证器中添加密钥并备份打开谷歌验证器，扫描下方二维码或手动输入下述密钥添加验证令牌。密钥用于手机更换或遗失时找回谷歌验证器，绑定前请务必将下述密钥备份保存。\n3.填写GlobalEX账号，点击“完成”。</string>
+    <string name="google_hint">"1.下载谷歌验证器APP,iOS用户登录App Store搜索“Authenticator”下载。安卓用户登录应用商店或使用手机浏览器搜索“谷歌验证器”下载。\n2. 在谷歌验证器中添加密钥并备份打开谷歌验证器，扫描下方二维码或手动输入下述密钥添加验证令牌。密钥用于手机更换或遗失时找回谷歌验证器，绑定前请务必将下述密钥备份保存。\n3.填写TACU账号，点击“完成”。</string>
     <string name="email_bind">邮箱验证</string>
     <string name="phone_bind">手机验证</string>
 
@@ -362,15 +321,6 @@
 
     <!--实名认证 第三步-->
     <string name="identity_authentication">身份认证</string>
-    <string name="real_one">1.请扫描二维码添加微信。</string>
-    <string name="real_two">2.请发送您的姓名及UID，客服人员审核通过后即可进行视频认证。</string>
-    <string name="real_three">3.准备好身份证件，按要求录制一个小视频。</string>
-    <string name="real_1">1. Please send your video verification to support@gexday.com mailbox.</string>
-    <string name="real_2">2.Please speak out your UID, registered name, resident address and the following sentence \"I promise that the above information is real and valid, and am aware of the risk of digital currency investment. I promise to invest cautiously and am responsible for all the consequences. This video is only for TACU verification \" .</string>
-    <string name="real_3">3. Clearly show the front and back of you ID to the camera as well as your face.</string>
-    <string name="real_4">4. All the information has to be presented in English.</string>
-    <string name="real_5">5.Please send your name and UID along with the video.The customer service will approve the video verification after review.</string>
-    <string name="real_video">视频认证1</string>
 
     <!--修改交易和登录密码-->
     <string name="old_pwd">原密码</string>
@@ -441,14 +391,10 @@
     <string name="curency">币种</string>
     <string name="num">数量</string>
     <string name="winning_details">获奖详情</string>
-    <string name="create_date">创建日期</string>
-    <string name="out_time">发放时间</string>
     <string name="invite_uid">被邀请人UID</string>
-    <string name="state">状态</string>
     <string name="register_source">注册来源</string>
     <string name="register_date">注册日期</string>
     <string name="invited_record">邀请记录</string>
-    <string name="winning_record">获奖记录</string>
     <string name="invited_poster">分享海报到</string>
     <string name="invite_hint">请选择要分享海报</string>
     <!--交易-->
@@ -498,61 +444,7 @@
     <!--登录注册-->
     <string name="search_coin">搜索币种</string>
     <!--奖励资产专区-->
-    <string name="reward_asset_model">奖励资产专区</string>
-    <string name="reward_total_asset">奖励总资产</string>
-    <string name="shanxibao">闪息宝</string>
-    <string name="wenxibao">稳息宝</string>
-    <string name="interest_record">收益记录</string>
-    <string name="interest_history">历史收益</string>
-    <string name="interest_history_chex">历史收益(CHEX)</string>
-    <string name="yesterday_asset_usdt">昨日资产(USDT)</string>
-    <string name="yesterday_interest_chex">昨日收益(CHEX)</string>
-    <string name="chex_price_usdt">兑换CHEX价格(USDT)</string>
-    <string name="receive">领取</string>
-    <string name="half_year_profit">半年年化(%)</string>
-    <string name="one_year_profit">一年年化(%)</string>
-    <string name="history_activity">历史活动</string>
-    <string name="detail">明细</string>
-    <string name="lock_profit">锁仓收益</string>
-    <string name="lock_profit_chex">已获收益(CHEX)</string>
-    <string name="lock_record">锁仓记录</string>
-    <string name="apply_lock">申请锁仓</string>
-    <string name="node_total_profit">总收益(CHEX)</string>
-    <string name="lessthan_200">不足200USDT</string>
     <!--奖励总资产-->
-    <string name="reward_time">发放时间</string>
-    <string name="reward_status">发放状态</string>
-    <string name="reward_name">奖励名称</string>
-    <string name="reward_coin">奖励币种</string>
-    <string name="reward_num">奖励数量</string>
-    <string name="interest">收益</string>
-    <string name="your_chex_lock_num">您的CHEX锁仓总数量：</string>
-    <string name="haved_profit_chex">已获收益(CHEX)</string>
-    <string name="prediction_profit_chex">预计收益(CHEX)</string>
-    <string name="can_use_chex">可用CHEX数量</string>
-    <string name="input_lock_num">输入申请锁仓数量</string>
-    <string name="wan">万</string>
-    <string name="lock_tip">*最少锁仓10万CHEX</string>
-    <string name="lock_cycle">锁仓週期</string>
-    <string name="year_rate">年利率</string>
-    <string name="prediction_profit">预计收益</string>
-    <string name="month_12">12个月</string>
-    <string name="month_6">6个月</string>
-    <string name="apply_lock_tip">1、计息：按照自然天数计算，包括锁仓日期当日，不包括到期日期当日。\n2、解仓发放收益：到期日期当日的14:00整，平台将用户的本金和收益自动发放至用户帐户。</string>
-    <string name="profit">收益</string>
-    <string name="lock_chex_num">锁仓CHEX数量(万)</string>
-    <string name="lock_time">锁仓时间</string>
-    <string name="lock_end_time">到期日期</string>
-    <string name="shanxibao_describe">1.凡在CHAOEX持仓总资产等值不少于300 USDT的用户，每日可享受年化收益6%奖励并折算成CHEX发放至个人帐户。每日24:00对用户持仓资产数量进行快照并按照当时的市场价进行核算。满足条件的用户将每日享受年化收益6%的奖励。
-    \n2.快照时间：每日24:00\n3.兑换USDT价格：按照CHAOEX每日24:00的市场价进行等值核算。\n4.兑换CHEX价格：按照CHEX每日均价=当日CHEX成交总金额/当日CHEX成交总数\n5.统计范围：用户持可用资产和挂单资产计入奖励范围，锁仓资产不计入奖励范围。</string>
-    <string name="wenxibao_describe">凡在CHAOEX持有CHEX，锁仓半年可享受年化收益10%；锁仓1年，可享受年化收益12%，期满后同时支付本息和。\n锁仓数量：每次锁仓不低于十万CHEX，可增加锁仓数额，超出部分为1万的整数倍即可。</string>
-    <string name="have_received">已领取</string>
-    <string name="nohave_received">未领取</string>
-    <string name="locking_chex">锁仓中</string>
-    <string name="locked_chex">已结清</string>
-    <string name="lock_describe">锁仓收益=已获收益+预计收益</string>
-    <string name="apply_locknum_error">申请锁仓数量错误!</string>
-    <string name="apply_locknum">申请锁仓数量</string>
 
     <!--打新区-->
 

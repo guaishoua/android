@@ -39,8 +39,6 @@ public abstract class NetDisposableObserver<T> extends DisposableObserver<T> {
                     this.mBaseMvpView.tokenInvalid();
                 } else if (responseException.status == ApiStatus.ERROR_TOAST) {
                     this.mBaseMvpView.showToastError(responseException.message);
-                } else {
-                    //this.mBaseMvpView.showToastError(MyApplication.getInstance().getResources().getString(R.string.net_busy));
                 }
             }
         }

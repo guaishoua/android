@@ -28,7 +28,6 @@
                 android:textSize="@dimen/text_size_sp_14" />
 
             <LinearLayout
-                android:id="@+id/lin_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"

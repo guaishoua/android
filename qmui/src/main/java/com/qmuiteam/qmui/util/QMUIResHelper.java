@@ -7,8 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
-import android.view.ViewConfiguration;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.qmuiteam.qmui.R;

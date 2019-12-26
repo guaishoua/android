@@ -3,7 +3,6 @@ package com.qmuiteam.qmui.widget.dialog;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.widget.ImageView;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.layout.QMUIRelativeLayout;
-import com.qmuiteam.qmui.util.QMUIDrawableHelper;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 

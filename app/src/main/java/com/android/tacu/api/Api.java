@@ -4,29 +4,17 @@ import com.android.tacu.base.BaseModel;
 import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.AuthOssModel;
-import com.android.tacu.module.assets.model.CashChexAndRateModel;
 import com.android.tacu.module.assets.model.ChargeModel;
 import com.android.tacu.module.assets.model.CoinAddressModel;
 import com.android.tacu.module.assets.model.ExchangListModel;
 import com.android.tacu.module.assets.model.ExchangeModel;
 import com.android.tacu.module.assets.model.ExchangeShowModel;
-import com.android.tacu.module.assets.model.LockChexAmountModel;
-import com.android.tacu.module.assets.model.LockChexListModel;
 import com.android.tacu.module.assets.model.MoneyFlowModel;
-import com.android.tacu.module.assets.model.NodeDetailsModel;
-import com.android.tacu.module.assets.model.NodeListModel;
-import com.android.tacu.module.assets.model.NodeModel;
-import com.android.tacu.module.assets.model.NodeProfitModel;
-import com.android.tacu.module.assets.model.RewardCoinAccountModel;
-import com.android.tacu.module.assets.model.RewardTotalAssetModel;
-import com.android.tacu.module.assets.model.RightMessageModel;
 import com.android.tacu.module.assets.model.SelectTakeCoinAddressModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
 import com.android.tacu.module.assets.model.TransInfoCoinModal;
 import com.android.tacu.module.assets.model.TransferInfo;
 import com.android.tacu.module.assets.model.TransferRecordModel;
-import com.android.tacu.module.assets.model.UnclaimedListModel;
-import com.android.tacu.module.assets.model.UnclaimedModel;
 import com.android.tacu.module.auth.model.AliModel;
 import com.android.tacu.module.auth.model.AwsModel;
 import com.android.tacu.module.auth.model.SelectAuthLevelModel;
@@ -173,12 +161,6 @@ public interface Api {
      */
     @POST("customerCoinAccount2")
     Observable<BaseModel<AssetDetailsModel>> getAsAsets();
-
-    /**
-     * 节点数据展示
-     */
-    @POST("showNodeMessage")
-    Observable<BaseModel<NodeModel>> getNodeDetails();
 
     /**
      * 获取充币地址
@@ -341,63 +323,6 @@ public interface Api {
     Observable<BaseModel<KLineModel>> getKline(
             @Field("symbol") String symbol,
             @Field("range") long range);
-
-    /**
-     * 申请节点
-     * nodeType: 1：申请节点 2：解除节点
-     * Type: 1.pc  2.ios  3.Android
-     */
-    @FormUrlEncoded
-    @POST("node")
-    Observable<BaseModel> applyNode(
-            @Field("nodeType") int nodeType,
-            @Field("fdPwd") String fdPwd,
-            @Field("lockNodeNum") int lockNodeNum,
-            @Field("type") int Type);
-
-    /**
-     * 解锁节点
-     */
-    @FormUrlEncoded
-    @POST("node")
-    Observable<BaseModel> unlockNode(
-            @Field("nodeType") int nodeType,
-            @Field("fdPwd") String fdPwd,
-            @Field("unLockNodeNum") int unLockNodeNum,
-            @Field("type") int Type);
-
-    /**
-     * 节点总收益-折合人民币展示
-     */
-    @POST("rightMessage")
-    Observable<BaseModel> rightMessage();
-
-    /**
-     * 节点列表
-     */
-    @FormUrlEncoded
-    @POST("getNodeList")
-    Observable<BaseModel<NodeListModel>> getNodeList(
-            @Field("page") int page);
-
-    /**
-     * 节点详情
-     */
-    @FormUrlEncoded
-    @POST("getNodeListByNodeIds")
-    Observable<NodeDetailsModel> getNodeListByNodeIds(
-            @Field("nodeIds") String nodeIds);
-
-    /**
-     * 收益列表
-     */
-    @FormUrlEncoded
-    @POST("getProfitList")
-    Observable<BaseModel<NodeProfitModel>> getProfitList(
-            @Field("startTime") String startTime,
-            @Field("endTime") String endTime,
-            @Field("state") String state,
-            @Field("page") int page);
 
     /**
      * 选择提币地址
@@ -835,90 +760,6 @@ public interface Api {
     @POST("scanning")
     Observable<BaseModel> sendZxing(
             @Field("uuid") String uuid
-    );
-
-    /**
-     * 奖励资产折合
-     */
-    @POST("customerRewardCoinAccount")
-    Observable<BaseModel<RewardCoinAccountModel>> getRewardCoinAccount();
-
-    /**
-     * 查询闪息宝待领取
-     */
-    @POST("unclaimed")
-    Observable<BaseModel<UnclaimedModel>> getUnclaimed();
-
-    /**
-     * 查询闪息宝领取
-     */
-    @FormUrlEncoded
-    @POST("receive")
-    Observable<BaseModel> getShanxibaoRecevie(
-            @Field("id") int id
-    );
-
-    /**
-     * 查询闪息宝列表
-     */
-    @FormUrlEncoded
-    @POST("list")
-    Observable<BaseModel<UnclaimedListModel>> getShanxibaoList(
-            @Field("startTime") String startTime,
-            @Field("endTime") String endTime,
-            @Field("start") int start,
-            @Field("size") int size
-    );
-
-    /**
-     * 獎勵明細列表
-     */
-    @FormUrlEncoded
-    @POST("rewardList")
-    Observable<BaseModel<RewardTotalAssetModel>> getRewardList(
-            @Field("createTimeBegin") String startTime,
-            @Field("createTimeEnd") String endTime,
-            @Field("start") int start
-    );
-
-    /**
-     * 仓锁收益-已获收益-预计收益
-     */
-    @POST("lockChexAmount")
-    Observable<BaseModel<LockChexAmountModel>> getLockChexAmount();
-
-    /**
-     * 您的锁仓节点数-chex锁仓总数-总收益-待发放收益
-     */
-    @POST("rightMessage2")
-    Observable<BaseModel<RightMessageModel>> getRightMessage();
-
-    /**
-     * 锁仓记录
-     */
-    @FormUrlEncoded
-    @POST("lockChexList")
-    Observable<BaseModel<LockChexListModel>> getLockChexList(
-            @Field("createTimeBegin") String startTime,
-            @Field("createTimeEnd") String endTime,
-            @Field("start") int start
-    );
-
-    /**
-     * 查询用户可用余额
-     */
-    @POST("getCashChexAndRate")
-    Observable<BaseModel<CashChexAndRateModel>> getCashChexAndRate();
-
-    /**
-     * 鎖倉
-     */
-    @FormUrlEncoded
-    @POST("lockChex")
-    Observable<BaseModel> lockChex(
-            @Field("num") String num,
-            @Field("dateVal") int dateVal,
-            @Field("fdPwd") String fdPwd
     );
 
     /**

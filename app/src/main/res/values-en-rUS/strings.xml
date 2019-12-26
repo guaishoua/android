@@ -79,54 +79,14 @@
     <string name="vol">Volume</string>
 
     <!--资产-->
-    <string name="date_select">Date selection</string>
     <string name="recharge">Deposit</string>
     <string name="withdrawals">Withdraw</string>
     <string name="node_profit">Yesterday’s single node revenue</string>
-    <string name="node_manage">CHEX Nodes</string>
-    <string name="node_apply">Apply Node</string>
-    <string name="node_unlock">Unlock</string>
-    <string name="node_available_num">Available Amount</string>
-    <string name="node_available_unlock_num">Enable unlock node quantity</string>
-    <string name="node_start_date">Profit starting day</string>
-    <string name="node_apply_num">Apply node amount</string>
-    <string name="node_unlock_num">Unlock node quantity</string>
-    <string name="node_pwd">Trade Password</string>
-    <string name="node_scale">*One Hundred Thousand CHEX=1Node</string>
-    <string name="node_apply_text">Apply</string>
-    <string name="node_unlock_text">Unlock</string>
-    <string name="node_apply_isempty">Apply node quantity cannot be blank！</string>
-    <string name="node_unlock_isempty">Unlock node quantity cannot be blank！</string>
-    <string name="node_pwd_isempty">Transacion password cannot be blank！</string>
     <string name="transfer">Transfer</string>
     <string name="service_charge">service charge：</string>
     <string name="transfer_record">Transfer</string>
     <string name="bind_phone_hint">Verify the bound phone number</string>
     <string name="bind_email_hint">Verify the bound mailbox</string>
-    <string name="confrim">Confirm</string>
-    <string name="node_agress">The node with the latest application time will be unlocked first.  I know and I am sure to unlock.</string>
-    <string name="node_hint">1.Nodes locking time will take effect from 00:00 on the second day from the date of application.\n2.You will obtain revenue after 30 days of continuous locking, and the reward will be distributed at 12:00 on the second day after the revenue is obtained.</string>
-    <string name="node_profit_total">Total revenue</string>
-    <string name="node_yesterday">Pending revenue</string>
-    <string name="node_profit_record">Revernue record</string>
-    <string name="node_create">Applied time</string>
-    <string name="node_num">Applied number</string>
-    <string name="node_unlock_num2">Locked number</string>
-    <string name="node_total">Total revenue:</string>
-    <string name="node_create_profit">Initial revenue date</string>
-    <string name="node_profit_create">Distributed date</string>
-    <string name="node_profit_num">Quantity</string>
-    <string name="node_one_profit">Single node revenue</string>
-    <string name="node_one_profit2">Single node revenue(CHEX)</string>
-    <string name="node_state_profit">Distribution status</string>
-    <string name="node_state">Status</string>
-    <string name="node_unlock_time">Locking period</string>
-    <string name="node_details">Node details</string>
-    <string name="node_distributed">Distributed</string>
-    <string name="node_no">Not distributed</string>
-    <string name="node_lock">Lock</string>
-    <string name="node_unlock2">UnLock</string>
-    <string name="node_unlock_date">Unlock time</string>
     <string name="node_know">I Know</string>
     <string name="address">Address</string>
     <string name="payment_id">%1$s (No tokens can be received without the information)</string>
@@ -134,7 +94,6 @@
     <string name="save_image">Save the QR code</string>
     <string name="fee">Fee</string>
     <string name="coins_text">It is forbidden to recharge assets other than %1$s to %2$s address, any non %3$s assetsrecharged into %4$s address will not be retrieved.Recharge using %5$s address requires %6$s network confirmations to arrive.Transfer and deposit with smart contract and block reward（Coinbase）are not available and the assets won’t arrive to your account. We apologize to any inconvenience caused！</string>
-    <string name="select_coins">Currency selection</string>
     <string name="asset_hint">Total assets conversion</string>
     <string name="asset_search">Existing assets</string>
     <string name="fee2">Transaction Fee：</string>
@@ -358,7 +317,6 @@
 
     <!--實名認證  第三步-->
     <string name="identity_authentication">Identity Authentication</string>
-    <string name="real_video">Video verification1</string>
 
     <!--修改登录密码-->
     <string name="old_pwd">Old Password</string>
@@ -429,14 +387,10 @@
     <string name="curency">curency</string>
     <string name="num">number</string>
     <string name="winning_details">The winning details</string>
-    <string name="create_date">Creation date</string>
-    <string name="out_time">Out of time</string>
     <string name="invite_uid">Be inviter uid</string>
-    <string name="state">State</string>
     <string name="register_source">Registered source</string>
     <string name="register_date">Registered date</string>
     <string name="invited_record">Invited record</string>
-    <string name="winning_record">Winning record</string>
     <string name="invited_poster">Share the poster to</string>
     <string name="invite_hint">Please select a Shared posters</string>
 
@@ -484,61 +438,7 @@
     <!--登录注册-->
     <string name="search_coin">Search coin</string>
     <!--獎勵資產專區-->
-    <string name="reward_asset_model">Reward Assets Center</string>
-    <string name="reward_total_asset">Total Reward Assets</string>
-    <string name="shanxibao">Assets revenue</string>
-    <string name="wenxibao">Locked assets revenue(CHEX)</string>
-    <string name="interest_record">History</string>
-    <string name="interest_history">Revenue history</string>
-    <string name="interest_history_chex">Total revenue(CHEX)</string>
-    <string name="yesterday_asset_usdt">Yesterday assets(USDT)</string>
-    <string name="yesterday_interest_chex">Yesterday revenue(CHEX)</string>
-    <string name="chex_price_usdt">Yesterday CHEX price(USDT)</string>
-    <string name="receive">Receive reward</string>
-    <string name="half_year_profit">Yearly rate(%)(6months)</string>
-    <string name="one_year_profit">Yearly rate(%)(12months)</string>
-    <string name="history_activity">Operation history</string>
-    <string name="detail">Details</string>
-    <string name="lock_profit">Total revenue</string>
-    <string name="lock_profit_chex">Received revenue(CHEX)</string>
-    <string name="lock_record">History</string>
-    <string name="apply_lock">Lock</string>
-    <string name="node_total_profit">Total revenue (CHEX)</string>
-    <string name="lessthan_200">Less 200</string>
     <!--獎勵總資產-->
-    <string name="reward_time">Distribution time</string>
-    <string name="reward_status">Status</string>
-    <string name="reward_name">Reward name</string>
-    <string name="reward_coin">Reward coin</string>
-    <string name="reward_num">Reward amount</string>
-    <string name="interest">Revenue</string>
-    <string name="your_chex_lock_num">Your locked CHEX total amount：</string>
-    <string name="haved_profit_chex">ROI(CHEX)</string>
-    <string name="prediction_profit_chex">Expected ROI(CHEX)</string>
-    <string name="can_use_chex">Available CHEX amount</string>
-    <string name="input_lock_num">Enter locking amount</string>
-    <string name="wan">Ten thousand</string>
-    <string name="lock_tip">*Lock at least 10,0000 CHEX</string>
-    <string name="lock_cycle">Locking period</string>
-    <string name="year_rate">Yearly interest rate</string>
-    <string name="prediction_profit">Expected ROI</string>
-    <string name="month_12">12 months</string>
-    <string name="month_6">6 months</string>
-    <string name="apply_lock_tip">Calculation: 1.Interest will be calculated daily (including locking day), the unlock day won\'t be counted. 2.Unlock&amp;distribute reward: users\' assets and interest will be automatically sent to their accounts on the unlock day at 14:00.</string>
-    <string name="profit">Revenue</string>
-    <string name="lock_chex_num">Locked amount(10k)</string>
-    <string name="lock_time">Lock time</string>
-    <string name="lock_end_time">Unlock time</string>
-    <string name="shanxibao_describe">Users have at least 300 USDT eq. assets on TACU (excluding CHEX) can get daily interest with the yearly rate of 6%. Interest will be distributed in CHEX. We will have a daily snapshot for users’ total assets, assets will be calculated with market price.
-    \nSnapshot time: 24:00 every day\nEq.USDT price: refer to USDT market price at 24:00 on TACU.\nCHEX exchange price: CHEX daily average price =  CHEX trading volume on the day /  CHEX transactions total number on the day\nNote: only available assets and open orders assets will be calculated. Locked assets will not be counted.</string>
-    <string name="wenxibao_describe">CHEX holders lock at least 100,000 CHEX for 6 months can earn 10% interest rate (*yearly); locking at least 100,000 CHEX for more than 12 months will be subjected to 12% yearly rate.\nLocking amount: at least 100,000 CHEX or higher. The exceeding part needs to be integer multiples 10,000.</string>
-    <string name="have_received">Reward received</string>
-    <string name="nohave_received">Pending reward</string>
-    <string name="locking_chex">Locking</string>
-    <string name="locked_chex">Settled</string>
-    <string name="lock_describe">Locking revenue= earned revenue+ expected revenue.</string>
-    <string name="apply_locknum_error">Applied locking amount is incorrect!</string>
-    <string name="apply_locknum">Locking amount</string>
 
     <!--打新区-->
 
@@ -570,7 +470,7 @@
     <string name="home_recharge">Recharge</string>
 
     <string name="please_bind_phone">Please bind your cell phone number first.</string>
-    <string name="refresh_string">globalex</string>
+    <string name="refresh_string">tacu</string>
     <string name="exit">Exit TACU</string>
     <string name="splash_string">Global Block Chain Digital Money Exchange</string>
     <string name="register_fast">register immediately</string>
