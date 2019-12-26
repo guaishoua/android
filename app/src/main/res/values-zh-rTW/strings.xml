@@ -1,0 +1,666 @@
+<resources>
+    <!--公共部分-->
+    <string name="sure">確定</string>
+    <string name="cancel">取消</string>
+
+    <!--网络连接-->
+    <!--服务器出现问题用这个-->
+    <string name="net_busy">服務器正忙,請稍後再試！</string>
+    <!--没网情况用这个-->
+    <string name="net_unavailable">當前網絡不可用,請檢查網絡設置！</string>
+
+    <!--Main-->
+    <string name="market">市場</string>
+    <string name="trade">交易</string>
+    <string name="assets">資產</string>
+    <string name="app_update">升级</string>
+    <string name="app_update_title">发现新版本：</string>
+
+    <!--權限-->
+    <string name="permission_message_failed">請在設置中允許我們:\n\n%1$s</string>
+    <string name="permission_message_rationale">TACU申請獲得以下權限:\n\n%1$s</string>
+    <string name="permission_allow">允许</string>
+    <string name="permission_refuse">不允许</string>
+
+    <!--顶象-->
+    <string name="switch_error">驗證失敗</string>
+    <string name="smart_checking">智能檢測中</string>
+    <string name="switch_drag">拖動下方滑塊</string>
+    <string name="slide_inform">向右拖動滑塊完成驗證</string>
+    <string name="verifying">驗證中......</string>
+
+    <!--登录注册-->
+    <string name="login_email_or_phone">郵箱/手機</string>
+    <string name="password">密碼</string>
+    <string name="login">登錄</string>
+    <string name="forgot_password">忘記密碼</string>
+    <string name="mailbox_cannot_be_empty">賬號不能為空</string>
+    <string name="pwd_cannot_be_empty">密碼不能為空</string>
+    <string name="login_success">登錄成功</string>
+    <string name="Enter_the_password">登錄密碼</string>
+    <string name="Enter_the_Google_verification_code">填寫谷歌驗證碼</string>
+    <string name="city_search">請選擇國家或地區</string>
+
+    <!--忘记密码-->
+    <string name="reset_password_via_Email">郵箱找回</string>
+    <string name="reset_password_via_phone">手機找回</string>
+    <string name="email_hint_code">郵箱驗證碼</string>
+    <string name="email_code">獲取</string>
+    <string name="new_pwd">新密碼</string>
+    <string name="regex_pwd">密碼需設置8-16位，由大寫字母、小寫字母、數字組成。</string>
+    <string name="confirm_new_pwd">確認密碼</string>
+    <string name="submit">確認</string>
+    <string name="reset_tip">非大陸地區用戶手機號找回時請填寫區號</string>
+    <string name="your_email">郵箱地址</string>
+    <string name="phone_code">手機驗證碼</string>
+    <string name="resend">重新發送</string>
+    <string name="pwd_do_not">密碼不一致</string>
+    <string name="invalid_email_address">郵箱格式錯誤</string>
+    <string name="send_successfully">發送成功</string>
+    <string name="success">成功</string>
+    <string name="code">驗證碼</string>
+
+    <!--注册-->
+    <string name="mobile_email_register">郵箱註冊</string>
+    <string name="mobile_phone_register">手機註冊</string>
+    <string name="input_password">密碼</string>
+    <string name="confirm_password">確認密碼</string>
+    <string name="Invitation_code">邀請碼</string>
+    <string name="register">註冊</string>
+    <string name="register_success">註冊成功</string>
+    <string name="country">國籍</string>
+    <string name="mobile_phone">手機號</string>
+    <string name="email_null">郵箱不能為空</string>
+    <string name="phone_null">手機號碼不能為空</string>
+    <string name="phone_invalia">請輸入有效手機號碼</string>
+
+    <!--市场-->
+    <string name="market_selfselection">自選</string>
+    <string name="vol">成交量</string>
+
+    <!--资产-->
+    <string name="date_select">日期选择</string>
+    <string name="recharge">充幣</string>
+    <string name="withdrawals">提幣</string>
+    <string name="node_profit">平台昨日單節點收益</string>
+    <string name="node_manage">CHEX节点</string>
+    <string name="node_apply">申請節點</string>
+    <string name="node_unlock">解鎖節點</string>
+    <string name="node_available_num">可用數量</string>
+    <string name="node_available_unlock_num">可解鎖節點數量</string>
+    <string name="node_start_date">初始收益日期</string>
+    <string name="node_apply_num">申請節點數量</string>
+    <string name="node_unlock_num">解鎖節點數量</string>
+    <string name="node_pwd">交易密碼</string>
+    <string name="node_scale">*10萬CHEX=1節點</string>
+    <string name="node_apply_text">申請</string>
+    <string name="node_unlock_text">解鎖</string>
+    <string name="node_apply_isempty">申請節點數量不可為空！</string>
+    <string name="node_unlock_isempty">解鎖節點數量不可為空！</string>
+    <string name="node_pwd_isempty">交易密碼不可為空！</string>
+    <string name="transfer">劃轉</string>
+    <string name="service_charge">手續費：</string>
+    <string name="transfer_record">劃轉記錄</string>
+    <string name="bind_phone_hint">驗證已綁定的手機號</string>
+    <string name="bind_email_hint">驗證已綁定的郵箱</string>
+    <string name="confrim">确定</string>
+    <string name="node_agress">將優先解鎖申請時間最晚的節點，本人知曉，確認解鎖</string>
+    <string name="node_hint">1.節點鎖倉時間自申請之日起第二天的00:00開始生效。\n2.連續鎖倉30天後開始收益，收益將在第二天中午12:00發放。</string>
+    <string name="node_profit_total">總收益</string>
+    <string name="node_yesterday">待發放收益</string>
+    <string name="node_profit_record">收益記錄</string>
+    <string name="node_create">申請時間</string>
+    <string name="node_num">申請節點數</string>
+    <string name="node_unlock_num2">鎖倉節點數</string>
+    <string name="node_total">節點總收益:</string>
+    <string name="node_create_profit">初始收益日期</string>
+    <string name="node_profit_create">發放日期</string>
+    <string name="node_profit_num">數量</string>
+    <string name="node_one_profit">單節點收益</string>
+    <string name="node_one_profit2">單節點收益(CHEX)</string>
+    <string name="node_state_profit">發放狀態</string>
+    <string name="node_state">節點狀態</string>
+    <string name="node_unlock_time">鎖倉天數</string>
+    <string name="node_details">節點詳情</string>
+    <string name="node_distributed">已發放</string>
+    <string name="node_no">未發放</string>
+    <string name="node_lock">鎖倉</string>
+    <string name="node_unlock2">解倉</string>
+    <string name="node_unlock_date">解鎖時間</string>
+    <string name="node_know">知道了</string>
+    <string name="address">地址</string>
+    <string name="payment_id">%1$s (未填寫將無法到賬！)</string>
+    <string name="copy_address">複製地址</string>
+    <string name="save_image">保存二維碼</string>
+    <string name="fee">手續費</string>
+    <string name="coins_text">禁止向非 %1$s 地址充值，除%2$s之外的資產，任何充入%3$s地址的非%4$s資產將不可找回。使用%5$s地址充值需要%6$s個網絡確認才能到賬。目前不支持使用智能合約或區塊獎勵（Coinbase）的轉賬充值，智能合約或區塊獎勵的轉賬將不會上賬，請您諒解。</string>
+    <string name="select_coins">幣種選擇</string>
+    <string name="asset_hint">總資產折合</string>
+    <string name="asset_search">已有資產</string>
+    <string name="fee2">手續費：</string>
+
+    <!--资金划转-->
+    <string name="amount">數量</string>
+    <string name="all">全部</string>
+    <string name="please_get_the_level_of_KYC">請完成KYC2認證</string>
+    <string name="asset_num">數量</string>
+    <string name="transfer_available2">可用：</string>
+    <string name="transfer_num">最小轉入數量為</string>
+    <string name="transfer_num2">最小轉出數量為</string>
+    <string name="transfer_hint2">轉入完成後，您可進入歷史記錄頁面跟蹤進度</string>
+    <string name="transfer_hint3">轉出完成後，您可進入歷史記錄頁面跟蹤進度</string>
+    <string name="account_hint">收款Epay賬號</string>
+    <string name="transfer_account">賬號</string>
+    <string name="you_will">實際到賬：</string>
+    <string name="transfer_in">轉入</string>
+    <string name="transfer_out">轉出</string>
+    <string name="epay_account">收款Epay賬號</string>
+    <string name="add_success">添加賬號成功</string>
+    <string name="epay_error">Epay賬號格式錯誤</string>
+    <string name="epay_hint">請前往Epay官網進行支付操作</string>
+    <string name="navigate">立即前往</string>
+    <string name="epay_register">未開通Epay帳戶？去註冊</string>
+    <string name="epay_success">转出成功，请前往Epay查看余额</string>
+
+    <!--提幣-->
+    <string name="deposit_history">充值記錄</string>
+    <string name="take_history">提幣記錄</string>
+    <string name="exchange_history">兌換記錄</string>
+    <string name="history">流水</string>
+    <string name="please_select_address">選擇提幣地址</string>
+    <string name="min_extract">最小提幣數量</string>
+    <string name="paymentid">%1$s (從TACU轉出至其它平臺或個人錢包時需要)</string>
+    <string name="Mailbox_verification">郵箱驗證碼</string>
+    <string name="mobile_phone_number_verification">手機驗證碼</string>
+    <string name="google_auth">谷歌驗證碼</string>
+    <string name="wallet_address">錢包地址</string>
+    <string name="wallet_name">錢包名稱</string>
+    <string name="send_successful">發送成功</string>
+    <string name="auth_method">請選擇驗證方式</string>
+    <string name="take_verify">驗證方式：</string>
+    <string name="take_verify_code">請輸入驗證碼</string>
+    <string name="above_step">上壹步</string>
+    <string name="take_hint">系統將在30分鐘內完成審核，待網絡確認後即可到賬。請注意，修改安全設置後的24小時內不可提幣。</string>
+    <string name="note">備註</string>
+
+    <!--USDT->CODE-->
+    <string name="exchange">兌換</string>
+    <string name="exchange_pwd">請先設置交易密碼</string>
+    <string name="exchange_hint">兌換價格根據USDT實時價格進行兌換，本人已知曉風險，確定兌換</string>
+    <string name="exchange_usdt_hint">兌換USDT數量</string>
+    <string name="exchange_code_hint">兌換CODE數量</string>
+    <string name="exchange_pwd_in">請輸入交易密碼</string>
+    <string name="exchange_num_usdt">可用數量USDT：</string>
+    <string name="exchange_num_code">可用數量CODE：</string>
+    <string name="exchange_peice_hint">兌換比例：</string>
+    <string name="exchange_real_price">實時兌換價格：</string>
+    <string name="exchange_obtain_code">獲得CODE數量：</string>
+    <string name="exchange_obtain_usdt">獲得USDT數量：</string>
+    <string name="exchange_info">確認兌換信息</string>
+    <string name="exchange_affrim">確認兌換</string>
+    <string name="exchange_success">兑换成功</string>
+    <string name="exchange_num_usdt2">兌換USDT數量：</string>
+    <string name="exchange_num_code2">兌換CODE數量：</string>
+    <string name="exchange_num">兌換數量</string>
+    <string name="exchange_old">支付幣種：</string>
+    <string name="exchange_new">所得幣種：</string>
+    <string name="exchange_old_num">支付幣種數量：</string>
+    <string name="exchange_new_num">所得幣種數量：</string>
+    <string name="uncompleted">未完成</string>
+    <string name="completed">已完成</string>
+
+    <!--自选-->
+    <string name="market_add_selfselection">添加自選</string>
+    <string name="btn_all_select">全選</string>
+    <string name="btn_delete_zero">刪除(0)</string>
+    <string name="edit_selfselection">編輯自選</string>
+    <string name="btn_complete">完成</string>
+    <string name="business_edit_collect">修改自選成功！</string>
+    <string name="business_edit_collect_error">修改自選失敗！</string>
+    <string name="self_selection_save">是否保存自選列表？</string>
+    <string name="btn_delete">刪除</string>
+    <string name="btn_cancel_select">取消全選</string>
+    <string name="the_currently_selection">當前選擇:</string>
+
+    <!--公告-->
+    <string name="news">公告</string>
+
+    <!--搜索-->
+    <string name="search_histort_text">歷史記錄</string>
+    <string name="search_clear">清除</string>
+
+    <!--交易-->
+    <string name="limit_price">限價</string>
+    <string name="price">價格</string>
+    <string name="lowest_obtainable_price">市價</string>
+    <string name="trade_password">交易密碼</string>
+    <string name="trade_set_password">設置交易密碼</string>
+    <string name="trade_set_password2">設置密碼</string>
+    <string name="buy">買入</string>
+    <string name="sell">賣出</string>
+    <string name="highest_price">最高價</string>
+    <string name="lowest_price">最低價</string>
+    <string name="order_coins_success">委託成功</string>
+    <string name="business_collect">添加自選成功！</string>
+    <string name="business_collect_error">添加自選失敗！</string>
+    <string name="business_uncollect">取消自選成功！</string>
+    <string name="business_uncollect_error">取消自選失敗！</string>
+    <string name="order_success">撤單成功</string>
+    <string name="enter_trading_password">輸入交易密碼</string>
+    <string name="order_cancel">撤銷</string>
+    <string name="time">時間</string>
+    <string name="trade_type">交易類型</string>
+    <string name="status">交易狀態</string>
+    <string name="transaction_amount">成交均價</string>
+    <string name="open_orders">當前委託</string>
+
+    <!--绑定谷歌验证码-->
+    <string name="kindly_reminder">温馨提示</string>
+    <string name="Please_select_the_way_of_secondary_authentication">为了您的账号安全我们强烈建议您开启二次验证</string>
+    <string name="bind_ga">開啟谷歌驗證</string>
+    <string name="clase_ga">解除谷歌綁定</string>
+    <string name="Temporarily_not_set">暂不设置</string>
+    <string name="copy">複製</string>
+    <string name="google_hint">"1.下載谷歌驗證器APP,iOS用戶登錄App Store搜索“Authenticator”下載。安卓用戶登錄應用商店或使用手機瀏覽器搜索“谷歌驗證器”下載。\n2. 在谷歌驗證器中添加密鑰並備份打開谷歌驗證器，掃描下方二維碼或手動輸入下述密鑰添加驗證令牌。密鑰用於手機更換或遺失時找回谷歌驗證器，綁定前請務必將下述密鑰備份保存。\n3.填寫TACU賬號，點擊“完成”。</string>
+    <string name="email_bind">郵箱驗證</string>
+    <string name="phone_bind">手機驗證</string>
+
+    <!--币种详情-->
+    <string name="latest_transactions">成交記錄</string>
+    <string name="kdetail_share_text">全球用戶可信賴的交易平台</string>
+    <string name="min_1">1分钟</string>
+    <string name="min_5">5分钟</string>
+    <string name="min_15">15分钟</string>
+    <string name="min_30">30分钟</string>
+    <string name="hour_1">1小时</string>
+    <string name="day_1">1天</string>
+    <string name="noweixin">請安裝微信客戶端!</string>
+    <string name="wx">微信好友</string>
+    <string name="pyq">朋友圈</string>
+    <string name="share_click">確認點擊后分享</string>
+
+    <!--個人中心-->
+    <string name="unverified">未認證</string>
+    <string name="verified">已認證</string>
+    <string name="switch_of_trade_password">交易密碼開關</string>
+    <string name="login_pwd">登錄密碼</string>
+    <string name="fingerprint_unlock">指紋解鎖</string>
+    <string name="pattern_lock">手勢密碼</string>
+    <string name="set_pattern_lock">設置手勢密碼</string>
+    <string name="authentication">認證成功</string>
+    <string name="authenticating">認證中</string>
+    <string name="authentication_failed">認證失敗</string>
+    <string name="security_setting">安全中心</string>
+    <string name="Google_Authenticator">谷歌驗證</string>
+    <string name="contact_us">聯繫我們</string>
+    <string name="language">語言</string>
+    <string name="update">版本更新</string>
+    <string name="logout">退出登錄</string>
+    <string name="logout_success">退出成功</string>
+    <string name="email">服務郵箱</string>
+    <string name="business_cooperation">商務合作</string>
+    <string name="copy_success">複製成功</string>
+    <string name="download">下載並安裝谷歌驗證器APP</string>
+    <string name="bind_email">郵箱綁定</string>
+    <string name="bind_phone">手機號綁定</string>
+    <string name="pwd_change">修改</string>
+    <string name="settings">設置</string>
+    <string name="close_tradepwd_message">您已關閉交易密碼輸入\n每次買賣和撤單都無需輸入交易密碼</string>
+    <string name="ga_open">已開啟</string>
+    <string name="ga_not">未開啟</string>
+    <string name="update_hint">當前已是最新版本啦</string>
+
+    <!--实名认证 第一步-->
+    <string name="surname">姓氏</string>
+    <string name="name">名稱</string>
+    <string name="gender">性別</string>
+    <string name="birthday">出生日期</string>
+    <string name="no_bind">未綁定</string>
+    <string name="idNumber">證件號碼</string>
+    <string name="passport">有效身份證</string>
+    <string name="passport2">有效證件</string>
+    <string name="startTime">ID簽發日期</string>
+    <string name="endTime">ID有效期至</string>
+    <string name="next">下壹步</string>
+    <string name="Inviting_friends">邀請好友</string>
+    <string name="woman">女</string>
+    <string name="man">男</string>
+    <string name="china">中國大陸地區</string>
+    <string name="other_country">其他國家及地區</string>
+    <string name="real_valid">證件有效期</string>
+    <string name="real_to">至</string>
+    <string name="real_hint">*請確保使用您本人真實身份證進行認證，我們會保證您的個人信息安全。</string>
+    <string name="real_country">國家/地區</string>
+    <string name="real_id">護照ID/國民身份證ID</string>
+    <string name="real_other">*僅用於港澳臺和國際用戶的驗證。（護照、駕照、身份證）</string>
+    <string name="picker_year">年</string>
+    <string name="picker_month">月</string>
+    <string name="picker_dete">日</string>
+    <string name="real_time">長期有效</string>
+
+    <!--实名认证 第二步-->
+    <string name="real_reverse_title">上傳個人信息頁</string>
+    <string name="real_reverse_hint">或您可上傳駕駛證背面或者國民身份證背面</string>
+    <string name="real_reverse_content">請確保照片的信息完整且真實有效,護照必須在有效期内。（支持JPG/PNG/JPEG圖片格式）</string>
+    <string name="real_positive_title">上傳護照封面</string>
+    <string name="real_positive_hint">或您可上傳駕駛證正面或者國民身份證正面</string>
+    <string name="real_hand_title">手持護照個人信息頁和個人簽名</string>
+    <string name="real_hand_hint">或您可上傳駕駛證正面或者國民身份證正面和個人簽字</string>
+    <string name="real_hand_content">請上傳一張手持身份證正面+個人簽名A4紙的正面照，簽名的格式為“姓名+TACU+當前日期”（如姓名+TACU 2018年8月8日）；請確保照片和個人簽名的信息清晰可見，照片內容真實有效，不得做任何修改。 （支持JPG/PNG/JPEG圖片格式）</string>
+    <string name="continent_reverse_title">上傳身份證正面照片</string>
+    <string name="continent_hint">請確保照片的信息完整且真實有效，所上傳證件必須在有效期內。（支持JPG/PNG/JPEG圖片格式）</string>
+    <string name="continent_positive">請上傳身份證背面照片</string>
+    <string name="continent_hand_title">上傳手持身份證正面照和個人簽字</string>
+    <string name="continent_hand_hint">請上傳一張手持證件正面+個人簽名A4紙的正面照，簽名的格式為“姓名+TACU+當前日期”(如姓名+TACU 2018年8月8日)</string>
+    <string name="continent_hand_content">請確保照片和個人簽名的信息清晰可見，照片內容真實有效，不得做任何修改。(支持JPG/PNG/JPEG圖片格式)</string>
+    <string name="submit_success">提交成功</string>
+    <string name="real_success">您的认证信息已提交，正在审核中。</string>
+    <string name="real_toast_hint">請上傳證件照片</string>
+
+    <!--实名认证 第三步-->
+    <string name="identity_authentication">身份認證</string>
+    <string name="real_one">1.請掃描二維碼添加微信。</string>
+    <string name="real_two">2.請發送您的姓名及UID，客服人員審核通過後即可進行視頻認證。</string>
+    <string name="real_three">3.準備好身份證件，按要求錄制壹個小視頻。</string>
+    <string name="real_video">視頻認證1</string>
+
+    <!--修改交易和登录密码-->
+    <string name="old_pwd">原密碼</string>
+    <string name="confirm_trade_pwd">確認交易密碼</string>
+    <string name="change_pwd">修改登錄密碼</string>
+    <string name="change_success">修改成功</string>
+    <string name="old_email">驗證原郵箱</string>
+    <string name="new_email">驗證新郵箱</string>
+    <string name="revise_email">郵箱修改</string>
+    <string name="new_phone">驗證新手機號</string>
+    <string name="old_phone">驗證原手機號</string>
+    <string name="code_cannot_be_empty">驗證碼不能為空</string>
+    <string name="update_phone">手機號修改</string>
+    <string name="modify_trade_password">修改交易密碼</string>
+    <string name="bind_newphone">驗證新手機號</string>
+    <string name="email_hint">郵箱</string>
+    <string name="update_pwd">修改密碼</string>
+    <string name="trade_hint">請先設置交易密碼</string>
+    <string name="trade_setting">設置</string>
+    <string name="trade_limit">密碼由6-16位數字、字母組成</string>
+
+    <!--手势密码 指纹密码-->
+    <string name="draw_your_pattern_lock">繪制您的圖案</string>
+    <string name="input_error">手势错误,還剩</string>
+    <string name="second">次</string>
+    <string name="too_many_input_errors">錯誤次數太多,請重新登錄</string>
+    <string name="please_draw_the_pattern_again_to_confirm">請再次輸入確認</string>
+    <string name="require_more_than_points">需要四個點以上</string>
+    <string name="cancel_the_pattern_lock">取消手勢</string>
+    <string name="fingerprint_retry">請重試!</string>
+    <string name="fingerprint_title">指紋識別中...</string>
+    <string name="fingerprint_no_sdk">當前Android版本不支持，必須是Android6.0以上的版本!</string>
+    <string name="fingerprint_no_equipment">當前設備不支持指紋密碼，您可以設置手勢密碼!</string>
+    <string name="fingerprint_no_safe">當前設備沒有處於安全保護中!</string>
+    <string name="fingerprint_no_fingerprint">請到手機設置里設置指紋密碼!</string>
+    <string name="fingerprint_rebuild">您尚未設置指紋密碼，請在手機系統安全設置中重新設置后重試！</string>
+    <string name="fingerprint_login_again">重新登錄</string>
+    <string name="safe_first_handpwd">請先設置手勢密碼!</string>
+
+    <!--提币记录-->
+    <string name="currency">幣種</string>
+    <string name="start_time">起始時間</string>
+    <string name="end_time">結束時間</string>
+    <string name="reset">重置</string>
+    <string name="confirm">確定</string>
+    <string name="recharge2">充值</string>
+    <string name="search_currency">搜索幣種</string>
+    <string name="success2">(成功)</string>
+
+    <!--市場-->
+    <string name="market_last_price">最新價</string>
+    <string name="add_selfselection">添加自選</string>
+    <string name="target">指標</string>
+    <string name="depth">深度</string>
+    <string name="buy_index">買盤</string>
+    <string name="sell_index">賣盤</string>
+
+    <!--邀请好友-->
+    <string name="invite_rewards">邀請獎勵</string>
+    <string name="invite_num">邀請人數</string>
+    <string name="invite_type">邀請方式</string>
+    <string name="invite_posters">專屬海報</string>
+    <string name="invitation_success">成功邀請</string>
+    <string name="invitation_one">複製邀請碼&#8195;</string>
+    <string name="invitation_two">複制分享鏈接</string>
+    <string name="curency">幣種</string>
+    <string name="num">數量</string>
+    <string name="winning_details">獲獎詳情</string>
+    <string name="create_date">創建日期</string>
+    <string name="out_time">發放時間</string>
+    <string name="invite_uid">被邀請人UID</string>
+    <string name="state">狀態</string>
+    <string name="register_source">註冊來源</string>
+    <string name="register_date">註冊日期</string>
+    <string name="invited_record">邀請記錄</string>
+    <string name="winning_record">獲獎記錄</string>
+    <string name="invited_poster">分享海報到</string>
+    <string name="invite_hint">請選擇要分享海報</string>
+    <!--交易-->
+    <string name="actual_transaction">實際成交</string>
+    <string name="trade_pwd_confirm">交易密碼確認</string>
+    <string name="available_number">可用</string>
+    <string name="price_point_number">%1$s位小數</string>
+    <string name="history_record">歷史委託</string>
+    <string name="btn_page_select">本頁全選</string>
+    <string name="date">時間</string>
+    <string name="entrustment_price">委託價</string>
+    <string name="entrustment_number">委託量</string>
+    <string name="deal_all_amount">成交總額</string>
+    <string name="deal_single_price">成交價</string>
+    <string name="deal_price">成交金額</string>
+    <string name="transaction_pair">交易對</string>
+    <string name="transaction_pair_all">全部交易對</string>
+    <string name="transaction_pair_custom">自定義</string>
+    <string name="trade_coin">交易幣</string>
+    <string name="base_coin">基礎幣</string>
+    <string name="dealed_status">已成交</string>
+    <string name="dealedpart_status">部分成交后撤銷</string>
+    <string name="revoked_status">已撤销</string>
+    <string name="confirm_orderlist_delete">您正在批量撤銷%1$s個委托單，是否確定撤銷？</string>
+    <string name="currentCoin_limit_high_low">当前币限制最小数量%1$s个和最大数量%2$s个</string>
+    <string name="trade_detail">交易明細</string>
+    <string name="trade_trend">盤口</string>
+    <string name="good_price">最優價交易</string>
+    <string name="amount_price">金額</string>
+
+    <!--设置-->
+    <string name="convert_money">折算貨幣</string>
+
+    <string name="zxing">二維碼</string>
+    <string name="zxing_info1">將二維碼放入框內，即可自動掃描</string>
+    <string name="zxing_info2">掃描二維碼登錄官網</string>
+    <string name="current_area">當前所在地</string>
+    <string name="current_area_one">中國大陸地區</string>
+    <string name="current_area_two">非中國大陸地區</string>
+    <string name="uploaded">已上傳</string>
+    <string name="isLogin_ok">登錄確認？</string>
+    <string name="closed">關閉</string>
+
+    <!--登录注册-->
+    <string name="search_coin">搜索幣種</string>
+    <!--獎勵資產專區-->
+    <string name="reward_asset_model">獎勵資產專區</string>
+    <string name="reward_total_asset">獎勵總資產</string>
+    <string name="shanxibao">閃息寶</string>
+    <string name="wenxibao">穩息寶</string>
+    <string name="interest_record">收益記錄</string>
+    <string name="interest_history">歷史收益</string>
+    <string name="interest_history_chex">歷史收益(CHEX)</string>
+    <string name="yesterday_asset_usdt">昨日資產(USDT)</string>
+    <string name="yesterday_interest_chex">昨日收益(CHEX)</string>
+    <string name="chex_price_usdt">兌換CHEX價格(USDT)</string>
+    <string name="receive">領取</string>
+    <string name="half_year_profit">半年年化(%)</string>
+    <string name="one_year_profit">一年年化(%)</string>
+    <string name="history_activity">歷史活動</string>
+    <string name="detail">明細</string>
+    <string name="lock_profit">鎖倉收益</string>
+    <string name="lock_profit_chex">已獲收益(CHEX)</string>
+    <string name="lock_record">鎖倉記錄</string>
+    <string name="apply_lock">申請鎖倉</string>
+    <string name="node_total_profit">總收益(CHEX)</string>
+    <string name="lessthan_200">不足200USDT</string>
+    <!--獎勵總資產-->
+    <string name="reward_time">發放時間</string>
+    <string name="reward_status">發放狀態</string>
+    <string name="reward_name">獎勵名稱</string>
+    <string name="reward_coin">獎勵幣種</string>
+    <string name="reward_num">獎勵數量</string>
+    <string name="interest">收益</string>
+    <string name="your_chex_lock_num">您的CHEX鎖倉總數量：</string>
+    <string name="haved_profit_chex">已獲收益(CHEX)</string>
+    <string name="prediction_profit_chex">預計收益(CHEX)</string>
+    <string name="can_use_chex">可用CHEX數量</string>
+    <string name="input_lock_num">輸入申請鎖倉數量</string>
+    <string name="wan">萬</string>
+    <string name="lock_tip">*最少鎖倉10萬CHEX</string>
+    <string name="lock_cycle">鎖倉週期</string>
+    <string name="year_rate">年利率</string>
+    <string name="prediction_profit">預計收益</string>
+    <string name="month_12">12個月</string>
+    <string name="month_6">6個月</string>
+    <string name="apply_lock_tip">1、計息：按照自然天數計算，包括鎖倉日期當日，不包括到期日期當日。\n2、解倉發放收益：到期日期當日的14:00整，平臺將用戶的本金和收益自動發放至用戶帳戶。</string>
+    <string name="profit">收益</string>
+    <string name="lock_chex_num">鎖倉CHEX數量(萬)</string>
+    <string name="lock_time">鎖倉時間</string>
+    <string name="lock_end_time">到期日期</string>
+    <string name="shanxibao_describe">1.凡在GlobalEX持倉總資產等值不少於300 USDT的用戶，每日可享受年化收益6%獎勵並折算成CHEX發放至個人帳戶。每日24:00對用戶持倉資產數量進行快照並按照當時的市場價進行核算。滿足條件的用戶將每日享受年化收益6%的獎勵。
+    \n2.快照時間：每日24:00\n3.兌換USDT價格：按照GlobalEX每日24:00的市場價進行等值核算。\n4.兌換CHEX價格：按照CHEX每日均價=當日CHEX成交總金額/當日CHEX成交總數\n5.統計範圍：用戶持可用資產和掛單資產計入獎勵範圍，鎖倉資產不計入獎勵範圍。</string>
+    <string name="wenxibao_describe">凡在GlobalEX持有CHEX，鎖倉半年可享受年化收益10%；鎖倉1年，可享受年化收益12%，期滿後同時支付本息和。\n鎖倉數量：每次鎖倉不低於十萬CHEX，可增加鎖倉數額，超出部分為1萬的整數倍即可。</string>
+    <string name="have_received">已領取</string>
+    <string name="nohave_received">未領取</string>
+    <string name="locking_chex">鎖倉中</string>
+    <string name="locked_chex">已結清</string>
+    <string name="lock_describe">鎖倉收益=已獲收益+預計收益</string>
+    <string name="apply_locknum_error">申請鎖倉數量錯誤!</string>
+    <string name="apply_locknum">申請鎖倉數量</string>
+
+    <!--修改交易密码-->
+    <string name="new_trade_pwd">新交易密碼</string>
+
+    <string name="coins_text2">禁止向非 %1$s 地址充值，除%2$s之外的資產，任何充入%3$s地址的非%4$s資產將不可找回。目前僅支持地址標籤為MEMO_TEXT的充幣，其他類型的地址標籤不可充幣。%5$s充幣僅支持payment交易類型，任何其他交易類型（如pathpayment）不可充幣，請您諒解。使用%6$s地址充值需要%7$s個網絡確認才能到賬。目前不支持使用智能合約或區塊獎勵（Coinbase）的轉賬充值，智能合約或區塊獎勵的轉賬將不會上賬，請您諒解。</string>
+
+    <!--针对GRIN这个币的样式-->
+    <string name="first_step">第一步：</string>
+    <string name="second_step">第二步：</string>
+    <string name="third_step">第三步：</string>
+    <string name="recharge_grin_address">請將%1$s轉賬到上方地址。</string>
+    <string name="write_grin_order_tips">根據轉賬信息，填寫轉賬訂單。</string>
+    <string name="txid_grin_hint">請填寫提幣哈希值</string>
+    <string name="recharge_amount">充幣數量</string>
+    <string name="recharge_grin_amount_hint">請填寫完全一樣的提幣數量(否則無法自動到賬)</string>
+    <string name="recharge_grin_finish">完成。</string>
+    <string name="recharge_grin_finish_text">平台確認到賬後將會顯示充幣記錄。</string>
+    <string name="grin_submit">提交</string>
+    <string name="txid_tips">請輸入TXID</string>
+    <string name="amount_tips">請輸入充幣數量</string>
+
+    <!--首頁-->    
+    <string name="home_recharge">充值</string>    
+
+    <string name="please_bind_phone">請先綁定手機號</string>
+
+    <string name="refresh_string">globalex</string>
+    <string name="exit">再按壹次退出GlobalEX</string>
+    <string name="splash_string">環球區塊鏈數字貨幣交易所</string>
+    <string name="register_fast">立即註冊</string>
+    <string name="get_sms_code">獲取驗證碼</string>
+    <string name="home">行情</string>
+    <string name="help">幫助</string>
+    <string name="you_no_login">您還沒有登錄</string>
+    <string name="drawer_realName">身份認證</string>
+    <string name="drawer_safe">安全中心</string>
+    <string name="drawer_invite">邀請好友</string>
+    <string name="drawer_news">最新公告</string>
+    <string name="drawer_contus">聯系我們</string>
+    <string name="drawer_question">常見問題</string>
+    <string name="drawer_ticket">我的工單</string>
+    <string name="drawer_language">語言設置</string>
+    <string name="drawer_money">折算貨幣</string>
+    <string name="drawer_nowversion">當前版本</string>
+    <string name="market_rise_and_fall">24H漲幅</string>
+    <string name="market_pair">名稱</string>
+    <string name="market_vol">&#160;|&#160;成交量</string>
+    <string name="high_price_24hour">24H最高價</string>
+    <string name="low_price_24hour">24H最低價</string>
+    <string name="volume_24hour">24H成交量</string>
+    <string name="go_trade">去交易</string>
+    <string name="buy_high">買單最高價</string>
+    <string name="sell_low">賣單最低價</string>
+    <string name="buy_low_sell_high">買賣價差占比</string>
+    <string name="current_entrust">當前委托</string>
+    <string name="lastest_deal">最新成交</string>
+    <string name="lodge_amount">掛單量</string>
+    <string name="volume_amount">成交量</string>
+    <string name="trade_no_tip1">您當前暫無交易記錄</string>
+    <string name="trade_no_tip2">快去交易吧</string>
+    <string name="only_current_market">僅當前市場</string>
+    <string name="history_entrust">歷史委托</string>
+    <string name="all_revoke">全部撤銷</string>
+    <string name="full_stop_transaction">全站成交</string>
+    <string name="my_transaction">我的成交</string>
+    <string name="higher">最高</string>
+    <string name="lower">最低</string>
+    <string name="quotation_view">行情圖表</string>
+    <string name="kline_view">k線圖</string>
+    <string name="depth_view">深度圖</string>
+    <string name="trade_pwd_setting">交易密碼設置</string>
+    <string name="history_deal">歷史成交</string>
+    <string name="change_left_hand">切換左手</string>
+    <string name="change_right_hand">切換右手</string>
+    <string name="xieyi">我已閱讀並同意《GlobalEX用戶協議》</string>
+    <string name="yonghu_xieyi">用戶協議</string>
+
+    <string name="hint_common_add_new_address">輸入或長按粘貼地址</string>
+    <string name="hint_common_add_new_address_note">請輸入錢包備註</string>
+
+    <string name="label_assets_item_own_count">持有數量</string>
+    <string name="label_assets_item_own_available">可用數量</string>
+    <string name="label_assets_item_freeze_count">凍結數量</string>
+    <string name="title_assets_import_address">匯入如下地址：</string>
+    <string name="brief_assets_obtain_address">掃碼獲取充值地址</string>
+
+    <string name="label_assets_take_coin_note">錢包備註</string>
+    <string name="hint_assets_take_coin_note">請輸入錢包備註</string>
+    <string name="label_assets_take_coin_address">提幣地址</string>
+    <string name="hint_assets_take_coin_address">輸入或長按粘貼地址</string>
+    <string name="label_assets_take_coin_amount">提幣數量</string>
+    <string name="hint_assets_take_coin_amount">輸入提幣數量</string>
+    <string name="btn_assets_take_coin_manage_address">地址管理</string>
+    <string name="hint_assets_take_coin_enter_pwd">請輸入交易密碼</string>
+    <string name="hint_assets_take_coin_enter_google_code">請輸入谷歌驗證碼</string>
+    <string name="title_assets_take_coin_choose_verify_option">請選擇驗證方式</string>
+
+    <string name="label_assets_take_coin_verify_by_phone">手機驗證</string>
+    <string name="label_assets_take_coin_verify_by_email">郵箱驗證</string>
+    <string name="btn_assets_take_coin_obtain_pass_code">獲取驗證碼</string>
+
+    <string name="label_assets_cash_amount">可用余額：</string>
+    <string name="label_assets_actual_amount">實際到賬：</string>
+    <string name="label_assets_at_least_amount">單筆最少提幣數量：</string>
+    <string name="label_assets_trans_fee">手續費：</string>
+    <string name="btn_assets_take_coin_confirm">申請提幣到地址</string>
+    <string name="btn_common_add_new_address">添加新地址</string>
+    <string name="msg_wrong_qrcode_is_empty">回傳內容為空</string>
+    <string name="msg_wrong_qrcode_unknown_wrong_happen">出現未知的錯誤</string>
+
+    <string name="label_coin_trans_history_type">類型</string>
+    <string name="label_coin_trans_history_op_type">操作類型</string>
+
+    <string name="label_coin_trans_history_fee">手續費：</string>
+    <string name="label_coin_trans_history_address">地址：</string>
+    <string name="label_coin_trans_history_txid">TxID：</string>
+    <string name="label_coin_trans_history_price">金額</string>
+
+    <string name="hint_coin_filter_search">搜索幣種</string>
+    <string name="label_assets_operation_type">操作類型</string>
+    <string name="msg_coin_picker_not_found">目前 %1$s 沒有相關交易對</string>
+    <string name="usdt_tip">請選擇基於ERC20的USDT進行充值</string>
+
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="high">yüksek</string>
+    <string name="low">düşük</string>
+    <string name="open">aç</string>
+    <string name="close">alma</string>
+    <string name="volume">cilt</string>  
+    <string name="vol_price">işlem fiyatı</string> 
+    <string name="ave_price">ortalama fiyat</string>
+</resources>

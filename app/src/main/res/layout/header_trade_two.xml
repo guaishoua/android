@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_370"
+    android:background="@color/content_bg_color"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_depth_decimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:drawableRight="@drawable/icon_drop_down_grey"
+        android:textColor="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_12" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@color/color_grey_2" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tv_price_note"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:paddingRight="@dimen/dp_3"
+            android:text="@string/price"
+            android:textColor="@color/text_grey_2"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_num_note" />
+
+        <TextView
+            android:id="@+id/tv_num_note"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:text="@string/amount"
+            android:textColor="@color/text_grey_2"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@id/tv_price_note"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:layout_width="@dimen/dp_35"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:text="@string/trade_trend"
+            android:textColor="@color/text_grey_2"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintLeft_toLeftOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_5">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_sell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/tv_news_price" />
+
+        <TextView
+            android:id="@+id/tv_news_price"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center"
+            android:text="--"
+            android:textColor="@color/text_blue"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_buy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_news_price" />
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

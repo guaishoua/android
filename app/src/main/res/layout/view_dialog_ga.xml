@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_transparent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/et_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/color_transparent"
+        android:hint="@string/Enter_the_password"
+        android:inputType="textPassword"
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_14" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/content_bg_color_grey"/>
+
+    <EditText
+        android:id="@+id/et_ga_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/color_transparent"
+        android:hint="@string/Enter_the_Google_verification_code"
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_14" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/content_bg_color_grey"/>
+</LinearLayout>

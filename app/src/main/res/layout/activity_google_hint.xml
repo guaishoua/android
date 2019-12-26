@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color_grey"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/common_titlebar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_google_one"
+                style="@style/person_margin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_250"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:background="@drawable/bg_shadow_card" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_38"
+                    android:text="@string/download"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_14" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="@dimen/dp_100"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:src="@mipmap/img_google_validator_global"
+                    android:scaleType="fitXY"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_google_two"
+                style="@style/person_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_20"
+                android:visibility="visible"
+                android:background="@drawable/bg_shadow_card">
+
+
+                <ImageView
+                    android:id="@+id/iv_ga_code"
+                    android:layout_width="@dimen/dp_130"
+                    android:layout_height="@dimen/dp_130"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_20" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20">
+
+                    <TextView
+                        android:id="@+id/tv_ga_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp_80"
+                        android:gravity="center"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_16"
+                        tool:text="ssssssss啛啛喳喳错；" />
+
+
+                    <include
+                        android:id="@+id/ll_ga_copy"
+                        layout="@layout/ll_copy_layout" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:background="@color/content_bg_color_grey" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_25"
+                    android:lineSpacingExtra="@dimen/dp_8"
+                    android:text="@string/google_hint"
+                    android:textColor="@color/text_grey_2"
+                    android:textSize="@dimen/text_size_sp_12" />
+            </LinearLayout>
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+                android:id="@+id/btn_next"
+                style="@style/btn_gradient_blue"
+                android:text="@string/next" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--默认-->
+    <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <!--底部虚拟按键的颜色-->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimary
+        </item>
+        <!--全局Activity的跳转动画-->
+        <item name="android:windowAnimationStyle">@style/ActivityAnimationStyle</item>
+
+        <item name="QMUIButtonStyle">@style/QMUIRoundButtonCustom</item>
+        <item name="QMUITopBarStyle">@style/QMUITopBarCustom</item>
+        <item name="qmui_bottom_sheet_button_background">@color/content_bg_color</item>
+        <item name="qmui_bottom_sheet_grid_item_bg">@color/content_bg_color_grey</item>
+    </style>
+
+    <!--启动页-->
+    <style name="AppLauncherTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!--全局Activity的跳转动画-->
+    <style name="ActivityAnimationStyle" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+</resources>

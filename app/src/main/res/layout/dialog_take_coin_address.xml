@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/content_bg_color"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_20"
+            android:orientation="vertical">
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
+                android:id="@+id/et_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/dp_15"
+                android:background="@drawable/shape_grey_90"
+                android:hint="@string/trade_password"
+                android:inputType="textPassword"
+                android:padding="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_12"
+                android:textColor="@color/text_color"
+                android:textColorHint="@color/text_grey_3"
+                android:textSize="@dimen/text_size_sp_12"
+                android:visibility="gone"
+                app:qmui_borderColor="@color/color_grey_8"
+                app:qmui_borderWidth="@dimen/dp_1"
+                android:maxLength="120"
+                app:qmui_radius="@dimen/dp_2"
+                tools:visibility="visible" />
+
+            <!-- 以下才是要改的 -->
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
+                    android:id="@+id/et_address"
+                    style="@style/common_edit_style"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:hint="@string/hint_common_add_new_address"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:maxLength="150"
+                    android:paddingTop="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_40"
+                    android:textColorHint="@color/text_grey_3"
+                    android:textSize="@dimen/text_size_sp_12"
+                    app:qmui_borderColor="@color/color_grey_8"
+                    app:qmui_borderWidth="@dimen/dp_1"
+                    app:qmui_radius="@dimen/dp_2" />
+
+                <com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout
+                    android:id="@+id/btn_paste_content"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:layout_marginRight="@dimen/dp_6"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:src="@mipmap/icon_asset_paste" />
+
+                </com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout>
+
+
+            </FrameLayout>
+
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
+                android:id="@+id/et_wallet_name"
+                style="@style/common_edit_style"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:hint="@string/hint_common_add_new_address_note"
+                android:padding="@dimen/dp_10"
+                android:maxLength="120"
+                android:textColorHint="@color/text_grey_3"
+                android:textSize="@dimen/text_size_sp_12"
+                app:qmui_borderColor="@color/color_grey_8"
+                app:qmui_borderWidth="@dimen/dp_1"
+                app:qmui_radius="@dimen/dp_2" />
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/qmuibt_submit"
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="@dimen/dp_40"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_30"
+                android:text="@string/confirm"
+                android:textColor="#A6A6A6"
+                android:textSize="@dimen/text_size_sp_16"
+                android:visibility="visible"
+                app:qmui_backgroundColor="@color/color_grey_9"
+                app:qmui_radius="@dimen/dp_3" />
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

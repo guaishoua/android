@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/content_bg_color_grey"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/dp_10">
+
+        <CheckBox
+            android:id="@+id/cbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/dp_10"
+            android:button="?attr/qmui_common_list_item_switch" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_toRightOf="@id/cbox"
+            android:text="@string/only_current_market"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_sp_12" />
+
+        <TextView
+            android:id="@+id/tv_history_entrust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginVertical="@dimen/dp_10"
+            android:drawableLeft="@mipmap/icon_history_entrust"
+            android:drawablePadding="@dimen/dp_5"
+            android:text="@string/history_entrust"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_sp_14" />
+    </RelativeLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshlayout_trade"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/content_bg_color">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ry"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

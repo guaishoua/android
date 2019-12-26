@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/iv_item_icon"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        app:qmui_border_width="@dimen/dp_0"
+        app:qmui_is_oval="true"
+        app:srcCompat="@mipmap/bga_pp_ic_cb_checked" />
+
+    <Space
+        android:layout_width="@dimen/dp_17"
+        android:layout_height="1px" />
+    
+    <TextView
+        android:id="@+id/tv_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="SKY"
+        android:textColor="@color/color_black"
+        android:textSize="@dimen/text_size_sp_14" />
+
+    <Space
+        android:layout_width="@dimen/dp_17"
+        android:layout_height="1px" />
+
+    <TextView
+        android:id="@+id/tv_item_sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="天空幣"
+        android:textColor="@color/color_grey_2"
+        android:textSize="@dimen/text_size_sp_12" />
+
+</com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/common_titlebar" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/content_bg_color"
+            android:orientation="vertical"
+            app:elevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_scrollFlags="scroll">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/con_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_marginHorizontal="@dimen/dp_10">
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/icon_drop_down_grey"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_18"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="BTC/USDT" />
+
+                    <ImageView
+                        android:id="@+id/img_more"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icon_more_grey" />
+
+                    <ImageView
+                        android:id="@+id/img_kline"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginRight="@dimen/dp_10"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/img_more"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icon_kline" />
+                </android.support.constraint.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/content_bg_color_grey"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <include
+                    android:id="@+id/trade_header"
+                    layout="@layout/header_trade" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:background="@color/content_bg_color_grey" />
+            </LinearLayout>
+
+            <com.shizhefei.view.indicator.FixedIndicatorView
+                android:id="@+id/magic_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_indicator_height"
+                android:fillViewport="false" />
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

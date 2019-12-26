@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="high">Hohe</string>
+	<string name="low">Niedrige</string>
+	<string name="open">Offen</string>
+	<string name="close">Die</string>
+	<string name="volume">Der umsatz</string>
+	<string name="vol_price">Der verkaufspreis</string>
+	<string name="ave_price">Durchschnittspreis</string>
+</resources>

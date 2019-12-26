@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--动画的dialog需要使用-->
+    <style name="LoadingAnimTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <!-- 设置未浮动窗口 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 设置无边框 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 设置无标题 -->
+        <item name="android:windowBackground">@color/color_transparent</item>
+        <!-- 设置完全透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 设置屏幕变暗 -->
+    </style>
+
+    <!--设置1dp线左边右边边距各15-->
+    <style name="line_both_grey_15">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:background">@color/text_grey_3</item>
+    </style>
+
+    <!--设置0.5dp线-->
+    <style name="line_grey">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/text_grey</item>
+    </style>
+
+    <!--设置0.5dp线-->
+    <style name="line_white">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/color_white</item>
+    </style>
+
+    <!--设置浅灰色1dp线-->
+    <style name="line_french_grey">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/content_bg_color_grey</item>
+    </style>
+
+    <!--设置浅灰色1dp线-->
+    <style name="line_grey_3">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.6dp</item>
+        <item name="android:background">@color/color_grey_3</item>
+    </style>
+
+    <!--设置EditView属性-->
+    <style name="common_edit_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_48</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/color_transparent</item>
+        <item name="android:textSize">@dimen/text_size_sp_16</item>
+        <item name="android:textColorHint">@color/text_grey_2</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <!--设置上、左、右距离15dp-->
+    <style name="person_margin">
+        <item name="android:layout_marginLeft">@dimen/dp_15</item>
+        <item name="android:layout_marginRight">@dimen/dp_15</item>
+        <item name="android:layout_marginTop">@dimen/dp_15</item>
+    </style>
+
+    <!--设置蓝色渐变按钮-->
+    <style name="btn_gradient_blue">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_44</item>
+        <item name="android:background">@drawable/gradient_blue_btn_5</item>
+        <item name="android:layout_marginLeft">@dimen/dp_50</item>
+        <item name="android:layout_marginRight">@dimen/dp_50</item>
+        <item name="android:layout_marginTop">@dimen/dp_30</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">@dimen/text_size_sp_16</item>
+    </style>
+</resources>

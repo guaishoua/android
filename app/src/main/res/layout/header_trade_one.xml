@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_370"
+    android:background="@color/content_bg_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:orientation="horizontal">
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_buy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/buy"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_sp_18"
+            app:qmui_backgroundColor="@color/color_riseup"
+            app:qmui_borderColor="@color/color_riseup"
+            app:qmui_borderWidth="@dimen/dp_1"
+            app:qmui_radius="@dimen/dp_3" />
+
+        <Space
+            android:layout_width="@dimen/dp_10"
+            android:layout_height="0dp" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_sell"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/sell"
+            android:textColor="@color/text_grey_2"
+            android:textSize="@dimen/text_size_sp_18"
+            app:qmui_borderColor="@color/text_grey_2"
+            app:qmui_borderWidth="@dimen/dp_1"
+            app:qmui_radius="@dimen/dp_3" />
+    </LinearLayout>
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
+        android:id="@+id/rl_select_price"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:layout_marginTop="@dimen/dp_10"
+        android:paddingHorizontal="@dimen/dp_10"
+        app:qmui_borderColor="@color/color_grey_2"
+        app:qmui_borderWidth="@dimen/dp_1"
+        app:qmui_radius="@dimen/dp_3">
+
+        <TextView
+            android:id="@+id/tv_select_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="@string/limit_price"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_sp_14" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/icon_pulldown_grey" />
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+        android:id="@+id/lin_price"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal"
+        app:qmui_borderColor="@color/color_grey_3"
+        app:qmui_borderWidth="@dimen/dp_1"
+        app:qmui_radius="@dimen/dp_3">
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+            android:id="@+id/btn_price_sub"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_3"
+            android:background="@null"
+            android:gravity="center"
+            app:srcCompat="@drawable/icon_sub_blue" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/color_grey_3" />
+
+        <EditText
+            android:id="@+id/edit_price"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="@string/price"
+            android:inputType="numberDecimal"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_grey_3"
+            android:textSize="@dimen/text_size_sp_10" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/color_grey_3" />
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+            android:id="@+id/btn_price_add"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/dp_3"
+            android:background="@null"
+            android:gravity="center"
+            app:srcCompat="@drawable/icon_add_blue" />
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+
+    <TextView
+        android:id="@+id/tv_valuation_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:text="≈￥0.0"
+        android:textColor="@color/text_grey_3"
+        android:textSize="@dimen/text_size_sp_12" />
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal"
+        app:qmui_borderColor="@color/color_grey_3"
+        app:qmui_borderWidth="@dimen/dp_1"
+        app:qmui_radius="@dimen/dp_3">
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+            android:id="@+id/btn_number_sub"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_3"
+            android:background="@null"
+            android:gravity="center"
+            app:srcCompat="@drawable/icon_sub_blue" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/color_grey_3" />
+
+        <EditText
+            android:id="@+id/edit_number"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="@string/amount"
+            android:inputType="numberDecimal"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_grey_3"
+            android:textSize="@dimen/text_size_sp_10" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/color_grey_3" />
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+            android:id="@+id/btn_number_add"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/dp_3"
+            android:background="@null"
+            android:gravity="center"
+            app:srcCompat="@drawable/icon_add_blue" />
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+
+    <TextView
+        android:id="@+id/tv_available_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:text="@string/available_number"
+        android:textColor="@color/text_grey_3"
+        android:textSize="@dimen/text_size_sp_12" />
+
+    <com.android.tacu.widget.seekbar.SignSeekBar
+        android:id="@+id/seekbar_sign"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_10"
+        app:ssb_max="1"
+        app:ssb_min="0"
+        app:ssb_second_track_color="@color/color_button"
+        app:ssb_section_count="4"
+        app:ssb_section_text_color="@color/colorPrimary"
+        app:ssb_section_text_position="below_section_mark"
+        app:ssb_section_text_size="@dimen/text_size_sp_10"
+        app:ssb_show_section_mark="true"
+        app:ssb_show_section_text="true"
+        app:ssb_sides_labels="@array/seekbar_ratio"
+        app:ssb_thumb_color="@color/color_button"
+        app:ssb_touch_to_seek="true"
+        app:ssb_track_color="@color/color_grey_3" />
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
+        android:id="@+id/rl_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:layout_marginTop="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_5"
+        app:qmui_borderColor="@color/color_grey_3"
+        app:qmui_borderWidth="@dimen/dp_1"
+        app:qmui_radius="@dimen/dp_3">
+
+        <CheckBox
+            android:id="@+id/cb_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:button="?attr/qmui_common_list_item_switch" />
+
+        <EditText
+            android:id="@+id/edit_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_5"
+            android:layout_toLeftOf="@id/cb_pwd"
+            android:background="@null"
+            android:hint="@string/trade_password"
+            android:inputType="textPassword"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_grey_3"
+            android:textSize="@dimen/text_size_sp_10" />
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_fee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="@string/fee"
+        android:textColor="@color/text_grey_3"
+        android:textSize="@dimen/text_size_sp_12" />
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="@string/buy"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_size_sp_14"
+        app:qmui_backgroundColor="@color/color_riseup"
+        app:qmui_radius="@dimen/dp_3" />
+</LinearLayout>

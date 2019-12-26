@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/content_bg_color"
+    android:paddingTop="@dimen/dp_15">
+
+    <TextView
+        android:id="@+id/tv_buyorSell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:textColor="@color/text_blue"
+        android:textSize="@dimen/text_size_sp_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="买入" />
+
+    <TextView
+        android:id="@+id/tv_coins_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_14"
+        app:layout_constraintLeft_toRightOf="@id/tv_buyorSell"
+        tools:text="BTC/CODE" />
+
+    <TextView
+        android:id="@+id/tv_deal_avg_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_5"
+        android:gravity="left"
+        android:text="@string/transaction_amount"
+        android:textColor="@color/text_grey_3"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_deal_number_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_coins_name" />
+
+    <TextView
+        android:id="@+id/tv_deal_number_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_5"
+        android:gravity="right"
+        android:text="@string/vol"
+        android:textColor="@color/text_grey_3"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_deal_avg_title"
+        app:layout_constraintRight_toLeftOf="@+id/tv_deal_all_title"
+        app:layout_constraintTop_toTopOf="@+id/tv_deal_avg_title" />
+
+    <TextView
+        android:id="@+id/tv_deal_all_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_10"
+        android:gravity="right"
+        android:text="@string/deal_all_amount"
+        android:textColor="@color/text_grey_3"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_deal_number_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_deal_avg_title" />
+
+    <TextView
+        android:id="@+id/tv_deal_avg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_5"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:singleLine="true"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_deal_number"
+        app:layout_constraintTop_toBottomOf="@id/tv_deal_avg_title"
+        tools:text="111" />
+
+    <TextView
+        android:id="@+id/tv_deal_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_5"
+        android:ellipsize="end"
+        android:gravity="right"
+        android:singleLine="true"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_deal_avg"
+        app:layout_constraintRight_toLeftOf="@+id/tv_deal_all"
+        app:layout_constraintTop_toTopOf="@+id/tv_deal_avg"
+        tools:text="111" />
+
+    <TextView
+        android:id="@+id/tv_deal_all"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_10"
+        android:ellipsize="end"
+        android:gravity="right"
+        android:singleLine="true"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_deal_number"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_deal_avg"
+        tools:text="111" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/content_bg_color_grey"
+        app:layout_constraintTop_toBottomOf="@+id/tv_deal_avg" />
+</android.support.constraint.ConstraintLayout>

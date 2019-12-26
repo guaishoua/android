@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/dp_5"
+    app:cardElevation="@dimen/dp_3"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/content_bg_color"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tv_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="GNT/BTC"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12" />
+
+        <TextView
+            android:id="@+id/tv_absolutely"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            tools:text="+2.22%"
+            android:textColor="@color/text_blue"
+            android:textSize="@dimen/text_size_sp_10" />
+
+        <TextView
+            android:id="@+id/tv_situation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_currency"
+            tools:text="+2.22%"
+            android:textColor="@color/text_blue"
+            android:textSize="@dimen/text_size_sp_10" />
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_currency"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_toRightOf="@+id/tv_situation"
+            tools:text="$111.00"
+            android:textColor="@color/text_grey_3"
+            android:textSize="@dimen/text_size_sp_10" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

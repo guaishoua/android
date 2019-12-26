@@ -1,0 +1,30 @@
+apply from: "config.gradle"
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+
+        // 注册MobSDK
+        classpath "com.mob.sdk:MobSDK:+"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

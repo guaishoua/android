@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:orientation="vertical">
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+            android:id="@+id/btn_record_switch_recharge"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:text="@string/recharge"
+            android:textColor="#6e6e6e"
+            android:textSize="@dimen/text_size_sp_18" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_5"
+            android:background="#E6E6E6" />
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+            android:id="@+id/btn_record_switch_withdraw"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:text="@string/withdrawals"
+            android:textColor="#6e6e6e"
+            android:textSize="@dimen/text_size_sp_18" />
+
+    </LinearLayout>
+
+</FrameLayout>

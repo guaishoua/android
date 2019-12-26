@@ -1,0 +1,1 @@
+include ':app', ':kchartlib', ':qmui', ':update-app', ':xbanner'

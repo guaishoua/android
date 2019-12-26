@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.android.tacu">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+
+    <uses-permission tools:node="remove" android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <!-- System权限 AndroidStudio会飘红 不用管 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <application
+        android:name="com.android.tacu.base.MyApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup,label">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.12lian.file_provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <!-- 友盟-start -->
+        <meta-data
+            android:name="5b3c3606f29d981095000028"
+            android:value="UMENG_APPKEY" />
+        <!-- 友盟多渠道打包 -->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+
+        <!-- 配置bugly的APP ID -->
+        <meta-data
+            android:name="BUGLY_APPID"
+            android:value="38e7be7840" />
+
+        <service
+            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+            android:enabled="true" />
+
+        <!-- 加速启动页启动速度 Application的耗时操作都放到这里 -->
+        <service android:name="com.android.tacu.service.AppIntentService" />
+
+        <activity
+            android:name="com.android.tacu.module.splash.SplashActivity"
+            android:theme="@style/AppLauncherTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.tacu.module.main.view.MainActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.android.tacu.module.login.view.LoginActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.android.tacu.module.login.view.FindPwdActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.android.tacu.module.my.view.LanguageActivity" />
+        <activity
+            android:name="com.android.tacu.module.login.view.RegisterActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.android.tacu.module.login.view.CityListActivity" />
+        <activity
+            android:name="com.android.tacu.module.webview.view.WebviewActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name="com.android.tacu.module.market.view.SelfSelectionEditActivity" />
+        <activity android:name="com.android.tacu.module.market.view.SelectedCoinsActivity" />
+        <activity android:name="com.android.tacu.module.market.view.NoticeActivity" />
+        <activity android:name="com.android.tacu.module.market.view.SearchHistoryActivity" />
+        <activity
+            android:name="com.android.tacu.module.market.view.MarketDetailsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name="com.android.tacu.module.assets.view.NodeManageActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.NodeDetailsActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.ProfitRecordActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.SelectDateActivity" />
+        <activity android:name="com.android.tacu.module.auth.view.AuthActivity" />
+        <activity android:name="com.android.tacu.module.my.view.ContactUsActivity" />
+        <activity android:name="com.android.tacu.module.my.view.InvitedinfoActivity" />
+        <activity
+            android:name="com.android.tacu.module.my.view.GoogleAuthActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.android.tacu.module.my.view.SecurityCenterActivity" />
+        <activity android:name="com.android.tacu.module.auth.view.RealNameActivity" />
+        <activity
+            android:name="com.android.tacu.module.auth.view.RealNameTwoActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.android.tacu.module.auth.view.VideoAuthActivity" />
+        <activity
+            android:name="com.android.tacu.module.my.view.ChangePwdActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.android.tacu.module.my.view.BindModeActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.android.tacu.module.my.view.BindEmailActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.android.tacu.module.my.view.BindPhoneActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.android.tacu.module.my.view.TradePwdActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.android.tacu.module.my.view.TradeActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.android.tacu.module.assets.view.AssetsActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name="com.android.tacu.module.lock.view.GestureActivity" />
+        <activity android:name="com.android.tacu.module.lock.view.GestureOnActivity" />
+        <activity android:name="com.android.tacu.module.lock.view.GestureOffActivity" />
+        <activity android:name="com.android.tacu.module.lock.view.FingerprintActivity" />
+        <activity android:name="com.android.tacu.module.my.view.GoogleHintActivity" />
+        <activity android:name="com.android.tacu.module.my.view.InvitedRecordActivity" />
+        <activity android:name="com.android.tacu.module.my.view.InvitedWinningActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.RecordActivity" />
+        <activity android:name="com.android.tacu.module.transaction.view.TradeRecordManageActivity" />
+        <activity android:name="com.android.tacu.module.transaction.view.DealDetailsActivity" />
+        <activity android:name="com.android.tacu.module.my.view.InvitePosterActivity" />
+        <activity android:name="com.android.tacu.module.my.view.SettingActivity" />
+        <activity android:name="com.android.tacu.module.my.view.ConvertActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.MoneyFlowActivity" />
+        <activity android:name="com.android.tacu.module.main.view.ZXingActivity" />
+        <activity android:name="com.android.tacu.module.main.view.ZXingCommonActivity" />
+        <activity android:name="com.android.tacu.module.main.view.ZXingLoginActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.InterestRecordActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.LockProfitActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.LockRecordActivity" />
+    </application>
+</manifest>

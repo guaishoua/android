@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color_grey"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/common_titlebar"
+        android:visibility="gone" />
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:layout_width="@dimen/dp_70"
+        android:layout_height="@dimen/dp_70"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_30"
+        android:contentDescription="@string/app_name"
+        app:qmui_corner_radius="@dimen/dp_10"
+        app:qmui_border_color="@color/color_transparent"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textSize="16sp"
+        tools:text="185****4547" />
+
+    <TextView
+        android:id="@+id/tv_prompt_lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        tools:text="请绘制手势密码 " />
+
+    <Space
+        android:layout_width="@dimen/dp_1"
+        android:layout_height="@dimen/dp_10" />
+
+
+    <com.android.tacu.widget.gesture.GestureLockViewGroup
+        android:id="@+id/gesture_lock_view_group_lock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        app:color_finger_on="@color/color_default"
+        app:color_no_finger_outer_circle="@color/color_transparent"
+        app:count="3"
+        app:tryTimes="5" />
+
+    <Space
+        android:layout_width="@dimen/dp_1"
+        android:layout_height="@dimen/dp_20" />
+
+    <TextView
+        android:id="@+id/tv_forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/forgot_password"
+        android:textColor="@color/color_default" />
+</LinearLayout>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--状态栏背景颜色-->
+    <color name="colorPrimary">#26252F</color>
+    <color name="colorAccent">#417AB6</color>
+
+    <!--UI颜色规范-->
+    <!--默认透明-->
+    <color name="color_transparent">#00000000</color>
+    <!--默认颜色-->
+    <color name="color_default">#417AB6</color>
+    <!--默认颜色-->
+    <color name="color_default_progress">#CC417AB6</color>
+    <!--默认黑色-->
+    <color name="color_black">#000000</color>
+    <!--默认白色-->
+    <color name="color_white">#FFFFFF</color>
+    <!--默认灰色-->
+    <color name="color_grey">#666666</color>
+    <color name="color_grey_2">#999999</color>
+    <color name="color_grey_3">#CCCCCC</color>
+    <color name="color_grey_4">#E7E7E7</color>
+    <color name="color_grey_5">#DDDDDD</color>
+    <!--50%白色透明-->
+    <color name="color_grey_8">#E6E6E6</color>
+    <color name="color_grey_9">#F0F0F0</color>
+    <color name="color_grey_10">#19F0F0F0</color>
+
+    <!--默认红色-->
+    <color name="color_red">#FB5B71</color>
+    <!--默认黄色-->
+    <color name="color_yellow">#FFD10D</color>
+    <!--默认蓝色-->
+    <color name="color_blue">#00A3FD</color>
+    <color name="color_blue_2">#0066FF</color>
+    <!--默认绿色-->
+    <!--默认金色-->
+    <color name="color_golden">#D7AB84</color>
+    <!--Button按钮颜色-->
+    <color name="color_button">#4A8FD8</color>
+
+    <!--状态栏颜色-->
+    <color name="statusbar_color">#417AB6</color>
+
+    <!--页面的背景颜色默认白色-->
+    <color name="content_bg_color">#FFFFFF</color>
+    <!--页面的背景灰色-->
+    <color name="content_bg_color_grey">#fafafa</color>
+
+    <color name="line_color_grey">#DCDCDC</color>
+
+    <!--默认字体颜色-->
+    <color name="text_color">#222222</color>
+    <color name="text_default">#417AB6</color>
+    <!--透明度50%的黑色-->
+    <!--透明度50%的白色-->
+    <color name="text_white_50">#7FFFFFFF</color>
+    <!--字体颜色2-->
+    <color name="text_grey">#666666</color>
+    <!--字体颜色3 一般用于EditText的hint字体颜色-->
+    <color name="text_grey_2">#999999</color>
+    <color name="text_grey_3">#CCCCCC</color>
+    <color name="text_grey_4">#AAAAAA</color>
+    <color name="text_grey_5">#7FFFFFFF</color>
+    <color name="text_grey_7">#B5B5B7</color>
+
+
+    <!--字体白色-->
+    <color name="text_white">#FFFFFF</color>
+    <!--字体红色-->
+    <color name="text_red">#FB5B71</color>
+    <!--字体黄色-->
+    <!--字体蓝色-->
+    <color name="text_blue">#00A3FD</color>
+    <color name="text_blue_2">#0066FF</color>
+    <!--字体绿色-->
+    <!--字体金色-->
+    <color name="text_golden">#D7AB84</color>
+    <!--登录注册字体的颜色-->
+    <color name="text_register_forget">#00316A</color>
+
+    <!--首页底部tab的背景色的色值-->
+    <color name="main_tab_bg_color">#417AB6</color>
+    <!--首页tab的字体颜色-->
+    <color name="main_tab_text_color">#7FFFFFFF</color>
+    <color name="main_tab_black_color">#FFF</color>
+
+    <!--tab切换的色值-->
+    <color name="tab_bg_color">#FFFFFF</color>
+    <!--tab的字体颜色-->
+    <color name="tab_text_color">#666666</color>
+    <color name="tab_blue_color">#0066FF</color>
+    <color name="tab_default">#4A8FD8</color>
+
+    <!--透明度75%的黑色（0.25*255）转16进制=40-->
+    <color name="transparent_75">#40000000</color>
+    <!--透明度50%的黑色-->
+    <!--透明度40%的黑色-->
+    <color name="transparent_40">#99000000</color>
+    <!--透明度30%的黑色-->
+    <!--透明度15%的白色-->
+    <color name="white_15">#27FFFFFF</color>
+    <!--白色透明度40%-->
+    <!--透明度50%的白色-->
+    <color name="white_50">#7FFFFFFF</color>
+    <!--app更新dialog的按钮-->
+    <color name="btn_update">#e94339</color>
+    <!--提醒用户绑定谷歌账号dialog的背景色-->
+    <color name="bg_google">#273845</color>
+    <!--线的颜色-->
+    <color name="color_E5E5E5">#E5E5E5</color>
+    <!--首页折线图-->
+    <color name="chart_line_color">#4A8FD8</color>
+    <color name="chart_gradient_start_color">#804A8FD8</color> <!--起始渐变色-->
+    <color name="chart_gradient_center_color">#334A8FD8</color><!--中间渐变色-->
+    <color name="chart_gradient_stop_color">#00000000</color><!--最终渐变色-->
+
+    <!--币种深度-->
+    <color name="coin_depth_blue">#3B19A144</color><!--透明值80%-->
+    <color name="coin_depth_red">#3BEB311F</color><!--透明值80%-->
+
+    <!--登录页面的背景色-->
+    <color name="color_login">#3E85C0</color>
+    <!--资产页面50%灰色的背景色-->
+    <color name="color_assets_50">#7F333333</color>
+
+    <!--涨跌的颜色-->
+    <color name="color_riseup">#19A144</color>
+    <color name="color_risedown">#EB311F</color>
+    <color name="color_kline">#16202D</color>
+    <color name="color_kline_btnbg">#343B45</color>
+</resources>

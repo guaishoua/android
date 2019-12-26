@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="@dimen/dp_250"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/dp_15">
+
+        <TextView
+            android:id="@+id/tv_apply_locknum_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/apply_locknum"
+            android:textColor="@color/text_grey_2"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_apply_locknum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_apply_locknum_title"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="15万CHEX" />
+
+        <TextView
+            android:id="@+id/tv_lockcycle_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="@string/apply_locknum"
+            android:textColor="@color/text_grey_2"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_apply_locknum_title" />
+
+        <TextView
+            android:id="@+id/tv_lockcycle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_lockcycle_title"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="12个月" />
+
+        <TextView
+            android:id="@+id/tv_rate_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="@string/year_rate"
+            android:textColor="@color/text_grey_2"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_lockcycle_title" />
+
+        <TextView
+            android:id="@+id/tv_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_rate_title"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="12%" />
+
+        <TextView
+            android:id="@+id/tv_starttime_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="@string/lock_time"
+            android:textColor="@color/text_grey_2"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_rate_title" />
+
+        <TextView
+            android:id="@+id/tv_starttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_starttime_title"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="2018-11-23" />
+
+        <TextView
+            android:id="@+id/tv_endtime_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="@string/lock_end_time"
+            android:textColor="@color/text_grey_2"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_starttime_title" />
+
+        <TextView
+            android:id="@+id/tv_endtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_endtime_title"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="2018-11-23" />
+
+        <TextView
+            android:id="@+id/tv_profit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="@string/prediction_profit"
+            android:textColor="@color/text_grey_2"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_endtime_title" />
+
+        <TextView
+            android:id="@+id/tv_profit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_profit_title"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="2018-11-23" />
+    </android.support.constraint.ConstraintLayout>
+</RelativeLayout>

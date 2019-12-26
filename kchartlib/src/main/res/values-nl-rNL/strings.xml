@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="high">De hoge</string>
+	<string name="low">Lage</string>
+	<string name="open">Open</string>
+	<string name="close">Ontvangen</string>
+	<string name="volume">De omzet</string>
+	<string name="vol_price">Een deal van</string>
+	<string name="ave_price">Die kosten</string>
+</resources>

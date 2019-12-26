@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_5"
+    android:background="@mipmap/asset_item_global_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_142"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingTop="@dimen/dp_18"
+        android:paddingRight="@dimen/dp_15"
+        android:paddingBottom="@dimen/dp_12">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                    android:id="@+id/iv_asset_item_icon"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    app:qmui_corner_radius="@dimen/dp_14"
+                    tools:src="@mipmap/bga_pp_ic_cb_checked" />
+
+                <Space
+                    android:layout_width="@dimen/dp_5"
+                    android:layout_height="1px" />
+
+                <TextView
+                    android:id="@+id/iv_asset_item_coin_simple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_size_sp_18"
+                    tools:text="USDT" />
+
+                <Space
+                    android:layout_width="@dimen/dp_5"
+                    android:layout_height="1px" />
+
+                <TextView
+                    android:id="@+id/iv_asset_item_coin_full"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_grey_2"
+                    android:textSize="@dimen/text_size_sp_14"
+                    tools:text="(Tether)" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_uuex_transfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/dp_5"
+                android:text="@string/transfer"
+                android:textColor="@color/color_black" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_assets_item_own_count"
+                    android:textColor="@color/color_grey_2"
+                    android:textSize="@dimen/text_size_sp_12"
+                    tools:text="持有数量" />
+
+                <Space
+                    android:layout_width="1px"
+                    android:layout_height="@dimen/dp_10" />
+
+                <TextView
+                    android:id="@+id/tv_asset_item_own_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_size_sp_12"
+                    tools:text="0.000000000" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="start"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp_30">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_assets_item_own_available"
+                    android:textColor="@color/color_grey_2"
+                    android:textSize="@dimen/text_size_sp_12"
+                    tools:text="可用数量" />
+
+                <Space
+                    android:layout_width="1px"
+                    android:layout_height="@dimen/dp_10" />
+
+                <TextView
+                    android:id="@+id/tv_asset_item_own_available"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_size_sp_12"
+                    tools:text="0.000000000" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_assets_item_freeze_count"
+                    android:textColor="@color/color_grey_2"
+                    android:textSize="@dimen/text_size_sp_12"
+                    tools:text="冻结数量" />
+
+                <Space
+                    android:layout_width="1px"
+                    android:layout_height="@dimen/dp_10" />
+
+                <TextView
+                    android:id="@+id/tv_asset_item_freeze_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_size_sp_12"
+                    tools:text="0.000000000" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_assets_item_cny_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_grey_2"
+            android:textSize="@dimen/text_size_sp_12"
+            tools:text="≈0.12345678CNY" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_41"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+            android:id="@+id/tv_asset_item_recharge"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/recharge"
+            android:textColor="@color/color_black" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="@dimen/dp_14"
+            android:background="@color/color_grey_2" />
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+            android:id="@+id/tv_asset_item_withdraw"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/withdrawals"
+            android:textColor="@color/color_black" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="@dimen/dp_14"
+            android:background="@color/color_grey_2" />
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+            android:id="@+id/tv_asset_item_history"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/history"
+            android:textColor="@color/color_black" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="@dimen/dp_14"
+            android:background="@color/color_grey_2" />
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+            android:id="@+id/tv_asset_item_trade"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/trade"
+            android:textColor="@color/color_black" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

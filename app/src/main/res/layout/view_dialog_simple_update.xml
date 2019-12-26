@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingRight="@dimen/dp_10">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_16"
+        tools:text="是否升级到6.0.0版本？" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:scrollbars="none">
+
+        <TextView
+            android:id="@+id/tv_update_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="@dimen/dp_100"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_sp_14"
+            tools:text="1.xxxxxxxx\n2.ooooooooo" />
+    </ScrollView>
+
+    <com.vector.update_app.view.NumberProgressBar
+        android:id="@+id/progressBar"
+        style="@style/UpdateAppNumberProgressBar_Blue"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:visibility="gone" />
+</LinearLayout>

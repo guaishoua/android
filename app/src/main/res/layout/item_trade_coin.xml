@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_40"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_coins_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:singleLine="true"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_12"
+        android:textStyle="bold"
+        tools:text="RTS" />
+
+    <TextView
+        android:id="@+id/tv_current_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/text_red"
+        android:textSize="@dimen/text_size_sp_12"
+        android:textStyle="bold"
+        tools:text="0.00001234" />
+
+    <TextView
+        android:id="@+id/tv_change_rate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="right"
+        android:singleLine="true"
+        android:textColor="@color/text_red"
+        android:textSize="@dimen/text_size_sp_12"
+        tools:text="-150.89%" />
+</com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout>

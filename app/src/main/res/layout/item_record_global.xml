@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_5"
+    android:background="@color/content_bg_color"
+    android:orientation="vertical"
+    app:qmui_borderColor="@color/color_grey_4"
+    app:qmui_borderWidth="@dimen/dp_1"
+    app:qmui_radius="@dimen/dp_8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/label_coin_trans_history_type"
+            android:textColor="@color/color_grey_3"
+            android:textSize="@dimen/text_size_sp_12" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.3"
+            android:text="@string/label_coin_trans_history_op_type"
+            android:textColor="@color/color_grey_3"
+            android:textSize="@dimen/text_size_sp_12" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="@string/label_coin_trans_history_price"
+            android:textColor="@color/color_grey_3"
+            android:textSize="@dimen/text_size_sp_12" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1px"
+        android:background="@color/color_grey_3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp_50"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/text_size_sp_12"
+                tools:text="充值" />
+
+            <Space
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_10" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/label_coin_trans_history_fee"
+                    android:textColor="@color/color_grey_3"
+                    android:textSize="@dimen/text_size_sp_12" />
+
+                <TextView
+                    android:id="@+id/tv_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_grey_3"
+                    android:textSize="@dimen/text_size_sp_12"
+                    tools:text="12345678" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.3"
+            android:paddingLeft="@dimen/dp_5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_coins_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/text_size_sp_12"
+                tools:text="BTC充值" />
+
+            <Space
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_10" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_grey_3"
+                android:textSize="@dimen/text_size_sp_12"
+                tools:text="2019-06-10:08:09:10" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_coins_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_riseup"
+                android:textSize="@dimen/text_size_sp_12"
+                tools:text="123" />
+
+            <Space
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_10" />
+
+            <TextView
+                android:id="@+id/tv_coin_currency_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_riseup"
+                android:textSize="@dimen/text_size_sp_12"
+                tools:text="USDT" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10"
+        app:qmui_backgroundColor="@color/color_grey_4"
+        app:qmui_radiusBottomLeft="@dimen/dp_5"
+        app:qmui_radiusBottomRight="@dimen/dp_5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="wrap_content"
+                android:text="@string/label_coin_trans_history_address"
+                android:textColor="#999999"
+                android:textSize="@dimen/text_size_sp_10" />
+
+            <TextView
+                android:id="@+id/tv_coins_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#999999"
+                android:textSize="@dimen/text_size_sp_10"
+                tools:text="nckbzjkcbjkxbclbdsbcdjbvkbvbkdjbcjbxjbxjnkzcbjxbbxjzbcxbcjvbdbvkjfbxkbhhzckjh" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="@dimen/dp_5" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="wrap_content"
+                android:text="@string/label_coin_trans_history_txid"
+                android:textColor="#999999"
+                android:textSize="@dimen/text_size_sp_10" />
+
+            <TextView
+                android:id="@+id/tv_txid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#999999"
+                android:textSize="@dimen/text_size_sp_10"
+                tools:text="nckbzjkcbjkxbclbdsbcdjbvkbvbkdjbcjbxjbxjnkzcbjxbbxjzbcx" />
+
+        </LinearLayout>
+
+
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:visibility="gone" />
+
+
+    <CheckBox
+        android:id="@+id/cb_more"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:background="@drawable/checkbox_record"
+        android:button="@null" />
+
+
+</com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>

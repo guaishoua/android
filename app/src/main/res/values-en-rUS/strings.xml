@@ -1,0 +1,664 @@
+<!--英语-->
+<resources>
+    <!--公共部分-->
+    <string name="sure">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <!--网络连接-->
+    <!--服务器出现问题用这个-->
+    <string name="net_busy">The server is busy, Please try again later！</string>
+    <!--没网情况用这个-->
+    <string name="net_unavailable">The current network is not available, Please check the network settings！</string>
+
+    <!--Main-->
+    <string name="market">Market</string>
+    <string name="trade">Trade</string>
+    <string name="assets">Funds</string>
+    <string name="app_update">Update</string>
+    <string name="app_update_title">New Vsersion：</string>
+
+    <!--權限-->
+    <string name="permission_message_failed">Please give us permission in the settings:\n\n%1$s</string>
+    <string name="permission_message_rationale">TACU apply for the following authority:\n\n%1$s</string>
+    <string name="permission_allow">Allow</string>
+    <string name="permission_refuse">Refuse</string>
+
+    <!--顶象-->
+    <string name="switch_error">authentication failed</string>
+    <string name="smart_checking">Intelligence tests</string>
+    <string name="switch_drag">Drag down the slider</string>
+    <string name="slide_inform">Please drag the slider</string>
+    <string name="verifying">In the validation...</string>
+
+    <!--登录注册-->
+    <string name="login_email_or_phone">Your Email or Mobile phone</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="mailbox_cannot_be_empty">Please fill out the full user information</string>
+    <string name="pwd_cannot_be_empty">pwd cannot be empty</string>
+    <string name="login_success">Success</string>
+    <string name="Enter_the_password">Enter the password</string>
+    <string name="Enter_the_Google_verification_code">Enter the Google verification code</string>
+    <string name="city_search">Please select a country or region</string>
+
+    <!--忘记密码-->
+    <string name="reset_password_via_Email">Reset password via Email</string>
+    <string name="reset_password_via_phone">Reset password via Phone</string>
+    <string name="email_hint_code">Email verification code</string>
+    <string name="email_code">Send</string>
+    <string name="new_pwd">New Password</string>
+    <string name="regex_pwd">The password must contain 8 to 16 digits, uppercase letters, lowercase letters and numbers.</string>
+    <string name="confirm_new_pwd">Confirm Password</string>
+    <string name="submit">Submit</string>
+    <string name="reset_tip">Please enter the area code except mainland China phone number</string>
+    <string name="your_email">Email address</string>
+    <string name="phone_code">Phone verification code</string>
+    <string name="resend">Resend</string>
+    <string name="pwd_do_not">The password is wrong!</string>
+    <string name="invalid_email_address">Invalid email address</string>
+    <string name="send_successfully">Send successfully</string>
+    <string name="success">Success</string>
+    <string name="code">Verification code</string>
+
+    <!--注册-->
+    <string name="mobile_email_register">Email Register</string>
+    <string name="mobile_phone_register">Mobile Register</string>
+    <string name="input_password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="Invitation_code">Referral code</string>
+    <string name="register">Register</string>
+    <string name="register_success">Success</string>
+    <string name="country">Nationality</string>
+    <string name="mobile_phone">Mobile phone</string>
+    <string name="email_null">Email cannot be empty</string>
+    <string name="phone_null">Mobile phone number can not be empty</string>
+    <string name="phone_invalia">Please enter a valid mobile phone number！</string>
+    <!--市场-->
+    <string name="market_selfselection">Favorite</string>
+    <string name="vol">Volume</string>
+
+    <!--资产-->
+    <string name="date_select">Date selection</string>
+    <string name="recharge">Deposit</string>
+    <string name="withdrawals">Withdraw</string>
+    <string name="node_profit">Yesterday’s single node revenue</string>
+    <string name="node_manage">CHEX Nodes</string>
+    <string name="node_apply">Apply Node</string>
+    <string name="node_unlock">Unlock</string>
+    <string name="node_available_num">Available Amount</string>
+    <string name="node_available_unlock_num">Enable unlock node quantity</string>
+    <string name="node_start_date">Profit starting day</string>
+    <string name="node_apply_num">Apply node amount</string>
+    <string name="node_unlock_num">Unlock node quantity</string>
+    <string name="node_pwd">Trade Password</string>
+    <string name="node_scale">*One Hundred Thousand CHEX=1Node</string>
+    <string name="node_apply_text">Apply</string>
+    <string name="node_unlock_text">Unlock</string>
+    <string name="node_apply_isempty">Apply node quantity cannot be blank！</string>
+    <string name="node_unlock_isempty">Unlock node quantity cannot be blank！</string>
+    <string name="node_pwd_isempty">Transacion password cannot be blank！</string>
+    <string name="transfer">Transfer</string>
+    <string name="service_charge">service charge：</string>
+    <string name="transfer_record">Transfer</string>
+    <string name="bind_phone_hint">Verify the bound phone number</string>
+    <string name="bind_email_hint">Verify the bound mailbox</string>
+    <string name="confrim">Confirm</string>
+    <string name="node_agress">The node with the latest application time will be unlocked first.  I know and I am sure to unlock.</string>
+    <string name="node_hint">1.Nodes locking time will take effect from 00:00 on the second day from the date of application.\n2.You will obtain revenue after 30 days of continuous locking, and the reward will be distributed at 12:00 on the second day after the revenue is obtained.</string>
+    <string name="node_profit_total">Total revenue</string>
+    <string name="node_yesterday">Pending revenue</string>
+    <string name="node_profit_record">Revernue record</string>
+    <string name="node_create">Applied time</string>
+    <string name="node_num">Applied number</string>
+    <string name="node_unlock_num2">Locked number</string>
+    <string name="node_total">Total revenue:</string>
+    <string name="node_create_profit">Initial revenue date</string>
+    <string name="node_profit_create">Distributed date</string>
+    <string name="node_profit_num">Quantity</string>
+    <string name="node_one_profit">Single node revenue</string>
+    <string name="node_one_profit2">Single node revenue(CHEX)</string>
+    <string name="node_state_profit">Distribution status</string>
+    <string name="node_state">Status</string>
+    <string name="node_unlock_time">Locking period</string>
+    <string name="node_details">Node details</string>
+    <string name="node_distributed">Distributed</string>
+    <string name="node_no">Not distributed</string>
+    <string name="node_lock">Lock</string>
+    <string name="node_unlock2">UnLock</string>
+    <string name="node_unlock_date">Unlock time</string>
+    <string name="node_know">I Know</string>
+    <string name="address">Address</string>
+    <string name="payment_id">%1$s (No tokens can be received without the information)</string>
+    <string name="copy_address">Copy Address</string>
+    <string name="save_image">Save the QR code</string>
+    <string name="fee">Fee</string>
+    <string name="coins_text">It is forbidden to recharge assets other than %1$s to %2$s address, any non %3$s assetsrecharged into %4$s address will not be retrieved.Recharge using %5$s address requires %6$s network confirmations to arrive.Transfer and deposit with smart contract and block reward（Coinbase）are not available and the assets won’t arrive to your account. We apologize to any inconvenience caused！</string>
+    <string name="select_coins">Currency selection</string>
+    <string name="asset_hint">Total assets conversion</string>
+    <string name="asset_search">Existing assets</string>
+    <string name="fee2">Transaction Fee：</string>
+
+    <!--资金划转-->
+    <string name="amount">Amount</string>
+    <string name="all">All</string>
+    <string name="please_get_the_level_of_KYC">Please get the level of KYC 2</string>
+    <string name="asset_num">Amount</string>
+    <string name="transfer_available2">Available：</string>
+    <string name="transfer_num">Minimum transfer in amount is</string>
+    <string name="transfer_num2">Minimum transfer out amount is</string>
+    <string name="transfer_hint2">You can check the progress on history page after transfer is completed.</string>
+    <string name="transfer_hint3">You can check the progress on history page after transfer is completed.</string>
+    <string name="account_hint">Receiving Epay account</string>
+    <string name="transfer_account">Account</string>
+    <string name="you_will">You Will Get：</string>
+    <string name="transfer_in">Transfer in</string>
+    <string name="transfer_out">Transfer out</string>
+    <string name="epay_account">Epay receipt account</string>
+    <string name="add_success">Add account success</string>
+    <string name="epay_error">Epay account format error</string>
+    <string name="epay_hint">Please navigate to Epay offcial site to do payment operation.</string>
+    <string name="navigate">Navigate</string>
+    <string name="epay_register">No Epay account？Register</string>
+    <string name="epay_success">Transfer succeeds! Please check your balance on Epay.</string>
+
+    <!--提幣-->
+    <string name="deposit_history">Deposit record</string>
+    <string name="take_history">Mention money record</string>
+    <string name="exchange_history">Exchange record</string>
+    <string name="history">History</string>
+    <string name="please_select_address">Choose a coin address</string>
+    <string name="min_extract">Minimum amount</string>
+    <string name="paymentid">%1$s (Used for transferring your assets form TACU)</string>
+    <string name="Mailbox_verification">Mailbox verification code</string>
+    <string name="mobile_phone_number_verification">Cell phone verification code</string>
+    <string name="google_auth">Google Auth</string>
+    <string name="wallet_address">wallet address</string>
+    <string name="wallet_name">wallet Name</string>
+    <string name="send_successful">send successful</string>
+    <string name="auth_method">Please select the authentication method</string>
+    <string name="take_verify">Verify the way：</string>
+    <string name="take_verify_code">Input validation code</string>
+    <string name="above_step">Above step</string>
+    <string name="take_hint">System review will be completed within 30 min. Fund will arrive to your account after confirmation by network. Please note that withdrawal is unavailable within 24 hours after resetting the security setting.</string>
+    <string name="note">Note</string>
+
+    <!--USDT->CODE-->
+    <string name="exchange">Exchange</string>
+    <string name="exchange_pwd">Please open your trading password first！</string>
+    <string name="exchange_hint">Exchange price is defined according to current-time exchange price. Are you sure to exchange with knowing the risks</string>
+    <string name="exchange_usdt_hint">USDT exchange amount</string>
+    <string name="exchange_code_hint">CODE exchange amount</string>
+    <string name="exchange_pwd_in">Please enter trading password</string>
+    <string name="exchange_num_usdt">exchangeable amount USDT：</string>
+    <string name="exchange_num_code">exchangeable amount CODE：</string>
+    <string name="exchange_peice_hint">exchange proportion：</string>
+    <string name="exchange_real_price">current exchange price：</string>
+    <string name="exchange_obtain_code">amount of CODE：</string>
+    <string name="exchange_obtain_usdt">amount of USDT：</string>
+    <string name="exchange_info">confirm the information</string>
+    <string name="exchange_affrim">sure</string>
+    <string name="exchange_success">exchange succeed！</string>
+    <string name="exchange_num_usdt2">USDT exchange amount：</string>
+    <string name="exchange_num_code2">CODE exchange amount：</string>
+    <string name="exchange_num">Exchange amount</string>
+    <string name="exchange_old">Payment currency：</string>
+    <string name="exchange_new">Aquired currency：</string>
+    <string name="exchange_old_num">Payment currency amount：</string>
+    <string name="exchange_new_num">Aquired currency amount：</string>
+    <string name="uncompleted">unfinished</string>
+    <string name="completed">success</string>
+
+    <!--自选-->
+    <string name="market_add_selfselection">Add</string>
+    <string name="btn_all_select">All Select</string>
+    <string name="btn_delete_zero">Delete(0)</string>
+    <string name="edit_selfselection">Edit</string>
+    <string name="btn_complete">Complete</string>
+    <string name="business_edit_collect">Success</string>
+    <string name="business_edit_collect_error">Failure</string>
+    <string name="self_selection_save">Whether to save a list of choices？</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_cancel_select">Cancle All Select</string>
+    <string name="the_currently_selection">The Currently Selection:</string>
+
+    <!--公告-->
+    <string name="news">News</string>
+
+    <!--搜索-->
+    <string name="search_histort_text">Historical Search</string>
+    <string name="search_clear">Clear</string>
+
+    <!--交易-->
+    <string name="limit_price">Price</string>
+    <string name="price">Price</string>
+    <string name="lowest_obtainable_price">Lowest obtainable price</string>
+    <string name="trade_password">Trading password</string>
+    <string name="trade_set_password">Set up the trading password</string>
+    <string name="trade_set_password2">Set the password</string>
+    <string name="buy">Buy</string>
+    <string name="sell">Sell</string>
+    <string name="highest_price">Highest price</string>
+    <string name="lowest_price">Minimum price</string>
+    <string name="order_coins_success">Success</string>
+    <string name="business_collect">Success</string>
+    <string name="business_collect_error">Failure</string>
+    <string name="business_uncollect">Success</string>
+    <string name="business_uncollect_error">Failure</string>
+    <string name="order_success">Success</string>
+    <string name="enter_trading_password">Enter trading password</string>
+    <string name="order_cancel">Cancel</string>
+    <string name="time">Time</string>
+    <string name="trade_type">Trade Type</string>
+    <string name="status">Status</string>
+    <string name="transaction_amount">Transaction Amount</string>
+    <string name="open_orders">Orders</string>
+
+    <!--绑定谷歌验证码-->
+    <string name="kindly_reminder">kindly reminder</string>
+    <string name="Please_select_the_way_of_secondary_authentication">Please select the way of secondary authentication</string>
+    <string name="bind_ga">Set Google verification</string>
+    <string name="clase_ga">Remove Google binding</string>
+    <string name="Temporarily_not_set">Temporarily not set</string>
+    <string name="copy">copy</string>
+    <string name="google_hint">1. Download Google Authenticator APP. iOS users can log into App Store and search “Authenticator” to download.Android users can log into Google Play or search “Google Authenticator” in your mobile browser to download. \n2. Add and back up key in your GA. Open GA and scan the QR code below or enter the key to add a token.this key is used to retrieve your GA when you change or lose your phone. please save and back up the key before binding GA. \n3. Enter your TACU account and click ""complete""</string>
+    <string name="email_bind">Email verification</string>
+    <string name="phone_bind">Phone verification</string>
+
+    <!--币种详情-->
+    <string name="latest_transactions">Record of transaction</string>
+    <string name="kdetail_share_text">Reliable trading platform for worldwide users</string>
+    <string name="min_1">1min</string>
+    <string name="min_5">5min</string>
+    <string name="min_15">15min</string>
+    <string name="min_30">30min</string>
+    <string name="hour_1">1hour</string>
+    <string name="day_1">1day</string>
+    <string name="noweixin">Please install WeChat client!</string>
+    <string name="wx">WeChat</string>
+    <string name="pyq">moments</string>
+    <string name="share_click">Confirm Click to share</string>
+
+    <!--個人中心-->
+    <string name="verified">Verified</string>
+    <string name="unverified">Unverified</string>
+    <string name="switch_of_trade_password">Set/close trading password</string>
+    <string name="login_pwd">Login Password</string>
+    <string name="fingerprint_unlock">Fingerprint unlock</string>
+    <string name="pattern_lock">Pattern Lock</string>
+    <string name="set_pattern_lock">Set Pattern Lock</string>
+    <string name="authentication">Authentication</string>
+    <string name="authenticating">Authenticating</string>
+    <string name="authentication_failed">Authentication Filed</string>
+    <string name="security_setting">Security Settings</string>
+    <string name="Google_Authenticator">Google verification</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="language">Language</string>
+    <string name="update">Version Update</string>
+    <string name="logout">Logout</string>
+    <string name="logout_success">Success</string>
+    <string name="email">Service mailbox</string>
+    <string name="business_cooperation">Business Collaboration</string>
+    <string name="copy_success">Success</string>
+    <string name="download">Download and install the Google Authenticator APP</string>
+    <string name="bind_email">Mailbox binding</string>
+    <string name="bind_phone">Phone number binding</string>
+    <string name="pwd_change">Reset</string>
+    <string name="settings">Settings</string>
+    <string name="close_tradepwd_message">You have closed the transaction password and entered \n. No transaction password is required for each transaction and withdrawal.</string>
+    <string name="ga_open">Has been open</string>
+    <string name="ga_not">Did not open</string>
+    <string name="update_hint">Is the latest version</string>
+
+    <!--實名認證  第一步-->
+    <string name="surname">Last name</string>
+    <string name="name">First name</string>
+    <string name="gender">Gender</string>
+    <string name="no_bind">Unbound</string>
+    <string name="birthday">Date of birth</string>
+    <string name="passport">ID card</string>
+    <string name="passport2">Valid documents</string>
+    <string name="startTime">issuing date of ID card</string>
+    <string name="endTime">valid period of ID card</string>
+    <string name="next">Next</string>
+    <string name="woman">woman</string>
+    <string name="man">man</string>
+    <string name="china">Mainland China</string>
+    <string name="other_country">Other Country and Region</string>
+    <string name="real_valid">ID expiry date</string>
+    <string name="real_to">to</string>
+    <string name="real_hint">*Please ensure the information provided is real and valid. Platform will keep your information secure.</string>
+    <string name="real_country">Country/Region</string>
+    <string name="real_id">The passport ID/national ID card ID</string>
+    <string name="real_other">*Used only for Hong Kong, Macao and Taiwan and international user authentication.(passport, driver license, id card)</string>
+    <string name="picker_year">Year</string>
+    <string name="picker_month">Month</string>
+    <string name="picker_dete">Date</string>
+    <string name="real_time">Valid for long term</string>
+
+    <!--實名認證  第二步-->
+    <string name="real_reverse_title">Please upload the photo of the personal Info page !</string>
+    <string name="real_reverse_hint">Or please upload a photo of the back of your ID card !</string>
+    <string name="real_reverse_content">Please ensure the information on the photo is real and valid. The passposrt must be valid!</string>
+    <string name="real_positive_title">Upload the photo of  your passport cover !</string>
+    <string name="real_positive_hint">Or please upload the photo of the front of the ID card !</string>
+    <string name="real_hand_title">Please upload a photo of the front of your passport !</string>
+    <string name="real_hand_hint">Or please upload a photo of the front of your ID card !</string>
+    <string name="real_hand_content">Please upload a photo of the front of the ID card + personal signature on A4 paper with the ID card. The format of the signature is “Name+TACU+current date” (e.g.: Wang Xing TACU August 8, 2018); please ensure the photo and personal signature information is clearly visible; the photo content is true and effective, and no modifications can be made. (JPG/PNG/JPEG image format)</string>
+    <string name="continent_reverse_title">Upload ID card front side!</string>
+    <string name="continent_hint">Please ensure the information on the photo is real and valid. The documents must be valid!</string>
+    <string name="continent_positive">Please upload a photo of the back of your ID card !</string>
+    <string name="continent_hand_title">Please upload the photo of the front of the ID card !</string>
+    <string name="continent_hand_hint">Please upload a photo of the front of the Certificate + personal signature on A4 paper with the ID card. The format of the signature is “Name+TACU+current date” (e.g.: Wang Xing TACU August 8, 2018)</string>
+    <string name="continent_hand_content">please ensure the photo and personal signature information is clearly visible; the photo content is true and effective, and no modifications can be made. (JPG/PNG/JPEG image format)</string>
+    <string name="submit_success">Submit succeeded!</string>
+    <string name="real_success">Your verification information has been submitted and under review. Return to the Personal Center page in</string>
+    <string name="real_success2"><![CDATA[ seconds]]></string>
+    <string name="real_toast_hint">Please upload the id photo</string>
+
+    <!--實名認證  第三步-->
+    <string name="identity_authentication">Identity Authentication</string>
+    <string name="real_video">Video verification1</string>
+
+    <!--修改登录密码-->
+    <string name="old_pwd">Old Password</string>
+    <string name="confirm_trade_pwd">Confirm Password</string>
+    <string name="change_pwd">Modify login password</string>
+    <string name="change_success">Success</string>
+    <string name="old_email">Verify the original email</string>
+    <string name="new_email">Verify the new email</string>
+    <string name="revise_email">revise email</string>
+    <string name="old_phone">Verify the original mobile</string>
+    <string name="new_phone">Verify new phone number</string>
+    <string name="code_cannot_be_empty">code cannot be empty</string>
+    <string name="update_phone">Modify the cell phone number</string>
+    <string name="modify_trade_password">Modify Trade Password</string>
+    <string name="bind_newphone">Verify the new phone number</string>
+    <string name="email_hint">Email</string>
+    <string name="update_pwd">Modify password</string>
+    <string name="trade_hint">Please set the password</string>
+    <string name="trade_setting">Setting</string>
+    <string name="trade_limit">The password must be set to 6-16 digits letters and numbers.</string>
+
+    <!--手势密码 指纹密码-->
+    <string name="draw_your_pattern_lock">Draw your pattern lock</string>
+    <string name="input_error">Input error.remaining</string>
+    <string name="second">second</string>
+    <string name="too_many_input_errors">Too many input errors.Please login again.</string>
+    <string name="please_draw_the_pattern_again_to_confirm">Please draw the pattern again to confirm</string>
+    <string name="require_more_than_points">Require more than 4 points</string>
+    <string name="cancel_the_pattern_lock">Cancel the pattern lock</string>
+    <string name="fingerprint_retry">Please try again!</string>
+    <string name="fingerprint_title">Fingerprint identification...</string>
+    <string name="fingerprint_no_sdk">The current Android version is not supported. It must be Android6.0 or more!</string>
+    <string name="fingerprint_no_equipment">The current device does not support fingerprints, you can set gesture password.!</string>
+    <string name="fingerprint_no_safe">The current equipment is not in security protection!</string>
+    <string name="fingerprint_no_fingerprint">Set fingerprints on the phone settings!</string>
+    <string name="fingerprint_rebuild">You have not set a fingerprint password. Please try again in the phone system security settings and try again！</string>
+    <string name="fingerprint_login_again">Login Again</string>
+    <string name="safe_first_handpwd">Please set the sign pattern lock!</string>
+
+    <!--提币记录-->
+    <string name="currency">Currency</string>
+    <string name="start_time">Start</string>
+    <string name="end_time">End</string>
+    <string name="reset">Reset</string>
+    <string name="confirm">Confirm</string>
+    <string name="recharge2">Recharge</string>
+    <string name="search_currency">Search</string>
+    <string name="success2">(Success)</string>
+
+    <!--首页-->
+
+    <!--市場-->
+    <string name="market_last_price">Last Price</string>
+    <string name="add_selfselection">Add “Favorite”</string>
+    <string name="target">Index</string>
+    <string name="depth">Depth</string>
+    <string name="buy_index">Buy</string>
+    <string name="sell_index">Sell</string>
+
+    <!--邀请好友-->
+    <string name="invite_rewards">Invite rewards</string>
+    <string name="invite_posters">Exclusive poster</string>
+    <string name="invite_num">Invite the number</string>
+    <string name="invite_type">The invitation way</string>
+    <string name="invitation_success">Successfully invited</string>
+    <string name="invitation_one">Copy code&#160;</string>
+    <string name="invitation_two">Copy links</string>
+    <string name="curency">curency</string>
+    <string name="num">number</string>
+    <string name="winning_details">The winning details</string>
+    <string name="create_date">Creation date</string>
+    <string name="out_time">Out of time</string>
+    <string name="invite_uid">Be inviter uid</string>
+    <string name="state">State</string>
+    <string name="register_source">Registered source</string>
+    <string name="register_date">Registered date</string>
+    <string name="invited_record">Invited record</string>
+    <string name="winning_record">Winning record</string>
+    <string name="invited_poster">Share the poster to</string>
+    <string name="invite_hint">Please select a Shared posters</string>
+
+    <!--交易-->
+    <string name="actual_transaction">Filled</string>
+    <string name="trade_pwd_confirm">Confirm the transaction password</string>
+    <string name="available_number">Available Balance</string>
+    <string name="price_point_number">%1$sdecimals</string>
+    <string name="history_record">Order History</string>
+    <string name="btn_page_select">Select all</string>
+    <string name="date">Time</string>
+    <string name="entrustment_price">Orders price</string>
+    <string name="entrustment_number">Orders number</string>
+    <string name="deal_all_amount">Filled amount</string>
+    <string name="deal_single_price">Filled price</string>
+    <string name="deal_price">Filled amount</string>
+    <string name="transaction_pair">Trading pair</string>
+    <string name="transaction_pair_all">All trading pair</string>
+    <string name="transaction_pair_custom">Favorite</string>
+    <string name="trade_coin">Trading coin</string>
+    <string name="base_coin">Basic coin</string>
+    <string name="dealed_status">Filled</string>
+    <string name="dealedpart_status">Cancellation after partially filled！</string>
+    <string name="revoked_status">Cancelled</string>
+    <string name="confirm_orderlist_delete">You are canceling %1$s orders in batches, are you sure to cancel them?</string>
+    <string name="currentCoin_limit_high_low">Limited minimum quantity %1$s and Limited Maximum quantity %2$s</string>
+    <string name="trade_detail">Transaction History</string>
+    <string name="trade_trend">Trend</string>
+    <string name="good_price">Optimal price</string>
+    <string name="amount_price">Amount</string>
+
+    <!--设置-->
+    <string name="convert_money">Conversion currency</string>
+
+    <string name="zxing">QR</string>
+    <string name="zxing_info1">Put QR into the box</string>
+    <string name="zxing_info2">Scan QR to log in</string>
+    <string name="current_area">Current location</string>
+    <string name="current_area_one">Mainland China</string>
+    <string name="current_area_two">Non-mainland China</string>
+    <string name="uploaded">Uploaded</string>
+    <string name="isLogin_ok">Log in?</string>
+    <string name="closed">Close</string>
+
+    <!--登录注册-->
+    <string name="search_coin">Search coin</string>
+    <!--獎勵資產專區-->
+    <string name="reward_asset_model">Reward Assets Center</string>
+    <string name="reward_total_asset">Total Reward Assets</string>
+    <string name="shanxibao">Assets revenue</string>
+    <string name="wenxibao">Locked assets revenue(CHEX)</string>
+    <string name="interest_record">History</string>
+    <string name="interest_history">Revenue history</string>
+    <string name="interest_history_chex">Total revenue(CHEX)</string>
+    <string name="yesterday_asset_usdt">Yesterday assets(USDT)</string>
+    <string name="yesterday_interest_chex">Yesterday revenue(CHEX)</string>
+    <string name="chex_price_usdt">Yesterday CHEX price(USDT)</string>
+    <string name="receive">Receive reward</string>
+    <string name="half_year_profit">Yearly rate(%)(6months)</string>
+    <string name="one_year_profit">Yearly rate(%)(12months)</string>
+    <string name="history_activity">Operation history</string>
+    <string name="detail">Details</string>
+    <string name="lock_profit">Total revenue</string>
+    <string name="lock_profit_chex">Received revenue(CHEX)</string>
+    <string name="lock_record">History</string>
+    <string name="apply_lock">Lock</string>
+    <string name="node_total_profit">Total revenue (CHEX)</string>
+    <string name="lessthan_200">Less 200</string>
+    <!--獎勵總資產-->
+    <string name="reward_time">Distribution time</string>
+    <string name="reward_status">Status</string>
+    <string name="reward_name">Reward name</string>
+    <string name="reward_coin">Reward coin</string>
+    <string name="reward_num">Reward amount</string>
+    <string name="interest">Revenue</string>
+    <string name="your_chex_lock_num">Your locked CHEX total amount：</string>
+    <string name="haved_profit_chex">ROI(CHEX)</string>
+    <string name="prediction_profit_chex">Expected ROI(CHEX)</string>
+    <string name="can_use_chex">Available CHEX amount</string>
+    <string name="input_lock_num">Enter locking amount</string>
+    <string name="wan">Ten thousand</string>
+    <string name="lock_tip">*Lock at least 10,0000 CHEX</string>
+    <string name="lock_cycle">Locking period</string>
+    <string name="year_rate">Yearly interest rate</string>
+    <string name="prediction_profit">Expected ROI</string>
+    <string name="month_12">12 months</string>
+    <string name="month_6">6 months</string>
+    <string name="apply_lock_tip">Calculation: 1.Interest will be calculated daily (including locking day), the unlock day won\'t be counted. 2.Unlock&amp;distribute reward: users\' assets and interest will be automatically sent to their accounts on the unlock day at 14:00.</string>
+    <string name="profit">Revenue</string>
+    <string name="lock_chex_num">Locked amount(10k)</string>
+    <string name="lock_time">Lock time</string>
+    <string name="lock_end_time">Unlock time</string>
+    <string name="shanxibao_describe">Users have at least 300 USDT eq. assets on TACU (excluding CHEX) can get daily interest with the yearly rate of 6%. Interest will be distributed in CHEX. We will have a daily snapshot for users’ total assets, assets will be calculated with market price.
+    \nSnapshot time: 24:00 every day\nEq.USDT price: refer to USDT market price at 24:00 on TACU.\nCHEX exchange price: CHEX daily average price =  CHEX trading volume on the day /  CHEX transactions total number on the day\nNote: only available assets and open orders assets will be calculated. Locked assets will not be counted.</string>
+    <string name="wenxibao_describe">CHEX holders lock at least 100,000 CHEX for 6 months can earn 10% interest rate (*yearly); locking at least 100,000 CHEX for more than 12 months will be subjected to 12% yearly rate.\nLocking amount: at least 100,000 CHEX or higher. The exceeding part needs to be integer multiples 10,000.</string>
+    <string name="have_received">Reward received</string>
+    <string name="nohave_received">Pending reward</string>
+    <string name="locking_chex">Locking</string>
+    <string name="locked_chex">Settled</string>
+    <string name="lock_describe">Locking revenue= earned revenue+ expected revenue.</string>
+    <string name="apply_locknum_error">Applied locking amount is incorrect!</string>
+    <string name="apply_locknum">Locking amount</string>
+
+    <!--打新区-->
+
+    <!--修改交易密码-->
+    <string name="new_trade_pwd">New trading password</string>
+
+    <string name="coins_text2">It is forbidden to recharge assets other than %1$s to %2$s address, any non %3$s assetsrecharged into %4$s address will not be retrieved.We ONLY support deposit address with MEMO_TEXT tag. %5$s deposit ONLY support payment transaction, and other types of transaction(like pathpayment) are not available. We apologize for any inconvenience caused.Recharge using %6$s address requires %7$s network confirmations to arrive.Transfer and deposit with smart contract and block reward（Coinbase）are not available and the assets won’t arrive to your account. We apologize to any inconvenience caused.</string>
+
+    <!--针对GRIN这个币的样式-->
+    <string name="first_step">Step 1：</string>
+    <string name="second_step">Step 2：</string>
+    <string name="third_step">Step 3：</string>
+    <string name="recharge_grin_address">Please transfer %1$s to the address above.</string>
+    <string name="write_grin_order_tips">Fill in the transfer order according to the related info.</string>
+    <string name="txid_grin_hint">Please enter the withdraw hash value.</string>
+    <string name="recharge_amount">Deposit amount</string>
+    <string name="recharge_grin_amount_hint">Please enter the same withdraw amount(or transfer won\'t succeed)</string>
+    <string name="recharge_grin_finish">Submitted.</string>
+    <string name="recharge_grin_finish_text">Deposit record will be dispalyed on the platform after confirmation.</string>
+    <string name="grin_submit">Submit</string>
+    <string name="txid_tips">Please enter TXID</string>
+    <string name="amount_tips">Please enter deposit amount</string>
+
+    <!--打新区二期-->
+
+    <!--VDS-->
+
+    <!--首页-->
+    <string name="home_recharge">Recharge</string>
+
+    <string name="please_bind_phone">Please bind your cell phone number first.</string>
+    <string name="refresh_string">globalex</string>
+    <string name="exit">Exit TACU</string>
+    <string name="splash_string">Global Block Chain Digital Money Exchange</string>
+    <string name="register_fast">register immediately</string>
+    <string name="get_sms_code">Get authentication code</string>
+    <string name="home">quotation </string>
+    <string name="help">help</string>
+    <string name="you_no_login">You are not logged in yet</string>
+    <string name="drawer_realName">authentication</string>
+    <string name="drawer_safe">security center</string>
+    <string name="drawer_invite">Invite friends</string>
+    <string name="drawer_news">latest announcement</string>
+    <string name="drawer_contus">Contact us</string>
+    <string name="drawer_question">FAQ</string>
+    <string name="drawer_ticket">my work order</string>
+    <string name="drawer_language">language settings</string>
+    <string name="drawer_money">converted currency</string>
+    <string name="drawer_nowversion">current version</string>
+    <string name="market_rise_and_fall">24H increase</string>
+    <string name="market_pair">name</string>
+    <string name="market_vol">&#160;|&#160;vol</string>
+    <string name="high_price_24hour">24H Max price</string>
+    <string name="low_price_24hour">24H minimum price</string>
+    <string name="volume_24hour">24H turnover</string>
+    <string name="go_trade">to trade</string>
+    <string name="buy_high">highest purchase price</string>
+    <string name="sell_low">the lowest selling order price</string>
+    <string name="buy_low_sell_high">bid-ask spread ratio</string>
+    <string name="current_entrust">current delegate</string>
+    <string name="lastest_deal">latest transaction</string>
+    <string name="lodge_amount">hanging list amount</string>
+    <string name="volume_amount">turnover</string>
+    <string name="trade_no_tip1">You currently have no transaction record</string>
+    <string name="trade_no_tip2">go ahead and trade</string>
+    <string name="only_current_market">Current market only</string>
+    <string name="history_entrust">historical delegation</string>
+    <string name="all_revoke">Undo all</string>
+    <string name="full_stop_transaction">total station transaction</string>
+    <string name="my_transaction">my transaction</string>
+    <string name="higher">highest</string>
+    <string name="lower">minimum</string>
+    <string name="quotation_view">market chart</string>
+    <string name="kline_view">k-line graph</string>
+    <string name="depth_view">depth map</string>
+    <string name="trade_pwd_setting">transaction password setting</string>
+    <string name="history_deal">historical transaction</string>
+    <string name="change_left_hand">toggle left hand</string>
+    <string name="change_right_hand">toggle right hand</string>
+    <string name="xieyi">I have read and agreed to the TACU User Agreement</string>
+    <string name="yonghu_xieyi">user protocol</string>
+    
+
+    <string name="hint_common_add_new_address">input or long press paste address</string>
+    <string name="hint_common_add_new_address_note">Please enter wallet note</string>
+    
+    <string name="label_assets_item_own_count">number of holdings</string>
+    <string name="label_assets_item_own_available">available number</string>
+    <string name="label_assets_item_freeze_count">number of freezes</string>
+    <string name="title_assets_import_address">Import the following address:</string>
+    <string name="brief_assets_obtain_address">sweep code to get the replenishment address</string>
+    
+    <string name="label_assets_take_coin_note">wallet note</string>
+    <string name="hint_assets_take_coin_note">Please enter wallet note</string>
+    <string name="label_assets_take_coin_address">withdrawal address</string>
+    <string name="hint_assets_take_coin_address">enter or long press paste address</string>
+    <string name="label_assets_take_coin_amount">withdrawal amount</string>
+    <string name="hint_assets_take_coin_amount">Input withdrawal amount</string>
+    <string name="btn_assets_take_coin_manage_address">address management</string>
+    <string name="hint_assets_take_coin_enter_pwd">Please enter the transaction password</string>
+    <string name="hint_assets_take_coin_enter_google_code">Please enter Google Verification Code</string>
+    <string name="title_assets_take_coin_choose_verify_option">Please select authentication mode</string>
+
+    
+    <string name="label_assets_take_coin_verify_by_phone">mobile phone verification</string>
+    <string name="label_assets_take_coin_verify_by_email">mailbox validation</string>
+    <string name="btn_assets_take_coin_obtain_pass_code">get verification code</string>
+    
+
+    <string name="label_assets_cash_amount">available balance:</string>
+    <string name="label_assets_actual_amount">Actual arrival:</string>
+    <string name="label_assets_at_least_amount">Minimum withdrawal in a single transaction:</string>
+    <string name="label_assets_trans_fee">handling charge:</string>
+    <string name="btn_assets_take_coin_confirm">Application for withdrawal of currency to address</string>
+    <string name="btn_common_add_new_address">Add a new address</string>
+    <string name="msg_wrong_qrcode_is_empty">Return empty</string>
+
+    <string name="msg_wrong_qrcode_unknown_wrong_happen">An unknown error occurred</string>
+    <string name="usdt_tip">Please select USDT based on ERC20 to recharge</string>
+
+    <!--实人认证-->
+</resources>
+

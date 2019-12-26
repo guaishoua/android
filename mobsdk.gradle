@@ -1,0 +1,30 @@
+apply plugin: "com.mob.sdk"
+
+//在MobSDK的扩展中注册ShareSDK的相关信息
+//防止需要添加的分享的地方太多 所以把这一部分提出来 单独写一个gradle
+MobSDK {
+    appKey "2c37faa3c1ca8"
+    appSecret "b25fdc414e8dc9d0425b017a23af7415"
+
+    //MobSDK会默认注入这个权限 如果不加这句话 googleplay会下架(googleplay不允许无理由添加这个权限)
+    permissions {
+        exclude "android.permission.RECEIVE_SMS"
+    }
+
+    ShareSDK {
+        //Onekeyshare是ShareSDK的GUI界面，如果不需要，则需要添加”gui false”
+        gui false
+        devInfo {
+            Wechat {
+                appId "wx2a40d1aa76057e72"
+                appSecret "3df9b8ed4f61099e75b7c520b8c49e59"
+                bypassApproval false
+            }
+            WechatMoments {
+                appId "wx2a40d1aa76057e72"
+                appSecret "3df9b8ed4f61099e75b7c520b8c49e59"
+                bypassApproval false
+            }
+        }
+    }
+}
