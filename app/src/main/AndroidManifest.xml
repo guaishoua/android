@@ -136,7 +136,6 @@
         <activity android:name="com.android.tacu.module.lock.view.FingerprintActivity" />
         <activity android:name="com.android.tacu.module.my.view.GoogleHintActivity" />
         <activity android:name="com.android.tacu.module.my.view.InvitedRecordActivity" />
-        <activity android:name="com.android.tacu.module.assets.view.RecordActivity" />
         <activity android:name="com.android.tacu.module.transaction.view.TradeRecordManageActivity" />
         <activity android:name="com.android.tacu.module.transaction.view.DealDetailsActivity" />
         <activity android:name="com.android.tacu.module.my.view.InvitePosterActivity" />

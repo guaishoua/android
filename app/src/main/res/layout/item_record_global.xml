@@ -233,7 +233,6 @@
 
 
     <CheckBox
-        android:id="@+id/cb_more"
         android:layout_width="@dimen/dp_0"
         android:layout_height="@dimen/dp_0"
         android:background="@drawable/checkbox_record"

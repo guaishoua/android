@@ -1,6 +1,5 @@
 package com.android.tacu.module.auth.view;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -16,9 +15,7 @@ import com.android.tacu.module.auth.contract.AuthContract;
 import com.android.tacu.module.auth.model.AliModel;
 import com.android.tacu.module.auth.model.SelectAuthLevelModel;
 import com.android.tacu.module.auth.presenter.AuthPresenter;
-import com.android.tacu.utils.PackageUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
-import com.android.tacu.widget.dialog.DroidDialog;
 import com.yanzhenjie.permission.Permission;
 
 import butterknife.BindView;
@@ -63,33 +60,9 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
     @Override
     protected void initView() {
         mTopBar.setTitle(getResources().getString(R.string.identity_authentication));
-        if (!TextUtils.isEmpty(spUtil.getActivityWord1())) {
-            mTopBar.addRightImageButton(R.drawable.icon_tip_black, R.id.qmui_topbar_item_right, 12, 16).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showActivityWord();
-                }
-            });
-        }
 
         tvKyc1.setTextColor(ContextCompat.getColor(this, R.color.text_grey_2));
         tvKyc1.setText(getResources().getString(R.string.verified));
-    }
-
-    @Override
-    protected void initLazy() {
-        super.initLazy();
-        getWindow().getDecorView().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!TextUtils.equals(PackageUtils.getVersion(), spUtil.getVersionName())) {
-                    hideLoadingView();
-
-                    spUtil.setVersionName(PackageUtils.getVersion());
-                    showActivityWord();
-                }
-            }
-        }, 2000);
     }
 
     @Override
@@ -255,18 +228,5 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
     @Override
     public void vedioAuth() {
         mPresenter.selectAuthLevel();
-    }
-
-    private void showActivityWord() {
-        if (!TextUtils.isEmpty(spUtil.getActivityWord1())) {
-            new DroidDialog.Builder(this)
-                    .content(spUtil.getActivityWord1())
-                    .positiveButton(getResources().getString(R.string.node_know), new DroidDialog.onPositiveListener() {
-                        @Override
-                        public void onPositive(Dialog droidDialog) {
-                            droidDialog.dismiss();
-                        }
-                    }).show();
-        }
     }
 }

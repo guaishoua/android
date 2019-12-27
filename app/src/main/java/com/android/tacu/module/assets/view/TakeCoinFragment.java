@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -64,9 +62,6 @@ import butterknife.OnClick;
  */
 
 public class TakeCoinFragment extends BaseFragment<CoinsPresenter> implements CoinsContract.ITakeCoinView, BaseQuickAdapter.OnItemClickListener {
-
-//    @BindView(R.id.rl_address)
-//    RelativeLayout rl_address;
 
     private static final int REQUEST_CODE_QRCODE = 321;
 
@@ -307,18 +302,16 @@ public class TakeCoinFragment extends BaseFragment<CoinsPresenter> implements Co
             case REQUEST_CODE_QRCODE:
 
                 if (data == null || TakeCoinFragment.this.isDetached()) {
-                    Log.i("TakeCoinFragment", "TakeCoinFragment got null Data");
                     return;
                 }
 
                 if (resultCode == Activity.RESULT_OK) {
                     String qrCode = data.getStringExtra(ZXingCommonActivity.RESULT_CODE_ENTITY);
-//                    Toast.makeText(getContext(), qrCode, Toast.LENGTH_SHORT).show();
                     etSelectAddress.setText(qrCode);
                 } else if (resultCode == Activity.RESULT_CANCELED) {
                     String errorMsg = data.getStringExtra(ZXingCommonActivity.RESULT_CODE_ERROR);
                     if (errorMsg != null)
-                        Toast.makeText(getContext(), errorMsg, Toast.LENGTH_SHORT).show();
+                        showToastError(errorMsg);
                 }
 
 

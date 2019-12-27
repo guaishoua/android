@@ -51,8 +51,6 @@ public class UserManageUtils {
         spUtil.setAuth(0);
         spUtil.setUserUid(0);
         spUtil.setIsAuthSenior(0);
-        spUtil.setActivityTime(0);
-        spUtil.setFirstRecharge(0);
         spUtil.setToken("");
         spUtil.setPhone("");
         spUtil.setEmail("");
@@ -61,9 +59,6 @@ public class UserManageUtils {
         spUtil.setGaStatus("");
         spUtil.setAgentTime("");
         spUtil.saveOldAccount("");
-        spUtil.setActivityWord1("");
-        spUtil.setActivityWord2("");
-        spUtil.setActivityWord3("");
         spUtil.setPhoneStatus(false);
         spUtil.setEmailStatus(false);
         spUtil.setValidatePass(false);

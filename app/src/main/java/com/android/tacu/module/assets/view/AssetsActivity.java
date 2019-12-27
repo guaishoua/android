@@ -20,7 +20,6 @@ import com.android.tacu.module.assets.model.MoneyFlowEvent;
 import com.android.tacu.module.assets.model.RecordEvent;
 import com.android.tacu.module.assets.model.TransInfoCoinModal;
 import com.android.tacu.module.assets.presenter.AssetsPresenter;
-import com.android.tacu.module.auth.model.SelectAuthLevelModel;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.widget.ControlScrollViewPager;
 import com.google.gson.Gson;
@@ -51,13 +50,12 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private int currencyId = 1;
     private String recharge;
     private String take;
+    private String otcTransfer;
     private String currencyNameEn = "BTC";
     private FragmentAdapter fragmentAdapter;
 
     private RechargeFragment rechargeFragment;
     private TakeCoinFragment takeCoinFragment;
-    private ExchangeFragment exchangeFragment;
-    private TransferOTCFragment transferFragment;
     private UuexOTCFragment uuexOTCFragment;
 
     private Gson gson = new Gson();
@@ -72,7 +70,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
      * @param context
      * @param currencyNameEn
      * @param currencyId
-     * @param flags          第几个 0=充币 1=提币 2=兑换 3=划转 4=UUEX划转
+     * @param flags          第几个 0=充币 1=提币 2=UUEX划转
      * @param isDetails      true：不用默认的btc
      * @return
      */
@@ -92,7 +90,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
         intent.putExtra("flags", flags);
         intent.putExtra("isDetails", isDetails);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("transInfoCoinModal",transInfoCoinModal);
+        bundle.putSerializable("transInfoCoinModal", transInfoCoinModal);
         intent.putExtras(bundle);
         return intent;
     }
@@ -122,16 +120,8 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
         recordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (current == 4) {
-                    MoneyFlowEvent event = new MoneyFlowEvent(
-                            getString(R.string.all),
-                            "0",
-                            currencyId,
-                            currencyNameEn,
-                            "",
-                            ""
-                    );
-
+                if (current == 2) {
+                    MoneyFlowEvent event = new MoneyFlowEvent(getResources().getString(R.string.all), "0", currencyId, currencyNameEn, "", "");
                     event.setType("0");
                     jumpTo(MoneyFlowActivity.createActivity(AssetsActivity.this, event));
                 } else {
@@ -220,7 +210,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
 
     private void initTabTitle() {
         fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
-        viewpager.setOffscreenPageLimit(4);
+        viewpager.setOffscreenPageLimit(3);
         viewpager.setAdapter(fragmentAdapter);
         viewpager.setCurrentItem(current);
     }
@@ -228,18 +218,17 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private void initFragments() {
         recharge = getResources().getString(R.string.recharge);
         take = getResources().getString(R.string.withdrawals);
+        otcTransfer = getResources().getString(R.string.transfer);
 
         switch (flags) {
             case 0:
                 mTopBar.setTitle(currencyNameEn + recharge);
                 break;
             case 1:
-                mTopBar.setTitle(currencyNameEn);
                 mTopBar.setTitle(currencyNameEn + take);
                 break;
             case 2:
-                break;
-            case 3:
+                mTopBar.setTitle(currencyNameEn + otcTransfer);
                 break;
         }
         fragmentList = new ArrayList<>();
@@ -255,13 +244,9 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
         }
         rechargeFragment = RechargeFragment.newInstance(currencyId, currencyNameEn, rechargeFlag);
         takeCoinFragment = TakeCoinFragment.newInstance(currencyId, currencyNameEn, takeCoinFlag);
-        exchangeFragment = ExchangeFragment.newInstance(currencyId, currencyNameEn);
-        transferFragment = TransferOTCFragment.newInstance(currencyId, currencyNameEn);
         uuexOTCFragment = UuexOTCFragment.newInstance(currencyId, currencyNameEn, transInfoCoinModal);
         fragmentList.add(rechargeFragment);
         fragmentList.add(takeCoinFragment);
-        fragmentList.add(exchangeFragment);
-        fragmentList.add(transferFragment);
         fragmentList.add(uuexOTCFragment);
 
         initTabTitle();
@@ -272,11 +257,6 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
         if (attachment != null && attachment.size() > 0) {
             SPUtils.getInstance().put(Constant.SELECT_COIN_NOGROUP_CACHE, gson.toJson(attachment));
         }
-    }
-
-    @Override
-    public void selectAuthLevel(SelectAuthLevelModel attachment) {
-        spUtil.setIsAuthSenior(attachment.isAuthSenior);
     }
 
     private class FragmentAdapter extends FragmentPagerAdapter {

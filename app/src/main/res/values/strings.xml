@@ -85,11 +85,8 @@
     <string name="withdrawals">提币</string>
     <string name="node_profit">平台昨日单节点收益</string>
     <string name="transfer">划转</string>
-    <string name="service_charge">手续费：</string>
-    <string name="transfer_record">划转记录</string>
     <string name="bind_phone_hint">验证已绑定的手机号</string>
     <string name="bind_email_hint">验证已绑定的邮箱</string>
-    <string name="node_know">知道了</string>
     <string name="address">地址</string>
     <string name="payment_id">%1$s (未填写将无法到账！)</string>
     <string name="copy_address">複製地址</string>
@@ -106,27 +103,13 @@
     <string name="please_get_the_level_of_KYC">请完成KYC2认证</string>
     <string name="asset_num">数量</string>
     <string name="transfer_available2">可用：</string>
-    <string name="transfer_num">最小转入数量为</string>
-    <string name="transfer_num2">最小转出数量为</string>
-    <string name="transfer_hint2">转入完成后，您可进入历史记录页面跟踪进度</string>
-    <string name="transfer_hint3">转出完成后，您可进入历史记录页面跟踪进度</string>
-    <string name="account_hint">收款Epay账号</string>
-    <string name="transfer_account">账号</string>
-    <string name="you_will">实际到账：</string>
     <string name="transfer_in">转入</string>
     <string name="transfer_out">转出</string>
-    <string name="epay_account">收款Epay账号</string>
     <string name="add_success">添加账号成功</string>
-    <string name="epay_error">Epay账号格式错误</string>
-    <string name="epay_hint">请前往Epay官网进行支付操作</string>
-    <string name="navigate">立即前往</string>
-    <string name="epay_register">未开通Epay帐户？去注册</string>
-    <string name="epay_success">转出成功，请前往Epay查看余额</string>
 
     <!--提币-->
     <string name="deposit_history">充值记录</string>
     <string name="take_history">提币记录</string>
-    <string name="exchange_history">兑换记录</string>
     <string name="history">流水</string>
     <string name="please_select_address">选择提币地址</string>
     <string name="min_extract">最小提币数量</string>
@@ -142,33 +125,9 @@
     <string name="take_verify_code">请输入验证码</string>
     <string name="above_step">上一步</string>
     <string name="take_hint">系统将在30分钟内完成审核，待网络确认后即可到账。请注意，修改安全设置后的24小时内不可提币。</string>
-    <string name="note">备注</string>
 
     <!--USDT->CODE-->
-    <string name="exchange">兑换</string>
     <string name="exchange_pwd">请先设置交易密码</string>
-    <string name="exchange_hint">兑换价格根据USDT实时价格进行兑换，本人已知晓风险，确定兑换</string>
-    <string name="exchange_usdt_hint">兑换USDT数量</string>
-    <string name="exchange_code_hint">兑换CODE数量</string>
-    <string name="exchange_pwd_in">请输入交易密码</string>
-    <string name="exchange_num_usdt">可用数量USDT：</string>
-    <string name="exchange_num_code">可用数量CODE：</string>
-    <string name="exchange_peice_hint">兑换比例：</string>
-    <string name="exchange_real_price">实时兑换价格：</string>
-    <string name="exchange_obtain_code">获得CODE数量：</string>
-    <string name="exchange_obtain_usdt">获得USDT数量：</string>
-    <string name="exchange_info">确认兑换信息</string>
-    <string name="exchange_affrim">确认兑换</string>
-    <string name="exchange_success">兑换成功</string>
-    <string name="exchange_num_usdt2">兑换USDT数量：</string>
-    <string name="exchange_num_code2">兑换CODE数量：</string>
-    <string name="exchange_num">兑换数量</string>
-    <string name="exchange_old">支付币种：</string>
-    <string name="exchange_new">所得币种：</string>
-    <string name="exchange_old_num">支付币种数量：</string>
-    <string name="exchange_new_num">所得币种数量：</string>
-    <string name="uncompleted">未完成</string>
-    <string name="completed">已完成</string>
 
     <!--自选-->
     <string name="market_add_selfselection">添加自选</string>

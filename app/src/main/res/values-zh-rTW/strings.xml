@@ -83,11 +83,8 @@
     <string name="withdrawals">提幣</string>
     <string name="node_profit">平台昨日單節點收益</string>
     <string name="transfer">劃轉</string>
-    <string name="service_charge">手續費：</string>
-    <string name="transfer_record">劃轉記錄</string>
     <string name="bind_phone_hint">驗證已綁定的手機號</string>
     <string name="bind_email_hint">驗證已綁定的郵箱</string>
-    <string name="node_know">知道了</string>
     <string name="address">地址</string>
     <string name="payment_id">%1$s (未填寫將無法到賬！)</string>
     <string name="copy_address">複製地址</string>
@@ -104,27 +101,13 @@
     <string name="please_get_the_level_of_KYC">請完成KYC2認證</string>
     <string name="asset_num">數量</string>
     <string name="transfer_available2">可用：</string>
-    <string name="transfer_num">最小轉入數量為</string>
-    <string name="transfer_num2">最小轉出數量為</string>
-    <string name="transfer_hint2">轉入完成後，您可進入歷史記錄頁面跟蹤進度</string>
-    <string name="transfer_hint3">轉出完成後，您可進入歷史記錄頁面跟蹤進度</string>
-    <string name="account_hint">收款Epay賬號</string>
-    <string name="transfer_account">賬號</string>
-    <string name="you_will">實際到賬：</string>
     <string name="transfer_in">轉入</string>
     <string name="transfer_out">轉出</string>
-    <string name="epay_account">收款Epay賬號</string>
     <string name="add_success">添加賬號成功</string>
-    <string name="epay_error">Epay賬號格式錯誤</string>
-    <string name="epay_hint">請前往Epay官網進行支付操作</string>
-    <string name="navigate">立即前往</string>
-    <string name="epay_register">未開通Epay帳戶？去註冊</string>
-    <string name="epay_success">转出成功，请前往Epay查看余额</string>
 
     <!--提幣-->
     <string name="deposit_history">充值記錄</string>
     <string name="take_history">提幣記錄</string>
-    <string name="exchange_history">兌換記錄</string>
     <string name="history">流水</string>
     <string name="please_select_address">選擇提幣地址</string>
     <string name="min_extract">最小提幣數量</string>
@@ -140,33 +123,9 @@
     <string name="take_verify_code">請輸入驗證碼</string>
     <string name="above_step">上壹步</string>
     <string name="take_hint">系統將在30分鐘內完成審核，待網絡確認後即可到賬。請注意，修改安全設置後的24小時內不可提幣。</string>
-    <string name="note">備註</string>
 
     <!--USDT->CODE-->
-    <string name="exchange">兌換</string>
     <string name="exchange_pwd">請先設置交易密碼</string>
-    <string name="exchange_hint">兌換價格根據USDT實時價格進行兌換，本人已知曉風險，確定兌換</string>
-    <string name="exchange_usdt_hint">兌換USDT數量</string>
-    <string name="exchange_code_hint">兌換CODE數量</string>
-    <string name="exchange_pwd_in">請輸入交易密碼</string>
-    <string name="exchange_num_usdt">可用數量USDT：</string>
-    <string name="exchange_num_code">可用數量CODE：</string>
-    <string name="exchange_peice_hint">兌換比例：</string>
-    <string name="exchange_real_price">實時兌換價格：</string>
-    <string name="exchange_obtain_code">獲得CODE數量：</string>
-    <string name="exchange_obtain_usdt">獲得USDT數量：</string>
-    <string name="exchange_info">確認兌換信息</string>
-    <string name="exchange_affrim">確認兌換</string>
-    <string name="exchange_success">兑换成功</string>
-    <string name="exchange_num_usdt2">兌換USDT數量：</string>
-    <string name="exchange_num_code2">兌換CODE數量：</string>
-    <string name="exchange_num">兌換數量</string>
-    <string name="exchange_old">支付幣種：</string>
-    <string name="exchange_new">所得幣種：</string>
-    <string name="exchange_old_num">支付幣種數量：</string>
-    <string name="exchange_new_num">所得幣種數量：</string>
-    <string name="uncompleted">未完成</string>
-    <string name="completed">已完成</string>
 
     <!--自选-->
     <string name="market_add_selfselection">添加自選</string>

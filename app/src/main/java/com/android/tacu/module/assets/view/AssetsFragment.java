@@ -1,6 +1,5 @@
 package com.android.tacu.module.assets.view;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -22,7 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -49,11 +47,9 @@ import com.android.tacu.utils.ScreenShareHelper;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.view.popup.CoinPickerView;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
-import com.android.tacu.widget.dialog.DroidDialog;
 import com.google.gson.Gson;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -61,7 +57,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -82,15 +77,10 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     RecyclerView recyclerView;
 
     //头布局
-    private ImageView img_describe;
     private TextView tv_btc_total;
     private TextView tv_ycn_total;
     private CheckBox cb_search;
     private EditText et_search;
-    private ImageView iv_search;
-    private TextView tv_recharge;
-    private TextView tv_withdraw;
-    private TextView tv_transfer;
 
     private String btc_total_string;
     private String ycn_total_string;
@@ -106,7 +96,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     private Gson gson = new Gson();
     private InputMethodManager inputMethod;
     private boolean defaultEyeStatus = true;
-    private String oldAssetDetailsModelString;
     private AssetDetailsModel assetDetailsModel;
     private List<AssetDetailsModel.CoinListBean> currentList = new ArrayList<>();
     private List<AssetDetailsModel.CoinListBean> currentSearchList = new ArrayList<>();
@@ -125,9 +114,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         super.initLazy();
         if (spUtil.getLogin()) {
             myAssets();
-            mPresenter.listActivityWords();
             upLoad(assetDetailsModel != null ? false : true);
-            yunyingActivity();
         }
     }
 
@@ -139,7 +126,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     @Override
     protected void initData() {
         mTopBar.setTitle(getResources().getString(R.string.assets));
-        QMUIRadiusImageView circleImageView = new QMUIRadiusImageView(getContext());
+        ImageView circleImageView = new ImageView(getContext());
         circleImageView.setBackgroundColor(Color.TRANSPARENT);
         circleImageView.setScaleType(CENTER_CROP);
         circleImageView.setImageResource(R.mipmap.icon_mines);
@@ -185,7 +172,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         refreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                mPresenter.listActivityWords();
                 upLoad(false);
             }
         });
@@ -236,9 +222,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     public void onResume() {
         super.onResume();
         if (isVisibleToUser) {
-            mPresenter.listActivityWords();
             upLoad(assetDetailsModel != null ? false : true);
-            yunyingActivity();
         }
     }
 
@@ -263,30 +247,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.img_describe:
-                if (!TextUtils.isEmpty(spUtil.getActivityWord2())) {
-                    new DroidDialog.Builder(getContext())
-                            .content(spUtil.getActivityWord2())
-                            .positiveButton(getResources().getString(R.string.node_know), new DroidDialog.onPositiveListener() {
-                                @Override
-                                public void onPositive(Dialog droidDialog) {
-                                    droidDialog.dismiss();
-                                }
-                            }).show();
-                }
-                break;
-            case R.id.tv_recharge:
-                assetsIntent(0);
-                break;
-            case R.id.tv_withdraw:
-                if (!isKeyc()) {
-                    return;
-                }
-                assetsIntent(1);
-                break;
-            case R.id.tv_transfer:
-                jumpTo(AssetsActivity.createActivity(getActivity(), "USDT", 63, 3, true));
-                break;
             case R.id.iv_search:
                 search();
                 break;
@@ -306,10 +266,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         if (refreshlayout != null && refreshlayout.isRefreshing()) {
             refreshlayout.finishRefresh();
         }
-    }
-
-    private void assetsIntent(int current) {
-        jumpTo(AssetsActivity.createActivity(getActivity(), "", -1, current, false));
     }
 
     /**
@@ -343,7 +299,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
 
     @Override
     public void showContent(AssetDetailsModel model) {
-        this.oldAssetDetailsModelString = gson.toJson(model);
         this.assetDetailsModel = model;
 
         int indexOf = assetDetailsModel.allMoney.indexOf(".");
@@ -352,49 +307,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         }
 
         if (assetDetailsModel != null) {
-            //如果有运营首冲活动就手动加usdt数量
-            if (spUtil.getFirstRecharge() != 0) {
-                if (assetDetailsModel.coinList != null && assetDetailsModel.coinList.size() > 0) {
-                    for (int i = 0; i < assetDetailsModel.coinList.size(); i++) {
-                        if (TextUtils.equals(assetDetailsModel.coinList.get(i).currencyNameEn, "USDT")) {
-                            assetDetailsModel.coinList.get(i).freezeAmount += spUtil.getFirstRecharge();
-                            assetDetailsModel.coinList.get(i).amount += spUtil.getFirstRecharge();
-                            break;
-                        }
-                    }
-                }
-
-                boolean isHaveUsdt = false;
-                if (assetDetailsModel.selfCoinList != null && assetDetailsModel.selfCoinList.size() > 0) {
-                    for (int i = 0; i < assetDetailsModel.selfCoinList.size(); i++) {
-                        if (TextUtils.equals(assetDetailsModel.selfCoinList.get(i).currencyNameEn, "USDT")) {
-                            assetDetailsModel.selfCoinList.get(i).freezeAmount += spUtil.getFirstRecharge();
-                            assetDetailsModel.selfCoinList.get(i).amount += spUtil.getFirstRecharge();
-                            isHaveUsdt = true;
-                            break;
-                        }
-                    }
-                }
-                if (!isHaveUsdt) {
-                    AssetDetailsModel.CoinListBean bean = new AssetDetailsModel.CoinListBean();
-                    bean.currencyNameEn = "USDT";
-                    bean.amount = spUtil.getFirstRecharge();
-                    bean.freezeAmount = spUtil.getFirstRecharge();
-                    bean.currencyName = "Tether";
-                    bean.lockAmount = 0;
-                    bean.cashAmount = 0;
-                    bean.icoUrl = "coinimg/usdt.png";
-                    bean.baseCurrencyId = 63;
-                    bean.currencyId = 63;
-                    bean.btc_value = "0.0";
-                    assetDetailsModel.selfCoinList.add(bean);
-                }
-
-                if (getCurrentAmount() != 0) {
-                    assetDetailsModel.allMoney = String.valueOf(Double.parseDouble(assetDetailsModel.allMoney) + (spUtil.getFirstRecharge() / getCurrentAmount()));
-                }
-            }
-
             if (refreshlayout != null && refreshlayout.isRefreshing()) {
                 refreshlayout.finishRefresh();
             }
@@ -416,28 +328,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     }
 
     @Override
-    public void listActivityWords(HashMap<Integer, String> map) {
-        if (map != null) {
-            spUtil.setActivityWord1(map.get(1));
-            spUtil.setActivityWord2(map.get(2));
-            spUtil.setActivityWord3(map.get(3));
-            spUtil.setFirstRecharge(TextUtils.isEmpty(map.get(4)) ? 0 : Float.parseFloat(map.get(4)));
-
-            if (!TextUtils.isEmpty(map.get(4))) {
-                if (!TextUtils.isEmpty(oldAssetDetailsModelString)) {
-                    AssetDetailsModel model = gson.fromJson(oldAssetDetailsModelString, AssetDetailsModel.class);
-                    showContent(model);
-                }
-            }
-        } else {
-            spUtil.setActivityWord1("");
-            spUtil.setActivityWord2("");
-            spUtil.setActivityWord3("");
-            spUtil.setFirstRecharge(0);
-        }
-    }
-
-    @Override
     public void transInfoCoin(TransInfoCoinModal attachment) {
         transInfoCoinModal = attachment;
         dealAssetList();
@@ -453,21 +343,11 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
 
     private void initAssetHeader() {
         assetHeaderView = View.inflate(getActivity(), R.layout.header_asset_details, null);
-        img_describe = assetHeaderView.findViewById(R.id.img_describe);
         tv_btc_total = assetHeaderView.findViewById(R.id.tv_btc_total);
         tv_ycn_total = assetHeaderView.findViewById(R.id.tv_ycn_total);
         cb_search = assetHeaderView.findViewById(R.id.cb_search);
         et_search = assetHeaderView.findViewById(R.id.et_search);
-        iv_search = assetHeaderView.findViewById(R.id.iv_search);
-        tv_recharge = assetHeaderView.findViewById(R.id.tv_recharge);
-        tv_withdraw = assetHeaderView.findViewById(R.id.tv_withdraw);
-        tv_transfer = assetHeaderView.findViewById(R.id.tv_transfer);
 
-        img_describe.setOnClickListener(this);
-        tv_recharge.setOnClickListener(this);
-        tv_withdraw.setOnClickListener(this);
-        tv_transfer.setOnClickListener(this);
-        iv_search.setOnClickListener(this);
         et_search.setOnClickListener(this);
         adapter.addHeaderView(assetHeaderView);
 
@@ -547,12 +427,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             holder.itemView.findViewById(R.id.tv_asset_item_recharge).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    jumpTo(
-                            AssetsActivity.createActivity(
-                                    getActivity(), data.currencyNameEn,
-                                    data.currencyId, 0,
-                                    true)
-                    );
+                    jumpTo(AssetsActivity.createActivity(getActivity(), data.currencyNameEn, data.currencyId, 0, true));
                 }
             });
 
@@ -562,12 +437,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                     if (!isKeyc()) {
                         return;
                     }
-                    jumpTo(
-                            AssetsActivity.createActivity(
-                                    getActivity(), data.currencyNameEn,
-                                    data.currencyId, 1,
-                                    true)
-                    );
+                    jumpTo(AssetsActivity.createActivity(getActivity(), data.currencyNameEn, data.currencyId, 1, true));
                 }
             });
 
@@ -595,8 +465,8 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                     jumpTo(
                             AssetsActivity.createActivity(
                                     getActivity(), data.currencyNameEn,
-                                    data.currencyId, 4,
-                                    true)
+                                    data.currencyId, 2,
+                                    true, transInfoCoinModal)
                     );
                 }
             });
@@ -642,13 +512,10 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                         }
 
                         if (selected.isEmpty()) {
-                            Toast.makeText(mContext,
-                                    getString(R.string.msg_coin_picker_not_found, data.currencyNameEn),
-                                    Toast.LENGTH_SHORT).show();
+                            showToastError(getResources().getString(R.string.msg_coin_picker_not_found, data.currencyNameEn));
                         } else if (selected.size() == 1) {
                             sendEvent(selected.get(0));
                         } else {
-                            /** more than 1 */
                             setBackGroundAlpha(0.5f);
                             new CoinPickerView(getActivity(), data.currencyNameEn, selected, new CoinPickerView.Listener() {
                                 @Override
@@ -667,9 +534,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                                             true);
                         }
                     } else {
-                        Toast.makeText(mContext,
-                                getString(R.string.msg_coin_picker_not_found, data.currencyNameEn),
-                                Toast.LENGTH_SHORT).show();
+                        showToastError(getResources().getString(R.string.msg_coin_picker_not_found, data.currencyNameEn));
                     }
                 }
             });
@@ -684,14 +549,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         if (assetDetailsModel != null) {
             ycn_total_string = "≈" + getMcM(1, Double.parseDouble(assetDetailsModel.allMoney));
             tv_ycn_total.setText(ycn_total_string);
-        }
-    }
-
-    private void yunyingActivity() {
-        if (!TextUtils.isEmpty(spUtil.getActivityWord2())) {
-            img_describe.setVisibility(View.VISIBLE);
-        } else {
-            img_describe.setVisibility(View.GONE);
         }
     }
 

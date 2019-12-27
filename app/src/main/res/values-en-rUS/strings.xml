@@ -83,11 +83,8 @@
     <string name="withdrawals">Withdraw</string>
     <string name="node_profit">Yesterday’s single node revenue</string>
     <string name="transfer">Transfer</string>
-    <string name="service_charge">service charge：</string>
-    <string name="transfer_record">Transfer</string>
     <string name="bind_phone_hint">Verify the bound phone number</string>
     <string name="bind_email_hint">Verify the bound mailbox</string>
-    <string name="node_know">I Know</string>
     <string name="address">Address</string>
     <string name="payment_id">%1$s (No tokens can be received without the information)</string>
     <string name="copy_address">Copy Address</string>
@@ -104,27 +101,13 @@
     <string name="please_get_the_level_of_KYC">Please get the level of KYC 2</string>
     <string name="asset_num">Amount</string>
     <string name="transfer_available2">Available：</string>
-    <string name="transfer_num">Minimum transfer in amount is</string>
-    <string name="transfer_num2">Minimum transfer out amount is</string>
-    <string name="transfer_hint2">You can check the progress on history page after transfer is completed.</string>
-    <string name="transfer_hint3">You can check the progress on history page after transfer is completed.</string>
-    <string name="account_hint">Receiving Epay account</string>
-    <string name="transfer_account">Account</string>
-    <string name="you_will">You Will Get：</string>
     <string name="transfer_in">Transfer in</string>
     <string name="transfer_out">Transfer out</string>
-    <string name="epay_account">Epay receipt account</string>
     <string name="add_success">Add account success</string>
-    <string name="epay_error">Epay account format error</string>
-    <string name="epay_hint">Please navigate to Epay offcial site to do payment operation.</string>
-    <string name="navigate">Navigate</string>
-    <string name="epay_register">No Epay account？Register</string>
-    <string name="epay_success">Transfer succeeds! Please check your balance on Epay.</string>
 
     <!--提幣-->
     <string name="deposit_history">Deposit record</string>
     <string name="take_history">Mention money record</string>
-    <string name="exchange_history">Exchange record</string>
     <string name="history">History</string>
     <string name="please_select_address">Choose a coin address</string>
     <string name="min_extract">Minimum amount</string>
@@ -140,33 +123,9 @@
     <string name="take_verify_code">Input validation code</string>
     <string name="above_step">Above step</string>
     <string name="take_hint">System review will be completed within 30 min. Fund will arrive to your account after confirmation by network. Please note that withdrawal is unavailable within 24 hours after resetting the security setting.</string>
-    <string name="note">Note</string>
 
     <!--USDT->CODE-->
-    <string name="exchange">Exchange</string>
     <string name="exchange_pwd">Please open your trading password first！</string>
-    <string name="exchange_hint">Exchange price is defined according to current-time exchange price. Are you sure to exchange with knowing the risks</string>
-    <string name="exchange_usdt_hint">USDT exchange amount</string>
-    <string name="exchange_code_hint">CODE exchange amount</string>
-    <string name="exchange_pwd_in">Please enter trading password</string>
-    <string name="exchange_num_usdt">exchangeable amount USDT：</string>
-    <string name="exchange_num_code">exchangeable amount CODE：</string>
-    <string name="exchange_peice_hint">exchange proportion：</string>
-    <string name="exchange_real_price">current exchange price：</string>
-    <string name="exchange_obtain_code">amount of CODE：</string>
-    <string name="exchange_obtain_usdt">amount of USDT：</string>
-    <string name="exchange_info">confirm the information</string>
-    <string name="exchange_affrim">sure</string>
-    <string name="exchange_success">exchange succeed！</string>
-    <string name="exchange_num_usdt2">USDT exchange amount：</string>
-    <string name="exchange_num_code2">CODE exchange amount：</string>
-    <string name="exchange_num">Exchange amount</string>
-    <string name="exchange_old">Payment currency：</string>
-    <string name="exchange_new">Aquired currency：</string>
-    <string name="exchange_old_num">Payment currency amount：</string>
-    <string name="exchange_new_num">Aquired currency amount：</string>
-    <string name="uncompleted">unfinished</string>
-    <string name="completed">success</string>
 
     <!--自选-->
     <string name="market_add_selfselection">Add</string>

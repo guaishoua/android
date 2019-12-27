@@ -238,8 +238,5 @@
             android:gravity="center"
             android:text="@string/trade"
             android:textColor="@color/color_black" />
-
     </LinearLayout>
-
-
 </LinearLayout>

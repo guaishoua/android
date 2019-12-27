@@ -4,9 +4,7 @@ import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.CoinListModel;
 import com.android.tacu.module.assets.model.TransInfoCoinModal;
-import com.android.tacu.module.auth.model.SelectAuthLevelModel;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,25 +17,17 @@ public class AssetsContract {
 
         void showContentError();
 
-        void listActivityWords(HashMap<Integer, String> map);
-
         void transInfoCoin(TransInfoCoinModal attachment);
     }
 
     public interface ICurrencyView extends IBaseMvpView {
         void currencyView(List<CoinListModel.AttachmentBean> attachment);
-
-        void selectAuthLevel(SelectAuthLevelModel attachment);
     }
 
     public interface IAssetsPresenter {
         void getAssetDetails(boolean isShowLoadingView);
 
         void coins(boolean isShowLoadingView);
-
-        void selectAuthLevel();
-
-        void listActivityWords();
 
         void transInfoCoin();
     }

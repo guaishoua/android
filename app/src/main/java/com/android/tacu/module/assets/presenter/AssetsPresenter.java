@@ -12,9 +12,6 @@ import com.android.tacu.module.assets.contract.AssetsContract;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.CoinListModel;
 import com.android.tacu.module.assets.model.TransInfoCoinModal;
-import com.android.tacu.module.auth.model.SelectAuthLevelModel;
-
-import java.util.HashMap;
 
 /**
  * set
@@ -51,26 +48,6 @@ public class AssetsPresenter extends BaseMvpPresenter implements AssetsContract.
         }, ModelTransformerFactory.getNonStandardModelTransformer());
     }
 
-    public void selectAuthLevel() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).selectAuthLevel(), new NetDisposableObserver<BaseModel<SelectAuthLevelModel>>((IBaseMvpView) getView(), false) {
-            @Override
-            public void onNext(BaseModel<SelectAuthLevelModel> levelModelBaseModel) {
-                AssetsContract.ICurrencyView view = (AssetsContract.ICurrencyView) getView();
-                view.selectAuthLevel(levelModelBaseModel.attachment);
-            }
-        });
-    }
-
-    @Override
-    public void listActivityWords() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).listActivityWords(), new NetDisposableObserver<BaseModel<HashMap<Integer, String>>>((IBaseMvpView) getView(), false) {
-            @Override
-            public void onNext(BaseModel<HashMap<Integer, String>> model) {
-                AssetsContract.IAssetsView view = (AssetsContract.IAssetsView) getView();
-                view.listActivityWords(model.attachment);
-            }
-        });
-    }
 
     @Override
     public void transInfoCoin() {

@@ -6,15 +6,10 @@ import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.ChargeModel;
 import com.android.tacu.module.assets.model.CoinAddressModel;
-import com.android.tacu.module.assets.model.ExchangListModel;
-import com.android.tacu.module.assets.model.ExchangeModel;
-import com.android.tacu.module.assets.model.ExchangeShowModel;
 import com.android.tacu.module.assets.model.MoneyFlowModel;
 import com.android.tacu.module.assets.model.SelectTakeCoinAddressModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
 import com.android.tacu.module.assets.model.TransInfoCoinModal;
-import com.android.tacu.module.assets.model.TransferInfo;
-import com.android.tacu.module.assets.model.TransferRecordModel;
 import com.android.tacu.module.auth.model.AliModel;
 import com.android.tacu.module.auth.model.AwsModel;
 import com.android.tacu.module.auth.model.SelectAuthLevelModel;
@@ -35,9 +30,6 @@ import com.android.tacu.module.my.model.InvitedInfoModel;
 import com.android.tacu.module.transaction.model.DealDetailsModel;
 import com.android.tacu.module.transaction.model.ShowOrderListModel;
 import com.android.tacu.module.transaction.model.ShowTradeListModel;
-import com.android.tacu.module.webview.model.EPayParam;
-
-import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -386,35 +378,6 @@ public interface Api {
             @Field("msgCode") String msgCode);
 
     /**
-     * 获取USDT实时价格
-     */
-    @FormUrlEncoded
-    @POST("message")
-    Observable<BaseModel<ExchangeModel>> getUSDT(
-            @Field("currencyId") int currencyId
-    );
-
-    /**
-     * 二次确认展示接口
-     */
-    @FormUrlEncoded
-    @POST("confirmMessage")
-    Observable<BaseModel<ExchangeShowModel>> confirmMessage(
-            @Field("fdPwd") String fdPwd,
-            @Field("currencyId") String currencyId,
-            @Field("amount") String amount);
-
-    /**
-     * 二次确认,确定按钮
-     */
-    @FormUrlEncoded
-    @POST("exchangeCoinUSDTToCode")
-    Observable<BaseModel> exchangeCoinUSDTToCode(
-            @Field("fdPwd") String fdPwd,
-            @Field("currencyId") String currencyId,
-            @Field("amount") String amount);
-
-    /**
      * 用户认证状态查询
      *
      * @return
@@ -580,32 +543,6 @@ public interface Api {
     );
 
     /**
-     * 兑换记录
-     */
-    @FormUrlEncoded
-    @POST("exchangelistApp")
-    Observable<BaseModel<ExchangListModel>> exchangelist(
-            @Field("beginTime") String beginTime,
-            @Field("endTime") String endTime,
-            @Field("size") int size,
-            @Field("currencyId") Integer currencyId,
-            @Field("start") int start,
-            @Field("status") Integer status
-    );
-
-    /**
-     * 划转记录
-     */
-    @FormUrlEncoded
-    @POST("transHistroy")
-    Observable<BaseModel<TransferRecordModel>> transferList(
-            @Field("pageIndex") int start,
-            @Field("pageSize") int size,
-            @Field("beginTime") String beginTime,
-            @Field("endTime") String endTime
-    );
-
-    /**
      * 获取实名认证信息
      */
     @POST("authinfoNew")
@@ -692,60 +629,6 @@ public interface Api {
             @Field("type") int type,
             @Field("vercode") String vercode
     );
-
-    /**
-     * 获取epay是否开启
-     */
-    @FormUrlEncoded
-    @POST("transInfo")
-    Observable<BaseModel<TransferInfo>> transInfo(
-            @Field("currencyId") int currencyId
-    );
-
-    /**
-     * 添加epay账号
-     */
-    @FormUrlEncoded
-    @POST("addAccount")
-    Observable<BaseModel> addAccount(
-            @Field("account") String account,
-            @Field("note") String note
-    );
-
-    /**
-     * Epay转入
-     */
-    @FormUrlEncoded
-    @POST("transIn")
-    Observable<BaseModel<EPayParam>> transIn(
-            @Field("currencyId") int currencyId,
-            @Field("currencyName") String currencyName,
-            @Field("transNum") String transNum
-    );
-
-    /**
-     * Epay转出
-     * actionId:9, // 行为Id，9:表示转出
-     */
-    @FormUrlEncoded
-    @POST("transOut")
-    Observable<BaseModel> transOut(
-            @Field("actionId") String actionId,
-            @Field("amount") String amount,
-            @Field("transAccount") String transAccount,
-            @Field("currencyId") int currencyId,
-            @Field("currencyName") String currencyName,
-            @Field("fdPassword") String fdPassword,
-            @Field("sAuthCode") String sAuthCode,
-            @Field("gAuthCode") String gAuthCode
-    );
-
-    /**
-     * 运营活动
-     * 浮层文字
-     */
-    @POST("listActivityWords")
-    Observable<BaseModel<HashMap<Integer, String>>> listActivityWords();
 
     /**
      * 查询AWSS3秘钥
