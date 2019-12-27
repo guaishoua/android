@@ -36,7 +36,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("../12lian.jks")
+            storeFile file("../tacu123")
             storePassword RELEASE_STORE_PASSWORD
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
@@ -45,7 +45,7 @@ android {
         }
 
         release {
-            storeFile file("../12lian.jks")
+            storeFile file("../tacu123")
             storePassword RELEASE_STORE_PASSWORD
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
@@ -197,11 +197,11 @@ dependencies {
     implementation group: 'com.zopim.android', name: 'sdk', version: '1.3.5.1'
 
     //内存检测
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.dependVersion.leakcanaryVersion"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.dependVersion.leakcanaryVersion"
+    //debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.dependVersion.leakcanaryVersion"
+    //releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.dependVersion.leakcanaryVersion"
 
     //App界面卡顿检测工具
-    implementation "com.github.markzhai:blockcanary-android:$rootProject.ext.dependVersion.blockcanaryVersion"
-    debugImplementation "com.github.markzhai:blockcanary-android:$rootProject.ext.dependVersion.blockcanaryVersion"
-    releaseImplementation "com.github.markzhai:blockcanary-no-op:$rootProject.ext.dependVersion.blockcanaryVersion"
+    //implementation "com.github.markzhai:blockcanary-android:$rootProject.ext.dependVersion.blockcanaryVersion"
+    //debugImplementation "com.github.markzhai:blockcanary-android:$rootProject.ext.dependVersion.blockcanaryVersion"
+    //releaseImplementation "com.github.markzhai:blockcanary-no-op:$rootProject.ext.dependVersion.blockcanaryVersion"
 }
