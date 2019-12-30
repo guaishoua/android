@@ -24,13 +24,14 @@
             android:descendantFocusability="blocksDescendants"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
                 android:id="@+id/rl_people"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_12"
-                android:background="@drawable/bg_shadow_card"
-                android:padding="@dimen/dp_20">
+                android:padding="@dimen/dp_20"
+                app:qmui_backgroundColor="@color/content_bg_color"
+                app:qmui_radius="@dimen/dp_10">
 
                 <LinearLayout
                     android:id="@+id/ll_invite"
@@ -121,16 +122,17 @@
                     android:textColor="@color/color_button"
                     android:textSize="@dimen/text_size_sp_16" />
 
-            </RelativeLayout>
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
 
-            <LinearLayout
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_12"
                 android:layout_marginRight="@dimen/dp_12"
-                android:background="@drawable/bg_shadow_card"
                 android:orientation="vertical"
-                android:padding="@dimen/dp_20">
+                android:padding="@dimen/dp_20"
+                app:qmui_backgroundColor="@color/content_bg_color"
+                app:qmui_radius="@dimen/dp_10">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -230,7 +232,6 @@
                         android:textSize="@dimen/text_size_sp_16"
                         tools:text="www.12lian.comdddddddddd" />
 
-
                     <include
                         android:id="@+id/img_invitation2"
                         layout="@layout/ll_copy_layout" />
@@ -250,15 +251,16 @@
                     android:textColor="@color/text_white"
                     android:textSize="@dimen/text_size_sp_16"
                     android:visibility="visible" />
-            </LinearLayout>
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
-            <RelativeLayout
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_8"
-                android:background="@drawable/bg_shadow_card"
                 android:padding="@dimen/dp_20"
                 android:visibility="gone"
+                app:qmui_backgroundColor="@color/content_bg_color"
+                app:qmui_radius="@dimen/dp_10"
                 tools:visibility="visible">
 
                 <LinearLayout
@@ -340,7 +342,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line"
                     android:nestedScrollingEnabled="false" />
-            </RelativeLayout>
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

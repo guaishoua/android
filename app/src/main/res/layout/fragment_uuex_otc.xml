@@ -219,7 +219,7 @@
                         android:background="@null"
                         android:gravity="right"
                         android:text="@string/email_code"
-                        android:textColor="@color/color_blue_2"
+                        android:textColor="@color/text_default"
                         android:textSize="@dimen/text_size_sp_14"
                         android:visibility="gone" />
 
@@ -232,7 +232,7 @@
                         android:background="@null"
                         android:gravity="right"
                         android:text="@string/email_code"
-                        android:textColor="@color/color_blue_2"
+                        android:textColor="@color/text_default"
                         android:textSize="@dimen/text_size_sp_14"
                         android:visibility="visible" />
                 </RelativeLayout>

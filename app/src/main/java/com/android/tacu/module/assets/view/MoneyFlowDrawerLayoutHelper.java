@@ -271,8 +271,8 @@ public class MoneyFlowDrawerLayoutHelper implements View.OnClickListener {
             helper.setText(R.id.tv_item, item.currencyNameEn);
 
             if (item.currencyId == moneyFlowEvent.getCurrencyId()) {
-                ((QMUIRoundButtonDrawable) helper.getView(R.id.tv_item).getBackground()).setStrokeData(UIUtils.dp2px(1), ContextCompat.getColorStateList(mContext, R.color.color_blue_2));
-                helper.setTextColor(R.id.tv_item, ContextCompat.getColor(mContext, R.color.text_blue_2));
+                ((QMUIRoundButtonDrawable) helper.getView(R.id.tv_item).getBackground()).setStrokeData(UIUtils.dp2px(1), ContextCompat.getColorStateList(mContext, R.color.color_default));
+                helper.setTextColor(R.id.tv_item, ContextCompat.getColor(mContext, R.color.text_default));
                 helper.setGone(R.id.iv_item, true);
             } else {
                 ((QMUIRoundButtonDrawable) helper.getView(R.id.tv_item).getBackground()).setStrokeData(UIUtils.dp2px(1), ContextCompat.getColorStateList(mContext, R.color.text_grey_3));
@@ -309,16 +309,14 @@ public class MoneyFlowDrawerLayoutHelper implements View.OnClickListener {
             helper.setText(R.id.tv_item, item.value);
 
             if (TextUtils.equals(item.code, moneyFlowEvent.getType())) {
-//                ((QMUIRoundButtonDrawable) helper.getView(R.id.tv_item).getBackground()).setStrokeData(UIUtils.dp2px(1), ContextCompat.getColorStateList(mContext, R.color.color_blue_2));
 
                 ((QMUIRoundButtonDrawable) helper.getView(R.id.tv_item).getBackground()).setBgData(ContextCompat.getColorStateList(mContext, R.color.color_default));
                 helper.setTextColor(R.id.tv_item, ContextCompat.getColor(mContext, R.color.color_white));
                 helper.setGone(R.id.iv_item, true);
             } else {
-//                ((QMUIRoundButtonDrawable) helper.getView(R.id.tv_item).getBackground()).setStrokeData(UIUtils.dp2px(1), ContextCompat.getColorStateList(mContext, R.color.text_grey_3));
-                ((QMUIRoundButtonDrawable) helper.getView(R.id.tv_item).getBackground()).setBgData(ContextCompat.getColorStateList(mContext, R.color.color_grey_9));
+                ((QMUIRoundButtonDrawable) helper.getView(R.id.tv_item).getBackground()).setBgData(ContextCompat.getColorStateList(mContext, R.color.color_grey_3));
 
-                helper.setTextColor(R.id.tv_item, ContextCompat.getColor(mContext, R.color.text_grey_7));
+                helper.setTextColor(R.id.tv_item, ContextCompat.getColor(mContext, R.color.text_grey_3));
                 helper.setGone(R.id.iv_item, true);
             }
             helper.itemView.setOnClickListener(new View.OnClickListener() {

@@ -133,8 +133,8 @@ public class MarketListFragment extends BaseFragment<MarketPresenter> implements
         });
 
         magicIndicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tab_bg_color));
-        magicIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.tab_blue_color), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(14, 14));
-        magicIndicator.setScrollBar(new ColorBar(getContext(), ContextCompat.getColor(getContext(), R.color.tab_blue_color), 4));
+        magicIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.tab_default), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(14, 14));
+        magicIndicator.setScrollBar(new ColorBar(getContext(), ContextCompat.getColor(getContext(), R.color.tab_default), 4));
         magicIndicator.setSplitAuto(true);
 
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

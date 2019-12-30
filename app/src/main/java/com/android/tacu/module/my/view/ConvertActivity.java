@@ -155,7 +155,6 @@ public class ConvertActivity extends BaseActivity {
 
     private void restartActivity() {
         activityManage.finishActivity(MainActivity.class);
-        activityManage.finishActivity(SettingActivity.class);
         Intent[] intents = {new Intent(this, MainActivity.class), new Intent(this, ConvertActivity.class)};
         startActivities(intents);
         finish();

@@ -130,7 +130,7 @@ public class BuySellChartView extends View {
         mGridPaint.setStyle(Paint.Style.STROKE);
         mGridPaint.setAntiAlias(true);
         mGridPaint.setStrokeWidth(1f);
-        mGridPaint.setColor(ContextCompat.getColor(mContext, R.color.color_grey_10));
+        mGridPaint.setColor(ContextCompat.getColor(mContext, R.color.color_grey_2));
 
         //初始化文字画笔
         mTextPaint = new Paint();

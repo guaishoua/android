@@ -61,7 +61,7 @@ public class InvitedRecordActivity extends BaseActivity<InvitedinfoPresenter> im
         CustomTextHeaderView headerView = new CustomTextHeaderView(this);
         headerView.setPrimaryColors(ContextCompat.getColor(this, R.color.content_bg_color_grey), ContextCompat.getColor(this, R.color.text_color));
         refreshlayout.setRefreshHeader(headerView);
-        refreshlayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_blue_2)));
+        refreshlayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_default)));
         refreshlayout.setEnableLoadmore(false);
         refreshlayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override

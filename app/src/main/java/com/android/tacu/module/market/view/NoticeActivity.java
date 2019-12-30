@@ -56,7 +56,7 @@ public class NoticeActivity extends BaseActivity<NoticePresenter> implements Not
         CustomTextHeaderView header = new CustomTextHeaderView(this);
         header.setPrimaryColors(ContextCompat.getColor(this, R.color.content_bg_color), ContextCompat.getColor(this, R.color.text_color));
         refreshlayout.setRefreshHeader(header);
-        refreshlayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_blue_2)));
+        refreshlayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_default)));
         refreshlayout.setEnableLoadmore(false);
         refreshlayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override

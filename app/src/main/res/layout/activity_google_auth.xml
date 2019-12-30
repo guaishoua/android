@@ -21,17 +21,18 @@
 
             <include layout="@layout/view_bind_mode" />
 
-            <LinearLayout
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
                 android:id="@+id/ll_google_two"
                 style="@style/person_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_shadow_card"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/dp_10"
-                android:paddingTop="@dimen/dp_10"
                 android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20">
+                android:paddingTop="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_20"
+                android:paddingBottom="@dimen/dp_10"
+                app:qmui_backgroundColor="@color/content_bg_color"
+                app:qmui_radius="@dimen/dp_10">
 
                 <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
                     android:id="@+id/et_pwd"
@@ -71,7 +72,7 @@
                     style="@style/common_edit_style"
                     android:hint="@string/Enter_the_Google_verification_code" />
 
-            </LinearLayout>
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
             <com.qmuiteam.qmui.alpha.QMUIAlphaButton
                 android:id="@+id/btn_submit"

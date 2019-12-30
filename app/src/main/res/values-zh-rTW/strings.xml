@@ -317,7 +317,6 @@
     <string name="safe_first_handpwd">請先設置手勢密碼!</string>
 
     <!--提币记录-->
-    <string name="currency">幣種</string>
     <string name="start_time">起始時間</string>
     <string name="end_time">結束時間</string>
     <string name="reset">重置</string>

@@ -22,9 +22,9 @@
         android:id="@+id/base_scrollIndicatorView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_indicator_height"
-        android:background="@color/tab_bg_color"
         android:layout_marginTop="@dimen/dp_10"
-        app:layout_constraintTop_toBottomOf="@id/btn_drawer_back"/>
+        android:background="@color/tab_bg_color"
+        app:layout_constraintTop_toBottomOf="@id/btn_drawer_back" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

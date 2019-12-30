@@ -55,7 +55,7 @@
                         android:textSize="@dimen/text_size_sp_14"
                         app:qmui_underline_anim="true"
                         app:qmui_underline_focuscolor="@color/color_black"
-                        app:qmui_underline_unfocuscolor="@color/color_grey_4"
+                        app:qmui_underline_unfocuscolor="@color/color_grey_3"
                         app:qmui_underline_width="@dimen/dp_1" />
 
                 </LinearLayout>
@@ -100,7 +100,7 @@
                             android:textSize="@dimen/text_size_sp_14"
                             app:qmui_underline_anim="true"
                             app:qmui_underline_focuscolor="@color/color_black"
-                            app:qmui_underline_unfocuscolor="@color/color_grey_4"
+                            app:qmui_underline_unfocuscolor="@color/color_grey_3"
                             app:qmui_underline_width="@dimen/dp_1" />
 
                     </LinearLayout>
@@ -215,7 +215,7 @@
                             android:textSize="@dimen/text_size_sp_14"
                             app:qmui_underline_anim="true"
                             app:qmui_underline_focuscolor="@color/color_black"
-                            app:qmui_underline_unfocuscolor="@color/color_grey_4"
+                            app:qmui_underline_unfocuscolor="@color/color_grey_3"
                             app:qmui_underline_width="@dimen/dp_1" />
 
                     </LinearLayout>
@@ -557,7 +557,7 @@
                         android:background="@null"
                         android:gravity="right"
                         android:text="@string/btn_assets_take_coin_obtain_pass_code"
-                        android:textColor="@color/color_blue_2"
+                        android:textColor="@color/text_default"
                         android:textSize="@dimen/text_size_sp_14"
                         android:visibility="visible" />
                 </RelativeLayout>
@@ -613,7 +613,7 @@
                     android:background="@null"
                     android:text="@string/above_step"
                     android:visibility="gone"
-                    android:textColor="@color/color_blue_2"
+                    android:textColor="@color/text_default"
                     android:textSize="@dimen/text_size_sp_14" />
 
                 <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundTextView

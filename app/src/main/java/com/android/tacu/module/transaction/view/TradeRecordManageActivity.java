@@ -157,7 +157,7 @@ public class TradeRecordManageActivity extends BaseActivity<TradeRecordManagePre
         CustomTextHeaderView header = new CustomTextHeaderView(this);
         header.setPrimaryColors(ContextCompat.getColor(this, R.color.content_bg_color), ContextCompat.getColor(this, R.color.text_color));
         refreshManage.setRefreshHeader(header);
-        refreshManage.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_blue_2)));
+        refreshManage.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_default)));
         refreshManage.setEnableLoadmore(true);
         refreshManage.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override

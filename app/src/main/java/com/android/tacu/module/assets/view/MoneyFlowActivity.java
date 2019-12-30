@@ -230,7 +230,7 @@ public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implemen
         CustomTextHeaderView headerView = new CustomTextHeaderView(getContext());
         headerView.setPrimaryColors(ContextCompat.getColor(this, R.color.content_bg_color), ContextCompat.getColor(this, R.color.text_color));
         refreshLayout.setRefreshHeader(headerView);
-        refreshLayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_blue_2)));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_default)));
         refreshLayout.setEnableLoadmore(false);
         refreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
@@ -319,41 +319,6 @@ public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implemen
             }
 
             helper.setText(R.id.tv_time, item.createTime);
-//            helper.setText(R.id.tv_coins_address, getResources().getString(R.string.address) + "：" + item.adress);
-//            helper.setText(R.id.tv_txid, getResources().getString(R.string.txid) + item.txid);
-
-//            helper.setGone(R.id.ll_address, false);
-//            helper.setGone(R.id.ll_exchange, false);
-//            只有充币、提币展示txid，address
-
-//            if (TextUtils.equals(item.type, "1") || TextUtils.equals(item.type, "2")) {
-//                helper.setGone(R.id.cb_more, true);
-//            } else {
-//                helper.setGone(R.id.cb_more, false);
-//            }
-//            helper.setOnCheckedChangeListener(R.id.cb_more, new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    if (isChecked) {
-//                        helper.setGone(R.id.ll_address, true);
-//                    } else {
-//                        helper.setGone(R.id.ll_address, false);
-//                    }
-//                }
-//            });
-
-//            helper.setOnClickListener(R.id.tv_txid, new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    copy(item.txid);
-//                }
-//            });
-//            helper.setOnClickListener(R.id.tv_coins_address, new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    copy(item.adress);
-//                }
-//            });
         }
     }
 

@@ -35,7 +35,7 @@
             android:gravity="center"
             android:padding="@dimen/dp_2"
             app:qmui_backgroundColor="@color/color_white"
-            app:qmui_borderColor="@color/color_E5E5E5"
+            app:qmui_borderColor="@color/color_grey_3"
             app:qmui_borderWidth="@dimen/dp_1"
             app:qmui_isRadiusAdjustBounds="true">
 

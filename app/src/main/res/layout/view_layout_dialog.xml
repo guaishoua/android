@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    app:qmui_backgroundColor="@color/color_white"
+    app:qmui_backgroundColor="@color/content_bg_color"
     app:qmui_radius="@dimen/dp_8">
 
     <LinearLayout

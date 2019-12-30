@@ -7,24 +7,6 @@
     android:layout_marginLeft="@dimen/dp_10"
     android:layout_marginTop="@dimen/dp_8">
 
-    <!--<ImageView-->
-    <!--android:id="@+id/iv_item"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:scaleType="centerCrop"/>-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_item"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginLeft="@dimen/dp_2"-->
-    <!--android:layout_marginRight="@dimen/dp_2"-->
-    <!--android:text="ddd"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:textColor="@color/text_grey"-->
-    <!--android:textSize="@dimen/text_size_sp_14" />-->
-    <!--android:src="@drawable/icon_rightcheckout_blue"-->
-
     <com.qmuiteam.qmui.widget.QMUIRadiusImageView
         android:id="@+id/iv_item"
         android:layout_width="wrap_content"
@@ -39,11 +21,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textColor="@color/text_grey_7"
+        android:textColor="@color/text_grey_3"
         android:textSize="@dimen/text_size_sp_14"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:qmui_backgroundColor="@color/color_grey_9"
-        app:qmui_borderColor="@color/color_grey_9"
+        app:qmui_backgroundColor="@color/color_grey_3"
+        app:qmui_borderColor="@color/color_grey_3"
         app:qmui_borderWidth="@dimen/dp_1"
         app:qmui_radius="@dimen/dp_2"
         tools:text="標題" />

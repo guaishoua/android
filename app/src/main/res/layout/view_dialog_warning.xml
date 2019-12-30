@@ -37,7 +37,7 @@
             android:layout_marginLeft="@dimen/dp_35"
             android:layout_marginRight="@dimen/dp_35"
             android:layout_marginTop="@dimen/dp_15"
-            android:background="@color/color_blue"
+            android:background="@color/color_google_btn"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="@dimen/dp_10">

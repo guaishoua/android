@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content">
@@ -16,7 +15,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/color_grey_8" />
+            android:background="@color/color_grey_3" />
 
         <Space
             android:layout_width="@dimen/dp_1"
@@ -33,7 +32,7 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:orientation="horizontal"
-                app:qmui_backgroundColor="@color/color_grey_9"
+                app:qmui_backgroundColor="@color/color_grey_3"
                 app:qmui_radius="@dimen/dp_3">
 
                 <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText

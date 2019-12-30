@@ -113,6 +113,8 @@
     **********************************************-->
     <attr name="qmui_list_item_height" format="dimension"/>
     <attr name="qmui_list_item_height_higher" format="dimension"/>
+    <attr name="qmui_drawable_color_list_pressed_color" format="color"/>
+    <attr name="qmui_drawable_color_list_unpressed_color" format="color"/>
 
 
     <!-- android 5.0以下不支持在drawable中用?attr，所以必须把所有的drawable放到theme中 -->

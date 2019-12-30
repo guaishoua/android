@@ -74,7 +74,7 @@
                 android:layout_height="match_parent"
                 app:wv_cyclic="false"
                 app:wv_lineSpacing="@dimen/dp_8"
-                app:wv_normalItemTextColor="@color/color_grey_5"
+                app:wv_normalItemTextColor="@color/color_grey_3"
                 app:wv_selectedItemTextColor="@color/color_default"
                 app:wv_textSize="@dimen/text_size_sp_18" />
 

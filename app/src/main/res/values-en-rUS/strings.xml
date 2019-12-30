@@ -316,7 +316,6 @@
     <string name="safe_first_handpwd">Please set the sign pattern lock!</string>
 
     <!--提币记录-->
-    <string name="currency">Currency</string>
     <string name="start_time">Start</string>
     <string name="end_time">End</string>
     <string name="reset">Reset</string>

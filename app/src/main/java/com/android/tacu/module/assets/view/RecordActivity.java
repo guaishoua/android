@@ -228,7 +228,7 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
         CustomTextHeaderView headerView = new CustomTextHeaderView(getContext());
         headerView.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
         refreshlayout.setRefreshHeader(headerView);
-        refreshlayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_blue_2)));
+        refreshlayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_default)));
         refreshlayout.setEnableLoadmore(false);
         refreshlayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override

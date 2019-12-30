@@ -15,4 +15,9 @@
         <item name="qmui_topbar_title_color">@color/text_white</item>
         <item name="qmui_topbar_text_btn_color_state_list">@color/text_white</item>
     </style>
+
+    <style name="QMUICommonListItemViewCustom" parent="QMUI.CommonListItemView">
+        <item name="qmui_commonList_titleColor">@color/text_color</item>
+        <item name="qmui_commonList_detailColor">@color/text_white_50</item>
+    </style>
 </resources>

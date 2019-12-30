@@ -8,7 +8,7 @@
     android:layout_margin="@dimen/dp_5"
     android:background="@color/content_bg_color"
     android:orientation="vertical"
-    app:qmui_borderColor="@color/color_grey_4"
+    app:qmui_borderColor="@color/color_grey_3"
     app:qmui_borderWidth="@dimen/dp_1"
     app:qmui_radius="@dimen/dp_8">
 
@@ -168,7 +168,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/dp_10"
-        app:qmui_backgroundColor="@color/color_grey_4"
+        app:qmui_backgroundColor="@color/color_grey_3"
         app:qmui_radiusBottomLeft="@dimen/dp_5"
         app:qmui_radiusBottomRight="@dimen/dp_5">
 

@@ -404,7 +404,7 @@ public class SearchHistoryActivity extends BaseActivity<SelectedCoinsPresenter> 
 
         @Override
         protected void convert(BaseViewHolder helper, final MarketNewModel.TradeCoinsBean item) {
-            helper.setText(R.id.tv_name, CommonUtils.setKeyWordColor(item.currencyNameEn + "/" + item.baseCurrencyNameEn, keyword, ContextCompat.getColor(SearchHistoryActivity.this, R.color.color_blue_2)));
+            helper.setText(R.id.tv_name, CommonUtils.setKeyWordColor(item.currencyNameEn + "/" + item.baseCurrencyNameEn, keyword, ContextCompat.getColor(SearchHistoryActivity.this, R.color.color_default)));
 
             starShow(false, (ImageView) helper.getView(R.id.img_select), item.currencyId + "," + item.baseCurrencyId);
 

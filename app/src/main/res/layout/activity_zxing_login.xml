@@ -17,10 +17,10 @@
         android:layout_width="@dimen/dp_200"
         android:layout_height="@dimen/dp_200"
         android:layout_marginTop="@dimen/dp_100"
-        app:srcCompat="@drawable/icon_computer"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_computer" />
 
     <TextView
         android:id="@+id/tv_isok"

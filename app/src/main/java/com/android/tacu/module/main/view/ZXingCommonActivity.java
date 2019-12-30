@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
-import com.google.gson.Gson;
 
 import butterknife.BindView;
 import cn.bingoogolapple.qrcode.core.QRCodeView;
@@ -22,8 +21,6 @@ public class ZXingCommonActivity extends BaseActivity implements QRCodeView.Dele
 
     @BindView(R.id.zxingview)
     ZXingView mZXingView;
-
-    private Gson gson = new Gson();
 
     @Override
     protected void setView() {

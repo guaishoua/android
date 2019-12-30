@@ -22,13 +22,14 @@
         android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_sp_16" />
 
-    <LinearLayout
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
         style="@style/person_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_shadow_card"
         android:orientation="vertical"
-        android:padding="@dimen/dp_15">
+        android:padding="@dimen/dp_15"
+        app:qmui_backgroundColor="@color/content_bg_color"
+        app:qmui_radius="@dimen/dp_10">
 
         <TextView
             android:id="@+id/tv_bind"
@@ -64,7 +65,7 @@
         </RelativeLayout>
 
 
-    </LinearLayout>
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
     <com.qmuiteam.qmui.alpha.QMUIAlphaButton
         android:id="@+id/btn_submit"

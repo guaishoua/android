@@ -120,7 +120,7 @@
                 app:kc_rsi3_color="@color/chart_ma20"
                 app:kc_selected_line_color="@color/chart_line"
                 app:kc_selected_line_width="@dimen/dp_1"
-                app:kc_selector_background_color="@color/color_grey_10"
+                app:kc_selector_background_color="@color/chart_line"
                 app:kc_selector_text_size="@dimen/chart_selector_text_size"
                 app:kc_text_color="@color/text_grey_2"
                 app:kc_text_size="@dimen/text_size_sp_10"

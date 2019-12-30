@@ -119,6 +119,8 @@
         **********************************************-->
         <item name="qmui_list_item_height">@dimen/qmui_list_item_height</item>
         <item name="qmui_list_item_height_higher">@dimen/qmui_list_item_height_higher</item>
+        <item name="qmui_drawable_color_list_pressed_color">@color/qmui_drawable_color_list_pressed</item>
+        <item name="qmui_drawable_color_list_unpressed_color">@color/qmui_config_color_white</item>
 
         <item name="qmui_list_item_bg_with_border_bottom">@drawable/qmui_list_item_bg_with_border_bottom</item>
         <item name="qmui_list_item_bg_with_border_bottom_pressed">@drawable/qmui_list_item_bg_with_border_bottom_pressed</item>

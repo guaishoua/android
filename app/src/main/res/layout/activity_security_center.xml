@@ -20,36 +20,38 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
                 style="@style/person_margin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_shadow_card"
                 android:orientation="vertical"
-                android:padding="@dimen/dp_5">
+                android:padding="@dimen/dp_5"
+                app:qmui_backgroundColor="@color/content_bg_color"
+                app:qmui_radius="@dimen/dp_5">
 
                 <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
                     android:id="@+id/groupListView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:separatorStyle="none" />
-            </LinearLayout>
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
-            <LinearLayout
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
                 style="@style/person_margin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/dp_12"
-                android:background="@drawable/bg_shadow_card"
                 android:orientation="vertical"
-                android:padding="@dimen/dp_5">
+                android:padding="@dimen/dp_5"
+                app:qmui_backgroundColor="@color/content_bg_color"
+                app:qmui_radius="@dimen/dp_5">
 
                 <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
                     android:id="@+id/listView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:separatorStyle="none" />
-            </LinearLayout>
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

@@ -8,7 +8,7 @@ ext {
             //测试环境
             Api_Debug        : "\"http://www.fuex.co/unique\"",
             Ip_Debug         : "\"debug\"",
-            //正式环境
+            //正式环境  www.cdcbk.com
             Api_Release      : "\"https://www.gexday.com/unique\"",
             Ip_Release       : "\"www.gexday.com\"",
 

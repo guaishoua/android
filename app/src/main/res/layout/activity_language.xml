@@ -10,15 +10,11 @@
         android:id="@+id/title"
         layout="@layout/common_titlebar" />
 
-    <Space
-        android:layout_width="@dimen/dp_1"
-        android:layout_height="@dimen/dp_20" />
-
     <android.support.v4.widget.NestedScrollView
+        style="@style/person_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_5"
-        android:background="@drawable/bg_shadow_card"
+        android:background="@drawable/shape_white_solid_5"
         android:padding="@dimen/dp_10">
 
         <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView

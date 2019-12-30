@@ -6,5 +6,5 @@
     <corners android:radius="5dp" />
 
     <!-- 这个标签表示纯色填充，通过android:color即可指定shape中填充的颜色 -->
-    <solid android:color="@color/color_white" />
+    <solid android:color="@color/content_bg_color" />
 </shape>

@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_news_price"
                         android:layout_marginTop="@dimen/dp_2"
-                        android:textColor="@color/white_50"
+                        android:textColor="@color/text_white_50"
                         android:textSize="@dimen/text_size_sp_14"
                         android:textStyle="bold"
                         tools:text="≈￥6000" />

@@ -45,7 +45,7 @@
         android:layout_marginBottom="@dimen/dp_4"
         android:layout_marginLeft="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_10"
-        android:textColor="@color/text_grey_4"
+        android:textColor="@color/text_grey_3"
         android:textSize="@dimen/text_size_sp_14"
         tools:text="手续费" />
 
@@ -171,6 +171,5 @@
                 android:textSize="@dimen/text_size_sp_12"
                 tools:text="所得币种数量：122226.89012312" />
         </LinearLayout>
-
     </LinearLayout>
 </RelativeLayout>

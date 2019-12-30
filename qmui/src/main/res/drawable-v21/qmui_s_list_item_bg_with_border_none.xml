@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-        android:color="@color/qmui_drawable_color_list_pressed">
-    <item android:drawable="@color/qmui_config_color_white"/>
+    android:color="?attr/qmui_drawable_color_list_pressed_color">
+
+    <item android:drawable="?attr/qmui_drawable_color_list_unpressed_color" />
 </ripple>

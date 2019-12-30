@@ -385,11 +385,11 @@ public class UuexOTCFragment extends BaseFragment<UuexOTCPresenter> implements U
 
     private void setTextView() {
         if (flags == 1) {
-            setTextColor(tv_mode_email, R.color.text_blue_2);
+            setTextColor(tv_mode_email, R.color.text_default);
             setTextColor(tv_mode_phone, R.color.text_color);
         } else {
             setTextColor(tv_mode_email, R.color.text_color);
-            setTextColor(tv_mode_phone, R.color.text_blue_2);
+            setTextColor(tv_mode_phone, R.color.text_default);
         }
         setViewColor(view_email);
         setViewColor(view_phone);
@@ -404,7 +404,7 @@ public class UuexOTCFragment extends BaseFragment<UuexOTCPresenter> implements U
     }
 
     private void setViewColor(View view) {
-        view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.text_blue_2));
+        view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.text_default));
     }
 
     /**

@@ -117,6 +117,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     @BindView(R.id.viewpager)
     ViewPager viewpager;
 
+    private TextView tvCenterTitle;
     private QMUIAlphaImageButton btnRight;
 
     private View shareView;
@@ -209,7 +210,8 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         currencyNameEn = getIntent().getStringExtra("currencyNameEn");
         baseCurrencyNameEn = getIntent().getStringExtra("baseCurrencyNameEn");
 
-        mTopBar.setTitle(currencyNameEn + "/" + baseCurrencyNameEn, R.drawable.icon_drop_down_white).setOnClickListener(new View.OnClickListener() {
+        tvCenterTitle = mTopBar.setTitle(currencyNameEn + "/" + baseCurrencyNameEn, R.drawable.icon_drop_down_white);
+        tvCenterTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initCoinPopUp(mTopBar);
@@ -870,6 +872,8 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         this.baseCurrencyNameEn = baseCurrencyNameEn;
 
         isAnim = true;
+        tvCenterTitle.setText(currencyNameEn + "/" + baseCurrencyNameEn);
+
         upLoad();
         socketConnectEventAgain();
         setCacheCoinInfo();

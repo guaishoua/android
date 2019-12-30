@@ -21,14 +21,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
                 android:id="@+id/ll_google_one"
                 style="@style/person_margin"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_250"
                 android:orientation="vertical"
                 android:visibility="gone"
-                android:background="@drawable/bg_shadow_card" >
+                app:qmui_backgroundColor="@color/content_bg_color"
+                app:qmui_radius="@dimen/dp_10">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -44,11 +45,11 @@
                     android:layout_height="@dimen/dp_100"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp_30"
-                    android:src="@mipmap/img_google_validator_global"
-                    android:scaleType="fitXY"/>
-            </LinearLayout>
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/img_google_validator_global" />
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
-            <LinearLayout
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
                 android:id="@+id/ll_google_two"
                 style="@style/person_margin"
                 android:layout_width="match_parent"
@@ -57,7 +58,8 @@
                 android:paddingLeft="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_20"
                 android:visibility="visible"
-                android:background="@drawable/bg_shadow_card">
+                app:qmui_backgroundColor="@color/content_bg_color"
+                app:qmui_radius="@dimen/dp_10">
 
 
                 <ImageView
@@ -98,13 +100,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_40"
                     android:layout_marginTop="@dimen/dp_25"
+                    android:layout_marginBottom="@dimen/dp_40"
                     android:lineSpacingExtra="@dimen/dp_8"
                     android:text="@string/google_hint"
                     android:textColor="@color/text_grey_2"
                     android:textSize="@dimen/text_size_sp_12" />
-            </LinearLayout>
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
             <com.qmuiteam.qmui.alpha.QMUIAlphaButton
                 android:id="@+id/btn_next"

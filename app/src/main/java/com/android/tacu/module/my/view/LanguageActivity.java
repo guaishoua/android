@@ -41,7 +41,6 @@ public class LanguageActivity extends BaseActivity {
     private ImageView imgZH_CN;
     private ImageView imgZH_TW;
     private ImageView imgEN_US;
-    private ImageView imgKO_KR;
     private List<ImageView> imgList = new ArrayList<>();
 
     private String ZH_CNString;
@@ -159,7 +158,6 @@ public class LanguageActivity extends BaseActivity {
 
     private void restartActivity() {
         activityManage.finishActivity(MainActivity.class);
-        activityManage.finishActivity(SettingActivity.class);
         Intent[] intents = {new Intent(this, MainActivity.class), new Intent(this, LanguageActivity.class)};
         startActivities(intents);
         finish();

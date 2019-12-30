@@ -169,7 +169,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
                     break;
                 case 1:
                     tvKyc2.setText(getResources().getString(R.string.authenticating));
-                    tvKyc2.setTextColor(ContextCompat.getColor(this, R.color.text_grey_7));
+                    tvKyc2.setTextColor(ContextCompat.getColor(this, R.color.text_grey_3));
                     tv_error_des.setVisibility(View.GONE);
 
                     tvKyc3.setText(getResources().getString(R.string.unverified));
@@ -177,7 +177,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
                     break;
                 case 2:
                     tvKyc2.setText(getResources().getString(R.string.verified));
-                    tvKyc2.setTextColor(ContextCompat.getColor(this, R.color.text_grey_7));
+                    tvKyc2.setTextColor(ContextCompat.getColor(this, R.color.text_grey_3));
                     tv_error_des.setVisibility(View.GONE);
                     switch (model.isAuthVideo) {
                         case -1:
@@ -192,12 +192,12 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
                             break;
                         case 1:
                             tvKyc3.setText(getResources().getString(R.string.authenticating));
-                            tvKyc3.setTextColor(ContextCompat.getColor(this, R.color.text_grey_7));
+                            tvKyc3.setTextColor(ContextCompat.getColor(this, R.color.text_grey_3));
                             tv_error_des.setVisibility(View.GONE);
                             break;
                         case 2:
                             tvKyc3.setText(getResources().getString(R.string.verified));
-                            tvKyc3.setTextColor(ContextCompat.getColor(this, R.color.text_grey_7));
+                            tvKyc3.setTextColor(ContextCompat.getColor(this, R.color.text_grey_3));
                             tv_error_des.setVisibility(View.GONE);
                             break;
                     }
