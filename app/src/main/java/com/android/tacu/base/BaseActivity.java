@@ -33,7 +33,6 @@ import com.android.tacu.utils.user.UserInfoUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.LoadingAnim;
 import com.qmuiteam.qmui.widget.QMUITopBar;
-import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -163,7 +162,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
             }
         }
         onEmit();
-        MobclickAgent.onResume(this);
     }
 
     @Override
@@ -175,7 +173,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
             LockUtils.setLockTime(System.currentTimeMillis());
         }
         disconnectEmit();
-        MobclickAgent.onPause(this);
     }
 
     @Override

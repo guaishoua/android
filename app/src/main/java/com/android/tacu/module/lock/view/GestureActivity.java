@@ -10,7 +10,6 @@ import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.my.view.SecurityCenterActivity;
 import com.android.tacu.utils.lock.LockUtils;
 import com.android.tacu.widget.gesture.GestureLockViewGroup;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 
@@ -58,7 +57,6 @@ public class GestureActivity extends BaseActivity {
             showToast(getResources().getString(R.string.exit));
             firstTime = System.currentTimeMillis();
         } else {
-            MobclickAgent.onKillProcess(getApplicationContext());
             activityManage.appExit();
         }
     }

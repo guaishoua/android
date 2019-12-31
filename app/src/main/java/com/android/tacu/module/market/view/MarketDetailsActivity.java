@@ -683,7 +683,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         }
         if (targetPopUp == null) {
             targetPopUp = new TabPopup(this, 0);
-            targetPopUp.create(UIUtils.getScreenWidth(), UIUtils.dp2px(40), 6, mKChartView.getmChildName(), new TabPopup.TabItemSelect() {
+            targetPopUp.create(ContextCompat.getColor(this, R.color.text_color), ContextCompat.getColor(this, R.color.content_bg_color), UIUtils.getScreenWidth(), UIUtils.dp2px(40), 6, mKChartView.getmChildName(), new TabPopup.TabItemSelect() {
                 @Override
                 public void onTabItemSelectListener(int position) {
                     mKChartView.setChildDraw(position);
@@ -705,7 +705,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         }
         if (timePopUp == null) {
             timePopUp = new TabPopup(this, chartIndex);
-            timePopUp.create(UIUtils.getScreenWidth(), UIUtils.dp2px(40), 6, tabTitle, new TabPopup.TabItemSelect() {
+            timePopUp.create(ContextCompat.getColor(this, R.color.text_color), ContextCompat.getColor(this, R.color.content_bg_color), UIUtils.getScreenWidth(), UIUtils.dp2px(40), 6, tabTitle, new TabPopup.TabItemSelect() {
                 @Override
                 public void onTabItemSelectListener(int position) {
                     chartTime = timeTitle.get(position);

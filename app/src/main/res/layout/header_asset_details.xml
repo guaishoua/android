@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/dp_13"
         android:layout_marginRight="@dimen/dp_15"
         android:background="@mipmap/img_assets_bg"
-        app:layout_constraintDimensionRatio="w,1:2.5"
+        app:layout_constraintDimensionRatio="w,1:2.7"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -70,7 +70,7 @@
             android:layout_height="@dimen/dp_12"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_25"
-            android:src="@mipmap/img_search" />
+            app:srcCompat="@drawable/icon_search_white" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
             android:id="@+id/et_search"
@@ -84,9 +84,9 @@
             android:hint="@string/search_coin"
             android:paddingLeft="@dimen/dp_30"
             android:textColor="@color/text_color"
-            android:textColorHint="@color/color_grey_2"
+            android:textColorHint="@color/text_color"
             android:textSize="@dimen/text_size_sp_12"
-            app:qmui_borderColor="@color/color_grey_2"
+            app:qmui_borderColor="@color/text_color"
             app:qmui_borderWidth="@dimen/dp_1"
             app:qmui_radius="@dimen/dp_3" />
 
@@ -108,7 +108,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_15"
             android:text="@string/asset_search"
-            android:textColor="@color/text_grey"
+            android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_12" />
     </RelativeLayout>
 

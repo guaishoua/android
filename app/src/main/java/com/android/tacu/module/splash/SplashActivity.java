@@ -16,7 +16,6 @@ import com.android.tacu.module.main.view.MainActivity;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.LanguageUtils;
 import com.android.tacu.utils.lock.LockUtils;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.Locale;
 
@@ -89,14 +88,12 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }, 3000);
         }
-        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         LockUtils.setLockTime(System.currentTimeMillis());
-        MobclickAgent.onPause(this);
     }
 
     @Override

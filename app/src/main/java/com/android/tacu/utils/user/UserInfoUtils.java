@@ -512,4 +512,16 @@ public class UserInfoUtils {
     public String getSaveAccount() {
         return sp.getString("oldAccount", "");
     }
+
+    /**
+     * 是否隐藏资产
+     */
+    public void setAssetShowStatus(boolean isShow) {
+        editor.putBoolean("assetShowStatus", isShow);
+        editor.commit();
+    }
+
+    public boolean getAssetShowStatus() {
+        return sp.getBoolean("assetShowStatus", true);
+    }
 }

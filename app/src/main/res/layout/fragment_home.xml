@@ -84,7 +84,7 @@
                                 android:layout_width="@dimen/dp_13"
                                 android:layout_height="@dimen/dp_13"
                                 android:layout_centerVertical="true"
-                                app:srcCompat="@drawable/icon_notice_black" />
+                                app:srcCompat="@drawable/icon_notice" />
 
                             <com.qmuiteam.qmui.widget.textview.QMUIScrollTextView
                                 android:id="@+id/text_scroll"
@@ -214,7 +214,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/dp_15"
                             android:layout_marginRight="@dimen/dp_15"
-                            app:srcCompat="@drawable/icon_search_grey" />
+                            app:srcCompat="@drawable/icon_search_white" />
                     </LinearLayout>
 
                     <View

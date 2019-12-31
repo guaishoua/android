@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
             android:text="@string/market_add_selfselection"
-            android:textColor="@color/text_grey_2"
+            android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_16"
             android:textStyle="bold" />
     </LinearLayout>

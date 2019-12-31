@@ -13,7 +13,6 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.lock.FingerprintUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.dialog.DroidDialog;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 
@@ -60,7 +59,6 @@ public class FingerprintActivity extends BaseActivity {
             showToast(getResources().getString(R.string.exit));
             firstTime = System.currentTimeMillis();
         } else {
-            MobclickAgent.onKillProcess(getApplicationContext());
             activityManage.appExit();
         }
     }

@@ -29,7 +29,6 @@ import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.user.UserInfoUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.LoadingAnim;
-import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -173,7 +172,6 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
         if (isVisibleToUser || !isVisibleHidden) {
             onEmit();
         }
-        MobclickAgent.onResume(mFragAct); //统计时长
     }
 
     @Override
@@ -183,7 +181,6 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
         if (isVisibleToUser || !isVisibleHidden) {
             disconnectEmit();
         }
-        MobclickAgent.onPause(mFragAct); //统计时长
     }
 
     @Override

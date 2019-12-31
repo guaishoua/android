@@ -63,6 +63,7 @@ public class UserManageUtils {
         spUtil.setEmailStatus(false);
         spUtil.setValidatePass(false);
         spUtil.setPwdVisibility(false);
+        spUtil.setAssetShowStatus(true);
         LockUtils.clearSetting();
         SPUtils.getInstance().put(Constant.SELFCOIN_LIST, "");
     }

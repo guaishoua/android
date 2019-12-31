@@ -312,7 +312,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         }
         if (targetPopUp == null) {
             targetPopUp = new TabPopup(getContext(), 0);
-            targetPopUp.create(ContextCompat.getColor(getContext(), R.color.text_grey_2), ContextCompat.getColor(getContext(), R.color.content_bg_color), UIUtils.getScreenWidth() - UIUtils.dp2px(20), UIUtils.dp2px(40), 6, mKChartView.getmChildName(), new TabPopup.TabItemSelect() {
+            targetPopUp.create(ContextCompat.getColor(getContext(), R.color.text_color), ContextCompat.getColor(getContext(), R.color.content_bg_color), UIUtils.getScreenWidth() - UIUtils.dp2px(20), UIUtils.dp2px(40), 6, mKChartView.getmChildName(), new TabPopup.TabItemSelect() {
                 @Override
                 public void onTabItemSelectListener(int position) {
                     mKChartView.setChildDraw(position);
@@ -334,7 +334,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         }
         if (timePopUp == null) {
             timePopUp = new TabPopup(getContext(), 0);
-            timePopUp.create(ContextCompat.getColor(getContext(), R.color.text_grey_2), ContextCompat.getColor(getContext(), R.color.content_bg_color), UIUtils.getScreenWidth() - UIUtils.dp2px(20), UIUtils.dp2px(40), 6, tabTitle, new TabPopup.TabItemSelect() {
+            timePopUp.create(ContextCompat.getColor(getContext(), R.color.text_color), ContextCompat.getColor(getContext(), R.color.content_bg_color), UIUtils.getScreenWidth() - UIUtils.dp2px(20), UIUtils.dp2px(40), 6, tabTitle, new TabPopup.TabItemSelect() {
                 @Override
                 public void onTabItemSelectListener(int position) {
                     chartTime = timeTitle.get(position);

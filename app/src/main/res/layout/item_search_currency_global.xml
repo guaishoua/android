@@ -12,8 +12,7 @@
         android:layout_width="@dimen/dp_28"
         android:layout_height="@dimen/dp_28"
         app:qmui_border_width="@dimen/dp_0"
-        app:qmui_is_oval="true"
-        app:srcCompat="@mipmap/bga_pp_ic_cb_checked" />
+        app:qmui_is_oval="true" />
 
     <Space
         android:layout_width="@dimen/dp_17"

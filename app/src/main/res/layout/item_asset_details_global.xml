@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dp_5"
-    android:background="@mipmap/asset_item_global_bg"
-    android:orientation="vertical">
+    android:layout_marginHorizontal="@dimen/dp_10"
+    android:layout_marginVertical="@dimen/dp_5"
+    android:orientation="vertical"
+    app:qmui_backgroundColor="@color/content_bg_color"
+    app:qmui_radius="@dimen/dp_5">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,8 +33,8 @@
                     android:id="@+id/iv_asset_item_icon"
                     android:layout_width="@dimen/dp_28"
                     android:layout_height="@dimen/dp_28"
-                    app:qmui_corner_radius="@dimen/dp_14"
-                    tools:src="@mipmap/bga_pp_ic_cb_checked" />
+                    app:qmui_border_color="@color/color_white"
+                    app:qmui_corner_radius="@dimen/dp_14" />
 
                 <Space
                     android:layout_width="@dimen/dp_5"
@@ -42,7 +44,7 @@
                     android:id="@+id/iv_asset_item_coin_simple"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_18"
                     tools:text="USDT" />
 
@@ -67,7 +69,7 @@
                 android:layout_alignParentRight="true"
                 android:padding="@dimen/dp_5"
                 android:text="@string/transfer"
-                android:textColor="@color/color_black" />
+                android:textColor="@color/text_color" />
         </RelativeLayout>
 
 
@@ -100,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:textColor="@color/color_black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_12"
                     tools:text="0.000000000" />
 
@@ -131,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:textColor="@color/color_black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_12"
                     tools:text="0.000000000" />
 
@@ -162,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:textColor="@color/color_black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_12"
                     tools:text="0.000000000" />
 
@@ -195,7 +197,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/recharge"
-            android:textColor="@color/color_black" />
+            android:textColor="@color/text_color" />
 
         <View
             android:layout_width="@dimen/dp_1"
@@ -209,7 +211,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/withdrawals"
-            android:textColor="@color/color_black" />
+            android:textColor="@color/text_color" />
 
         <View
             android:layout_width="@dimen/dp_1"
@@ -223,7 +225,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/history"
-            android:textColor="@color/color_black" />
+            android:textColor="@color/text_color" />
 
         <View
             android:layout_width="@dimen/dp_1"
@@ -237,6 +239,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/trade"
-            android:textColor="@color/color_black" />
+            android:textColor="@color/text_color" />
     </LinearLayout>
-</LinearLayout>
+</com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>

@@ -54,7 +54,6 @@ import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
 import com.google.gson.Gson;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.umeng.analytics.MobclickAgent;
 import com.yanzhenjie.permission.Permission;
 
 import java.text.SimpleDateFormat;
@@ -256,7 +255,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             firstTime = System.currentTimeMillis();
         } else {
             finish();
-            MobclickAgent.onKillProcess(getApplicationContext());
             System.exit(0);
         }
     }
@@ -439,8 +437,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private void logoutSuccess() {
         mPresenter.logout();
         showToastSuccess(getResources().getString(R.string.logout_success));
-        //友盟退出
-        MobclickAgent.onProfileSignOff();
     }
 
     @Override

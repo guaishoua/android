@@ -10,7 +10,7 @@
         android:layout_width="@dimen/dp_22"
         android:layout_height="@dimen/dp_22"
         android:layout_marginVertical="@dimen/dp_30"
-        app:srcCompat="@drawable/icon_edit_black" />
+        app:srcCompat="@drawable/icon_edit" />
 
     <TextView
         android:id="@+id/tv_edit"
@@ -19,6 +19,6 @@
         android:layout_marginVertical="@dimen/dp_30"
         android:layout_marginLeft="@dimen/dp_10"
         android:text="@string/edit_selfselection"
-        android:textColor="@color/text_grey"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_sp_16" />
 </LinearLayout>

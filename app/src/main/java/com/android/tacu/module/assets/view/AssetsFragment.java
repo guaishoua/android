@@ -141,6 +141,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         lps.rightMargin = UIUtils.dp2px(8);
         mTopBar.addLeftView(circleImageView, R.id.qmui_topbar_item_left_back, lps);
 
+        defaultEyeStatus = spUtil.getAssetShowStatus();
         currentPrivacyView = mTopBar.addRightImageButton(
                 defaultEyeStatus ? R.mipmap.icon_watch : R.mipmap.icon_watch_disable,
                 R.id.qmui_topbar_item_right, 22, 22);
@@ -149,8 +150,8 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             @Override
             public void onClick(View v) {
                 defaultEyeStatus = !defaultEyeStatus;
+                spUtil.setAssetShowStatus(defaultEyeStatus);
                 invalidateDataAllDataSet();
-
             }
         });
 
@@ -311,7 +312,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                 refreshlayout.finishRefresh();
             }
             btc_total_string = FormatterUtils.getFormatRoundUp(btcAmount, assetDetailsModel.allMoney) + Constant.ASSETS_COIN;
-            tv_btc_total.setText(btc_total_string);
+            tv_btc_total.setText(defaultEyeStatus ? btc_total_string : "*****");
             myAssets();
             dealAssetList();
             if (assetDetailsModel.otcCoinList != null && assetDetailsModel.otcCoinList.size() > 0) {
@@ -548,7 +549,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     private void myAssets() {
         if (assetDetailsModel != null) {
             ycn_total_string = "≈" + getMcM(1, Double.parseDouble(assetDetailsModel.allMoney));
-            tv_ycn_total.setText(ycn_total_string);
+            tv_ycn_total.setText(defaultEyeStatus ? ycn_total_string : "*****");
         }
     }
 
