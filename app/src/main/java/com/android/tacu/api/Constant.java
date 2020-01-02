@@ -61,7 +61,7 @@ public class Constant {
     public static final String OSS_ENDPOINT = "http://oss-cn-beijing.aliyuncs.com";
 
     //顶象
-    public static final String DINGXINAG_APPID = "33cfe74118a6eb42e81e22fc23dfec66";//图形滑动验证id
+    public static final String DINGXINAG_APPID = "bc6773614c088f0618f41616dab302ed";//图形滑动验证id
 
     //app的H5下载链接
     public static final String ANDROID_APP_DOWNLOAD = "https://app.gexday.com/app.html";
@@ -75,8 +75,6 @@ public class Constant {
     //aws
     public static final String COGNITO_POOL_ID = "ap-northeast-2:5c54d227-7858-4842-a201-89fce0c55909";
 
-    //OTC地址
-    public static final String OTC_URL = ApiHost.SOCKET_IP + "/otc";
     //UUEX的OTC
     public static final String UUEX_OTC_URL = "https://uuex.io";
 

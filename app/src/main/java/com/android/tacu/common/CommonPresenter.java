@@ -20,26 +20,17 @@ public class CommonPresenter extends BaseMvpPresenter implements CommonContract.
 
     @Override
     public void fetchInvitedInfo(int uid) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.DATAOP, Api.class)
-                        .getInvitedInfo(uid),
-                new NetDisposableObserver<InvitedInfoModel>((IBaseMvpView) getView()) {
-                    @Override
-                    public void onNext(InvitedInfoModel model) {
-                        receptor.onInviteInfoReceieved(model);
-                    }
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.DATAOP, Api.class).getInvitedInfo(uid), new NetDisposableObserver<InvitedInfoModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(InvitedInfoModel model) {
+                receptor.onInviteInfoReceieved(model);
+            }
 
-                    @Override
-                    public void onError(Throwable throwable) {
-                        super.onComplete();
-                        receptor.onInviteInfoReceieved(null);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        super.onComplete();
-                    }
-
-
-                }, ModelTransformerFactory.getNonStandardModelTransformer());
+            @Override
+            public void onError(Throwable throwable) {
+                super.onError(throwable);
+                receptor.onInviteInfoReceieved(null);
+            }
+        }, ModelTransformerFactory.getNonStandardModelTransformer());
     }
 }

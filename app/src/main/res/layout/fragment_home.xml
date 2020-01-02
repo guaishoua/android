@@ -199,7 +199,7 @@
                         android:background="@color/content_bg_color"
                         android:orientation="horizontal">
 
-                        <com.shizhefei.view.indicator.FixedIndicatorView
+                        <com.shizhefei.view.indicator.ScrollIndicatorView
                             android:id="@+id/magic_indicator"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"

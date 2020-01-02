@@ -18,7 +18,7 @@
             android:id="@+id/rl_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
-            android:background="@drawable/gradient_blue_btn_top_8">
+            android:background="@drawable/gradient_btn_top_8">
 
             <TextView
                 android:id="@+id/txtTitle"
@@ -100,7 +100,7 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="@dimen/dp_40"
             android:layout_weight="1"
-            android:background="@drawable/gradient_blue_btn_5"
+            android:background="@drawable/gradient_btn_5"
             android:text="Neutral"
             android:textColor="@color/text_white"
             android:textStyle="bold" />
@@ -112,7 +112,7 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_weight="1"
-            android:background="@drawable/gradient_blue_btn_5"
+            android:background="@drawable/gradient_btn_5"
             android:text="YES"
             android:textColor="@color/text_white"
             android:textStyle="bold" />

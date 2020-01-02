@@ -14,7 +14,7 @@
         style="@style/person_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_white_solid_5"
+        android:background="@drawable/shape_solid_5"
         android:padding="@dimen/dp_10">
 
         <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView

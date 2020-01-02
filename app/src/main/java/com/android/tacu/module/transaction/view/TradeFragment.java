@@ -197,6 +197,8 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     private CoinPopWindow coinPopWindow;
     private TradePopWindow tradePopWindow;
 
+    private ScreenShareHelper screenShareHelper;
+
     //当前是买还是卖 默认买
     private boolean isBuy = true;
     //用户等级
@@ -305,6 +307,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         }
         if (timeHandler != null && timeRunnable != null) {
             timeHandler.removeCallbacks(timeRunnable);
+        }
+        if (screenShareHelper != null) {
+            screenShareHelper.destory();
         }
     }
 
@@ -596,12 +601,15 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                 }
             }
         });
-        mTopBar.addRightImageButton(R.drawable.icon_share_white, R.id.qmui_topbar_item_right_two, 20, 20).setOnClickListener(new View.OnClickListener() {
+        /*mTopBar.addRightImageButton(R.drawable.icon_share_white, R.id.qmui_topbar_item_right_two, 20, 20).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                        new ScreenShareHelper(getActivity()).invoke(rootView);
+                if (screenShareHelper == null) {
+                    screenShareHelper = new ScreenShareHelper(getActivity());
+                }
+                screenShareHelper.invoke(rootView);
             }
-        });
+        });*/
 
         magicIndicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.content_bg_color));
         magicIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.tab_default), ContextCompat.getColor(getContext(), R.color.text_grey_2)).setSize(14, 14));
@@ -1378,8 +1386,8 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         btnPriceSub.setEnabled(boo);
         editPrice.setEnabled(boo);
         if (boo) {
-            btnPriceAdd.setImageResource(R.drawable.icon_add_blue);
-            btnPriceSub.setImageResource(R.drawable.icon_sub_blue);
+            btnPriceAdd.setImageResource(R.drawable.icon_add_default);
+            btnPriceSub.setImageResource(R.drawable.icon_sub_default);
             ((QMUIRoundButtonDrawable) linPrice.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_transparent));
         } else {
             btnPriceAdd.setImageResource(R.drawable.icon_add_grey);

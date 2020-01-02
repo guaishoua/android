@@ -4,27 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.android.tacu.R;
-import com.android.tacu.api.ApiHost;
-import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
-import com.android.tacu.module.webview.model.EPayParam;
-import com.android.tacu.utils.EPayUtils;
-import com.android.tacu.utils.Md5Utils;
 import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
-
-import org.apache.http.util.EncodingUtils;
 
 import butterknife.BindView;
 
@@ -36,22 +27,14 @@ public class WebviewActivity extends BaseActivity {
     LinearLayout llWeb;
 
     private String url;
-    //是否加载富文本
-    private boolean isDetailSpan = false;
-    //epay加载表单
-    private EPayParam payParam = null;
 
     private WebView webView;
     private ValueCallback<Uri> uploadFile;
     private ValueCallback<Uri[]> uploadFiles;
 
-    public static Intent createActivity(Context context, String url, boolean isDetailSpan, EPayParam payParam) {
+    public static Intent createActivity(Context context, String url) {
         Intent intent = new Intent(context, WebviewActivity.class);
         intent.putExtra("url", url);
-        intent.putExtra("isDetailSpan", isDetailSpan);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("payParam", payParam);
-        intent.putExtras(bundle);
         return intent;
     }
 
@@ -63,11 +46,9 @@ public class WebviewActivity extends BaseActivity {
     @Override
     protected void initView() {
         url = getIntent().getStringExtra("url");
-        isDetailSpan = getIntent().getBooleanExtra("isDetailSpan", false);
-        payParam = (EPayParam) getIntent().getSerializableExtra("payParam");
 
         mTopBar.removeAllLeftViews();
-        mTopBar.addLeftImageButton(R.drawable.icon_close_black, R.id.qmui_topbar_item_left_back, 22, 22).setOnClickListener(new View.OnClickListener() {
+        mTopBar.addLeftImageButton(R.drawable.icon_close_default, R.id.qmui_topbar_item_left_back, 22, 22).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -143,24 +124,6 @@ public class WebviewActivity extends BaseActivity {
                 return true;
             }
         });
-        if (isDetailSpan) {//加载本地html
-            webView.loadDataWithBaseURL(null, url, "text/html", "UTF-8", null);
-        } else if (payParam != null) {
-            String language = "";
-            if (TextUtils.equals(spUtil.getLanguage(), Constant.ZH_TW) || TextUtils.equals(spUtil.getLanguage(), Constant.ZH_CN)) {
-                language = "ZH_CN";
-            } else {
-                language = "EN_US";
-            }
-            String postData = EPayUtils.ePayData(payParam, language);
-            webView.postUrl(ApiHost.EPay_host, EncodingUtils.getBytes(postData, "UTF-8"));
-        } else {
-            //OTC需要拼接
-            if (TextUtils.equals(url, Constant.OTC_URL)) {
-                url += "?chaoex_uid=" + Md5Utils.AESEncrypt(String.valueOf(spUtil.getUserUid())) + "&chaoex_token=" + Md5Utils.AESEncrypt(spUtil.getToken());
-            }
-            webView.loadUrl(url);
-        }
     }
 
     @Override
@@ -267,34 +230,4 @@ public class WebviewActivity extends BaseActivity {
         i.setType("*/*");
         startActivityForResult(Intent.createChooser(i, ""), 0);
     }
-
-    /**
-     * 添加cookie
-     */
-    /*private void updateCookies() {
-        //解析请求链接地址
-        Uri htmlUriWithApp = Uri.parse(url);
-        //将要绑定的域名进行分离
-        String urll = htmlUriWithApp.getHost();
-        CookieSyncManager.createInstance(this);
-
-        //存cookie
-        CookieManager mCookieManager = CookieManager.getInstance();
-        mCookieManager.setAcceptCookie(true);
-
-        //判断清空cookie
-        String cookie = mCookieManager.getCookie(urll);
-        if (cookie != null) {
-            mCookieManager.removeAllCookie();
-        }
-        //存键值对形式进入cookie
-        mCookieManager.setCookie(urll, "uid=" + Md5Utils.AESEncrypt(String.valueOf(spUtil.getUserUid())));
-        mCookieManager.setCookie(urll, "token=" + Md5Utils.AESEncrypt(spUtil.getToken()));
-        //同步cookie
-        if (Build.VERSION.SDK_INT < 21) {
-            CookieSyncManager.getInstance().sync();
-        } else {
-            mCookieManager.flush();
-        }
-    }*/
 }

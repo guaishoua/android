@@ -539,7 +539,6 @@ public class TakeCoinFragment extends BaseFragment<CoinsPresenter> implements Co
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//        tvAddAddress.setImageResource(R.drawable.icon_expand_grey);
         tempAddressString = addressModel.get(position).address;
         tempNoteString = addressModel.get(position).note;
         etSelectAddress.setText(addressModel.get(position).address);

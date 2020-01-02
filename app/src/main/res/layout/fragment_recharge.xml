@@ -24,7 +24,7 @@
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_20"
                 android:text="@string/title_assets_import_address"
-                android:textColor="@color/color_black"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_16" />
 
             <Space
@@ -173,7 +173,7 @@
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginRight="@dimen/dp_15"
-                android:background="@drawable/gradient_blue_btn_5"
+                android:background="@drawable/gradient_btn_5"
                 android:gravity="center"
                 android:text="@string/save_image"
                 android:textColor="@color/text_white"
@@ -278,7 +278,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_44"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/gradient_blue_btn_5"
+                    android:background="@drawable/gradient_btn_5"
                     android:gravity="center"
                     android:text="@string/grin_submit"
                     android:textColor="@color/text_white"

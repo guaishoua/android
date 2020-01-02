@@ -11,5 +11,4 @@ public class CommonContract {
     public interface IPresenter {
         void fetchInvitedInfo(int uid);
     }
-
 }

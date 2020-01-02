@@ -67,7 +67,7 @@
                 android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_black"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_12"
                 tools:text="充值" />
 
@@ -113,7 +113,7 @@
                 android:id="@+id/tv_coins_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_black"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_12"
                 tools:text="BTC充值" />
 

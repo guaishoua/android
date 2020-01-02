@@ -3,7 +3,6 @@ package com.android.tacu.utils;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -35,18 +34,6 @@ public class ScreenShareHelper implements CommonContract.IView {
     private Activity context;
     private UserInfoUtils spUtil;
     private CommonPresenter presenter;
-    private Listener listener;
-
-    public interface Listener {
-        void onLoading();
-
-        void onFinished();
-
-    }
-
-    public void setListener(Listener l) {
-        this.listener = l;
-    }
 
     public ScreenShareHelper(Activity c) {
         context = c;
@@ -56,19 +43,8 @@ public class ScreenShareHelper implements CommonContract.IView {
 
     @Override
     public void onInviteInfoReceieved(InvitedInfoModel model) {
-        if (listener != null)
-            listener.onFinished();
-
         invitedInfoModel = model;
         setShareEvent(invitedInfoModel, cloneTargetView);
-    }
-
-    private void setShareView(View view) {
-        shareView = View.inflate(context, R.layout.view_share_prototype, null);
-        imgShare = shareView.findViewById(R.id.img_share);
-        imgBarcode = shareView.findViewById(R.id.img_barcode);
-        bitmapPart = ScreenShootUtils.convertViewToBitmap(view);
-        imgShare.setImageBitmap(bitmapPart);
     }
 
     public void invoke(View baseView) {
@@ -77,8 +53,6 @@ public class ScreenShareHelper implements CommonContract.IView {
         if (spUtil.getLogin()) {
             if (invitedInfoModel == null) {
                 presenter.fetchInvitedInfo(spUtil.getUserUid());
-                if (listener != null)
-                    listener.onLoading();
             } else {
                 setShareEvent(invitedInfoModel, cloneTargetView);
             }
@@ -86,6 +60,14 @@ public class ScreenShareHelper implements CommonContract.IView {
             if (context instanceof BaseActivity)
                 ((BaseActivity) context).jumpTo(LoginActivity.class);
         }
+    }
+
+    private void setShareView(View view) {
+        shareView = View.inflate(context, R.layout.view_share_prototype, null);
+        imgShare = shareView.findViewById(R.id.img_share);
+        imgBarcode = shareView.findViewById(R.id.img_barcode);
+        bitmapPart = ScreenShootUtils.convertViewToBitmap(view);
+        imgShare.setImageBitmap(bitmapPart);
     }
 
     private void setShareEvent(InvitedInfoModel attachment, View view) {
@@ -138,9 +120,7 @@ public class ScreenShareHelper implements CommonContract.IView {
 
             @Override
             public void dismissShare() {
-                Log.i("ScreenHelper Util", "ScreenHelper Util Info");
             }
-
         });
     }
 
@@ -164,4 +144,14 @@ public class ScreenShareHelper implements CommonContract.IView {
         }
     }
 
+    public void destory() {
+        cleanShareScreenCache();
+        if (context != null) {
+            context = null;
+        }
+        if (presenter != null) {
+            presenter.destroy();
+            presenter = null;
+        }
+    }
 }

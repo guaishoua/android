@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <external-files-path name="chaoex_apk" path="chaoex_apk" />
+    <external-files-path name="tacu_apk" path="tacu_apk" />
     <external-path name="external_files" path="."/>
 </paths>

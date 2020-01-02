@@ -58,8 +58,6 @@
 
     <!--启动页的背景颜色-->
     <color name="color_splash">#141C25</color>
-    <!--Button按钮颜色-->
-    <color name="color_button">#C9B661</color>
     <!--默认进度条颜色-->
     <color name="color_default_progress">#CCC9B661</color>
     <!--app更新dialog的按钮-->
@@ -85,7 +83,8 @@
     <color name="tab_default">#C9B661</color>
     <!--透明度40%的黑色-->
     <color name="transparent_40">#99000000</color>
-
+    <!--小图标的颜色-->
+    <color name="color_icon">#FFFFFF</color>
 
 
 

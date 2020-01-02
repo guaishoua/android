@@ -87,7 +87,7 @@
             android:layout_marginLeft="@dimen/dp_3"
             android:background="@null"
             android:gravity="center"
-            app:srcCompat="@drawable/icon_sub_blue" />
+            app:srcCompat="@drawable/icon_sub_default" />
 
         <View
             android:layout_width="@dimen/dp_1"
@@ -120,7 +120,7 @@
             android:layout_marginRight="@dimen/dp_3"
             android:background="@null"
             android:gravity="center"
-            app:srcCompat="@drawable/icon_add_blue" />
+            app:srcCompat="@drawable/icon_add_default" />
     </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
     <TextView
@@ -149,7 +149,7 @@
             android:layout_marginLeft="@dimen/dp_3"
             android:background="@null"
             android:gravity="center"
-            app:srcCompat="@drawable/icon_sub_blue" />
+            app:srcCompat="@drawable/icon_sub_default" />
 
         <View
             android:layout_width="@dimen/dp_1"
@@ -182,7 +182,7 @@
             android:layout_marginRight="@dimen/dp_3"
             android:background="@null"
             android:gravity="center"
-            app:srcCompat="@drawable/icon_add_blue" />
+            app:srcCompat="@drawable/icon_add_default" />
     </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
     <TextView
@@ -201,7 +201,7 @@
         android:layout_marginTop="@dimen/dp_10"
         app:ssb_max="1"
         app:ssb_min="0"
-        app:ssb_second_track_color="@color/color_button"
+        app:ssb_second_track_color="@color/text_default"
         app:ssb_section_count="4"
         app:ssb_section_text_color="@color/colorPrimary"
         app:ssb_section_text_position="below_section_mark"
@@ -209,7 +209,7 @@
         app:ssb_show_section_mark="true"
         app:ssb_show_section_text="true"
         app:ssb_sides_labels="@array/seekbar_ratio"
-        app:ssb_thumb_color="@color/color_button"
+        app:ssb_thumb_color="@color/text_default"
         app:ssb_touch_to_seek="true"
         app:ssb_track_color="@color/color_grey_3" />
 

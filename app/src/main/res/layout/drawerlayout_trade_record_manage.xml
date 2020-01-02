@@ -131,7 +131,7 @@
             app:layout_constraintRight_toRightOf="@+id/tv_tradetype_all"
             app:qmui_border_color="@color/color_transparent"
             app:qmui_corner_radius="@dimen/dp_3"
-            app:srcCompat="@drawable/icon_rightcheckout_blue" />
+            app:srcCompat="@drawable/icon_rightcheckout_default" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundTextView
             android:id="@+id/tv_tradetype_all"
@@ -203,7 +203,7 @@
             app:layout_constraintRight_toRightOf="@+id/tv_tradestatus_all"
             app:qmui_border_color="@color/color_transparent"
             app:qmui_corner_radius="@dimen/dp_3"
-            app:srcCompat="@drawable/icon_rightcheckout_blue" />
+            app:srcCompat="@drawable/icon_rightcheckout_default" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundTextView
             android:id="@+id/tv_tradestatus_all"

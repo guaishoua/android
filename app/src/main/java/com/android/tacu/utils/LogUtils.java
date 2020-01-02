@@ -11,7 +11,7 @@ import com.android.tacu.BuildConfig;
 public class LogUtils {
 
     public static final boolean showLog = BuildConfig.DEBUG;
-    public static final String tag = "tag_chaoex";
+    public static final String tag = "tag_tacu";
 
     public static void d(String tag, String msg) {
         if (showLog) Log.d(tag, msg);

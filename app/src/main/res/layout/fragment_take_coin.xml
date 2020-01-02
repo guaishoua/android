@@ -36,7 +36,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/dp_4"
                         android:text="@string/label_assets_take_coin_note"
-                        android:textColor="@color/color_black"
+                        android:textColor="@color/text_color"
                         android:textSize="@dimen/text_size_sp_14" />
 
                     <Space
@@ -51,10 +51,11 @@
                         android:hint="@string/hint_assets_take_coin_note"
                         android:inputType="text"
                         android:minHeight="@dimen/dp_45"
-                        android:textColor="@color/color_black"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey_2"
                         android:textSize="@dimen/text_size_sp_14"
                         app:qmui_underline_anim="true"
-                        app:qmui_underline_focuscolor="@color/color_black"
+                        app:qmui_underline_focuscolor="@color/text_color"
                         app:qmui_underline_unfocuscolor="@color/color_grey_3"
                         app:qmui_underline_width="@dimen/dp_1" />
 
@@ -79,7 +80,7 @@
                             android:layout_height="wrap_content"
                             android:paddingLeft="@dimen/dp_4"
                             android:text="@string/label_assets_take_coin_address"
-                            android:textColor="@color/color_black"
+                            android:textColor="@color/text_color"
                             android:textSize="@dimen/text_size_sp_14" />
 
                         <Space
@@ -96,10 +97,11 @@
                             android:minHeight="@dimen/dp_45"
                             android:maxLength="150"
                             android:paddingRight="@dimen/dp_80"
-                            android:textColor="@color/color_black"
+                            android:textColor="@color/text_color"
+                            android:textColorHint="@color/text_grey_2"
                             android:textSize="@dimen/text_size_sp_14"
                             app:qmui_underline_anim="true"
-                            app:qmui_underline_focuscolor="@color/color_black"
+                            app:qmui_underline_focuscolor="@color/text_color"
                             app:qmui_underline_unfocuscolor="@color/color_grey_3"
                             app:qmui_underline_width="@dimen/dp_1" />
 
@@ -121,7 +123,7 @@
                             android:drawableRight="@mipmap/icon_btn_arrow_right"
                             android:drawablePadding="@dimen/dp_8"
                             android:text="@string/btn_assets_take_coin_manage_address"
-                            android:textColor="@color/color_button"
+                            android:textColor="@color/text_default"
                             android:textSize="@dimen/text_size_sp_14" />
 
                     </LinearLayout>
@@ -155,7 +157,7 @@
                             android:layout_height="@dimen/dp_20"
                             android:layout_marginLeft="@dimen/dp_5"
                             android:layout_marginRight="@dimen/dp_5"
-                            android:background="@color/color_button" />
+                            android:background="@color/color_default" />
 
 
                         <com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout
@@ -195,7 +197,7 @@
                             android:layout_height="wrap_content"
                             android:paddingLeft="@dimen/dp_4"
                             android:text="@string/label_assets_take_coin_amount"
-                            android:textColor="@color/color_black"
+                            android:textColor="@color/text_color"
                             android:textSize="@dimen/text_size_sp_14" />
 
                         <Space
@@ -211,10 +213,11 @@
                             android:hint="@string/hint_assets_take_coin_amount"
                             android:inputType="numberDecimal"
                             android:maxLines="1"
-                            android:textColor="@color/color_black"
+                            android:textColor="@color/text_color"
+                            android:textColorHint="@color/text_grey_2"
                             android:textSize="@dimen/text_size_sp_14"
                             app:qmui_underline_anim="true"
-                            app:qmui_underline_focuscolor="@color/color_black"
+                            app:qmui_underline_focuscolor="@color/text_color"
                             app:qmui_underline_unfocuscolor="@color/color_grey_3"
                             app:qmui_underline_width="@dimen/dp_1" />
 
@@ -230,7 +233,7 @@
                         android:paddingRight="@dimen/dp_5"
                         android:paddingBottom="@dimen/dp_12"
                         android:text="@string/all"
-                        android:textColor="@color/color_button"
+                        android:textColor="@color/text_default"
                         android:textSize="@dimen/text_size_sp_14" />
 
                 </RelativeLayout>

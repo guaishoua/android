@@ -28,7 +28,6 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.interfaces.ISocketEvent;
-import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.view.MainActivity;
 import com.android.tacu.module.market.contract.MarketDetailsContract;
@@ -37,17 +36,14 @@ import com.android.tacu.module.market.model.KLineModel;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.SelfModel;
 import com.android.tacu.module.market.presenter.MarketDetailsPresenter;
-import com.android.tacu.module.my.model.InvitedInfoModel;
 import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.KShareUtils;
 import com.android.tacu.utils.SPUtils;
-import com.android.tacu.utils.ScreenShootUtils;
+import com.android.tacu.utils.ScreenShareHelper;
 import com.android.tacu.utils.UIUtils;
-import com.android.tacu.utils.ZXingUtils;
-import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.widget.popupwindow.CoinPopWindow;
 import com.android.tacu.widget.tab.TabLayoutView;
 import com.android.tacu.widget.tab.TabPopup;
@@ -64,7 +60,6 @@ import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
-import com.yanzhenjie.permission.Permission;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -75,7 +70,6 @@ import java.util.Observer;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.android.tacu.api.ApiHost.SOCKET_IP;
 import static com.android.tacu.api.Constant.SELFCOIN_LIST;
 
 public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> implements MarketDetailsContract.IView, ISocketEvent, Observer {
@@ -120,10 +114,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     private TextView tvCenterTitle;
     private QMUIAlphaImageButton btnRight;
 
-    private View shareView;
-    private ImageView imgShare;
-    private ImageView imgBarcode;
-
     //深度
     private MarketDetailDepthFragment marketDetailDepthFragment;
     //成交记录
@@ -155,7 +145,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     private TabPopup timePopUp;
 
     private CurrentTradeCoinModel currentTradeCoinModel;
-    private InvitedInfoModel invitedInfoModel;
     private IndicatorViewPager indicatorViewPager;
 
     private KShareUtils shareUtil;
@@ -174,6 +163,8 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     //防止socket刷新频繁
     private int pointPriceTemp;
+
+    private ScreenShareHelper screenShareHelper;
 
     private Handler kHandler = new Handler();
     private Runnable kRunnable = new Runnable() {
@@ -228,23 +219,17 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 }
             }
         });
-        btnRight = mTopBar.addRightImageButton(R.drawable.icon_share_white, R.id.qmui_topbar_item_right, 22, 22);
+        btnRight = mTopBar.addRightImageButton(0, R.id.qmui_topbar_item_right, 22, 22);
         btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MarketDetailsActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     setScreenHorizontalCancle();
                 } else {
-                    if (spUtil.getLogin()) {
-                        //请求二维码
-                        if (invitedInfoModel == null) {
-                            mPresenter.getInvitedInfo(spUtil.getUserUid());
-                        } else {
-                            setShareEvent(invitedInfoModel);
-                        }
-                    } else {
-                        jumpTo(LoginActivity.class);
+                    if (screenShareHelper == null) {
+                        screenShareHelper = new ScreenShareHelper(MarketDetailsActivity.this);
                     }
+                    screenShareHelper.invoke(layout_kline);
                 }
             }
         });
@@ -392,7 +377,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {//横屏
             rlCoinDetail.setVisibility(View.GONE);
             rlBottom.setVisibility(View.GONE);
-            btnRight.setImageResource(R.drawable.icon_close_black);
+            btnRight.setImageResource(R.drawable.icon_close_default);
             magicIndicator.setVisibility(View.GONE);
             viewpager.setVisibility(View.GONE);
             setKLineWidhtAndHeight(2);
@@ -404,7 +389,8 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {//竖屏
             rlCoinDetail.setVisibility(View.VISIBLE);
             rlBottom.setVisibility(View.VISIBLE);
-            btnRight.setImageResource(R.drawable.icon_share_white);
+            //btnRight.setImageResource(R.drawable.icon_share_white);
+            btnRight.setImageResource(0);
             magicIndicator.setVisibility(View.VISIBLE);
             viewpager.setVisibility(View.VISIBLE);
             setKLineWidhtAndHeight(1);
@@ -473,14 +459,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 kAdapter.addFooterData(data);
                 mKChartView.refreshEnd();
             }
-        }
-    }
-
-    @Override
-    public void showInvitedInfo(InvitedInfoModel model) {
-        this.invitedInfoModel = model;
-        if (model != null) {
-            setShareEvent(model);
         }
     }
 
@@ -749,64 +727,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             mKChartView.showLoading();
         }
         mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), chartTime, 1);
-    }
-
-    private void setShareView() {
-        shareView = View.inflate(this, R.layout.view_market_details, null);
-        imgShare = shareView.findViewById(R.id.img_share);
-        imgBarcode = shareView.findViewById(R.id.img_barcode);
-
-        bitmapPart = ScreenShootUtils.loadBitmapFromView(layout_kline);
-        imgShare.setImageBitmap(bitmapPart);
-    }
-
-    /**
-     * 点击分享按钮 网络请求成功后
-     */
-    private void setShareEvent(InvitedInfoModel attachment) {
-        setShareView();
-
-        String url;
-        if (!TextUtils.isEmpty(attachment.invited_id)) {
-            url = SOCKET_IP + "/register/" + attachment.invited_id;
-        } else {
-            url = Constant.ANDROID_APP_DOWNLOAD;//Android下载链接
-        }
-
-        bitmapZxing = ZXingUtils.createQRImage(url, UIUtils.dp2px(130), UIUtils.dp2px(130));
-        if (bitmapZxing != null) {
-            imgBarcode.setImageBitmap(bitmapZxing);
-        }
-
-        PermissionUtils.requestPermissions(MarketDetailsActivity.this, new OnPermissionListener() {
-            @Override
-            public void onPermissionSucceed() {
-                setShare();
-            }
-
-            @Override
-            public void onPermissionFailed() {
-            }
-        }, Permission.Group.STORAGE);
-    }
-
-    private void setShare() {
-        shareUtil = new KShareUtils(this);
-        shareUtil.shareView(new KShareUtils.ShareListener() {
-            @Override
-            public Bitmap showShare() {
-                bitmapScreenShoot = ScreenShootUtils.convertViewToBitmap(shareView, KShareUtils.path);
-                if (bitmapScreenShoot != null) {
-                    return bitmapScreenShoot;
-                } else {
-                    return null;
-                }
-            }
-
-            @Override
-            public void dismissShare() {
-            }
-        });
     }
 
     private class TabAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {

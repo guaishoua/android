@@ -102,6 +102,8 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     private QMUIAlphaImageButton currentPrivacyView;
     private TransInfoCoinModal transInfoCoinModal;
 
+    private ScreenShareHelper screenShareHelper;
+
     public static AssetsFragment newInstance() {
         Bundle bundle = new Bundle();
         AssetsFragment fragment = new AssetsFragment();
@@ -155,13 +157,16 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             }
         });
 
-        mTopBar.addRightImageButton(R.drawable.icon_share_white, R.id.qmui_topbar_item_right_two, 20, 20)
+        /*mTopBar.addRightImageButton(R.drawable.icon_share_white, R.id.qmui_topbar_item_right_two, 20, 20)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new ScreenShareHelper(getActivity()).invoke(refreshlayout);
+                        if (screenShareHelper == null) {
+                            screenShareHelper = new ScreenShareHelper(getActivity());
+                        }
+                        screenShareHelper.invoke(refreshlayout);
                     }
-                });
+                });*/
 
         emptyView = View.inflate(getActivity(), R.layout.view_empty, null);
         inputMethod = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -180,32 +185,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         initReyclerView();
         initAssetHeader();
         editViewSearch();
-    }
-
-    private void invalidateDataAllDataSet() {
-        tv_btc_total.setText(defaultEyeStatus ? btc_total_string : "*****");
-        tv_ycn_total.setText(defaultEyeStatus ? ycn_total_string : "*****");
-        adapter.notifyDataSetChanged();
-        currentPrivacyView.setImageResource(defaultEyeStatus ? R.mipmap.icon_watch : R.mipmap.icon_watch_disable);
-    }
-
-    private void editViewSearch() {
-        et_search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                search();
-            }
-        });
     }
 
     @Override
@@ -243,6 +222,9 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         if (refreshlayout != null && refreshlayout.isRefreshing()) {
             refreshlayout.finishRefresh();
         }
+        if (screenShareHelper != null) {
+            screenShareHelper.destory();
+        }
     }
 
     @Override
@@ -268,6 +250,33 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             refreshlayout.finishRefresh();
         }
     }
+
+    private void invalidateDataAllDataSet() {
+        tv_btc_total.setText(defaultEyeStatus ? btc_total_string : "*****");
+        tv_ycn_total.setText(defaultEyeStatus ? ycn_total_string : "*****");
+        adapter.notifyDataSetChanged();
+        currentPrivacyView.setImageResource(defaultEyeStatus ? R.mipmap.icon_watch : R.mipmap.icon_watch_disable);
+    }
+
+    private void editViewSearch() {
+        et_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                search();
+            }
+        });
+    }
+
 
     /**
      * 模糊搜索

@@ -387,7 +387,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     public void uuexSign(UuexSignModal modal) {
         if (modal != null) {
             String url = Constant.UUEX_OTC_URL + "/#/home?token=" + modal.token + "&timestamp=" + modal.timestamp + "&sign=" + modal.sign;
-            jumpTo(WebviewActivity.createActivity(this, url, false, null));
+            jumpTo(WebviewActivity.createActivity(this, url));
         }
     }
 

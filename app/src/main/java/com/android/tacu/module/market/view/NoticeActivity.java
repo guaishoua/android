@@ -80,7 +80,7 @@ public class NoticeActivity extends BaseActivity<NoticePresenter> implements Not
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (noticeModelList != null && noticeModelList.size() > 0) {
-                    jumpTo(WebviewActivity.createActivity(NoticeActivity.this, noticeModelList.get(position).htmlUrl, false, null));
+                    jumpTo(WebviewActivity.createActivity(NoticeActivity.this, noticeModelList.get(position).htmlUrl));
                 }
             }
         });

@@ -6,11 +6,9 @@ import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
-import com.android.tacu.http.factory.ModelTransformerFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.market.contract.MarketDetailsContract;
 import com.android.tacu.module.market.model.KLineModel;
-import com.android.tacu.module.my.model.InvitedInfoModel;
 
 /**
  * Created by jiazhen on 2018/8/23.
@@ -32,17 +30,6 @@ public class MarketDetailsPresenter extends BaseMvpPresenter implements MarketDe
                 }
             }
         });
-    }
-
-    @Override
-    public void getInvitedInfo(int uid) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.DATAOP, Api.class).getInvitedInfo(uid), new NetDisposableObserver<InvitedInfoModel>((IBaseMvpView) getView()) {
-            @Override
-            public void onNext(InvitedInfoModel model) {
-                MarketDetailsContract.IView view = (MarketDetailsContract.IView) getView();
-                view.showInvitedInfo(model);
-            }
-        }, ModelTransformerFactory.getNonStandardModelTransformer());
     }
 
     @Override

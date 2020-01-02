@@ -71,7 +71,6 @@ public class SwitchPresenter extends BaseMvpPresenter {
         config.put("customStyle", customStyle);
         config.put("language", language);
         config.put("cacheStorage", true);//是否缓存上次校验结果，默认为true。界面中若只包含无感验证建议设置此项。
-        //config.put("captchaJS", Constant.DINGXIANG_CDN);
         JSONObject customLanguage = new JSONObject();
         try {
             customLanguage.put("init_inform", activity.getResources().getString(R.string.switch_drag));

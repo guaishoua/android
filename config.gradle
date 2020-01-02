@@ -1,16 +1,13 @@
 ext {
 
     android = [
-            //public static String RELEASE_HOST = "https://www.chaoex.io/unique";  //生产
-            //public static String RELEASE_HOST = "http://www.fuex.co/unique";     //测试
-            //public static String RELEASE_HOST = "http://47.52.70.69/unique";     //测试
 
             //测试环境
             Api_Debug        : "\"http://www.fuex.co/unique\"",
             Ip_Debug         : "\"debug\"",
             //正式环境  www.cdcbk.com
-            Api_Release      : "\"https://www.gexday.com/unique\"",
-            Ip_Release       : "\"www.gexday.com\"",
+            Api_Release      : "\"https://www.cdcbk.com/unique\"",
+            Ip_Release       : "\"www.cdcbk.com\"",
 
             //登录密码加密的盐值
             Salt_Login_pwd   : "\"dig?F*ckDang5PaSsWOrd&%(12lian0160630).\"",

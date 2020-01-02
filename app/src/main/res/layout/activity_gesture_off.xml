@@ -18,7 +18,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_90"
         android:scaleType="fitXY"
-        android:src="@drawable/cirlcle_gesture" />
+        android:src="@mipmap/icon_circle_gesture" />
 
     <TextView
         android:id="@+id/tv_prompt_lock_off"

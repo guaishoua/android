@@ -231,7 +231,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         } else if (TextUtils.equals(text, contactUs)) {
             jumpTo(ContactUsActivity.class);
         } else if (TextUtils.equals(text, question)) {
-            jumpTo(WebviewActivity.createActivity(mActivity, Constant.ZENDESK_WENTI, false, null));
+            jumpTo(WebviewActivity.createActivity(mActivity, Constant.ZENDESK_WENTI));
         } else if (TextUtils.equals(text, myTicket)) {
             String name = "Android";
             String email = "Null";

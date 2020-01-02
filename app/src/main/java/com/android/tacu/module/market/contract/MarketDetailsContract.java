@@ -12,8 +12,6 @@ public class MarketDetailsContract {
     public interface IView extends IBaseMvpView {
         void success(KLineModel model);
 
-        void showInvitedInfo(InvitedInfoModel model);
-
         void uploadSelfSuccess();
 
         void uploadSelfError();
@@ -25,8 +23,6 @@ public class MarketDetailsContract {
 
     public interface IPresenter {
         void getBestexKline(String symbol, long range,int type);
-
-        void getInvitedInfo(int uid);
 
         void uploadSelfList(String checkJson);
     }

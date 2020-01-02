@@ -10,7 +10,6 @@ import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.my.contract.InvitedinfoContract;
 import com.android.tacu.module.my.model.InvitedAllModel;
 import com.android.tacu.module.my.presenter.InvitedinfoPresenter;
-import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,8 +25,6 @@ public class InvitedinfoActivity extends BaseActivity<InvitedinfoPresenter> impl
     TextView tvCode;
     @BindView(R.id.tv_count)
     TextView tvCount;
-    @BindView(R.id.bt_poster)
-    QMUIAlphaButton bt_poster;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 

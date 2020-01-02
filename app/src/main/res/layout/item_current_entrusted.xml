@@ -61,7 +61,7 @@
         android:paddingHorizontal="@dimen/dp_8"
         android:paddingVertical="@dimen/dp_5"
         android:text="@string/order_cancel"
-        android:textColor="@color/color_button"
+        android:textColor="@color/text_default"
         android:textSize="@dimen/text_size_sp_14"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

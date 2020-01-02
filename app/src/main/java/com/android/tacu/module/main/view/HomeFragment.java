@@ -60,6 +60,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
+import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.stx.xhb.xbanner.XBanner;
@@ -98,7 +99,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @BindView(R.id.text_scroll)
     QMUIScrollTextView text_scroll;
     @BindView(R.id.magic_indicator)
-    FixedIndicatorView magicIndicator;
+    ScrollIndicatorView magicIndicator;
     @BindView(R.id.img_search)
     ImageView img_search;
     @BindView(R.id.lin_pair_vol)
@@ -130,6 +131,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     private IndicatorViewPager indicatorViewPager;
 
     private String noticeCloseCacheString;
+
+    private ScreenShareHelper screenShareHelper;
 
     /**
      * 筛选按钮的箭头 0：不显示 1：向下降序 2：向上升序
@@ -178,7 +181,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         magicIndicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tab_bg_color));
         magicIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.tab_default), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(14, 14));
         magicIndicator.setScrollBar(new ColorBar(getContext(), ContextCompat.getColor(getContext(), R.color.tab_default), 4));
-        magicIndicator.setSplitMethod(FixedIndicatorView.SPLITMETHOD_WRAP);
+        magicIndicator.setSplitAuto(false);
 
         initCache();
     }
@@ -202,6 +205,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         if (mSocketHandler != null) {
             mSocketHandler.removeCallbacksAndMessages(null);
             mSocketHandler = null;
+        }
+        if (screenShareHelper != null) {
+            screenShareHelper.destory();
         }
     }
 
@@ -315,7 +321,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     public void uuexSign(UuexSignModal modal) {
         if (modal != null) {
             String url = Constant.UUEX_OTC_URL + "/#/home?token=" + modal.token + "&timestamp=" + modal.timestamp + "&sign=" + modal.sign;
-            jumpTo(WebviewActivity.createActivity(getContext(), url, false, null));
+            jumpTo(WebviewActivity.createActivity(getContext(), url));
         }
     }
 
@@ -542,13 +548,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 }
             }
         });
-        mTopBar.addRightImageButton(R.drawable.icon_share_white, R.id.qmui_topbar_item_right_two, 20, 20).setOnClickListener(new View.OnClickListener() {
+        /*mTopBar.addRightImageButton(R.drawable.icon_share_white, R.id.qmui_topbar_item_right_two, 20, 20).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ScreenShareHelper(getActivity()).invoke(refreshHome);
-
+                if (screenShareHelper == null) {
+                    screenShareHelper = new ScreenShareHelper(getActivity());
+                }
+                screenShareHelper.invoke(refreshHome);
             }
-        });
+        });*/
     }
 
     /**
@@ -586,7 +594,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 public void onItemClick(XBanner banner, Object model, View view, int position) {
                     CustomViewsInfo customViewsInfo = (CustomViewsInfo) model;
                     if (!TextUtils.isEmpty(customViewsInfo.getXBannerUrl())) {
-                        jumpTo(WebviewActivity.createActivity(getContext(), customViewsInfo.getXBannerUrl(), false, null));
+                        jumpTo(WebviewActivity.createActivity(getContext(), customViewsInfo.getXBannerUrl()));
                     }
                 }
             });
@@ -636,7 +644,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             text_scroll.setOnItemClickListener(new QMUIScrollTextView.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position, TextView textView) {
-                    jumpTo(WebviewActivity.createActivity(getContext(), noticeList.get(position).htmlUrl, false, null));
+                    jumpTo(WebviewActivity.createActivity(getContext(), noticeList.get(position).htmlUrl));
                 }
             });
         } else {

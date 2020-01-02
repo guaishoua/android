@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/copy"
-        android:textColor="@color/color_button"
+        android:textColor="@color/text_default"
         android:textSize="@dimen/text_size_sp_12" />
 
 </LinearLayout>
