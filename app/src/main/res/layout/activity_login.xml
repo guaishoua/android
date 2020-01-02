@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_login"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/img_loginbg" />
 
     <include
         android:id="@+id/title"
         layout="@layout/common_titlebar"
-        android:visibility="gone" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -22,22 +26,12 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/img_login_bg"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="W,1.2:1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
-
-            <ImageView
                 android:id="@+id/img_logo"
-                android:layout_width="@dimen/dp_250"
+                android:layout_width="@dimen/dp_75"
                 android:layout_height="@dimen/dp_120"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_80"
-                android:src="@mipmap/img_logo_globalex"
+                android:src="@mipmap/img_logo_big"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -99,10 +93,10 @@
                 android:background="@null"
                 android:gravity="center"
                 android:text="@string/login"
-                android:textColor="@color/text_default"
+                android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_sp_16"
                 app:layout_constraintTop_toBottomOf="@+id/et_pwd"
-                app:qmui_backgroundColor="@color/color_white"
+                app:qmui_backgroundColor="@color/color_default"
                 app:qmui_radius="@dimen/dp_2" />
 
             <TextView
@@ -112,7 +106,7 @@
                 android:layout_marginLeft="@dimen/dp_25"
                 android:layout_marginTop="@dimen/dp_30"
                 android:text="@string/register_fast"
-                android:textColor="@color/text_white"
+                android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_16"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnLogin" />
@@ -124,28 +118,10 @@
                 android:layout_marginTop="@dimen/dp_30"
                 android:layout_marginRight="@dimen/dp_25"
                 android:text="@string/forgot_password"
-                android:textColor="@color/text_white"
+                android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_16"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnLogin" />
-
-            <ImageView
-                android:id="@+id/img_login_back"
-                android:layout_width="@dimen/dp_25"
-                android:layout_height="@dimen/dp_28"
-                android:layout_marginTop="@dimen/dp_100"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/img_login_back"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/register_now" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_50"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_login_back" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

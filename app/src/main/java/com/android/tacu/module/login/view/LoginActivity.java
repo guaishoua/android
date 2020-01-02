@@ -81,13 +81,21 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void setView() {
-        QMUIStatusBarHelper.translucent(this);
         setContentView(R.layout.activity_login);
     }
 
     @Override
     protected void initView() {
         isGoMain = getIntent().getBooleanExtra("isGoMain", false);
+
+        mTopBar.setBackgroundAlpha(0);
+        mTopBar.removeAllLeftViews();
+        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -140,11 +148,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             return;
         }
         switchPresenter.switchView();
-    }
-
-    @OnClick(R.id.img_login_back)
-    void login_back(){
-        finish();
     }
 
     /**

@@ -56,14 +56,12 @@ public class FindPwdActivity extends BaseActivity<FindPwdPresenter> implements F
 
     @Override
     protected void setView() {
-        StatusBarUtils.setColorNoTranslucent(this, ContextCompat.getColor(this, R.color.color_login));
         setContentView(R.layout.activity_find_pwd);
     }
 
     @Override
     protected void initView() {
         mTopBar.setBackgroundAlpha(0);
-        mTopBar.setBackgroundColor(ContextCompat.getColor(this, R.color.color_login));
         mTopBar.removeAllLeftViews();
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override

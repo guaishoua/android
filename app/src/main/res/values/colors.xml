@@ -4,14 +4,14 @@
 
     <!--状态栏背景颜色-->
     <color name="colorPrimary">#141C25</color>
-    <color name="colorAccent">#C9B661</color>
+    <color name="colorAccent">#E2BF1C</color>
 
     <!--UI颜色规范-->
 
     <!--默认透明-->
     <color name="color_transparent">#00000000</color>
     <!--默认颜色-->
-    <color name="color_default">#C9B661</color>
+    <color name="color_default">#E2BF1C</color>
     <!--默认黑色-->
     <color name="color_black">#000000</color>
     <!--默认白色-->
@@ -27,7 +27,7 @@
     <color name="coin_depth_blue">#3B19A144</color><!--透明值80%-->
     <color name="coin_depth_red">#3BEB311F</color><!--透明值80%-->
     <!--状态栏颜色-->
-    <color name="statusbar_color">#C9B661</color>
+    <color name="statusbar_color">#E2BF1C</color>
     <!--页面背景色-->
     <color name="content_bg_color">#141C25</color>
     <!--页面的背景灰色-->
@@ -40,7 +40,7 @@
 
     <!--默认字体颜色-->
     <color name="text_color">#FFFFFF</color>
-    <color name="text_default">#C9B661</color>
+    <color name="text_default">#E2BF1C</color>
     <!--字体白色-->
     <color name="text_white">#FFFFFF</color>
     <!--透明度50%的白色-->
@@ -55,11 +55,13 @@
     <color name="text_red">#FB5B71</color>
     <!--字体蓝色-->
     <color name="text_blue">#00A3FD</color>
+    <!--字体黑色-->
+    <color name="text_black">#000000</color>
 
     <!--启动页的背景颜色-->
     <color name="color_splash">#141C25</color>
     <!--默认进度条颜色-->
-    <color name="color_default_progress">#CCC9B661</color>
+    <color name="color_default_progress">#CCE2BF1C</color>
     <!--app更新dialog的按钮-->
     <color name="btn_update">#E94339</color>
     <!--提醒用户绑定谷歌账号dialog的背景色-->
@@ -67,12 +69,12 @@
     <!--google验证按钮颜色-->
     <color name="color_google_btn">#00A3FD</color>
     <!--首页折线图-->
-    <color name="chart_line_color">#C9B661</color>
-    <color name="chart_gradient_start_color">#80C9B661</color> <!--起始渐变色-->
-    <color name="chart_gradient_center_color">#33C9B661</color><!--中间渐变色-->
+    <color name="chart_line_color">#E2BF1C</color>
+    <color name="chart_gradient_start_color">#80E2BF1C</color> <!--起始渐变色-->
+    <color name="chart_gradient_center_color">#33E2BF1C</color><!--中间渐变色-->
     <color name="chart_gradient_stop_color">#00000000</color><!--最终渐变色-->
     <!--首页底部tab的背景色的色值-->
-    <color name="main_tab_bg_color">#C9B661</color>
+    <color name="main_tab_bg_color">#E2BF1C</color>
     <!--首页tab的字体颜色-->
     <color name="main_tab_text_color">#7FFFFFFF</color>
     <color name="main_tab_black_color">#FFFFFF</color>
@@ -80,7 +82,7 @@
     <color name="tab_bg_color">#141C25</color>
     <!--tab的字体颜色-->
     <color name="tab_text_color">#FFFFFF</color>
-    <color name="tab_default">#C9B661</color>
+    <color name="tab_default">#E2BF1C</color>
     <!--透明度40%的黑色-->
     <color name="transparent_40">#99000000</color>
     <!--小图标的颜色-->

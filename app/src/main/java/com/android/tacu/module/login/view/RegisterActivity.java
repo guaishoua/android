@@ -3,7 +3,6 @@ package com.android.tacu.module.login.view;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.CountDownTimer;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
@@ -22,7 +21,6 @@ import com.android.tacu.module.login.contract.RegisterContract;
 import com.android.tacu.module.login.presenter.RegisterPresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.RegexUtils;
-import com.android.tacu.utils.StatusBarUtils;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
@@ -89,14 +87,12 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     protected void setView() {
-        StatusBarUtils.setColorNoTranslucent(this, ContextCompat.getColor(this, R.color.color_login));
         setContentView(R.layout.activity_register);
     }
 
     @Override
     protected void initView() {
         mTopBar.setBackgroundAlpha(0);
-        mTopBar.setBackgroundColor(ContextCompat.getColor(this, R.color.color_login));
         mTopBar.removeAllLeftViews();
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override

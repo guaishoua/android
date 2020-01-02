@@ -164,7 +164,8 @@
                             android:text="OTC"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/text_size_sp_14"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tv_help"
@@ -178,7 +179,8 @@
                             android:text="@string/help"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/text_size_sp_14"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <View

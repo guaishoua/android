@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_login"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/img_loginbg" />
 
     <include
         android:id="@+id/title"
-        layout="@layout/common_titlebar" />
+        layout="@layout/common_titlebar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -19,16 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/img_login_bg"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="W,1.2:1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -37,10 +32,11 @@
 
                 <ImageView
                     android:id="@+id/img_logo"
-                    android:layout_width="@dimen/dp_250"
+                    android:layout_width="@dimen/dp_75"
                     android:layout_height="@dimen/dp_120"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/img_logo_globalex" />
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_80"
+                    android:src="@mipmap/img_logo_big" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -55,7 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/mobile_email_register"
-                        android:textColor="@color/text_white"
+                        android:textColor="@color/text_default"
                         android:textSize="@dimen/text_size_sp_18" />
 
                     <com.qmuiteam.qmui.alpha.QMUIAlphaButton
@@ -65,7 +61,7 @@
                         android:layout_marginLeft="@dimen/dp_50"
                         android:background="@color/color_transparent"
                         android:text="@string/mobile_phone_register"
-                        android:textColor="@color/text_white_50"
+                        android:textColor="@color/text_white"
                         android:textSize="@dimen/text_size_sp_18" />
                 </LinearLayout>
 
@@ -344,9 +340,9 @@
                     android:background="@null"
                     android:gravity="center"
                     android:text="@string/register"
-                    android:textColor="@color/text_default"
+                    android:textColor="@color/text_black"
                     android:textSize="@dimen/text_size_sp_16"
-                    app:qmui_backgroundColor="@color/color_white"
+                    app:qmui_backgroundColor="@color/color_default"
                     app:qmui_radius="@dimen/dp_3" />
 
                 <View
@@ -355,4 +351,4 @@
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
