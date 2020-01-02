@@ -58,7 +58,6 @@ import com.qmuiteam.qmui.widget.textview.QMUIScrollTextView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -508,11 +507,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     private void initTitle() {
-        ImageView titleImageView = new ImageView(getContext());
-        titleImageView.setBackgroundColor(Color.TRANSPARENT);
-        titleImageView.setImageResource(R.mipmap.img_global_logo);
-        titleImageView.setScaleType(CENTER_CROP);
-        mTopBar.setCenterView(titleImageView);
+        mTopBar.setTitle(getResources().getString(R.string.home));
 
         circleImageView = new ImageView(getContext());
         circleImageView.setBackgroundColor(Color.TRANSPARENT);

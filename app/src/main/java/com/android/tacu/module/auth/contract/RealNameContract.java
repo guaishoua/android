@@ -3,7 +3,6 @@ package com.android.tacu.module.auth.contract;
 import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.assets.model.AuthOssModel;
-import com.android.tacu.module.auth.model.AwsModel;
 import com.android.tacu.module.auth.model.UserInfoModel;
 
 /**
@@ -25,8 +24,6 @@ public class RealNameContract {
         void getOssSetting(AuthOssModel model);
 
         void onError();
-
-        void getAwsSetting(AwsModel model);
     }
 
     public interface IRealNamePresenter {
@@ -42,6 +39,5 @@ public class RealNameContract {
 
         void authnewHand(String authnewHand, String ischina, int step);
 
-        void getAwsSetting();
     }
 }

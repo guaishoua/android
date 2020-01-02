@@ -142,7 +142,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         itemContactUs.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemContactUs.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
-        question = mResources.getString(R.string.drawer_question);
+        /*question = mResources.getString(R.string.drawer_question);
         QMUICommonListItemView itemQuestion = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_question, 16, 16), question, itemHeight);
         itemQuestion.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemQuestion.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
@@ -150,7 +150,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         myTicket = mResources.getString(R.string.drawer_ticket);
         QMUICommonListItemView itemMyTicket = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_ticket, 16, 16), myTicket, itemHeight);
         itemMyTicket.setPadding(UIUtils.dp2px(15), 0, 0, 0);
-        itemMyTicket.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
+        itemMyTicket.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);*/
 
         languageSetting = mResources.getString(R.string.drawer_language);
         QMUICommonListItemView itemLanguage = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_language, 16, 16), languageSetting, itemHeight);
@@ -185,8 +185,8 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
                 .addItemView(itemInviting, onClickListener)
                 .addItemView(itemNews, onClickListener)
                 .addItemView(itemContactUs, onClickListener)
-                .addItemView(itemQuestion, onClickListener)
-                .addItemView(itemMyTicket, onClickListener)
+                //.addItemView(itemQuestion, onClickListener)
+                //.addItemView(itemMyTicket, onClickListener)
                 .addItemView(itemLanguage, onClickListener)
                 .addItemView(itemMoney, onClickListener)
                 .addItemView(itemVersionCode, updateClick)

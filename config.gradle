@@ -104,8 +104,6 @@ ext {
             zxing                        : "cn.bingoogolapple:bga-qrcode-zxing:1.3.4",
             //facebookd的弹簧动画
             rebound                      : "com.facebook.rebound:rebound:0.3.8",
-            //aws
-            aws                          : "com.amazonaws:aws-android-sdk-s3:2.8.4",
             //svg的path动画
             svgpath                      : "com.eftimoff:android-pathview:1.0.8@aar",
             //svg动画

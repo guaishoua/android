@@ -72,12 +72,12 @@ public class Constant {
     //显示资产的基准币 默认以BTC为基准
     public static final String ASSETS_COIN = "BTC";
 
-    //aws
-    public static final String COGNITO_POOL_ID = "ap-northeast-2:5c54d227-7858-4842-a201-89fce0c55909";
-
     //UUEX的OTC
     public static final String UUEX_OTC_URL = "https://uuex.io";
 
     //zendesk
     public static final String ZENDESK_WENTI = "https://gexday.zendesk.com/hc/zh-cn/categories/360002072732";
+
+    //注册协议
+    public static final String REGISTER_XIEYI = "";
 }

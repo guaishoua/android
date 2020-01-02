@@ -11,7 +11,6 @@ import com.android.tacu.module.assets.model.SelectTakeCoinAddressModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
 import com.android.tacu.module.assets.model.TransInfoCoinModal;
 import com.android.tacu.module.auth.model.AliModel;
-import com.android.tacu.module.auth.model.AwsModel;
 import com.android.tacu.module.auth.model.SelectAuthLevelModel;
 import com.android.tacu.module.auth.model.UserInfoModel;
 import com.android.tacu.module.main.model.ConvertModel;
@@ -629,12 +628,6 @@ public interface Api {
             @Field("type") int type,
             @Field("vercode") String vercode
     );
-
-    /**
-     * 查询AWSS3秘钥
-     */
-    @POST("getKey")
-    Observable<BaseModel<AwsModel>> getAwsSetting();
 
     /**
      * 二維碼掃描

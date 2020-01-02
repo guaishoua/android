@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -124,6 +125,8 @@ public class WebviewActivity extends BaseActivity {
                 return true;
             }
         });
+
+        webView.loadUrl(url);
     }
 
     @Override
@@ -191,6 +194,7 @@ public class WebviewActivity extends BaseActivity {
     private void initWebViewSettings() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         webView = new WebView(this);
+        webView.setBackgroundColor(ContextCompat.getColor(this, R.color.content_bg_color));
         webView.setLayoutParams(params);
         llWeb.addView(webView);
 

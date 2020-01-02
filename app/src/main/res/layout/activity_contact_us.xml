@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="@string/business_official_website"
+            android:text="www.gexday.com"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_16" />
 

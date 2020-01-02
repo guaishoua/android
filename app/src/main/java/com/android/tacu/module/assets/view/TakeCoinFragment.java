@@ -335,11 +335,11 @@ public class TakeCoinFragment extends BaseFragment<CoinsPresenter> implements Co
         if (mSpinerPopWindow != null) {
             mSpinerPopWindow.setWidth(etNote.getWidth());
             mSpinerPopWindow.showAsDropDown(tvLabelAddress, 0, 0);
-            tvAddAddress.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_btn_arrow_down, 0);
+            tvAddAddress.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_btn_arrow_down, 0);
             mSpinerPopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    tvAddAddress.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_btn_arrow_right, 0);
+                    tvAddAddress.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_btn_arrow_right, 0);
                 }
             });
         } else {

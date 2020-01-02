@@ -565,11 +565,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     }
 
     private void initHeader() {
-        ImageView titleImageView = new ImageView(getContext());
-        titleImageView.setBackgroundColor(Color.TRANSPARENT);
-        titleImageView.setImageResource(R.mipmap.img_global_logo);
-        titleImageView.setScaleType(CENTER_CROP);
-        mTopBar.setCenterView(titleImageView);
+        mTopBar.setTitle(getResources().getString(R.string.trade));
 
         ImageView circleImageView = new ImageView(getContext());
         circleImageView.setBackgroundColor(Color.TRANSPARENT);

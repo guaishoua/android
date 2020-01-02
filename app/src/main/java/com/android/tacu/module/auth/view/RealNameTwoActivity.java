@@ -27,28 +27,18 @@ import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.base.BaseModel;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.auth.contract.RealNameContract;
-import com.android.tacu.module.auth.model.AwsModel;
 import com.android.tacu.module.auth.model.MultipartImageModel;
 import com.android.tacu.module.auth.model.UserInfoModel;
 import com.android.tacu.module.auth.presenter.RealNamePresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.IdentityAuthUtils;
-import com.android.tacu.utils.LogUtils;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 
 import java.io.File;
@@ -103,9 +93,6 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
     //oss
     private OSS mOss = null;
     private String bucketName;
-    //aws
-    private TransferUtility sTransferUtility;
-    private String awsBucketName;
 
     private UserInfoModel userInfoModel;
     private MultipartImageModel positiveImage;
@@ -193,12 +180,7 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
 
         showLoadingView();
 
-        //当前所在地是否中国大陆 0.不是 1.是
-        if (currentLocation == 1) {
-            uploadImgs(positiveImage);
-        } else if (currentLocation == 0) {
-            uploadAwsImgs(positiveImage);
-        }
+        uploadImgs(positiveImage);
     }
 
     @OnClick(R.id.rl_picture)
@@ -215,11 +197,7 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
     protected void onPresenterCreated(RealNamePresenter presenter) {
         super.onPresenterCreated(presenter);
         //当前所在地是否中国大陆 0.不是 1.是
-        if (currentLocation == 1) {
-            mPresenter.getOssSetting();
-        } else if (currentLocation == 0) {
-            mPresenter.getAwsSetting();
-        }
+        mPresenter.getOssSetting();
     }
 
     /**
@@ -301,33 +279,6 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
             //task.cancel();
             //可以等待直到任务完成
             //task.waitUntilFinished();
-        }
-    }
-
-    private void uploadAwsImgs(MultipartImageModel model) {
-        if (sTransferUtility != null) {
-            File file = new File(model.getImageLocalFileName());
-            TransferObserver observer = sTransferUtility.upload(awsBucketName, model.getImageName(), file);
-            observer.setTransferListener(new TransferListener() {
-                @Override
-                public void onStateChanged(int id, TransferState state) {
-                    if (TransferState.COMPLETED == state) {
-                        dealValue(1);
-                    }
-                }
-
-                @Override
-                public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
-
-                }
-
-                @Override
-                public void onError(int id, Exception ex) {
-                    LogUtils.i("jiazhen", ex.getMessage());
-
-                    dealValue(2);
-                }
-            });
         }
     }
 
@@ -420,21 +371,6 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
             OSSLog.enableLog();
             mOss = new OSSClient(getApplicationContext(), Constant.OSS_ENDPOINT, credentialProvider);
             bucketName = model.bucket;
-        }
-    }
-
-    @Override
-    public void getAwsSetting(AwsModel model) {
-        if (model != null) {
-            awsBucketName = model.bucket;
-            CognitoCachingCredentialsProvider sCredProvider = new CognitoCachingCredentialsProvider(this, Constant.COGNITO_POOL_ID, Regions.AP_NORTHEAST_2);
-            AmazonS3Client sS3Client = new AmazonS3Client(sCredProvider);
-            sS3Client.setRegion(Region.getRegion(Regions.AP_NORTHEAST_2));
-            sTransferUtility = TransferUtility.builder()
-                    .context(this)
-                    .s3Client(sS3Client)
-                    .defaultBucket(model.bucket)
-                    .build();
         }
     }
 

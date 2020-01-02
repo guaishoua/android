@@ -2,10 +2,8 @@ package com.android.tacu.base;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.support.multidex.MultiDex;
 
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferService;
 import com.android.tacu.service.AppIntentService;
 import com.android.tacu.utils.LanguageUtils;
 import com.android.tacu.utils.lock.LockUtils;
@@ -43,8 +41,6 @@ public class MyApplication extends Application {
         LockUtils.init();
         //語言
         userLocale = LanguageUtils.getUserLocale(this);
-        //AWS3
-        startService(new Intent(this, TransferService.class));
         //一些第三方放在这里
         AppIntentService.start(this);
     }

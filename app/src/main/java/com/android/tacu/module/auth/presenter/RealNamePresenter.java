@@ -9,7 +9,6 @@ import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.auth.contract.RealNameContract;
-import com.android.tacu.module.auth.model.AwsModel;
 import com.android.tacu.module.auth.model.UserInfoModel;
 
 /**
@@ -101,17 +100,6 @@ public class RealNamePresenter extends BaseMvpPresenter implements RealNameContr
             public void onNext(BaseModel<AuthOssModel> model) {
                 RealNameContract.IRealTwoView view = (RealNameContract.IRealTwoView) getView();
                 view.getOssSetting(model.attachment);
-            }
-        });
-    }
-
-    @Override
-    public void getAwsSetting() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).getAwsSetting(), new NetDisposableObserver<BaseModel<AwsModel>>((IBaseMvpView) getView()) {
-            @Override
-            public void onNext(BaseModel<AwsModel> model) {
-                RealNameContract.IRealTwoView view = (RealNameContract.IRealTwoView) getView();
-                view.getAwsSetting(model.attachment);
             }
         });
     }

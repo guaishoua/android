@@ -440,8 +440,6 @@
     <string name="drawer_invite">Invite friends</string>
     <string name="drawer_news">latest announcement</string>
     <string name="drawer_contus">Contact us</string>
-    <string name="drawer_question">FAQ</string>
-    <string name="drawer_ticket">my work order</string>
     <string name="drawer_language">language settings</string>
     <string name="drawer_money">converted currency</string>
     <string name="drawer_nowversion">current version</string>

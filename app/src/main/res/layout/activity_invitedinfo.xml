@@ -82,7 +82,7 @@
                     android:layout_marginTop="@dimen/dp_2"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_toLeftOf="@+id/view_flag"
-                    android:src="@mipmap/img_invited_global" />
+                    app:srcCompat="@drawable/icon_invited" />
 
                 <TextView
                     android:id="@+id/tv_invited"

@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="visible"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -94,8 +94,8 @@
                             android:gravity="center_vertical"
                             android:hint="@string/hint_assets_take_coin_address"
                             android:inputType="text"
-                            android:minHeight="@dimen/dp_45"
                             android:maxLength="150"
+                            android:minHeight="@dimen/dp_45"
                             android:paddingRight="@dimen/dp_80"
                             android:textColor="@color/text_color"
                             android:textColorHint="@color/text_grey_2"
@@ -120,12 +120,11 @@
                             android:id="@+id/tv_add_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableRight="@mipmap/icon_btn_arrow_right"
+                            android:drawableRight="@drawable/icon_btn_arrow_right"
                             android:drawablePadding="@dimen/dp_8"
                             android:text="@string/btn_assets_take_coin_manage_address"
                             android:textColor="@color/text_default"
                             android:textSize="@dimen/text_size_sp_14" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -147,8 +146,8 @@
                             <com.qmuiteam.qmui.widget.QMUIRadiusImageView
                                 android:layout_width="@dimen/dp_20"
                                 android:layout_height="@dimen/dp_20"
-                                android:src="@mipmap/icon_asset_paste"
-                                app:qmui_border_color="@color/color_transparent" />
+                                app:qmui_border_color="@color/color_transparent"
+                                app:srcCompat="@drawable/icon_asset_paste" />
 
                         </com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout>
 
@@ -169,8 +168,8 @@
                             <com.qmuiteam.qmui.widget.QMUIRadiusImageView
                                 android:layout_width="@dimen/dp_20"
                                 android:layout_height="@dimen/dp_20"
-                                android:src="@mipmap/icon_asset_scan_qrcode"
-                                app:qmui_border_color="@color/color_transparent" />
+                                app:qmui_border_color="@color/color_transparent"
+                                app:srcCompat="@drawable/icon_saoma_default" />
 
                         </com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout>
 
@@ -208,11 +207,11 @@
                             android:id="@+id/et_amount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="@dimen/dp_45"
                             android:gravity="center_vertical"
                             android:hint="@string/hint_assets_take_coin_amount"
                             android:inputType="numberDecimal"
                             android:maxLines="1"
+                            android:minHeight="@dimen/dp_45"
                             android:textColor="@color/text_color"
                             android:textColorHint="@color/text_grey_2"
                             android:textSize="@dimen/text_size_sp_14"
@@ -524,7 +523,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/et_email_code"
@@ -615,9 +614,9 @@
                     android:layout_gravity="center"
                     android:background="@null"
                     android:text="@string/above_step"
-                    android:visibility="gone"
                     android:textColor="@color/text_default"
-                    android:textSize="@dimen/text_size_sp_14" />
+                    android:textSize="@dimen/text_size_sp_14"
+                    android:visibility="gone" />
 
                 <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundTextView
                     android:layout_width="match_parent"

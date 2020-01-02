@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.dingxiang.contract.ISwitchView;
 import com.android.tacu.module.dingxiang.presenter.SwitchPresenter;
@@ -171,7 +172,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     void xieyiClick() {
         Intent intent = new Intent();
         intent.setAction("android.intent.action.VIEW");
-        Uri content_url = Uri.parse("https://message.gexday.com/软件用户协议和服务条款.pdf");
+        Uri content_url = Uri.parse(Constant.REGISTER_XIEYI);
         intent.setData(content_url);
         startActivity(intent);
     }
