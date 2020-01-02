@@ -13,7 +13,7 @@ import org.greenrobot.greendao.query.QueryBuilder;
 
 public class DBHelper {
 
-    private static final String DB_NAME = "12lian.db";
+    private static final String DB_NAME = "tacu.db";
 
     private volatile static DBHelper instance;
     private DaoMaster.DevOpenHelper migrationHelper;

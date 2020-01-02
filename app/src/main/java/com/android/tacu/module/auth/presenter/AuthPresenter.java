@@ -8,7 +8,6 @@ import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.auth.contract.AuthContract;
-import com.android.tacu.module.auth.model.AliModel;
 import com.android.tacu.module.auth.model.SelectAuthLevelModel;
 
 /**
@@ -17,9 +16,6 @@ import com.android.tacu.module.auth.model.SelectAuthLevelModel;
 
 public class AuthPresenter extends BaseMvpPresenter implements AuthContract.IAuthPresenter {
 
-    public AuthPresenter() {
-    }
-
     @Override
     public void selectAuthLevel() {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).selectAuthLevel(), new NetDisposableObserver<BaseModel<SelectAuthLevelModel>>((IBaseMvpView) getView()) {
@@ -27,28 +23,6 @@ public class AuthPresenter extends BaseMvpPresenter implements AuthContract.IAut
             public void onNext(BaseModel<SelectAuthLevelModel> model) {
                 AuthContract.IAuthView view = (AuthContract.IAuthView) getView();
                 view.selectAuthLevel(model.attachment);
-            }
-        });
-    }
-
-    @Override
-    public void getVerifyToken() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ALI, Api.class).aliToken(), new NetDisposableObserver<BaseModel<AliModel>>((IBaseMvpView) getView()) {
-            @Override
-            public void onNext(BaseModel<AliModel> model) {
-                AuthContract.IAuthView view = (AuthContract.IAuthView) getView();
-                view.getVerifyToken(model.attachment);
-            }
-        });
-    }
-
-    @Override
-    public void vedioAuth() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ALI, Api.class).vedioAuth(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
-            @Override
-            public void onNext(BaseModel model) {
-                AuthContract.IAuthView view = (AuthContract.IAuthView) getView();
-                view.vedioAuth();
             }
         });
     }

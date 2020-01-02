@@ -146,7 +146,7 @@ public class IdentityAuthUtils {
             public void onPermissionSucceed() {
                 boolean mTakePhotoEnabled = true;
                 // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话就没有拍照功能
-                File takePhotoDir = new File(Environment.getExternalStorageDirectory(), "12lian");
+                File takePhotoDir = new File(Environment.getExternalStorageDirectory(), "tacu");
                 activity.startActivityForResult(BGAPhotoPickerActivity.newIntent(activity, mTakePhotoEnabled ? takePhotoDir : null, 1, null, mTakePhotoEnabled), code);
             }
 

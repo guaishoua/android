@@ -230,7 +230,7 @@
                         android:maxLines="1"
                         android:textColor="@color/text_color"
                         android:textSize="@dimen/text_size_sp_16"
-                        tools:text="www.12lian.comdddddddddd" />
+                        tools:text="www.tacu.comdddddddddd" />
 
                     <include
                         android:id="@+id/img_invitation2"

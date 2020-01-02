@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
-import com.alibaba.security.rp.RPSDK;
 import com.android.tacu.BuildConfig;
 import com.mob.MobSDK;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -45,8 +44,6 @@ public class AppIntentService extends IntentService {
             tencentWebViewSetting();
             //ZenDesk初始化
             zendeskSetting();
-            //阿里实人认证
-            ossAuthSetting();
 
             //内存检测
             //leakcanarySetting();
@@ -101,13 +98,6 @@ public class AppIntentService extends IntentService {
             Logger.setLoggable(true);
         }
         ChatWidgetService.disable();
-    }
-
-    /**
-     * 阿里实人认证
-     */
-    private void ossAuthSetting() {
-        RPSDK.initialize(this);
     }
 
     /**

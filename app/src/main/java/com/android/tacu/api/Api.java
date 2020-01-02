@@ -10,7 +10,6 @@ import com.android.tacu.module.assets.model.MoneyFlowModel;
 import com.android.tacu.module.assets.model.SelectTakeCoinAddressModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
 import com.android.tacu.module.assets.model.TransInfoCoinModal;
-import com.android.tacu.module.auth.model.AliModel;
 import com.android.tacu.module.auth.model.SelectAuthLevelModel;
 import com.android.tacu.module.auth.model.UserInfoModel;
 import com.android.tacu.module.main.model.ConvertModel;
@@ -693,16 +692,4 @@ public interface Api {
      */
     @POST("sign")
     Observable<BaseModel<UuexSignModal>> uuexSign();
-
-    /**
-     * 实人认证获取verifyToken
-     */
-    @POST("appToken")
-    Observable<BaseModel<AliModel>> aliToken();
-
-    /**
-     * 确认实人认证是否成功
-     */
-    @POST("vedioAuth")
-    Observable<BaseModel> vedioAuth();
 }

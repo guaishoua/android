@@ -34,20 +34,10 @@ public class Constant {
     public static final int MAIN_TRADE = 1002;
     public static final int MAIN_ASSETS = 1003;
 
-    //Auction切换
-    public static final int AUCTION_PLUS = 1001;
-    public static final int AUCTION = 1002;
-
-    //自选页面SelfSelectionFragment编辑按钮状态
-    public static final int BTN_STATUS_NO = 1001;//按钮不显示
-    public static final int BTN_STATUS_EDIT = 1002;//按钮显示编辑
-    public static final int BTN_STATUS_NOTICE = 1003;//非自选页面显示公告 不显示编辑按钮
-
     //语言中文
     public static final String ZH_TW = "zh_TW";//繁体
     public static final String ZH_CN = "zh_CN";//简体
     public static final String EN_US = "en_US";//英文
-    public static final String KO_KR = "ko_KR";//韩国
 
     //法币相对于汇率基础币(默认CODE)的比值
     public static final String CNY = "CNY";//人民币

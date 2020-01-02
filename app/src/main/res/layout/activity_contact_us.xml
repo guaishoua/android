@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="support@gexday.com"
+            android:text="service@tacu.com"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_16" />
 
@@ -55,48 +55,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="business@gexday.com"
+            android:text="marketing@tacu.com"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_16" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_marginTop="@dimen/dp_25"
-            android:layout_marginBottom="@dimen/dp_25"
-            android:background="@color/content_bg_color_grey" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_business_official_website"
-            android:textColor="@color/text_grey_2"
-            android:textSize="@dimen/text_size_sp_14" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:text="www.gexday.com"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_16" />
-
     </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
-
-    <ImageView
-        android:layout_width="@dimen/dp_100"
-        android:layout_height="@dimen/dp_100"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/dp_10"
-        android:src="@mipmap/img_weixin_service" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="WeChat"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_14"
-        android:textStyle="bold" />
 </LinearLayout>
