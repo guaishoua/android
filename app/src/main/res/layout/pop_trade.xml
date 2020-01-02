@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/content_bg_color"
@@ -24,7 +25,7 @@
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginHorizontal="@dimen/dp_20"
-                android:src="@mipmap/img_currencyid_get" />
+                app:srcCompat="@drawable/icon_currencyid_get" />
 
             <TextView
                 android:id="@+id/tv_currencyid_get"
@@ -32,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_20"
-                android:textColor="@color/text_grey_2"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14" />
         </LinearLayout>
 
@@ -53,7 +54,7 @@
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginHorizontal="@dimen/dp_20"
-                android:src="@mipmap/img_currencyid_take" />
+                app:srcCompat="@drawable/icon_currencyid_take" />
 
             <TextView
                 android:id="@+id/tv_currencyid_take"
@@ -61,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_20"
-                android:textColor="@color/text_grey_2"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14" />
         </LinearLayout>
 
@@ -82,7 +83,7 @@
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginHorizontal="@dimen/dp_20"
-                android:src="@mipmap/img_basecurrencyid_get" />
+                app:srcCompat="@drawable/icon_basecurrencyid_get" />
 
             <TextView
                 android:id="@+id/tv_basecurrencyid_get"
@@ -90,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_20"
-                android:textColor="@color/text_grey_2"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14" />
         </LinearLayout>
 
@@ -111,7 +112,7 @@
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginHorizontal="@dimen/dp_20"
-                android:src="@mipmap/img_basecurrencyid_take" />
+                app:srcCompat="@drawable/icon_basecurrencyid_take" />
 
             <TextView
                 android:id="@+id/tv_basecurrencyid_take"
@@ -119,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_20"
-                android:textColor="@color/text_grey_2"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14" />
         </LinearLayout>
     </LinearLayout>
@@ -148,7 +149,7 @@
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginHorizontal="@dimen/dp_20"
-                android:src="@mipmap/img_hand" />
+                app:srcCompat="@drawable/icon_hand" />
 
             <TextView
                 android:id="@+id/tv_hand"
@@ -156,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_20"
-                android:textColor="@color/text_grey_2"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14" />
         </LinearLayout>
 
@@ -177,7 +178,7 @@
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginHorizontal="@dimen/dp_20"
-                android:src="@mipmap/img_pwd" />
+                android:src="@drawable/icon_pwd" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -185,7 +186,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_20"
                 android:text="@string/trade_pwd_setting"
-                android:textColor="@color/text_grey_2"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14" />
         </LinearLayout>
 
@@ -206,7 +207,7 @@
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginHorizontal="@dimen/dp_20"
-                android:src="@mipmap/img_history_deal" />
+                app:srcCompat="@drawable/icon_history_deal" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -214,7 +215,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_20"
                 android:text="@string/history_deal"
-                android:textColor="@color/text_grey_2"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14" />
         </LinearLayout>
 

@@ -170,11 +170,13 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @OnClick(R.id.tv_xieyi)
     void xieyiClick() {
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.VIEW");
-        Uri content_url = Uri.parse(Constant.REGISTER_XIEYI);
-        intent.setData(content_url);
-        startActivity(intent);
+        if (!TextUtils.isEmpty(Constant.REGISTER_XIEYI)) {
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            Uri content_url = Uri.parse(Constant.REGISTER_XIEYI);
+            intent.setData(content_url);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.btn_code_phone)

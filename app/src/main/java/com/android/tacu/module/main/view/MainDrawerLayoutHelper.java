@@ -3,6 +3,7 @@ package com.android.tacu.module.main.view;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.tacu.R;
-import com.android.tacu.api.Constant;
 import com.android.tacu.module.auth.view.AuthActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.market.view.NoticeActivity;
@@ -19,16 +19,11 @@ import com.android.tacu.module.my.view.ConvertActivity;
 import com.android.tacu.module.my.view.InvitedinfoActivity;
 import com.android.tacu.module.my.view.LanguageActivity;
 import com.android.tacu.module.my.view.SecurityCenterActivity;
-import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.PackageUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.user.UserInfoUtils;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
-import com.zendesk.sdk.model.access.AnonymousIdentity;
-import com.zendesk.sdk.model.access.Identity;
-import com.zendesk.sdk.network.impl.ZendeskConfig;
-import com.zendesk.sdk.requests.RequestActivity;
 
 /**
  * 帮助MainActivity处理DrawerLayout的问题
@@ -60,8 +55,6 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
     private String inviting;
     private String news;
     private String contactUs;
-    private String question;
-    private String myTicket;
     private String languageSetting;
     private String moneySetting;
     private String versionCode;
@@ -118,52 +111,42 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
 
     private void initHomeGroup(View.OnClickListener updateClick) {
         realName = mResources.getString(R.string.drawer_realName);
-        itemRealName = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_realname, 16, 16), realName, itemHeight);
+        itemRealName = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_realname), realName, itemHeight);
         itemRealName.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemRealName.setTextContainerPadding(0, 0, UIUtils.dp2px(10), 0);
 
         securitySetting = mResources.getString(R.string.drawer_safe);
-        itemSecuritySetting = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_safecenter, 16, 16), securitySetting, itemHeight);
+        itemSecuritySetting = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_safecenter), securitySetting, itemHeight);
         itemSecuritySetting.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemSecuritySetting.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
         inviting = mResources.getString(R.string.drawer_invite);
-        itemInviting = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_invite, 16, 16), inviting, itemHeight);
+        itemInviting = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_invite), inviting, itemHeight);
         itemInviting.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemInviting.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
         news = mResources.getString(R.string.drawer_news);
-        QMUICommonListItemView itemNews = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_news, 16, 16), news, itemHeight);
+        QMUICommonListItemView itemNews = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_news), news, itemHeight);
         itemNews.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemNews.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
         contactUs = mResources.getString(R.string.drawer_contus);
-        QMUICommonListItemView itemContactUs = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_contactus, 16, 16), contactUs, itemHeight);
+        QMUICommonListItemView itemContactUs = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_contactus), contactUs, itemHeight);
         itemContactUs.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemContactUs.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
-        /*question = mResources.getString(R.string.drawer_question);
-        QMUICommonListItemView itemQuestion = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_question, 16, 16), question, itemHeight);
-        itemQuestion.setPadding(UIUtils.dp2px(15), 0, 0, 0);
-        itemQuestion.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
-
-        myTicket = mResources.getString(R.string.drawer_ticket);
-        QMUICommonListItemView itemMyTicket = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_ticket, 16, 16), myTicket, itemHeight);
-        itemMyTicket.setPadding(UIUtils.dp2px(15), 0, 0, 0);
-        itemMyTicket.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);*/
-
         languageSetting = mResources.getString(R.string.drawer_language);
-        QMUICommonListItemView itemLanguage = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_language, 16, 16), languageSetting, itemHeight);
+        QMUICommonListItemView itemLanguage = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_language), languageSetting, itemHeight);
         itemLanguage.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemLanguage.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
         moneySetting = mResources.getString(R.string.drawer_money);
-        QMUICommonListItemView itemMoney = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_money, 16, 16), moneySetting, itemHeight);
+        QMUICommonListItemView itemMoney = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_money), moneySetting, itemHeight);
         itemMoney.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemMoney.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
         versionCode = mResources.getString(R.string.drawer_nowversion);
-        QMUICommonListItemView itemVersionCode = homeGroupListView.createItemView(UIUtils.zoomDrawable(mActivity, R.mipmap.icon_version, 16, 16), versionCode, itemHeight);
+        QMUICommonListItemView itemVersionCode = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_version), versionCode, itemHeight);
         itemVersionCode.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemVersionCode.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
         itemVersionCode.setDetailText(PackageUtils.getVersion());
@@ -230,26 +213,6 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             jumpTo(NoticeActivity.class);
         } else if (TextUtils.equals(text, contactUs)) {
             jumpTo(ContactUsActivity.class);
-        } else if (TextUtils.equals(text, question)) {
-            jumpTo(WebviewActivity.createActivity(mActivity, Constant.ZENDESK_WENTI));
-        } else if (TextUtils.equals(text, myTicket)) {
-            String name = "Android";
-            String email = "Null";
-            if (spUtil.getLogin()) {
-                name = String.valueOf(spUtil.getUserUid());
-                if (!TextUtils.isEmpty(spUtil.getEmail())) {
-                    email = spUtil.getEmail();
-                } else if (!TextUtils.isEmpty(spUtil.getPhone())) {
-                    email = spUtil.getPhone();
-                }
-            }
-
-            Identity identity = new AnonymousIdentity.Builder()
-                    .withNameIdentifier(name)
-                    .withEmailIdentifier(email)
-                    .build();
-            ZendeskConfig.INSTANCE.setIdentity(identity);
-            jumpTo(RequestActivity.class);
         } else if (TextUtils.equals(text, languageSetting)) {
             jumpTo(LanguageActivity.class);
         } else if (TextUtils.equals(text, moneySetting)) {

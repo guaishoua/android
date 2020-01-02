@@ -344,7 +344,7 @@
                     android:background="@null"
                     android:gravity="center"
                     android:text="@string/register"
-                    android:textColor="@color/text_register_forget"
+                    android:textColor="@color/text_default"
                     android:textSize="@dimen/text_size_sp_16"
                     app:qmui_backgroundColor="@color/color_white"
                     app:qmui_radius="@dimen/dp_3" />

@@ -88,8 +88,6 @@
 
 
 
-    <!--登录注册字体的颜色-->
-    <color name="text_register_forget">#00316A</color>
     <!--登录页面的背景色-->
     <color name="color_login">#3E85C0</color>
 </resources>
