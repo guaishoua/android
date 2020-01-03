@@ -10,11 +10,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:drawableTop="@mipmap/img_empty_trade"
+        android:drawableTop="@drawable/icon_empty_trade"
         android:drawablePadding="@dimen/dp_16"
         android:gravity="center"
         android:text="@string/trade_no_tip1"
-        android:textColor="@color/text_grey_2" />
+        android:textColor="@color/text_color" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,5 +24,5 @@
         android:layout_marginTop="@dimen/dp_5"
         android:gravity="center"
         android:text="@string/trade_no_tip2"
-        android:textColor="@color/text_grey_2" />
+        android:textColor="@color/text_color" />
 </RelativeLayout>

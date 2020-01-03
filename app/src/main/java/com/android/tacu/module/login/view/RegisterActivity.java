@@ -21,7 +21,10 @@ import com.android.tacu.module.login.contract.RegisterContract;
 import com.android.tacu.module.login.presenter.RegisterPresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.RegexUtils;
+import com.android.tacu.utils.StatusBarUtils;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 
@@ -33,6 +36,9 @@ import butterknife.OnClick;
  * created by jiazhen
  */
 public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.IView, ISwitchView {
+
+    @BindView(R.id.qmuiTopbar)
+    QMUITopBar qmuiTopbar;
     //邮箱
     @BindView(R.id.tv_regiser_one)
     TextView tv_regiser_one;
@@ -75,8 +81,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @BindView(R.id.cb_xieyi)
     CheckBox cb_xieyi;
 
-    private boolean isCheck = false;
-
     private Animation shake;
     //注册方式  true：邮箱注册  false：手机号注册
     private boolean registerType = true;
@@ -87,14 +91,17 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     protected void setView() {
+        QMUIStatusBarHelper.translucent(this);
         setContentView(R.layout.activity_register);
     }
 
     @Override
     protected void initView() {
-        mTopBar.setBackgroundAlpha(0);
-        mTopBar.removeAllLeftViews();
-        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+        StatusBarUtils.moveViewStatusBarHeight(this, qmuiTopbar);
+
+        qmuiTopbar.setBackgroundAlpha(0);
+        qmuiTopbar.removeAllLeftViews();
+        qmuiTopbar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

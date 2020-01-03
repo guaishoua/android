@@ -87,9 +87,4 @@
     <color name="transparent_40">#99000000</color>
     <!--小图标的颜色-->
     <color name="color_icon">#FFFFFF</color>
-
-
-
-    <!--登录页面的背景色-->
-    <color name="color_login">#3E85C0</color>
 </resources>

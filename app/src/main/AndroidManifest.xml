@@ -132,5 +132,6 @@
         <activity android:name="com.android.tacu.module.main.view.ZXingActivity" />
         <activity android:name="com.android.tacu.module.main.view.ZXingCommonActivity" />
         <activity android:name="com.android.tacu.module.main.view.ZXingLoginActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.RecordActivity" />
     </application>
 </manifest>

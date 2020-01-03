@@ -23,11 +23,13 @@ import com.android.tacu.module.dingxiang.presenter.SwitchPresenter;
 import com.android.tacu.module.market.model.SelfModel;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.SPUtils;
+import com.android.tacu.utils.StatusBarUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.dialog.DroidDialog;
 import com.google.gson.Gson;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 
 import butterknife.BindView;
@@ -35,6 +37,8 @@ import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.IView, ISwitchView {
 
+    @BindView(R.id.qmuiTopbar)
+    QMUITopBar qmuiTopbar;
     @BindView(R.id.et_email)
     QMUIRoundEditText etEmail;
     @BindView(R.id.et_pwd)
@@ -81,21 +85,24 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void setView() {
+        QMUIStatusBarHelper.translucent(this);
         setContentView(R.layout.activity_login);
     }
 
     @Override
     protected void initView() {
-        isGoMain = getIntent().getBooleanExtra("isGoMain", false);
+        StatusBarUtils.moveViewStatusBarHeight(this, qmuiTopbar);
 
-        mTopBar.setBackgroundAlpha(0);
-        mTopBar.removeAllLeftViews();
-        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+        qmuiTopbar.setBackgroundAlpha(0);
+        qmuiTopbar.removeAllLeftViews();
+        qmuiTopbar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+        isGoMain = getIntent().getBooleanExtra("isGoMain", false);
     }
 
     @Override

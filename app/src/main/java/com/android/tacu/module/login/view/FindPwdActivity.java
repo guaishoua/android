@@ -20,6 +20,8 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.RegexUtils;
 import com.android.tacu.utils.StatusBarUtils;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 
 import butterknife.BindView;
@@ -30,6 +32,8 @@ import butterknife.OnClick;
  */
 public class FindPwdActivity extends BaseActivity<FindPwdPresenter> implements FindPwdContract.IView, ISwitchView {
 
+    @BindView(R.id.qmuiTopbar)
+    QMUITopBar qmuiTopbar;
     @BindView(R.id.tv_find_one)
     TextView tv_find_one;
     @BindView(R.id.tv_find_two)
@@ -56,14 +60,17 @@ public class FindPwdActivity extends BaseActivity<FindPwdPresenter> implements F
 
     @Override
     protected void setView() {
+        QMUIStatusBarHelper.translucent(this);
         setContentView(R.layout.activity_find_pwd);
     }
 
     @Override
     protected void initView() {
-        mTopBar.setBackgroundAlpha(0);
-        mTopBar.removeAllLeftViews();
-        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+        StatusBarUtils.moveViewStatusBarHeight(this, qmuiTopbar);
+
+        qmuiTopbar.setBackgroundAlpha(0);
+        qmuiTopbar.removeAllLeftViews();
+        qmuiTopbar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
