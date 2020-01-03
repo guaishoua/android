@@ -215,10 +215,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             etEmailCode.startAnimation(shake);
             return;
         }
-        if (TextUtils.isEmpty(invitedCode)) {
-            showToastError(getResources().getString(R.string.Invitation_code));
-            return;
-        }
         if (!cb_xieyi.isChecked()) {
             showToastError(getResources().getString(R.string.yonghu_xieyi));
             return;
