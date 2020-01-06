@@ -54,7 +54,7 @@ public class Constant {
     public static final String DINGXINAG_APPID = "bc6773614c088f0618f41616dab302ed";//图形滑动验证id
 
     //app的H5下载链接
-    public static final String ANDROID_APP_DOWNLOAD = "https://download.cdcbk.com/";
+    public static final String ANDROID_APP_DOWNLOAD = "https://www.cdcbk.com/download/app.html";
 
     //指纹和手势密码的setResult的回调
     public static final int PWD_RESULT = 1001;
