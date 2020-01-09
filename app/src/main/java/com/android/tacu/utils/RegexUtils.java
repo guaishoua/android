@@ -91,14 +91,14 @@ public class RegexUtils {
     }
 
     /**
-     * 简单验证密码（6-16位、字母、数字、字符）
+     * 简单验证密码（8-16位、字母、数字、字符）
      *
      * @param password 密码
      * @return 是否为密码
      */
 
     public static boolean checkPassword(String password) {
-        String regex = "^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])).{8,16}$";
+        String regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
         return password.matches(regex);
     }
 

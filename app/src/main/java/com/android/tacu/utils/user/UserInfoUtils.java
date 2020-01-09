@@ -478,18 +478,6 @@ public class UserInfoUtils {
     }
 
     /**
-     * @param agentTime diaTime
-     */
-    public void setAgentTime(String agentTime) {
-        editor.putString("agentTime", agentTime);
-        editor.commit();
-    }
-
-    public String getAgentTime() {
-        return sp.getString("agentTime", "");
-    }
-
-    /**
      * @param code code
      */
     public void saveOldCode(String code) {

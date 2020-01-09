@@ -307,33 +307,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         if (model != null) {
             //是否开启谷歌认证
             spUtil.setGaStatus(model.isValidateGoogle);
-            if (TextUtils.equals(model.isValidateGoogle, "0")) {
-                final SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                if (!spUtil.getAgentTime().equals(String.valueOf(sDateFormat.format(new Date())))) {
-                    spUtil.setAgentTime(String.valueOf(sDateFormat.format(new Date())));
-
-                    final QMUIDialog gaDialog = new QMUIDialog.CustomDialogBuilder(this)
-                            .setLayout(R.layout.view_dialog_warning)
-                            .setCanceledOnTouchOutside(false)
-                            .create();
-                    LinearLayout button = gaDialog.findViewById(R.id.ll_back);
-                    RelativeLayout bindGa = gaDialog.findViewById(R.id.rl_bind_ga);
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            gaDialog.dismiss();
-                        }
-                    });
-                    bindGa.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            jumpTo(GoogleHintActivity.class);
-                            gaDialog.dismiss();
-                        }
-                    });
-                    gaDialog.show();
-                }
-            }
 
             //是否每次都需要输入交易密码
             if (TextUtils.equals(model.fdPwdOrderEnabled, "1")) {

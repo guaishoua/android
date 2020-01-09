@@ -57,7 +57,6 @@ public class UserManageUtils {
         spUtil.setAccount("");
         spUtil.saveOldCode("");
         spUtil.setGaStatus("");
-        spUtil.setAgentTime("");
         spUtil.saveOldAccount("");
         spUtil.setPhoneStatus(false);
         spUtil.setEmailStatus(false);

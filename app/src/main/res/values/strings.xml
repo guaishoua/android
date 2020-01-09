@@ -49,7 +49,7 @@
     <string name="email_hint_code">邮箱验证码</string>
     <string name="email_code">获取</string>
     <string name="new_pwd">新密码</string>
-    <string name="regex_pwd">密码需设置8-16位，由大写字母、小写字母、数字组成。</string>
+    <string name="regex_pwd">密码需设置8-16位，由字母、数字组成。</string>
     <string name="confirm_new_pwd">确认密码</string>
     <string name="submit">确认</string>
     <string name="reset_tip">非大陆地区用户手机号找回时请填写区号</string>
@@ -175,11 +175,8 @@
     <string name="open_orders">当前委託</string>
 
     <!--绑定谷歌验证码-->
-    <string name="kindly_reminder">温馨提示</string>
-    <string name="Please_select_the_way_of_secondary_authentication">为了您的账号安全我们强烈建议您开启二次验证</string>
     <string name="bind_ga">开启谷歌验证</string>
     <string name="clase_ga">解除谷歌绑定</string>
-    <string name="Temporarily_not_set">暂不设置</string>
     <string name="copy">複製</string>
     <string name="google_hint">"1.下载谷歌验证器APP,iOS用户登录App Store搜索“Authenticator”下载。安卓用户登录应用商店或使用手机浏览器搜索“谷歌验证器”下载。\n2. 在谷歌验证器中添加密钥并备份打开谷歌验证器，扫描下方二维码或手动输入下述密钥添加验证令牌。密钥用于手机更换或遗失时找回谷歌验证器，绑定前请务必将下述密钥备份保存。\n3.填写TACU账号，点击“完成”。</string>
     <string name="email_bind">邮箱验证</string>

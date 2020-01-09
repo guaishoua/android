@@ -48,7 +48,7 @@
     <string name="email_hint_code">Email verification code</string>
     <string name="email_code">Send</string>
     <string name="new_pwd">New Password</string>
-    <string name="regex_pwd">The password must contain 8 to 16 digits, uppercase letters, lowercase letters and numbers.</string>
+    <string name="regex_pwd">The password must contain 8 to 16 digits, letters and numbers.</string>
     <string name="confirm_new_pwd">Confirm Password</string>
     <string name="submit">Submit</string>
     <string name="reset_tip">Please enter the area code except mainland China phone number</string>
@@ -173,11 +173,8 @@
     <string name="open_orders">Orders</string>
 
     <!--绑定谷歌验证码-->
-    <string name="kindly_reminder">kindly reminder</string>
-    <string name="Please_select_the_way_of_secondary_authentication">Please select the way of secondary authentication</string>
     <string name="bind_ga">Set Google verification</string>
     <string name="clase_ga">Remove Google binding</string>
-    <string name="Temporarily_not_set">Temporarily not set</string>
     <string name="copy">copy</string>
     <string name="google_hint">1. Download Google Authenticator APP. iOS users can log into App Store and search “Authenticator” to download.Android users can log into Google Play or search “Google Authenticator” in your mobile browser to download. \n2. Add and back up key in your GA. Open GA and scan the QR code below or enter the key to add a token.this key is used to retrieve your GA when you change or lose your phone. please save and back up the key before binding GA. \n3. Enter your TACU account and click ""complete""</string>
     <string name="email_bind">Email verification</string>

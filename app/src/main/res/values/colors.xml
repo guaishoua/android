@@ -64,10 +64,6 @@
     <color name="color_default_progress">#CCE2BF1C</color>
     <!--app更新dialog的按钮-->
     <color name="btn_update">#E94339</color>
-    <!--提醒用户绑定谷歌账号dialog的背景色-->
-    <color name="bg_google">#273845</color>
-    <!--google验证按钮颜色-->
-    <color name="color_google_btn">#00A3FD</color>
     <!--首页折线图-->
     <color name="chart_line_color">#E2BF1C</color>
     <color name="chart_gradient_start_color">#80E2BF1C</color> <!--起始渐变色-->
