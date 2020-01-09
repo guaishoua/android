@@ -82,10 +82,6 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
 
     //第几页
     private int current = 1;
-    //1:中国  2：其他国家地区
-    private String isChina;
-    //当前所在地是否中国大陆 0.不是 1.是
-    private int currentLocation;
 
     private BaseModel baseModel;
     private AlertDialog dialog;
@@ -108,14 +104,12 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
         }
     };
 
-    public static Intent crestActivity(Context context, UserInfoModel userInfoModel, int current, String isChina, int currentLocation) {
+    public static Intent crestActivity(Context context, UserInfoModel userInfoModel, int current) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("userInfoModel", userInfoModel);
         Intent intent = new Intent(context, RealNameTwoActivity.class);
         intent.putExtras(bundle);
         intent.putExtra("current", current);
-        intent.putExtra("isChina", isChina);
-        intent.putExtra("currentLocation", currentLocation);
         return intent;
     }
 
@@ -128,16 +122,12 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
     protected void initView() {
         mTopBar.setTitle(getResources().getString(R.string.identity_authentication));
 
-        isChina = getIntent().getStringExtra("isChina");
         current = getIntent().getIntExtra("current", 1);
         userInfoModel = (UserInfoModel) getIntent().getSerializableExtra("userInfoModel");
-        currentLocation = getIntent().getIntExtra("currentLocation", -1);
 
-        if (userInfoModel != null && userInfoModel.currentLocation != null && userInfoModel.currentLocation == currentLocation) {
-            if ((current == 1 && userInfoModel.positiveImagesStatus == 1) || (current == 2 && userInfoModel.oppositeImagesStatus == 1) || (current == 3 && userInfoModel.handImagesStatus == 1)) {
-                iv_camera.setVisibility(View.GONE);
-                tv_info.setVisibility(View.VISIBLE);
-            }
+        if (userInfoModel != null && (current == 1 && userInfoModel.positiveImagesStatus == 1) || (current == 2 && userInfoModel.oppositeImagesStatus == 1) || (current == 3 && userInfoModel.handImagesStatus == 1)) {
+            iv_camera.setVisibility(View.GONE);
+            tv_info.setVisibility(View.VISIBLE);
         }
 
         setCurrentPage();
@@ -317,32 +307,18 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
         } else {
             btn_next.setText(getResources().getString(R.string.next));
         }
-        if (userInfoModel.isChina(isChina)) {
-            if (current == 1) {
-                tv_real_hint.setVisibility(View.GONE);
-                setChinaText(R.string.continent_positive, R.string.continent_hint);
-                iv_picture.setBackgroundResource(R.mipmap.img_real_reverse_global_domestic);
-            } else if (current == 2) {
-                tv_real_hint.setVisibility(View.GONE);
-                setChinaText(R.string.continent_reverse_title, R.string.continent_hint);
-                iv_picture.setBackgroundResource(R.mipmap.img_real_positive_global_domestic);
-            } else if (current == 3) {
-                tv_real_hint.setVisibility(View.VISIBLE);
-                setText(R.string.continent_hand_title, R.string.continent_hand_hint, R.string.continent_hand_content);
-                iv_picture.setBackgroundResource(R.mipmap.img_real_hand_global_domestic);
-            }
-        } else {
+        if (current == 1) {
+            tv_real_hint.setVisibility(View.GONE);
+            setChinaText(R.string.continent_reverse_title, R.string.continent_hint);
+            iv_picture.setBackgroundResource(R.mipmap.img_real_positive_global_domestic);
+        } else if (current == 2) {
+            tv_real_hint.setVisibility(View.GONE);
+            setChinaText(R.string.continent_positive, R.string.continent_hint);
+            iv_picture.setBackgroundResource(R.mipmap.img_real_reverse_global_domestic);
+        } else if (current == 3) {
             tv_real_hint.setVisibility(View.VISIBLE);
-            if (current == 1) {
-                setText(R.string.real_reverse_title, R.string.real_reverse_hint, R.string.real_reverse_content);
-                iv_picture.setBackgroundResource(R.mipmap.img_real_reverse_global_foreign);
-            } else if (current == 2) {
-                setText(R.string.real_positive_title, R.string.real_positive_hint, R.string.real_reverse_content);
-                iv_picture.setBackgroundResource(R.mipmap.img_real_positive_global_foreign);
-            } else if (current == 3) {
-                setText(R.string.real_hand_title, R.string.real_hand_hint, R.string.real_hand_content);
-                iv_picture.setBackgroundResource(R.mipmap.img_real_hand_global_foreign);
-            }
+            setText(R.string.continent_hand_title, R.string.continent_hand_hint, R.string.continent_hand_content);
+            iv_picture.setBackgroundResource(R.mipmap.img_real_hand_global_domestic);
         }
     }
 
@@ -402,7 +378,7 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
     }
 
     private void startActivity() {
-        jumpTo(RealNameTwoActivity.crestActivity(RealNameTwoActivity.this, userInfoModel, current + 1, isChina, currentLocation));
+        jumpTo(RealNameTwoActivity.crestActivity(RealNameTwoActivity.this, userInfoModel, current + 1));
     }
 
     private void dialogView() {
