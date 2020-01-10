@@ -10,7 +10,7 @@
     <!--QMUITopBar的样式设置-->
     <style name="QMUITopBarCustom" parent="QMUI.TopBar">
         <item name="qmui_topbar_separator_color">@color/content_bg_color_grey</item>
-        <item name="qmui_topbar_separator_height">@dimen/dp_2</item>
+        <item name="qmui_topbar_separator_height">@dimen/dp_1</item>
         <item name="qmui_topbar_bg_color">@color/content_bg_color</item>
         <item name="qmui_topbar_title_color">@color/text_white</item>
         <item name="qmui_topbar_text_btn_color_state_list">@color/text_white</item>

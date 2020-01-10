@@ -11,7 +11,6 @@ import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.contract.AssetsContract;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.CoinListModel;
-import com.android.tacu.module.assets.model.TransInfoCoinModal;
 
 /**
  * set
@@ -46,17 +45,5 @@ public class AssetsPresenter extends BaseMvpPresenter implements AssetsContract.
                 view.currencyView(coinsList.attachment);
             }
         }, ModelTransformerFactory.getNonStandardModelTransformer());
-    }
-
-
-    @Override
-    public void transInfoCoin() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.UUEX, Api.class).TransInfoCoin(), new NetDisposableObserver<BaseModel<TransInfoCoinModal>>((IBaseMvpView) getView(), false) {
-            @Override
-            public void onNext(BaseModel<TransInfoCoinModal> model) {
-                AssetsContract.IAssetsView view = (AssetsContract.IAssetsView) getView();
-                view.transInfoCoin(model.attachment);
-            }
-        });
     }
 }

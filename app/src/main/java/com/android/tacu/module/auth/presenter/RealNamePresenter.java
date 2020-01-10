@@ -29,8 +29,8 @@ public class RealNamePresenter extends BaseMvpPresenter implements RealNameContr
     }
 
     @Override
-    public void authNew(String country, String firstName, String secondName, String idNumber, String birthday, String gender, String isChina, int step, String singnTime, String outofTime, int isAllTime, int currentLocation) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).authnew(country, firstName, secondName, idNumber, birthday, gender, isChina, step, singnTime, outofTime, isAllTime, currentLocation), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+    public void authNew(String country, String firstName, String secondName, String idNumber, String birthday, String gender, String isChina, int step, String singnTime, String outofTime, int isAllTime) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).authnew(country, firstName, secondName, idNumber, birthday, gender, isChina, step, singnTime, outofTime, isAllTime), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel o) {
                 RealNameContract.IRealView view = (RealNameContract.IRealView) getView();

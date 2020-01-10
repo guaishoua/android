@@ -23,6 +23,11 @@
             android:layout_height="@dimen/dp_0"
             android:layout_weight="1" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/content_bg_color_grey" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_tab_height"
@@ -142,8 +147,7 @@
             android:id="@+id/view_base_line"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/color_default" />
-
+            android:background="@color/main_tab_bg_color" />
     </LinearLayout>
 
     <include

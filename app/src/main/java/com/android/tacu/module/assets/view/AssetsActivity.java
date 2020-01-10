@@ -2,7 +2,6 @@ package com.android.tacu.module.assets.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,9 +15,7 @@ import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.assets.contract.AssetsContract;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.CoinListModel;
-import com.android.tacu.module.assets.model.MoneyFlowEvent;
 import com.android.tacu.module.assets.model.RecordEvent;
-import com.android.tacu.module.assets.model.TransInfoCoinModal;
 import com.android.tacu.module.assets.presenter.AssetsPresenter;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.widget.ControlScrollViewPager;
@@ -50,13 +47,11 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private int currencyId = 1;
     private String recharge;
     private String take;
-    private String otcTransfer;
     private String currencyNameEn = "BTC";
     private FragmentAdapter fragmentAdapter;
 
     private RechargeFragment rechargeFragment;
     private TakeCoinFragment takeCoinFragment;
-    private UuexOTCFragment uuexOTCFragment;
 
     private Gson gson = new Gson();
     private List<Fragment> fragmentList;
@@ -64,13 +59,12 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private List<CoinListModel.AttachmentBean> transferList = new ArrayList<>();
 
     private AssetDrawerLayoutHelper layoutHelper;
-    private TransInfoCoinModal transInfoCoinModal;
 
     /**
      * @param context
      * @param currencyNameEn
      * @param currencyId
-     * @param flags          第几个 0=充币 1=提币 2=UUEX划转
+     * @param flags          第几个 0=充币 1=提币
      * @param isDetails      true：不用默认的btc
      * @return
      */
@@ -80,18 +74,6 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
         intent.putExtra("currencyId", currencyId);
         intent.putExtra("flags", flags);
         intent.putExtra("isDetails", isDetails);
-        return intent;
-    }
-
-    public static Intent createActivity(Context context, String currencyNameEn, int currencyId, int flags, boolean isDetails, TransInfoCoinModal transInfoCoinModal) {
-        Intent intent = new Intent(context, AssetsActivity.class);
-        intent.putExtra("currencyNameEn", currencyNameEn);
-        intent.putExtra("currencyId", currencyId);
-        intent.putExtra("flags", flags);
-        intent.putExtra("isDetails", isDetails);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("transInfoCoinModal", transInfoCoinModal);
-        intent.putExtras(bundle);
         return intent;
     }
 
@@ -120,14 +102,8 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
         recordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (current == 2) {
-                    MoneyFlowEvent event = new MoneyFlowEvent(getResources().getString(R.string.all), "0", currencyId, currencyNameEn, "", "");
-                    event.setType("0");
-                    jumpTo(MoneyFlowActivity.createActivity(AssetsActivity.this, event));
-                } else {
-                    RecordEvent event = new RecordEvent(currencyId, currencyNameEn, "", "");
-                    jumpTo(RecordActivity.createActivity(AssetsActivity.this, current, event));
-                }
+                RecordEvent event = new RecordEvent(currencyId, currencyNameEn, "", "");
+                jumpTo(RecordActivity.createActivity(AssetsActivity.this, current, event));
             }
         });
     }
@@ -187,7 +163,6 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
             currencyNameEn = getIntent().getStringExtra("currencyNameEn");
             currencyId = getIntent().getIntExtra("currencyId", 0);
         }
-        transInfoCoinModal = (TransInfoCoinModal) getIntent().getSerializableExtra("transInfoCoinModal");
 
         current = flags;
     }
@@ -218,7 +193,6 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private void initFragments() {
         recharge = getResources().getString(R.string.recharge);
         take = getResources().getString(R.string.withdrawals);
-        otcTransfer = getResources().getString(R.string.transfer);
 
         switch (flags) {
             case 0:
@@ -226,9 +200,6 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
                 break;
             case 1:
                 mTopBar.setTitle(currencyNameEn + take);
-                break;
-            case 2:
-                mTopBar.setTitle(currencyNameEn + otcTransfer);
                 break;
         }
         fragmentList = new ArrayList<>();
@@ -244,10 +215,8 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
         }
         rechargeFragment = RechargeFragment.newInstance(currencyId, currencyNameEn, rechargeFlag);
         takeCoinFragment = TakeCoinFragment.newInstance(currencyId, currencyNameEn, takeCoinFlag);
-        uuexOTCFragment = UuexOTCFragment.newInstance(currencyId, currencyNameEn, transInfoCoinModal);
         fragmentList.add(rechargeFragment);
         fragmentList.add(takeCoinFragment);
-        fragmentList.add(uuexOTCFragment);
 
         initTabTitle();
     }

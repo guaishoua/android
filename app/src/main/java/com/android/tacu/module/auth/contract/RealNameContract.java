@@ -29,7 +29,7 @@ public class RealNameContract {
     public interface IRealNamePresenter {
         void authinfoNew();
 
-        void authNew(String country, String firstName, String secondName, String idNumber, String birthday, String gender, String isChina, int step, String singnTime, String outofTime, int isAllTime, int currentLocation);
+        void authNew(String country, String firstName, String secondName, String idNumber, String birthday, String gender, String isChina, int step, String singnTime, String outofTime, int isAllTime);
 
         void getOssSetting();
 

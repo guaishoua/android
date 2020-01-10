@@ -31,7 +31,6 @@ import com.android.tacu.module.assets.view.AssetsActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.HomeContract;
 import com.android.tacu.module.main.model.HomeModel;
-import com.android.tacu.module.main.model.UuexSignModal;
 import com.android.tacu.module.main.presenter.HomePresenter;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.NoticeModel;
@@ -240,7 +239,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         } else if (!spUtil.getPhoneStatus()) {
             showToastError(getResources().getString(R.string.please_bind_phone));
         } else {
-            mPresenter.uuexSign();
         }
     }
 
@@ -314,14 +312,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             }
         }
         setInitHomeNoticeValue();
-    }
-
-    @Override
-    public void uuexSign(UuexSignModal modal) {
-        if (modal != null) {
-            String url = Constant.UUEX_OTC_URL + "/#/home?token=" + modal.token + "&timestamp=" + modal.timestamp + "&sign=" + modal.sign;
-            jumpTo(WebviewActivity.createActivity(getContext(), url));
-        }
     }
 
     @Override
@@ -508,6 +498,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     private void initTitle() {
         mTopBar.setTitle(getResources().getString(R.string.home));
+        mTopBar.setBackgroundDividerEnabled(true);
 
         circleImageView = new ImageView(getContext());
         circleImageView.setBackgroundColor(Color.TRANSPARENT);

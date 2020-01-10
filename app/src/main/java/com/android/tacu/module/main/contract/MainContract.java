@@ -4,7 +4,6 @@ import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.main.model.ConvertModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.main.model.UploadModel;
-import com.android.tacu.module.main.model.UuexSignModal;
 import com.android.tacu.module.market.model.SelfModel;
 
 /**
@@ -20,8 +19,6 @@ public class MainContract {
         void getSelfSelectionValue(SelfModel selfModel);
 
         void convertMoney(ConvertModel model);
-
-        void uuexSign(UuexSignModal modal);
     }
 
     public interface IPresenter {
@@ -34,7 +31,5 @@ public class MainContract {
         void logout();
 
         void getConvertModel();
-
-        void uuexSign();
     }
 }

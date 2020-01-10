@@ -11,7 +11,6 @@ import com.android.tacu.module.main.contract.MainContract;
 import com.android.tacu.module.main.model.ConvertModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.main.model.UploadModel;
-import com.android.tacu.module.main.model.UuexSignModal;
 import com.android.tacu.module.market.model.SelfModel;
 
 /**
@@ -68,17 +67,6 @@ public class MainPresenter extends BaseMvpPresenter implements MainContract.IPre
             public void onNext(BaseModel<ConvertModel> model) {
                 MainContract.IView view = (MainContract.IView) getView();
                 view.convertMoney(model.attachment);
-            }
-        });
-    }
-
-    @Override
-    public void uuexSign() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.UUEX, Api.class).uuexSign(), new NetDisposableObserver<BaseModel<UuexSignModal>>((IBaseMvpView) getView()) {
-            @Override
-            public void onNext(BaseModel<UuexSignModal> model) {
-                MainContract.IView view = (MainContract.IView) getView();
-                view.uuexSign(model.attachment);
             }
         });
     }

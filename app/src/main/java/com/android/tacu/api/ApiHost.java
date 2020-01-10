@@ -60,30 +60,6 @@ public enum ApiHost implements Retrofit2Host {
         }
     },
     /**
-     * Epay
-     */
-    EPAY {
-        public String getHost() {
-            return host + "/epay/";
-        }
-    },
-    /**
-     * 闪息宝
-     */
-    DEI {
-        public String getHost() {
-            return host + "/dei/";
-        }
-    },
-    /**
-     * Auction
-     */
-    AUCTION {
-        public String getHost() {
-            return host + "/auction/";
-        }
-    },
-    /**
      * AuctionPlus
      */
     AUCTIONPLUS {
@@ -98,29 +74,9 @@ public enum ApiHost implements Retrofit2Host {
         public String getHost() {
             return host + "/zen/";
         }
-    },
-    /**
-     * UUEX
-     */
-    UUEX {
-        public String getHost() {
-            return host + "/c2cbackend/";
-        }
-    },
-    /**
-     * ali
-     */
-    ALI {
-        public String getHost() {
-            return host + "/ali/";
-        }
     };
 
     public static String host = BuildConfig.API_HOST;
     public static String SOCKET_IP = BuildConfig.API_HOST.replace("/unique", "");
-
-    //EPay Form表单
-    public static final String EPay_host = "https://api.epay.com/paymentApi/merReceive";
-    public static final String EPAY_REGISTER = "https://www.epay.com/web/register/index.jsp?ref=00512789";
 
 }

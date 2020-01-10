@@ -35,7 +35,6 @@ import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.assets.contract.AssetsContract;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.MoneyFlowEvent;
-import com.android.tacu.module.assets.model.TransInfoCoinModal;
 import com.android.tacu.module.assets.presenter.AssetsPresenter;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.my.view.BindModeActivity;
@@ -100,7 +99,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     private List<AssetDetailsModel.CoinListBean> currentList = new ArrayList<>();
     private List<AssetDetailsModel.CoinListBean> currentSearchList = new ArrayList<>();
     private QMUIAlphaImageButton currentPrivacyView;
-    private TransInfoCoinModal transInfoCoinModal;
 
     private ScreenShareHelper screenShareHelper;
 
@@ -128,6 +126,8 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     @Override
     protected void initData() {
         mTopBar.setTitle(getResources().getString(R.string.assets));
+        mTopBar.setBackgroundDividerEnabled(true);
+
         ImageView circleImageView = new ImageView(getContext());
         circleImageView.setBackgroundColor(Color.TRANSPARENT);
         circleImageView.setScaleType(CENTER_CROP);
@@ -190,12 +190,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     @Override
     protected AssetsPresenter createPresenter(AssetsPresenter mPresenter) {
         return new AssetsPresenter();
-    }
-
-    @Override
-    protected void onPresenterCreated(AssetsPresenter mPresenter) {
-        super.onPresenterCreated(mPresenter);
-        mPresenter.transInfoCoin();
     }
 
     @Override
@@ -337,12 +331,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         }
     }
 
-    @Override
-    public void transInfoCoin(TransInfoCoinModal attachment) {
-        transInfoCoinModal = attachment;
-        dealAssetList();
-    }
-
     private void initReyclerView() {
         adapter = new AssetAdapter();
         adapter.setHeaderFooterEmpty(true, false);
@@ -387,27 +375,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                 currentList = assetDetailsModel.coinList;
             }
         }
-        if (currentList != null && currentList.size() > 0 && transInfoCoinModal != null) {
-            if (transInfoCoinModal.inList != null && transInfoCoinModal.inList.size() > 0) {
-                for (int i = 0; i < currentList.size(); i++) {
-                    for (int j = 0; j < transInfoCoinModal.inList.size(); j++) {
-                        if (currentList.get(i).currencyId == transInfoCoinModal.inList.get(j).currencyId) {
-                            currentList.get(i).isUuexOtc = true;
-                        }
-                    }
-                }
-            }
-
-            if (transInfoCoinModal.outList != null && transInfoCoinModal.outList.size() > 0) {
-                for (int i = 0; i < currentList.size(); i++) {
-                    for (int j = 0; j < transInfoCoinModal.outList.size(); j++) {
-                        if (currentList.get(i).currencyId == transInfoCoinModal.outList.get(j).currencyId) {
-                            currentList.get(i).isUuexOtc = true;
-                        }
-                    }
-                }
-            }
-        }
         search();
     }
 
@@ -432,8 +399,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             String ycn = getMcM(data.currencyId, data.amount);
             holder.setText(R.id.tv_assets_item_cny_value, defaultEyeStatus ? (TextUtils.isEmpty(ycn) ? "" : "≈" + ycn) : "*****");
 
-            holder.setGone(R.id.tv_uuex_transfer, data.isUuexOtc);
-
             holder.itemView.findViewById(R.id.tv_asset_item_recharge).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -448,36 +413,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                         return;
                     }
                     jumpTo(AssetsActivity.createActivity(getActivity(), data.currencyNameEn, data.currencyId, 1, true));
-                }
-            });
-
-            holder.setOnClickListener(R.id.tv_uuex_transfer, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!isKeyc2()) {
-                        return;
-                    }
-                    if (transInfoCoinModal != null) {
-                        boolean isFlag = false;
-                        for (int i = 0; i < transInfoCoinModal.outList.size(); i++) {
-                            if (transInfoCoinModal.outList.get(i).currencyId == data.currencyId) {
-                                isFlag = true;
-                                break;
-                            }
-                        }
-                        if (isFlag && !isKeycUUEX()) {
-                            return;
-                        }
-                    } else {
-                        return;
-                    }
-
-                    jumpTo(
-                            AssetsActivity.createActivity(
-                                    getActivity(), data.currencyNameEn,
-                                    data.currencyId, 2,
-                                    true, transInfoCoinModal)
-                    );
                 }
             });
 
@@ -584,36 +519,5 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                 break;
         }
         return boo;
-    }
-
-    private boolean isKeycUUEX() {
-        boolean boo = false;
-        switch (spUtil.getIsAuthSenior()) {
-            case -1:
-            case 0:
-            case 1:
-                showToastError(getString(R.string.please_get_the_level_of_KYC));
-                break;
-            case 2:
-            case 3:
-                if (!spUtil.getPhoneStatus()) {
-                    jumpTo(BindModeActivity.createActivity(getContext(), 3));
-                } else if (!spUtil.getValidatePass()) {
-                    showToastError(getResources().getString(R.string.exchange_pwd));
-                } else {
-                    boo = true;
-                }
-                break;
-        }
-        return boo;
-    }
-
-    private boolean isKeyc2() {
-        int flag = spUtil.getIsAuthSenior();
-        if (flag <= 1) {
-            showToastError(getString(R.string.please_get_the_level_of_KYC));
-            return false;
-        }
-        return true;
     }
 }

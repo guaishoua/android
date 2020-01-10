@@ -11,7 +11,6 @@ import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.main.contract.HomeContract;
 import com.android.tacu.module.main.model.HomeModel;
-import com.android.tacu.module.main.model.UuexSignModal;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.NoticeModel;
 
@@ -42,17 +41,6 @@ public class HomePresenter extends BaseMvpPresenter implements HomeContract.IPre
             public void onNext(BaseModel<List<NoticeModel>> model) {
                 HomeContract.IView view = (HomeContract.IView) getView();
                 view.showNoticeList(model.attachment);
-            }
-        });
-    }
-
-    @Override
-    public void uuexSign() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.UUEX, Api.class).uuexSign(), new NetDisposableObserver<BaseModel<UuexSignModal>>((IBaseMvpView) getView()) {
-            @Override
-            public void onNext(BaseModel<UuexSignModal> model) {
-                HomeContract.IView view = (HomeContract.IView) getView();
-                view.uuexSign(model.attachment);
             }
         });
     }

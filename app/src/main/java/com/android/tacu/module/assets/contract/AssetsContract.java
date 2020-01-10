@@ -3,7 +3,6 @@ package com.android.tacu.module.assets.contract;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.CoinListModel;
-import com.android.tacu.module.assets.model.TransInfoCoinModal;
 
 import java.util.List;
 
@@ -16,8 +15,6 @@ public class AssetsContract {
         void showContent(AssetDetailsModel attachment);
 
         void showContentError();
-
-        void transInfoCoin(TransInfoCoinModal attachment);
     }
 
     public interface ICurrencyView extends IBaseMvpView {
@@ -28,7 +25,5 @@ public class AssetsContract {
         void getAssetDetails(boolean isShowLoadingView);
 
         void coins(boolean isShowLoadingView);
-
-        void transInfoCoin();
     }
 }

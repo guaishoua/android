@@ -155,9 +155,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     private ConstraintSet mConstraintSet1, mConstraintSet2;
 
     private int currencyId = 1;
-    private int baseCurrencyId = 63;
+    private int baseCurrencyId = 237;
     private String currencyNameEn = "BTC";
-    private String baseCurrencyNameEn = "USDT";
+    private String baseCurrencyNameEn = "ACU";
     private int pointPrice = 4;
     private int pointNum = 4;
     //深度合并的小数位
@@ -566,6 +566,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
 
     private void initHeader() {
         mTopBar.setTitle(getResources().getString(R.string.trade));
+        mTopBar.setBackgroundDividerEnabled(true);
 
         ImageView circleImageView = new ImageView(getContext());
         circleImageView.setBackgroundColor(Color.TRANSPARENT);

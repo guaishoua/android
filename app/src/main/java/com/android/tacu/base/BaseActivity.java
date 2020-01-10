@@ -128,7 +128,7 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
                     finish();
             }
         });
-        mTopBar.setBackgroundDividerEnabled(false);
+        mTopBar.setBackgroundDividerEnabled(true);
         initView();
         initLazy();
 

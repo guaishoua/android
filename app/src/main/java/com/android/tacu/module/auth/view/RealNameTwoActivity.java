@@ -90,6 +90,7 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
     private OSS mOss = null;
     private String bucketName;
 
+    private String isChina;
     private UserInfoModel userInfoModel;
     private MultipartImageModel positiveImage;
 
@@ -104,12 +105,13 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
         }
     };
 
-    public static Intent crestActivity(Context context, UserInfoModel userInfoModel, int current) {
+    public static Intent crestActivity(Context context, UserInfoModel userInfoModel, int current, String isChina) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("userInfoModel", userInfoModel);
         Intent intent = new Intent(context, RealNameTwoActivity.class);
         intent.putExtras(bundle);
         intent.putExtra("current", current);
+        intent.putExtra("isChina", isChina);
         return intent;
     }
 
@@ -124,6 +126,7 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
 
         current = getIntent().getIntExtra("current", 1);
         userInfoModel = (UserInfoModel) getIntent().getSerializableExtra("userInfoModel");
+        isChina = getIntent().getStringExtra("isChina");
 
         if (userInfoModel != null && (current == 1 && userInfoModel.positiveImagesStatus == 1) || (current == 2 && userInfoModel.oppositeImagesStatus == 1) || (current == 3 && userInfoModel.handImagesStatus == 1)) {
             iv_camera.setVisibility(View.GONE);
@@ -378,7 +381,7 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
     }
 
     private void startActivity() {
-        jumpTo(RealNameTwoActivity.crestActivity(RealNameTwoActivity.this, userInfoModel, current + 1));
+        jumpTo(RealNameTwoActivity.crestActivity(RealNameTwoActivity.this, userInfoModel, current + 1, isChina));
     }
 
     private void dialogView() {

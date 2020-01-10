@@ -2,7 +2,6 @@ package com.android.tacu.module.main.contract;
 
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.main.model.HomeModel;
-import com.android.tacu.module.main.model.UuexSignModal;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.NoticeModel;
 
@@ -17,16 +16,12 @@ public class HomeContract {
         void home(HomeModel homeModel);
 
         void showNoticeList(List<NoticeModel> list);
-
-        void uuexSign(UuexSignModal modal);
     }
 
     public interface IPresenter {
         void getHome(boolean isShowLoadingView);
 
         void getNoticeInfo();
-
-        void uuexSign();
 
         /**
          * 最新价排序

@@ -9,11 +9,9 @@ import com.android.tacu.module.assets.model.CoinAddressModel;
 import com.android.tacu.module.assets.model.MoneyFlowModel;
 import com.android.tacu.module.assets.model.SelectTakeCoinAddressModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
-import com.android.tacu.module.assets.model.TransInfoCoinModal;
 import com.android.tacu.module.auth.model.SelectAuthLevelModel;
 import com.android.tacu.module.auth.model.UserInfoModel;
 import com.android.tacu.module.main.model.ConvertModel;
-import com.android.tacu.module.main.model.UuexSignModal;
 import com.android.tacu.module.main.model.GoogleAuthModel;
 import com.android.tacu.module.main.model.HomeModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
@@ -134,8 +132,7 @@ public interface Api {
             @Field("phoneCode") String phoneCode,
             @Field("email") String email,
             @Field("pwd") String pwd,
-            @Field("vercode") String vercode,
-            @Field("inviteId") String inviteId
+            @Field("vercode") String vercode
     );
 
     /**
@@ -563,8 +560,7 @@ public interface Api {
             @Field("step") int step,
             @Field("singnTime") String singnTime,
             @Field("outofTime") String outofTime,
-            @Field("isAllTime") int isAllTime,
-            @Field("currentLocation") int currentLocation
+            @Field("isAllTime") int isAllTime
     );
 
     /**
@@ -646,50 +642,4 @@ public interface Api {
             @Field("txId") String txId,
             @Field("amount") String amount
     );
-
-    /**
-     * UUex获取那些币种可以
-     */
-    @POST("transInfoCoin")
-    Observable<BaseModel<TransInfoCoinModal>> TransInfoCoin();
-
-    /**
-     * uuex转出
-     */
-    @FormUrlEncoded
-    @POST("transOut")
-    Observable<BaseModel> transOut(
-            @Field("amount") String amount,
-            @Field("currencyId") int currencyId,
-            @Field("actionId") int actionId,
-            @Field("fdPassword") String fdPassword,
-            @Field("sAuthCode") String sAuthCode,
-            @Field("gAuthCode") String gAuthCode
-    );
-
-    /**
-     * uuex转入
-     */
-    @FormUrlEncoded
-    @POST("transIn")
-    Observable<BaseModel> transIn(
-            @Field("amount") String amount,
-            @Field("currencyId") int currencyId,
-            @Field("actionId") int actionId
-    );
-
-    /**
-     * uuex转入前获取余额
-     */
-    @FormUrlEncoded
-    @POST("coinNum")
-    Observable<BaseModel<String>> coinNum(
-            @Field("currencyId") int currencyId
-    );
-
-    /**
-     * uuex获取签名码
-     */
-    @POST("sign")
-    Observable<BaseModel<UuexSignModal>> uuexSign();
 }

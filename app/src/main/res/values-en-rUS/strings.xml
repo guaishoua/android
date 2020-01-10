@@ -66,7 +66,6 @@
     <string name="mobile_phone_register">Mobile Register</string>
     <string name="input_password">Password</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="Invitation_code">Referral code</string>
     <string name="register">Register</string>
     <string name="register_success">Success</string>
     <string name="country">Nationality</string>
@@ -82,7 +81,6 @@
     <string name="recharge">Deposit</string>
     <string name="withdrawals">Withdraw</string>
     <string name="node_profit">Yesterday’s single node revenue</string>
-    <string name="transfer">Transfer</string>
     <string name="bind_phone_hint">Verify the bound phone number</string>
     <string name="bind_email_hint">Verify the bound mailbox</string>
     <string name="address">Address</string>
@@ -99,10 +97,6 @@
     <string name="amount">Amount</string>
     <string name="all">All</string>
     <string name="please_get_the_level_of_KYC">Please get the level of KYC 2</string>
-    <string name="asset_num">Amount</string>
-    <string name="transfer_available2">Available：</string>
-    <string name="transfer_in">Transfer in</string>
-    <string name="transfer_out">Transfer out</string>
     <string name="add_success">Add account success</string>
 
     <!--提幣-->
@@ -112,14 +106,11 @@
     <string name="please_select_address">Choose a coin address</string>
     <string name="min_extract">Minimum amount</string>
     <string name="paymentid">%1$s (Used for transferring your assets form TACU)</string>
-    <string name="Mailbox_verification">Mailbox verification code</string>
-    <string name="mobile_phone_number_verification">Cell phone verification code</string>
     <string name="google_auth">Google Auth</string>
     <string name="wallet_address">wallet address</string>
     <string name="wallet_name">wallet Name</string>
     <string name="send_successful">send successful</string>
     <string name="auth_method">Please select the authentication method</string>
-    <string name="take_verify">Verify the way：</string>
     <string name="take_verify_code">Input validation code</string>
     <string name="above_step">Above step</string>
     <string name="take_hint">System review will be completed within 30 min. Fund will arrive to your account after confirmation by network. Please note that withdrawal is unavailable within 24 hours after resetting the security setting.</string>

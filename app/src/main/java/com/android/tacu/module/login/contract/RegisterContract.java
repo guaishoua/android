@@ -16,6 +16,6 @@ public class RegisterContract {
     public interface IPresenter {
         void sendEmailForRegister(String phoneCode, String email, String token);
 
-        void register(String phoneCode, String email, String pwd, String vercode, String inviteId);
+        void register(String phoneCode, String email, String pwd, String vercode);
     }
 }

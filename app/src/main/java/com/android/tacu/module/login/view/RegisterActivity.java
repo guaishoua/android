@@ -52,8 +52,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     QMUIRoundEditText etConfirmPwd;
     @BindView(R.id.et_email_code)
     EditText etEmailCode;
-    @BindView(R.id.et_invited_code)
-    EditText etInvitedCode;
     @BindView(R.id.btnRegister)
     QMUIAlphaButton btnRegister;
     @BindView(R.id.btnCode)
@@ -72,8 +70,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     QMUIRoundEditText et_phone_confirm_pwd;
     @BindView(R.id.et_phone_code)
     EditText et_phone_code;
-    @BindView(R.id.et_phone_invited_code)
-    EditText et_phone_invited_code;
     @BindView(R.id.btn_code_phone)
     QMUIAlphaButton btn_code_phone;
     @BindView(R.id.ll_phone)
@@ -194,18 +190,15 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     void register() {
         String email;
         String confirmPwd;
-        String invitedCode;
         String emailCode;
         if (registerType) {
             email = etEmail.getText().toString().trim();
             confirmPwd = etConfirmPwd.getText().toString().trim();
-            invitedCode = etInvitedCode.getText().toString().trim();
             emailCode = etEmailCode.getText().toString().trim();
         } else {
             email = et_phone.getText().toString().trim();
             confirmPwd = et_phone_confirm_pwd.getText().toString().trim();
             emailCode = et_phone_code.getText().toString().trim();
-            invitedCode = et_phone_invited_code.getText().toString().trim();
         }
         if (isEmail()) {
             return;
@@ -220,9 +213,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             return;
         }
         if (registerType) {
-            mPresenter.register(null, email, confirmPwd, emailCode, invitedCode);
+            mPresenter.register(null, email, confirmPwd, emailCode);
         } else {
-            mPresenter.register(String.valueOf(countryCode), email, confirmPwd, emailCode, invitedCode);
+            mPresenter.register(String.valueOf(countryCode), email, confirmPwd, emailCode);
         }
     }
 

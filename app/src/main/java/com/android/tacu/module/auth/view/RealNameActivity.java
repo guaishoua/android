@@ -55,6 +55,8 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
     @BindView(R.id.cb_time)
     CheckBox cb_time;
 
+    //1:中国大陆   0：其他国家地区
+    private String isChina = "";
     private UserInfoModel userInfoModel;
     private QMUIBottomSheet mBottomSheet;
 
@@ -108,7 +110,6 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
         String country = null;
         String name;
         String birthday;
-        String idType;
         String idNumber;
         String startTime;
         String endTime;
@@ -128,6 +129,11 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
         }
         if (TextUtils.isEmpty(name)) {
             showToastError(getString(R.string.name));
+            return;
+        }
+
+        if (TextUtils.isEmpty(isChina)) {
+            showToastError(getResources().getString(R.string.passport_type));
             return;
         }
 
@@ -178,10 +184,11 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
             }
         } else {
             userInfoModel = new UserInfoModel();
+            userInfoModel.isChina = isChina;
         }
 
         // 添加证件类型
-        mPresenter.authNew(country, surname, name, idNumber, birthday, genders, isChina, 1, startTime, endTime, isAllTime, currentLocation);
+        mPresenter.authNew(country, surname, name, idNumber, birthday, genders, isChina, 1, startTime, endTime, isAllTime);
     }
 
     @Override
@@ -191,7 +198,14 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
             et_surname.setText(userInfoModel.firstName);
             et_name.setText(userInfoModel.secondName);
             et_id_number.setText(userInfoModel.idNumber);
-            tv_birthday.setText(userInfoModel.birthday);//
+            tv_birthday.setText(userInfoModel.birthday);
+
+            isChina = userInfoModel.isChina;
+            if (TextUtils.equals(userInfoModel.isChina, "1")) {
+                tv_passport_type.setText(getResources().getString(R.string.shenfenzheng));
+            } else if (TextUtils.equals(userInfoModel.isChina, "0")) {
+                tv_passport_type.setText(getResources().getString(R.string.huzhao));
+            }
             if (TextUtils.equals(userInfoModel.gender, "1")) {
                 rbtn_boy.setChecked(true);
             } else if (TextUtils.equals(userInfoModel.gender, "2")) {
@@ -213,7 +227,7 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
 
     @Override
     public void authNewSuccess() {
-        jumpTo(RealNameTwoActivity.crestActivity(RealNameActivity.this, userInfoModel, 1));
+        jumpTo(RealNameTwoActivity.crestActivity(RealNameActivity.this, userInfoModel, 1, isChina));
     }
 
     @Override
@@ -223,16 +237,17 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
             case R.id.tv_passport_type:
                 if (mBottomSheet == null) {
                     mBottomSheet = new QMUIBottomSheet.BottomListSheetBuilder(this)
-                            .addItem()
+                            .addItem(getResources().getString(R.string.shenfenzheng))
+                            .addItem(getResources().getString(R.string.huzhao))
                             .setOnSheetItemClickListener(new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
                                 @Override
                                 public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
                                     if (position == 0) {
-
+                                        isChina = "1";
+                                        tv_passport_type.setText(getResources().getString(R.string.shenfenzheng));
                                     } else if (position == 1) {
-
-                                    } else if (position == 2) {
-
+                                        isChina = "0";
+                                        tv_passport_type.setText(getResources().getString(R.string.huzhao));
                                     }
                                     dialog.dismiss();
                                 }

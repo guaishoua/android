@@ -159,21 +159,6 @@
                     </RelativeLayout>
 
                     <View style="@style/line_white" />
-
-                    <EditText
-                        android:id="@+id/et_invited_code"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_42"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:background="@null"
-                        android:hint="@string/Invitation_code"
-                        android:maxLength="15"
-                        android:textColor="@color/text_white"
-                        android:textColorHint="@color/text_white"
-                        android:textCursorDrawable="@drawable/color_cursor"
-                        android:textSize="@dimen/text_size_sp_16" />
-
-                    <View style="@style/line_white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -286,21 +271,6 @@
                             app:qmui_borderWidth="@dimen/dp_1"
                             app:qmui_radius="@dimen/dp_2" />
                     </RelativeLayout>
-
-                    <View style="@style/line_white" />
-
-                    <EditText
-                        android:id="@+id/et_phone_invited_code"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_42"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:background="@null"
-                        android:hint="@string/Invitation_code"
-                        android:maxLength="15"
-                        android:textColor="@color/text_white"
-                        android:textColorHint="@color/text_white"
-                        android:textCursorDrawable="@drawable/color_cursor"
-                        android:textSize="@dimen/text_size_sp_16" />
 
                     <View style="@style/line_white" />
                 </LinearLayout>

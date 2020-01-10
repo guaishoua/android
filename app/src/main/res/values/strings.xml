@@ -67,7 +67,6 @@
     <string name="mobile_phone_register">手机注册</string>
     <string name="input_password">密码</string>
     <string name="confirm_password">确认密码</string>
-    <string name="Invitation_code">邀请码</string>
     <string name="register">注册</string>
     <string name="register_success">注册成功</string>
     <string name="country">国籍</string>
@@ -84,7 +83,6 @@
     <string name="recharge">充币</string>
     <string name="withdrawals">提币</string>
     <string name="node_profit">平台昨日单节点收益</string>
-    <string name="transfer">划转</string>
     <string name="bind_phone_hint">验证已绑定的手机号</string>
     <string name="bind_email_hint">验证已绑定的邮箱</string>
     <string name="address">地址</string>
@@ -101,10 +99,6 @@
     <string name="amount">数量</string>
     <string name="all">全部</string>
     <string name="please_get_the_level_of_KYC">请完成KYC2认证</string>
-    <string name="asset_num">数量</string>
-    <string name="transfer_available2">可用：</string>
-    <string name="transfer_in">转入</string>
-    <string name="transfer_out">转出</string>
     <string name="add_success">添加账号成功</string>
 
     <!--提币-->
@@ -114,14 +108,11 @@
     <string name="please_select_address">选择提币地址</string>
     <string name="min_extract">最小提币数量</string>
     <string name="paymentid">%1$s (从TACU转出至其它平台或个人钱包时需要)</string>
-    <string name="Mailbox_verification">邮箱验证码</string>
-    <string name="mobile_phone_number_verification">手机验证码</string>
     <string name="google_auth">谷歌验证码</string>
     <string name="wallet_address">钱包地址</string>
     <string name="wallet_name">钱包名称</string>
     <string name="send_successful">发送成功</string>
     <string name="auth_method">请选择验证方式</string>
-    <string name="take_verify">验证方式：</string>
     <string name="take_verify_code">请输入验证码</string>
     <string name="above_step">上一步</string>
     <string name="take_hint">系统将在30分钟内完成审核，待网络确认后即可到账。请注意，修改安全设置后的24小时内不可提币。</string>
@@ -248,6 +239,8 @@
     <string name="picker_month">月</string>
     <string name="picker_dete">日</string>
     <string name="real_time">长期有效</string>
+    <string name="shenfenzheng">身份证</string>
+    <string name="huzhao">护照</string>
 
     <!--实名认证 第二步-->
     <string name="real_reverse_title">上传个人信息页</string>

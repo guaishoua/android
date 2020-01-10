@@ -15,7 +15,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.tacu.EventBus.EventConstant;
@@ -32,14 +31,11 @@ import com.android.tacu.module.main.contract.MainContract;
 import com.android.tacu.module.main.model.ConvertModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.main.model.UploadModel;
-import com.android.tacu.module.main.model.UuexSignModal;
 import com.android.tacu.module.main.presenter.MainPresenter;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.SelfModel;
-import com.android.tacu.module.my.view.GoogleHintActivity;
 import com.android.tacu.module.transaction.view.TradeFragment;
 import com.android.tacu.EventBus.model.MainSwitchEvent;
-import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.StatusBarUtils;
@@ -53,11 +49,8 @@ import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
 import com.google.gson.Gson;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.yanzhenjie.permission.Permission;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -357,14 +350,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     }
 
     @Override
-    public void uuexSign(UuexSignModal modal) {
-        if (modal != null) {
-            String url = Constant.UUEX_OTC_URL + "/#/home?token=" + modal.token + "&timestamp=" + modal.timestamp + "&sign=" + modal.sign;
-            jumpTo(WebviewActivity.createActivity(this, url));
-        }
-    }
-
-    @Override
     protected void receiveEvent(BaseEvent event) {
         super.receiveEvent(event);
         if (event != null) {
@@ -500,7 +485,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         } else if (!spUtil.getPhoneStatus()) {
             showToastError(getResources().getString(R.string.please_bind_phone));
         } else {
-            mPresenter.uuexSign();
+
         }
     }
 

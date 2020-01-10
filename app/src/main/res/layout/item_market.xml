@@ -201,16 +201,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:paddingVertical="@dimen/dp_2">
 
-                <TextView
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/icon_gotrade"
                     android:drawablePadding="@dimen/dp_5"
+                    android:padding="@dimen/dp_3"
                     android:text="@string/go_trade"
                     android:textColor="@color/text_default"
-                    android:textSize="@dimen/text_size_sp_14" />
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:qmui_borderColor="@color/text_default"
+                    app:qmui_borderWidth="@dimen/dp_1"
+                    app:qmui_radius="@dimen/dp_2" />
             </LinearLayout>
         </LinearLayout>
 

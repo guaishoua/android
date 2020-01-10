@@ -61,15 +61,6 @@
                     tools:text="(Tether)" />
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_uuex_transfer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:padding="@dimen/dp_5"
-                android:text="@string/transfer"
-                android:textColor="@color/text_color" />
         </RelativeLayout>
 
 
