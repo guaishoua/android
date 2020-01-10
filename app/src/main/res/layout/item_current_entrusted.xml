@@ -15,7 +15,7 @@
         android:layout_height="@dimen/dp_20"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
-        android:src="@drawable/icon_check_box_outline"
+        app:srcCompat="@drawable/icon_check_box_outline"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -61,11 +61,11 @@
         android:paddingHorizontal="@dimen/dp_8"
         android:paddingVertical="@dimen/dp_5"
         android:text="@string/order_cancel"
-        android:textColor="@color/text_default"
+        android:textColor="@color/text_error"
         android:textSize="@dimen/text_size_sp_14"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:qmui_backgroundColor="@color/color_grey_3"
+        app:qmui_backgroundColor="@color/color_white"
         app:qmui_radius="@dimen/dp_2" />
 
     <TextView

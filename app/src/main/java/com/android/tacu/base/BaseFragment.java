@@ -419,7 +419,5 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
                 }
             };
         }
-
-
     }
 }

@@ -198,6 +198,10 @@ public class ConvertMoneyUtils {
         return null;
     }
 
+    public static ConvertModel.ConvertCurrencyListBean getMcMBean(){
+        return currentConvertBean;
+    }
+
     public static double getCurrentAmount() {
         return currentAmount;
     }
