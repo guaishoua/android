@@ -321,7 +321,7 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
         } else if (current == 3) {
             tv_real_hint.setVisibility(View.VISIBLE);
             setText(R.string.continent_hand_title, R.string.continent_hand_hint, R.string.continent_hand_content);
-            iv_picture.setBackgroundResource(R.mipmap.img_real_hand_global_domestic);
+            iv_picture.setBackgroundResource(R.mipmap.img_hand_img);
         }
     }
 

@@ -136,12 +136,6 @@ public class TradeRecordManageActivity extends BaseActivity<TradeRecordManagePre
                 backEditStatus();
             }
         });
-        tvTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initRecordPopUp();
-            }
-        });
         btnScreen = mTopBar.addRightImageButton(R.mipmap.img_screen, R.id.qmui_topbar_item_right_two, 18, 18);
         btnScreen.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -66,6 +66,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/content_bg_color"
                         android:orientation="vertical"
+                        android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@id/banner_home">
 
                         <View

@@ -308,7 +308,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 lin_notice.setVisibility(View.GONE);
                 noticeList.clear();
             } else {
-                lin_notice.setVisibility(View.VISIBLE);
+                lin_notice.setVisibility(View.GONE);
             }
         }
         setInitHomeNoticeValue();
@@ -557,7 +557,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         if (TextUtils.equals(noticeCacheString, noticeCloseCacheString)) {
             lin_notice.setVisibility(View.GONE);
         } else {
-            lin_notice.setVisibility(View.VISIBLE);
+            lin_notice.setVisibility(View.GONE);
             noticeList = gson.fromJson(noticeCacheString, new TypeToken<List<NoticeModel>>() {
             }.getType());
         }
@@ -621,7 +621,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
      */
     private void setInitHomeNoticeValue() {
         if (noticeList != null && noticeList.size() > 0) {
-            lin_notice.setVisibility(View.VISIBLE);
+            lin_notice.setVisibility(View.GONE);
             List<String> infos = new ArrayList<>();
             for (int i = 0; i < noticeList.size(); i++) {
                 infos.add("【" + noticeList.get(i).type + "】" + noticeList.get(i).title);
