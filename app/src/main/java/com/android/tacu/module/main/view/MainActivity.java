@@ -24,7 +24,6 @@ import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
-import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.assets.view.AssetsFragment;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.MainContract;
@@ -41,7 +40,6 @@ import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.StatusBarUtils;
 import com.android.tacu.utils.downloadfile.AppUpdateUtils;
 import com.android.tacu.utils.PackageUtils;
-import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.widget.NoSlideViewPager;
 import com.android.tacu.widget.dialog.DroidDialog;
 import com.facebook.rebound.SimpleSpringListener;
@@ -49,7 +47,6 @@ import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
 import com.google.gson.Gson;
-import com.yanzhenjie.permission.Permission;
 
 import java.util.List;
 
@@ -272,27 +269,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
     @Override
     public void upload(final UploadModel model, final boolean isTip) {
-        /**
-         * 1.照相机权限
-         * 2.申请获取用户设备的IMEI，通过IMEI来唯一的标识用户
-         * 3.sd卡读取权限
-         */
-        PermissionUtils.requestPermissions(this, new OnPermissionListener() {
-            @Override
-            public void onPermissionSucceed() {
-                if (model != null) {
-                    if (PackageUtils.splitVersionNum(model.nowVersion, PackageUtils.getVersion())) {
-                        AppUpdateUtils.showSimpleUpdate(MainActivity.this, model);
-                    } else if (isTip) {
-                        showToast(getResources().getString(R.string.update_hint));
-                    }
-                }
+        if (model != null) {
+            if (PackageUtils.splitVersionNum(model.nowVersion, PackageUtils.getVersion())) {
+                AppUpdateUtils.showSimpleUpdate(MainActivity.this, model);
+            } else if (isTip) {
+                showToast(getResources().getString(R.string.update_hint));
             }
-
-            @Override
-            public void onPermissionFailed() {
-            }
-        }, Permission.Group.CAMERA, new String[]{Permission.READ_PHONE_STATE}, Permission.Group.STORAGE);
+        }
     }
 
     @Override
