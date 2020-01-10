@@ -96,8 +96,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="@dimen/dp_54"
                         android:gravity="right|center_vertical"
-                        android:maxLength="60"
                         android:hint="@string/passport_type"
+                        android:maxLength="60"
                         android:textSize="@dimen/text_size_sp_14" />
                 </LinearLayout>
 
@@ -171,13 +171,13 @@
 
                         <CheckBox
                             android:id="@+id/rbtn_gril"
-                            android:layout_width="@dimen/dp_16"
-                            android:layout_height="@dimen/dp_16"
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_20"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="@dimen/dp_4"
                             android:background="@drawable/checkbox_circle_default"
                             android:button="@null"
-                            android:enabled="false"
+                            android:clickable="true"
                             android:paddingLeft="@dimen/dp_10"
                             android:paddingRight="@dimen/dp_10" />
 
@@ -191,13 +191,13 @@
 
                         <CheckBox
                             android:id="@+id/rbtn_boy"
-                            android:layout_width="@dimen/dp_16"
-                            android:layout_height="@dimen/dp_16"
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_20"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="@dimen/dp_4"
                             android:background="@drawable/checkbox_circle_default"
                             android:button="@null"
-                            android:enabled="false"
+                            android:clickable="true"
                             android:paddingLeft="@dimen/dp_10"
                             android:paddingRight="@dimen/dp_10" />
 
@@ -279,8 +279,8 @@
 
                             <CheckBox
                                 android:id="@+id/cb_time"
-                                android:layout_width="@dimen/dp_16"
-                                android:layout_height="@dimen/dp_16"
+                                android:layout_width="@dimen/dp_20"
+                                android:layout_height="@dimen/dp_20"
                                 android:layout_gravity="center_vertical"
                                 android:background="@drawable/checkbox_circle_default"
                                 android:button="@null"

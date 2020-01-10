@@ -106,10 +106,10 @@ public class IdentityAuthUtils {
                 .setContentTextSize(16)//滚轮文字大小
                 .setOutSideCancelable(false)//点击屏幕，点在控件外部范围时，是否取消显示
                 .isCyclic(true)//是否循环滚动
-                .setSubmitColor(ContextCompat.getColor(context, R.color.text_color))//确定按钮文字颜色
-                .setCancelColor(ContextCompat.getColor(context, R.color.text_color))//取消按钮文字颜色
-                .setTitleBgColor(ContextCompat.getColor(context, R.color.content_bg_color_grey))//标题背景颜色 Night mode
-                .setBgColor(ContextCompat.getColor(context, R.color.content_bg_color))//滚轮背景颜色 Night mode
+                .setSubmitColor(ContextCompat.getColor(context, R.color.text_black))//确定按钮文字颜色
+                .setCancelColor(ContextCompat.getColor(context, R.color.text_black))//取消按钮文字颜色
+                .setTitleBgColor(ContextCompat.getColor(context, R.color.color_white))//标题背景颜色 Night mode
+                .setBgColor(ContextCompat.getColor(context, R.color.color_white))//滚轮背景颜色 Night mode
                 .setDate(Calendar.getInstance())// 如果不设置的话，默认是系统时间*/
                 .setRangDate(startDate, endDate)//起始终止年月日设定
                 .setLabel(context.getResources().getString(R.string.picker_year), context.getResources().getString(R.string.picker_month), context.getResources().getString(R.string.picker_dete), "", "", "")//默认设置为年月日时分秒

@@ -77,6 +77,9 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
         cb_time.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tv_id_end_time.setText("");
+                }
                 tv_id_end_time.setEnabled(!isChecked);
             }
         });
@@ -99,6 +102,18 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
         if (mBottomSheet != null) {
             mBottomSheet.dismiss();
         }
+    }
+
+    @OnClick(R.id.rbtn_gril)
+    void rbtnGrilClick() {
+        rbtn_gril.setChecked(true);
+        rbtn_boy.setChecked(false);
+    }
+
+    @OnClick(R.id.rbtn_boy)
+    void rbtnBoyClick() {
+        rbtn_gril.setChecked(false);
+        rbtn_boy.setChecked(true);
     }
 
     /**
