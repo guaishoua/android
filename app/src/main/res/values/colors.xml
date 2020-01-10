@@ -27,7 +27,7 @@
     <color name="coin_depth_blue">#3B19A144</color><!--透明值80%-->
     <color name="coin_depth_red">#3BEB311F</color><!--透明值80%-->
     <!--状态栏颜色-->
-    <color name="statusbar_color">#E2BF1C</color>
+    <color name="statusbar_color">#141C25</color>
     <!--页面背景色-->
     <color name="content_bg_color">#141C25</color>
     <!--页面的背景灰色-->
