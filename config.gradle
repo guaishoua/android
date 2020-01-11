@@ -118,8 +118,8 @@ ext {
             pupwindow                    : 'com.labo.kaji:relativepopupwindow:0.3.1',
             //滾輪式View
             wheelview                    : 'com.github.zyyoona7:wheelview:1.0.6',
-            //Volly
-            volley                       : 'com.android.volley:volley:1.1.1'
+            //水平进度条
+            ZzHorizontalProgressBar      : "me.zhouzhuo.zzhorizontalprogressbar:zz-horizontal-progressbar:1.1.0",
     ]
 
     //Support库

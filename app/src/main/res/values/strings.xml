@@ -507,5 +507,70 @@
     <string name="msg_coin_picker_not_found">目前 %1$s 沒有相關交易對</string>
     <string name="usdt_tip">请选择基于ERC20的USDT进行充值</string>
 
-    <!--实人认证-->
+    <!--Auction-->
+    <string name="auction_list_all">全部</string>
+    <string name="auction_list_going">进行中</string>
+    <string name="auction_list_finish">已完成</string>
+    <string name="auction_list_collection">收藏</string>
+    <string name="auction_list_whitepaper">白皮书</string>
+    <string name="auction_list_starttime">开始时间(UTC+8)</string>
+    <string name="auction_starttime">开始时间</string>
+    <string name="auction_list_profit">盈利约</string>
+    <string name="auction_list_dealprice">成交价(USDT)</string>
+    <string name="auction_list_marketprice">市场价(USDT)</string>
+    <string name="auction_list_paynow">立即支付</string>
+    <string name="auction_list_payafter">已支付</string>
+    <string name="auction_list_paygotime">支付过期</string>
+    <string name="auction_now_goprice">立即出价</string>
+    <string name="auction_collection_num">收藏%1$s人</string>
+    <string name="auction_goprice_num">出价%1$s人</string>
+    <string name="auction_watch_num">围观%1$s人</string>
+    <string name="auction_count_time">倒计时长</string>
+    <string name="auction_rules">规则说明</string>
+    <string name="auction_goprice_record">出价记录</string>
+    <string name="location">所在地</string>
+    <string name="auction_pay_title">Auction-支付</string>
+    <string name="successful_pay">祝贺您</string>
+    <string name="auction_get">可获得</string>
+    <string name="auction_balance">可用余额(USDT)</string>
+    <string name="successful_tip">温馨提示：请在(UTC+8) %1$s时 之前完成支付，逾期将视为主动放弃。</string>
+    <string name="auction_pay_success">支付成功</string>
+    <string name="record_ten">仅显示最新10条记录</string>
+    <string name="auction_estimate">预计 %1$s 后结束</string>
+    <string name="auction_finish_time">结束时间为 %1$s</string>
+    <string name="collect_success">收藏成功!</string>
+    <string name="collect_error">收藏失败!</string>
+    <string name="auction_go_activity">前往新项目</string>
+
+    <!--ActionPlus-->
+    <string name="auctionplus_list_start">新品审核中</string>
+    <string name="plus_win_record">获胜\n记录</string>
+    <string name="auction_win_record">Auction获胜记录</string>
+    <string name="pay">支付</string>
+    <string name="pay_status">支付状态</string>
+    <string name="pay_all">全部</string>
+    <string name="pay_before">待支付</string>
+    <string name="pay_after">已支付</string>
+    <string name="pay_gotime">支付过期</string>
+    <string name="mode">模式</string>
+    <string name="date2">日期</string>
+    <string name="get_auction">获得标的</string>
+    <string name="auctionplus_residual_times">剩余次数</string>
+    <string name="auctionplus_num">标的数量/份</string>
+    <string name="auctionplus_dealprice">成交价/份</string>
+    <string name="auctionplus_all_time">总次数</string>
+    <string name="auction_getall">共可获得</string>
+    <string name="auctionplus_dealprice_all">成交总价(USDT)</string>
+    <string name="plus_every_num">每份数量</string>
+    <string name="plus_every_price">每份价格(USDT)</string>
+    <string name="plus_fee">起拍手续费</string>
+    <string name="plus_add_price">加价幅度</string>
+    <string name="plus_rules">1.所有数字货币竞拍限定出价次数，指定首次出价的手续费，之后的每一出价消耗的手续费需比前一出价多消耗指定单位的手续费。每一出价次数均对应一个奖励份额。每次出价后有10秒计时，当倒计时为0时，即竞拍结束。结束后参与用户均可按照获取的份额购买标的，同时免费获得不同比例的奖励。
+\n2.进入拍卖，当您出价后，即进入拍卖倒计时，该数字货币的计时器将被自动重置，计时器归零时，该竞拍结束。
+\n3.若竞拍结束，请在竞拍结束后24小时内以规定价格购买所获份额，逾期视为自动放弃。
+\n4.当网络出现如黑客恶意攻击，自然灾害，作弊拍卖等不可控原因时，TACU平台有权取消本次拍卖，退回相关资产。
+\n5.每期拍卖需至少有一人出价，方可算有效交易。如无人出价，该期竞拍取消。
+\n6.本活动最终解释权归TACU平台所有。</string>
+
+    <string name="currency">币种</string>
 </resources>

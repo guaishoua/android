@@ -125,10 +125,10 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         itemInviting.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemInviting.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
-        /*news = mResources.getString(R.string.drawer_news);
+        news = mResources.getString(R.string.drawer_news);
         QMUICommonListItemView itemNews = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_news), news, itemHeight);
         itemNews.setPadding(UIUtils.dp2px(15), 0, 0, 0);
-        itemNews.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);*/
+        itemNews.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
         contactUs = mResources.getString(R.string.drawer_contus);
         QMUICommonListItemView itemContactUs = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_contactus), contactUs, itemHeight);
@@ -166,7 +166,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
                 .addItemView(itemRealName, onClickListener)
                 .addItemView(itemSecuritySetting, onClickListener)
                 .addItemView(itemInviting, onClickListener)
-                //.addItemView(itemNews, onClickListener)
+                .addItemView(itemNews, onClickListener)
                 .addItemView(itemContactUs, onClickListener)
                 //.addItemView(itemQuestion, onClickListener)
                 //.addItemView(itemMyTicket, onClickListener)

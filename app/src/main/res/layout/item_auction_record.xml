@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/content_bg_color"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_15"
+    android:paddingRight="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_5">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_14"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="10 BTC-10999" />
+
+    <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+        android:id="@+id/btn_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_14"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="待支付" />
+
+    <TextView
+        android:id="@+id/tv_mode_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="left"
+        android:text="@string/mode"
+        android:textColor="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_fee_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_fee_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="@string/fee"
+        android:textColor="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_mode_title"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_mode_title"
+        app:layout_constraintRight_toLeftOf="@+id/tv_bonus_title" />
+
+    <TextView
+        android:id="@+id/tv_bonus_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="Bonus"
+        android:textColor="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_mode_title"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_fee_title"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_mode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="left"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_fee"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mode_title"
+        tools:text="Auction Plus" />
+
+    <TextView
+        android:id="@+id/tv_fee"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_mode"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_mode"
+        app:layout_constraintRight_toLeftOf="@+id/tv_bonus"
+        tools:text="100CHEX" />
+
+    <TextView
+        android:id="@+id/tv_bonus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_mode"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_fee"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="200BAT" />
+
+    <TextView
+        android:id="@+id/tv_date_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="left"
+        android:text="@string/date2"
+        android:textColor="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_currency_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mode" />
+
+    <TextView
+        android:id="@+id/tv_currency_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="@string/get_auction"
+        android:textColor="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_date_title"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_date_title"
+        app:layout_constraintRight_toLeftOf="@+id/tv_dealprice_title" />
+
+    <TextView
+        android:id="@+id/tv_dealprice_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/deal_single_price"
+        android:textColor="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_date_title"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_currency_title"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="left"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_currency"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date_title"
+        tools:text="2019-07-09" />
+
+    <TextView
+        android:id="@+id/tv_currency"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_date"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_date"
+        app:layout_constraintRight_toLeftOf="@+id/tv_dealprice"
+        tools:text="1000BAT" />
+
+    <TextView
+        android:id="@+id/tv_dealprice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_date"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_currency"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="100USDT" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0.5"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@color/color_grey_2"
+        app:layout_constraintTop_toBottomOf="@id/tv_date" />
+</android.support.constraint.ConstraintLayout>

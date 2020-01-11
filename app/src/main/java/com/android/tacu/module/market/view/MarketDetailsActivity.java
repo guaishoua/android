@@ -197,7 +197,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         setSocketEvent(MarketDetailsActivity.this, MarketDetailsActivity.this, SocketConstant.LOGINAFTERCHANGETRADECOIN);
 
         currencyId = getIntent().getIntExtra("currencyId", 1);
-        baseCurrencyId = getIntent().getIntExtra("baseCurrencyId", 63);
+        baseCurrencyId = getIntent().getIntExtra("baseCurrencyId", 237);
         currencyNameEn = getIntent().getStringExtra("currencyNameEn");
         baseCurrencyNameEn = getIntent().getStringExtra("baseCurrencyNameEn");
 

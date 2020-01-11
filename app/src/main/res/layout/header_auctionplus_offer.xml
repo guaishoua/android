@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/content_bg_color_grey">
+
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:gravity="left"
+        android:text="ID"
+        android:textColor="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_fee"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_fee"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/fee"
+        android:textColor="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_id"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_id"
+        app:layout_constraintRight_toLeftOf="@+id/tv_bonus" />
+
+    <TextView
+        android:id="@+id/tv_bonus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Bonus"
+        android:textColor="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_id"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_fee"
+        app:layout_constraintRight_toLeftOf="@+id/tv_location" />
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_10"
+        android:gravity="right"
+        android:text="@string/location"
+        android:textColor="@color/text_grey_2"
+        android:textSize="@dimen/text_size_sp_12"
+        app:layout_constraintBottom_toBottomOf="@id/tv_id"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/tv_bonus"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>

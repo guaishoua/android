@@ -26,6 +26,12 @@ import com.android.tacu.module.my.model.InvitedInfoModel;
 import com.android.tacu.module.transaction.model.DealDetailsModel;
 import com.android.tacu.module.transaction.model.ShowOrderListModel;
 import com.android.tacu.module.transaction.model.ShowTradeListModel;
+import com.android.tacu.module.auctionplus.modal.AuctionPayStatusModel;
+import com.android.tacu.module.auctionplus.modal.AuctionPlusDataBaseModel;
+import com.android.tacu.module.auctionplus.modal.AuctionPlusListByIdModel;
+import com.android.tacu.module.auctionplus.modal.AuctionPlusListModel;
+import com.android.tacu.module.auctionplus.modal.AuctionPlusPayInfoModel;
+import com.android.tacu.module.auctionplus.modal.AuctionPlusWinLisyModel;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -641,5 +647,127 @@ public interface Api {
     Observable<BaseModel> rechargeGrin(
             @Field("txId") String txId,
             @Field("amount") String amount
+    );
+
+    /**
+     * AuctionPlus的列表数据(全部 进行中 未开始 已结束)
+     */
+    @FormUrlEncoded
+    @POST("list")
+    Observable<BaseModel<AuctionPlusListModel>> auctionPlusList(
+            @Field("start") int start,
+            @Field("size") int size,
+            @Field("status") int status //0=全部 1=进行中 2=未开始 3=已结束
+    );
+
+    /**
+     * Auction的列表数据(收藏 围观 参与)
+     */
+    @FormUrlEncoded
+    @POST("listByType")
+    Observable<BaseModel<AuctionPlusListModel>> auctionPlusListByType(
+            @Field("start") int start,
+            @Field("size") int size,
+            @Field("type") int type //1=收藏 2=围观 3=参与
+    );
+
+    /**
+     * Auction的列表数据待支付
+     */
+    @FormUrlEncoded
+    @POST("payWait")
+    Observable<BaseModel<AuctionPlusListModel>> auctionPlusWait(
+            @Field("start") int start,
+            @Field("size") int size
+    );
+
+    /**
+     * 轮询进行中和未开始的数据
+     */
+    @FormUrlEncoded
+    @POST("data")
+    Observable<BaseModel<AuctionPlusDataBaseModel>> auctionPlusData(
+            @Field("ids") String ids
+    );
+
+    /**
+     * 获取已完成状态的活动的支付状态
+     */
+    @FormUrlEncoded
+    @POST("listpay")
+    Observable<BaseModel<List<AuctionPayStatusModel>>> auctionPluslistpay(
+            @Field("ids") String ids
+    );
+
+    /**
+     * 查询明细
+     */
+    @FormUrlEncoded
+    @POST("listById")
+    Observable<BaseModel<AuctionPlusListByIdModel>> listPlusById(
+            @Field("start") int start,
+            @Field("size") int size,
+            @Field("id") String id
+    );
+
+    /**
+     * plus支付弹窗
+     */
+    @FormUrlEncoded
+    @POST("payInfo")
+    Observable<BaseModel<AuctionPlusPayInfoModel>> payInfo(
+            @Field("id") String id
+    );
+
+    /**
+     * 支付
+     */
+    @FormUrlEncoded
+    @POST("pay")
+    Observable<BaseModel> auctionPlusPay(
+            @Field("id") String id,//type为0时代表标的id，type为1时代表获胜记录的id
+            @Field("type") int type//0 支付整个标的 1 支付单个出价
+    );
+
+    /**
+     * plus获胜记录
+     */
+    @FormUrlEncoded
+    @POST("winLisy")
+    Observable<BaseModel<AuctionPlusWinLisyModel>> plusWinLisy(
+            @Field("start") int start,
+            @Field("size") int size,
+            @Field("payStatus") int payStatus,//1待支付 2已支付 3 支付过期 4 全部
+            @Field("currency") int currency,
+            @Field("beginTime") String beginTime,
+            @Field("endTime") String endTime
+    );
+
+    /**
+     * 是否收藏
+     */
+    @FormUrlEncoded
+    @POST("collectCheck")
+    Observable<BaseModel> collectCheck(
+            @Field("id") String id
+    );
+
+    /**
+     * 收藏
+     */
+    @FormUrlEncoded
+    @POST("collect")
+    Observable<BaseModel> auctionCollect(
+            @Field("id") String id
+    );
+
+    /**
+     * Auction出价
+     */
+    @FormUrlEncoded
+    @POST("buy")
+    Observable<BaseModel> auctionBuy(
+            @Field("id") String id,
+            @Field("count") String count
     );
 }

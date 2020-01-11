@@ -62,9 +62,6 @@ public class Constant {
     //显示资产的基准币 默认以BTC为基准
     public static final String ASSETS_COIN = "BTC";
 
-    //UUEX的OTC
-    public static final String UUEX_OTC_URL = "https://uuex.io";
-
     //zendesk
     public static final String ZENDESK_WENTI = "https://gexday.zendesk.com/hc/zh-cn/categories/360002072732";
 
