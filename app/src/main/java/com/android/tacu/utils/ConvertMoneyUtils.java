@@ -36,8 +36,6 @@ public class ConvertMoneyUtils {
     private static ConvertModel convertModel = null;
     private static ConvertModel.ConvertCurrencyListBean currentConvertBean = null;
     private static SparseArray<Double> convertSparseArray = new SparseArray<>();
-    //运营活动 BTC/USDT的单价
-    private static double currentAmount = 0;
 
     public static boolean hasValue() {
         if (convertModel != null && TextUtils.equals(spUtil.getConvertMoney(), convertMoneyString)) {
@@ -94,14 +92,6 @@ public class ConvertMoneyUtils {
                 if (marketModel.baseCoinList != null && marketModel.baseCoinList.size() > 0) {
                     for (int n = 0; n < marketModel.baseCoinList.size(); n++) {
                         convertSparseArray.put(marketModel.baseCoinList.get(n).currencyId, marketModel.baseCoinList.get(n).baseExchangeAmount);
-                        if (TextUtils.equals(marketModel.baseCoinList.get(n).currencyNameEn, "USDT")) {
-                            for (int j = 0; j < marketModel.tradeCoinsList.size(); j++) {
-                                if (TextUtils.equals(marketModel.tradeCoinsList.get(j).currencyNameEn, "BTC")) {
-                                    currentAmount = marketModel.tradeCoinsList.get(j).currentAmount;
-                                    break;
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -121,14 +111,6 @@ public class ConvertMoneyUtils {
                 if (marketModel.baseCoinList != null && marketModel.baseCoinList.size() > 0) {
                     for (int n = 0; n < marketModel.baseCoinList.size(); n++) {
                         convertSparseArray.put(marketModel.baseCoinList.get(n).currencyId, marketModel.baseCoinList.get(n).baseExchangeAmount);
-                        if (TextUtils.equals(marketModel.baseCoinList.get(n).currencyNameEn, "USDT")) {
-                            for (int j = 0; j < marketModel.tradeCoinsList.size(); j++) {
-                                if (TextUtils.equals(marketModel.tradeCoinsList.get(j).currencyNameEn, "BTC")) {
-                                    currentAmount = marketModel.tradeCoinsList.get(j).currentAmount;
-                                    break;
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -200,9 +182,5 @@ public class ConvertMoneyUtils {
 
     public static ConvertModel.ConvertCurrencyListBean getMcMBean(){
         return currentConvertBean;
-    }
-
-    public static double getCurrentAmount() {
-        return currentAmount;
     }
 }

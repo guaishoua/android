@@ -515,9 +515,6 @@
     <string name="auction_list_whitepaper">白皮书</string>
     <string name="auction_list_starttime">开始时间(UTC+8)</string>
     <string name="auction_starttime">开始时间</string>
-    <string name="auction_list_profit">盈利约</string>
-    <string name="auction_list_dealprice">成交价(USDT)</string>
-    <string name="auction_list_marketprice">市场价(USDT)</string>
     <string name="auction_list_paynow">立即支付</string>
     <string name="auction_list_payafter">已支付</string>
     <string name="auction_list_paygotime">支付过期</string>
@@ -531,8 +528,7 @@
     <string name="location">所在地</string>
     <string name="auction_pay_title">Auction-支付</string>
     <string name="successful_pay">祝贺您</string>
-    <string name="auction_get">可获得</string>
-    <string name="auction_balance">可用余额(USDT)</string>
+    <string name="auction_balance">可用余额</string>
     <string name="successful_tip">温馨提示：请在(UTC+8) %1$s时 之前完成支付，逾期将视为主动放弃。</string>
     <string name="auction_pay_success">支付成功</string>
     <string name="record_ten">仅显示最新10条记录</string>
@@ -560,9 +556,9 @@
     <string name="auctionplus_dealprice">成交价/份</string>
     <string name="auctionplus_all_time">总次数</string>
     <string name="auction_getall">共可获得</string>
-    <string name="auctionplus_dealprice_all">成交总价(USDT)</string>
+    <string name="auctionplus_dealprice_all">成交总价</string>
     <string name="plus_every_num">每份数量</string>
-    <string name="plus_every_price">每份价格(USDT)</string>
+    <string name="plus_every_price">每份价格</string>
     <string name="plus_fee">起拍手续费</string>
     <string name="plus_add_price">加价幅度</string>
     <string name="plus_rules">1.所有数字货币竞拍限定出价次数，指定首次出价的手续费，之后的每一出价消耗的手续费需比前一出价多消耗指定单位的手续费。每一出价次数均对应一个奖励份额。每次出价后有10秒计时，当倒计时为0时，即竞拍结束。结束后参与用户均可按照获取的份额购买标的，同时免费获得不同比例的奖励。

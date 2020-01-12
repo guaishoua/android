@@ -388,15 +388,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         return ConvertMoneyUtils.getMcMValue(baseCurrentId, number);
     }
 
-    /**
-     * btc/usdt的单价
-     *
-     * @return
-     */
-    protected double getCurrentAmount() {
-        return ConvertMoneyUtils.getCurrentAmount();
-    }
-
     protected void onEmit() {
         if (baseSocketManager != null && baseSocketEvent != null) {
             baseSocketManager.onEmitterListener();

@@ -386,15 +386,6 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
         return ConvertMoneyUtils.getMcMValue(baseCurrentId, number);
     }
 
-    /**
-     * btc/usdt的单价
-     *
-     * @return
-     */
-    protected double getCurrentAmount() {
-        return ConvertMoneyUtils.getCurrentAmount();
-    }
-
     protected void onEmit() {
         if (baseSocketManager != null && baseSocketEvent != null) {
             baseSocketManager.onEmitterListener();

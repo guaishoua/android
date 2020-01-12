@@ -488,6 +488,67 @@
     <string name="msg_wrong_qrcode_unknown_wrong_happen">An unknown error occurred</string>
     <string name="usdt_tip">Please select USDT based on ERC20 to recharge</string>
 
-    <!--实人认证-->
+    <!--Auction-->
+    <string name="auction_list_all">All</string>
+    <string name="auction_list_going">Ongoing</string>
+    <string name="auction_list_finish">Ended</string>
+    <string name="auction_list_collection">Favorites</string>
+    <string name="auction_list_whitepaper">Whitepaper</string>
+    <string name="auction_list_starttime">Start time(UTC+8)</string>
+    <string name="auction_starttime">Start time</string>
+    <string name="auction_list_paynow">Pay</string>
+    <string name="auction_list_payafter">Paid</string>
+    <string name="auction_list_paygotime">Payment expired</string>
+    <string name="auction_now_goprice">Bid</string>
+    <string name="auction_collection_num">%1$s favorites</string>
+    <string name="auction_goprice_num">%1$s bidders</string>
+    <string name="auction_watch_num">%1$s viewers</string>
+    <string name="auction_count_time">Countdown duration</string>
+    <string name="auction_rules">Rules Explanation</string>
+    <string name="auction_goprice_record">Place bid record</string>
+    <string name="location">Location</string>
+    <string name="auction_pay_title">Auction-Pay</string>
+    <string name="successful_pay">Congratulations! </string>
+    <string name="auction_balance">Available balance</string>
+    <string name="successful_tip">Please done the payment by %1$s(UTC+8) or you will be regarded as give the qualification up.</string>
+    <string name="auction_pay_success">Success</string>
+    <string name="record_ten">Show the latest 10 records only</string>
+    <string name="auction_estimate">Time left %1$s</string>
+    <string name="auction_finish_time">End time is %1$s</string>
+    <string name="collect_success">Success!</string>
+    <string name="collect_error">Failure!</string>
+    <string name="auction_go_activity">Go to new project</string>
+
+    <!--ActionPlus-->
+    <string name="auctionplus_list_start">To start</string>
+    <string name="plus_win_record">Win</string>
+    <string name="auction_win_record">Auction Winning Record</string>
+    <string name="pay">Pay</string>
+    <string name="pay_status">Payment status</string>
+    <string name="pay_all">All</string>
+    <string name="pay_before">To be paid</string>
+    <string name="pay_after">Paid</string>
+    <string name="pay_gotime">Payment expired</string>
+    <string name="mode">mode</string>
+    <string name="date2">date</string>
+    <string name="get_auction">Obtain the target</string>
+    <string name="auctionplus_residual_times">remaining times</string>
+    <string name="auctionplus_num">Amount/Share</string>
+    <string name="auctionplus_dealprice">Price/Share</string>
+    <string name="auctionplus_all_time">Total number of times</string>
+    <string name="auction_getall">Win</string>
+    <string name="auctionplus_dealprice_all">Total transaction price</string>
+    <string name="plus_every_num">Per quantity</string>
+    <string name="plus_every_price">Price per share</string>
+    <string name="plus_fee">Starting fee</string>
+    <string name="plus_add_price">Place bid range</string>
+    <string name="plus_rules">1.For each Auction the place - bid times limit will be set. For each Auction service fee starting price will be set. The service fee will increase by certain amount based on the fee of the former bid. There will be 10s countdown right after each bid being placed, the Auction will end when the countdown turns 0 or when the place-bid times limit will be reached. The participants will get the qualification for buying certain amount of auctioned token with certain price, while each placed bid will represent one share of reward after the Auction. Besides, all the participants can get bonus with different proportion for free.
+\n2. The countdown will start immediately once the participant places a bid, and the timer of the chosen auction will be automatically reset.  If the timer returns to zero, it means the participant win the bid.
+\n3. Winners should buy the token with the hammer price within 24 hours or will be regarded as giving the qualification up.
+\n4. TACU will cancel the auction and return related assets if any uncontrollable situations such as hacker attack, natural disaster and cheating.
+\n5. At least one bidder in each auction or the auction will be canceled.
+\n6. All rights are reserved by TACU.</string>
+
+    <string name="currency">Currency</string>
 </resources>
 

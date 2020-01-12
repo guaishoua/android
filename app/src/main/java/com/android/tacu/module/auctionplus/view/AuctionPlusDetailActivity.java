@@ -357,7 +357,7 @@ public class AuctionPlusDetailActivity extends BaseActivity<AuctionPlusPresent> 
     @Override
     public void auctionPayInfo(AuctionPlusPayInfoModel model, final AuctionPlusModel auctionPlusModel, String balance) {
         if (auctionPlusModel != null) {
-            payDialog = AuctionPlusPayDialogUtils.dialogShow(AuctionPlusDetailActivity.this, model, auctionPlusModel.paymentOverdueTime, balance, new View.OnClickListener() {
+            payDialog = AuctionPlusPayDialogUtils.dialogShow(AuctionPlusDetailActivity.this, model, auctionPlusModel, balance, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mPresenter.auctionPay(id, 0, 1);
@@ -365,9 +365,7 @@ public class AuctionPlusDetailActivity extends BaseActivity<AuctionPlusPresent> 
             }, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (auctionListByIdModel != null && auctionListByIdModel.info != null) {
-                        jumpTo(AssetsActivity.createActivity(AuctionPlusDetailActivity.this, auctionListByIdModel.info.payCurrencyName, auctionListByIdModel.info.payCurrencyId, 0, true));
-                    }
+                    jumpTo(AssetsActivity.createActivity(AuctionPlusDetailActivity.this, auctionPlusModel.payCurrencyName, auctionPlusModel.payCurrencyId, 0, true));
                 }
             });
         }
@@ -408,7 +406,7 @@ public class AuctionPlusDetailActivity extends BaseActivity<AuctionPlusPresent> 
 
         tv_every_num.setText(getResources().getString(R.string.plus_every_num) + "(" + model.currencyName + ")：" + FormatterUtils.getFormatValue(model.eachNum));
         tv_count_time.setText(getResources().getString(R.string.auction_count_time) + ": " + model.timeLength + "s");
-        tv_every_price.setText(getResources().getString(R.string.plus_every_price) + "：" + FormatterUtils.getFormatValue(model.eachPrice));
+        tv_every_price.setText(getResources().getString(R.string.plus_every_price) + "(" + model.payCurrencyName + ")：" + FormatterUtils.getFormatValue(model.eachPrice));
         tv_fee.setText(getResources().getString(R.string.plus_fee) + "(" + model.feeCurrencyName + "): " + FormatterUtils.getFormatValue(model.fee));
         tv_all_num.setText(getResources().getString(R.string.auctionplus_all_time) + ": " + model.totalNumber);
         tv_add_price.setText(getResources().getString(R.string.plus_add_price) + "(" + model.feeCurrencyName + "): " + ": " + FormatterUtils.getFormatValue(model.feeRang));
@@ -439,9 +437,7 @@ public class AuctionPlusDetailActivity extends BaseActivity<AuctionPlusPresent> 
     }
 
     private void upLoadUsdt() {
-        if (auctionListByIdModel != null && auctionListByIdModel.info != null) {
-            mPresenter.customerCoinByOneCoin(auctionListByIdModel.info.payCurrencyId, auctionModel, 2);
-        }
+        mPresenter.customerCoinByOneCoin(auctionModel.payCurrencyId, auctionModel, 2);
     }
 
     private void checkCollect() {

@@ -370,7 +370,7 @@ public class AuctionPlusFragment extends BaseFragment<AuctionPlusPresent> implem
     @Override
     public void auctionPayInfo(AuctionPlusPayInfoModel model, final AuctionPlusModel auctionPlusModel, String balance) {
         if (auctionPlusModel != null) {
-            dialog = AuctionPlusPayDialogUtils.dialogShow(getContext(), model, auctionPlusModel.paymentOverdueTime, balance, new View.OnClickListener() {
+            dialog = AuctionPlusPayDialogUtils.dialogShow(getContext(), model, auctionPlusModel, balance, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (auctionPlusModel != null) {
