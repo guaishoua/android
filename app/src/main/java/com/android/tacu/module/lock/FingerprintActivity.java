@@ -238,8 +238,7 @@ public class FingerprintActivity extends BaseActivity<LoginPresenter> implements
             @Override
             public void onAuthenticationSucceeded() {
                 //解锁成功
-                FingerprintUtils.cancel();
-                finish();
+                switchPresenter.switchView();
             }
 
             @Override

@@ -24,6 +24,8 @@ public class FingerprintUtils {
     private static FingerprintManagerCompat managerCompat = null;
     private static FingerprintManager manager = null;
     private static KeyguardManager keyguardManager = null;
+    //当取消的时候 为false禁止回调的传递
+    private static boolean isCancelFlag = true;
 
     /**
      * 判断当前的设备是否支持指纹
@@ -59,6 +61,7 @@ public class FingerprintUtils {
 
     public static void callFingerPrint(final OnCallBackListenr listener) {
         try {
+            isCancelFlag = true;
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 if (listener != null)
                     listener.onSupportSdk();
@@ -92,14 +95,14 @@ public class FingerprintUtils {
                     // 当出现错误的时候回调此函数，比如多次尝试都失败了的时候，errString是错误信息，比如华为的提示就是：尝试次数过多，请稍后再试。
                     @Override
                     public void onAuthenticationError(int errMsgId, CharSequence errString) {
-                        if (listener != null)
+                        if (listener != null && isCancelFlag)
                             listener.onAuthenticationError();
                     }
 
                     // 当指纹验证失败的时候会回调此函数，失败之后允许多次尝试，失败次数过多会停止响应一段时间然后再停止sensor的工作
                     @Override
                     public void onAuthenticationFailed() {
-                        if (listener != null)
+                        if (listener != null && isCancelFlag)
                             listener.onAuthenticationFailed();
                     }
 
@@ -122,14 +125,14 @@ public class FingerprintUtils {
                     @Override
                     public void onAuthenticationError(int errorCode, CharSequence errString) {
                         super.onAuthenticationError(errorCode, errString);
-                        if (listener != null)
+                        if (listener != null && isCancelFlag)
                             listener.onAuthenticationError();
                     }
 
                     @Override
                     public void onAuthenticationFailed() {
                         super.onAuthenticationFailed();
-                        if (listener != null)
+                        if (listener != null && isCancelFlag)
                             listener.onAuthenticationFailed();
                     }
 
@@ -176,6 +179,7 @@ public class FingerprintUtils {
     }
 
     public static void cancel() {
+        isCancelFlag = false;
         if (cancellationSignal != null)
             cancellationSignal.cancel();
         if (cancelSignal != null)
