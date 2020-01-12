@@ -46,7 +46,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/dp_40"
-        android:text="@string/account_login"
+        android:text="@string/pwd_login"
         android:textColor="@color/color_default"
         android:textSize="@dimen/text_size_sp_16" />
 </RelativeLayout>

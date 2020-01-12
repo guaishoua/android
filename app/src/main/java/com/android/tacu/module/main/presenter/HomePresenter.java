@@ -36,7 +36,7 @@ public class HomePresenter extends BaseMvpPresenter implements HomeContract.IPre
 
     @Override
     public void getNoticeInfo() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ZEN, Api.class).getNoticeInfo(1, 4, 4), new NetDisposableObserver<BaseModel<List<NoticeModel>>>((IBaseMvpView) getView(), false) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ZEN, Api.class).getNoticeInfo(1, 4, 5), new NetDisposableObserver<BaseModel<List<NoticeModel>>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<List<NoticeModel>> model) {
                 HomeContract.IView view = (HomeContract.IView) getView();

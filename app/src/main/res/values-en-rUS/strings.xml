@@ -31,7 +31,7 @@
     <string name="verifying">In the validation...</string>
 
     <!--登录注册-->
-    <string name="account_login">Account login</string>
+    <string name="pwd_login">Password login</string>
     <string name="login_email_or_phone">Your Email or Mobile phone</string>
     <string name="password">Password</string>
     <string name="login">Login</string>

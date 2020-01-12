@@ -15,7 +15,7 @@
         android:layout_width="@dimen/dp_70"
         android:layout_height="@dimen/dp_70"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_20"
         android:contentDescription="@string/app_name"
         app:qmui_corner_radius="@dimen/dp_10"
         app:qmui_border_color="@color/color_transparent"
@@ -42,11 +42,6 @@
         android:textColor="@color/text_color"
         tools:text="请绘制手势密码 " />
 
-    <Space
-        android:layout_width="@dimen/dp_1"
-        android:layout_height="@dimen/dp_10" />
-
-
     <com.android.tacu.widget.gesture.GestureLockViewGroup
         android:id="@+id/gesture_lock_view_group_lock"
         android:layout_width="match_parent"
@@ -57,16 +52,12 @@
         app:count="3"
         app:tryTimes="5" />
 
-    <Space
-        android:layout_width="@dimen/dp_1"
-        android:layout_height="@dimen/dp_20" />
-
     <TextView
         android:id="@+id/tv_account_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/account_login"
+        android:text="@string/pwd_login"
         android:textSize="@dimen/text_size_sp_16"
         android:textColor="@color/color_default" />
 </LinearLayout>

@@ -59,7 +59,7 @@ public class Constant {
     public static final String ANDROID_APP_DOWNLOAD = "https://www.cdcbk.com/download/app.html";
 
     //zendesk
-    public static final String ZENDESK_WENTI = "https://tacu.zendesk.com/hc/zh-tw/sections/360004476673";
+    public static final String ZENDESK_WENTI = "https://tacu.zendesk.com/hc/zh-tw/categories/360001893293";
     //zendesk帮助中心
     public static final String ZENDESK_HELP = "https://tacu.zendesk.com/hc/zh-tw";
 

@@ -30,7 +30,7 @@
     <string name="verifying">驗證中......</string>
 
     <!--登录注册-->
-    <string name="account_login">賬號登錄</string>
+    <string name="pwd_login">密碼登錄</string>
     <string name="login_email_or_phone">郵箱/手機</string>
     <string name="password">密碼</string>
     <string name="login">登錄</string>

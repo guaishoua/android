@@ -161,8 +161,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                                     .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
                                         @Override
                                         public void onPositive(Dialog droidDialog) {
-                                            tokenInvalid();
                                             logoutSuccess();
+                                            tokenInvalid();
                                             mainDrawerLayoutHelper.setLogin(false);
                                         }
                                     })
