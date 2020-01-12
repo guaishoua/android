@@ -101,7 +101,7 @@ public class GestureActivity extends BaseActivity<LoginPresenter> implements Log
 
     @OnClick(R.id.tv_account_login)
     void accountLoginClick() {
-        jumpTo(LoginActivity.createActivity(GestureActivity.this, isGoMain, isClearTop));
+        jumpTo(LoginActivity.createActivity(GestureActivity.this, isGoMain, isClearTop, true));
         finish();
     }
 
@@ -221,7 +221,7 @@ public class GestureActivity extends BaseActivity<LoginPresenter> implements Log
     private void unmatchedExceedBoundary() {
         //正常情况这里需要做处理（如退出或重登）
         showToastError(getResources().getString(R.string.too_many_input_errors));
-        jumpTo(LoginActivity.class);
+        jumpTo(LoginActivity.createActivity(GestureActivity.this, isGoMain, isClearTop, true));
         finish();
     }
 

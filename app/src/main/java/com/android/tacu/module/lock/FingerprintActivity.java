@@ -108,7 +108,7 @@ public class FingerprintActivity extends BaseActivity<LoginPresenter> implements
 
     @OnClick(R.id.tv_account_login)
     void accountLoginClick() {
-        jumpTo(LoginActivity.createActivity(FingerprintActivity.this, isGoMain, isClearTop));
+        jumpTo(LoginActivity.createActivity(FingerprintActivity.this, isGoMain, isClearTop, true));
         finish();
     }
 
@@ -271,7 +271,7 @@ public class FingerprintActivity extends BaseActivity<LoginPresenter> implements
         if (fingerprintIndex >= FINGERPRINT_NUM) {
             fingerprintIndex = -1;
             FingerprintUtils.cancel();
-            jumpTo(LoginActivity.class);
+            jumpTo(LoginActivity.createActivity(FingerprintActivity.this, isGoMain, isClearTop, true));
             finish();
         }
     }
@@ -287,7 +287,7 @@ public class FingerprintActivity extends BaseActivity<LoginPresenter> implements
                     @Override
                     public void onPositive(Dialog droidDialog) {
                         UserManageUtils.logout();
-                        jumpTo(LoginActivity.createActivity(FingerprintActivity.this, true, false));
+                        jumpTo(LoginActivity.createActivity(FingerprintActivity.this, true, false, true));
                         finish();
                     }
                 })

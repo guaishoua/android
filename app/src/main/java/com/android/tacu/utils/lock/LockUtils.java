@@ -43,7 +43,7 @@ public class LockUtils {
      * 获取手势信息
      */
     public static String getGesture() {
-        if (spUtil.getLogin() && !TextUtils.isEmpty(spUtil.getAccountString())) {
+        if (!TextUtils.isEmpty(spUtil.getAccountString())) {
             return DaoManager.getLockNewModelUtils().getGestureString(spUtil.getAccountString());
         }
         return "";
@@ -53,14 +53,14 @@ public class LockUtils {
      * 获取指纹是否开启
      */
     public static boolean getIsFinger() {
-        if (spUtil.getLogin() && !TextUtils.isEmpty(spUtil.getAccountString())) {
+        if (!TextUtils.isEmpty(spUtil.getAccountString())) {
             return DaoManager.getLockNewModelUtils().getIsFinger(spUtil.getAccountString());
         }
         return false;
     }
 
     public static LockNewModel getLockNewModel() {
-        if (spUtil.getLogin() && !TextUtils.isEmpty(spUtil.getAccountString())) {
+        if (!TextUtils.isEmpty(spUtil.getAccountString())) {
             return DaoManager.getLockNewModelUtils().getLockNewModel(spUtil.getAccountString());
         }
         return null;

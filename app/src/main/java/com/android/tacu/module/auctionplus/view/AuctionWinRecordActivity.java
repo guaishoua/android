@@ -213,6 +213,8 @@ public class AuctionWinRecordActivity extends BaseActivity<AuctionWinRecordPrese
             @Override
             public void onClick(View v) {
                 EventManage.sendEvent(new BaseEvent<>(EventConstant.MainSwitchCode, new MainSwitchEvent(Constant.MAIN_ASSETS)));
+                activityManage.finishActivity(AuctionActivity.class);
+                finish();
             }
         });
     }

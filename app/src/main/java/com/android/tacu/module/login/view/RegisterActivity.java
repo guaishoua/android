@@ -305,7 +305,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void success() {
         showToastSuccess(getResources().getString(R.string.register_success));
-        jumpTo(LoginActivity.createActivity(this, false, true));
+        jumpTo(LoginActivity.createActivity(this, false, true, true));
         finish();
     }
 

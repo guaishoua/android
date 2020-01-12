@@ -19,7 +19,6 @@ import com.android.tacu.module.login.model.LoginModel;
 import com.android.tacu.module.login.presenter.LoginPresenter;
 import com.android.tacu.module.dingxiang.presenter.SwitchPresenter;
 import com.android.tacu.module.market.model.SelfModel;
-import com.android.tacu.utils.LogUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.StatusBarUtils;
@@ -52,6 +51,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     private boolean isGoMain = false;
     private boolean isClearTop = false;
+    private boolean isLoginView = false;
     private SwitchPresenter switchPresenter;
 
     /**
@@ -70,22 +70,22 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         return intent;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        isGoMain = getIntent().getBooleanExtra("isGoMain", false);
-        isClearTop = getIntent().getBooleanExtra("isClearTop", false);
-
-        LogUtils.i("jiazhen","111");
-        if (!TextUtils.isEmpty(LockUtils.getGesture())) {
-            jumpTo(GestureActivity.createActivity(LoginActivity.this, isGoMain, isClearTop));
-            finish();
-            LogUtils.i("jiazhen","222");
-        } else if (LockUtils.getIsFinger()) {
-            jumpTo(FingerprintActivity.createActivity(LoginActivity.this, isGoMain, isClearTop));
-            finish();
-            LogUtils.i("jiazhen","22333");
+    /**
+     * @param context
+     * @param isGoMain    为true的情况下  登录成功直接跳转MainActivity
+     * @param isClearTop  A-B-C-D 如果D-B 需要清空C 设置FLAG_ACTIVITY_CLEAR_TOP 和 FLAG_ACTIVITY_SINGLE_TOP(设置这个则B不需要重新创建)
+     * @param isLoginView 为true表示直接进入LoginActivity，不再判断手势等
+     * @return
+     */
+    public static Intent createActivity(Context context, boolean isGoMain, boolean isClearTop, boolean isLoginView) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.putExtra("isGoMain", isGoMain);
+        intent.putExtra("isClearTop", isClearTop);
+        intent.putExtra("isLoginView", isLoginView);
+        if (isClearTop) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
+        return intent;
     }
 
     @Override
@@ -97,6 +97,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void initView() {
         StatusBarUtils.moveViewStatusBarHeight(this, qmuiTopbar);
+
+        isGoMain = getIntent().getBooleanExtra("isGoMain", false);
+        isClearTop = getIntent().getBooleanExtra("isClearTop", false);
+        isLoginView = getIntent().getBooleanExtra("isLoginView", false);
+        goOtherLogin();
 
         qmuiTopbar.setBackgroundAlpha(0);
         qmuiTopbar.removeAllLeftViews();
@@ -230,6 +235,21 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void switchSuccess(String token) {
         String psd = etPwd.getText().toString().trim();
         mPresenter.login(etEmail.getText().toString().trim(), Md5Utils.encryptPwd(psd).toLowerCase(), token);
+    }
+
+    /**
+     * 跳转手势和指纹登录页面的判断
+     */
+    private void goOtherLogin(){
+        if (!isLoginView) {
+            if (!TextUtils.isEmpty(LockUtils.getGesture())) {
+                jumpTo(GestureActivity.createActivity(LoginActivity.this, isGoMain, isClearTop));
+                finish();
+            } else if (LockUtils.getIsFinger()) {
+                jumpTo(FingerprintActivity.createActivity(LoginActivity.this, isGoMain, isClearTop));
+                finish();
+            }
+        }
     }
 
     /**

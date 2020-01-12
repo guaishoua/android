@@ -240,6 +240,8 @@ public class AuctionPlusDetailActivity extends BaseActivity<AuctionPlusPresent> 
     @OnClick(R.id.btn_trade)
     void btnTradeClick() {
         EventManage.sendEvent(new BaseEvent<>(EventConstant.JumpTradeIsBuyCode, new JumpTradeCodeIsBuyEvent(1, 237, "BTC", "ACU", true)));
+        activityManage.finishActivity(AuctionActivity.class);
+        finish();
     }
 
     @OnClick(R.id.btn_now)
@@ -266,6 +268,8 @@ public class AuctionPlusDetailActivity extends BaseActivity<AuctionPlusPresent> 
     void btnRechargeClick() {
         if (spUtil.getLogin()) {
             EventManage.sendEvent(new BaseEvent<>(EventConstant.MainSwitchCode, new MainSwitchEvent(Constant.MAIN_ASSETS)));
+            activityManage.finishActivity(AuctionActivity.class);
+            finish();
         } else {
             jumpTo(LoginActivity.class);
         }

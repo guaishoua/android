@@ -226,7 +226,7 @@ public class FindPwdActivity extends BaseActivity<FindPwdPresenter> implements F
     @Override
     public void resetSuccess() {
         showToastSuccess(getResources().getString(R.string.success));
-        jumpTo(LoginActivity.createActivity(this, false, true));
+        jumpTo(LoginActivity.createActivity(this, false, true, true));
         finish();
     }
 
