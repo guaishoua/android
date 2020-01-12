@@ -1,4 +1,4 @@
-package com.android.tacu.module.lock.view;
+package com.android.tacu.module.lock;
 
 import android.widget.TextView;
 
@@ -22,7 +22,6 @@ public class GestureOnActivity extends BaseActivity {
     @Override
     protected void setView() {
         setContentView(R.layout.activity_gesture_on);
-        disablePatternLock(false);
     }
 
     @Override

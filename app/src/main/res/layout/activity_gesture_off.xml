@@ -1,45 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white">
+    android:background="@color/content_bg_color"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/title"
         layout="@layout/common_titlebar" />
 
-
-    <ImageView
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
-        android:layout_below="@+id/title"
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:layout_width="@dimen/dp_70"
+        android:layout_height="@dimen/dp_70"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_90"
-        android:scaleType="fitXY"
-        android:src="@mipmap/icon_circle_gesture" />
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_50"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_launcher"
+        app:qmui_border_color="@color/color_transparent"
+        app:qmui_corner_radius="@dimen/dp_10" />
 
     <TextView
         android:id="@+id/tv_prompt_lock_off"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
-        android:layout_marginTop="@dimen/dp_190"
+        android:layout_marginTop="@dimen/dp_20"
         android:gravity="center"
-        android:textColor="@color/text_grey"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_16"
         tools:text="取消手势" />
 
     <com.android.tacu.widget.gesture.GestureLockViewGroup
         android:id="@+id/gesture_lock_view_group_lock_off"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_30"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/dp_30"
         android:layout_marginBottom="@dimen/dp_20"
         android:gravity="center_vertical"
         app:color_finger_on="@color/color_default"
         app:color_no_finger_outer_circle="@color/color_transparent"
         app:count="3"
         app:tryTimes="5" />
-</RelativeLayout>
+</LinearLayout>

@@ -123,7 +123,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
     @Override
     protected void initView() {
-        StatusBarUtils.setColorForDrawerLayout(this, drawerMain, ContextCompat.getColor(this, R.color.color_default), 0);
+        StatusBarUtils.setColorForDrawerLayout(this, drawerMain, ContextCompat.getColor(this, R.color.content_bg_color), 0);
 
         spUtil.setFirst(false);
 
@@ -161,8 +161,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                                     .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
                                         @Override
                                         public void onPositive(Dialog droidDialog) {
-                                            logoutSuccess();
                                             tokenInvalid();
+                                            logoutSuccess();
                                             mainDrawerLayoutHelper.setLogin(false);
                                         }
                                     })
@@ -376,6 +376,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     }
 
     private void logoutSuccess() {
+        if (viewpager.getCurrentItem() != 1 && viewpager.getCurrentItem() != 2) {
+            setTabSelection(0);
+        }
         mPresenter.logout();
         showToastSuccess(getResources().getString(R.string.logout_success));
     }

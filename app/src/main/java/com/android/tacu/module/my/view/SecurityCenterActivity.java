@@ -12,8 +12,8 @@ import android.widget.CheckBox;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
-import com.android.tacu.module.lock.view.GestureOffActivity;
-import com.android.tacu.module.lock.view.GestureOnActivity;
+import com.android.tacu.module.lock.GestureOffActivity;
+import com.android.tacu.module.lock.GestureOnActivity;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.my.contract.SecurityCenterContract;
 import com.android.tacu.module.my.presenter.SecurityCenterPresenter;
@@ -168,17 +168,16 @@ public class SecurityCenterActivity extends BaseActivity<SecurityCenterPresenter
         mPresenter.ownCenter();
 
         checkTrade.setChecked(spUtil.getPwdVisibility());
-        if (TextUtils.isEmpty(LockUtils.getLockSetting().getGesture())) {
-            checkGesture.setChecked(false);
-            checkFing.setChecked(false);
-            LockUtils.addFinger(false);
-        } else {
+
+        if (!TextUtils.isEmpty(LockUtils.getGesture())) {
             checkGesture.setChecked(true);
-            if (LockUtils.getLockSetting().isFinger()) {
-                checkFing.setChecked(true);
-            } else {
-                checkFing.setChecked(false);
-            }
+        } else {
+            checkGesture.setChecked(false);
+        }
+        if (LockUtils.getIsFinger()) {
+            checkFing.setChecked(true);
+        } else {
+            checkFing.setChecked(false);
         }
 
         if (TextUtils.equals(spUtil.getGaStatus(), "0")) {
@@ -277,28 +276,43 @@ public class SecurityCenterActivity extends BaseActivity<SecurityCenterPresenter
                 showHint();
             }
         } else if (TextUtils.equals(text, gestureCheck)) {
-            checkGesture.toggle();
-            if (TextUtils.isEmpty(LockUtils.getLockSetting().getGesture())) {
-                jumpTo(GestureOnActivity.class);
+            if (!TextUtils.isEmpty(spUtil.getAccountString())) {
+                checkGesture.toggle();
+                if (LockUtils.getIsFinger()) {
+                    showToastError(getResources().getString(R.string.handpwd_and_gesture_only));
+                    checkGesture.setChecked(false);
+                    return;
+                }
+                if (TextUtils.isEmpty(LockUtils.getGesture())) {
+                    jumpTo(GestureOnActivity.class);
+                } else {
+                    jumpTo(GestureOffActivity.class);
+                }
             } else {
-                jumpTo(GestureOffActivity.class);
+                tokenInvalid();
+                finish();
             }
         } else if (TextUtils.equals(text, fingCheck)) {
-            checkFing.toggle();
-            if (TextUtils.isEmpty(LockUtils.getLockSetting().getGesture())) {
-                showToastError(getResources().getString(R.string.safe_first_handpwd));
-                checkFing.setChecked(false);
-                return;
-            }
-            if (FingerprintUtils.isSupportFingerprint(this)) {
-                if (checkFing.isChecked()) {
-                    LockUtils.addFinger(true);
+            if (!TextUtils.isEmpty(spUtil.getAccountString())) {
+                checkFing.toggle();
+                if (!TextUtils.isEmpty(LockUtils.getGesture())) {
+                    showToastError(getResources().getString(R.string.handpwd_and_gesture_only));
+                    checkFing.setChecked(false);
+                    return;
+                }
+                if (FingerprintUtils.isSupportFingerprint(this)) {
+                    if (checkFing.isChecked()) {
+                        LockUtils.addFinger(true);
+                    } else {
+                        LockUtils.addFinger(false);
+                    }
                 } else {
+                    checkFing.setChecked(false);
                     LockUtils.addFinger(false);
                 }
             } else {
-                checkFing.setChecked(false);
-                LockUtils.addFinger(false);
+                tokenInvalid();
+                finish();
             }
         }
     }

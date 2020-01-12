@@ -91,7 +91,6 @@
             android:orientation="vertical">
 
             <View
-                android:id="@+id/line"
                 android:layout_width="1dp"
                 android:layout_height="50dp"
                 android:background="#d8d8d8"

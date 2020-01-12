@@ -9,8 +9,7 @@
 
     <include
         android:id="@+id/title"
-        layout="@layout/common_titlebar"
-        android:visibility="gone" />
+        layout="@layout/common_titlebar" />
 
     <com.qmuiteam.qmui.widget.QMUIRadiusImageView
         android:layout_width="@dimen/dp_70"
@@ -29,7 +28,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_10"
         android:gravity="center"
-        android:textColor="@color/text_grey"
+        android:textColor="@color/text_color"
         android:textSize="16sp"
         tools:text="185****4547" />
 
@@ -40,7 +39,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_10"
         android:gravity="center"
-        android:textColor="@color/text_grey"
+        android:textColor="@color/text_color"
         tools:text="请绘制手势密码 " />
 
     <Space
@@ -63,10 +62,11 @@
         android:layout_height="@dimen/dp_20" />
 
     <TextView
-        android:id="@+id/tv_forgot_password"
+        android:id="@+id/tv_account_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/forgot_password"
+        android:text="@string/account_login"
+        android:textSize="@dimen/text_size_sp_16"
         android:textColor="@color/color_default" />
 </LinearLayout>

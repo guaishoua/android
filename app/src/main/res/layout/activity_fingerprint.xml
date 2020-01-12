@@ -1,28 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/content_bg_color_grey">
 
     <include
         android:id="@+id/title"
-        layout="@layout/common_titlebar"
-        android:visibility="gone" />
+        layout="@layout/common_titlebar" />
 
-    <ImageView
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_100"
+        android:layout_below="@id/title"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_50"
-        android:background="@mipmap/ic_launcher" />
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_launcher"
+        app:qmui_border_color="@color/color_transparent"
+        app:qmui_corner_radius="@dimen/dp_10" />
+
+    <ImageView
+        android:id="@+id/img_finger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/icon_finger" />
 
     <TextView
         android:id="@+id/tv_flag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:drawablePadding="@dimen/dp_20"
-        android:drawableTop="@mipmap/img_fingerprint"
-        android:paddingBottom="@dimen/dp_5"
-        android:text="@string/fingerprint_title" />
+        android:layout_below="@id/img_finger"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_50"
+        android:text="@string/fingerprint_title"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_16" />
+
+    <TextView
+        android:id="@+id/tv_account_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dp_40"
+        android:text="@string/account_login"
+        android:textColor="@color/color_default"
+        android:textSize="@dimen/text_size_sp_16" />
 </RelativeLayout>

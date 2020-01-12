@@ -1,4 +1,4 @@
-package com.android.tacu.module.lock.view;
+package com.android.tacu.module.lock;
 
 import android.text.TextUtils;
 import android.widget.TextView;
@@ -23,7 +23,6 @@ public class GestureOffActivity extends BaseActivity {
     @Override
     protected void setView() {
         setContentView(R.layout.activity_gesture_off);
-        disablePatternLock(false);
     }
 
     @Override
@@ -31,8 +30,8 @@ public class GestureOffActivity extends BaseActivity {
         mTopBar.setTitle(getResources().getString(R.string.cancel_the_pattern_lock));
 
         mTextView.setText(getResources().getString(R.string.draw_your_pattern_lock));
-        if (!TextUtils.isEmpty(LockUtils.getLockSetting().getGesture())) {
-            mGesture.setAnswer(LockUtils.getLockSetting().getGesture());
+        if (!TextUtils.isEmpty(LockUtils.getGesture())) {
+            mGesture.setAnswer(LockUtils.getGesture());
         }
         mGesture.setOnGestureLockViewListener(mListener);
     }

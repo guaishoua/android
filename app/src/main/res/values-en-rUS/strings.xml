@@ -31,6 +31,7 @@
     <string name="verifying">In the validation...</string>
 
     <!--登录注册-->
+    <string name="account_login">Account login</string>
     <string name="login_email_or_phone">Your Email or Mobile phone</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -290,7 +291,7 @@
     <string name="fingerprint_no_fingerprint">Set fingerprints on the phone settings!</string>
     <string name="fingerprint_rebuild">You have not set a fingerprint password. Please try again in the phone system security settings and try again！</string>
     <string name="fingerprint_login_again">Login Again</string>
-    <string name="safe_first_handpwd">Please set the sign pattern lock!</string>
+    <string name="handpwd_and_gesture_only">Only one fingerprint password and gesture password can be set</string>
 
     <!--提币记录-->
     <string name="start_time">Start</string>
@@ -312,16 +313,12 @@
     <string name="sell_index">Sell</string>
 
     <!--邀请好友-->
-    <string name="invite_rewards">Invite rewards</string>
     <string name="invite_posters">Exclusive poster</string>
     <string name="invite_num">Invite the number</string>
     <string name="invite_type">The invitation way</string>
     <string name="invitation_success">Successfully invited</string>
     <string name="invitation_one">Copy code&#160;</string>
     <string name="invitation_two">Copy links</string>
-    <string name="curency">curency</string>
-    <string name="num">number</string>
-    <string name="winning_details">The winning details</string>
     <string name="invite_uid">Be inviter uid</string>
     <string name="register_source">Registered source</string>
     <string name="register_date">Registered date</string>

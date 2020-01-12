@@ -1,58 +1,48 @@
-package com.android.tacu.module.login.view;
+package com.android.tacu.module.lock;
 
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.view.View;
+import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.base.BaseModel;
-import com.android.tacu.module.lock.FingerprintActivity;
-import com.android.tacu.module.lock.GestureActivity;
-import com.android.tacu.module.main.model.OwnCenterModel;
-import com.android.tacu.module.main.view.MainActivity;
+import com.android.tacu.db.model.LockNewModel;
 import com.android.tacu.module.dingxiang.contract.ISwitchView;
+import com.android.tacu.module.dingxiang.presenter.SwitchPresenter;
 import com.android.tacu.module.login.contract.LoginContract;
 import com.android.tacu.module.login.model.LoginModel;
 import com.android.tacu.module.login.presenter.LoginPresenter;
-import com.android.tacu.module.dingxiang.presenter.SwitchPresenter;
+import com.android.tacu.module.login.view.LoginActivity;
+import com.android.tacu.module.main.model.OwnCenterModel;
+import com.android.tacu.module.main.view.MainActivity;
 import com.android.tacu.module.market.model.SelfModel;
-import com.android.tacu.utils.LogUtils;
-import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.SPUtils;
-import com.android.tacu.utils.StatusBarUtils;
 import com.android.tacu.utils.lock.LockUtils;
 import com.android.tacu.utils.user.UserManageUtils;
+import com.android.tacu.widget.gesture.GestureLockViewGroup;
 import com.google.gson.Gson;
-import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
-import com.qmuiteam.qmui.widget.QMUITopBar;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.IView, ISwitchView {
+public class GestureActivity extends BaseActivity<LoginPresenter> implements LoginContract.IView, ISwitchView {
 
-    @BindView(R.id.qmuiTopbar)
-    QMUITopBar qmuiTopbar;
-    @BindView(R.id.et_email)
-    QMUIRoundEditText etEmail;
-    @BindView(R.id.et_pwd)
-    QMUIRoundEditText etPwd;
-    @BindView(R.id.btnLogin)
-    QMUIAlphaButton btnLogin;
-
-    private int interIndex;
-    private int interAll;
+    @BindView(R.id.tv_prompt_lock)
+    TextView mTextView;
+    @BindView(R.id.tv_phone)
+    TextView tv_phone;
+    @BindView(R.id.gesture_lock_view_group_lock)
+    GestureLockViewGroup mGesture;
 
     private Gson gson = new Gson();
-
+    private SwitchPresenter switchPresenter;
+    private int interIndex;
+    private int interAll;
     private boolean isGoMain = false;
     private boolean isClearTop = false;
-    private SwitchPresenter switchPresenter;
 
     /**
      * @param context
@@ -61,7 +51,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
      * @return
      */
     public static Intent createActivity(Context context, boolean isGoMain, boolean isClearTop) {
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent = new Intent(context, GestureActivity.class);
         intent.putExtra("isGoMain", isGoMain);
         intent.putExtra("isClearTop", isClearTop);
         if (isClearTop) {
@@ -71,41 +61,22 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        isGoMain = getIntent().getBooleanExtra("isGoMain", false);
-        isClearTop = getIntent().getBooleanExtra("isClearTop", false);
-
-        LogUtils.i("jiazhen","111");
-        if (!TextUtils.isEmpty(LockUtils.getGesture())) {
-            jumpTo(GestureActivity.createActivity(LoginActivity.this, isGoMain, isClearTop));
-            finish();
-            LogUtils.i("jiazhen","222");
-        } else if (LockUtils.getIsFinger()) {
-            jumpTo(FingerprintActivity.createActivity(LoginActivity.this, isGoMain, isClearTop));
-            finish();
-            LogUtils.i("jiazhen","22333");
-        }
-    }
-
-    @Override
     protected void setView() {
-        QMUIStatusBarHelper.translucent(this);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_gesture);
     }
 
     @Override
     protected void initView() {
-        StatusBarUtils.moveViewStatusBarHeight(this, qmuiTopbar);
+        isGoMain = getIntent().getBooleanExtra("isGoMain", false);
+        isClearTop = getIntent().getBooleanExtra("isClearTop", false);
 
-        qmuiTopbar.setBackgroundAlpha(0);
-        qmuiTopbar.removeAllLeftViews();
-        qmuiTopbar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mTextView.setText(getResources().getString(R.string.draw_your_pattern_lock));
+        tv_phone.setText(spUtil.getAccount());
+
+        if (!TextUtils.isEmpty(LockUtils.getGesture())) {
+            mGesture.setAnswer(LockUtils.getGesture());
+        }
+        mGesture.setOnGestureLockViewListener(mListener);
     }
 
     @Override
@@ -128,33 +99,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         }
     }
 
-    @OnClick(R.id.find_pwd)
-    void findPwd() {
-        jumpTo(FindPwdActivity.class);
+    @OnClick(R.id.tv_account_login)
+    void accountLoginClick() {
+        jumpTo(LoginActivity.createActivity(GestureActivity.this, isGoMain, isClearTop));
+        finish();
     }
 
-    @OnClick(R.id.register_now)
-    void register() {
-        jumpTo(RegisterActivity.class);
-    }
-
-    @OnClick(R.id.btnLogin)
-    void login() {
-        if (TextUtils.isEmpty(etEmail.getText().toString().trim())) {
-            showToastError(getResources().getString(R.string.mailbox_cannot_be_empty));
-            return;
+    @Override
+    public void switchSuccess(String token) {
+        LockNewModel lockNewModel = LockUtils.getLockNewModel();
+        if (lockNewModel != null) {
+            mPresenter.login(lockNewModel.getAccountString(), lockNewModel.getAccountPwd(), token);
         }
-
-        if (TextUtils.isEmpty(etPwd.getText().toString().trim())) {
-            showToastError(getResources().getString(R.string.pwd_cannot_be_empty));
-            return;
-        }
-        switchPresenter.switchView();
     }
 
-    /**
-     * 登录的第一步
-     */
     @Override
     public void showContent(BaseModel<LoginModel> model) {
         if (model != null) {
@@ -163,9 +121,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 showToastError(model.message);
             }
             if (model.status == 200) {
-                UserManageUtils.login(model, etEmail.getText().toString().trim());
-                String pwdS = etPwd.getText().toString().trim();
-                LockUtils.addAccountAndPwd(etEmail.getText().toString().trim(), Md5Utils.encryptPwd(pwdS).toLowerCase());
+                UserManageUtils.login(model);
                 mustNeedInfo();
             }
         }
@@ -224,15 +180,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     /**
-     * 滑动验证成功
-     */
-    @Override
-    public void switchSuccess(String token) {
-        String psd = etPwd.getText().toString().trim();
-        mPresenter.login(etEmail.getText().toString().trim(), Md5Utils.encryptPwd(psd).toLowerCase(), token);
-    }
-
-    /**
      * 登录成功后 需要掉一些接口获取数据
      */
     private void mustNeedInfo() {
@@ -252,4 +199,47 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             finish();
         }
     }
+
+    /**
+     * 处理手势图案的输入结果
+     *
+     * @param matched
+     */
+    private void gestureEvent(boolean matched) {
+        if (matched) {
+            switchPresenter.switchView();
+        } else {
+            if (mGesture.getTryTimes() >= 1) {
+                mTextView.setText(getResources().getString(R.string.input_error) + mGesture.getTryTimes() + getResources().getString(R.string.second));
+            }
+        }
+    }
+
+    /**
+     * 处理输错次数超限的情况
+     */
+    private void unmatchedExceedBoundary() {
+        //正常情况这里需要做处理（如退出或重登）
+        showToastError(getResources().getString(R.string.too_many_input_errors));
+        jumpTo(LoginActivity.class);
+        finish();
+    }
+
+    // 手势操作的回调监听
+    private GestureLockViewGroup.OnGestureLockViewListener mListener = new GestureLockViewGroup.OnGestureLockViewListener() {
+
+        @Override
+        public void onGestureEvent(boolean matched) {
+            gestureEvent(matched);
+        }
+
+        @Override
+        public void onUnmatchedExceedBoundary() {
+            unmatchedExceedBoundary();
+        }
+
+        @Override
+        public void onFirstSetPattern(boolean patternOk) {
+        }
+    };
 }

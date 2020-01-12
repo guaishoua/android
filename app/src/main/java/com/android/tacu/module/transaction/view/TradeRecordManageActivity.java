@@ -120,7 +120,7 @@ public class TradeRecordManageActivity extends BaseActivity<TradeRecordManagePre
 
     @Override
     protected void initView() {
-        StatusBarUtils.setColorForDrawerLayout(this, drawerManage, ContextCompat.getColor(this, R.color.color_default), 0);
+        StatusBarUtils.setColorForDrawerLayout(this, drawerManage, ContextCompat.getColor(this, R.color.content_bg_color), 0);
 
         currencyIdOrgin = getIntent().getIntExtra("currencyId", -1);
         baseCurrencyIdOrgin = getIntent().getIntExtra("baseCurrencyId", -1);
@@ -754,7 +754,7 @@ public class TradeRecordManageActivity extends BaseActivity<TradeRecordManagePre
                             return;
                         }
                         if (flag == 1) {
-                            mPresenter.cancel(orderNo, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()));
+                            mPresenter.cancel(orderNo, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
                         } else if (flag == 2) {
                             cancelList(pwd);
                         }
@@ -806,7 +806,7 @@ public class TradeRecordManageActivity extends BaseActivity<TradeRecordManagePre
             }
         }
         if (!TextUtils.isEmpty(pwd)) {
-            mPresenter.cancelList(orderListString, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()), deleteListSelectedParams);
+            mPresenter.cancelList(orderListString, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase(), deleteListSelectedParams);
         } else {
             mPresenter.cancelList(orderListString, "", deleteListSelectedParams);
         }

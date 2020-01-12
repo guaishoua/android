@@ -3,7 +3,6 @@ package com.android.tacu.utils.user;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseModel;
 import com.android.tacu.module.login.model.LoginModel;
-import com.android.tacu.utils.lock.LockUtils;
 import com.android.tacu.utils.SPUtils;
 
 /**
@@ -29,7 +28,14 @@ public class UserManageUtils {
         if (model != null && model.attachment != null) {
             spUtil.setUserUid(model.attachment.uid);
             spUtil.setToken(model.attachment.token);
-            LockUtils.init();
+        }
+    }
+
+    public static void login(BaseModel<LoginModel> model, String accountString) {
+        if (model != null && model.attachment != null) {
+            spUtil.setUserUid(model.attachment.uid);
+            spUtil.setToken(model.attachment.token);
+            spUtil.setAccountString(accountString);
         }
     }
 
@@ -63,7 +69,6 @@ public class UserManageUtils {
         spUtil.setValidatePass(false);
         spUtil.setPwdVisibility(false);
         spUtil.setAssetShowStatus(true);
-        LockUtils.clearSetting();
         SPUtils.getInstance().put(Constant.SELFCOIN_LIST, "");
     }
 }

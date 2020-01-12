@@ -18,8 +18,6 @@ import com.android.tacu.EventBus.EventManage;
 import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.R;
 import com.android.tacu.interfaces.ISocketEvent;
-import com.android.tacu.module.lock.view.FingerprintActivity;
-import com.android.tacu.module.lock.view.GestureActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.MainSocketManager;
@@ -28,7 +26,6 @@ import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.NetworkUtils;
 import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.StatusBarUtils;
-import com.android.tacu.utils.lock.LockUtils;
 import com.android.tacu.utils.user.UserInfoUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.LoadingAnim;
@@ -56,10 +53,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     protected P mPresenter;
     private Unbinder unBinder;
     private LoadingAnim loadingView;
-    //页面是否允许唤起手势密码和指纹密码
-    private boolean enableLock = true;
-    //页面是否允许下一个页面唤起手势密码
-    private boolean nextGestureLock = true;
     protected QMUITopBar mTopBar;
     protected UserInfoUtils spUtil;
     protected ActivityStack activityManage;
@@ -148,19 +141,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     protected void onResume() {
         super.onResume();
         isVisibleActivity = true;
-        if (enableLock) {
-            if (LockUtils.getLockSetting().isFinger() || !TextUtils.isEmpty(LockUtils.getLockSetting().getGesture())) {
-                //减得当前APP在后台滞留的时间 durTime
-                long durTime = System.currentTimeMillis() - LockUtils.getLockTime();
-                if (durTime > LockUtils.LOCK_TIME) {
-                    if (LockUtils.getLockSetting().isFinger()) {
-                        jumpTo(FingerprintActivity.class, 0);
-                    } else if (!TextUtils.isEmpty(LockUtils.getLockSetting().getGesture())) {
-                        jumpTo(GestureActivity.class, 0);
-                    }
-                }
-            }
-        }
         onEmit();
     }
 
@@ -168,10 +148,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     protected void onPause() {
         super.onPause();
         isVisibleActivity = false;
-        if (enableLock || !nextGestureLock) {
-            //更新 lockTime
-            LockUtils.setLockTime(System.currentTimeMillis());
-        }
         disconnectEmit();
     }
 
@@ -312,20 +288,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         if (event != null) {
             receiveStickyEvent(event);
         }
-    }
-
-    /**
-     * 禁止当前和下一个页面的 手势密码
-     * 部分页面禁用手势密码需要调用该方法，例如启动页、注册登录页、解锁页（LockActivity）等
-     * 在这些页面如果停留时间较久后，如果想进入下一个页面时不弹出手势，需要在finish前手动添加
-     * app.setLockTime(System.currentTimeMillis());
-     * 或者传入新的参数进行标识，在onPause中根据标识判断是否setLockTime
-     * 本例选择传入参数
-     * nextShowLock 为false 表示onPause()会调用setLockTime()，则下一个页面不会唤起手势
-     */
-    protected void disablePatternLock(boolean nextGestureLock) {
-        enableLock = false;
-        this.nextGestureLock = nextGestureLock;
     }
 
     /**

@@ -30,6 +30,7 @@
     <string name="verifying">驗證中......</string>
 
     <!--登录注册-->
+    <string name="account_login">賬號登錄</string>
     <string name="login_email_or_phone">郵箱/手機</string>
     <string name="password">密碼</string>
     <string name="login">登錄</string>
@@ -293,7 +294,7 @@
     <string name="fingerprint_no_fingerprint">請到手機設置里設置指紋密碼!</string>
     <string name="fingerprint_rebuild">您尚未設置指紋密碼，請在手機系統安全設置中重新設置后重試！</string>
     <string name="fingerprint_login_again">重新登錄</string>
-    <string name="safe_first_handpwd">請先設置手勢密碼!</string>
+    <string name="handpwd_and_gesture_only">指紋密碼和手勢密碼僅僅能設置壹個</string>
 
     <!--提币记录-->
     <string name="start_time">起始時間</string>
@@ -313,16 +314,12 @@
     <string name="sell_index">賣盤</string>
 
     <!--邀请好友-->
-    <string name="invite_rewards">邀請獎勵</string>
     <string name="invite_num">邀請人數</string>
     <string name="invite_type">邀請方式</string>
     <string name="invite_posters">專屬海報</string>
     <string name="invitation_success">成功邀請</string>
     <string name="invitation_one">複製邀請碼&#8195;</string>
     <string name="invitation_two">複制分享鏈接</string>
-    <string name="curency">幣種</string>
-    <string name="num">數量</string>
-    <string name="winning_details">獲獎詳情</string>
     <string name="invite_uid">被邀請人UID</string>
     <string name="register_source">註冊來源</string>
     <string name="register_date">註冊日期</string>

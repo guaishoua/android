@@ -30,17 +30,6 @@ public class LoginPresenter extends BaseMvpPresenter implements LoginContract.IP
     }
 
     @Override
-    public void loginGASecond(String gaPwd, String email) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).loginGASecond(gaPwd, email), new NetDisposableObserver<BaseModel<LoginModel>>((IBaseMvpView) getView()) {
-            @Override
-            public void onNext(BaseModel<LoginModel> model) {
-                LoginContract.IView view = (LoginContract.IView) getView();
-                view.showGaStatus(model);
-            }
-        }, ModelTransformerFactory.getNonStandardModelTransformer());
-    }
-
-    @Override
     public void ownCenter() {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).ownCenter(), new NetDisposableObserver<BaseModel<OwnCenterModel>>((IBaseMvpView) getView()) {
             @Override

@@ -110,7 +110,7 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
     @Override
     protected void initView() {
         coinFilterView = new CoinFilterView(this, onReceiveEvent);
-        StatusBarUtils.setColorForDrawerLayout(this, drawer_right, ContextCompat.getColor(this, R.color.color_default), 0);
+        StatusBarUtils.setColorForDrawerLayout(this, drawer_right, ContextCompat.getColor(this, R.color.content_bg_color), 0);
         typeRecord = getIntent().getIntExtra("typeRecord", 0);
         recordEvent = (RecordEvent) getIntent().getSerializableExtra("recordEvent");
         switch (typeRecord) {

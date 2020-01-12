@@ -14,8 +14,6 @@ public class LoginContract {
     public interface IView extends IBaseMvpView {
         void showContent(BaseModel<LoginModel> model);
 
-        void showGaStatus(BaseModel<LoginModel> model);
-
         void ownCenterSuccess(OwnCenterModel model);
 
         void ownCenterError();
@@ -27,8 +25,6 @@ public class LoginContract {
 
     public interface IPresenter {
         void login(String email, String pwd, String token);
-
-        void loginGASecond(String gaPwd, String email);
 
         void ownCenter();
 

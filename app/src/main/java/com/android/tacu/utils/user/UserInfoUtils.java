@@ -392,7 +392,7 @@ public class UserInfoUtils {
     }
 
     /**
-     * @param account 账号
+     * @param account 隐藏过中间部分的账号
      */
     public void setAccount(String account) {
         editor.putString("account", account);
@@ -511,5 +511,19 @@ public class UserInfoUtils {
 
     public boolean getAssetShowStatus() {
         return sp.getBoolean("assetShowStatus", true);
+    }
+
+    /**
+     * 登录成功后直接保存用户填写的
+     *
+     * @param accountString
+     */
+    public void setAccountString(String accountString) {
+        editor.putString("accountString", accountString);
+        editor.commit();
+    }
+
+    public String getAccountString() {
+        return sp.getString("accountString", "");
     }
 }

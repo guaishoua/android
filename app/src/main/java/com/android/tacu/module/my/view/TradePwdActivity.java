@@ -95,7 +95,7 @@ public class TradePwdActivity extends BaseActivity<ChangePwdPresenter> implement
             return;
         }
 
-        mPresenter.bindFdpwd(newPwd, null, Md5Utils.encryptPwd(loginPwd));
+        mPresenter.bindFdpwd(newPwd, null, Md5Utils.encryptPwd(loginPwd).toLowerCase());
     }
 
     @Override

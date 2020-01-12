@@ -6,7 +6,6 @@ import android.support.multidex.MultiDex;
 
 import com.android.tacu.service.AppIntentService;
 import com.android.tacu.utils.LanguageUtils;
-import com.android.tacu.utils.lock.LockUtils;
 
 import java.util.Locale;
 
@@ -37,8 +36,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
-        //手势和指纹密码的信息
-        LockUtils.init();
         //語言
         userLocale = LanguageUtils.getUserLocale(this);
         //一些第三方放在这里

@@ -90,15 +90,6 @@ public interface Api {
             @Field("sliderToken") String sliderToken);
 
     /**
-     * 用户登录第二步
-     */
-    @FormUrlEncoded
-    @POST("loginGASecond")
-    Observable<BaseModel<LoginModel>> loginGASecond(
-            @Field("clientPassword") String clientPassword,
-            @Field("email") String email);
-
-    /**
      * 找回密码发送邮件
      */
     @FormUrlEncoded

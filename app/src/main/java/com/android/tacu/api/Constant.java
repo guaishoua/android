@@ -58,9 +58,6 @@ public class Constant {
     //app的H5下载链接
     public static final String ANDROID_APP_DOWNLOAD = "https://www.cdcbk.com/download/app.html";
 
-    //指纹和手势密码的setResult的回调
-    public static final int PWD_RESULT = 1001;
-
     //zendesk
     public static final String ZENDESK_WENTI = "https://gexday.zendesk.com/hc/zh-cn/categories/360002072732";
 

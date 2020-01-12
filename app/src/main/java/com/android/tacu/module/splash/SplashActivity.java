@@ -5,24 +5,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.android.tacu.R;
-import com.android.tacu.api.Constant;
-import com.android.tacu.module.lock.view.FingerprintActivity;
-import com.android.tacu.module.lock.view.GestureActivity;
 import com.android.tacu.module.main.view.MainActivity;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.LanguageUtils;
-import com.android.tacu.utils.lock.LockUtils;
 
 import java.util.Locale;
 
 public class SplashActivity extends AppCompatActivity {
-
-    //为true表示开启了手势或者指纹验证
-    private boolean isGestureAndFingerLock = false;
 
     private Handler timerHandler = new Handler();
 
@@ -65,35 +57,12 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (LockUtils.getLockSetting().isFinger() || !TextUtils.isEmpty(LockUtils.getLockSetting().getGesture())) {
-            //减得当前APP在后台滞留的时间 durTime
-            long durTime = System.currentTimeMillis() - LockUtils.getLockTime();
-            if (durTime > LockUtils.LOCK_TIME) {
-                if (LockUtils.getLockSetting().isFinger()) {
-                    isGestureAndFingerLock = true;
-                    Intent intent = new Intent(this, FingerprintActivity.class);
-                    startActivityForResult(intent, 0);
-                } else if (!TextUtils.isEmpty(LockUtils.getLockSetting().getGesture())) {
-                    isGestureAndFingerLock = true;
-                    Intent intent = new Intent(this, GestureActivity.class);
-                    startActivityForResult(intent, 0);
-                }
+        timerHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                goMainActivity();
             }
-        }
-        if (!isGestureAndFingerLock) {
-            timerHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    goMainActivity();
-                }
-            }, 3000);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LockUtils.setLockTime(System.currentTimeMillis());
+        }, 3000);
     }
 
     @Override
@@ -103,14 +72,6 @@ public class SplashActivity extends AppCompatActivity {
             timerHandler = null;
         }
         super.onDestroy();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0 && resultCode == Constant.PWD_RESULT) {
-            goMainActivity();
-        }
     }
 
     @Override

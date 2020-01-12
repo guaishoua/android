@@ -273,7 +273,7 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
                             return;
                         }
                         if (flag == 1) {
-                            mPresenter.cancel(orderNo, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()));
+                            mPresenter.cancel(orderNo, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
                         } else if (flag == 2) {
                             cancelList(pwd);
                         }
@@ -287,7 +287,7 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
     private void cancelList(String pwd) {
         String deleteListSelectedParams = new Gson().toJson(new OrderParam(start, size, "0,1", 0, currencyIdValue, baseCurrencyIdValue));
         if (!TextUtils.isEmpty(pwd)) {
-            mPresenter.cancelList("", Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()), deleteListSelectedParams);
+            mPresenter.cancelList("", Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase(), deleteListSelectedParams);
         } else {
             mPresenter.cancelList("", "", deleteListSelectedParams);
         }

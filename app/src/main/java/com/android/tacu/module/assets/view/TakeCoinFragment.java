@@ -468,7 +468,7 @@ public class TakeCoinFragment extends BaseFragment<CoinsPresenter> implements Co
             etPwd.startAnimation(shake);
             return;
         }
-        mPresenter.takeCoin("4", tempAddressString, amount, currencyId, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()), tempNoteString, emailCode, gAuth, "0".equals(attachment.resp.msgCode) ? paymentId : "".equals(paymentId) ? "" : "none");
+        mPresenter.takeCoin("4", tempAddressString, amount, currencyId, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase(), tempNoteString, emailCode, gAuth, "0".equals(attachment.resp.msgCode) ? paymentId : "".equals(paymentId) ? "" : "none");
     }
 
     private void initListener() {

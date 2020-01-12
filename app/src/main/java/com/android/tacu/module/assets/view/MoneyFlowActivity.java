@@ -100,7 +100,7 @@ public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implemen
     protected void initView() {
         moneyFlowEvent = (MoneyFlowEvent) getIntent().getSerializableExtra("moneyFlowEvent");
         coinFilterView = new CoinFilterView(this, onReceiveEvent);
-        StatusBarUtils.setColorForDrawerLayout(this, drawer_right, ContextCompat.getColor(this, R.color.color_default), 0);
+        StatusBarUtils.setColorForDrawerLayout(this, drawer_right, ContextCompat.getColor(this, R.color.content_bg_color), 0);
 
         mTopBar.setTitle(getResources().getString(R.string.history));
 
