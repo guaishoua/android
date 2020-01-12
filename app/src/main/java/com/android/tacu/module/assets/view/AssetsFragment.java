@@ -2,17 +2,13 @@ package com.android.tacu.module.assets.view;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
@@ -357,14 +353,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                 dealAssetList();
             }
         });
-
-        //得到drawable对象，即所要插入的图片
-        Drawable d = getResources().getDrawable(R.drawable.icon_question);
-        d.setBounds(2, UIUtils.dp2px(-4), UIUtils.dp2px(15), UIUtils.dp2px(10));
-        ImageSpan imgSpan = new ImageSpan(d, ImageSpan.ALIGN_BOTTOM);
-        int strLength = getResources().getString(R.string.node_profit).length() + 1;
-        SpannableString spanString = new SpannableString(getResources().getString(R.string.node_profit) + " ");
-        spanString.setSpan(imgSpan, strLength - 1, strLength, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
     private void dealAssetList() {

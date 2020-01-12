@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.module.auth.view.AuthActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.market.view.NoticeActivity;
@@ -19,11 +20,16 @@ import com.android.tacu.module.my.view.ConvertActivity;
 import com.android.tacu.module.my.view.InvitedinfoActivity;
 import com.android.tacu.module.my.view.LanguageActivity;
 import com.android.tacu.module.my.view.SecurityCenterActivity;
+import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.PackageUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.user.UserInfoUtils;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
+import com.zendesk.sdk.model.access.AnonymousIdentity;
+import com.zendesk.sdk.model.access.Identity;
+import com.zendesk.sdk.network.impl.ZendeskConfig;
+import com.zendesk.sdk.requests.RequestActivity;
 
 /**
  * 帮助MainActivity处理DrawerLayout的问题
@@ -55,6 +61,8 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
     private String inviting;
     private String news;
     private String contactUs;
+    private String question;
+    private String myTicket;
     private String languageSetting;
     private String moneySetting;
     private String versionCode;
@@ -135,6 +143,16 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         itemContactUs.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemContactUs.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
+        question = mResources.getString(R.string.drawer_question);
+        QMUICommonListItemView itemQuestion = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_drawer_question), question, itemHeight);
+        itemQuestion.setPadding(UIUtils.dp2px(15), 0, 0, 0);
+        itemQuestion.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
+
+        myTicket = mResources.getString(R.string.drawer_ticket);
+        QMUICommonListItemView itemMyTicket = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_ticket), myTicket, itemHeight);
+        itemMyTicket.setPadding(UIUtils.dp2px(15), 0, 0, 0);
+        itemMyTicket.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
+
         languageSetting = mResources.getString(R.string.drawer_language);
         QMUICommonListItemView itemLanguage = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_language), languageSetting, itemHeight);
         itemLanguage.setPadding(UIUtils.dp2px(15), 0, 0, 0);
@@ -168,8 +186,8 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
                 .addItemView(itemInviting, onClickListener)
                 .addItemView(itemNews, onClickListener)
                 .addItemView(itemContactUs, onClickListener)
-                //.addItemView(itemQuestion, onClickListener)
-                //.addItemView(itemMyTicket, onClickListener)
+                .addItemView(itemQuestion, onClickListener)
+                .addItemView(itemMyTicket, onClickListener)
                 .addItemView(itemLanguage, onClickListener)
                 .addItemView(itemMoney, onClickListener)
                 .addItemView(itemVersionCode, updateClick)
@@ -213,6 +231,26 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             jumpTo(NoticeActivity.class);
         } else if (TextUtils.equals(text, contactUs)) {
             jumpTo(ContactUsActivity.class);
+        } else if (TextUtils.equals(text, question)) {
+            jumpTo(WebviewActivity.createActivity(mActivity, Constant.ZENDESK_WENTI));
+        } else if (TextUtils.equals(text, myTicket)) {
+            String name = "Android";
+            String email = "Null";
+            if (spUtil.getLogin()) {
+                name = String.valueOf(spUtil.getUserUid());
+                if (!TextUtils.isEmpty(spUtil.getEmail())) {
+                    email = spUtil.getEmail();
+                } else if (!TextUtils.isEmpty(spUtil.getPhone())) {
+                    email = spUtil.getPhone();
+                }
+            }
+
+            Identity identity = new AnonymousIdentity.Builder()
+                    .withNameIdentifier(name)
+                    .withEmailIdentifier(email)
+                    .build();
+            ZendeskConfig.INSTANCE.setIdentity(identity);
+            jumpTo(RequestActivity.class);
         } else if (TextUtils.equals(text, languageSetting)) {
             jumpTo(LanguageActivity.class);
         } else if (TextUtils.equals(text, moneySetting)) {

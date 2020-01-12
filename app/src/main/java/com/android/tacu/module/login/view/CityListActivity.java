@@ -1,6 +1,5 @@
 package com.android.tacu.module.login.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,17 +45,10 @@ public class CityListActivity extends BaseActivity {
     TextView tvTips;
 
     private String searshStr;
-    private boolean isFlags = false;
     private CityAdapter cityAdapter;
     private LinearLayoutManager linearLayoutManager;
     private List<CountryModel> cityList = new ArrayList<>();
     private List<CountryModel> searchList = new ArrayList<>();
-
-    public static Intent createActivty(Context context, boolean isFlags) {
-        Intent intent = new Intent(context, CityListActivity.class);
-        intent.putExtra("isFlags", isFlags);
-        return intent;
-    }
 
     @Override
     protected void setView() {
@@ -67,7 +59,6 @@ public class CityListActivity extends BaseActivity {
     protected void initView() {
         mTopBar.setTitle(getString(R.string.country));
 
-        isFlags = getIntent().getBooleanExtra("isFlags", false);
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         cityAdapter = new CityAdapter();
@@ -227,12 +218,8 @@ public class CityListActivity extends BaseActivity {
                 helper.setText(R.id.tv_en_name, item.en);
             }
 
-            if (isFlags) {
-                helper.setGone(R.id.tv_zh_name, false);
-            } else {
-                helper.setGone(R.id.tv_zh_name, true);
-                helper.setText(R.id.tv_zh_name, "+" + item.code);
-            }
+            helper.setGone(R.id.tv_zh_name, true);
+            helper.setText(R.id.tv_zh_name, "+" + item.code);
 
             helper.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

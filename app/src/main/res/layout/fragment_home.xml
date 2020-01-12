@@ -195,7 +195,7 @@
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/text_size_sp_14"
                             android:textStyle="bold"
-                            android:visibility="gone" />
+                            android:visibility="visible" />
                     </LinearLayout>
 
                     <View

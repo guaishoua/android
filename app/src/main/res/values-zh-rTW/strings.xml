@@ -406,6 +406,8 @@
     <string name="drawer_invite">邀請好友</string>
     <string name="drawer_news">最新公告</string>
     <string name="drawer_contus">聯系我們</string>
+    <string name="drawer_question">常見問題</string>
+    <string name="drawer_ticket">我的工單</string>
     <string name="drawer_language">語言設置</string>
     <string name="drawer_money">折算貨幣</string>
     <string name="drawer_nowversion">當前版本</string>

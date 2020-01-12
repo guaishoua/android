@@ -11,8 +11,6 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.sdk.QbSdk;
 import com.zendesk.logger.Logger;
 import com.zendesk.sdk.network.impl.ZendeskConfig;
-import com.zopim.android.sdk.api.ZopimChat;
-import com.zopim.android.sdk.widget.ChatWidgetService;
 
 
 /**
@@ -89,15 +87,12 @@ public class AppIntentService extends IntentService {
      */
     private void zendeskSetting() {
         //工单
-        ZendeskConfig.INSTANCE.init(this, "https://gexday.zendesk.com",
-                "ee85de09056837386e6eec6910bb833c3a4804bc59848d83",
-                "mobile_sdk_client_4fd535f4600198c3f5db");
-
-        ZopimChat.init("2AOKoySErajKRe4IXwkf3easWZnJjZ9H");
+        ZendeskConfig.INSTANCE.init(this, "https://tacu.zendesk.com",
+                "d15b8d422c34468acb1f1f6b984e3a0763c2dffa95d13f28",
+                "mobile_sdk_client_449e01344ed7e732f2c6");
         if (BuildConfig.DEBUG) {
             Logger.setLoggable(true);
         }
-        ChatWidgetService.disable();
     }
 
     /**

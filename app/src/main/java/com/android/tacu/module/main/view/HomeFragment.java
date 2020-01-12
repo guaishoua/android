@@ -67,9 +67,6 @@ import com.stx.xhb.xbanner.entity.CustomViewsInfo;
 import com.stx.xhb.xbanner.entity.LocalImageInfo;
 import com.stx.xhb.xbanner.transformers.Transformer;
 import com.yanzhenjie.permission.Permission;
-import com.zopim.android.sdk.api.ZopimChat;
-import com.zopim.android.sdk.prechat.PreChatForm;
-import com.zopim.android.sdk.prechat.ZopimChatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -250,15 +247,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @OnClick(R.id.tv_help)
     void helpClick() {
-        //在线聊天
-        PreChatForm defaultPreChat = new PreChatForm.Builder()
-                .name(PreChatForm.Field.OPTIONAL_EDITABLE)
-                .email(PreChatForm.Field.OPTIONAL_EDITABLE)
-                .phoneNumber(PreChatForm.Field.REQUIRED_EDITABLE)
-                .message(PreChatForm.Field.OPTIONAL_EDITABLE)
-                .build();
-        ZopimChat.SessionConfig config = new ZopimChat.SessionConfig().preChatForm(defaultPreChat);
-        ZopimChatActivity.startActivity(getContext(), config);
+        jumpTo(WebviewActivity.createActivity(getContext(), Constant.ZENDESK_HELP));
     }
 
     @OnClick(R.id.img_notice_close)

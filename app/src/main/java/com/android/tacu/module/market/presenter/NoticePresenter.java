@@ -19,7 +19,7 @@ public class NoticePresenter extends BaseMvpPresenter implements NoticeContract.
 
     @Override
     public void getNoticeInfo(int page, int perPage, boolean isShowLoadingView) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ZEN, Api.class).getNoticeInfo(page, perPage, 4), new NetDisposableObserver<BaseModel<List<NoticeModel>>>((IBaseMvpView) getView(), isShowLoadingView) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ZEN, Api.class).getNoticeInfo(page, perPage, 5), new NetDisposableObserver<BaseModel<List<NoticeModel>>>((IBaseMvpView) getView(), isShowLoadingView) {
             @Override
             public void onNext(BaseModel<List<NoticeModel>> model) {
                 NoticeContract.IView view = (NoticeContract.IView) getView();
