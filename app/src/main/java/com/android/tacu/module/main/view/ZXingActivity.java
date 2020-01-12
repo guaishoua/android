@@ -1,8 +1,11 @@
 package com.android.tacu.module.main.view;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.main.model.ZxingModel;
 import com.google.gson.Gson;
@@ -56,9 +59,13 @@ public class ZXingActivity extends BaseActivity implements QRCodeView.Delegate {
     @Override
     public void onScanQRCodeSuccess(String result) {
         if (!TextUtils.isEmpty(result)) {
-            ZxingModel zxingModel = gson.fromJson(result, ZxingModel.class);
-            jumpTo(ZXingLoginActivity.creatActivity(ZXingActivity.this, zxingModel.QRCode));
-            finish();
+            if (result.contains(Constant.INVITED_FRIEND_URL)) {
+                jumpTo(new Intent(Intent.ACTION_VIEW, Uri.parse(result)));
+            } else if (spUtil.getLogin()) {
+                ZxingModel zxingModel = gson.fromJson(result, ZxingModel.class);
+                jumpTo(ZXingLoginActivity.creatActivity(ZXingActivity.this, zxingModel.QRCode));
+                finish();
+            }
         }
     }
 

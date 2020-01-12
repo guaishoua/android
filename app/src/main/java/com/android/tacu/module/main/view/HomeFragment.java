@@ -524,20 +524,16 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mTopBar.addRightImageButton(R.drawable.icon_saoma, R.id.qmui_topbar_item_right, 18, 18).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (spUtil.getLogin()) {
-                    PermissionUtils.requestPermissions(getContext(), new OnPermissionListener() {
-                        @Override
-                        public void onPermissionSucceed() {
-                            jumpTo(ZXingActivity.class);
-                        }
+                PermissionUtils.requestPermissions(getContext(), new OnPermissionListener() {
+                    @Override
+                    public void onPermissionSucceed() {
+                        jumpTo(ZXingActivity.class);
+                    }
 
-                        @Override
-                        public void onPermissionFailed() {
-                        }
-                    }, Permission.Group.CAMERA);
-                } else {
-                    jumpTo(LoginActivity.class);
-                }
+                    @Override
+                    public void onPermissionFailed() {
+                    }
+                }, Permission.Group.CAMERA);
             }
         });
         /*mTopBar.addRightImageButton(R.drawable.icon_share_white, R.id.qmui_topbar_item_right_two, 20, 20).setOnClickListener(new View.OnClickListener() {

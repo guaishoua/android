@@ -109,7 +109,7 @@ public class InvitePosterActivity extends BaseActivity implements View.OnClickLi
         if (TextUtils.isEmpty(invitedId)) {
             url = Constant.ANDROID_APP_DOWNLOAD;//Android下载链接
         } else {
-            url = SOCKET_IP + "/register/" + invitedId;
+            url = Constant.INVITED_FRIEND_URL + invitedId;
         }
 
         bitmapZxing = ZXingUtils.createQRImage(url, UIUtils.dp2px(zxingHidth), UIUtils.dp2px(zxingHidth));

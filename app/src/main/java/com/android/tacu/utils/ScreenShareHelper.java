@@ -74,7 +74,7 @@ public class ScreenShareHelper implements CommonContract.IView {
         setShareView(view);
         String url;
         if (attachment != null && !TextUtils.isEmpty(attachment.invited_id)) {
-            url = BuildConfig.API_HOST.replace("/unique", "") + "/register/" + attachment.invited_id;
+            url = Constant.INVITED_FRIEND_URL + attachment.invited_id;
         } else {
             url = Constant.ANDROID_APP_DOWNLOAD;//Android下载链接
         }

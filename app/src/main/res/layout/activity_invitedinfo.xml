@@ -253,96 +253,25 @@
                     android:visibility="gone" />
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
-            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
+            <ImageView
+                android:id="@+id/img_qr"
+                android:layout_width="@dimen/dp_150"
+                android:layout_height="@dimen/dp_150"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_15"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_qr_tip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_8"
-                android:padding="@dimen/dp_20"
-                android:visibility="gone"
-                app:qmui_backgroundColor="@color/content_bg_color"
-                app:qmui_radius="@dimen/dp_10"
-                tools:visibility="visible">
-
-                <LinearLayout
-                    android:id="@+id/ll_rewards"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8"
-                    android:layout_marginBottom="@dimen/dp_5"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <View
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="@dimen/dp_1"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dp_30"
-                        android:layout_weight="1"
-                        android:background="@color/content_bg_color_grey" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp_10"
-                        android:text="@string/invite_rewards"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/text_size_sp_14" />
-
-                    <View
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="@dimen/dp_1"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="@dimen/dp_30"
-                        android:layout_weight="1"
-                        android:background="@color/content_bg_color_grey" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_currency"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_rewards"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    android:text="@string/curency"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_rewards"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/num"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_rewards"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/dp_15"
-                    android:text="@string/winning_details"
-                    android:textColor="@color/color_default"
-                    android:textSize="@dimen/text_size_sp_14" />
-
-                <View
-                    android:id="@+id/line"
-                    style="@style/line_french_grey"
-                    android:layout_below="@+id/tv_currency"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:layout_marginRight="@dimen/dp_15"
-                    android:layout_marginBottom="@dimen/dp_10" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/line"
-                    android:nestedScrollingEnabled="false" />
-            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
+                android:layout_marginHorizontal="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_15"
+                android:gravity="center"
+                android:text="@string/invited_friend_qr_title"
+                android:textColor="@color/text_error"
+                android:textSize="@dimen/text_size_sp_16"
+                android:visibility="gone" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

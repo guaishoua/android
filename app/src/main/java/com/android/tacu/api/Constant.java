@@ -1,5 +1,7 @@
 package com.android.tacu.api;
 
+import static com.android.tacu.api.ApiHost.SOCKET_IP;
+
 public class Constant {
 
     /****************************************************
@@ -59,12 +61,12 @@ public class Constant {
     //指纹和手势密码的setResult的回调
     public static final int PWD_RESULT = 1001;
 
-    //显示资产的基准币 默认以BTC为基准
-    public static final String ASSETS_COIN = "BTC";
-
     //zendesk
     public static final String ZENDESK_WENTI = "https://gexday.zendesk.com/hc/zh-cn/categories/360002072732";
 
     //注册协议
     public static final String REGISTER_XIEYI = "";
+
+    //邀请好友前缀
+    public static final String INVITED_FRIEND_URL = SOCKET_IP + "/register/";
 }
