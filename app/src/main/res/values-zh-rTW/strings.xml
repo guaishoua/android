@@ -81,7 +81,6 @@
     <!--资产-->
     <string name="recharge">充幣</string>
     <string name="withdrawals">提幣</string>
-    <string name="node_profit">平台昨日單節點收益</string>
     <string name="bind_phone_hint">驗證已綁定的手機號</string>
     <string name="bind_email_hint">驗證已綁定的郵箱</string>
     <string name="address">地址</string>
@@ -249,7 +248,7 @@
     <string name="continent_hint">請確保照片的信息完整且真實有效，所上傳證件必須在有效期內。（支持JPG/PNG/JPEG圖片格式）</string>
     <string name="continent_positive">請上傳證件背面照片</string>
     <string name="continent_hand_title">上傳手持證件正面照和個人簽字</string>
-    <string name="continent_hand_hint">請上傳一張手持證件正面+個人簽名A4紙的正面照，簽名的格式為“姓名+TACU+當前日期”(如姓名+TACU 2018年8月8日)</string>
+    <string name="continent_hand_hint">請上傳一張手持證件正面+個人簽名A4紙的正面照，簽名的格式為“姓名+TACU+UID+當前日期”(如姓名+TACU+38986 2018年8月8日)</string>
     <string name="continent_hand_content">請確保照片和個人簽名的信息清晰可見，照片內容真實有效，不得做任何修改。(支持JPG/PNG/JPEG圖片格式)</string>
     <string name="submit_success">提交成功</string>
     <string name="real_success">您的认证信息已提交，正在审核中。</string>

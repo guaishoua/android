@@ -11,9 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginVertical="@dimen/dp_20"
-        android:drawableLeft="@mipmap/icon_trade_cexiao"
+        android:drawableLeft="@drawable/icon_trade_cexiao"
         android:drawablePadding="@dimen/dp_10"
+        android:gravity="center_vertical"
         android:text="@string/all_revoke"
-        android:textColor="@color/text_grey"
+        android:textColor="@color/text_grey_2"
         android:textSize="@dimen/text_size_sp_16" />
 </RelativeLayout>

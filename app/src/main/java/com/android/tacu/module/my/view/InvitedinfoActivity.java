@@ -120,9 +120,10 @@ public class InvitedinfoActivity extends BaseActivity<InvitedinfoPresenter> impl
             tvUrl.setText(url);
             tvCount.setText(String.valueOf(model.total));
 
+            img_qr.setVisibility(View.VISIBLE);
+            tv_qr_tip.setVisibility(View.VISIBLE);
             bitmapZxing = ZXingUtils.createQRImage(url, UIUtils.dp2px(150), UIUtils.dp2px(150));
             img_qr.setImageBitmap(bitmapZxing);
-            tv_qr_tip.setVisibility(View.VISIBLE);
         }
     }
 }

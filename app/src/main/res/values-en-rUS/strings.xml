@@ -81,7 +81,6 @@
     <!--资产-->
     <string name="recharge">Deposit</string>
     <string name="withdrawals">Withdraw</string>
-    <string name="node_profit">Yesterday’s single node revenue</string>
     <string name="bind_phone_hint">Verify the bound phone number</string>
     <string name="bind_email_hint">Verify the bound mailbox</string>
     <string name="address">Address</string>
@@ -245,7 +244,7 @@
     <string name="continent_hint">Please ensure the information on the photo is real and valid. The documents must be valid!</string>
     <string name="continent_positive">Please upload a photo of the back of your ID card !</string>
     <string name="continent_hand_title">Please upload the photo of the front of the ID card !</string>
-    <string name="continent_hand_hint">Please upload a photo of the front of the Certificate + personal signature on A4 paper with the ID card. The format of the signature is “Name+TACU+current date” (e.g.: Wang Xing TACU August 8, 2018)</string>
+    <string name="continent_hand_hint">Please upload a photo of the front of the Certificate + personal signature on A4 paper with the ID card. The format of the signature is “Name+TACU+UID+current date” (e.g.: Wang Xing TACU 38986 August 8, 2018)</string>
     <string name="continent_hand_content">please ensure the photo and personal signature information is clearly visible; the photo content is true and effective, and no modifications can be made. (JPG/PNG/JPEG image format)</string>
     <string name="submit_success">Submit succeeded!</string>
     <string name="real_success">Your verification information has been submitted and under review. Return to the Personal Center page in</string>
