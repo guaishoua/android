@@ -3,7 +3,6 @@ package com.android.tacu.module.my.view;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,8 +29,6 @@ public class InvitedinfoActivity extends BaseActivity<InvitedinfoPresenter> impl
     TextView tvCount;
     @BindView(R.id.img_qr)
     ImageView img_qr;
-    @BindView(R.id.tv_qr_tip)
-    TextView tv_qr_tip;
 
     private InvitedAllModel invitedAllModel;
     private Bitmap bitmapZxing;
@@ -120,8 +117,6 @@ public class InvitedinfoActivity extends BaseActivity<InvitedinfoPresenter> impl
             tvUrl.setText(url);
             tvCount.setText(String.valueOf(model.total));
 
-            img_qr.setVisibility(View.VISIBLE);
-            tv_qr_tip.setVisibility(View.VISIBLE);
             bitmapZxing = ZXingUtils.createQRImage(url, UIUtils.dp2px(150), UIUtils.dp2px(150));
             img_qr.setImageBitmap(bitmapZxing);
         }
