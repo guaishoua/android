@@ -314,7 +314,7 @@ public class AuctionPlusDetailActivity extends BaseActivity<AuctionPlusPresent> 
     }
 
     @Override
-    public void customerCoinByOneCoin(AmountModel model, AuctionPlusModel auctionModel, int currencyId) {
+    public void customerCoinByOneCoin(AmountModel model, AuctionPlusModel auctionModel) {
         if (model != null && auctionModel != null) {
             mPresenter.auctionPayInfo(auctionModel, String.valueOf(model.attachment), 2);
         }

@@ -307,7 +307,7 @@ public class AuctionWinRecordActivity extends BaseActivity<AuctionWinRecordPrese
             holder.setOnClickListener(R.id.btn_status, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mPresenter.customerCoinByOneCoin(63, item);
+                    mPresenter.customerCoinByOneCoin(item.payCurrencyId, item);
                 }
             });
         }

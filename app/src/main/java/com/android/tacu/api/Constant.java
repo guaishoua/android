@@ -67,5 +67,5 @@ public class Constant {
     public static final String REGISTER_XIEYI = "";
 
     //邀请好友前缀
-    public static final String INVITED_FRIEND_URL = SOCKET_IP + "/register/";
+    public static final String INVITED_FRIEND_URL = SOCKET_IP + "/RegisterInvite/";
 }

@@ -171,7 +171,7 @@ public interface Api {
     @FormUrlEncoded
     @POST("customerCoinByOneCoin")
     Observable<AmountModel> customerCoinByOneCoin(
-            @Field("currencyId") int currencyId
+            @Field("currencyId") Integer currencyId
     );
 
     /**

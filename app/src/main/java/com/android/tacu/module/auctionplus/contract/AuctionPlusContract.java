@@ -35,7 +35,7 @@ public class AuctionPlusContract {
     public interface IDetailView extends IBaseMvpView {
         void listPlusById(AuctionPlusListByIdModel model);
 
-        void customerCoinByOneCoin(AmountModel model, AuctionPlusModel auctionModel, int currencyId);
+        void customerCoinByOneCoin(AmountModel model, AuctionPlusModel auctionModel);
 
         void collectCheck(boolean isCollect);
 
@@ -70,7 +70,7 @@ public class AuctionPlusContract {
 
         void auctionPlusData(String ids);
 
-        void customerCoinByOneCoin(int currencyId, AuctionPlusModel model, int type);
+        void customerCoinByOneCoin(Integer currencyId, AuctionPlusModel model, int type);
 
         void auctionPlusListPay(String ids, int type);
 

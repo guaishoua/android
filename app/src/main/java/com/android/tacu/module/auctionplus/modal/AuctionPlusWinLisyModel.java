@@ -80,6 +80,8 @@ public class AuctionPlusWinLisyModel implements Serializable {
         public String gainName;
         @SerializedName("payName")
         public String payName;
+        @SerializedName("payCurrencyId")
+        public Integer payCurrencyId;
         @SerializedName("paymentOverdueTime")
         public String paymentOverdueTime;
     }

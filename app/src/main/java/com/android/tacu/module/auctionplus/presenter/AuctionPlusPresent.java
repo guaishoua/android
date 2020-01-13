@@ -80,7 +80,7 @@ public class AuctionPlusPresent extends BaseMvpPresenter implements AuctionPlusC
      * @param type              1=列表页 2=详情页
      */
     @Override
-    public void customerCoinByOneCoin(final int currencyId, final AuctionPlusModel model, final int type) {
+    public void customerCoinByOneCoin(final Integer currencyId, final AuctionPlusModel model, final int type) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).customerCoinByOneCoin(currencyId), new NetDisposableObserver<AmountModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(AmountModel o) {
@@ -89,7 +89,7 @@ public class AuctionPlusPresent extends BaseMvpPresenter implements AuctionPlusC
                     view.customerCoinByOneCoin(o, model);
                 } else if (type == 2) {
                     AuctionPlusContract.IDetailView view = (AuctionPlusContract.IDetailView) getView();
-                    view.customerCoinByOneCoin(o, model, currencyId);
+                    view.customerCoinByOneCoin(o, model);
                 }
             }
         }, ModelTransformerFactory.getNonStandardModelTransformer());

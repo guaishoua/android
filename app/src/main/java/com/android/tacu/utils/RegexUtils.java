@@ -98,7 +98,7 @@ public class RegexUtils {
      */
 
     public static boolean checkPassword(String password) {
-        String regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
+        String regex = "/^(?=.*\\d)(?=.*[a-z])[a-zA-Z\\d\\S]{8,16}$/";
         return password.matches(regex);
     }
 

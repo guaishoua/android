@@ -84,7 +84,7 @@ public class AuctionPlusModel implements Serializable {
     public String currentCountPeo;//出价人数
 
     @SerializedName("payCurrencyId")
-    public int payCurrencyId;//支付币种
+    public Integer payCurrencyId;//支付币种
     @SerializedName("payCurrencyName")
     public String payCurrencyName;//支付币种名称
 
