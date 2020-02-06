@@ -120,10 +120,14 @@
             android:name="com.android.tacu.module.assets.view.AssetsActivity"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name="com.android.tacu.module.lock.GestureActivity" />
+        <activity
+            android:name="com.android.tacu.module.lock.GestureActivity"
+            android:launchMode="singleTask" />
         <activity android:name="com.android.tacu.module.lock.GestureOnActivity" />
         <activity android:name="com.android.tacu.module.lock.GestureOffActivity" />
-        <activity android:name="com.android.tacu.module.lock.FingerprintActivity" />
+        <activity
+            android:name="com.android.tacu.module.lock.FingerprintActivity"
+            android:launchMode="singleTask" />
         <activity android:name="com.android.tacu.module.my.view.GoogleHintActivity" />
         <activity android:name="com.android.tacu.module.my.view.InvitedRecordActivity" />
         <activity android:name="com.android.tacu.module.transaction.view.TradeRecordManageActivity" />

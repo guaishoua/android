@@ -136,6 +136,14 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mFragAct != null) {
+            mFragAct = null;
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         spUtil = UserInfoUtils.getInstance();
@@ -217,6 +225,10 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
         EventManage.unregister(this);
     }
 
+    /**
+     * 使用此方法代替getActivity，防止getActivity空指针
+     * @return
+     */
     public FragmentActivity getHostActivity() {
         FragmentActivity localFragmentActivity = getActivity();
         if (localFragmentActivity == null)
