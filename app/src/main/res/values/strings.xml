@@ -572,4 +572,11 @@
     <string name="buy_amount_going">您将买入的数量...</string>
     <string name="last_buy_price">最新买入价</string>
     <string name="now_buy">立即买入</string>
+    <string name="buy_dan">买入%1$s单</string>
+    <string name="sell_dan">卖出%1$s单</string>
+    <string name="real_time_price">实时价格指数</string>
+    <string name="gointo_market">进入市场</string>
+    <string name="range_24h">24h漲跌幅</string>
+    <string name="maxprice_24h">24h最高價</string>
+    <string name="minprice_24h">24h最低價</string>
 </resources>

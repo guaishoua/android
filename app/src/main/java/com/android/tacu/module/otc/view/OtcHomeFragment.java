@@ -79,6 +79,20 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
         initTitle();
 
         banner_home.setPageTransformer(Transformer.Default);
+        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setTabChange(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+        });
 
         initFragments();
         setCurrentValue(0);
@@ -144,6 +158,11 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
      * @param current 0=acu 1=usdt 2=btc 3=c2c
      */
     private void setCurrentValue(int current) {
+        setTabChange(current);
+        viewpager.setCurrentItem(current, true);
+    }
+
+    private void setTabChange(int current) {
         clearStatus();
         switch (current) {
             case 0:
@@ -163,7 +182,6 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
                 img_c2c.setImageResource(R.drawable.icon_arrow_right_default);
                 break;
         }
-        viewpager.setCurrentItem(current, false);
     }
 
     private void clearStatus() {

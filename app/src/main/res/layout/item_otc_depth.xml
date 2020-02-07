@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_30"
+    android:background="@color/color_kline">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:id="@+id/progressBar_buy"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:max="100"
+            android:progressDrawable="@drawable/progress_buy_color" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_sell"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:max="100"
+            android:progressDrawable="@drawable/progress_sell_color_left" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_8">
+
+        <TextView
+            android:id="@+id/tv_buyamount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            tools:text="0.9" />
+
+        <TextView
+            android:id="@+id/tv_buyprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:paddingRight="@dimen/dp_3"
+            android:textColor="@color/color_riseup"
+            android:textSize="@dimen/text_size_sp_12"
+            tools:text="800/900" />
+
+        <TextView
+            android:id="@+id/tv_sellprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:paddingLeft="@dimen/dp_3"
+            android:textColor="@color/color_risedown"
+            android:textSize="@dimen/text_size_sp_12"
+            tools:text="800/900" />
+
+        <TextView
+            android:id="@+id/tv_sellamount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            tools:text="0.98" />
+    </LinearLayout>
+</RelativeLayout>
