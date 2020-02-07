@@ -93,7 +93,7 @@ public class MyDealFragment extends BaseFragment<MyDealPresenter> implements MyD
 
         dealRecordAdapter = new DealRecordAdapter();
         dealRecordAdapter.setHeaderFooterEmpty(true, false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getHostActivity()));
         recyclerView.setAdapter(dealRecordAdapter);
 
         dealRecordAdapter.setEmptyView(emptyView);

@@ -170,14 +170,14 @@ public class RechargeFragment extends BaseFragment<RechargePresenter> implements
             return;
         }
         showToastSuccess(getResources().getString(R.string.copy_address));
-        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager cmb = (ClipboardManager) getHostActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(tv_coin_address.getText().toString().trim()); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
     }
 
     @OnClick(R.id.iv_payment)
     void copyPaymentID() {
         showToastSuccess(getResources().getString(R.string.copy_address));
-        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager cmb = (ClipboardManager) getHostActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(cp_payment_id.getText().toString().trim()); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
     }
 

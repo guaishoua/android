@@ -33,6 +33,7 @@ import com.android.tacu.module.main.model.UploadModel;
 import com.android.tacu.module.main.presenter.MainPresenter;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.SelfModel;
+import com.android.tacu.module.otc.view.OtcHomeFragment;
 import com.android.tacu.module.transaction.view.TradeFragment;
 import com.android.tacu.EventBus.model.MainSwitchEvent;
 import com.android.tacu.utils.ConvertMoneyUtils;
@@ -70,10 +71,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     ImageView img_trade;
     @BindView(R.id.img_assets)
     ImageView img_assets;
+    @BindView(R.id.img_otc)
+    ImageView img_otc;
     @BindView(R.id.tv_home)
     TextView tv_home;
     @BindView(R.id.tv_trade)
     TextView tv_trade;
+    @BindView(R.id.tv_otc)
+    TextView tv_otc;
     @BindView(R.id.tv_assets)
     TextView tv_assets;
     @BindView(R.id.viewpager)
@@ -84,6 +89,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private Fragment[] fragments;
     private HomeFragment homeFragment;
     private TradeFragment tradeFragment;
+    private OtcHomeFragment otcHomeFragment;
     private AssetsFragment assetsFragment;
 
     private MainDrawerLayoutHelper mainDrawerLayoutHelper;
@@ -131,13 +137,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         drawerMain.setFocusableInTouchMode(false);
 
         ll_tab_home.setOnClickListener(this);
-        ll_tab_otc.setOnClickListener(this);
         ll_tab_trade.setOnClickListener(this);
+        ll_tab_otc.setOnClickListener(this);
         ll_tab_assets.setOnClickListener(this);
 
         reboundAnim(ll_tab_home);
-        reboundAnim(ll_tab_otc);
         reboundAnim(ll_tab_trade);
+        reboundAnim(ll_tab_otc);
         reboundAnim(ll_tab_assets);
 
         initFragments();
@@ -255,11 +261,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             case R.id.ll_tab_home:
                 setTabSelection(Constant.MAIN_HOME);
                 break;
-            case R.id.ll_tab_otc:
-                otcClick();
-                break;
             case R.id.ll_tab_trade:
                 setTabSelection(Constant.MAIN_TRADE);
+                break;
+            case R.id.ll_tab_otc:
+                otcClick();
                 break;
             case R.id.ll_tab_assets:
                 setTabSelection(Constant.MAIN_ASSETS);
@@ -350,6 +356,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                             case Constant.MAIN_TRADE:
                                 setTabSelection(Constant.MAIN_TRADE);
                                 break;
+                            case Constant.MAIN_OTC:
+                                setTabSelection(Constant.MAIN_OTC);
+                                break;
                             case Constant.MAIN_ASSETS:
                                 setTabSelection(Constant.MAIN_ASSETS);
                                 break;
@@ -412,9 +421,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private void initFragments() {
         homeFragment = HomeFragment.newInstance();
         tradeFragment = TradeFragment.newInstance();
+        otcHomeFragment = OtcHomeFragment.newInstance();
         assetsFragment = AssetsFragment.newInstance();
 
-        fragments = new Fragment[]{homeFragment, tradeFragment, assetsFragment};
+        fragments = new Fragment[]{homeFragment, tradeFragment, otcHomeFragment, assetsFragment};
         viewpager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments));
         viewpager.setOffscreenPageLimit(3);
     }
@@ -432,6 +442,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 lastShowFragment = Constant.MAIN_TRADE;
                 img_trade.setImageResource(R.mipmap.img_main_trade_selected);
                 tv_trade.setTextColor(ContextCompat.getColor(this, R.color.main_tab_black_color));
+                break;
+            case Constant.MAIN_OTC:
+                lastShowFragment = Constant.MAIN_OTC;
+                img_otc.setImageResource(R.mipmap.img_main_otc_selected);
+                tv_otc.setTextColor(ContextCompat.getColor(this, R.color.main_tab_black_color));
                 break;
             case Constant.MAIN_ASSETS:
                 if (spUtil.getLogin()) {
@@ -456,11 +471,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         }
         img_home.setImageResource(R.mipmap.img_main_home_normal);
         img_trade.setImageResource(R.mipmap.img_main_trade_normal);
+        img_otc.setImageResource(R.mipmap.img_main_otc_normal);
         img_assets.setImageResource(R.mipmap.img_main_asset_normal);
 
         tv_home.setTextColor(ContextCompat.getColor(this, R.color.main_tab_text_color));
         tv_trade.setTextColor(ContextCompat.getColor(this, R.color.main_tab_text_color));
         tv_assets.setTextColor(ContextCompat.getColor(this, R.color.main_tab_text_color));
+        tv_otc.setTextColor(ContextCompat.getColor(this, R.color.main_tab_text_color));
     }
 
     private void otcClick() {
@@ -471,7 +488,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         } else if (!spUtil.getPhoneStatus()) {
             showToastError(getResources().getString(R.string.please_bind_phone));
         } else {
-
+            setTabSelection(Constant.MAIN_OTC);
         }
     }
 

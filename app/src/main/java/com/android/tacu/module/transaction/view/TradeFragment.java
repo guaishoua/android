@@ -344,7 +344,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                 break;
             case R.id.btn_ok:
                 if (spUtil.getLogin()) {
-                    Animation shake = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_shake);
+                    Animation shake = AnimationUtils.loadAnimation(getHostActivity(), R.anim.anim_shake);
                     String price = editPrice.getText().toString().trim();
                     String number = editNumber.getText().toString().trim();
                     //type =2 行情价 type=1 限价
@@ -602,7 +602,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
             @Override
             public void onClick(View v) {
                 if (screenShareHelper == null) {
-                    screenShareHelper = new ScreenShareHelper(getActivity());
+                    screenShareHelper = new ScreenShareHelper(getHostActivity);
                 }
                 screenShareHelper.invoke(rootView);
             }
@@ -1472,7 +1472,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                     switch (position) {
                         case 0:
                             if (spUtil.getLogin()) {
-                                jumpTo(AssetsActivity.createActivity(getActivity(), currencyNameEn, currencyId, 0, true));
+                                jumpTo(AssetsActivity.createActivity(getHostActivity(), currencyNameEn, currencyId, 0, true));
                             } else {
                                 jumpTo(LoginActivity.class);
                             }
@@ -1482,14 +1482,14 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                                 if (!isKeyc()) {
                                     return;
                                 }
-                                jumpTo(AssetsActivity.createActivity(getActivity(), currencyNameEn, currencyId, 1, true));
+                                jumpTo(AssetsActivity.createActivity(getHostActivity(), currencyNameEn, currencyId, 1, true));
                             } else {
                                 jumpTo(LoginActivity.class);
                             }
                             break;
                         case 2:
                             if (spUtil.getLogin()) {
-                                jumpTo(AssetsActivity.createActivity(getActivity(), baseCurrencyNameEn, baseCurrencyId, 0, true));
+                                jumpTo(AssetsActivity.createActivity(getHostActivity(), baseCurrencyNameEn, baseCurrencyId, 0, true));
                             } else {
                                 jumpTo(LoginActivity.class);
                             }
@@ -1499,7 +1499,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                                 if (!isKeyc()) {
                                     return;
                                 }
-                                jumpTo(AssetsActivity.createActivity(getActivity(), baseCurrencyNameEn, baseCurrencyId, 1, true));
+                                jumpTo(AssetsActivity.createActivity(getHostActivity(), baseCurrencyNameEn, baseCurrencyId, 1, true));
                             } else {
                                 jumpTo(LoginActivity.class);
                             }

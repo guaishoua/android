@@ -87,9 +87,9 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
     }
 
     protected void setBackGroundAlpha(float backGroundAlpha) {
-        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        WindowManager.LayoutParams lp = getHostActivity().getWindow().getAttributes();
         lp.alpha = backGroundAlpha;
-        getActivity().getWindow().setAttributes(lp);
+        getHostActivity().getWindow().setAttributes(lp);
     }
 
     @Override
@@ -412,8 +412,8 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
     }
 
     protected TradeDataBridge getDataBridge() {
-        if (getActivity() instanceof TradeDataBridge) {
-            return (TradeDataBridge) getActivity();
+        if (getHostActivity() instanceof TradeDataBridge) {
+            return (TradeDataBridge) getHostActivity();
         } else {
             return new TradeDataBridge() {
                 @Override

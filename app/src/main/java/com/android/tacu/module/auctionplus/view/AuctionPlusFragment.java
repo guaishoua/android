@@ -146,7 +146,7 @@ public class AuctionPlusFragment extends BaseFragment<AuctionPlusPresent> implem
     protected void initData() {
         FooterUtils.setFooterText();
 
-        emptyView = View.inflate(getActivity(), R.layout.view_empty, null);
+        emptyView = View.inflate(getHostActivity(), R.layout.view_empty, null);
 
         CustomTextHeaderView header = new CustomTextHeaderView(getContext());
         header.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
@@ -380,7 +380,7 @@ public class AuctionPlusFragment extends BaseFragment<AuctionPlusPresent> implem
             }, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    jumpTo(AssetsActivity.createActivity(getActivity(), auctionPlusModel.payCurrencyName, auctionPlusModel.payCurrencyId, 0, true));
+                    jumpTo(AssetsActivity.createActivity(getHostActivity(), auctionPlusModel.payCurrencyName, auctionPlusModel.payCurrencyId, 0, true));
                 }
             });
         }

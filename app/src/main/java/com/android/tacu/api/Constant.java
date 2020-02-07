@@ -34,7 +34,8 @@ public class Constant {
     //首页切换
     public static final int MAIN_HOME = 1001;
     public static final int MAIN_TRADE = 1002;
-    public static final int MAIN_ASSETS = 1003;
+    public static final int MAIN_OTC = 1003;
+    public static final int MAIN_ASSETS = 1004;
 
     //语言中文
     public static final String ZH_TW = "zh_TW";//繁体

@@ -113,8 +113,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @BindView(R.id.img_notice_close)
     ImageView img_notice_close;
 
-    private ImageView circleImageView;
-
     private Gson gson = new Gson();
     private List<NoticeModel> noticeList = new ArrayList<>();
     private List<CustomViewsInfo> bannerImageList = new ArrayList<>();
@@ -175,7 +173,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         banner_home.setPageTransformer(Transformer.Default);
 
         magicIndicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tab_bg_color));
-        magicIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.tab_default), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(14, 14));
+        magicIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.tab_default), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(16, 16));
         magicIndicator.setScrollBar(new ColorBar(getContext(), ContextCompat.getColor(getContext(), R.color.tab_default), 4));
         magicIndicator.setSplitAuto(false);
 
@@ -215,7 +213,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @OnClick(R.id.tv_recharge)
     void rechargeClick() {
         if (spUtil.getLogin()) {
-            jumpTo(AssetsActivity.createActivity(getActivity(), "", -1, 0, false));
+            jumpTo(AssetsActivity.createActivity(getHostActivity(), "", -1, 0, false));
         } else {
             jumpTo(LoginActivity.class);
         }
@@ -227,7 +225,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             if (!isKeyc()) {
                 return;
             }
-            jumpTo(AssetsActivity.createActivity(getActivity(), "", -1, 1, false));
+            jumpTo(AssetsActivity.createActivity(getHostActivity(), "", -1, 1, false));
         } else {
             jumpTo(LoginActivity.class);
         }
@@ -495,7 +493,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mTopBar.setTitle(getResources().getString(R.string.home));
         mTopBar.setBackgroundDividerEnabled(true);
 
-        circleImageView = new ImageView(getContext());
+        ImageView circleImageView = new ImageView(getContext());
         circleImageView.setBackgroundColor(Color.TRANSPARENT);
         circleImageView.setScaleType(CENTER_CROP);
         circleImageView.setImageResource(R.mipmap.icon_mines);
@@ -529,7 +527,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             @Override
             public void onClick(View v) {
                 if (screenShareHelper == null) {
-                    screenShareHelper = new ScreenShareHelper(getActivity());
+                    screenShareHelper = new ScreenShareHelper(getHostActivity());
                 }
                 screenShareHelper.invoke(refreshHome);
             }

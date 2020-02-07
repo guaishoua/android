@@ -94,10 +94,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/img_otc"
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
                     android:layout_margin="@dimen/dp_4"

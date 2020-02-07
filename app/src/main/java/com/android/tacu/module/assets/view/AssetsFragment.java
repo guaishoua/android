@@ -160,13 +160,13 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                     @Override
                     public void onClick(View v) {
                         if (screenShareHelper == null) {
-                            screenShareHelper = new ScreenShareHelper(getActivity());
+                            screenShareHelper = new ScreenShareHelper(getHostActivity());
                         }
                         screenShareHelper.invoke(refreshlayout);
                     }
                 });*/
 
-        emptyView = View.inflate(getActivity(), R.layout.view_empty, null);
+        emptyView = View.inflate(getHostActivity(), R.layout.view_empty, null);
         inputMethod = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         CustomTextHeaderView header = new CustomTextHeaderView(getContext());
@@ -331,12 +331,12 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         adapter = new AssetAdapter();
         adapter.setHeaderFooterEmpty(true, false);
         //添加分割线
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getHostActivity()));
         recyclerView.setAdapter(adapter);
     }
 
     private void initAssetHeader() {
-        assetHeaderView = View.inflate(getActivity(), R.layout.header_asset_details, null);
+        assetHeaderView = View.inflate(getHostActivity(), R.layout.header_asset_details, null);
         tv_btc_total = assetHeaderView.findViewById(R.id.tv_btc_total);
         tv_ycn_total = assetHeaderView.findViewById(R.id.tv_ycn_total);
         cb_search = assetHeaderView.findViewById(R.id.cb_search);
@@ -390,7 +390,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             holder.itemView.findViewById(R.id.tv_asset_item_recharge).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    jumpTo(AssetsActivity.createActivity(getActivity(), data.currencyNameEn, data.currencyId, 0, true));
+                    jumpTo(AssetsActivity.createActivity(getHostActivity(), data.currencyNameEn, data.currencyId, 0, true));
                 }
             });
 
@@ -400,7 +400,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                     if (!isKeyc()) {
                         return;
                     }
-                    jumpTo(AssetsActivity.createActivity(getActivity(), data.currencyNameEn, data.currencyId, 1, true));
+                    jumpTo(AssetsActivity.createActivity(getHostActivity(), data.currencyNameEn, data.currencyId, 1, true));
                 }
             });
 
@@ -417,7 +417,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                     );
 
                     event.setType("0");
-                    jumpTo(MoneyFlowActivity.createActivity(getActivity(), event));
+                    jumpTo(MoneyFlowActivity.createActivity(getHostActivity(), event));
 
 
                 }
@@ -450,7 +450,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                             sendEvent(selected.get(0));
                         } else {
                             setBackGroundAlpha(0.5f);
-                            new CoinPickerView(getActivity(), data.currencyNameEn, selected, new CoinPickerView.Listener() {
+                            new CoinPickerView(getHostActivity(), data.currencyNameEn, selected, new CoinPickerView.Listener() {
                                 @Override
                                 public void onItemSelected(MarketNewModel.TradeCoinsBean target) {
                                     sendEvent(target);
@@ -461,7 +461,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                                     setBackGroundAlpha(1f);
                                 }
                             })
-                                    .showOnAnchor(getActivity().findViewById(R.id.view_base_line),
+                                    .showOnAnchor(getHostActivity().findViewById(R.id.view_base_line),
                                             RelativePopupWindow.VerticalPosition.ABOVE,
                                             RelativePopupWindow.HorizontalPosition.CENTER,
                                             true);
