@@ -579,4 +579,13 @@
     <string name="range_24h">24h漲跌幅</string>
     <string name="maxprice_24h">24h最高價</string>
     <string name="minprice_24h">24h最低價</string>
+    <string name="renminbi">人民币(CNY)</string>
+    <string name="meiyuan">美元(USD)</string>
+    <string name="sort_single_price">按单价</string>
+    <string name="sort_surplus_amount">按剩余量</string>
+    <string name="sort_quota">按限额</string>
+    <string name="sort_all_manner">全部方式</string>
+    <string name="yinhanngka">银行卡</string>
+    <string name="zhifubao">支付宝</string>
+    <string name="weixin">微信</string>
 </resources>

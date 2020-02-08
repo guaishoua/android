@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tacu.R;
@@ -26,6 +27,7 @@ public class OtcHomeChildFragment extends BaseFragment<OtcHomeChildPresenter> im
     private TextView tv_real_price;
     private QMUIRoundButton btn_gointo_market;
     private TextView tv_24h_range;
+    private ImageView img_24h_range;
     private TextView tv_24h_maxprice;
     private TextView tv_24h_minprice;
 
@@ -71,16 +73,18 @@ public class OtcHomeChildFragment extends BaseFragment<OtcHomeChildPresenter> im
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_gointo_market:
+                jumpTo(OtcMarketListActivity.createActivity(getContext(), currencyNameEn));
                 break;
         }
     }
 
-    private void initHeader(){
+    private void initHeader() {
         View headerView = View.inflate(getContext(), R.layout.header_otc_home_child, null);
         tv_buy_sell = headerView.findViewById(R.id.tv_buy_sell);
         tv_real_price = headerView.findViewById(R.id.tv_real_price);
         btn_gointo_market = headerView.findViewById(R.id.btn_gointo_market);
         tv_24h_range = headerView.findViewById(R.id.tv_24h_range);
+        img_24h_range = headerView.findViewById(R.id.img_24h_range);
         tv_24h_maxprice = headerView.findViewById(R.id.tv_24h_maxprice);
         tv_24h_minprice = headerView.findViewById(R.id.tv_24h_minprice);
 

@@ -1,12 +1,16 @@
 package com.android.tacu.module.otc.view;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +19,11 @@ import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcHomeC2cContract;
 import com.android.tacu.module.otc.presenter.OtcHomeC2cPresenter;
-import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.android.tacu.utils.UIUtils;
+import com.android.tacu.widget.popupwindow.ListPopWindow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,7 +46,7 @@ public class OtcHomeC2cFragment extends BaseFragment<OtcHomeC2cPresenter> implem
     TextView tv_last_price;
 
     private int coinTypeDirection = 0;// 0=币种设置的按钮在右边 1=在左边
-    private QMUIBottomSheet mBottomSheet;
+    private ListPopWindow listPopup;
 
     public static OtcHomeC2cFragment newInstance() {
         Bundle bundle = new Bundle();
@@ -84,22 +92,22 @@ public class OtcHomeC2cFragment extends BaseFragment<OtcHomeC2cPresenter> implem
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mBottomSheet != null) {
-            mBottomSheet.dismiss();
+        if (listPopup != null) {
+            listPopup.dismiss();
         }
     }
 
     @OnClick(R.id.con_left)
     void leftClick() {
         if (coinTypeDirection == 1) {
-            showCoinType(tv_left);
+            showCoinType(tv_left, img_left);
         }
     }
 
     @OnClick(R.id.con_right)
     void rightClick() {
         if (coinTypeDirection == 0) {
-            showCoinType(tv_right);
+            showCoinType(tv_right, img_right);
         }
     }
 
@@ -127,24 +135,33 @@ public class OtcHomeC2cFragment extends BaseFragment<OtcHomeC2cPresenter> implem
         tv_left.setText(value);
     }
 
-    private void showCoinType(final TextView tv) {
-        if (mBottomSheet == null) {
-            mBottomSheet = new QMUIBottomSheet.BottomListSheetBuilder(getContext())
-                    .addItem("ACU")
-                    .addItem("BTC")
-                    .setOnSheetItemClickListener(new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
-                        @Override
-                        public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
-                            if (position == 0) {
-                                tv.setText("ACU");
-                            } else if (position == 1) {
-                                tv.setText("BTC");
-                            }
-                            dialog.dismiss();
-                        }
-                    })
-                    .build();
+    private void showCoinType(final TextView tv, ImageView img) {
+        if (listPopup != null && listPopup.isShowing()) {
+            listPopup.dismiss();
+            return;
         }
-        mBottomSheet.show();
+        if (listPopup == null) {
+            List<String> data = new ArrayList<>();
+            data.add("ACU");
+            data.add("BTC");
+            ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.simple_list_item, data);
+            listPopup = new ListPopWindow(getContext(), adapter);
+            listPopup.create(UIUtils.dp2px(100), UIUtils.dp2px(80), new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == 0) {
+                        tv.setText("ACU");
+                    } else if (position == 1) {
+                        tv.setText("BTC");
+                    }
+                    listPopup.dismiss();
+                }
+            });
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            listPopup.setDropDownGravity(Gravity.END);
+        }
+        listPopup.setAnchorView(img);
+        listPopup.show();
     }
 }
