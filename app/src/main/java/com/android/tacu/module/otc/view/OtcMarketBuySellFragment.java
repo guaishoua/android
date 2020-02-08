@@ -4,6 +4,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -20,6 +22,7 @@ import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,10 +81,17 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     @Override
     protected void initData() {
         mAdapter = new OtcMarketBuySellAdapter();
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider_item));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(mAdapter);
 
         initHeader();
+
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        mAdapter.setNewData(list);
     }
 
     @Override
@@ -140,6 +150,10 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         mAdapter.setHeaderView(headerView);
     }
 
+    public void setRefreshFragment(){
+
+    }
+
     private void setSortView(TextView tv, int status) {
         clearSortView(tv);
         switch (status) {
@@ -193,7 +207,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
             });
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-           listPopup.setDropDownGravity(Gravity.END);
+            listPopup.setDropDownGravity(Gravity.END);
         }
         listPopup.setAnchorView(view_flag);
         listPopup.show();
@@ -207,7 +221,13 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
 
         @Override
         protected void convert(BaseViewHolder helper, String item) {
-
+            if (isBuy){
+                helper.setTextColor(R.id.tv_single_price,ContextCompat.getColor(getContext(),R.color.color_riseup));
+                ((QMUIRoundButtonDrawable) helper.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_riseup));
+            }else{
+                helper.setTextColor(R.id.tv_single_price,ContextCompat.getColor(getContext(),R.color.color_risedown));
+                ((QMUIRoundButtonDrawable) helper.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_risedown));
+            }
         }
     }
 }

@@ -61,6 +61,8 @@ public class OtcMarketFragment extends BaseFragment<OtcMarketPresenter> implemen
     private int currencyId;
     private String currencyNameEn;
 
+    private OtcMarketBuySellFragment buyFragment;
+    private OtcMarketBuySellFragment sellFragment;
     private List<String> tabTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
 
@@ -99,14 +101,23 @@ public class OtcMarketFragment extends BaseFragment<OtcMarketPresenter> implemen
         refreshView.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
+                if (buyFragment != null) {
+                    buyFragment.setRefreshFragment();
+                }
+                if (sellFragment != null) {
+                    sellFragment.setRefreshFragment();
+                }
             }
         });
 
         tabTitle.add(getResources().getString(R.string.buy));
         tabTitle.add(getResources().getString(R.string.sell));
 
-        fragmentList.add(OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, true));
-        fragmentList.add(OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, false));
+        buyFragment = OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, true);
+        sellFragment = OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, false);
+
+        fragmentList.add(buyFragment);
+        fragmentList.add(sellFragment);
 
         magic_indicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tab_bg_color));
         magic_indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.text_default), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(14, 14));

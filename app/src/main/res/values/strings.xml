@@ -588,4 +588,8 @@
     <string name="yinhanngka">银行卡</string>
     <string name="zhifubao">支付宝</string>
     <string name="weixin">微信</string>
+    <string name="surplus_all_amount">剩余量/总量</string>
+    <string name="single_quota">单笔限额</string>
+    <string name="single_price">单价</string>
+    <string name="click_look">点击查看</string>
 </resources>
