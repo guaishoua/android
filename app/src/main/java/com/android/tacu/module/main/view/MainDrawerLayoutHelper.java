@@ -20,6 +20,7 @@ import com.android.tacu.module.my.view.ConvertActivity;
 import com.android.tacu.module.my.view.InvitedinfoActivity;
 import com.android.tacu.module.my.view.LanguageActivity;
 import com.android.tacu.module.my.view.SecurityCenterActivity;
+import com.android.tacu.module.otc.view.OtcOrderListActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.PackageUtils;
 import com.android.tacu.utils.UIUtils;
@@ -54,9 +55,10 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
     private TextView tvUser;
     private TextView tvUid;
     private QMUIGroupListView homeGroupListView;
-    private QMUICommonListItemView itemRealName, itemSecuritySetting, itemInviting;
+    private QMUICommonListItemView itemRealName, itemOrderCenter, itemSecuritySetting, itemInviting;
 
     private String realName;
+    private String orderCenter;
     private String securitySetting;
     private String inviting;
     private String news;
@@ -123,6 +125,11 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         itemRealName.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemRealName.setTextContainerPadding(0, 0, UIUtils.dp2px(10), 0);
 
+        orderCenter = mActivity.getResources().getString(R.string.order_center);
+        itemOrderCenter = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_ordercenter), orderCenter, itemHeight);
+        itemOrderCenter.setPadding(UIUtils.dp2px(15), 0, 0, 0);
+        itemOrderCenter.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
+
         securitySetting = mResources.getString(R.string.drawer_safe);
         itemSecuritySetting = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_safecenter), securitySetting, itemHeight);
         itemSecuritySetting.setPadding(UIUtils.dp2px(15), 0, 0, 0);
@@ -182,6 +189,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         QMUIGroupListView.newSection(mActivity)
                 .setUseTitleViewForSectionSpace(false)
                 .addItemView(itemRealName, onClickListener)
+                .addItemView(itemOrderCenter, onClickListener)
                 .addItemView(itemSecuritySetting, onClickListener)
                 .addItemView(itemInviting, onClickListener)
                 .addItemView(itemNews, onClickListener)
@@ -203,6 +211,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             tvUid.setText("UID " + spUtil.getUserUid());
 
             itemRealName.setVisibility(View.VISIBLE);
+            itemOrderCenter.setVisibility(View.VISIBLE);
             itemSecuritySetting.setVisibility(View.VISIBLE);
             itemInviting.setVisibility(View.VISIBLE);
             btnUnLogin.setVisibility(View.VISIBLE);
@@ -211,6 +220,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             rl_login.setVisibility(View.GONE);
 
             itemRealName.setVisibility(View.GONE);
+            itemOrderCenter.setVisibility(View.GONE);
             itemSecuritySetting.setVisibility(View.GONE);
             itemInviting.setVisibility(View.GONE);
             btnUnLogin.setVisibility(View.GONE);
@@ -223,6 +233,8 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
     private void mOnClickListenter(String text) {
         if (TextUtils.equals(text, realName)) {
             jumpTo(AuthActivity.class);
+        } else if (TextUtils.equals(text, orderCenter)) {
+            jumpTo(OtcOrderListActivity.class);
         } else if (TextUtils.equals(text, securitySetting)) {
             jumpTo(SecurityCenterActivity.class);
         } else if (TextUtils.equals(text, inviting)) {

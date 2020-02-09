@@ -144,5 +144,6 @@
         <activity android:name="com.android.tacu.module.auctionplus.view.AuctionPlusOfferActivity" />
         <activity android:name="com.android.tacu.module.auctionplus.view.AuctionWinRecordActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcMarketListActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcOrderListActivity" />
     </application>
 </manifest>

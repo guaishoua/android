@@ -1,5 +1,6 @@
 package com.android.tacu.module.otc.view;
 
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -82,7 +83,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     protected void initData() {
         mAdapter = new OtcMarketBuySellAdapter();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider_item));
+        dividerItemDecoration.setDrawable(new ColorDrawable(ContextCompat.getColor(getContext(), R.color.content_bg_color_grey)));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(mAdapter);

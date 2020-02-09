@@ -19,6 +19,7 @@ import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
+import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.otc.contract.OtcHomeContract;
 import com.android.tacu.module.otc.presenter.OtcHomePresenter;
 import com.android.tacu.utils.UIUtils;
@@ -141,6 +142,16 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
         lps.topMargin = UIUtils.dp2px(15);
         lps.rightMargin = UIUtils.dp2px(8);
         mTopBar.addLeftView(circleImageView, R.id.qmui_topbar_item_left_back, lps);
+        mTopBar.addRightImageButton(R.drawable.icon_ordercenter, R.id.qmui_topbar_item_right, 18, 18).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!spUtil.getLogin()) {
+                    jumpTo(OtcOrderListActivity.class);
+                } else {
+                    jumpTo(LoginActivity.class);
+                }
+            }
+        });
     }
 
     private void initFragments() {

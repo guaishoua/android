@@ -265,7 +265,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 setTabSelection(Constant.MAIN_TRADE);
                 break;
             case R.id.ll_tab_otc:
-                otcClick();
+                setTabSelection(Constant.MAIN_OTC);
                 break;
             case R.id.ll_tab_assets:
                 setTabSelection(Constant.MAIN_ASSETS);
@@ -480,7 +480,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         tv_otc.setTextColor(ContextCompat.getColor(this, R.color.main_tab_text_color));
     }
 
-    private void otcClick() {
+    /*private void otcClick() {
         if (!spUtil.getLogin()) {
             jumpTo(LoginActivity.class);
         } else if (spUtil.getIsAuthSenior() == -1 || spUtil.getIsAuthSenior() == 0 || spUtil.getIsAuthSenior() == 1) {
@@ -490,7 +490,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         } else {
             setTabSelection(Constant.MAIN_OTC);
         }
-    }
+    }*/
 
     /**
      * FaceBook的弹簧效果
