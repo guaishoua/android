@@ -43,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_seller_nickname"
             app:layout_constraintLeft_toRightOf="@id/tv_seller_nickname"
             app:layout_constraintTop_toTopOf="@id/tv_seller_nickname"
-            app:srcCompat="@drawable/icon_vip" />
+            tools:srcCompat="@drawable/icon_vip" />
 
         <ImageView
             android:id="@+id/img_seller_phone_auth"
@@ -208,7 +208,7 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_buyer_nickname"
             app:layout_constraintLeft_toRightOf="@id/tv_buyer_nickname"
             app:layout_constraintTop_toTopOf="@id/tv_buyer_nickname"
-            app:srcCompat="@drawable/icon_vip" />
+            tools:srcCompat="@drawable/icon_vip" />
 
         <ImageView
             android:id="@+id/img_buyer_phone_auth"

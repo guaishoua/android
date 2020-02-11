@@ -29,22 +29,14 @@
                 app:qmui_backgroundColor="@color/content_bg_color"
                 app:qmui_radius="@dimen/dp_3">
 
-                <com.android.tacu.view.NodeProgressView
+                <com.android.tacu.widget.NodeProgressView
                     android:id="@+id/node_progress"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_70"
                     android:background="@color/content_bg_color"
                     android:paddingHorizontal="@dimen/dp_10"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:node_bar="@color/content_bg_color_grey"
-                    app:node_color="@color/content_bg_color_grey"
-                    app:node_current="1"
-                    app:node_num="4"
-                    app:node_progress_bar="@color/color_default"
-                    app:node_progress_tip="@color/text_default"
-                    app:node_progresscolor="@color/color_default"
-                    app:node_radio="@dimen/dp_5"
-                    app:node_tip="@color/text_grey" />
+                    app:node_current="1" />
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
             <include layout="@layout/view_otc_order_money" />
@@ -102,8 +94,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="@dimen/dp_3"
                 android:layout_marginTop="@dimen/dp_35"
+                android:lineSpacingExtra="@dimen/dp_3"
                 android:text="@string/otc_order_confirmed_tip"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_13" />

@@ -8,6 +8,10 @@ public class OtcOrderDetailContract {
 
     }
 
+    public interface IPayedView extends IBaseMvpView {
+
+    }
+
     public interface IPresenter {
 
     }

@@ -1,20 +1,19 @@
-package com.android.tacu.view;
+package com.android.tacu.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.android.tacu.R;
-import com.android.tacu.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +24,7 @@ public class NodeProgressView extends View {
     private Paint mNodePaint;
     //node 已完成
     private Paint mNodeProgressPaint;
+    private Paint mBigNodePaint;
 
     private Paint mLinePaint;
     private Paint mLineProgressPaint;
@@ -34,6 +34,7 @@ public class NodeProgressView extends View {
 
     private int mNodeColor;
     private int mNodeProgressColor;
+    private int mBigNodeColor;
 
     private int mTextColor;
     private int mTextProgressColor;
@@ -43,6 +44,8 @@ public class NodeProgressView extends View {
 
     //node 半径
     private int mNodeRadio;
+    private int mBigNodeRadio;
+
     //节点个数
     private int mNumber;
     private List<Node> nodes = new ArrayList<>();
@@ -52,8 +55,9 @@ public class NodeProgressView extends View {
     private int mWidth;
     private int mHeight;
 
-    private int leftM = UIUtils.dp2px(30);
-    private int rightM = UIUtils.dp2px(30);
+    private int leftM = dp2px(30);
+    private int rightM = dp2px(30);
+    private int topValue = dp2px(5);
 
     public NodeProgressView(Context context) {
         this(context, null);
@@ -65,24 +69,29 @@ public class NodeProgressView extends View {
 
     public NodeProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initAttrs(attrs);
+        initAttrs(context, attrs);
         init();
     }
 
-    private void initAttrs(AttributeSet attrs) {
+    private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray mTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.nodeProgresssView);
-        mNodeColor = mTypedArray.getColor(R.styleable.nodeProgresssView_node_color, Color.GRAY);
-        mNodeProgressColor = mTypedArray.getColor(R.styleable.nodeProgresssView_node_progresscolor, Color.RED);
-
-        mTextColor = mTypedArray.getColor(R.styleable.nodeProgresssView_node_tip, Color.GRAY);
-        mTextProgressColor = mTypedArray.getColor(R.styleable.nodeProgresssView_node_progress_tip, Color.RED);
-
-        mLineColor = mTypedArray.getColor(R.styleable.nodeProgresssView_node_bar, Color.GRAY);
-        mLineProgressColor = mTypedArray.getColor(R.styleable.nodeProgresssView_node_progress_bar, Color.RED);
-
-        mNumber = mTypedArray.getInt(R.styleable.nodeProgresssView_node_num, 2);
         mCurentNode = mTypedArray.getInt(R.styleable.nodeProgresssView_node_current, 0);
-        mNodeRadio = mTypedArray.getDimensionPixelSize(R.styleable.nodeProgresssView_node_radio, 10);
+
+        mNodeColor = ContextCompat.getColor(context, R.color.content_bg_color_grey);
+        mNodeProgressColor = ContextCompat.getColor(context, R.color.color_default);
+        mBigNodeColor = ContextCompat.getColor(context, R.color.color_grey);
+
+        mTextColor = ContextCompat.getColor(context, R.color.text_grey);
+        mTextProgressColor = ContextCompat.getColor(context, R.color.text_default);
+
+        mLineColor = ContextCompat.getColor(context, R.color.content_bg_color_grey);
+        mLineProgressColor = ContextCompat.getColor(context, R.color.color_default);
+
+        mNumber = 4;
+        mNodeRadio = dp2px(5);
+        mBigNodeRadio = dp2px(7);
+
+        mTypedArray.recycle();
     }
 
     private void init() {
@@ -101,29 +110,34 @@ public class NodeProgressView extends View {
         mNodeProgressPaint.setStyle(Paint.Style.FILL);
         mNodeProgressPaint.setColor(mNodeProgressColor);
 
+        mBigNodePaint = new Paint();
+        mBigNodePaint.setAntiAlias(true);
+        mBigNodePaint.setStyle(Paint.Style.FILL);
+        mBigNodePaint.setColor(mBigNodeColor);
+
         mTextPaint = new Paint();
         mTextPaint.setAntiAlias(true);
         mTextPaint.setStyle(Paint.Style.FILL);
         mTextPaint.setColor(mTextColor);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
-        mTextPaint.setTextSize(UIUtils.dp2px(12));
+        mTextPaint.setTextSize(dp2px(12));
 
         mTextProgressPaint = new Paint();
         mTextProgressPaint.setAntiAlias(true);
         mTextProgressPaint.setStyle(Paint.Style.FILL);
         mTextProgressPaint.setColor(mTextProgressColor);
         mTextProgressPaint.setTextAlign(Paint.Align.CENTER);
-        mTextProgressPaint.setTextSize(UIUtils.dp2px(12));
+        mTextProgressPaint.setTextSize(dp2px(12));
 
         mLinePaint = new Paint();
         mLinePaint.setAntiAlias(true);
-        mLinePaint.setStrokeWidth(UIUtils.dp2px(3));
+        mLinePaint.setStrokeWidth(dp2px(3));
         mLinePaint.setStyle(Paint.Style.FILL);
         mLinePaint.setColor(mLineColor);
 
         mLineProgressPaint = new Paint();
         mLineProgressPaint.setAntiAlias(true);
-        mLineProgressPaint.setStrokeWidth(UIUtils.dp2px(3));
+        mLineProgressPaint.setStrokeWidth(dp2px(3));
         mLineProgressPaint.setStyle(Paint.Style.FILL);
         mLineProgressPaint.setColor(mLineProgressColor);
     }
@@ -140,7 +154,7 @@ public class NodeProgressView extends View {
         for (int i = 0; i < mNumber; i++) {
             if (i == 0) {
                 Node node = new Node();
-                Point paint = new Point(getPaddingLeft() + mNodeRadio + leftM, mHeight / 2);
+                Point paint = new Point(getPaddingLeft() + mBigNodeRadio + leftM, mHeight / 2 - topValue);
                 node.setPoint(paint);
                 if (nodeTexts != null && nodeTexts.size() > 0 && !TextUtils.isEmpty(nodeTexts.get(i))) {
                     node.setDes(nodeTexts.get(i));
@@ -153,7 +167,7 @@ public class NodeProgressView extends View {
 
             if (i == mNumber - 1) {
                 Node node = new Node();
-                Point paint = new Point(mWidth - getPaddingRight() - mNodeRadio + leftM, mHeight / 2);
+                Point paint = new Point(mWidth - getPaddingRight() - mBigNodeRadio + leftM, mHeight / 2 - topValue);
                 node.setPoint(paint);
                 if (nodeTexts != null && nodeTexts.size() > 0 && !TextUtils.isEmpty(nodeTexts.get(i))) {
                     node.setDes(nodeTexts.get(i));
@@ -164,7 +178,7 @@ public class NodeProgressView extends View {
                 continue;
             }
             Node node = new Node();
-            Point paint = new Point(getPaddingLeft() + d * i - mNodeRadio + leftM, mHeight / 2);
+            Point paint = new Point(getPaddingLeft() + d * i - mBigNodeRadio + leftM, mHeight / 2 - topValue);
             node.setPoint(paint);
             if (nodeTexts != null && nodeTexts.size() > 0 && !TextUtils.isEmpty(nodeTexts.get(i))) {
                 node.setDes(nodeTexts.get(i));
@@ -194,19 +208,19 @@ public class NodeProgressView extends View {
 
 
     private void drawLineProgress(Canvas canvas) {
-        int startX = getPaddingLeft() + mNodeRadio * 2 + leftM;
+        int startX = getPaddingLeft() + mBigNodeRadio * 2 + leftM;
         for (int i = 1; i < nodes.size(); i++) {
             Node node = nodes.get(i);
             Point point = node.getPoint();
             int x = point.x;
             int y = point.y;
-            x = x - mNodeRadio;
+            x = x - mBigNodeRadio;
             if (mCurentNode >= i) {
                 canvas.drawLine(startX, y, x, y, mLineProgressPaint);
             } else {
                 canvas.drawLine(startX, y, x, y, mLinePaint);
             }
-            startX = x + mNodeRadio * 2;
+            startX = x + mBigNodeRadio * 2;
         }
     }
 
@@ -215,10 +229,13 @@ public class NodeProgressView extends View {
             Node node = nodes.get(i);
             Point point = node.getPoint();
             if (i < mCurentNode) {
+                canvas.drawCircle(point.x, point.y, mBigNodeRadio, mBigNodePaint);
                 canvas.drawCircle(point.x, point.y, mNodeRadio, mNodeProgressPaint);
             } else if ((i != 0) && (i == mCurentNode) && (mCurentNode == nodes.size())) {
+                canvas.drawCircle(point.x, point.y, mBigNodeRadio, mBigNodePaint);
                 canvas.drawCircle(point.x, point.y, mNodeRadio, mNodeProgressPaint);
             } else {
+                canvas.drawCircle(point.x, point.y, mBigNodeRadio, mBigNodePaint);
                 canvas.drawCircle(point.x, point.y, mNodeRadio, mNodePaint);
             }
         }
@@ -232,11 +249,11 @@ public class NodeProgressView extends View {
             Paint.FontMetricsInt fmi = mTextPaint.getFontMetricsInt();
 
             if (i < mCurentNode) {
-                canvas.drawText(text, point.x, point.y + mNodeRadio + fmi.bottom - fmi.top, mTextProgressPaint);
+                canvas.drawText(text, point.x, point.y + mBigNodeRadio + fmi.bottom - fmi.top + topValue, mTextProgressPaint);
             } else if ((i != 0) && (i == mCurentNode) && (mCurentNode == nodes.size())) {
-                canvas.drawText(text, point.x, point.y + mNodeRadio + fmi.bottom - fmi.top, mTextProgressPaint);
+                canvas.drawText(text, point.x, point.y + mBigNodeRadio + fmi.bottom - fmi.top + topValue, mTextProgressPaint);
             } else {
-                canvas.drawText(text, point.x, point.y + mNodeRadio + fmi.bottom - fmi.top, mTextPaint);
+                canvas.drawText(text, point.x, point.y + mBigNodeRadio + fmi.bottom - fmi.top + topValue, mTextPaint);
             }
         }
     }
@@ -277,5 +294,10 @@ public class NodeProgressView extends View {
         public void setDes(String des) {
             this.des = des;
         }
+    }
+
+    private int dp2px(float dpValue) {
+        float scale = getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }

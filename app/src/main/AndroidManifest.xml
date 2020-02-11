@@ -143,8 +143,11 @@
         <activity android:name="com.android.tacu.module.auctionplus.view.AuctionPlusDetailActivity" />
         <activity android:name="com.android.tacu.module.auctionplus.view.AuctionPlusOfferActivity" />
         <activity android:name="com.android.tacu.module.auctionplus.view.AuctionWinRecordActivity" />
+        <activity android:name="com.android.tacu.module.ZoomImageViewActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcMarketListActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderListActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderConfirmedActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcOrderPayedActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcOrderPayGetActivity" />
     </application>
 </manifest>
