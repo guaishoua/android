@@ -140,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_8"
         android:includeFontPadding="false"
-        android:textColor="@color/color_riseup"
+        android:textColor="@color/color_otc_buy"
         android:textSize="@dimen/text_size_sp_19"
         app:layout_constraintRight_toRightOf="@id/tv_history_deal"
         app:layout_constraintTop_toBottomOf="@id/tv_single_price_title"
@@ -157,6 +157,6 @@
         android:textSize="@dimen/text_size_sp_13"
         app:layout_constraintBottom_toBottomOf="@id/lin_pay"
         app:layout_constraintRight_toRightOf="@id/tv_history_deal"
-        app:qmui_backgroundColor="@color/color_riseup"
+        app:qmui_backgroundColor="@color/color_otc_buy"
         app:qmui_radius="@dimen/dp_2" />
 </android.support.constraint.ConstraintLayout>

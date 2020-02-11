@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_10"
-                        android:textColor="@color/color_riseup"
+                        android:textColor="@color/color_otc_buy"
                         android:textSize="@dimen/text_size_sp_14"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_24h_range_title"

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color_grey"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/common_titlebar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/dp_15">
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_70"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_5"
+                app:qmui_backgroundColor="@color/content_bg_color"
+                app:qmui_radius="@dimen/dp_3">
+
+                <com.android.tacu.view.NodeProgressView
+                    android:id="@+id/node_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_70"
+                    android:background="@color/content_bg_color"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:node_bar="@color/content_bg_color_grey"
+                    app:node_color="@color/content_bg_color_grey"
+                    app:node_current="1"
+                    app:node_num="4"
+                    app:node_progress_bar="@color/color_default"
+                    app:node_progress_tip="@color/text_default"
+                    app:node_progresscolor="@color/color_default"
+                    app:node_radio="@dimen/dp_5"
+                    app:node_tip="@color/text_grey" />
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+
+            <include layout="@layout/view_otc_order_money" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_18">
+
+                <TextView
+                    android:id="@+id/tv_please_get_pay_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/please_choose_get_pay"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_13"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_please_get_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_13"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_please_get_pay_title"
+                    app:layout_constraintLeft_toRightOf="@id/tv_please_get_pay_title"
+                    tools:text="微信支付" />
+
+                <TextView
+                    android:id="@+id/tv_confirm_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:text="@string/dui_fang_confirm_time"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_13"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_please_get_pay_title" />
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_28"
+                    android:paddingHorizontal="@dimen/dp_28"
+                    android:text="@string/returnString"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_13"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_confirm_time"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:qmui_backgroundColor="@color/color_default"
+                    app:qmui_radius="@dimen/dp_2" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/dp_3"
+                android:layout_marginTop="@dimen/dp_35"
+                android:text="@string/otc_order_confirmed_tip"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

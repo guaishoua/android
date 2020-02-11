@@ -94,4 +94,9 @@
     <color name="color_pay_now">#EEA34A</color>
     <color name="color_pay_after">#C2863E</color>
     <color name="color_pay_gotime">#636363</color>
+    <!--OTC-->
+    <color name="color_otc_buy">#12AB69</color>
+    <color name="color_otc_sell">#DE5252</color>
+    <color name="color_otc_buy_bg">#5A12AB69</color><!--透明值80%-->
+    <color name="color_otc_sell_bg">#5ADE5252</color><!--透明值80%-->
 </resources>

@@ -85,4 +85,26 @@
         <attr name="change_value" format="integer" />
         <attr name="hint_value" format="string" />
     </declare-styleable>
+
+    <!--节点进度条-->
+    <declare-styleable name="nodeProgresssView">
+        <!--节点默认颜色-->
+        <attr name="node_color" format="color" />
+        <!--节点进度颜色-->
+        <attr name="node_progresscolor" format="color" />
+        <!--进度条默认颜色-->
+        <attr name="node_bar" format="color" />
+        <!--进度条默认颜色-->
+        <attr name="node_progress_bar" format="color" />
+        <!--文字提示颜色-->
+        <attr name="node_tip" format="color" />
+        <!--进度提示颜色-->
+        <attr name="node_progress_tip" format="color" />
+        <!-- 几点个数-->
+        <attr name="node_num" format="integer" />
+        <!-- 当前进度-->
+        <attr name="node_current" format="integer" />
+        <!--节点半径-->
+        <attr name="node_radio" format="dimension" />
+    </declare-styleable>
 </resources>

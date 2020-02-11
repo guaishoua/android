@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dp_8"
+    app:qmui_backgroundColor="@color/content_bg_color"
+    app:qmui_radius="@dimen/dp_3">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100">
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/img_seller"
+            android:layout_width="@dimen/dp_28"
+            android:layout_height="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_border_width="@dimen/dp_0"
+            app:qmui_is_circle="true" />
+
+        <TextView
+            android:id="@+id/tv_seller_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_15"
+            app:layout_constraintBottom_toBottomOf="@id/img_seller"
+            app:layout_constraintLeft_toRightOf="@id/img_seller"
+            app:layout_constraintTop_toTopOf="@id/img_seller"
+            tools:text="加隆" />
+
+        <ImageView
+            android:id="@+id/img_seller_vip"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:layout_marginLeft="@dimen/dp_10"
+            app:layout_constraintBottom_toBottomOf="@id/tv_seller_nickname"
+            app:layout_constraintLeft_toRightOf="@id/tv_seller_nickname"
+            app:layout_constraintTop_toTopOf="@id/tv_seller_nickname"
+            app:srcCompat="@drawable/icon_vip" />
+
+        <ImageView
+            android:id="@+id/img_seller_phone_auth"
+            android:layout_width="@dimen/dp_15"
+            android:layout_height="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_10"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_seller"
+            tools:srcCompat="@drawable/icon_auth_success" />
+
+        <TextView
+            android:id="@+id/tv_seller_phone_auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="@string/phone_auth"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@id/img_seller_phone_auth"
+            app:layout_constraintLeft_toRightOf="@id/img_seller_phone_auth"
+            app:layout_constraintTop_toTopOf="@id/img_seller_phone_auth" />
+
+        <ImageView
+            android:id="@+id/img_seller_truenname_auth"
+            android:layout_width="@dimen/dp_15"
+            android:layout_height="@dimen/dp_15"
+            android:layout_marginLeft="@dimen/dp_20"
+            app:layout_constraintBottom_toBottomOf="@id/img_seller_phone_auth"
+            app:layout_constraintLeft_toRightOf="@id/tv_seller_phone_auth"
+            tools:srcCompat="@drawable/icon_auth_success" />
+
+        <TextView
+            android:id="@+id/tv_seller_truenname_auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="@string/truename_auth"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@id/img_seller_truenname_auth"
+            app:layout_constraintLeft_toRightOf="@id/img_seller_truenname_auth"
+            app:layout_constraintTop_toTopOf="@id/img_seller_truenname_auth" />
+
+        <ImageView
+            android:id="@+id/img_seller_email_auth"
+            android:layout_width="@dimen/dp_15"
+            android:layout_height="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_seller_phone_auth"
+            tools:srcCompat="@drawable/icon_auth_success" />
+
+        <TextView
+            android:id="@+id/tv_seller_email_auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="@string/email_auth"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@id/img_seller_email_auth"
+            app:layout_constraintLeft_toRightOf="@id/img_seller_email_auth"
+            app:layout_constraintTop_toTopOf="@id/img_seller_email_auth" />
+
+        <ImageView
+            android:id="@+id/img_seller_video_auth"
+            android:layout_width="@dimen/dp_15"
+            android:layout_height="@dimen/dp_15"
+            android:layout_marginLeft="@dimen/dp_20"
+            app:layout_constraintBottom_toBottomOf="@id/img_seller_email_auth"
+            app:layout_constraintLeft_toRightOf="@id/tv_seller_email_auth"
+            tools:srcCompat="@drawable/icon_auth_failure" />
+
+        <TextView
+            android:id="@+id/tv_seller_video_auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="@string/truename_auth"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@id/img_seller_video_auth"
+            app:layout_constraintLeft_toRightOf="@id/img_seller_video_auth"
+            app:layout_constraintTop_toTopOf="@id/img_seller_video_auth" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
+            android:id="@+id/rl_seller_bg"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="match_parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:qmui_backgroundColor="@color/color_otc_sell_bg"
+            app:qmui_radiusBottomRight="@dimen/dp_3"
+            app:qmui_radiusTopRight="@dimen/dp_3">
+
+            <ImageView
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dp_15"
+                android:rotation="180"
+                app:srcCompat="@drawable/icon_jiantou_up" />
+        </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_seller_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_8"
+            android:textColor="@color/color_otc_sell"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintBottom_toBottomOf="@id/tv_seller_video_auth"
+            app:layout_constraintRight_toLeftOf="@+id/rl_seller_bg"
+            tools:text="34000ACU" />
+
+        <TextView
+            android:id="@+id/tv_seller_pay_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sell_pay"
+            android:textColor="@color/color_otc_sell"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintBottom_toTopOf="@id/tv_seller_pay"
+            app:layout_constraintRight_toRightOf="@id/tv_seller_pay" />
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/content_bg_color_grey" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100">
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/img_buyer"
+            android:layout_width="@dimen/dp_28"
+            android:layout_height="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_border_width="@dimen/dp_0"
+            app:qmui_is_circle="true" />
+
+        <TextView
+            android:id="@+id/tv_buyer_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_15"
+            app:layout_constraintBottom_toBottomOf="@id/img_buyer"
+            app:layout_constraintLeft_toRightOf="@id/img_buyer"
+            app:layout_constraintTop_toTopOf="@id/img_buyer"
+            tools:text="加隆" />
+
+        <ImageView
+            android:id="@+id/img_buyer_vip"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:layout_marginLeft="@dimen/dp_10"
+            app:layout_constraintBottom_toBottomOf="@id/tv_buyer_nickname"
+            app:layout_constraintLeft_toRightOf="@id/tv_buyer_nickname"
+            app:layout_constraintTop_toTopOf="@id/tv_buyer_nickname"
+            app:srcCompat="@drawable/icon_vip" />
+
+        <ImageView
+            android:id="@+id/img_buyer_phone_auth"
+            android:layout_width="@dimen/dp_15"
+            android:layout_height="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_10"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_buyer"
+            tools:srcCompat="@drawable/icon_auth_success" />
+
+        <TextView
+            android:id="@+id/tv_buyer_phone_auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="@string/phone_auth"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@id/img_buyer_phone_auth"
+            app:layout_constraintLeft_toRightOf="@id/img_buyer_phone_auth"
+            app:layout_constraintTop_toTopOf="@id/img_buyer_phone_auth" />
+
+        <ImageView
+            android:id="@+id/img_buyer_truenname_auth"
+            android:layout_width="@dimen/dp_15"
+            android:layout_height="@dimen/dp_15"
+            android:layout_marginLeft="@dimen/dp_20"
+            app:layout_constraintBottom_toBottomOf="@id/img_buyer_phone_auth"
+            app:layout_constraintLeft_toRightOf="@id/tv_buyer_phone_auth"
+            tools:srcCompat="@drawable/icon_auth_success" />
+
+        <TextView
+            android:id="@+id/tv_buyer_truenname_auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="@string/truename_auth"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@id/img_buyer_truenname_auth"
+            app:layout_constraintLeft_toRightOf="@id/img_buyer_truenname_auth"
+            app:layout_constraintTop_toTopOf="@id/img_buyer_truenname_auth" />
+
+        <ImageView
+            android:id="@+id/img_buyer_email_auth"
+            android:layout_width="@dimen/dp_15"
+            android:layout_height="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_buyer_phone_auth"
+            tools:srcCompat="@drawable/icon_auth_success" />
+
+        <TextView
+            android:id="@+id/tv_buyer_email_auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="@string/email_auth"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@id/img_buyer_email_auth"
+            app:layout_constraintLeft_toRightOf="@id/img_buyer_email_auth"
+            app:layout_constraintTop_toTopOf="@id/img_buyer_email_auth" />
+
+        <ImageView
+            android:id="@+id/img_buyer_video_auth"
+            android:layout_width="@dimen/dp_15"
+            android:layout_height="@dimen/dp_15"
+            android:layout_marginLeft="@dimen/dp_20"
+            app:layout_constraintBottom_toBottomOf="@id/img_buyer_email_auth"
+            app:layout_constraintLeft_toRightOf="@id/tv_buyer_email_auth"
+            tools:srcCompat="@drawable/icon_auth_failure" />
+
+        <TextView
+            android:id="@+id/tv_buyer_video_auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="@string/truename_auth"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="@id/img_buyer_video_auth"
+            app:layout_constraintLeft_toRightOf="@id/img_buyer_video_auth"
+            app:layout_constraintTop_toTopOf="@id/img_buyer_video_auth" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
+            android:id="@+id/rl_buyer_bg"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="match_parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:qmui_backgroundColor="@color/color_otc_buy_bg"
+            app:qmui_radiusBottomRight="@dimen/dp_3"
+            app:qmui_radiusTopRight="@dimen/dp_3">
+
+            <ImageView
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="@dimen/dp_15"
+                app:srcCompat="@drawable/icon_jiantou_up" />
+        </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_buyer_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_8"
+            android:textColor="@color/color_otc_buy"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintBottom_toBottomOf="@id/tv_buyer_video_auth"
+            app:layout_constraintRight_toLeftOf="@+id/rl_buyer_bg"
+            tools:text="34000ACU" />
+
+        <TextView
+            android:id="@+id/tv_buyer_pay_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buy_pay"
+            android:textColor="@color/color_otc_buy"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintBottom_toTopOf="@id/tv_buyer_pay"
+            app:layout_constraintRight_toRightOf="@id/tv_buyer_pay" />
+    </android.support.constraint.ConstraintLayout>
+</com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>

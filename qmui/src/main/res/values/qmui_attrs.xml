@@ -294,6 +294,18 @@
         <attr name="qmui_radiusBottomRight" />
     </declare-styleable>
 
+    <declare-styleable name="QMUIRoundConstraintLayout">
+        <attr name="qmui_backgroundColor" />
+        <attr name="qmui_borderColor" />
+        <attr name="qmui_borderWidth" />
+        <attr name="qmui_isRadiusAdjustBounds" />
+        <attr name="qmui_radius" />
+        <attr name="qmui_radiusTopLeft" />
+        <attr name="qmui_radiusTopRight" />
+        <attr name="qmui_radiusBottomLeft" />
+        <attr name="qmui_radiusBottomRight" />
+    </declare-styleable>
+
     <declare-styleable name="QMUIRoundRelativeLayout">
         <attr name="qmui_backgroundColor" />
         <attr name="qmui_borderColor" />

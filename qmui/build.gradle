@@ -23,4 +23,5 @@ dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.ext.dependVersion.supportSdkVersion"
     compile "com.android.support:design:$rootProject.ext.dependVersion.supportSdkVersion"
     compile "com.android.support:support-vector-drawable:$rootProject.ext.dependVersion.supportSdkVersion"
+    compile "com.android.support.constraint:constraint-layout:1.1.3"
 }

@@ -54,7 +54,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:paddingRight="@dimen/dp_3"
-            android:textColor="@color/color_riseup"
+            android:textColor="@color/color_otc_buy"
             android:textSize="@dimen/text_size_sp_12"
             tools:text="800/900" />
 
@@ -65,7 +65,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:paddingLeft="@dimen/dp_3"
-            android:textColor="@color/color_risedown"
+            android:textColor="@color/color_otc_sell"
             android:textSize="@dimen/text_size_sp_12"
             tools:text="800/900" />
 

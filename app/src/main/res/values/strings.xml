@@ -597,6 +597,29 @@
     <string name="otc_order_finished">已完成</string>
     <string name="otc_order_confirmed">待确认</string>
     <string name="otc_order_payed">待付款</string>
+    <string name="otc_order_payget">待收款</string>
     <string name="otc_order_coined">待放币</string>
+    <string name="otc_order_coinget">待收币</string>
     <string name="otc_order_arbitration">仲裁中</string>
+    <string name="market_order">生成订单</string>
+    <string name="buyer_pay">买方付款</string>
+    <string name="seller_coin">卖方放币</string>
+    <string name="order_finish">订单完成</string>
+    <string name="phone_auth">手机认证</string>
+    <string name="email_auth">邮箱认证</string>
+    <string name="truename_auth">实名认证</string>
+    <string name="video_auth">视频认证</string>
+    <string name="buy_pay">买方支付</string>
+    <string name="sell_pay">卖方支付</string>
+    <string name="please_choose_get_pay">请选择收/付款方式：</string>
+    <string name="dui_fang_confirm_time">对方须在 %1$s 内确认本订单</string>
+    <string name="returnString">返回</string>
+    <string name="otc_order_confirmed_tip">交易須知
+        \n1.卖家发起交易请求后，该订单的数字资产将会锁定託管；
+        \n2.买家需在付款有效期限内完成付款并进行确认支付完成操作，卖家才会放币。
+        \n3.买家付款后应自行保存付款凭证截图，如出现纠纷可根据截图证明付款行为
+        \n4.卖家通过买家备注信息确定是否收到相应付款金额后应及时放行处于託管中的数字资产。
+        \n5.买家收到相应数字资产后，如未发生仲裁，该笔订单将成功完成。
+        \n6.交易过程中如发生异议，买卖双方可随时联繫或提交仲裁进行各自维权，具体请查看  《OTC场外交易规则》。
+    </string>
 </resources>
