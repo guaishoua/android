@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_18">
+
+        <TextView
+            android:id="@+id/tv_please_get_pay_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/please_choose_get_pay"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_sp_13"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_please_get_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_13"
+            app:layout_constraintBottom_toBottomOf="@id/tv_please_get_pay_title"
+            app:layout_constraintLeft_toRightOf="@id/tv_please_get_pay_title"
+            tools:text="微信支付" />
+
+        <TextView
+            android:id="@+id/tv_confirm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="@string/dui_fang_confirm_time"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_sp_13"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_please_get_pay_title" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_28"
+            android:paddingHorizontal="@dimen/dp_28"
+            android:text="@string/returnString"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_13"
+            app:layout_constraintBottom_toBottomOf="@id/tv_confirm_time"
+            app:layout_constraintRight_toRightOf="parent"
+            app:qmui_backgroundColor="@color/color_default"
+            app:qmui_radius="@dimen/dp_2" />
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

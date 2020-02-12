@@ -73,8 +73,8 @@ public class OtcHomeChildFragment extends BaseFragment<OtcHomeChildPresenter> im
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_gointo_market:
-                jumpTo(OtcOrderCreateActivity.class);
-                //jumpTo(OtcMarketListActivity.createActivity(getContext(), currencyNameEn));
+                //umpTo(OtcOrderDetailActivity.createActivity(getContext(),ORDER_COINGET));
+                jumpTo(OtcMarketListActivity.createActivity(getContext(), currencyNameEn));
                 break;
         }
     }

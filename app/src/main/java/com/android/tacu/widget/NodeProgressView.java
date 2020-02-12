@@ -267,7 +267,7 @@ public class NodeProgressView extends View {
     }
 
     public void setCurentNode(int curentNode) {
-        this.mCurentNode = curentNode - 1;
+        this.mCurentNode = curentNode;
     }
 
     public void reDraw() {
