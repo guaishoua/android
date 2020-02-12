@@ -156,7 +156,6 @@ public class OtcMarketFragment extends BaseFragment<OtcMarketPresenter> implemen
         if (listPopup == null) {
             List<String> data = new ArrayList<>();
             data.add(getResources().getString(R.string.renminbi));
-            data.add(getResources().getString(R.string.meiyuan));
             ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.simple_list_item, data);
             listPopup = new ListPopWindow(getContext(), adapter);
             listPopup.create(UIUtils.dp2px(120), UIUtils.dp2px(80), new AdapterView.OnItemClickListener() {
@@ -164,8 +163,6 @@ public class OtcMarketFragment extends BaseFragment<OtcMarketPresenter> implemen
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     if (position == 0) {
                         tv.setText(getResources().getString(R.string.renminbi));
-                    } else if (position == 1) {
-                        tv.setText(getResources().getString(R.string.meiyuan));
                     }
                     listPopup.dismiss();
                 }

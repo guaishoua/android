@@ -149,5 +149,9 @@
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderConfirmedActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderPayedActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderPayGetActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcOrderCoinedActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcOrderCoinGetActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcOrderArbitrationActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcOrderCreateActivity" />
     </application>
 </manifest>

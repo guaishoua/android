@@ -646,4 +646,11 @@
     <string name="arbitration_result">仲裁结果：</string>
     <string name="please_submit_appeal_content">请输入您要提交申诉内容…………</string>
     <string name="submit_appeal">提交申诉</string>
+    <string name="otc_order_create">订单生成页</string>
+    <string name="please_choose_pay_method">请选择支付方式</string>
+    <string name="otc_xieyi">本人已认真阅读，同意且遵守平台关于OTC场外交易的安全提示以及</string>
+    <string name="otc_xieyi_name">《TACU数字资产交易平台OTC场外交易规范及免责声明》</string>
+    <string name="otc_order_create_countdown1">请于</string>
+    <string name="otc_order_create_countdown2">内完成订单生成，超时将取消本次订单生成</string>
+    <string name="confirm_create_order">确认生成订单</string>
 </resources>
