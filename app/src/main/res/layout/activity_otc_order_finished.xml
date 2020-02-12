@@ -36,7 +36,7 @@
                     android:background="@color/content_bg_color"
                     android:paddingHorizontal="@dimen/dp_10"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:node_current="1" />
+                    app:node_current="4" />
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
             <include layout="@layout/view_otc_order_money" />
@@ -51,37 +51,6 @@
                 app:qmui_radius="@dimen/dp_3">
 
                 <TextView
-                    android:id="@+id/tv_countdown_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_2"
-                    android:text="@string/payed_time_countdown"
-                    android:textColor="@color/text_grey"
-                    android:textSize="@dimen/text_size_sp_14"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/img_countdown"
-                    android:layout_width="@dimen/dp_20"
-                    android:layout_height="@dimen/dp_20"
-                    android:layout_marginLeft="@dimen/dp_3"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_countdown_title"
-                    app:layout_constraintLeft_toRightOf="@id/tv_countdown_title"
-                    app:srcCompat="@drawable/icon_clock" />
-
-                <TextView
-                    android:id="@+id/tv_countdown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_5"
-                    android:textColor="@color/color_otc_countdown"
-                    android:textSize="@dimen/text_size_sp_16"
-                    app:layout_constraintBottom_toBottomOf="@id/img_countdown"
-                    app:layout_constraintLeft_toRightOf="@id/img_countdown"
-                    tools:text="00:22:22" />
-
-                <TextView
                     android:id="@+id/tv_order_id_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,7 +59,7 @@
                     android:textColor="@color/text_grey"
                     android:textSize="@dimen/text_size_sp_14"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_countdown_title" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_order_id"
@@ -104,28 +73,6 @@
                     tools:text="HDFAJDFJA" />
 
                 <TextView
-                    android:id="@+id/tv_need_pay_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_7"
-                    android:text="@string/current_trade_need_pay"
-                    android:textColor="@color/text_grey"
-                    android:textSize="@dimen/text_size_sp_14"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_order_id_title" />
-
-                <TextView
-                    android:id="@+id/tv_need_pay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_7"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_need_pay_title"
-                    app:layout_constraintLeft_toRightOf="@id/tv_need_pay_title"
-                    tools:text="100" />
-
-                <TextView
                     android:id="@+id/tv_pay_method_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -134,7 +81,7 @@
                     android:textColor="@color/text_grey"
                     android:textSize="@dimen/text_size_sp_14"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_need_pay_title" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_order_id_title" />
 
                 <TextView
                     android:id="@+id/tv_pay_method"
@@ -147,24 +94,67 @@
                     app:layout_constraintLeft_toRightOf="@id/tv_pay_method_title"
                     tools:text="微信支付" />
 
-                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-                    android:id="@+id/img_payment_code"
-                    android:layout_width="@dimen/dp_80"
-                    android:layout_height="@dimen/dp_80"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:qmui_corner_radius="@dimen/dp_3" />
-
                 <TextView
-                    android:id="@+id/tv_payment_code_tip"
+                    android:id="@+id/tv_trade_get_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_3"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:text="@string/current_trade_should_get"
                     android:textColor="@color/text_grey"
-                    android:textSize="@dimen/text_size_sp_10"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_payment_code"
-                    tools:text="@string/please_scan_with_wx" />
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_pay_method_title" />
+
+                <ImageView
+                    android:id="@+id/img_trade_get"
+                    android:layout_width="@dimen/dp_18"
+                    android:layout_height="@dimen/dp_18"
+                    android:layout_marginLeft="@dimen/dp_7"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_trade_get_title"
+                    app:layout_constraintLeft_toRightOf="@id/tv_trade_get_title"
+                    app:srcCompat="@drawable/icon_auth_success" />
+
+                <TextView
+                    android:id="@+id/tv_trade_get"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_7"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_trade_get_title"
+                    app:layout_constraintLeft_toRightOf="@id/img_trade_get"
+                    tools:text="24000" />
+
+                <TextView
+                    android:id="@+id/tv_trade_coin_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:text="@string/current_trade_should_coin"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_trade_get_title" />
+
+                <ImageView
+                    android:id="@+id/img_trade_coin"
+                    android:layout_width="@dimen/dp_18"
+                    android:layout_height="@dimen/dp_18"
+                    android:layout_marginLeft="@dimen/dp_7"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_trade_coin_title"
+                    app:layout_constraintLeft_toRightOf="@id/tv_trade_coin_title"
+                    app:srcCompat="@drawable/icon_auth_success" />
+
+                <TextView
+                    android:id="@+id/tv_trade_coin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_7"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_trade_coin_title"
+                    app:layout_constraintLeft_toRightOf="@id/img_trade_coin"
+                    tools:text="24000" />
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout>
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout
@@ -182,60 +172,100 @@
                     android:layout_height="0dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    app:layout_constraintDimensionRatio="W,1:2.3"
+                    android:padding="@dimen/dp_10"
+                    app:layout_constraintDimensionRatio="W,1:1.2"
                     app:layout_constraintTop_toTopOf="parent"
                     app:qmui_borderColor="@color/color_grey"
                     app:qmui_borderWidth="@dimen/dp_1"
                     app:qmui_radius="@dimen/dp_2">
 
                     <ImageView
-                        android:layout_width="@dimen/dp_20"
-                        android:layout_height="@dimen/dp_20"
-                        android:layout_marginTop="@dimen/dp_20"
-                        app:srcCompat="@drawable/icon_add_grey" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_5"
-                        android:gravity="center"
-                        android:text="@string/upload_img_tip"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/text_size_sp_14" />
+                        android:id="@+id/img_voucher"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
                 </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
-                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                    android:id="@+id/btn_pay"
-                    android:layout_width="@dimen/dp_0"
-                    android:layout_height="@dimen/dp_40"
+                <TextView
+                    android:id="@+id/tv_order_make"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:text="@string/confirm_and_pay"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14"
+                    android:textSize="@dimen/text_size_sp_12"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lin_upload"
-                    app:layout_constraintWidth_percent="0.48"
-                    app:qmui_backgroundColor="@color/color_default"
-                    app:qmui_radius="@dimen/dp_3" />
+                    tools:text="2019-10-9" />
 
-                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                    android:id="@+id/btn_giveup"
-                    android:layout_width="@dimen/dp_0"
-                    android:layout_height="@dimen/dp_40"
-                    android:text="@string/giveup_pay"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/order_make"
+                    android:textColor="@color/color_otc_buy"
+                    android:textSize="@dimen/text_size_sp_12"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_order_make"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_order_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14"
-                    app:layout_constraintBottom_toBottomOf="@id/btn_pay"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintWidth_percent="0.48"
-                    app:qmui_backgroundColor="@color/color_otc_giveup"
-                    app:qmui_radius="@dimen/dp_3" />
+                    android:textSize="@dimen/text_size_sp_12"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_order_make"
+                    tools:text="2019-10-9" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/order_pay"
+                    android:textColor="@color/color_otc_buy"
+                    android:textSize="@dimen/text_size_sp_12"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_order_pay"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_order_finish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_12"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_order_pay"
+                    tools:text="2019-10-9" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/order_finish"
+                    android:textColor="@color/color_otc_buy"
+                    android:textSize="@dimen/text_size_sp_12"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_order_finish"
+                    app:layout_constraintRight_toRightOf="parent" />
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout>
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/btn_return"
+                android:layout_width="@dimen/dp_300"
+                android:layout_height="@dimen/dp_45"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_25"
+                android:text="@string/returnString"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_17"
+                app:qmui_backgroundColor="@color/color_default"
+                app:qmui_radius="@dimen/dp_3" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_20"
                 android:lineSpacingExtra="@dimen/dp_3"
                 android:text="@string/otc_order_confirmed_tip"
                 android:textColor="@color/text_grey"

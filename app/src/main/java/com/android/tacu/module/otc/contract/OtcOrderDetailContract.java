@@ -12,6 +12,22 @@ public class OtcOrderDetailContract {
 
     }
 
+    public interface ICoinedView extends IBaseMvpView {
+
+    }
+
+    public interface ICoinGetView extends IBaseMvpView {
+
+    }
+
+    public interface IFinishedView extends IBaseMvpView {
+
+    }
+
+    public interface IArbitrationView extends IBaseMvpView {
+
+    }
+
     public interface IPresenter {
 
     }
