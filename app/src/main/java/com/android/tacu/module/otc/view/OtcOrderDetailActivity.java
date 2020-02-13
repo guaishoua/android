@@ -8,11 +8,12 @@ import android.widget.LinearLayout;
 
 import com.android.tacu.R;
 import com.android.tacu.module.otc.contract.OtcOrderDetailContract;
+import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 import com.android.tacu.widget.NodeProgressView;
 
 import butterknife.BindView;
 
-public class OtcOrderDetailActivity extends BaseOtcOrderActvity implements OtcOrderDetailContract.IView, View.OnClickListener {
+public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPresenter> implements OtcOrderDetailContract.IView, View.OnClickListener {
 
     private int current = -1;
     public static final int ORDER_CONFIRMED = 1;//待确认
@@ -58,6 +59,11 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity implements OtcOr
     protected void initView() {
         current = getIntent().getIntExtra("current", -1);
         switchView();
+    }
+
+    @Override
+    protected OtcOrderDetailPresenter createPresenter(OtcOrderDetailPresenter mPresenter) {
+        return new OtcOrderDetailPresenter();
     }
 
     private void switchView() {

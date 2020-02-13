@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.module.otc.contract.OtcOrderCreateContract;
+import com.android.tacu.module.otc.presenter.OtcOrderCreatePresenter;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
 
@@ -24,7 +25,7 @@ import butterknife.OnClick;
 /**
  * 订单生成页
  */
-public class OtcOrderCreateActivity extends BaseOtcOrderActvity implements OtcOrderCreateContract.IView {
+public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePresenter> implements OtcOrderCreateContract.IView {
 
     @BindView(R.id.tv_pay_method)
     TextView tv_pay_method;
@@ -47,6 +48,11 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity implements OtcOr
         tv_xieyi.setText(Html.fromHtml(getResources().getString(R.string.otc_xieyi) + "<font color=" + ContextCompat.getColor(this, R.color.color_otc_unhappy) + ">" + getResources().getString(R.string.otc_xieyi_name) + "</font>"));
         tv_countdown.setText(Html.fromHtml(getResources().getString(R.string.otc_order_create_countdown1) + "<font color=" + ContextCompat.getColor(OtcOrderCreateActivity.this, R.color.text_error) + "> " + "60 s " + "</font>" + getResources().getString(R.string.otc_order_create_countdown2)));
         timer.start();
+    }
+
+    @Override
+    protected OtcOrderCreatePresenter createPresenter(OtcOrderCreatePresenter mPresenter) {
+        return new OtcOrderCreatePresenter();
     }
 
     @Override
@@ -109,6 +115,7 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity implements OtcOr
         @Override
         public void onFinish() {
             cancel();
+            finish();
         }
     };
 }

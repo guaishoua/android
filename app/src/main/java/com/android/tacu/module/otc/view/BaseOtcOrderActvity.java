@@ -5,11 +5,11 @@ import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
-import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
+import com.android.tacu.base.BaseMvpPresenter;
 
 import butterknife.BindView;
 
-public abstract class BaseOtcOrderActvity extends BaseActivity<OtcOrderDetailPresenter> {
+public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends BaseActivity<P> {
 
     //卖
     @BindView(R.id.img_seller)
@@ -62,9 +62,4 @@ public abstract class BaseOtcOrderActvity extends BaseActivity<OtcOrderDetailPre
     TextView tv_buyer_video_auth;
     @BindView(R.id.tv_buyer_pay)
     TextView tv_buyer_pay;
-
-    @Override
-    protected OtcOrderDetailPresenter createPresenter(OtcOrderDetailPresenter mPresenter) {
-        return new OtcOrderDetailPresenter();
-    }
 }
