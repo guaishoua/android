@@ -729,4 +729,25 @@
     <string name="please_input_ask">请输入问候语.....</string>
     <string name="confirm_publish">确认发布</string>
     <string name="give_up">放弃</string>
+    <string name="buy_order_detail">买单详情页</string>
+    <string name="sell_order_detail">卖单详情页</string>
+    <string name="single_price2">单价：</string>
+    <string name="single_limit_range">单笔限价区间：</string>
+    <string name="finished_trade">已完成交易：</string>
+    <string name="success_buy">成功购买：</string>
+    <string name="pay_after2">已支付：</string>
+    <string name="surplus_total">剩余总量：</string>
+    <string name="yhk_pay">银行卡支付：</string>
+    <string name="wx_pay">微信支付：</string>
+    <string name="zfb_pay">支付宝支付：</string>
+    <string name="failure_trade">失败交易：</string>
+    <string name="fee_send">手续费支出：</string>
+    <string name="wait_deal_matter">待处理事项</string>
+    <string name="record">记录</string>
+    <string name="sell_num">卖出数量</string>
+    <string name="receive_money">收入金额</string>
+    <string name="operation_countdown">操作计时</string>
+    <string name="order_status">订单状态</string>
+    <string name="create_otc_order">创建广告</string>
+    <string name="quantity_closed">已成交数量</string>
 </resources>

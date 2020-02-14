@@ -411,7 +411,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="111"
+                tools:text="111"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14" />
         </RelativeLayout>

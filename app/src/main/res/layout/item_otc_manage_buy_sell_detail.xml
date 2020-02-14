@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color"
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/dp_10">
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/img_user"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginLeft="@dimen/dp_20"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:qmui_border_width="0dp"
+        app:qmui_is_circle="true" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_14"
+        app:layout_constraintBottom_toBottomOf="@id/img_coin"
+        app:layout_constraintLeft_toRightOf="@id/img_coin"
+        app:layout_constraintTop_toTopOf="@id/img_coin"
+        tools:text="加隆" />
+
+    <LinearLayout
+        android:id="@+id/lin_pay_method"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_20"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/img_coin"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_coin">
+
+        <ImageView
+            android:id="@+id/img_wx"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:src="@mipmap/img_wx" />
+
+        <ImageView
+            android:id="@+id/img_zfb"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/dp_3"
+            android:src="@mipmap/img_zfb" />
+
+        <ImageView
+            android:id="@+id/img_yhk"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/dp_3"
+            android:src="@mipmap/img_yhk" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="@color/content_bg_color_grey"
+        app:layout_constraintTop_toBottomOf="@+id/img_coin" />
+
+    <TextView
+        android:id="@+id/tv_sell_num_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="@string/sell_num"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_line"
+        app:layout_constraintWidth_percent="0.4" />
+
+    <TextView
+        android:id="@+id/tv_receive_money_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/receive_money"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sell_num_title"
+        app:layout_constraintLeft_toRightOf="@id/tv_sell_num_title"
+        app:layout_constraintRight_toLeftOf="@+id/tv_operation_countdown_title" />
+
+    <TextView
+        android:id="@+id/tv_operation_countdown_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_20"
+        android:gravity="right"
+        android:text="@string/operation_countdown"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sell_num_title"
+        app:layout_constraintLeft_toRightOf="@id/tv_receive_money_title"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_sell_num"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sell_num_title"
+        app:layout_constraintWidth_percent="0.4"
+        tools:text="111" />
+
+    <TextView
+        android:id="@+id/tv_receive_money"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sell_num"
+        app:layout_constraintLeft_toRightOf="@id/tv_sell_num"
+        app:layout_constraintRight_toLeftOf="@+id/tv_operation_countdown"
+        tools:text="111" />
+
+    <TextView
+        android:id="@+id/tv_operation_countdown"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_20"
+        android:gravity="right"
+        android:textColor="@color/text_default"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sell_num"
+        app:layout_constraintLeft_toRightOf="@id/tv_receive_money"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="111" />
+
+    <TextView
+        android:id="@+id/tv_order_status_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="@string/order_status"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sell_num"
+        app:layout_constraintWidth_percent="0.4" />
+
+    <TextView
+        android:id="@+id/tv_order_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_order_status_title"
+        app:layout_constraintWidth_percent="0.4"
+        tools:text="111" />
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/btn_left"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_27"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_18"
+        android:textSize="@dimen/text_size_sp_13"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sell_num"
+        app:layout_constraintWidth_percent="0.2" />
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/btn_center"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_27"
+        android:layout_marginTop="@dimen/dp_18"
+        android:textSize="@dimen/text_size_sp_13"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/btn_left"
+        app:layout_constraintLeft_toLeftOf="@id/tv_receive_money"
+        app:layout_constraintWidth_percent="0.2" />
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/btn_right"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_27"
+        android:layout_marginTop="@dimen/dp_18"
+        android:layout_marginRight="@dimen/dp_20"
+        android:textSize="@dimen/text_size_sp_13"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/btn_left"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintWidth_percent="0.2" />
+</android.support.constraint.ConstraintLayout>
