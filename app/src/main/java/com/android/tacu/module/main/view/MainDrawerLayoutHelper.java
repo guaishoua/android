@@ -20,6 +20,7 @@ import com.android.tacu.module.my.view.ConvertActivity;
 import com.android.tacu.module.my.view.InvitedinfoActivity;
 import com.android.tacu.module.my.view.LanguageActivity;
 import com.android.tacu.module.my.view.SecurityCenterActivity;
+import com.android.tacu.module.otc.view.OtcManageActivity;
 import com.android.tacu.module.otc.view.OtcOrderListActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.PackageUtils;
@@ -55,10 +56,11 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
     private TextView tvUser;
     private TextView tvUid;
     private QMUIGroupListView homeGroupListView;
-    private QMUICommonListItemView itemRealName, itemOrderCenter, itemSecuritySetting, itemInviting;
+    private QMUICommonListItemView itemRealName, itemOrderCenter, itemOtcManage, itemSecuritySetting, itemInviting;
 
     private String realName;
     private String orderCenter;
+    private String otcManage;
     private String securitySetting;
     private String inviting;
     private String news;
@@ -130,6 +132,11 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         itemOrderCenter.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemOrderCenter.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
+        otcManage = mActivity.getResources().getString(R.string.otc_manage);
+        itemOtcManage = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_otc_manage), otcManage, itemHeight);
+        itemOtcManage.setPadding(UIUtils.dp2px(15), 0, 0, 0);
+        itemOtcManage.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
+
         securitySetting = mResources.getString(R.string.drawer_safe);
         itemSecuritySetting = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_safecenter), securitySetting, itemHeight);
         itemSecuritySetting.setPadding(UIUtils.dp2px(15), 0, 0, 0);
@@ -190,6 +197,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
                 .setUseTitleViewForSectionSpace(false)
                 .addItemView(itemRealName, onClickListener)
                 .addItemView(itemOrderCenter, onClickListener)
+                .addItemView(itemOrderCenter, onClickListener)
                 .addItemView(itemSecuritySetting, onClickListener)
                 .addItemView(itemInviting, onClickListener)
                 .addItemView(itemNews, onClickListener)
@@ -212,6 +220,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
 
             itemRealName.setVisibility(View.VISIBLE);
             itemOrderCenter.setVisibility(View.VISIBLE);
+            itemOtcManage.setVisibility(View.VISIBLE);
             itemSecuritySetting.setVisibility(View.VISIBLE);
             itemInviting.setVisibility(View.VISIBLE);
             btnUnLogin.setVisibility(View.VISIBLE);
@@ -221,6 +230,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
 
             itemRealName.setVisibility(View.GONE);
             itemOrderCenter.setVisibility(View.GONE);
+            itemOtcManage.setVisibility(View.GONE);
             itemSecuritySetting.setVisibility(View.GONE);
             itemInviting.setVisibility(View.GONE);
             btnUnLogin.setVisibility(View.GONE);
@@ -235,6 +245,8 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             jumpTo(AuthActivity.class);
         } else if (TextUtils.equals(text, orderCenter)) {
             jumpTo(OtcOrderListActivity.class);
+        } else if (TextUtils.equals(text, otcManage)) {
+            jumpTo(OtcManageActivity.class);
         } else if (TextUtils.equals(text, securitySetting)) {
             jumpTo(SecurityCenterActivity.class);
         } else if (TextUtils.equals(text, inviting)) {

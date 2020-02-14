@@ -40,8 +40,7 @@
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
             <include
-                layout="@layout/view_otc_order_half_money"
-                android:visibility="gone" />
+                layout="@layout/view_otc_order_half_money" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout
                 android:layout_width="match_parent"

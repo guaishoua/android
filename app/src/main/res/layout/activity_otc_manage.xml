@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/common_titlebar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:orientation="horizontal">
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+            android:id="@+id/tv_publish_otc_order"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/publish_otc_order"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_16" />
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+            android:id="@+id/tv_certified_shoper"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/certified_shoper"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_16" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_2"
+        android:background="@color/content_bg_color_grey" />
+
+    <com.shizhefei.view.indicator.ScrollIndicatorView
+        android:id="@+id/magic_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_indicator_height" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_2"
+        android:background="@color/content_bg_color_grey" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

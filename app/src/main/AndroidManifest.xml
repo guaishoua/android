@@ -148,5 +148,8 @@
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderListActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderDetailActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderCreateActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcBuyOrSellActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcOrderConfirmActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcManageActivity" />
     </application>
 </manifest>

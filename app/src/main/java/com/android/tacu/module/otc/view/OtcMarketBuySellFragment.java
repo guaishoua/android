@@ -187,7 +187,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
             return;
         }
         if (listPopup == null) {
-            List<String> data = new ArrayList<>();
+            final List<String> data = new ArrayList<>();
             data.add(getResources().getString(R.string.yinhanngka));
             data.add(getResources().getString(R.string.zhifubao));
             data.add(getResources().getString(R.string.weixin));
@@ -196,13 +196,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
             listPopup.create(UIUtils.dp2px(120), UIUtils.dp2px(122), new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (position == 0) {
-                        tv.setText(getResources().getString(R.string.yinhanngka));
-                    } else if (position == 1) {
-                        tv.setText(getResources().getString(R.string.zhifubao));
-                    } else if (position == 2) {
-                        tv.setText(getResources().getString(R.string.weixin));
-                    }
+                    tv.setText(data.get(position));
                     listPopup.dismiss();
                 }
             });
