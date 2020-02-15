@@ -411,7 +411,7 @@
     <string name="drawer_question">常见问题</string>
     <string name="drawer_ticket">我的工单</string>
     <string name="drawer_language">语言设置</string>
-    <string name="drawer_money">折算货币</string>
+    <string name="drawer_asset_center">资产中心</string>
     <string name="drawer_nowversion">当前版本</string>
     <string name="market_rise_and_fall">24H涨幅</string>
     <string name="market_pair">名称</string>

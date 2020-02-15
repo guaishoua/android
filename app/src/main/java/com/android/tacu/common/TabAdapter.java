@@ -12,24 +12,32 @@ import com.android.tacu.R;
 import com.android.tacu.utils.UIUtils;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class TabAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
 
     private Activity context;
-    private String[] tabTitle;
+    private List<String> tabList;
     private List<Fragment> fragmentList;
 
     public TabAdapter(FragmentManager fragmentManager, Activity context, String[] tabTitle, List<Fragment> fragmentList) {
         super(fragmentManager);
         this.context = context;
-        this.tabTitle = tabTitle;
+        this.tabList = Arrays.asList(tabTitle);
+        this.fragmentList = fragmentList;
+    }
+
+    public TabAdapter(FragmentManager fragmentManager, Activity context, List<String> tabList, List<Fragment> fragmentList) {
+        super(fragmentManager);
+        this.context = context;
+        this.tabList = tabList;
         this.fragmentList = fragmentList;
     }
 
     @Override
     public int getCount() {
-        return tabTitle != null ? tabTitle.length : 0;
+        return tabList != null ? tabList.size() : 0;
     }
 
     @Override
@@ -38,7 +46,7 @@ public class TabAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter
             convertView = context.getLayoutInflater().inflate(R.layout.view_tab, container, false);
         }
         TextView textView = (TextView) convertView;
-        textView.setText(tabTitle[position]);
+        textView.setText(tabList.get(position));
         int padding = UIUtils.dp2px(10);
         textView.setPadding(padding, 0, padding, 0);
         return convertView;

@@ -151,5 +151,7 @@
         <activity android:name="com.android.tacu.module.otc.view.OtcBuyOrSellActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderConfirmActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcManageActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.AssetsCenterActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.BindingPayInfoActivity" />
     </application>
 </manifest>

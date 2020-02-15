@@ -413,7 +413,7 @@
     <string name="drawer_question">FAQ</string>
     <string name="drawer_ticket">my work order</string>
     <string name="drawer_language">language settings</string>
-    <string name="drawer_money">converted currency</string>
+    <string name="drawer_asset_center">asset center</string>
     <string name="drawer_nowversion">current version</string>
     <string name="market_rise_and_fall">24H increase</string>
     <string name="market_pair">name</string>

@@ -26,7 +26,7 @@
                 android:background="@mipmap/img_drawer_home"
                 android:paddingLeft="@dimen/dp_30"
                 android:paddingRight="@dimen/dp_20"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintDimensionRatio="W,1:1.7"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -60,7 +60,7 @@
                 android:background="@mipmap/img_drawer_home"
                 android:paddingLeft="@dimen/dp_15"
                 android:paddingRight="@dimen/dp_15"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintDimensionRatio="W,1:1.7"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -103,15 +103,6 @@
                         android:textSize="@dimen/text_size_sp_16"
                         tools:text="UID 123456" />
                 </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/btnUnLogin"
-                    android:layout_width="@dimen/dp_25"
-                    android:layout_height="@dimen/dp_28"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/img_login_back" />
             </RelativeLayout>
         </android.support.constraint.ConstraintLayout>
 
@@ -120,5 +111,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:separatorStyle="none" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btnUnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="@dimen/dp_30"
+            android:layout_marginVertical="@dimen/dp_20"
+            android:text="@string/logout"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14"
+            app:qmui_backgroundColor="@color/color_default"
+            app:qmui_radius="@dimen/dp_3" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -423,7 +423,7 @@
     <string name="drawer_question">常见问题</string>
     <string name="drawer_ticket">我的工单</string>
     <string name="drawer_language">语言设置</string>
-    <string name="drawer_money">折算货币</string>
+    <string name="drawer_asset_center">资产中心</string>
     <string name="drawer_nowversion">当前版本</string>
     <string name="market_rise_and_fall">24H涨幅</string>
     <string name="market_pair">名称</string>
@@ -750,4 +750,19 @@
     <string name="order_status">订单状态</string>
     <string name="create_otc_order">创建广告</string>
     <string name="quantity_closed">已成交数量</string>
+
+    <!--绑定支付-->
+    <string name="binding_pay_info">绑定支付信息</string>
+    <string name="cardholder_name">持卡人姓名</string>
+    <string name="cardholder_name_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的银行</string>
+    <string name="bank_name">银行名称</string>
+    <string name="please_input_bank_name">请输入您绑定银行卡的银行名称</string>
+    <string name="open_bank_name">开户行名称</string>
+    <string name="please_input_open_bank_name">请输入开户行名称</string>
+    <string name="open_bank_address">开户行地址</string>
+    <string name="please_input_open_bank_address">请输入开户行地址</string>
+    <string name="bank_id">银行账号</string>
+    <string name="please_input_bank_id">请输入您的银行卡账号</string>
+    <string name="please_input_trade_password">请输入您平台的交易密码</string>
+    <string name="confirm_binding">确认绑定</string>
 </resources>

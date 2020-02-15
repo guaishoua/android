@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
+import com.android.tacu.module.assets.view.AssetsCenterActivity;
 import com.android.tacu.module.auth.view.AuthActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.market.view.NoticeActivity;
@@ -28,6 +29,7 @@ import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.user.UserInfoUtils;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.zendesk.sdk.model.access.AnonymousIdentity;
 import com.zendesk.sdk.model.access.Identity;
 import com.zendesk.sdk.network.impl.ZendeskConfig;
@@ -52,7 +54,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
     private RelativeLayout rl_login;
     private ImageView img_gologin;
     private TextView tv_gologin;
-    private ImageView btnUnLogin;
+    private QMUIRoundButton btnUnLogin;
     private TextView tvUser;
     private TextView tvUid;
     private QMUIGroupListView homeGroupListView;
@@ -172,7 +174,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         itemLanguage.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemLanguage.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
-        moneySetting = mResources.getString(R.string.drawer_money);
+        moneySetting = mResources.getString(R.string.drawer_asset_center);
         QMUICommonListItemView itemMoney = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_money), moneySetting, itemHeight);
         itemMoney.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemMoney.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
@@ -278,7 +280,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         } else if (TextUtils.equals(text, languageSetting)) {
             jumpTo(LanguageActivity.class);
         } else if (TextUtils.equals(text, moneySetting)) {
-            jumpTo(ConvertActivity.class);
+            jumpTo(AssetsCenterActivity.class);
         }
     }
 

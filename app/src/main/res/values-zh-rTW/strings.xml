@@ -408,7 +408,7 @@
     <string name="drawer_question">常見問題</string>
     <string name="drawer_ticket">我的工單</string>
     <string name="drawer_language">語言設置</string>
-    <string name="drawer_money">折算貨幣</string>
+    <string name="drawer_asset_center">資產中心</string>
     <string name="drawer_nowversion">當前版本</string>
     <string name="market_rise_and_fall">24H漲幅</string>
     <string name="market_pair">名稱</string>
