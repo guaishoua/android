@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
@@ -56,7 +57,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         CustomTextHeaderView header = new CustomTextHeaderView(getContext());
         header.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
         refreshManage.setRefreshHeader(header);

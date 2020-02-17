@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -92,7 +93,7 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         setSocketEvent(this, this, SocketConstant.TRADEHISTORY);
 
         historyAdapter = new MarketHistoryAdapter();

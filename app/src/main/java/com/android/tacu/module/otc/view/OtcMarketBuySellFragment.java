@@ -80,7 +80,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         mAdapter = new OtcMarketBuySellAdapter();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(new ColorDrawable(ContextCompat.getColor(getContext(), R.color.content_bg_color_grey)));

@@ -122,7 +122,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         mTopBar.setTitle(getResources().getString(R.string.assets));
         mTopBar.setBackgroundDividerEnabled(true);
 

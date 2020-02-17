@@ -68,7 +68,7 @@ public class LastDealFragment extends BaseFragment {
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         magicIndicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.content_bg_color));
         magicIndicator.setOnTransitionListener(new OnTransitionTextListener() {
             @Override

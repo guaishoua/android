@@ -61,7 +61,7 @@ public class OtcHomeChildFragment extends BaseFragment<OtcHomeChildPresenter> im
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         otcDepthAdapter = new OtcDepthAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(otcDepthAdapter);

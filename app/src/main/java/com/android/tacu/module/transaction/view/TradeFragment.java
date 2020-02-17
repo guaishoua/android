@@ -263,7 +263,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         setSocketEvent(this, this, SocketConstant.LOGINAFTERCHANGETRADECOIN, SocketConstant.USERACCOUNT, SocketConstant.ENTRUST);
 
         tv_name.setText(currencyNameEn + "/" + baseCurrencyNameEn);

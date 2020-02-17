@@ -58,7 +58,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
     private TextView tvUser;
     private TextView tvUid;
     private QMUIGroupListView homeGroupListView;
-    private QMUICommonListItemView itemRealName, itemOrderCenter, itemOtcManage, itemSecuritySetting, itemInviting;
+    private QMUICommonListItemView itemRealName, itemMoney, itemOrderCenter, itemOtcManage, itemSecuritySetting, itemInviting;
 
     private String realName;
     private String orderCenter;
@@ -175,7 +175,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         itemLanguage.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
         moneySetting = mResources.getString(R.string.drawer_asset_center);
-        QMUICommonListItemView itemMoney = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_money), moneySetting, itemHeight);
+        itemMoney = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_money), moneySetting, itemHeight);
         itemMoney.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemMoney.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
@@ -198,8 +198,9 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         QMUIGroupListView.newSection(mActivity)
                 .setUseTitleViewForSectionSpace(false)
                 .addItemView(itemRealName, onClickListener)
+                .addItemView(itemMoney, onClickListener)
                 .addItemView(itemOrderCenter, onClickListener)
-                .addItemView(itemOrderCenter, onClickListener)
+                .addItemView(itemOtcManage, onClickListener)
                 .addItemView(itemSecuritySetting, onClickListener)
                 .addItemView(itemInviting, onClickListener)
                 .addItemView(itemNews, onClickListener)
@@ -207,7 +208,6 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
                 .addItemView(itemQuestion, onClickListener)
                 .addItemView(itemMyTicket, onClickListener)
                 .addItemView(itemLanguage, onClickListener)
-                .addItemView(itemMoney, onClickListener)
                 .addItemView(itemVersionCode, updateClick)
                 .addTo(homeGroupListView);
     }
@@ -221,6 +221,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             tvUid.setText("UID " + spUtil.getUserUid());
 
             itemRealName.setVisibility(View.VISIBLE);
+            itemMoney.setVisibility(View.VISIBLE);
             itemOrderCenter.setVisibility(View.VISIBLE);
             itemOtcManage.setVisibility(View.VISIBLE);
             itemSecuritySetting.setVisibility(View.VISIBLE);
@@ -231,6 +232,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             rl_login.setVisibility(View.GONE);
 
             itemRealName.setVisibility(View.GONE);
+            itemMoney.setVisibility(View.GONE);
             itemOrderCenter.setVisibility(View.GONE);
             itemOtcManage.setVisibility(View.GONE);
             itemSecuritySetting.setVisibility(View.GONE);

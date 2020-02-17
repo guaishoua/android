@@ -163,7 +163,7 @@ public class TakeCoinFragment extends BaseFragment<CoinsPresenter> implements Co
      * spUtil.getGaStatus():0未开启 1是开启 2是关闭
      */
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         isShow(true);
         initListener();
         initCache();

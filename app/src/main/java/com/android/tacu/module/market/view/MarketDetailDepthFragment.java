@@ -92,7 +92,7 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         setSocketEvent(this, this, SocketConstant.ENTRUST);
 
         depthAdapter = new MarketDepthAdapter();

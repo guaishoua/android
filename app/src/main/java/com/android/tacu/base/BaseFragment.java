@@ -66,7 +66,7 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
 
     protected abstract int getContentViewLayoutID();
 
-    protected abstract void initData();
+    protected abstract void initData(View view);
 
     /**
      * 1.Socket在isVisibleToUser=false解除数据绑定 isVisibleToUser=true绑定数据并且emit
@@ -164,7 +164,7 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
     public void onViewCreated(View paramView, @Nullable Bundle paramBundle) {
         super.onViewCreated(paramView, paramBundle);
         unBinder = ButterKnife.bind(this, paramView);
-        initData();
+        initData(paramView);
 
         if (mPresenter != null) {
             mPresenter.attachView(this);

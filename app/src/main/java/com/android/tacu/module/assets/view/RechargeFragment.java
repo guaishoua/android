@@ -127,7 +127,7 @@ public class RechargeFragment extends BaseFragment<RechargePresenter> implements
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         switchClear();
         initCache();
 

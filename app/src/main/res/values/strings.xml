@@ -765,4 +765,13 @@
     <string name="please_input_bank_id">请输入您的银行卡账号</string>
     <string name="please_input_trade_password">请输入您平台的交易密码</string>
     <string name="confirm_binding">确认绑定</string>
+    <string name="account_owner">账号所有人</string>
+    <string name="account_owner_wx_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的微信</string>
+    <string name="account_owner_zfb_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的微信</string>
+    <string name="wx_account">微信账号</string>
+    <string name="zfb_account">支付宝账号</string>
+    <string name="please_input_wx_account">请输入您绑定微信的账号</string>
+    <string name="please_input_zfb_account">请输入您绑定支付宝的账号</string>
+    <string name="upload_wx_shoukuanma">上传微信收款码</string>
+    <string name="upload_zfb_shoukuanma">上传支付宝收款码</string>
 </resources>

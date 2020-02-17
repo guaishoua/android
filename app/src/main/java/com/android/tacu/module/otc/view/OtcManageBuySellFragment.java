@@ -58,7 +58,7 @@ public class OtcManageBuySellFragment extends BaseFragment {
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
 
     }
 

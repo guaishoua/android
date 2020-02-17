@@ -103,7 +103,7 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         refreshTrade.setEnableRefresh(false);
         refreshTrade.setEnableLoadmore(false);
         refreshTrade.setEnableOverScrollBounce(false);

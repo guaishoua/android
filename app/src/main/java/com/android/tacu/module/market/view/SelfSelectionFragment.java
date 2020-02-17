@@ -99,7 +99,7 @@ public class SelfSelectionFragment extends BaseFragment<MarketPresenter> impleme
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         nodataView = View.inflate(getContext(), R.layout.view_selfselection_nodata, null);
         viewFooter = View.inflate(getContext(), R.layout.footer_edit_selfselection, null);
 

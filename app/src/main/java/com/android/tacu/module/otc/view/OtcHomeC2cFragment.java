@@ -61,7 +61,7 @@ public class OtcHomeC2cFragment extends BaseFragment<OtcHomeC2cPresenter> implem
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         edit_amount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -118,7 +118,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         setSocketEvent(this, this, SocketConstant.LOGINAFTERCHANGETRADECOIN);
 
         //分时

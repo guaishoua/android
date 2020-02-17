@@ -65,7 +65,7 @@ public class AuctionPlusListFragment extends BaseFragment {
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         tabTitle = new String[]{getResources().getString(R.string.auction_list_all), getResources().getString(R.string.auction_list_going), getResources().getString(R.string.auctionplus_list_start), getResources().getString(R.string.auction_list_finish), getResources().getString(R.string.pay_before), getResources().getString(R.string.auction_list_collection)};
         fragmentList.add(AuctionPlusFragment.newInstance(0));
         fragmentList.add(AuctionPlusFragment.newInstance(1));

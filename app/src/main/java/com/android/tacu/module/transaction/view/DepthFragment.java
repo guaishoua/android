@@ -1,6 +1,7 @@
 package com.android.tacu.module.transaction.view;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -50,7 +51,7 @@ public class DepthFragment extends BaseFragment {
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
 
     }
 

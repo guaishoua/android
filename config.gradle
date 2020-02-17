@@ -120,6 +120,8 @@ ext {
             wheelview                    : 'com.github.zyyoona7:wheelview:1.0.6',
             //水平进度条
             ZzHorizontalProgressBar      : "me.zhouzhuo.zzhorizontalprogressbar:zz-horizontal-progressbar:1.1.0",
+            //银行卡扫描
+            CardIo                       : "io.card:android-sdk:5.5.1",
     ]
 
     //Support库

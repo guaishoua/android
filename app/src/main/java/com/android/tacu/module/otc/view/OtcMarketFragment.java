@@ -93,7 +93,7 @@ public class OtcMarketFragment extends BaseFragment<OtcMarketPresenter> implemen
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         CustomTextHeaderView header = new CustomTextHeaderView(getContext());
         header.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
         refreshView.setRefreshHeader(header);

@@ -40,9 +40,9 @@ public class BindingPayInfoActivity extends BaseActivity {
         tabTitle.add(getResources().getString(R.string.weixin));
         tabTitle.add(getResources().getString(R.string.zhifubao));
 
-        fragmentList.add(BindingInfoChildFragment.newInstance(0));
-        fragmentList.add(BindingInfoChildFragment.newInstance(1));
-        fragmentList.add(BindingInfoChildFragment.newInstance(2));
+        fragmentList.add(BindingInfoYhkFragment.newInstance());
+        fragmentList.add(BindingInfoWxFragment.newInstance());
+        fragmentList.add(BindingInfoZfbFragment.newInstance());
 
         magic_indicator.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
         magic_indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));

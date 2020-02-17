@@ -76,7 +76,7 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         initTitle();
 
         banner_home.setPageTransformer(Transformer.Default);

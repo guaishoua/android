@@ -88,7 +88,7 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         marketAdapter = new MarketListAdapter();
         recyclerView.setAdapter(marketAdapter);

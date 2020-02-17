@@ -153,7 +153,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         setSocketEvent(this, this, SocketConstant.LOGINAFTERNEW);
 
         initTitle();

@@ -75,7 +75,7 @@ public class MyDealFragment extends BaseFragment<MyDealPresenter> implements MyD
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         refreshTrade.setEnableRefresh(false);
         refreshTrade.setEnableLoadmore(false);
         refreshTrade.setEnableOverScrollBounce(false);

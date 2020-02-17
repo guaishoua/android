@@ -143,7 +143,7 @@ public class AuctionPlusFragment extends BaseFragment<AuctionPlusPresent> implem
     }
 
     @Override
-    protected void initData() {
+    protected void initData(View view) {
         FooterUtils.setFooterText();
 
         emptyView = View.inflate(getHostActivity(), R.layout.view_empty, null);
