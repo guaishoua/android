@@ -14,6 +14,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.module.assets.view.AssetsCenterActivity;
 import com.android.tacu.module.auth.view.AuthActivity;
+import com.android.tacu.module.auth.view.AuthMerchantActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.market.view.NoticeActivity;
 import com.android.tacu.module.my.view.ContactUsActivity;
@@ -290,7 +291,8 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         } else if (TextUtils.equals(text, languageSetting)) {
             jumpTo(LanguageActivity.class);
         } else if (TextUtils.equals(text, moneySetting)) {
-            jumpTo(AssetsCenterActivity.class);
+            //jumpTo(AssetsCenterActivity.class);
+            jumpTo(AuthMerchantActivity.class);
         }
     }
 

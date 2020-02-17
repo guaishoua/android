@@ -790,4 +790,66 @@
     <string name="apply_business">申请商家</string>
     <string name="apply_business_not">您还没有申请商家</string>
     <string name="please_binding_pay_info">请绑定您的支付信息</string>
+    
+    <!--认证商户-->
+    <string name="ordinary_merchant">普通商户</string>
+    <string name="member_ship">会员身份</string>
+    <string name="buy_member">购买会员</string>
+    <string name="binding_tel_email">绑定手机号&amp;邮箱</string>
+    <string name="go_binding">去绑定</string>
+    <string name="net_assets_dayu">净资产≥5000ACU</string>
+    <string name="go_recharge">去充值</string>
+    <string name="go_auth">去认证</string>
+    <string name="kyc_60_day">通过实名KYC认证60日</string>
+    <string name="success_trade_otc_10">成功交易10笔OTC订单</string>
+    <string name="video_merchant">上传本人手持证件及手写UID、姓名、手机号、日期凭证和TACU字样后宣读“本人（姓名），身份证号（身份证号码），我的资金来源合法可靠，自愿交易比特币等数字资产，本人充分了解数字货币及潜在风险，本人具有抗风险的能力并愿意承担一切风险。”的视频文件</string>
+    <string name="upload_video">上传视频</string>
+    <string name="auth_xieyi1">本人已经仔细阅读理解并同意遵守平台针对场外业务的</string>
+    <string name="auth_xieyi2">《OTC服務協議》</string>
+    <string name="auth_tip">※  普通商户身份为30个自然日一个週期，申请成功后自动计时，满30日后如需继续使用商户身份请重新申请。</string>
+    <string name="confirm_apply_submit">确认申请并提交</string>
+    <string name="satisfy_ordinary_mechant">是否滿足普通商戶身份要求资格</string>
+    <string name="register_60_enough">平台注册时间是否满60日或以上</string>
+    <string name="need_day">还需要%1$s天</string>
+    <string name="need_5000_bond">商户保证金账户需提交50,000ACU作为保证金</string>
+    <string name="go_pay">去缴纳</string>
+    <string name="merchant_advantage">商家优势</string>
+    <string name="merchant_otc_advantage">商家OTC优势</string>
+    <string name="merchant_c2c_advantage">商家C2C优势</string>
+    <string name="merchant_otc_advantage_tip">
+        普通商户：
+        \n• 商户可以0.998~1.02元/ACU出售ACU。
+        \n• 商户可以0.988~0.992元/ACU购买ACU。
+        \n• 每单交易额度在100~50,000ACU内。
+        \n• 身份週期30天。
+        \n
+        \n认证商户：
+        \n• 享有普通商户权益。
+        \n• 商户可以0.988~0.992元/ACU购买ACU。
+        \n• 每单交易额度在100~500,000ACU内。
+        \n• 永久商户身份。
+        \n
+        \n用户&amp;会员：
+        \n• 仅可针对已有广告发起订单，不可发佈广告。
+        \n• 商户可以0.988~0.992元/ACU购买ACU。
+        \n• 每单交易额度在100~500,000ACU内。
+    </string>
+    <string name="merchant_c2c_advantage_tip">
+        商戶：
+        \n• 在C2C模塊中交易
+        \n
+        \n購買ACU
+        \n1-5万（含5万）        优惠价格0.999
+        \n5-10万（含10万）      优惠价格0.997
+        \n10-20万（含20万）     优惠价格0.995
+        \n20-50万（含50万）     优惠价格0.992
+        \n50万以上              优惠价格0.990
+        \n
+        \n出售ACU:
+        \n1-5万（含5万）        价格0.980
+        \n5-10万（含10万）      价格0.982
+        \n10-20万（含20万）     价格0.984
+        \n20-50万（含50万）     价格0.986
+        \n50万以上              价格0.988
+    </string>
 </resources>
