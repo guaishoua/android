@@ -774,4 +774,20 @@
     <string name="please_input_zfb_account">请输入您绑定支付宝的账号</string>
     <string name="upload_wx_shoukuanma">上传微信收款码</string>
     <string name="upload_zfb_shoukuanma">上传支付宝收款码</string>
+
+    <!--修改个人资料-->
+    <string name="edit_person_data">修改个人资料</string>
+    <string name="head_sculpture">头像</string>
+    <string name="account">账号</string>
+    <string name="nickname">昵称</string>
+    <string name="please_set_nickname">请设置您的昵称</string>
+    <string name="binding_telephone">绑定电话</string>
+    <string name="plesase_binding_telephone">请绑定您的电话号码</string>
+    <string name="binding_email">绑定邮箱</string>
+    <string name="plesase_binding_email">请绑定您的邮箱</string>
+    <string name="binding_success">绑定成功</string>
+    <string name="apply_kyc">进行KYC申请</string>
+    <string name="apply_business">申请商家</string>
+    <string name="apply_business_not">您还没有申请商家</string>
+    <string name="please_binding_pay_info">请绑定您的支付信息</string>
 </resources>

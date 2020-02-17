@@ -10,6 +10,7 @@ import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.main.contract.ZXingLoginContract;
 import com.android.tacu.module.main.presenter.ZXingLoginPresenter;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -20,7 +21,7 @@ import butterknife.OnClick;
 public class ZXingLoginActivity extends BaseActivity<ZXingLoginPresenter> implements ZXingLoginContract.IView {
 
     @BindView(R.id.btnLogin)
-    QMUIAlphaButton btnLogin;
+    QMUIRoundButton btnLogin;
     @BindView(R.id.btnCancle)
     QMUIAlphaButton btnCancle;
 

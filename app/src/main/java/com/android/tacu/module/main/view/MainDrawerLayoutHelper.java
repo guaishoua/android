@@ -18,6 +18,7 @@ import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.market.view.NoticeActivity;
 import com.android.tacu.module.my.view.ContactUsActivity;
 import com.android.tacu.module.my.view.ConvertActivity;
+import com.android.tacu.module.my.view.EditPersonalDataActivity;
 import com.android.tacu.module.my.view.InvitedinfoActivity;
 import com.android.tacu.module.my.view.LanguageActivity;
 import com.android.tacu.module.my.view.SecurityCenterActivity;
@@ -27,6 +28,7 @@ import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.PackageUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.user.UserInfoUtils;
+import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
@@ -57,6 +59,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
     private QMUIRoundButton btnUnLogin;
     private TextView tvUser;
     private TextView tvUid;
+    private QMUIRadiusImageView img_login;
     private QMUIGroupListView homeGroupListView;
     private QMUICommonListItemView itemRealName, itemMoney, itemOrderCenter, itemOtcManage, itemSecuritySetting, itemInviting;
 
@@ -99,6 +102,9 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
                     jumpTo(LoginActivity.class);
                 }
                 break;
+            case R.id.img_login:
+                jumpTo(EditPersonalDataActivity.class);
+                break;
         }
     }
 
@@ -115,11 +121,13 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         btnUnLogin = viewHome.findViewById(R.id.btnUnLogin);
         tvUser = viewHome.findViewById(R.id.tv_user);
         tvUid = viewHome.findViewById(R.id.tv_uid);
+        img_login = viewHome.findViewById(R.id.img_login);
         homeGroupListView = viewHome.findViewById(R.id.groupListView);
         initHomeGroup(updateClick);
 
         img_gologin.setOnClickListener(this);
         tv_gologin.setOnClickListener(this);
+        img_login.setOnClickListener(this);
         btnUnLogin.setOnClickListener(clickListener);
     }
 

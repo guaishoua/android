@@ -36,7 +36,7 @@ import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.widget.CopyTextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.yanzhenjie.permission.Permission;
 
 import java.math.BigDecimal;
@@ -67,7 +67,7 @@ public class RechargeFragment extends BaseFragment<RechargePresenter> implements
     @BindView(R.id.ll_payment)
     LinearLayout ll_payment;
     @BindView(R.id.bt_save_img)
-    QMUIAlphaButton bt_save_img;
+    QMUIRoundButton bt_save_img;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.lin_layout)
@@ -77,7 +77,7 @@ public class RechargeFragment extends BaseFragment<RechargePresenter> implements
     @BindView(R.id.et_amount)
     EditText et_amount;
     @BindView(R.id.btn_recharge)
-    QMUIAlphaButton btn_recharge;
+    QMUIRoundButton btn_recharge;
     @BindView(R.id.tv_address_tip)
     TextView tv_address_tip;
     @BindView(R.id.tv_usdt_tip)

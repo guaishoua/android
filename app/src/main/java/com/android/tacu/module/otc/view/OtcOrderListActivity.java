@@ -36,7 +36,7 @@ public class OtcOrderListActivity extends BaseActivity {
 
     @Override
     protected void setView() {
-        setContentView(R.layout.activity_otc_market_list);
+        setContentView(R.layout.activity_otc_order_list);
     }
 
     @Override

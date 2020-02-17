@@ -240,17 +240,18 @@
 
                 <View style="@style/line_french_grey" />
 
-                <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                     android:id="@+id/bt_poster"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_44"
                     android:layout_marginTop="@dimen/dp_20"
                     android:layout_marginBottom="@dimen/dp_15"
-                    android:background="@drawable/gradient_btn_5"
                     android:text="@string/invite_posters"
                     android:textColor="@color/text_white"
                     android:textSize="@dimen/text_size_sp_16"
-                    android:visibility="gone" />
+                    android:visibility="visible"
+                    app:qmui_backgroundColor="@color/color_default"
+                    app:qmui_radius="@dimen/dp_5" />
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
             <ImageView
