@@ -569,6 +569,7 @@
     <string name="currency">币种</string>
 
     <!--OTC-->
+    <string name="please_perfect_follow_info">请完善以下信息方可进行交易</string>
     <string name="buy_amount_going">您将买入的数量...</string>
     <string name="last_buy_price">最新买入价</string>
     <string name="now_buy">立即买入</string>
@@ -785,11 +786,13 @@
     <string name="plesase_binding_telephone">请绑定您的电话号码</string>
     <string name="binding_email">绑定邮箱</string>
     <string name="plesase_binding_email">请绑定您的邮箱</string>
-    <string name="binding_success">绑定成功</string>
+    <string name="binding_success">您已绑定成功</string>
     <string name="apply_kyc">进行KYC申请</string>
+    <string name="apply_kyc_not">您目前还未进行KYC申请</string>
     <string name="apply_business">申请商家</string>
     <string name="apply_business_not">您还没有申请商家</string>
     <string name="please_binding_pay_info">请绑定您的支付信息</string>
+    <string name="setting_success">设置成功！</string>
     
     <!--认证商户-->
     <string name="ordinary_merchant">普通商户</string>
@@ -852,4 +855,7 @@
         \n20-50万（含50万）     价格0.986
         \n50万以上              价格0.988
     </string>
+    <string name="go_setting">去设置</string>
+    <string name="go_prefect">去完善</string>
+    <string name="nickname_and_head">昵称&amp;头像</string>
 </resources>

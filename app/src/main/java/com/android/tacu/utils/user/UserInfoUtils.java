@@ -526,4 +526,28 @@ public class UserInfoUtils {
     public String getAccountString() {
         return sp.getString("accountString", "");
     }
+
+    /**
+     * 昵称
+     */
+    public void setNickName(String nickName) {
+        editor.putString("nickName", nickName);
+        editor.commit();
+    }
+
+    public String getNickName() {
+        return sp.getString("nickName", "");
+    }
+
+    /**
+     * 头像
+     */
+    public void setHeadImg(String headImg) {
+        editor.putString("headImg", headImg);
+        editor.commit();
+    }
+
+    public String getHeadImg() {
+        return sp.getString("headImg", "");
+    }
 }

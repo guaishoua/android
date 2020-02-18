@@ -46,7 +46,7 @@ public enum ApiHost implements Retrofit2Host {
             return host + "/order/";
         }
     },
-    DATAOP{
+    DATAOP {
         public String getHost() {
             return SOCKET_IP + "/dataop/";
         }
@@ -73,6 +73,14 @@ public enum ApiHost implements Retrofit2Host {
     ZEN {
         public String getHost() {
             return host + "/zen/";
+        }
+    },
+    /**
+     * OTCTacu
+     */
+    OTCTACU {
+        public String getHost() {
+            return host + "/otcTacu/";
         }
     };
 

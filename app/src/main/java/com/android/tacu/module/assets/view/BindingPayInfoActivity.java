@@ -4,9 +4,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.PayInfoEvent;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabAdapter;
+import com.android.tacu.module.assets.contract.BindingPayInfoContract;
+import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
@@ -17,7 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class BindingPayInfoActivity extends BaseActivity {
+public class BindingPayInfoActivity extends BaseActivity<BindingPayInfoPresenter> implements BindingPayInfoContract.IView {
 
     @BindView(R.id.magic_indicator)
     ScrollIndicatorView magic_indicator;
@@ -26,6 +32,9 @@ public class BindingPayInfoActivity extends BaseActivity {
 
     private List<String> tabTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
+    private BindingInfoYhkFragment yhkFragment;
+    private BindingInfoWxFragment wxFragment;
+    private BindingInfoZfbFragment zfbFragment;
 
     @Override
     protected void setView() {
@@ -40,9 +49,13 @@ public class BindingPayInfoActivity extends BaseActivity {
         tabTitle.add(getResources().getString(R.string.weixin));
         tabTitle.add(getResources().getString(R.string.zhifubao));
 
-        fragmentList.add(BindingInfoYhkFragment.newInstance());
-        fragmentList.add(BindingInfoWxFragment.newInstance());
-        fragmentList.add(BindingInfoZfbFragment.newInstance());
+        yhkFragment = BindingInfoYhkFragment.newInstance();
+        wxFragment = BindingInfoWxFragment.newInstance();
+        zfbFragment = BindingInfoZfbFragment.newInstance();
+
+        fragmentList.add(yhkFragment);
+        fragmentList.add(wxFragment);
+        fragmentList.add(zfbFragment);
 
         magic_indicator.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
         magic_indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
@@ -53,5 +66,63 @@ public class BindingPayInfoActivity extends BaseActivity {
         indicatorViewPager.setAdapter(new TabAdapter(getSupportFragmentManager(), this, tabTitle, fragmentList));
         viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
         viewPager.setCurrentItem(0, false);
+    }
+
+    @Override
+    protected void initLazy() {
+        super.initLazy();
+        getWindow().getDecorView().post(new Runnable() {
+            @Override
+            public void run() {
+                mPresenter.selectBank();
+            }
+        });
+    }
+
+    @Override
+    protected BindingPayInfoPresenter createPresenter(BindingPayInfoPresenter mPresenter) {
+        return new BindingPayInfoPresenter();
+    }
+
+    @Override
+    protected void receiveEvent(BaseEvent event) {
+        super.receiveEvent(event);
+        if (event != null) {
+            switch (event.getCode()) {
+                case EventConstant.PayInfoCode:
+                    PayInfoEvent payInfoEvent = (PayInfoEvent) event.getData();
+                    if (payInfoEvent.isNotify()) {
+                        mPresenter.selectBank();
+                    }
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void selectBank(List<PayInfoModel> list) {
+        PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).type != null && list.get(i).type == 1) {
+                    yhkModel = list.get(i);
+                }
+                if (list.get(i).type != null && list.get(i).type == 2) {
+                    wxModel = list.get(i);
+                }
+                if (list.get(i).type != null && list.get(i).type == 3) {
+                    zfbModel = list.get(i);
+                }
+            }
+        }
+        if (yhkFragment != null) {
+            yhkFragment.setValue(yhkModel);
+        }
+        if (wxFragment != null) {
+            wxFragment.setValue(wxModel);
+        }
+        if (zfbFragment != null) {
+            zfbFragment.setValue(zfbModel);
+        }
     }
 }

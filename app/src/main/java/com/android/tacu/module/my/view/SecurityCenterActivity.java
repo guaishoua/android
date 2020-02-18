@@ -21,6 +21,7 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.lock.FingerprintUtils;
 import com.android.tacu.utils.lock.LockUtils;
+import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
@@ -192,21 +193,17 @@ public class SecurityCenterActivity extends BaseActivity<SecurityCenterPresenter
     @Override
     public void ownCenter(OwnCenterModel model) {
         if (model != null) {
-            //个人信息
-            spUtil.setPhone(model.phone);
-            spUtil.setEmail(model.email);
-            spUtil.setValidatePass(model.getIsValidatePass());
+            UserManageUtils.setPersonInfo(model);
+
             if (TextUtils.isEmpty(spUtil.getPhone())) {
                 itemBindPhone.setDetailText(getResources().getString(R.string.no_bind));
             } else {
                 itemBindPhone.setDetailText(getResources().getString(R.string.pwd_change));
-                spUtil.setPhoneStatus(true);
             }
             if (TextUtils.isEmpty(spUtil.getEmail())) {
                 itemBindEmail.setDetailText(getResources().getString(R.string.no_bind));
             } else {
                 itemBindEmail.setDetailText(getResources().getString(R.string.pwd_change));
-                spUtil.setEmailStatus(true);
             }
             if (spUtil.getValidatePass()) {
                 itemTradePwd.setDetailText(getResources().getString(R.string.pwd_change));
@@ -217,10 +214,8 @@ public class SecurityCenterActivity extends BaseActivity<SecurityCenterPresenter
             //是否每次都需要输入交易密码
             if (TextUtils.equals(model.fdPwdOrderEnabled, "1")) {
                 checkTrade.setChecked(true);
-                spUtil.setPwdVisibility(true);
             } else if (TextUtils.equals(model.fdPwdOrderEnabled, "2")) {
                 checkTrade.setChecked(false);
-                spUtil.setPwdVisibility(false);
             }
         }
     }

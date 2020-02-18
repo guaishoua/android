@@ -1,5 +1,7 @@
 package com.android.tacu.module.main.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -42,39 +44,29 @@ public class OwnCenterModel implements Serializable {
      * country :
      */
 
+
+    @SerializedName("uid")
     public int uid;
+    @SerializedName("fdPwdOrderEnabled")
     public String fdPwdOrderEnabled;//是否每次输入交易密码 1=是 2=否
+    @SerializedName("isValidateGoogle")
     public String isValidateGoogle;//谷歌设置标示 0=未设置 1=已设置 2=已关闭
-    public int isAuthPrimary;
+    @SerializedName("isAuthSenior")
     public int isAuthSenior;
+    @SerializedName("isAuthVideo")
     public int isAuthVideo;
-    public Object authLevel;
-    public Object uname;
+    @SerializedName("email")
     public String email;
+    @SerializedName("isAuth")
     public int isAuth;
-    public int chexDed;//（chex抵扣手续开关）1:表示开启， 2:表示关闭
+    @SerializedName("phone")
     public String phone;
-    public int isValidatePhone;
+    @SerializedName("isValidatePass")
     public int isValidatePass;
-    public int isValidateEmail;
-    public AddressBean address;
-    public UserLoginRecordBean userLoginRecord;
-    public Object score;
-    public int hasAddress;
-    public Object name;
-    public Object idNumber;
-    public Object nation;
-    public Object gender;
-    public Object birthday;
-    public Object usualAddress;
-    public Object positiveImages;
-    public Object oppositeImages;
-    public Object handImages;
-    public Object authFailReason;
-    public Object reward;
-    public Object hidedPhone;
-    public Object hidedEmail;
-    public String country;
+    @SerializedName("nickname")
+    public String nickname;
+    @SerializedName("headImg")
+    public String headImg;
 
     public boolean getIsValidatePass() {
         if (isValidatePass == 1) {
@@ -83,71 +75,5 @@ public class OwnCenterModel implements Serializable {
             return false;
         }
         return true;
-    }
-
-    public boolean getChexDed() {
-        if (chexDed == 1) {
-            return true;
-        } else if (chexDed == 2) {
-            return false;
-        }
-        return false;
-    }
-
-    public static class AddressBean {
-        /**
-         * uaid : null
-         * country : null
-         * city : null
-         * town : null
-         * location : null
-         * phone : null
-         * name : null
-         * postCode : null
-         * isDefault : null
-         * phonePwd : MTUwOTMwODYyMTk=
-         * <p>
-         * email : null
-         */
-
-        public Object uaid;
-        public Object country;
-        public Object city;
-        public Object town;
-        public Object location;
-        public Object phone;
-        public Object name;
-        public Object postCode;
-        public Object isDefault;
-        public String phonePwd;
-        public Object email;
-    }
-
-    public static class UserLoginRecordBean {
-        /**
-         * start : 1
-         * size : 20
-         * total : 0
-         * orderBy : desc
-         * ulrId : 194149
-         * time : 2018-10-24 15:19:16
-         * host : 118.194.240.71
-         * location : Beijing,Beijing,China
-         * source : 2
-         * status : 1
-         * type : null
-         */
-
-        public int start;
-        public int size;
-        public int total;
-        public String orderBy;
-        public String ulrId;
-        public String time;
-        public String host;
-        public String location;
-        public int source;
-        public int status;
-        public Object type;
     }
 }

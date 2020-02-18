@@ -378,7 +378,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
 
         @Override
         protected void convert(BaseViewHolder holder, final AssetDetailsModel.CoinListBean data) {
-            GlideUtils.disPlay(getContext(), Constant.API_QINIU_URL + data.icoUrl, (ImageView) holder.getView(R.id.iv_asset_item_icon));
+            GlideUtils.disPlay(getContext(), Constant.SMALL_ICON_URL + data.icoUrl, (ImageView) holder.getView(R.id.iv_asset_item_icon));
             holder.setText(R.id.iv_asset_item_coin_simple, data.currencyNameEn);
             holder.setText(R.id.iv_asset_item_coin_full, String.format("(%s)", data.currencyName));
             holder.setText(R.id.tv_asset_item_own_count, defaultEyeStatus ? BigDecimal.valueOf(data.amount).toPlainString() : "*****");

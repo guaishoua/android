@@ -48,7 +48,8 @@ public class Constant {
     public static final String EUR = "EUR";//欧元
 
     //阿里云图片
-    public static final String API_QINIU_URL = "https://ta-public.oss-cn-hongkong.aliyuncs.com/";
+    public static final String UPLOAD_IMG_URL = "https://ta-public.oss-cn-hongkong.aliyuncs.com/";
+    public static final String SMALL_ICON_URL = "https://ta-public.oss-cn-hongkong.aliyuncs.com/";
 
     //阿里云OSS图片上传
     public static final String OSS_ENDPOINT = "http://oss-cn-hongkong.aliyuncs.com";

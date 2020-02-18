@@ -47,7 +47,6 @@
                     app:qmui_is_circle="true" />
 
                 <ImageView
-                    android:id="@+id/img_head_sculpture_tag"
                     android:layout_width="@dimen/dp_10"
                     android:layout_height="@dimen/dp_10"
                     android:layout_alignParentRight="true"
@@ -134,6 +133,9 @@
                     android:background="@null"
                     android:gravity="right|center_vertical"
                     android:hint="@string/please_set_nickname"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:singleLine="true"
                     android:textColor="@color/text_color"
                     android:textColorHint="@color/text_grey"
                     android:textSize="@dimen/text_size_sp_14" />
@@ -161,12 +163,12 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_13"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14"
-                    tools:text="111" />
+                    android:clickable="false"
+                    android:text="@string/plesase_binding_telephone"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_14" />
 
                 <ImageView
-                    android:id="@+id/img_binding_tel_tag"
                     android:layout_width="@dimen/dp_10"
                     android:layout_height="@dimen/dp_10"
                     android:layout_alignParentRight="true"
@@ -196,12 +198,12 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_13"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14"
-                    tools:text="111" />
+                    android:clickable="false"
+                    android:text="@string/plesase_binding_email"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_14" />
 
                 <ImageView
-                    android:id="@+id/img_binding_email_tag"
                     android:layout_width="@dimen/dp_10"
                     android:layout_height="@dimen/dp_10"
                     android:layout_alignParentRight="true"
@@ -231,12 +233,12 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_13"
+                    android:clickable="false"
+                    android:text="KYC1"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14"
-                    tools:text="KYC1" />
+                    android:textSize="@dimen/text_size_sp_14" />
 
                 <ImageView
-                    android:id="@+id/img_apply_kyc_tag"
                     android:layout_width="@dimen/dp_10"
                     android:layout_height="@dimen/dp_10"
                     android:layout_alignParentRight="true"
@@ -266,12 +268,12 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_13"
-                    android:textColor="@color/text_color"
+                    android:clickable="false"
+                    android:textColor="@color/text_grey"
                     android:textSize="@dimen/text_size_sp_14"
                     tools:text="@string/apply_business_not" />
 
                 <ImageView
-                    android:id="@+id/img_apply_buniness_tag"
                     android:layout_width="@dimen/dp_10"
                     android:layout_height="@dimen/dp_10"
                     android:layout_alignParentRight="true"
@@ -301,12 +303,12 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_13"
-                    android:textColor="@color/text_color"
+                    android:clickable="false"
+                    android:textColor="@color/text_grey"
                     android:textSize="@dimen/text_size_sp_14"
                     tools:text="@string/please_binding_pay_info" />
 
                 <ImageView
-                    android:id="@+id/img_binding_payinfo_tag"
                     android:layout_width="@dimen/dp_10"
                     android:layout_height="@dimen/dp_10"
                     android:layout_alignParentRight="true"

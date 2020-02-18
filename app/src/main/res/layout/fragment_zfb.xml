@@ -89,6 +89,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lin_trade_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_55"
                 android:layout_marginTop="@dimen/dp_1"
@@ -278,7 +279,7 @@
                     android:textSize="@dimen/text_size_sp_14" />
 
                 <TextView
-                    android:id="@+id/edit_zfb_name1"
+                    android:id="@+id/tv_zfb_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/dp_22"
@@ -317,6 +318,18 @@
                     app:qmui_border_color="@color/color_grey"
                     app:qmui_border_width="@dimen/dp_1" />
             </android.support.constraint.ConstraintLayout>
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginHorizontal="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/btn_delete"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_14"
+                app:qmui_backgroundColor="@color/color_default"
+                app:qmui_radius="@dimen/dp_3" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -93,7 +93,7 @@ public class CommonUtils {
     }
 
     /**
-     * 获取图片上传的名字
+     * 获取图片上传的名字  kyc2上传
      *
      * @return
      */
@@ -101,6 +101,39 @@ public class CommonUtils {
         String replace = UUID.randomUUID().toString().replace("-", "");
         long currentTimeMillis = System.currentTimeMillis();
         return replace.substring(0, 15) + currentTimeMillis + replace.substring(14, 31) + "Android";
+    }
+
+    /**
+     * 头像上传
+     *
+     * @return
+     */
+    public static String getHeadImageName() {
+        String replace = UUID.randomUUID().toString().replace("-", "");
+        long currentTimeMillis = System.currentTimeMillis();
+        return replace.substring(0, 15) + currentTimeMillis + replace.substring(14, 31) + "Android_headimg";
+    }
+
+    /**
+     * 微信收款码上传
+     *
+     * @returnx
+     */
+    public static String getWxImageName() {
+        String replace = UUID.randomUUID().toString().replace("-", "");
+        long currentTimeMillis = System.currentTimeMillis();
+        return replace.substring(0, 15) + currentTimeMillis + replace.substring(14, 31) + "Android_WeixinSK";
+    }
+
+    /**
+     * 支付宝收款码上传
+     *
+     * @returnx
+     */
+    public static String getZfbImageName() {
+        String replace = UUID.randomUUID().toString().replace("-", "");
+        long currentTimeMillis = System.currentTimeMillis();
+        return replace.substring(0, 15) + currentTimeMillis + replace.substring(14, 31) + "Android_ZfbSK";
     }
 
     /**

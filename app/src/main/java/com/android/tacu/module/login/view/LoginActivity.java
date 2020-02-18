@@ -179,31 +179,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void ownCenterSuccess(OwnCenterModel model) {
         if (model != null) {
-            //是否开启谷歌认证
-            spUtil.setGaStatus(model.isValidateGoogle);
-
-            //是否每次都需要输入交易密码
-            if (TextUtils.equals(model.fdPwdOrderEnabled, "1")) {
-                spUtil.setPwdVisibility(true);
-            } else if (TextUtils.equals(model.fdPwdOrderEnabled, "2")) {
-                spUtil.setPwdVisibility(false);
-            }
-
-            //个人信息
-            if (!TextUtils.isEmpty(model.email)) {
-                spUtil.setEmailStatus(true);
-                spUtil.setAccount(model.email);
-            }
-            if (!TextUtils.isEmpty(model.phone)) {
-                spUtil.setPhoneStatus(true);
-                spUtil.setAccount(model.phone);
-            }
-
-            spUtil.setPhone(model.phone);
-            spUtil.setEmail(model.email);
-            spUtil.setAuth(model.isAuth);
-            spUtil.setIsAuthSenior(model.isAuthSenior);
-            spUtil.setValidatePass(model.getIsValidatePass());
+           UserManageUtils.setPersonInfo(model);
 
             getMustNeed();
         }

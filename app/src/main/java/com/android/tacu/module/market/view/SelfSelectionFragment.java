@@ -330,7 +330,7 @@ public class SelfSelectionFragment extends BaseFragment<MarketPresenter> impleme
 
         @Override
         protected void convert(BaseViewHolder helper, final MarketNewModel.TradeCoinsBean item) {
-            GlideUtils.disPlay(getContext(), Constant.API_QINIU_URL + item.icoUrl, (ImageView) helper.getView(R.id.img_coins_icon));
+            GlideUtils.disPlay(getContext(), Constant.SMALL_ICON_URL + item.icoUrl, (ImageView) helper.getView(R.id.img_coins_icon));
             helper.setText(R.id.tv_coins_name, item.currencyNameEn + "/" + item.baseCurrencyNameEn);
             helper.setText(R.id.tv_current_amount, BigDecimal.valueOf(item.currentAmount).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
             String value = BigDecimal.valueOf(item.currentAmount * item.volume).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString();

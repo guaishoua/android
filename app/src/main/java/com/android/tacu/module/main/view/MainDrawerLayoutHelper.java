@@ -14,11 +14,9 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.module.assets.view.AssetsCenterActivity;
 import com.android.tacu.module.auth.view.AuthActivity;
-import com.android.tacu.module.auth.view.AuthMerchantActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.market.view.NoticeActivity;
 import com.android.tacu.module.my.view.ContactUsActivity;
-import com.android.tacu.module.my.view.ConvertActivity;
 import com.android.tacu.module.my.view.EditPersonalDataActivity;
 import com.android.tacu.module.my.view.InvitedinfoActivity;
 import com.android.tacu.module.my.view.LanguageActivity;
@@ -26,6 +24,7 @@ import com.android.tacu.module.my.view.SecurityCenterActivity;
 import com.android.tacu.module.otc.view.OtcManageActivity;
 import com.android.tacu.module.otc.view.OtcOrderListActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
+import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.PackageUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.user.UserInfoUtils;
@@ -228,6 +227,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
 
             tvUser.setText("Hi," + spUtil.getAccount());
             tvUid.setText("UID " + spUtil.getUserUid());
+            GlideUtils.disPlay(mActivity, Constant.UPLOAD_IMG_URL + spUtil.getHeadImg(), img_login);
 
             itemRealName.setVisibility(View.VISIBLE);
             itemMoney.setVisibility(View.VISIBLE);
@@ -291,8 +291,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         } else if (TextUtils.equals(text, languageSetting)) {
             jumpTo(LanguageActivity.class);
         } else if (TextUtils.equals(text, moneySetting)) {
-            //jumpTo(AssetsCenterActivity.class);
-            jumpTo(AuthMerchantActivity.class);
+            jumpTo(AssetsCenterActivity.class);
         }
     }
 

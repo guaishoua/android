@@ -7,6 +7,7 @@ import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.ChargeModel;
 import com.android.tacu.module.assets.model.CoinAddressModel;
 import com.android.tacu.module.assets.model.MoneyFlowModel;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.model.SelectTakeCoinAddressModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
 import com.android.tacu.module.auth.model.SelectAuthLevelModel;
@@ -32,6 +33,7 @@ import com.android.tacu.module.auctionplus.modal.AuctionPlusListByIdModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusListModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusPayInfoModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusWinLisyModel;
+
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -760,5 +762,47 @@ public interface Api {
     Observable<BaseModel> auctionBuy(
             @Field("id") String id,
             @Field("count") String count
+    );
+
+    /**
+     * 昵称头像
+     */
+    @FormUrlEncoded
+    @POST("updateUserInfo")
+    Observable<BaseModel> updateUserInfo(
+            @Field("nickname") String nickname,
+            @Field("headImg") String headImg
+    );
+
+    /**
+     * 添加银行卡，微信，支付宝等支付渠道
+     */
+    @FormUrlEncoded
+    @POST("insertBank")
+    Observable<BaseModel> insertBank(
+            @Field("type") Integer type, //1.银行卡 2.微信 3.支付宝
+            @Field("bankName") String bankName,// 银行名称
+            @Field("openBankName") String openBankName,//开户行名称
+            @Field("openBankAdress") String openBankAdress,//开户行地址
+            @Field("bankCard") String bankCard,// 卡号
+            @Field("weChatNo") String weChatNo,//微信名
+            @Field("weChatImg") String weChatImg,//收款码
+            @Field("aliPayNo") String aliPayNo,//支付宝账号
+            @Field("aliPayImg") String aliPayImg//收款码
+    );
+
+    /**
+     * 查询银行卡等支付渠道
+     */
+    @POST("selectBank")
+    Observable<BaseModel<List<PayInfoModel>>> selectBank();
+
+    /**
+     * 删除银行卡等支付渠道
+     */
+    @FormUrlEncoded
+    @POST("deleteBank")
+    Observable<BaseModel> deleteBank(
+            @Field("id") Integer id
     );
 }

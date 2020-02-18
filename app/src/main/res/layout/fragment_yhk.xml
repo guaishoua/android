@@ -7,9 +7,9 @@
     android:background="@color/content_bg_color_grey">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/lin_edit"
@@ -187,6 +187,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lin_trade_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_55"
                 android:layout_marginTop="@dimen/dp_1"
@@ -313,8 +314,8 @@
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_14" />
 
-                <EditText
-                    android:id="@+id/edit_bank_name1"
+                <TextView
+                    android:id="@+id/tv_bank_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/dp_22"
@@ -339,8 +340,8 @@
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_14" />
 
-                <EditText
-                    android:id="@+id/edit_open_bank_name1"
+                <TextView
+                    android:id="@+id/tv_open_bank_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/dp_22"
@@ -365,8 +366,8 @@
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_14" />
 
-                <EditText
-                    android:id="@+id/edit_open_bank_address1"
+                <TextView
+                    android:id="@+id/tv_open_bank_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/dp_22"
@@ -392,7 +393,7 @@
                     android:textSize="@dimen/text_size_sp_14" />
 
                 <TextView
-                    android:id="@+id/edit_bank_id1"
+                    android:id="@+id/tv_bank_id"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/dp_22"
@@ -401,6 +402,18 @@
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_16" />
             </LinearLayout>
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginHorizontal="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/btn_delete"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_14"
+                app:qmui_backgroundColor="@color/color_default"
+                app:qmui_radius="@dimen/dp_3" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

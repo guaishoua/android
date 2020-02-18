@@ -139,7 +139,7 @@ public class CoinFilterView extends PopupBaseView {
         protected void convert(BaseViewHolder helper, final CoinListModel.AttachmentBean item) {
             helper.setText(R.id.tv_item_title, item.currencyNameEn);
             helper.setText(R.id.tv_item_sub_title, item.currencyName);
-            GlideUtils.disPlay(getContext(), Constant.API_QINIU_URL + item.icoUrl, (ImageView) helper.getView(R.id.iv_item_icon));
+            GlideUtils.disPlay(getContext(), Constant.SMALL_ICON_URL + item.icoUrl, (ImageView) helper.getView(R.id.iv_item_icon));
             helper.itemView.setTag(item);
             helper.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

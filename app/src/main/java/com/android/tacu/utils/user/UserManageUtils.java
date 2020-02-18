@@ -1,8 +1,11 @@
 package com.android.tacu.utils.user;
 
+import android.text.TextUtils;
+
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseModel;
 import com.android.tacu.module.login.model.LoginModel;
+import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.utils.SPUtils;
 
 /**
@@ -47,6 +50,41 @@ public class UserManageUtils {
         if ((curHappenTime - lastHappenTime) >= MIN_HAPPEN_DELAY_TIME) {
             lastHappenTime = curHappenTime;
             clearUserInfo();
+        }
+    }
+
+    /**
+     * 设置个人信息数据
+     */
+    public static void setPersonInfo(OwnCenterModel model){
+        if (model != null) {
+            //是否开启谷歌认证
+            spUtil.setGaStatus(model.isValidateGoogle);
+
+            //是否每次都需要输入交易密码
+            if (TextUtils.equals(model.fdPwdOrderEnabled, "1")) {
+                spUtil.setPwdVisibility(true);
+            } else if (TextUtils.equals(model.fdPwdOrderEnabled, "2")) {
+                spUtil.setPwdVisibility(false);
+            }
+
+            //个人信息
+            if (!TextUtils.isEmpty(model.email)) {
+                spUtil.setEmailStatus(true);
+                spUtil.setAccount(model.email);
+            }
+            if (!TextUtils.isEmpty(model.phone)) {
+                spUtil.setPhoneStatus(true);
+                spUtil.setAccount(model.phone);
+            }
+
+            spUtil.setPhone(model.phone);
+            spUtil.setEmail(model.email);
+            spUtil.setAuth(model.isAuth);
+            spUtil.setIsAuthSenior(model.isAuthSenior);
+            spUtil.setValidatePass(model.getIsValidatePass());
+            spUtil.setNickName(model.nickname);
+            spUtil.setHeadImg(model.headImg);
         }
     }
 

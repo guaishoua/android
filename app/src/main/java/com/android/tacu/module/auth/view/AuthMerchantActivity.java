@@ -1,6 +1,5 @@
 package com.android.tacu.module.auth.view;
 
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
