@@ -233,14 +233,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @OnClick(R.id.tv_otc)
     void otcClick() {
-        if (!spUtil.getLogin()) {
-            jumpTo(LoginActivity.class);
-        } else if (spUtil.getIsAuthSenior() == -1 || spUtil.getIsAuthSenior() == 0 || spUtil.getIsAuthSenior() == 1) {
-            showToastError(getResources().getString(R.string.please_get_the_level_of_KYC));
-        } else if (!spUtil.getPhoneStatus()) {
-            showToastError(getResources().getString(R.string.please_bind_phone));
-        } else {
-        }
+
     }
 
     @OnClick(R.id.tv_help)

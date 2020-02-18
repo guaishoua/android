@@ -4,9 +4,12 @@ import android.text.TextUtils;
 
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseModel;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.login.model.LoginModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.utils.SPUtils;
+
+import java.util.List;
 
 /**
  * ================================
@@ -56,7 +59,7 @@ public class UserManageUtils {
     /**
      * 设置个人信息数据
      */
-    public static void setPersonInfo(OwnCenterModel model){
+    public static void setPersonInfo(OwnCenterModel model, List<PayInfoModel> list) {
         if (model != null) {
             //是否开启谷歌认证
             spUtil.setGaStatus(model.isValidateGoogle);
@@ -86,6 +89,9 @@ public class UserManageUtils {
             spUtil.setNickName(model.nickname);
             spUtil.setHeadImg(model.headImg);
         }
+        if (list != null && list.size() > 0) {
+            spUtil.setIsPayInfo(true);
+        }
     }
 
     /**
@@ -98,10 +104,13 @@ public class UserManageUtils {
         spUtil.setToken("");
         spUtil.setPhone("");
         spUtil.setEmail("");
+        spUtil.setHeadImg("");
         spUtil.setAccount("");
+        spUtil.setNickName("");
         spUtil.saveOldCode("");
         spUtil.setGaStatus("");
         spUtil.saveOldAccount("");
+        spUtil.setIsPayInfo(false);
         spUtil.setPhoneStatus(false);
         spUtil.setEmailStatus(false);
         spUtil.setValidatePass(false);

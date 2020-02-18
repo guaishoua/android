@@ -515,6 +515,7 @@ public class UserInfoUtils {
 
     /**
      * 登录成功后直接保存用户填写的
+     * 退出登录不清理
      *
      * @param accountString
      */
@@ -549,5 +550,17 @@ public class UserInfoUtils {
 
     public String getHeadImg() {
         return sp.getString("headImg", "");
+    }
+
+    /**
+     * 是否绑定支付信息
+     */
+    public void setIsPayInfo(boolean isPayInfo) {
+        editor.putBoolean("isPayInfo", isPayInfo);
+        editor.commit();
+    }
+
+    public boolean getIsPayInfo() {
+        return sp.getBoolean("isPayInfo", false);
     }
 }

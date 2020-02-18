@@ -10,6 +10,7 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.base.BaseModel;
 import com.android.tacu.db.model.LockNewModel;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.dingxiang.contract.ISwitchView;
 import com.android.tacu.module.dingxiang.presenter.SwitchPresenter;
 import com.android.tacu.module.login.contract.LoginContract;
@@ -24,6 +25,8 @@ import com.android.tacu.utils.lock.LockUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.gesture.GestureLockViewGroup;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -130,7 +133,7 @@ public class GestureActivity extends BaseActivity<LoginPresenter> implements Log
     @Override
     public void ownCenterSuccess(OwnCenterModel model) {
         if (model != null) {
-            UserManageUtils.setPersonInfo(model);
+            UserManageUtils.setPersonInfo(model, null);
 
             getMustNeed();
         }
@@ -155,14 +158,26 @@ public class GestureActivity extends BaseActivity<LoginPresenter> implements Log
         getMustNeed();
     }
 
+    @Override
+    public void selectBankSuccess(List<PayInfoModel> list) {
+        UserManageUtils.setPersonInfo(null, list);
+        getMustNeed();
+    }
+
+    @Override
+    public void selectBankError() {
+        getMustNeed();
+    }
+
     /**
      * 登录成功后 需要掉一些接口获取数据
      */
     private void mustNeedInfo() {
         interIndex = 0;
-        interAll = 2;
+        interAll = 3;
         mPresenter.ownCenter();
         mPresenter.getSelfList();
+        mPresenter.selectBank();
     }
 
     private void getMustNeed() {

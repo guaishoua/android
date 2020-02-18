@@ -13,6 +13,7 @@ import com.android.tacu.common.TabAdapter;
 import com.android.tacu.module.assets.contract.BindingPayInfoContract;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
+import com.android.tacu.utils.user.UserManageUtils;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
@@ -101,6 +102,7 @@ public class BindingPayInfoActivity extends BaseActivity<BindingPayInfoPresenter
 
     @Override
     public void selectBank(List<PayInfoModel> list) {
+        UserManageUtils.setPersonInfo(null, list);
         PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {

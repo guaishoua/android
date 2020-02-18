@@ -1,10 +1,13 @@
 package com.android.tacu.module.main.contract;
 
 import com.android.tacu.base.IBaseMvpView;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.main.model.ConvertModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.main.model.UploadModel;
 import com.android.tacu.module.market.model.SelfModel;
+
+import java.util.List;
 
 /**
  * Created by jiazhen on 2018/8/13.
@@ -19,6 +22,8 @@ public class MainContract {
         void getSelfSelectionValue(SelfModel selfModel);
 
         void convertMoney(ConvertModel model);
+
+        void selectBank(List<PayInfoModel> list);
     }
 
     public interface IPresenter {
@@ -31,5 +36,7 @@ public class MainContract {
         void logout();
 
         void getConvertModel();
+
+        void selectBank();
     }
 }

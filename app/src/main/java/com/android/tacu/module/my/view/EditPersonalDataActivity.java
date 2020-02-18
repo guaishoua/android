@@ -238,12 +238,13 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
 
     @Override
     public void ownCenter(OwnCenterModel model) {
-        UserManageUtils.setPersonInfo(model);
+        UserManageUtils.setPersonInfo(model, null);
         setValue();
     }
 
     @Override
     public void selectBank(List<PayInfoModel> list) {
+        UserManageUtils.setPersonInfo(null, list);
         if (list != null && list.size() > 0) {
             tv_binding_payinfo.setText(getResources().getString(R.string.binding_success));
         } else {
@@ -276,7 +277,7 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         tv_uid.setText(String.valueOf(spUtil.getUserUid()));
         edit_nickname.setText(spUtil.getNickName());
 
-        if (TextUtils.isEmpty(spUtil.getPhone())) {
+        if (!spUtil.getPhoneStatus()) {
             tv_binding_tel.setText(getResources().getString(R.string.plesase_binding_telephone));
             tv_binding_tel.setTextColor(ContextCompat.getColorStateList(this, R.color.text_grey));
             tv_binding_tel.setClickable(true);

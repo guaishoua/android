@@ -9,6 +9,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.base.BaseModel;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.lock.FingerprintActivity;
 import com.android.tacu.module.lock.GestureActivity;
 import com.android.tacu.module.main.model.OwnCenterModel;
@@ -29,6 +30,8 @@ import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -179,7 +182,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void ownCenterSuccess(OwnCenterModel model) {
         if (model != null) {
-           UserManageUtils.setPersonInfo(model);
+            UserManageUtils.setPersonInfo(model, null);
 
             getMustNeed();
         }
@@ -204,6 +207,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         getMustNeed();
     }
 
+    @Override
+    public void selectBankSuccess(List<PayInfoModel> list) {
+        UserManageUtils.setPersonInfo(null, list);
+        getMustNeed();
+    }
+
+    @Override
+    public void selectBankError() {
+        getMustNeed();
+    }
+
     /**
      * 滑动验证成功
      */
@@ -216,7 +230,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     /**
      * 跳转手势和指纹登录页面的判断
      */
-    private void goOtherLogin(){
+    private void goOtherLogin() {
         if (!isLoginView) {
             if (!TextUtils.isEmpty(LockUtils.getGesture())) {
                 jumpTo(GestureActivity.createActivity(LoginActivity.this, isGoMain, isClearTop));
@@ -233,9 +247,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
      */
     private void mustNeedInfo() {
         interIndex = 0;
-        interAll = 2;
+        interAll = 3;
         mPresenter.ownCenter();
         mPresenter.getSelfList();
+        mPresenter.selectBank();
     }
 
     private void getMustNeed() {

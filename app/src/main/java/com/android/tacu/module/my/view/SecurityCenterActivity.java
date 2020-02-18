@@ -193,9 +193,9 @@ public class SecurityCenterActivity extends BaseActivity<SecurityCenterPresenter
     @Override
     public void ownCenter(OwnCenterModel model) {
         if (model != null) {
-            UserManageUtils.setPersonInfo(model);
+            UserManageUtils.setPersonInfo(model, null);
 
-            if (TextUtils.isEmpty(spUtil.getPhone())) {
+            if (!spUtil.getPhoneStatus()) {
                 itemBindPhone.setDetailText(getResources().getString(R.string.no_bind));
             } else {
                 itemBindPhone.setDetailText(getResources().getString(R.string.pwd_change));
@@ -252,8 +252,8 @@ public class SecurityCenterActivity extends BaseActivity<SecurityCenterPresenter
         } else if (TextUtils.equals(text, tradePwd)) {
             jumpTo(TradeActivity.createActivity(SecurityCenterActivity.this, 2));
         } else if (TextUtils.equals(text, bindPhone)) {
-            if (TextUtils.isEmpty(spUtil.getPhone())) {
-                jumpTo(BindModeActivity.createActivity(SecurityCenterActivity.this, 3));
+            if (!spUtil.getPhoneStatus()) {
+                jumpTo(BindModeActivity.createActivity(this, 3));
             } else {
                 jumpTo(BindPhoneActivity.createActivity(this, 0));
             }

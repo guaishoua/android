@@ -24,6 +24,7 @@ import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.view.AssetsFragment;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.MainContract;
@@ -210,6 +211,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         if (spUtil.getLogin()) {
             mPresenter.ownCenter();
             mPresenter.getSelfList();
+            mPresenter.selectBank();
         }
         mPresenter.getConvertModel();
         if (mainDrawerLayoutHelper != null) {
@@ -287,7 +289,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
     @Override
     public void ownCenter(OwnCenterModel model) {
-        UserManageUtils.setPersonInfo(model);
+        UserManageUtils.setPersonInfo(model, null);
     }
 
     @Override
@@ -311,6 +313,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             }
         }
         ConvertMoneyUtils.setHttpConvertBean(model);
+    }
+
+    @Override
+    public void selectBank(List<PayInfoModel> list) {
+        UserManageUtils.setPersonInfo(null, list);
     }
 
     @Override

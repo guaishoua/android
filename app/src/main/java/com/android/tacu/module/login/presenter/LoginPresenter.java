@@ -8,10 +8,13 @@ import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.factory.ModelTransformerFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.login.contract.LoginContract;
 import com.android.tacu.module.login.model.LoginModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.market.model.SelfModel;
+
+import java.util.List;
 
 /**
  * Created by jiazhen on 2018/8/13.
@@ -61,6 +64,24 @@ public class LoginPresenter extends BaseMvpPresenter implements LoginContract.IP
                 super.onError(throwable);
                 LoginContract.IView view = (LoginContract.IView) getView();
                 view.getSelfSelectionValueError();
+            }
+        });
+    }
+
+    @Override
+    public void selectBank() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel<List<PayInfoModel>> o) {
+                LoginContract.IView view = (LoginContract.IView) getView();
+                view.selectBankSuccess(o.attachment);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                super.onError(throwable);
+                LoginContract.IView view = (LoginContract.IView) getView();
+                view.selectBankError();
             }
         });
     }

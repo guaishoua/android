@@ -145,7 +145,7 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
         mTopBar.addRightImageButton(R.drawable.icon_ordercenter, R.id.qmui_topbar_item_right, 18, 18).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!spUtil.getLogin()) {
+                if (spUtil.getLogin()) {
                     jumpTo(OtcOrderListActivity.class);
                 } else {
                     jumpTo(LoginActivity.class);
