@@ -563,4 +563,16 @@ public class UserInfoUtils {
     public boolean getIsPayInfo() {
         return sp.getBoolean("isPayInfo", false);
     }
+
+    /**
+     * 用户KYC的真实姓名
+     */
+    public void setKYCName(String kycName) {
+        editor.putString("kycName", kycName);
+        editor.commit();
+    }
+
+    public String getKYCName() {
+        return sp.getString("kycName", "");
+    }
 }

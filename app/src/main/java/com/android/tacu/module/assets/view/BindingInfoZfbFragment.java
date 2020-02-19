@@ -40,7 +40,10 @@ import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
+import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.permission.PermissionUtils;
+import com.android.tacu.view.GlideLoader;
+import com.lcw.library.imagepicker.ImagePicker;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout;
 import com.yanzhenjie.permission.Permission;
@@ -51,11 +54,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import id.zelory.compressor.Compressor;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+
+import static android.app.Activity.RESULT_OK;
 
 public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter> implements BindingPayInfoContract.IZfbView {
 
@@ -83,7 +87,8 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     @BindView(R.id.img_zfb_shoukuan1)
     QMUIRadiusImageView img_zfb_shoukuan1;
 
-    private final int TAKE_PIC = 1001;
+    private static final int REQUEST_SELECT_IMAGES_CODE = 1001;
+    private ArrayList<String> mImagePaths;
     private PayInfoModel payInfoModel;
 
     //oss
@@ -130,6 +135,8 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
         } else {
             lin_trade_pwd.setVisibility(View.GONE);
         }
+        tv_account_owner.setText(spUtil.getKYCName());
+        tv_account_owner1.setText(spUtil.getKYCName());
     }
 
     @Override
@@ -151,10 +158,10 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
         if (data == null) {
             return;
         }
-        if (requestCode == TAKE_PIC) {
-            ArrayList<String> imageList = BGAPhotoPickerActivity.getSelectedImages(data);
-            for (int i = 0; i < imageList.size(); i++) {
-                String imageUri = imageList.get(i);
+        if (requestCode == REQUEST_SELECT_IMAGES_CODE && resultCode == RESULT_OK) {
+            mImagePaths = data.getStringArrayListExtra(ImagePicker.EXTRA_SELECT_IMAGES);
+            for (int i = 0; i < mImagePaths.size(); i++) {
+                String imageUri = mImagePaths.get(i);
                 File fileOrgin = new File(imageUri);
                 new Compressor(getContext())
                         .setMaxWidth(640)
@@ -185,10 +192,16 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
         PermissionUtils.requestPermissions(getContext(), new OnPermissionListener() {
             @Override
             public void onPermissionSucceed() {
-                boolean mTakePhotoEnabled = true;
-                // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话就没有拍照功能
-                File takePhotoDir = new File(Environment.getExternalStorageDirectory(), "tacu");
-                startActivityForResult(BGAPhotoPickerActivity.newIntent(getContext(), mTakePhotoEnabled ? takePhotoDir : null, 1, null, mTakePhotoEnabled), TAKE_PIC);
+                ImagePicker.getInstance()
+                        .setTitle("")//设置标题
+                        .showCamera(true)//设置是否显示拍照按钮
+                        .showImage(true)//设置是否展示图片
+                        .showVideo(false)//设置是否展示视频
+                        .setSingleType(true)//设置图片视频不能同时选择
+                        .setMaxCount(1)//设置最大选择图片数目(默认为1，单选)
+                        .setImagePaths(mImagePaths)//保存上一次选择图片的状态，如果不需要可以忽略
+                        .setImageLoader(new GlideLoader())//设置自定义图片加载器
+                        .start(getHostActivity(), REQUEST_SELECT_IMAGES_CODE);//REQEST_SELECT_IMAGES_CODE为Intent调用的requestCode
             }
 
             @Override
@@ -209,7 +222,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
             showToastError(getResources().getString(R.string.please_input_trade_password));
             return;
         }
-        mPresenter.insertBank(2, null, null, null, null, weChatNo, imageName, null, null);
+        mPresenter.insertBank(2, null, null, null, null, weChatNo, imageName, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
     }
 
     @OnClick(R.id.btn_cancel)

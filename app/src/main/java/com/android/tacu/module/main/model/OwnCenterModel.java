@@ -44,7 +44,8 @@ public class OwnCenterModel implements Serializable {
      * country :
      */
 
-
+    @SerializedName("name")
+    public String name;
     @SerializedName("uid")
     public int uid;
     @SerializedName("fdPwdOrderEnabled")
@@ -67,6 +68,16 @@ public class OwnCenterModel implements Serializable {
     public String nickname;
     @SerializedName("headImg")
     public String headImg;
+    @SerializedName("otcUserType")
+    public Integer otcUserType;//用户的Otc身份 1个人(默认) 2商户 3机器人
+    @SerializedName("applyMerchantStatus")
+    public Integer applyMerchantStatus;//申请商户状态 0未申请(默认) 1待审核 2审核成功 3审核失败
+    @SerializedName("applyMerchantFailReason")
+    public String applyMerchantFailReason;//申请商户失败原因
+    @SerializedName("applyAuthMerchantStatus")
+    public Integer applyAuthMerchantStatus;//申请认证商户状态 0未申请(默认) 1待审核 2审核成功 3审核失败
+    @SerializedName("applyAuthMerchantFailReason")
+    public String applyAuthMerchantFailReason;//申请认证商户失败原因
 
     public boolean getIsValidatePass() {
         if (isValidatePass == 1) {

@@ -37,7 +37,7 @@ public class BindingPayInfoContract {
     public interface IPresenter {
         void selectBank();
 
-        void insertBank(Integer type, String bankName, String openBankName, String openBankAdress, String bankCard, String weChatNo, String weChatImg, String aliPayNo, String aliPayImg);
+        void insertBank(Integer type, String bankName, String openBankName, String openBankAdress, String bankCard, String weChatNo, String weChatImg, String aliPayNo, String aliPayImg, String fdPassword);
 
         void deleteBank(Integer type, Integer id);
 

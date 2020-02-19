@@ -790,10 +790,13 @@
     <string name="apply_kyc">进行KYC申请</string>
     <string name="apply_kyc_not">您目前还未进行KYC申请</string>
     <string name="apply_business">申请商家</string>
+    <string name="applied">已申请</string>
+    <string name="to_be_examine">待审核</string>
+    <string name="examine_failure">审核失败</string>
     <string name="apply_business_not">您还没有申请商家</string>
     <string name="please_binding_pay_info">请绑定您的支付信息</string>
     <string name="setting_success">设置成功！</string>
-    
+
     <!--认证商户-->
     <string name="ordinary_merchant">普通商户</string>
     <string name="member_ship">会员身份</string>
@@ -858,4 +861,7 @@
     <string name="go_setting">去设置</string>
     <string name="go_prefect">去完善</string>
     <string name="nickname_and_head">昵称&amp;头像</string>
+
+    <!--充值保证金-->
+    <string name="recharge_deposit">充值保证金</string>
 </resources>

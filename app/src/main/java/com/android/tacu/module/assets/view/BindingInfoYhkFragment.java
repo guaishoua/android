@@ -18,6 +18,7 @@ import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.assets.contract.BindingPayInfoContract;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
+import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.permission.PermissionUtils;
 import com.yanzhenjie.permission.Permission;
 
@@ -80,6 +81,8 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
         } else {
             lin_trade_pwd.setVisibility(View.GONE);
         }
+        tv_cardholder_name.setText(spUtil.getKYCName());
+        tv_cardholder_name1.setText(spUtil.getKYCName());
     }
 
     @OnClick(R.id.img_saomiao)
@@ -129,7 +132,7 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
             showToastError(getResources().getString(R.string.please_input_trade_password));
             return;
         }
-        mPresenter.insertBank(1, bankName, openBankName, openBankAdress, bankCard, null, null, null, null);
+        mPresenter.insertBank(1, bankName, openBankName, openBankAdress, bankCard, null, null, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
     }
 
     @OnClick(R.id.btn_cancel)

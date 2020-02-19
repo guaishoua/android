@@ -155,5 +155,6 @@
         <activity android:name="com.android.tacu.module.assets.view.BindingPayInfoActivity" />
         <activity android:name="com.android.tacu.module.my.view.EditPersonalDataActivity" />
         <activity android:name="com.android.tacu.module.auth.view.AuthMerchantActivity" />
+        <activity android:name="com.android.tacu.module.auth.view.RechargeDepositActivity" />
     </application>
 </manifest>

@@ -88,6 +88,7 @@ public class UserManageUtils {
             spUtil.setValidatePass(model.getIsValidatePass());
             spUtil.setNickName(model.nickname);
             spUtil.setHeadImg(model.headImg);
+            spUtil.setKYCName(model.name);
         }
         if (list != null && list.size() > 0) {
             spUtil.setIsPayInfo(true);
@@ -105,6 +106,7 @@ public class UserManageUtils {
         spUtil.setPhone("");
         spUtil.setEmail("");
         spUtil.setHeadImg("");
+        spUtil.setKYCName("");
         spUtil.setAccount("");
         spUtil.setNickName("");
         spUtil.saveOldCode("");

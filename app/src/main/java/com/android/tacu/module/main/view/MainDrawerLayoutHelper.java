@@ -227,7 +227,11 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
 
             tvUser.setText("Hi," + spUtil.getAccount());
             tvUid.setText("UID " + spUtil.getUserUid());
-            GlideUtils.disPlay(mActivity, Constant.UPLOAD_IMG_URL + spUtil.getHeadImg(), img_login);
+            if (!TextUtils.isEmpty(spUtil.getHeadImg())) {
+                GlideUtils.disPlay(mActivity, Constant.UPLOAD_IMG_URL + spUtil.getHeadImg(), img_login);
+            } else {
+                img_login.setImageResource(R.mipmap.img_maindrawer_unlogin);
+            }
 
             itemRealName.setVisibility(View.VISIBLE);
             itemMoney.setVisibility(View.VISIBLE);

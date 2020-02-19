@@ -82,8 +82,7 @@ ext {
             //Recycleview的万能适配器
             baseRecyclerViewAdapterHelper: "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.38",
             //图片选择器
-            photopicker                  : "cn.bingoogolapple:bga-photopicker:1.2.3@aar",
-            photoAdpter                  : "cn.bingoogolapple:bga-adapter:1.1.8@aar",
+            imagepicker                  : "com.lcw.library:imagepicker:2.2.7",
             //权限适配
             permission                   : "com.yanzhenjie:permission:2.0.0-rc12",
             //viewpager指示器

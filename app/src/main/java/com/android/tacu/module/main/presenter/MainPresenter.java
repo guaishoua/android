@@ -76,7 +76,7 @@ public class MainPresenter extends BaseMvpPresenter implements MainContract.IPre
 
     @Override
     public void selectBank() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<List<PayInfoModel>> o) {
                 MainContract.IView view = (MainContract.IView) getView();

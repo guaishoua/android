@@ -788,7 +788,8 @@ public interface Api {
             @Field("weChatNo") String weChatNo,//微信名
             @Field("weChatImg") String weChatImg,//收款码
             @Field("aliPayNo") String aliPayNo,//支付宝账号
-            @Field("aliPayImg") String aliPayImg//收款码
+            @Field("aliPayImg") String aliPayImg,//收款码
+            @Field("fdPassword") String fdPassword//交易密码
     );
 
     /**
