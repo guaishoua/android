@@ -1,65 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/dp_15"
+    android:paddingBottom="@dimen/dp_20">
 
-    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/dp_10"
-        android:paddingBottom="@dimen/dp_10"
-        app:qmui_backgroundColor="@color/content_bg_color"
-        app:qmui_radius="@dimen/dp_5">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+            android:id="@+id/btn_left"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="@string/merchant_otc_advantage"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_size_sp_16" />
 
-            <com.qmuiteam.qmui.alpha.QMUIAlphaButton
-                android:id="@+id/btn_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@null"
-                android:text="@string/merchant_otc_advantage"
-                android:textColor="@color/text_default"
-                android:textSize="@dimen/text_size_sp_16" />
-
-            <com.qmuiteam.qmui.alpha.QMUIAlphaButton
-                android:id="@+id/btn_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@null"
-                android:text="@string/merchant_c2c_advantage"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_16" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:background="@color/content_bg_color_grey" />
-
-        <TextView
-            android:id="@+id/tv_text"
-            android:layout_width="match_parent"
+        <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+            android:id="@+id/btn_right"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/merchant_otc_advantage_tip"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="@string/merchant_c2c_advantage"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14" />
-    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+            android:textSize="@dimen/text_size_sp_16" />
+    </LinearLayout>
 
-    <ImageView
-        android:id="@+id/img_close"
-        android:layout_width="@dimen/dp_20"
-        android:layout_height="@dimen/dp_20"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/dp_10"
-        app:srcCompat="@drawable/icon_fork_number" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/content_bg_color_grey" />
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/merchant_otc_advantage_tip"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_14" />
 </LinearLayout>

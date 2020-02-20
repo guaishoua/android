@@ -96,6 +96,7 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
         setSocketEvent(this, this, SocketConstant.ENTRUST);
 
         depthAdapter = new MarketDepthAdapter();
+        depthAdapter.setHeaderFooterEmpty(true, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(depthAdapter);
 
@@ -147,7 +148,7 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
         tv_sell_low = viewHeader.findViewById(R.id.tv_sell_low);
         chart_view = viewHeader.findViewById(R.id.chart_view);
 
-        depthAdapter.setHeaderView(viewHeader);
+        depthAdapter.addHeaderView(viewHeader);
     }
 
     private void entrustInfo(RecordModel recordModel) {

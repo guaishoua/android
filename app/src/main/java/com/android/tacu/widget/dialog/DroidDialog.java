@@ -4,13 +4,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.utils.UIUtils;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 
 /**
  * Created by droidbyme on 28-03-2017.
@@ -51,11 +51,13 @@ public class DroidDialog {
         ImageView ivCancel = view.findViewById(R.id.ivCancel);
         TextView txtContent = view.findViewById(R.id.txtContent);
 
-        Button btnPositive = view.findViewById(R.id.btnPositive);
-        QMUIRoundButton btnNegative = view.findViewById(R.id.btnNegative);
-        Button btnNeutral = view.findViewById(R.id.btnNeutral);
+        QMUIAlphaButton btnPositive = view.findViewById(R.id.btnPositive);
+        QMUIAlphaButton btnNegative = view.findViewById(R.id.btnNegative);
+        QMUIAlphaButton btnNeutral = view.findViewById(R.id.btnNeutral);
 
+        NestedScrollView scrollview = view.findViewById(R.id.scrollview);
         LinearLayout lin_view = view.findViewById(R.id.lin_view);
+        View view_line = view.findViewById(R.id.view_line);
 
         /**
          *apply customization to dialog
@@ -96,6 +98,11 @@ public class DroidDialog {
         if (builder.lin_view_layout != null) {
             txtContent.setVisibility(View.GONE);
             lin_view.addView(builder.lin_view_layout);
+        }
+
+        if (TextUtils.isEmpty(builder.content) && builder.lin_view_layout == null) {
+            scrollview.setVisibility(View.GONE);
+            view_line.setVisibility(View.GONE);
         }
 
         if (TextUtils.isEmpty(builder.positiveText)) {

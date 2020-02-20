@@ -15,6 +15,7 @@ import com.android.tacu.module.my.view.EditPersonalDataActivity;
 import com.android.tacu.module.my.view.TradeActivity;
 import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.user.UserInfoUtils;
+import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 
 public class OtcDialogUtils {
@@ -130,6 +131,12 @@ public class OtcDialogUtils {
             } else {
                 rl_binding_pay_info.setVisibility(View.GONE);
             }
+
+            new DroidDialog.Builder(mContext)
+                    .title(mContext.getResources().getString(R.string.go_prefect))
+                    .viewCustomLayout(view)
+                    .cancelable(false, false)
+                    .show();
         }
         return isAuth & isPhone & isTradePwd && isNickHead && isPayInfo;
     }

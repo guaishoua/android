@@ -6,14 +6,14 @@ import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabAdapter;
-import com.android.tacu.widget.popupwindow.MerchantPopWindow;
+import com.android.tacu.widget.popupwindow.OtcPopWindow;
+import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
@@ -24,17 +24,21 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class AuthMerchantActivity extends BaseActivity {
+public class AuthMerchantActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.magic_indicator)
     ScrollIndicatorView magic_indicator;
     @BindView(R.id.vp)
     ViewPager viewPager;
 
+    private QMUIAlphaButton btn_left;
+    private QMUIAlphaButton btn_right;
+    private TextView tv_text;
+
     private List<String> tabTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
 
-    private MerchantPopWindow popWindow;
+    private OtcPopWindow popWindow;
 
     @Override
     protected void setView() {
@@ -82,6 +86,22 @@ public class AuthMerchantActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_left:
+                btn_left.setTextColor(ContextCompat.getColor(this, R.color.text_default));
+                btn_right.setTextColor(ContextCompat.getColor(this, R.color.text_color));
+                tv_text.setText(this.getResources().getString(R.string.merchant_otc_advantage_tip));
+                break;
+            case R.id.btn_right:
+                btn_left.setTextColor(ContextCompat.getColor(this, R.color.text_color));
+                btn_right.setTextColor(ContextCompat.getColor(this, R.color.text_default));
+                tv_text.setText(this.getResources().getString(R.string.merchant_c2c_advantage_tip));
+                break;
+        }
+    }
+
     private void initPop() {
         if (popWindow != null && popWindow.isShowing()) {
             popWindow.dismiss();
@@ -89,22 +109,23 @@ public class AuthMerchantActivity extends BaseActivity {
         }
 
         if (popWindow == null) {
-            popWindow = new MerchantPopWindow(this);
-            popWindow.create();
+            View view = View.inflate(this, R.layout.pop_merchant_advantage, null);
+            btn_left = view.findViewById(R.id.btn_left);
+            btn_right = view.findViewById(R.id.btn_right);
+            tv_text = view.findViewById(R.id.tv_text);
+            btn_left.setOnClickListener(this);
+            btn_right.setOnClickListener(this);
+
+            popWindow = new OtcPopWindow(this);
+            popWindow.create(view);
             popWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    setBg(1F);
+                    popWindow.setBg(1F);
                 }
             });
         }
-        setBg(0.3F);
+        popWindow.setBg(0.3F);
         popWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
-    }
-
-    private void setBg(float value) {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = value;
-        getWindow().setAttributes(lp);
     }
 }

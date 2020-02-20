@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:qmui_backgroundColor="@color/content_bg_color"
-    app:qmui_radius="@dimen/dp_8">
+    app:qmui_radius="@dimen/dp_3">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,11 +14,13 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
             android:id="@+id/rl_title"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
-            android:background="@drawable/gradient_btn_top_8">
+            android:layout_height="@dimen/dp_50"
+            app:qmui_backgroundColor="@color/content_bg_color"
+            app:qmui_radiusTopLeft="@dimen/dp_3"
+            app:qmui_radiusTopRight="@dimen/dp_3">
 
             <TextView
                 android:id="@+id/txtTitle"
@@ -33,15 +35,23 @@
 
             <ImageView
                 android:id="@+id/ivCancel"
-                android:layout_width="@dimen/dp_45"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_35"
                 android:layout_alignParentRight="true"
-                android:paddingLeft="@dimen/dp_12"
-                android:paddingRight="@dimen/dp_12"
-                app:srcCompat="@drawable/icon_close_white" />
-        </RelativeLayout>
+                android:layout_marginTop="@dimen/dp_7"
+                android:layout_marginRight="@dimen/dp_7"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_15"
+                app:srcCompat="@drawable/icon_circle_close" />
+        </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/content_bg_color_grey" />
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
@@ -70,51 +80,46 @@
         </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/content_bg_color_grey" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp_50"
         android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/dp_30"
-        android:paddingTop="@dimen/dp_15"
-        android:paddingRight="@dimen/dp_30"
-        android:paddingBottom="@dimen/dp_20">
+        android:orientation="horizontal">
 
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        <com.qmuiteam.qmui.alpha.QMUIAlphaButton
             android:id="@+id/btnNegative"
             android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_40"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/color_grey_2"
+            android:background="@null"
             android:text="NO"
-            android:textColor="@color/color_white"
-            android:textStyle="bold"
-            app:qmui_backgroundColor="@color/color_grey_2"
-            app:qmui_isRadiusAdjustBounds="true"
-            app:qmui_radius="@dimen/dp_5" />
-
-        <Button
-            android:id="@+id/btnNeutral"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_40"
-            android:layout_weight="1"
-            android:background="@drawable/gradient_btn_5"
-            android:text="Neutral"
-            android:textColor="@color/text_white"
+            android:textColor="@color/text_color"
             android:textStyle="bold" />
 
-        <Button
+        <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+            android:id="@+id/btnNeutral"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="Neutral"
+            android:textColor="@color/text_color"
+            android:textStyle="bold" />
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaButton
             android:id="@+id/btnPositive"
             android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_40"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/gradient_btn_5"
+            android:background="@null"
             android:text="YES"
-            android:textColor="@color/text_white"
+            android:textColor="@color/text_color"
             android:textStyle="bold" />
     </LinearLayout>
 </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>

@@ -25,9 +25,9 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_sp_14"
-        app:layout_constraintBottom_toBottomOf="@id/img_coin"
-        app:layout_constraintLeft_toRightOf="@id/img_coin"
-        app:layout_constraintTop_toTopOf="@id/img_coin"
+        app:layout_constraintBottom_toBottomOf="@id/img_user"
+        app:layout_constraintLeft_toRightOf="@id/img_user"
+        app:layout_constraintTop_toTopOf="@id/img_user"
         tools:text="加隆" />
 
     <LinearLayout
@@ -36,9 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/dp_20"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/img_coin"
+        app:layout_constraintBottom_toBottomOf="@id/img_user"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/img_coin">
+        app:layout_constraintTop_toTopOf="@id/img_user">
 
         <ImageView
             android:id="@+id/img_wx"
@@ -67,7 +67,7 @@
         android:layout_height="@dimen/dp_1"
         android:layout_marginTop="@dimen/dp_8"
         android:background="@color/content_bg_color_grey"
-        app:layout_constraintTop_toBottomOf="@+id/img_coin" />
+        app:layout_constraintTop_toBottomOf="@+id/img_user" />
 
     <TextView
         android:id="@+id/tv_sell_num_title"

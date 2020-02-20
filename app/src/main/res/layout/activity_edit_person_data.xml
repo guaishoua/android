@@ -233,7 +233,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_13"
-                    android:clickable="false"
                     android:text="KYC1"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_14" />
@@ -268,7 +267,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_13"
-                    android:clickable="false"
                     android:textColor="@color/text_grey"
                     android:textSize="@dimen/text_size_sp_14"
                     tools:text="@string/apply_business_not" />
@@ -303,7 +301,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_13"
-                    android:clickable="false"
                     android:textColor="@color/text_grey"
                     android:textSize="@dimen/text_size_sp_14"
                     tools:text="@string/please_binding_pay_info" />

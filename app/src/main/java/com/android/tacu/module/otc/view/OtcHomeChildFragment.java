@@ -63,6 +63,7 @@ public class OtcHomeChildFragment extends BaseFragment<OtcHomeChildPresenter> im
     @Override
     protected void initData(View view) {
         otcDepthAdapter = new OtcDepthAdapter();
+        otcDepthAdapter.setHeaderFooterEmpty(true, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(otcDepthAdapter);
 
@@ -73,7 +74,6 @@ public class OtcHomeChildFragment extends BaseFragment<OtcHomeChildPresenter> im
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_gointo_market:
-                //umpTo(OtcOrderDetailActivity.createActivity(getContext(),ORDER_COINGET));
                 jumpTo(OtcMarketListActivity.createActivity(getContext(), currencyNameEn));
                 break;
         }
@@ -91,7 +91,7 @@ public class OtcHomeChildFragment extends BaseFragment<OtcHomeChildPresenter> im
 
         btn_gointo_market.setOnClickListener(this);
 
-        otcDepthAdapter.setHeaderView(headerView);
+        otcDepthAdapter.addHeaderView(headerView);
     }
 
     public class OtcDepthAdapter extends BaseQuickAdapter<String, BaseViewHolder> {

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/common_titlebar" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_49">
+
+        <TextView
+            android:id="@+id/tv_vip_month"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:gravity="center"
+            android:text="@string/vip_month"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_size_sp_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_vip_year"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tag_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_zhe"
+            android:paddingLeft="@dimen/dp_2"
+            android:text="折"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_10"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@id/tv_vip_month"
+            app:layout_constraintTop_toTopOf="@id/tv_vip_month" />
+
+        <View
+            android:id="@+id/view_vip_month"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_3"
+            android:background="@color/color_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_vip_month"
+            app:layout_constraintRight_toRightOf="@+id/tv_vip_month" />
+
+        <TextView
+            android:id="@+id/tv_vip_year"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:gravity="center"
+            android:text="@string/vip_year"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_vip_month"
+            app:layout_constraintRight_toLeftOf="@+id/tv_vip_year_continue"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tag_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_zhe"
+            android:paddingLeft="@dimen/dp_2"
+            android:text="折"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_10"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@id/tv_vip_year"
+            app:layout_constraintTop_toTopOf="@id/tv_vip_year" />
+
+        <View
+            android:id="@+id/view_vip_year"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_3"
+            android:background="@color/color_default"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_vip_year"
+            app:layout_constraintRight_toRightOf="@+id/tv_vip_year" />
+
+        <TextView
+            android:id="@+id/tv_vip_year_continue"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:gravity="center"
+            android:text="@string/vip_year_continue"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_vip_year"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tag_year_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_zhe"
+            android:paddingLeft="@dimen/dp_2"
+            android:text="折"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_10"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@id/tv_vip_year_continue"
+            app:layout_constraintTop_toTopOf="@id/tv_vip_year_continue" />
+
+        <View
+            android:id="@+id/view_vip_year_continue"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_3"
+            android:background="@color/color_default"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_vip_year_continue"
+            app:layout_constraintRight_toRightOf="@+id/tv_vip_year_continue" />
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_2"
+        android:background="@color/content_bg_color_grey" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

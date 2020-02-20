@@ -3,8 +3,6 @@ package com.android.tacu.module.otc.view;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -19,6 +17,7 @@ import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
+import com.android.tacu.common.MyFragmentPagerAdapter;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.otc.contract.OtcHomeContract;
 import com.android.tacu.module.otc.presenter.OtcHomePresenter;
@@ -204,24 +203,5 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
         view_btc.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_transparent));
         tv_c2c.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color));
         img_c2c.setImageResource(R.drawable.icon_arrow_right);
-    }
-
-    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-        private Fragment[] list;
-
-        public MyFragmentPagerAdapter(FragmentManager fm, Fragment[] list) {
-            super(fm);
-            this.list = list;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return list[position];
-        }
-
-        @Override
-        public int getCount() {
-            return list.length;
-        }
     }
 }

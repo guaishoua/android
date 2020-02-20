@@ -72,6 +72,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
         });
 
         orderAdapter = new OtcOrderAdapter();
+        orderAdapter.setHeaderFooterEmpty(true, false);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.content_bg_color_grey)));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -88,7 +89,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
 
     private void initHeader() {
         View headerView = View.inflate(this, R.layout.header_otc_manage_buy_sell_detail, null);
-        orderAdapter.setHeaderView(headerView);
+        orderAdapter.addHeaderView(headerView);
     }
 
     public class OtcOrderAdapter extends BaseQuickAdapter<String, BaseViewHolder> {

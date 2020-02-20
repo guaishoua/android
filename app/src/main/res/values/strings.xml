@@ -864,4 +864,34 @@
 
     <!--充值保证金-->
     <string name="recharge_deposit">充值保证金</string>
+    <string name="available_balance">可操作余额</string>
+    <string name="frozen_balance">冻结中余额</string>
+    <string name="please_input_recharge_amount">请填写您要充值的数量</string>
+    <string name="order_record">订单记录</string>
+    <string name="extract">提取</string>
+
+    <!--会员-->
+    <string name="buy_vip">购买会员</string>
+    <string name="vip_month">月度会员</string>
+    <string name="vip_year">年度会员</string>
+    <string name="vip_year_continue">连续包年</string>
+    <string name="vip_cycle">会员周期</string>
+    <string name="click_recharge">点击充值</string>
+    <string name="vip_good_1">▪新产品内测资格。\n▪专属客服通道。\n▪OTC商户资格。\n▪抢购新币种。</string>
+    <string name="vip_good_2">▪免费参加线下活。\n▪尊享会员手续费标准。\n▪参与优质项目airDrop。\n▪高比例推广佣金。</string>
+    <string name="vip_kyc_tip">您还未通过KYC实名认证</string>
+    <string name="vip_tip">
+        连续包年逻辑中需要注意几点：
+        \n1.用户可自行手动进行取消自动续费操作，取消后将从下一週期不再扣费并终止会员身份。
+        \n2.当用户账户馀额不足抵扣续费数量时，在到期前3日为该用户推送邮件和短信提醒，若到期时账户内馀额仍不足抵扣则按照取消自动续费流程操作。
+        \n3.账户馀额不包括因平台业务被冻结的馀额。
+    </string>
+    <string name="nee_pay">需要支付</string>
+    <string name="confirm_pay">确认支付</string>
+    <string name="buy_success">购买成功</string>
+    <string name="buy_success_tip">恭喜您，已经成为平台%1$s尊享会员独有权利！</string>
+    <string name="year_continue_success_tip1">到期后平台将自动从您的账户中扣除相应费用</string>
+    <string name="year_continue_success_tip2">* 为了保证您续费成功，请您实时关注您的账户余额以免不足抵扣</string>
+    <string name="vip_end_time">会员到期日 \n%1$s</string>
+    <string name="vip_surplus_time">会员身份剩余时间：%1$s</string>
 </resources>

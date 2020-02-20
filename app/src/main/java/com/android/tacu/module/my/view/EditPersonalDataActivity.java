@@ -249,14 +249,12 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         setValue();
         if (model != null) {
             if (model.applyMerchantStatus != null) {
-                tv_apply_buniness.setClickable(true);
                 switch (model.applyMerchantStatus) {
                     case 0:
                         tv_apply_buniness.setText(getResources().getString(R.string.apply_business_not));
                         break;
                     case 1:
                         tv_apply_buniness.setText(getResources().getString(R.string.ordinary_merchant) + getResources().getString(R.string.to_be_examine));
-                        tv_apply_buniness.setClickable(false);
                         break;
                     case 2:
                         if (model.applyAuthMerchantStatus != null) {
@@ -266,22 +264,18 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
                                     break;
                                 case 1:
                                     tv_apply_buniness.setText(getResources().getString(R.string.certified_shoper) + getResources().getString(R.string.to_be_examine));
-                                    tv_apply_buniness.setClickable(false);
                                     break;
                                 case 2:
                                     tv_apply_buniness.setText(getResources().getString(R.string.certified_shoper));
-                                    tv_apply_buniness.setClickable(false);
                                     break;
                                 case 3:
                                     tv_apply_buniness.setText(getResources().getString(R.string.certified_shoper) + getResources().getString(R.string.examine_failure));
-                                    tv_apply_buniness.setClickable(true);
                                     break;
                             }
                         }
                         break;
                     case 3:
                         tv_apply_buniness.setText(getResources().getString(R.string.ordinary_merchant) + getResources().getString(R.string.examine_failure));
-                        tv_apply_buniness.setClickable(true);
                         break;
                 }
             }
@@ -343,10 +337,8 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         }
         if (spUtil.getIsAuthSenior() == 2) {
             tv_apply_kyc.setText("KYC2");
-            tv_apply_kyc.setClickable(false);
         } else if (spUtil.getIsAuthSenior() < 2) {
             tv_apply_kyc.setText("KYC1");
-            tv_apply_kyc.setClickable(true);
         }
     }
 

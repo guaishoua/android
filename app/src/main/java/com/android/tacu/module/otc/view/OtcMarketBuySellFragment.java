@@ -82,6 +82,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     @Override
     protected void initData(View view) {
         mAdapter = new OtcMarketBuySellAdapter();
+        mAdapter.setHeaderFooterEmpty(true, false);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(new ColorDrawable(ContextCompat.getColor(getContext(), R.color.content_bg_color_grey)));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -148,10 +149,10 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         tv_quota_sort.setOnClickListener(this);
         tv_all_manner_sort.setOnClickListener(this);
 
-        mAdapter.setHeaderView(headerView);
+        mAdapter.addHeaderView(headerView);
     }
 
-    public void setRefreshFragment(){
+    public void setRefreshFragment() {
 
     }
 
@@ -216,11 +217,11 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
 
         @Override
         protected void convert(BaseViewHolder helper, String item) {
-            if (isBuy){
-                helper.setTextColor(R.id.tv_single_price,ContextCompat.getColor(getContext(),R.color.color_riseup));
+            if (isBuy) {
+                helper.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_riseup));
                 ((QMUIRoundButtonDrawable) helper.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_riseup));
-            }else{
-                helper.setTextColor(R.id.tv_single_price,ContextCompat.getColor(getContext(),R.color.color_risedown));
+            } else {
+                helper.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_risedown));
                 ((QMUIRoundButtonDrawable) helper.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_risedown));
             }
         }

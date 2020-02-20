@@ -85,6 +85,11 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
         tv_cardholder_name1.setText(spUtil.getKYCName());
     }
 
+    @Override
+    protected BindingPayInfoPresenter createPresenter(BindingPayInfoPresenter mPresenter) {
+        return new BindingPayInfoPresenter();
+    }
+
     @OnClick(R.id.img_saomiao)
     void saomiaoClick() {
         PermissionUtils.requestPermissions(getContext(), new OnPermissionListener() {

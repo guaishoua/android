@@ -140,6 +140,11 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     }
 
     @Override
+    protected BindingPayInfoPresenter createPresenter(BindingPayInfoPresenter mPresenter) {
+        return new BindingPayInfoPresenter();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (ossAsynTaskList != null && ossAsynTaskList.size() > 0) {
