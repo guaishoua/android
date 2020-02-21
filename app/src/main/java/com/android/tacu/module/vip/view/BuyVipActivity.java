@@ -5,14 +5,24 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.VipBuyEvent;
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.MyFragmentPagerAdapter;
+import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.vip.contract.BuyVipContract;
+import com.android.tacu.module.vip.model.VipDetailModel;
+import com.android.tacu.module.vip.model.VipDetailRankModel;
 import com.android.tacu.module.vip.presenter.BuyVipPresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,9 +55,6 @@ public class BuyVipActivity extends BaseActivity<BuyVipPresenter> implements Buy
     private BuyVipFragment yearFragment;
     private BuyVipFragment yearContinueFragment;
 
-    //true=当前页面是支付页面
-    private boolean isPay = false;
-
     public static Intent createActivity(Context context, boolean isPay) {
         Intent intent = new Intent(context, BuyVipActivity.class);
         intent.putExtra("isPay", isPay);
@@ -62,7 +69,6 @@ public class BuyVipActivity extends BaseActivity<BuyVipPresenter> implements Buy
     @Override
     protected void initView() {
         mTopBar.setTitle(getResources().getString(R.string.buy_vip));
-        isPay = getIntent().getBooleanExtra("isPay", false);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -88,6 +94,27 @@ public class BuyVipActivity extends BaseActivity<BuyVipPresenter> implements Buy
         return new BuyVipPresenter();
     }
 
+    @Override
+    protected void onPresenterCreated(BuyVipPresenter presenter) {
+        super.onPresenterCreated(presenter);
+        upload();
+    }
+
+    @Override
+    protected void receiveEvent(BaseEvent event) {
+        super.receiveEvent(event);
+        if (event != null) {
+            switch (event.getCode()) {
+                case EventConstant.VipBuyCode:
+                    VipBuyEvent vipBuyEvent = (VipBuyEvent) event.getData();
+                    if (vipBuyEvent.isNotify()) {
+                        upload();
+                    }
+                    break;
+            }
+        }
+    }
+
     @OnClick(R.id.tv_vip_month)
     void monthClick() {
         setCurrentValue(0);
@@ -103,14 +130,78 @@ public class BuyVipActivity extends BaseActivity<BuyVipPresenter> implements Buy
         setCurrentValue(2);
     }
 
+    @Override
+    public void selectVip(VipDetailModel model) {
+        if (monthFragment != null) {
+            monthFragment.setVipDetailModel(model);
+        }
+        if (yearFragment != null) {
+            yearFragment.setVipDetailModel(model);
+        }
+        if (yearContinueFragment != null) {
+            yearContinueFragment.setVipDetailModel(model);
+        }
+    }
+
+    @Override
+    public void selectVipDetail(List<VipDetailRankModel> list) {
+        VipDetailRankModel model = null;
+        for (int i = 0; i < list.size(); i++) {
+            model = list.get(i);
+            if (list.get(i).id == 1) {
+                if (monthFragment != null && list.get(0) != null) {
+                    if (!TextUtils.equals(model.amount, model.currentAmount)) {
+                        tag_month.setVisibility(View.VISIBLE);
+                    } else {
+                        tag_month.setVisibility(View.GONE);
+                    }
+                    monthFragment.setVipDetailRankModel(model);
+                }
+            } else if (list.get(i).id == 2) {
+                if (!TextUtils.equals(model.amount, model.currentAmount)) {
+                    tag_year.setVisibility(View.VISIBLE);
+                } else {
+                    tag_year.setVisibility(View.GONE);
+                }
+                yearFragment.setVipDetailRankModel(model);
+            } else if (list.get(i).id == 3) {
+                if (!TextUtils.equals(model.amount, model.currentAmount)) {
+                    tag_year_continue.setVisibility(View.VISIBLE);
+                } else {
+                    tag_year_continue.setVisibility(View.GONE);
+                }
+                yearContinueFragment.setVipDetailRankModel(model);
+            }
+        }
+    }
+
+    @Override
+    public void otcAmount(OtcAmountModel model) {
+        if (monthFragment != null) {
+            monthFragment.setOtcAccount(model);
+        }
+        if (yearFragment != null) {
+            yearFragment.setOtcAccount(model);
+        }
+        if (yearContinueFragment != null) {
+            yearContinueFragment.setOtcAccount(model);
+        }
+    }
+
     private void initFragment() {
-        monthFragment = BuyVipFragment.newInstance(1, isPay);
-        yearFragment = BuyVipFragment.newInstance(2, isPay);
-        yearContinueFragment = BuyVipFragment.newInstance(3, isPay);
+        monthFragment = BuyVipFragment.newInstance(1);
+        yearFragment = BuyVipFragment.newInstance(2);
+        yearContinueFragment = BuyVipFragment.newInstance(3);
 
         fragments = new Fragment[]{monthFragment, yearFragment, yearContinueFragment};
         viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments));
         viewPager.setOffscreenPageLimit(fragments.length - 1);
+    }
+
+    private void upload() {
+        mPresenter.selectVip();
+        mPresenter.selectVipDetail();
+        mPresenter.otcAmount(Constant.ACU_CURRENCY_ID);
     }
 
     /**

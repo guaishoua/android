@@ -239,7 +239,7 @@ public class AuctionPlusDetailActivity extends BaseActivity<AuctionPlusPresent> 
 
     @OnClick(R.id.btn_trade)
     void btnTradeClick() {
-        EventManage.sendEvent(new BaseEvent<>(EventConstant.JumpTradeIsBuyCode, new JumpTradeCodeIsBuyEvent(1, 237, "BTC", "ACU", true)));
+        EventManage.sendEvent(new BaseEvent<>(EventConstant.JumpTradeIsBuyCode, new JumpTradeCodeIsBuyEvent(Constant.BTC_CURRENCY_ID, Constant.ACU_CURRENCY_ID, "BTC", "ACU", true)));
         activityManage.finishActivity(AuctionActivity.class);
         finish();
     }

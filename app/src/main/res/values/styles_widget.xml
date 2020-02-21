@@ -59,7 +59,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@color/color_transparent</item>
         <item name="android:textSize">@dimen/text_size_sp_16</item>
-        <item name="android:textColorHint">@color/text_grey_2</item>
+        <item name="android:textColorHint">@color/text_grey</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
 

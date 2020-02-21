@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -78,6 +79,20 @@
         android:text="@string/year_continue_success_tip2"
         android:textColor="@color/text_default"
         android:textSize="@dimen/text_size_sp_14" />
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        android:paddingHorizontal="@dimen/dp_26"
+        android:paddingVertical="@dimen/dp_8"
+        android:text="@string/cancel_renew"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_14"
+        app:qmui_backgroundColor="@color/color_grey"
+        app:qmui_radius="@dimen/dp_2" />
 
     <ImageView
         android:id="@+id/img_success"

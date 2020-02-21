@@ -59,8 +59,18 @@
                     android:textColor="@color/color_grey_2"
                     android:textSize="@dimen/text_size_sp_14"
                     tools:text="(Tether)" />
-
             </LinearLayout>
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+                android:id="@+id/btn_transfer"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:gravity="right"
+                android:padding="@dimen/dp_5"
+                android:text="@string/transfer"
+                android:textColor="@color/text_color" />
         </RelativeLayout>
 
 

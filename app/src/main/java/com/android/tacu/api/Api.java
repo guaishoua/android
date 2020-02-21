@@ -7,6 +7,7 @@ import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.ChargeModel;
 import com.android.tacu.module.assets.model.CoinAddressModel;
 import com.android.tacu.module.assets.model.MoneyFlowModel;
+import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.model.SelectTakeCoinAddressModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
@@ -33,6 +34,8 @@ import com.android.tacu.module.auctionplus.modal.AuctionPlusListByIdModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusListModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusPayInfoModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusWinLisyModel;
+import com.android.tacu.module.vip.model.VipDetailModel;
+import com.android.tacu.module.vip.model.VipDetailRankModel;
 
 import java.util.List;
 
@@ -815,5 +818,72 @@ public interface Api {
     @POST("uselectUserInfo")
     Observable<BaseModel<String>> uselectUserInfo(
             @Field("headImg") String headImg
+    );
+
+    /**
+     * 购买会员
+     */
+    @FormUrlEncoded
+    @POST("buyVip")
+    Observable<BaseModel> buyVip(
+            @Field("type") Integer type, //1月度会员(30天)  2年度会员(12月) 3连续包年
+            @Field("fdPassword") String fdPassword//交易密码
+    );
+
+    /**
+     * 查看会员购买详情
+     */
+    @POST("selectVip")
+    Observable<BaseModel<VipDetailModel>> selectVip();
+
+    /**
+     * vip各级别价位
+     */
+    @POST("selectVipDetail")
+    Observable<BaseModel<List<VipDetailRankModel>>> selectVipDetail();
+
+    /**
+     * 取消自动续费
+     */
+    @POST("cancleVip")
+    Observable<BaseModel> cancleVip();
+
+
+    /**
+     * 币币账号划转到OTC
+     */
+    @FormUrlEncoded
+    @POST("CcToOtc")
+    Observable<BaseModel> CcToOtc(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId
+    );
+
+    /**
+     * otc划转到币币账户
+     */
+    @FormUrlEncoded
+    @POST("OtcToCC")
+    Observable<BaseModel> OtcToCC(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId
+    );
+
+    /**
+     * 查看otc余额
+     */
+    @FormUrlEncoded
+    @POST("OtcAccount")
+    Observable<BaseModel<OtcAmountModel>> OtcAccount(
+            @Field("currencyId") Integer currencyId
+    );
+
+    /**
+     * 查看保证金余额
+     */
+    @FormUrlEncoded
+    @POST("BondAccount")
+    Observable<BaseModel<OtcAmountModel>> BondAccount(
+            @Field("currencyId") Integer currencyId
     );
 }

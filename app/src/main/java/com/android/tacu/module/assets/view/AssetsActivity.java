@@ -47,11 +47,13 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private int currencyId = 1;
     private String recharge;
     private String take;
+    private String otcTransfer;
     private String currencyNameEn = "BTC";
     private FragmentAdapter fragmentAdapter;
 
     private RechargeFragment rechargeFragment;
     private TakeCoinFragment takeCoinFragment;
+    private OTCTransferFragment otcTransferFragment;
 
     private Gson gson = new Gson();
     private List<Fragment> fragmentList;
@@ -64,7 +66,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
      * @param context
      * @param currencyNameEn
      * @param currencyId
-     * @param flags          第几个 0=充币 1=提币
+     * @param flags          第几个 0=充币 1=提币 2=otc划转
      * @param isDetails      true：不用默认的btc
      * @return
      */
@@ -185,7 +187,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
 
     private void initTabTitle() {
         fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
-        viewpager.setOffscreenPageLimit(3);
+        viewpager.setOffscreenPageLimit(fragmentList.size() - 1);
         viewpager.setAdapter(fragmentAdapter);
         viewpager.setCurrentItem(current);
     }
@@ -193,6 +195,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private void initFragments() {
         recharge = getResources().getString(R.string.recharge);
         take = getResources().getString(R.string.withdrawals);
+        otcTransfer = getResources().getString(R.string.transfer);
 
         switch (flags) {
             case 0:
@@ -201,10 +204,13 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
             case 1:
                 mTopBar.setTitle(currencyNameEn + take);
                 break;
+            case 2:
+                mTopBar.setTitle(currencyNameEn + otcTransfer);
+                break;
         }
         fragmentList = new ArrayList<>();
 
-        boolean rechargeFlag = false, takeCoinFlag = false;
+        boolean rechargeFlag = false, takeCoinFlag = false, otcTransferFlag = false;
         switch (current) {
             case 0:
                 rechargeFlag = true;
@@ -212,11 +218,16 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
             case 1:
                 takeCoinFlag = true;
                 break;
+            case 2:
+                otcTransferFlag = true;
+                break;
         }
         rechargeFragment = RechargeFragment.newInstance(currencyId, currencyNameEn, rechargeFlag);
         takeCoinFragment = TakeCoinFragment.newInstance(currencyId, currencyNameEn, takeCoinFlag);
+        otcTransferFragment = OTCTransferFragment.newInstance(currencyId, currencyNameEn, otcTransferFlag);
         fragmentList.add(rechargeFragment);
         fragmentList.add(takeCoinFragment);
+        fragmentList.add(otcTransferFragment);
 
         initTabTitle();
     }

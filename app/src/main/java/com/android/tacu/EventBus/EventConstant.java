@@ -21,4 +21,6 @@ public class EventConstant {
     public static final int HomeNotifyCode = 1007;
     //绑定支付页面，子fragment通知父Activity刷新
     public static final int PayInfoCode = 1008;
+    //购买vip，子fragment通知父Activity刷新
+    public static final int VipBuyCode = 1009;
 }

@@ -330,6 +330,7 @@
             android:textSize="@dimen/text_size_sp_12" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_submit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_49"
             android:layout_marginHorizontal="@dimen/dp_50"

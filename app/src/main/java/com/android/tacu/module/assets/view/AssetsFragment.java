@@ -53,6 +53,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -372,8 +373,11 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
 
     //单一类型adapter
     class AssetAdapter extends BaseQuickAdapter<AssetDetailsModel.CoinListBean, BaseViewHolder> {
+        private List<String> otcList;
+
         public AssetAdapter() {
             super(R.layout.item_asset_details_global);
+            otcList = Arrays.asList(Constant.OTCList);
         }
 
         @Override
@@ -386,6 +390,12 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             holder.setText(R.id.tv_asset_item_freeze_count, defaultEyeStatus ? BigDecimal.valueOf(data.freezeAmount).toPlainString() : "*****");
             String ycn = getMcM(data.currencyId, data.amount);
             holder.setText(R.id.tv_assets_item_cny_value, defaultEyeStatus ? (TextUtils.isEmpty(ycn) ? "" : "≈" + ycn) : "*****");
+
+            if (otcList.contains(data.currencyNameEn)) {
+                holder.setGone(R.id.btn_transfer, true);
+            } else {
+                holder.setGone(R.id.btn_transfer, false);
+            }
 
             holder.itemView.findViewById(R.id.tv_asset_item_recharge).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -471,6 +481,16 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                     }
                 }
             });
+
+            holder.setOnClickListener(R.id.btn_transfer, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!isKeyc2()) {
+                        return;
+                    }
+                    jumpTo(AssetsActivity.createActivity(getHostActivity(), data.currencyNameEn, data.currencyId, 2, true));
+                }
+            });
         }
     }
 
@@ -545,5 +565,14 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                 break;
         }
         return boo;
+    }
+
+    private boolean isKeyc2() {
+        int flag = spUtil.getIsAuthSenior();
+        if (flag <= 1) {
+            showToastError(getString(R.string.please_get_the_level_of_KYC));
+            return false;
+        }
+        return true;
     }
 }

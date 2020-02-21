@@ -17,7 +17,7 @@ public class FormatterUtils {
      */
     public static String getFormatValue(double value) {
         try {
-            return BigDecimal.valueOf(value).toPlainString();
+            return BigDecimal.valueOf(value).stripTrailingZeros().toPlainString();
         } catch (Exception e) {
             return String.valueOf(value);
         }

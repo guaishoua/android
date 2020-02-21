@@ -863,6 +863,14 @@
     <string name="go_setting">去设置</string>
     <string name="go_prefect">去完善</string>
     <string name="nickname_and_head">昵称&amp;头像</string>
+    <string name="cancel_renew">取消续费</string>
+    <string name="acu_month">%1$s ACU/月</string>
+    <string name="acu_year">%1$s ACU/年</string>
+    <string name="original_price">原价</string>
+    <string name="current_price">现价</string>
+    <string name="month_12">12个月</string>
+    <string name="automatic_renewal">到期自动续费</string>
+    <string name="endtime_renewal">到期续费</string>
 
     <!--充值保证金-->
     <string name="recharge_deposit">充值保证金</string>
@@ -896,4 +904,11 @@
     <string name="year_continue_success_tip2">* 为了保证您续费成功，请您实时关注您的账户余额以免不足抵扣</string>
     <string name="vip_end_time">会员到期日 \n%1$s</string>
     <string name="vip_surplus_time">会员身份剩余时间：%1$s</string>
+
+    <!--划转-->
+    <string name="transfer">划转</string>
+    <string name="transfer_available2">可用：</string>
+    <string name="asset_num">数量</string>
+    <string name="transfer_in">转入</string>
+    <string name="transfer_out">转出</string>
 </resources>

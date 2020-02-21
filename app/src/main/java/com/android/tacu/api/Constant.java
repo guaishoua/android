@@ -1,5 +1,7 @@
 package com.android.tacu.api;
 
+import java.util.List;
+
 import static com.android.tacu.api.ApiHost.SOCKET_IP;
 
 public class Constant {
@@ -49,7 +51,6 @@ public class Constant {
 
     //阿里云图片
     public static final String HEAD_IMG_URL = "https://ta-public.oss-accelerate.aliyuncs.com/";
-    public static final String UPLOAD_IMG_URL = "https://ta-public.oss-cn-hongkong.aliyuncs.com/";
     public static final String SMALL_ICON_URL = "https://ta-public.oss-cn-hongkong.aliyuncs.com/";
 
     //阿里云OSS图片上传
@@ -74,4 +75,14 @@ public class Constant {
 
     //邀请好友前缀
     public static final String INVITED_FRIEND_URL = SOCKET_IP + "/RegisterInvite/";
+
+    //几个币种的ID
+    public static final int ACU_CURRENCY_ID = 237;
+    public static final int BTC_CURRENCY_ID = 1;
+
+    //OTC开放的币种
+    public static final String[] OTCList = new String[]{"ACU", "USDT", "BTC"};
+    public static final String OTC_ACU = "ACU";
+    public static final String OTC_USDT = "USDT";
+    public static final String OTC_BTC = "BTC";
 }

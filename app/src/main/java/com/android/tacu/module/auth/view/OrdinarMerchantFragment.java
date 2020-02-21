@@ -12,9 +12,12 @@ import com.android.tacu.base.BaseFragment;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.auth.contract.AuthMerchantContract;
 import com.android.tacu.module.auth.presenter.AuthMerchantPresenter;
+import com.android.tacu.module.vip.view.BuyVipActivity;
+import com.android.tacu.utils.LogUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.view.GlideLoader;
 import com.lcw.library.imagepicker.ImagePicker;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.yanzhenjie.permission.Permission;
 
 import java.util.ArrayList;
@@ -28,6 +31,8 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
 
     @BindView(R.id.tv_xieyi)
     TextView tv_xieyi;
+    @BindView(R.id.btn_submit)
+    QMUIRoundButton btn_submit;
 
     private static final int REQUEST_SELECT_IMAGES_CODE = 1001;
     private ArrayList<String> mImagePaths;
@@ -47,7 +52,6 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
     @Override
     protected void initData(View view) {
         tv_xieyi.setText(Html.fromHtml(getResources().getString(R.string.auth_xieyi1) + "<font color=" + ContextCompat.getColor(getContext(), R.color.text_default) + ">" + getResources().getString(R.string.auth_xieyi2) + "</font>"));
-
     }
 
     @Override
@@ -59,6 +63,11 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
         if (requestCode == REQUEST_SELECT_IMAGES_CODE && resultCode == RESULT_OK) {
             mImagePaths = data.getStringArrayListExtra(ImagePicker.EXTRA_SELECT_IMAGES);
         }
+    }
+
+    @OnClick(R.id.tv_membership_right)
+    void buyVip() {
+        jumpTo(BuyVipActivity.class);
     }
 
     @OnClick(R.id.btn_upload_video)
@@ -82,5 +91,10 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
             public void onPermissionFailed() {
             }
         }, Permission.Group.STORAGE, Permission.Group.CAMERA);
+    }
+
+    @OnClick(R.id.btn_submit)
+    void submitClick() {
+        LogUtils.i("jiazhen", "111");
     }
 }

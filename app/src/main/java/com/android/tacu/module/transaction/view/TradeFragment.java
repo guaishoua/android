@@ -154,8 +154,8 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     private String positionView;
     private ConstraintSet mConstraintSet1, mConstraintSet2;
 
-    private int currencyId = 1;
-    private int baseCurrencyId = 237;
+    private int currencyId = Constant.BTC_CURRENCY_ID;
+    private int baseCurrencyId = Constant.ACU_CURRENCY_ID;
     private String currencyNameEn = "BTC";
     private String baseCurrencyNameEn = "ACU";
     private int pointPrice = 4;

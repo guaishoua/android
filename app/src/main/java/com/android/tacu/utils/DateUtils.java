@@ -702,8 +702,14 @@ public class DateUtils {
         }
     }
 
+    public static int differentDaysByMillisecond(long millisUntilFinished1, long millisUntilFinished2) {
+        int days = (int) ((millisUntilFinished1 - millisUntilFinished2) / (1000 * 3600 * 24));
+        return days;
+    }
+
     /**
      * 获取 00：00：00 格式的 （最后一个00是毫秒）
+     *
      * @param millisUntilFinished 剩余的毫秒数
      * @return
      */
