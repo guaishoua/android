@@ -774,7 +774,9 @@
     <string name="please_input_wx_account">请输入您绑定微信的账号</string>
     <string name="please_input_zfb_account">请输入您绑定支付宝的账号</string>
     <string name="upload_wx_shoukuanma">上传微信收款码</string>
+    <string name="please_upload_wx_shoukuanma">请上传微信收款码</string>
     <string name="upload_zfb_shoukuanma">上传支付宝收款码</string>
+    <string name="please_upload_zfb_shoukuanma">请上传支付宝收款码</string>
 
     <!--修改个人资料-->
     <string name="edit_person_data">修改个人资料</string>

@@ -228,7 +228,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             tvUser.setText("Hi," + spUtil.getAccount());
             tvUid.setText("UID " + spUtil.getUserUid());
             if (!TextUtils.isEmpty(spUtil.getHeadImg())) {
-                GlideUtils.disPlay(mActivity, Constant.UPLOAD_IMG_URL + spUtil.getHeadImg(), img_login);
+                GlideUtils.disPlay(mActivity, Constant.HEAD_IMG_URL + spUtil.getHeadImg(), R.mipmap.img_maindrawer_unlogin, img_login);
             } else {
                 img_login.setImageResource(R.mipmap.img_maindrawer_unlogin);
             }
@@ -251,6 +251,17 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             itemSecuritySetting.setVisibility(View.GONE);
             itemInviting.setVisibility(View.GONE);
             btnUnLogin.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 解决DrawerLayout展开，头像请求不加载的问题
+     */
+    public void openDraw() {
+        if (spUtil.getLogin() && !TextUtils.isEmpty(spUtil.getHeadImg())) {
+            GlideUtils.disPlay(mActivity, Constant.HEAD_IMG_URL + spUtil.getHeadImg(), R.mipmap.img_maindrawer_unlogin, img_login);
+        } else {
+            img_login.setImageResource(R.mipmap.img_maindrawer_unlogin);
         }
     }
 

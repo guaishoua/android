@@ -160,6 +160,7 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
             unBinder.unbind();
         }
         if (loadingView != null) {
+            loadingView.disAllLoading();
             loadingView = null;
         }
         if (mPresenter != null && mPresenter.isViewAttached()) {

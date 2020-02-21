@@ -2,25 +2,27 @@ package com.android.tacu.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import com.android.tacu.view.GlideLoader;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.android.tacu.R;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.utils.permission.PermissionUtils;
-import com.lcw.library.imagepicker.ImagePicker;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.yanzhenjie.permission.Permission;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 
 /**
  * Created by xiaohong on 2018/8/27.
@@ -142,15 +144,10 @@ public class IdentityAuthUtils {
 
             @Override
             public void onPermissionSucceed() {
-                ImagePicker.getInstance()
-                        .setTitle("")//设置标题
-                        .showCamera(true)//设置是否显示拍照按钮
-                        .showImage(true)//设置是否展示图片
-                        .showVideo(false)//设置是否展示视频
-                        .setSingleType(true)//设置图片视频不能同时选择
-                        .setMaxCount(1)//设置最大选择图片数目(默认为1，单选)
-                        .setImageLoader(new GlideLoader())//设置自定义图片加载器
-                        .start(activity, code);//REQEST_SELECT_IMAGES_CODE为Intent调用的requestCode
+                boolean mTakePhotoEnabled = true;
+                // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话就没有拍照功能
+                File takePhotoDir = new File(Environment.getExternalStorageDirectory(), "tacu");
+                activity.startActivityForResult(BGAPhotoPickerActivity.newIntent(activity, mTakePhotoEnabled ? takePhotoDir : null, 1, null, mTakePhotoEnabled), code);
             }
 
             @Override

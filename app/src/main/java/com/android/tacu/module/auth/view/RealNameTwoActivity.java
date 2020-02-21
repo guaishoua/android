@@ -39,7 +39,6 @@ import com.android.tacu.module.auth.presenter.RealNamePresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.IdentityAuthUtils;
-import com.lcw.library.imagepicker.ImagePicker;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 
 import java.io.File;
@@ -48,6 +47,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import id.zelory.compressor.Compressor;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -208,9 +208,9 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
         }
         switch (requestCode) {
             case POSITIVE_CODE:
-                ArrayList<String> mImagePaths = data.getStringArrayListExtra(ImagePicker.EXTRA_SELECT_IMAGES);
-                for (int i = 0; i < mImagePaths.size(); i++) {
-                    String imageUri = mImagePaths.get(i);
+                ArrayList<String> imageList = BGAPhotoPickerActivity.getSelectedImages(data);
+                for (int i = 0; i < imageList.size(); i++) {
+                    String imageUri = imageList.get(i);
                     File fileOrgin = new File(imageUri);
 
                     new Compressor(this)

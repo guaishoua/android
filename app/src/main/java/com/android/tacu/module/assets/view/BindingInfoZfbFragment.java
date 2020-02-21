@@ -42,8 +42,6 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.permission.PermissionUtils;
-import com.android.tacu.view.GlideLoader;
-import com.lcw.library.imagepicker.ImagePicker;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout;
 import com.yanzhenjie.permission.Permission;
@@ -54,12 +52,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import id.zelory.compressor.Compressor;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
-import static android.app.Activity.RESULT_OK;
 
 public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter> implements BindingPayInfoContract.IZfbView {
 
@@ -77,6 +74,8 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     QMUIRadiusImageView img_zfb_shoukuan;
     @BindView(R.id.rl_upload)
     QMUIRoundRelativeLayout rl_upload;
+    @BindView(R.id.tv_upload_tip)
+    TextView tv_upload_tip;
 
     @BindView(R.id.lin_list)
     LinearLayout lin_list;
@@ -87,12 +86,16 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     @BindView(R.id.img_zfb_shoukuan1)
     QMUIRadiusImageView img_zfb_shoukuan1;
 
-    private static final int REQUEST_SELECT_IMAGES_CODE = 1001;
-    private ArrayList<String> mImagePaths;
+    private final int TAKE_PIC = 1001;
     private PayInfoModel payInfoModel;
 
     //oss
-    private String imageName;
+    private String uploadImageName;
+    private File uploadFile;
+
+    private String zfbChatNo;
+    private String pwdString;
+
     private OSS mOss = null;
     private String bucketName;
     private List<OSSAsyncTask> ossAsynTaskList = new ArrayList<>();
@@ -104,13 +107,10 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
             switch (msg.what) {
                 case 0:
                     hideLoadingView();
-                    GlideUtils.disPlay(getContext(), Constant.UPLOAD_IMG_URL + imageName, img_zfb_shoukuan);
-                    rl_upload.setVisibility(View.GONE);
                     break;
                 case 1:
                     showToastError(getResources().getString(R.string.net_busy));
                     hideLoadingView();
-                    rl_upload.setVisibility(View.VISIBLE);
                     break;
             }
         }
@@ -163,10 +163,10 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
         if (data == null) {
             return;
         }
-        if (requestCode == REQUEST_SELECT_IMAGES_CODE && resultCode == RESULT_OK) {
-            mImagePaths = data.getStringArrayListExtra(ImagePicker.EXTRA_SELECT_IMAGES);
-            for (int i = 0; i < mImagePaths.size(); i++) {
-                String imageUri = mImagePaths.get(i);
+        if (requestCode == TAKE_PIC) {
+            ArrayList<String> imageList = BGAPhotoPickerActivity.getSelectedImages(data);
+            for (int i = 0; i < imageList.size(); i++) {
+                String imageUri = imageList.get(i);
                 File fileOrgin = new File(imageUri);
                 new Compressor(getContext())
                         .setMaxWidth(640)
@@ -180,8 +180,10 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
                         .subscribe(new Consumer<File>() {
                             @Override
                             public void accept(File file) {
-                                showLoadingView();
-                                mPresenter.getOssSetting(2, file.getPath());
+                                uploadFile = file;
+                                rl_upload.setVisibility(View.GONE);
+                                tv_upload_tip.setVisibility(View.GONE);
+                                GlideUtils.disPlay(getContext(), "file://" + file.getPath(), img_zfb_shoukuan);
                             }
                         }, new Consumer<Throwable>() {
                             @Override
@@ -197,16 +199,10 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
         PermissionUtils.requestPermissions(getContext(), new OnPermissionListener() {
             @Override
             public void onPermissionSucceed() {
-                ImagePicker.getInstance()
-                        .setTitle("")//设置标题
-                        .showCamera(true)//设置是否显示拍照按钮
-                        .showImage(true)//设置是否展示图片
-                        .showVideo(false)//设置是否展示视频
-                        .setSingleType(true)//设置图片视频不能同时选择
-                        .setMaxCount(1)//设置最大选择图片数目(默认为1，单选)
-                        .setImagePaths(mImagePaths)//保存上一次选择图片的状态，如果不需要可以忽略
-                        .setImageLoader(new GlideLoader())//设置自定义图片加载器
-                        .start(getHostActivity(), REQUEST_SELECT_IMAGES_CODE);//REQEST_SELECT_IMAGES_CODE为Intent调用的requestCode
+                boolean mTakePhotoEnabled = true;
+                // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话就没有拍照功能
+                File takePhotoDir = new File(Environment.getExternalStorageDirectory(), "tacu");
+                startActivityForResult(BGAPhotoPickerActivity.newIntent(getContext(), mTakePhotoEnabled ? takePhotoDir : null, 1, null, mTakePhotoEnabled), TAKE_PIC);
             }
 
             @Override
@@ -217,9 +213,9 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
 
     @OnClick(R.id.btn_bindinng)
     void bindingClick() {
-        String weChatNo = edit_zfb_name.getText().toString().trim();
-        String pwdString = edit_trade_password.getText().toString().trim();
-        if (TextUtils.isEmpty(weChatNo)) {
+        zfbChatNo = edit_zfb_name.getText().toString().trim();
+        pwdString = edit_trade_password.getText().toString().trim();
+        if (TextUtils.isEmpty(zfbChatNo)) {
             showToastError(getResources().getString(R.string.please_input_wx_account));
             return;
         }
@@ -227,7 +223,12 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
             showToastError(getResources().getString(R.string.please_input_trade_password));
             return;
         }
-        mPresenter.insertBank(2, null, null, null, null, weChatNo, imageName, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+        if (uploadFile == null) {
+            showToastError(getResources().getString(R.string.please_upload_wx_shoukuanma));
+            return;
+        }
+        showLoadingView();
+        mPresenter.getOssSetting(3, uploadFile.getPath());
     }
 
     @OnClick(R.id.btn_cancel)
@@ -237,7 +238,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
 
     @OnClick(R.id.btn_delete)
     void deleteClick() {
-        mPresenter.deleteBank(2, payInfoModel.id);
+        mPresenter.deleteBank(3, payInfoModel.id);
     }
 
     @Override
@@ -267,6 +268,11 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
         }
     }
 
+    @Override
+    public void uselectUserInfo(String imageUrl) {
+        GlideUtils.disPlay(getContext(), imageUrl, img_zfb_shoukuan1);
+    }
+
     private void sendRefresh() {
         EventManage.sendEvent(new BaseEvent<>(EventConstant.PayInfoCode, new PayInfoEvent(true)));
     }
@@ -278,7 +284,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
             lin_list.setVisibility(View.VISIBLE);
 
             tv_zfb_name.setText(model.weChatNo);
-            GlideUtils.disPlay(getContext(), Constant.UPLOAD_IMG_URL + model.weChatImg, img_zfb_shoukuan1);
+            mPresenter.uselectUserInfo(3, model.weChatImg);
         } else {
             lin_edit.setVisibility(View.VISIBLE);
             lin_list.setVisibility(View.GONE);
@@ -288,8 +294,8 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     private void uploadImgs(String fileLocalNameAddress) {
         if (!TextUtils.isEmpty(bucketName) && mOss != null) {
             // 构造上传请求
-            imageName = CommonUtils.getZfbImageName();
-            PutObjectRequest put = new PutObjectRequest(bucketName, imageName, fileLocalNameAddress);
+            uploadImageName = CommonUtils.getZfbImageName();
+            PutObjectRequest put = new PutObjectRequest(bucketName, uploadImageName, fileLocalNameAddress);
             // 异步上传时可以设置进度回调
             put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
                 @Override
@@ -318,6 +324,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     private void dealValue(int flag) {
         if (flag == 1) {
             mHandler.sendEmptyMessage(0);
+            mPresenter.insertBank(3, null, null, null, null, zfbChatNo, uploadImageName, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
         } else {
             mHandler.sendEmptyMessage(1);
         }

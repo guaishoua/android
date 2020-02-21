@@ -806,4 +806,14 @@ public interface Api {
     Observable<BaseModel> deleteBank(
             @Field("id") Integer id
     );
+
+    /**
+     * 获取上传过的敏感图片的完整地址
+     * 比如支付宝二维码，微信二维码
+     */
+    @FormUrlEncoded
+    @POST("uselectUserInfo")
+    Observable<BaseModel<String>> uselectUserInfo(
+            @Field("headImg") String headImg
+    );
 }

@@ -41,11 +41,16 @@ public class GlideUtils {
      * 默认加载
      */
     public static void disPlay(Context context, String url, ImageView imageView) {
-        Glide.with(context).load(url).placeholder(default_resId).error(default_resId).fallback(default_resId).into(imageView);
+        disPlay(context, url, default_resId, imageView);
+    }
+
+    public static void disPlay(Context context, String url, int errorResId, ImageView imageView) {
+        Glide.with(context).load(url).placeholder(errorResId).error(errorResId).fallback(errorResId).into(imageView);
     }
 
     /**
      * 资源文件
+     *
      * @param context
      * @param url
      * @param imageView
@@ -110,7 +115,7 @@ public class GlideUtils {
      * asGIF：希望加载的只是gif,如果不是gif就显示错误图片
      */
     public static void disPlayAsGif(Context context, int url, ImageView imageView) {
-        Glide.with(context).load(url).asGif().placeholder(default_resId).error(default_resId).fallback(default_resId).diskCacheStrategy(DiskCacheStrategy.SOURCE) .into(imageView);
+        Glide.with(context).load(url).asGif().placeholder(default_resId).error(default_resId).fallback(default_resId).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
     }
 
     /**

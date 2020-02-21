@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -137,6 +138,26 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
         drawerMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         drawerMain.setFocusableInTouchMode(false);
+        drawerMain.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View view, float v) {
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View view) {
+                if (mainDrawerLayoutHelper != null) {
+                    mainDrawerLayoutHelper.openDraw();
+                }
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View view) {
+            }
+
+            @Override
+            public void onDrawerStateChanged(int i) {
+            }
+        });
 
         ll_tab_home.setOnClickListener(this);
         ll_tab_trade.setOnClickListener(this);

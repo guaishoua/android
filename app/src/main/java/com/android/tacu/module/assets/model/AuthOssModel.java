@@ -18,6 +18,7 @@ public class AuthOssModel implements Serializable {
     public String AccessKeyId;
     @SerializedName("AccessKeySecret")
     public String AccessKeySecret;
+
     @SerializedName("Expiration")
     public String Expiration;
 }

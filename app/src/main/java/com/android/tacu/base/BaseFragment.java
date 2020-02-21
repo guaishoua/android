@@ -199,6 +199,7 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
             unBinder.unbind();
         }
         if (loadingView != null) {
+            loadingView.disAllLoading();
             loadingView = null;
         }
         if (mPresenter != null && mPresenter.isViewAttached()) {
@@ -227,6 +228,7 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
 
     /**
      * 使用此方法代替getActivity，防止getActivity空指针
+     *
      * @return
      */
     public FragmentActivity getHostActivity() {

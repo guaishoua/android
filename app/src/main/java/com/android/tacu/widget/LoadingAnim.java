@@ -75,4 +75,11 @@ public class LoadingAnim {
             }
         }
     }
+
+    public void disAllLoading(){
+        loadCount = 0;
+        if (mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+    }
 }

@@ -24,6 +24,8 @@ public class BindingPayInfoContract {
         void deleteBankSuccess();
 
         void getOssSetting(AuthOssModel model, String fileLocalNameAddress);
+
+        void uselectUserInfo(String imageUrl);
     }
 
     public interface IZfbView extends IBaseMvpView {
@@ -32,6 +34,8 @@ public class BindingPayInfoContract {
         void deleteBankSuccess();
 
         void getOssSetting(AuthOssModel model, String fileLocalNameAddress);
+
+        void uselectUserInfo(String imageUrl);
     }
 
     public interface IPresenter {
@@ -42,5 +46,7 @@ public class BindingPayInfoContract {
         void deleteBank(Integer type, Integer id);
 
         void getOssSetting(Integer type, String fileLocalNameAddress);
+
+        void uselectUserInfo(Integer type, String headImg);
     }
 }

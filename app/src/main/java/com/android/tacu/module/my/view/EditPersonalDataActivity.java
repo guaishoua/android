@@ -41,8 +41,6 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.utils.user.UserManageUtils;
-import com.android.tacu.view.GlideLoader;
-import com.lcw.library.imagepicker.ImagePicker;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.yanzhenjie.permission.Permission;
 
@@ -52,6 +50,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import id.zelory.compressor.Compressor;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -78,8 +77,7 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
     @BindView(R.id.tv_binding_payinfo)
     TextView tv_binding_payinfo;
 
-    private static final int REQUEST_SELECT_IMAGES_CODE = 1001;
-    private ArrayList<String> mImagePaths;
+    private final int TAKE_PIC = 1001;
 
     //oss
     private String imageName;
@@ -156,10 +154,10 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         if (data == null) {
             return;
         }
-        if (requestCode == REQUEST_SELECT_IMAGES_CODE && resultCode == RESULT_OK) {
-            mImagePaths = data.getStringArrayListExtra(ImagePicker.EXTRA_SELECT_IMAGES);
-            for (int i = 0; i < mImagePaths.size(); i++) {
-                String imageUri = mImagePaths.get(i);
+        if (requestCode == TAKE_PIC) {
+            ArrayList<String> imageList = BGAPhotoPickerActivity.getSelectedImages(data);
+            for (int i = 0; i < imageList.size(); i++) {
+                String imageUri = imageList.get(i);
                 File fileOrgin = new File(imageUri);
                 new Compressor(this)
                         .setMaxWidth(640)
@@ -190,16 +188,10 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         PermissionUtils.requestPermissions(this, new OnPermissionListener() {
             @Override
             public void onPermissionSucceed() {
-                ImagePicker.getInstance()
-                        .setTitle("")//设置标题
-                        .showCamera(true)//设置是否显示拍照按钮
-                        .showImage(true)//设置是否展示图片
-                        .showVideo(false)//设置是否展示视频
-                        .setSingleType(true)//设置图片视频不能同时选择
-                        .setMaxCount(1)//设置最大选择图片数目(默认为1，单选)
-                        .setImagePaths(mImagePaths)//保存上一次选择图片的状态，如果不需要可以忽略
-                        .setImageLoader(new GlideLoader())//设置自定义图片加载器
-                        .start(EditPersonalDataActivity.this, REQUEST_SELECT_IMAGES_CODE);//REQEST_SELECT_IMAGES_CODE为Intent调用的requestCode
+                boolean mTakePhotoEnabled = true;
+                // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话就没有拍照功能
+                File takePhotoDir = new File(Environment.getExternalStorageDirectory(), "tacu");
+                startActivityForResult(BGAPhotoPickerActivity.newIntent(EditPersonalDataActivity.this, mTakePhotoEnabled ? takePhotoDir : null, 1, null, mTakePhotoEnabled), TAKE_PIC);
             }
 
             @Override
@@ -249,9 +241,11 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         setValue();
         if (model != null) {
             if (model.applyMerchantStatus != null) {
+                tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this,R.color.text_color));
                 switch (model.applyMerchantStatus) {
                     case 0:
                         tv_apply_buniness.setText(getResources().getString(R.string.apply_business_not));
+                        tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this,R.color.text_grey));
                         break;
                     case 1:
                         tv_apply_buniness.setText(getResources().getString(R.string.ordinary_merchant) + getResources().getString(R.string.to_be_examine));
@@ -287,8 +281,10 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         UserManageUtils.setPersonInfo(null, list);
         if (list != null && list.size() > 0) {
             tv_binding_payinfo.setText(getResources().getString(R.string.binding_success));
+            tv_binding_payinfo.setTextColor(ContextCompat.getColorStateList(this, R.color.text_color));
         } else {
             tv_binding_payinfo.setText(getResources().getString(R.string.please_binding_pay_info));
+            tv_binding_payinfo.setTextColor(ContextCompat.getColorStateList(this, R.color.text_grey));
         }
     }
 
@@ -302,8 +298,8 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
             conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
             conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
             OSSLog.enableLog();
-            mOss = new OSSClient(getApplicationContext(), Constant.OSS_ENDPOINT, credentialProvider);
-            bucketName = model.bucket;
+            mOss = new OSSClient(getApplicationContext(), Constant.OSS_HEAD_ENDPOINT, credentialProvider);
+            bucketName = Constant.OSS_HEAD_BUCKET;
 
             uploadImgs(fileLocalNameAddress);
         }
@@ -311,7 +307,7 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
 
     private void setValue() {
         if (!TextUtils.isEmpty(spUtil.getHeadImg())) {
-            GlideUtils.disPlay(this, Constant.UPLOAD_IMG_URL + spUtil.getHeadImg(), img_head_sculpture);
+            GlideUtils.disPlay(this, Constant.HEAD_IMG_URL + spUtil.getHeadImg(), R.mipmap.img_maindrawer_unlogin, img_head_sculpture);
         }
         tv_account.setText(spUtil.getAccount());
         tv_uid.setText(String.valueOf(spUtil.getUserUid()));

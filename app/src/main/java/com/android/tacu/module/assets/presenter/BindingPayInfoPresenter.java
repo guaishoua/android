@@ -95,4 +95,25 @@ public class BindingPayInfoPresenter extends BaseMvpPresenter implements Binding
             }
         });
     }
+
+    @Override
+    public void uselectUserInfo(final Integer type, String headImg) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).uselectUserInfo(headImg), new NetDisposableObserver<BaseModel<String>>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel<String> o) {
+                if (type != null) {
+                    switch (type) {
+                        case 2://微信
+                            BindingPayInfoContract.IWxView wView = (BindingPayInfoContract.IWxView) getView();
+                            wView.uselectUserInfo(o.attachment);
+                            break;
+                        case 3://支付宝
+                            BindingPayInfoContract.IZfbView zView = (BindingPayInfoContract.IZfbView) getView();
+                            zView.uselectUserInfo(o.attachment);
+                            break;
+                    }
+                }
+            }
+        });
+    }
 }
