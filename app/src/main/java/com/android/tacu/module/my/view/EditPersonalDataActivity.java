@@ -138,13 +138,13 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+        }
         if (ossAsynTaskList != null && ossAsynTaskList.size() > 0) {
             for (OSSAsyncTask ossAsyncTask : ossAsynTaskList) {
                 ossAsyncTask.cancel();
             }
-        }
-        if (mHandler != null) {
-            mHandler.removeCallbacksAndMessages(null);
         }
     }
 
@@ -172,6 +172,7 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
                             @Override
                             public void accept(File file) {
                                 showLoadingView();
+                                GlideUtils.disPlay(EditPersonalDataActivity.this, "file://" + file.getPath(), img_head_sculpture);
                                 mPresenter.getOssSetting(file.getPath());
                             }
                         }, new Consumer<Throwable>() {
@@ -241,11 +242,11 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         setValue();
         if (model != null) {
             if (model.applyMerchantStatus != null) {
-                tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this,R.color.text_color));
+                tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this, R.color.text_color));
                 switch (model.applyMerchantStatus) {
                     case 0:
                         tv_apply_buniness.setText(getResources().getString(R.string.apply_business_not));
-                        tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this,R.color.text_grey));
+                        tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this, R.color.text_grey));
                         break;
                     case 1:
                         tv_apply_buniness.setText(getResources().getString(R.string.ordinary_merchant) + getResources().getString(R.string.to_be_examine));
@@ -307,7 +308,9 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
 
     private void setValue() {
         if (!TextUtils.isEmpty(spUtil.getHeadImg())) {
-            GlideUtils.disPlay(this, Constant.HEAD_IMG_URL + spUtil.getHeadImg(), R.mipmap.img_maindrawer_unlogin, img_head_sculpture);
+            GlideUtils.disPlay(this, Constant.HEAD_IMG_URL + spUtil.getHeadImg(), img_head_sculpture);
+        }else{
+            img_head_sculpture.setImageResource(R.mipmap.img_maindrawer_unlogin);
         }
         tv_account.setText(spUtil.getAccount());
         tv_uid.setText(String.valueOf(spUtil.getUserUid()));
@@ -342,7 +345,7 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         if (!TextUtils.isEmpty(bucketName) && mOss != null) {
             // 构造上传请求
             imageName = CommonUtils.getHeadImageName();
-            PutObjectRequest put = new PutObjectRequest(bucketName, imageName, fileLocalNameAddress);
+            PutObjectRequest put = new PutObjectRequest(bucketName, Constant.OSS_HEAD_DIR + imageName, fileLocalNameAddress);
             // 异步上传时可以设置进度回调
             put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
                 @Override

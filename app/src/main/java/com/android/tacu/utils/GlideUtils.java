@@ -41,11 +41,7 @@ public class GlideUtils {
      * 默认加载
      */
     public static void disPlay(Context context, String url, ImageView imageView) {
-        disPlay(context, url, default_resId, imageView);
-    }
-
-    public static void disPlay(Context context, String url, int errorResId, ImageView imageView) {
-        Glide.with(context).load(url).placeholder(errorResId).error(errorResId).fallback(errorResId).into(imageView);
+        Glide.with(context).load(url).placeholder(default_resId).error(default_resId).fallback(default_resId).into(imageView);
     }
 
     /**

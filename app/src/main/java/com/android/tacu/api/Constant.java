@@ -1,7 +1,5 @@
 package com.android.tacu.api;
 
-import java.util.List;
-
 import static com.android.tacu.api.ApiHost.SOCKET_IP;
 
 public class Constant {
@@ -50,13 +48,14 @@ public class Constant {
     public static final String EUR = "EUR";//欧元
 
     //阿里云图片
-    public static final String HEAD_IMG_URL = "https://ta-public.oss-accelerate.aliyuncs.com/";
+    public static final String HEAD_IMG_URL = "https://ta-public.oss-accelerate.aliyuncs.com/a-Heads-image/";
     public static final String SMALL_ICON_URL = "https://ta-public.oss-cn-hongkong.aliyuncs.com/";
 
     //阿里云OSS图片上传
     public static final String OSS_ENDPOINT = "http://oss-cn-hongkong.aliyuncs.com";
     //头像上传专用桶，本地写死
     public static final String OSS_HEAD_BUCKET = "ta-public";
+    public static final String OSS_HEAD_DIR = "a-Heads-image/";
     public static final String OSS_HEAD_ENDPOINT = "http://oss-accelerate.aliyuncs.com";
 
     //顶象
