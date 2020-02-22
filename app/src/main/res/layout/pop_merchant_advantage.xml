@@ -41,7 +41,6 @@
         android:id="@+id/tv_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/merchant_otc_advantage_tip"
         android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_sp_14" />
 </LinearLayout>

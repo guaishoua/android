@@ -41,11 +41,11 @@ public class BondRecordModel implements Serializable {
     }
 
     public String getStatus() {
-        if (type == 0) {
+        if (status == 0) {
             return MyApplication.getInstance().getString(R.string.failure);
-        } else if (type == 1) {
+        } else if (status == 1) {
             return MyApplication.getInstance().getString(R.string.auditing);
-        } else if (type == 2) {
+        } else if (status == 2) {
             return MyApplication.getInstance().getString(R.string.success_get_account);
         } else {
             return "";
@@ -53,11 +53,11 @@ public class BondRecordModel implements Serializable {
     }
 
     public int getStatusColor() {
-        if (type == 0) {
+        if (status == 0) {
             return ContextCompat.getColor(MyApplication.getInstance(), R.color.text_color);
-        } else if (type == 1) {
+        } else if (status == 1) {
             return ContextCompat.getColor(MyApplication.getInstance(), R.color.color_otc_sell);
-        } else if (type == 2) {
+        } else if (status == 2) {
             return ContextCompat.getColor(MyApplication.getInstance(), R.color.text_color);
         } else {
             return ContextCompat.getColor(MyApplication.getInstance(), R.color.text_color);

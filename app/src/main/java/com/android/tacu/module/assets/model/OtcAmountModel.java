@@ -20,10 +20,10 @@ public class OtcAmountModel implements Serializable {
     public String amount;//总额
     @SerializedName("cashAmount")
     public String cashAmount;//可用
-    @SerializedName("freeze_amount")
-    public String freeze_amount;//冻结
-    @SerializedName("bond_freeze_amount")
-    public String bond_freeze_amount;//提币冻结
+    @SerializedName("freezeAmount")
+    public String freezeAmount;//冻结
+    @SerializedName("bondFreezeAmount")
+    public String bondFreezeAmount;//提币冻结
     @SerializedName("createTime")
     public String createTime;
     @SerializedName("updateTime")

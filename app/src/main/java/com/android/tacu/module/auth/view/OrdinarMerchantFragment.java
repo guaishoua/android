@@ -120,13 +120,12 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    hideLoadingView();
                     dealValue();
+                    hideLoadingView();
                     break;
                 case 1:
                     showToastError(getResources().getString(R.string.net_busy));
                     hideLoadingView();
-                    dealValue();
                     break;
             }
         }
@@ -165,13 +164,14 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+            mHandler = null;
+        }
         if (ossAsynTaskList != null && ossAsynTaskList.size() > 0) {
             for (OSSAsyncTask ossAsyncTask : ossAsynTaskList) {
                 ossAsyncTask.cancel();
             }
-        }
-        if (mHandler != null) {
-            mHandler.removeCallbacksAndMessages(null);
         }
     }
 

@@ -47,7 +47,9 @@ public abstract class NetDisposableObserver<T> extends DisposableObserver<T> {
     @Override
     public void onComplete() {
         if (this.mBaseMvpView != null) {
-            this.mBaseMvpView.hideLoadingView();
+            if (this.isShowLoadingView) {
+                this.mBaseMvpView.hideLoadingView();
+            }
             this.mBaseMvpView.hideRefreshView();
         }
     }

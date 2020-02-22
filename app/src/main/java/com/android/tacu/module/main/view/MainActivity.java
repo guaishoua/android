@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -105,13 +104,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
     /**
      * @param context
-     * @param isClearTask 为true的情况下  清空所有的栈
+     * @param isClearTop A-B-C-D 如果D-B 需要清空C 设置FLAG_ACTIVITY_CLEAR_TOP 和 FLAG_ACTIVITY_SINGLE_TOP(设置这个则B不需要重新创建)
      * @return
      */
-    public static Intent createActivity(Context context, boolean isClearTask) {
+    public static Intent createActivity(Context context, boolean isClearTop) {
         Intent intent = new Intent(context, MainActivity.class);
-        if (isClearTask) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        if (isClearTop) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
         return intent;
     }
@@ -352,6 +351,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 case EventConstant.MainSwitchCode:
                     MainSwitchEvent mainSwitchEvent = (MainSwitchEvent) event.getData();
                     if (mainSwitchEvent != null) {
+                        if (drawerMain.isDrawerOpen(Gravity.LEFT)) {
+                            drawerMain.closeDrawer(Gravity.LEFT);
+                            return;
+                        }
                         switch (mainSwitchEvent.getMainSwitch()) {
                             case Constant.MAIN_HOME:
                                 setTabSelection(Constant.MAIN_HOME);

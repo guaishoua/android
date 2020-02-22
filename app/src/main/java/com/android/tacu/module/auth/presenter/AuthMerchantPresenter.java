@@ -86,7 +86,7 @@ public class AuthMerchantPresenter extends BaseMvpPresenter implements AuthMerch
 
     @Override
     public void selectOtcSection() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectOtcSection(), new NetDisposableObserver<BaseModel<List<OtcSectionModel>>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectOtcSection(), new NetDisposableObserver<BaseModel<List<OtcSectionModel>>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<List<OtcSectionModel>> o) {
                 AuthMerchantContract.IView view = (AuthMerchantContract.IView) getView();
@@ -97,7 +97,7 @@ public class AuthMerchantPresenter extends BaseMvpPresenter implements AuthMerch
 
     @Override
     public void selectC2cSection() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectC2cSection(), new NetDisposableObserver<BaseModel<List<SelectC2cSection>>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectC2cSection(), new NetDisposableObserver<BaseModel<List<SelectC2cSection>>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<List<SelectC2cSection>> o) {
                 AuthMerchantContract.IView view = (AuthMerchantContract.IView) getView();

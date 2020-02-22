@@ -127,14 +127,22 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
                 btn_left.setTextColor(ContextCompat.getColor(this, R.color.text_default));
                 btn_right.setTextColor(ContextCompat.getColor(this, R.color.text_color));
                 if (!TextUtils.isEmpty(leftString)) {
-                    tv_text.setText(leftString);
+                    try {
+                        tv_text.setText(leftString);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
             case R.id.btn_right:
                 btn_left.setTextColor(ContextCompat.getColor(this, R.color.text_color));
                 btn_right.setTextColor(ContextCompat.getColor(this, R.color.text_default));
                 if (!TextUtils.isEmpty(rightString)) {
-                    tv_text.setText(rightString);
+                    try {
+                        tv_text.setText(rightString);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
         }
@@ -184,7 +192,6 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
                 }
             }
             leftString = String.format(getResources().getString(R.string.merchant_otc_advantage_tip), value1, value2, value3, value4, value5, value6, value7, value8);
-            tv_text.setText(leftString);
         }
     }
 
@@ -273,6 +280,10 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
             tv_text = view.findViewById(R.id.tv_text);
             btn_left.setOnClickListener(this);
             btn_right.setOnClickListener(this);
+
+            if (!TextUtils.isEmpty(leftString)) {
+                tv_text.setText(leftString);
+            }
 
             popWindow = new OtcPopWindow(this);
             popWindow.create(view);

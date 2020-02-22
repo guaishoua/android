@@ -1,7 +1,6 @@
 package com.android.tacu.module.vip.view;
 
 import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
@@ -186,8 +185,9 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
             } else {
                 tv_available_balance.setText("0" + Constant.OTC_ACU);
             }
-            Double value1 = !TextUtils.isEmpty(model.freeze_amount) ? Double.valueOf(model.freeze_amount) : 0;
-            Double value2 = !TextUtils.isEmpty(model.bond_freeze_amount) ? Double.valueOf(model.bond_freeze_amount) : 0;
+
+            Double value1 = (!TextUtils.isEmpty(model.freezeAmount)) ? Double.valueOf(model.freezeAmount) : 0;
+            Double value2 = (!TextUtils.isEmpty(model.bondFreezeAmount)) ? Double.valueOf(model.bondFreezeAmount) : 0;
             tv_frozen_balance.setText(FormatterUtils.getFormatValue(value1 + value2) + Constant.OTC_ACU);
         } else {
             tv_margin_balance.setText("0" + Constant.OTC_ACU);
