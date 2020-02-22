@@ -5,7 +5,7 @@
     android:background="@color/content_bg_color">
 
     <EditText
-        android:id="@+id/tv_trade_pwd"
+        android:id="@+id/edit_trade_pwd"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
         android:layout_margin="@dimen/dp_10"

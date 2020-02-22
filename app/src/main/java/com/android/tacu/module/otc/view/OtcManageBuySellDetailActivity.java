@@ -74,7 +74,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
         orderAdapter = new OtcOrderAdapter();
         orderAdapter.setHeaderFooterEmpty(true, false);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.content_bg_color_grey)));
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.item_recyclerview_divider));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(orderAdapter);

@@ -84,7 +84,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         mAdapter = new OtcMarketBuySellAdapter();
         mAdapter.setHeaderFooterEmpty(true, false);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(new ColorDrawable(ContextCompat.getColor(getContext(), R.color.content_bg_color_grey)));
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.item_recyclerview_divider));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(mAdapter);

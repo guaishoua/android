@@ -879,6 +879,9 @@
     <string name="please_input_recharge_amount">请填写您要充值的数量</string>
     <string name="order_record">订单记录</string>
     <string name="extract">提取</string>
+    <string name="failure">失败</string>
+    <string name="success_get_account">成功到账</string>
+    <string name="auditing">审核中</string>
 
     <!--会员-->
     <string name="buy_vip">购买会员</string>

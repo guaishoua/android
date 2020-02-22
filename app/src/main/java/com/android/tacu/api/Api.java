@@ -34,6 +34,7 @@ import com.android.tacu.module.auctionplus.modal.AuctionPlusListByIdModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusListModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusPayInfoModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusWinLisyModel;
+import com.android.tacu.module.vip.model.BondRecordModel;
 import com.android.tacu.module.vip.model.VipDetailModel;
 import com.android.tacu.module.vip.model.VipDetailRankModel;
 
@@ -884,6 +885,37 @@ public interface Api {
     @FormUrlEncoded
     @POST("BondAccount")
     Observable<BaseModel<OtcAmountModel>> BondAccount(
+            @Field("currencyId") Integer currencyId
+    );
+
+    /**
+     * 币币账户划转到保证金账户
+     */
+    @FormUrlEncoded
+    @POST("CcToBond")
+    Observable<BaseModel> CcToBond(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId,
+            @Field("fdPassword") String fdPassword//交易密码
+    );
+
+    /**
+     * 保证金账户划转到币币账户
+     */
+    @FormUrlEncoded
+    @POST("BondToCc")
+    Observable<BaseModel> BondToCc(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId,
+            @Field("fdPassword") String fdPassword//交易密码
+    );
+
+    /**
+     * 查看保证金账户划转记录
+     */
+    @FormUrlEncoded
+    @POST("selectBondRecord")
+    Observable<BaseModel<List<BondRecordModel>>> selectBondRecord(
             @Field("currencyId") Integer currencyId
     );
 }

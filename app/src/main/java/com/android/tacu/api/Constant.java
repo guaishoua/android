@@ -78,6 +78,7 @@ public class Constant {
 
     //几个币种的ID
     public static final int ACU_CURRENCY_ID = 237;
+    public static final int USDT_CURRENCY_ID = 63;
     public static final int BTC_CURRENCY_ID = 1;
 
     //OTC开放的币种

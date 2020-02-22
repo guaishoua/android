@@ -7,7 +7,10 @@ import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.auth.contract.AuthMerchantContract;
 import com.android.tacu.module.auth.presenter.AuthMerchantPresenter;
+import com.android.tacu.module.vip.view.BuyVipActivity;
+import com.android.tacu.module.vip.view.RechargeDepositActivity;
 
+import butterknife.OnClick;
 
 public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> implements AuthMerchantContract.IView {
 
@@ -25,5 +28,15 @@ public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> im
 
     @Override
     protected void initData(View view) {
+    }
+
+    @OnClick(R.id.tv_membership_right)
+    void rightClick() {
+        jumpTo(BuyVipActivity.class);
+    }
+
+    @OnClick(R.id.btn_asset_right)
+    void btnClick() {
+        jumpTo(RechargeDepositActivity.class);
     }
 }

@@ -89,7 +89,7 @@ public class MyDealFragment extends BaseFragment<MyDealPresenter> implements MyD
             }
         });
 
-        emptyView = View.inflate(getContext(), R.layout.view_trade_empty, null);
+        emptyView = View.inflate(getContext(), R.layout.view_empty, null);
 
         dealRecordAdapter = new DealRecordAdapter();
         dealRecordAdapter.setHeaderFooterEmpty(true, false);

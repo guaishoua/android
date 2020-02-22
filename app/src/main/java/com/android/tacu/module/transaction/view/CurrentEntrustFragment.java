@@ -117,7 +117,7 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
             }
         });
 
-        emptyView = View.inflate(getContext(), R.layout.view_trade_empty, null);
+        emptyView = View.inflate(getContext(), R.layout.view_empty, null);
         footerView = View.inflate(getContext(), R.layout.view_current_entrust_footer, null);
 
         tv_revoke_all = footerView.findViewById(R.id.tv_revoke_all);
