@@ -78,6 +78,10 @@ public class OwnCenterModel implements Serializable {
     public Integer applyAuthMerchantStatus;//申请认证商户状态 0未申请(默认) 1待审核 2审核成功 3审核失败
     @SerializedName("applyAuthMerchantFailReason")
     public String applyAuthMerchantFailReason;//申请认证商户失败原因
+    @SerializedName("vip")
+    public Integer vip;// 0不是vip 1月度会员(30天) 2年度会员(12月) 3连续包年
+    @SerializedName("keytowAdoptTime")
+    public String keytowAdoptTime;
 
     public boolean getIsValidatePass() {
         if (isValidatePass == 1) {

@@ -137,6 +137,17 @@ public class CommonUtils {
     }
 
     /**
+     * 商户视频上传
+     *
+     * @returnx
+     */
+    public static String getVideoName() {
+        String replace = UUID.randomUUID().toString().replace("-", "");
+        long currentTimeMillis = System.currentTimeMillis();
+        return replace.substring(0, 15) + currentTimeMillis + replace.substring(14, 31) + "Android_Video.mp4";
+    }
+
+    /**
      * 判断绑定邮箱或者手机号
      * 1：绑定手机号和邮箱
      * 2：单邦定邮箱
@@ -213,7 +224,7 @@ public class CommonUtils {
     }
 
     public static void handleEditTextEyesIssueInBrightBackground(View view) {
-        if(view instanceof QMUIRoundEditText) {
+        if (view instanceof QMUIRoundEditText) {
             QMUIRoundEditText editText = (QMUIRoundEditText) view;
             editText.setShowPwdDrawable(
                     R.drawable.qmui_icon_edittext_pwdvis_bright_bg,

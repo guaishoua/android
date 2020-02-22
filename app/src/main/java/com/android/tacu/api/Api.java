@@ -918,4 +918,25 @@ public interface Api {
     Observable<BaseModel<List<BondRecordModel>>> selectBondRecord(
             @Field("currencyId") Integer currencyId
     );
+
+    /**
+     *  查看交易单数
+     */
+    @POST("countTrade")
+    Observable<BaseModel<Integer>> countTrade();
+
+    /**
+     * 申请商户
+     */
+    @FormUrlEncoded
+    @POST("applyMerchant")
+    Observable<BaseModel> applyMerchant(
+            @Field("vedio") String vedio
+    );
+
+    /**
+     * 申请商户
+     */
+    @POST("applyMerchantAuth")
+    Observable<BaseModel> applyMerchantAuth();
 }

@@ -257,7 +257,7 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
     @Override
     public void showLoadingView() {
         if (loadingView == null) {
-            loadingView = new LoadingAnim(getContext());
+            loadingView = new LoadingAnim(getHostActivity());
         }
         loadingView.showLoading();
     }

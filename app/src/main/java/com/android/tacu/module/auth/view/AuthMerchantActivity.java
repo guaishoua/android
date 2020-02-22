@@ -10,8 +10,14 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabAdapter;
+import com.android.tacu.module.assets.model.OtcAmountModel;
+import com.android.tacu.module.auth.contract.AuthMerchantContract;
+import com.android.tacu.module.auth.presenter.AuthMerchantPresenter;
+import com.android.tacu.module.main.model.OwnCenterModel;
+import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.popupwindow.OtcPopWindow;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 import com.shizhefei.view.indicator.IndicatorViewPager;
@@ -24,7 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class AuthMerchantActivity extends BaseActivity implements View.OnClickListener {
+public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> implements AuthMerchantContract.IView, View.OnClickListener {
 
     @BindView(R.id.magic_indicator)
     ScrollIndicatorView magic_indicator;
@@ -37,6 +43,8 @@ public class AuthMerchantActivity extends BaseActivity implements View.OnClickLi
 
     private List<String> tabTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
+    private OrdinarMerchantFragment ordinarMerchantFragment;
+    private AuthMerchantFragment authMerchantFragment;
 
     private OtcPopWindow popWindow;
 
@@ -64,8 +72,11 @@ public class AuthMerchantActivity extends BaseActivity implements View.OnClickLi
         tabTitle.add(getResources().getString(R.string.ordinary_merchant));
         tabTitle.add(getResources().getString(R.string.certified_shoper));
 
-        fragmentList.add(OrdinarMerchantFragment.newInstance());
-        fragmentList.add(AuthMerchantFragment.newInstance());
+        ordinarMerchantFragment = OrdinarMerchantFragment.newInstance();
+        authMerchantFragment = AuthMerchantFragment.newInstance();
+
+        fragmentList.add(ordinarMerchantFragment);
+        fragmentList.add(authMerchantFragment);
 
         magic_indicator.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
         magic_indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
@@ -76,6 +87,17 @@ public class AuthMerchantActivity extends BaseActivity implements View.OnClickLi
         indicatorViewPager.setAdapter(new TabAdapter(getSupportFragmentManager(), this, tabTitle, fragmentList));
         viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
         viewPager.setCurrentItem(0, false);
+    }
+
+    @Override
+    protected AuthMerchantPresenter createPresenter(AuthMerchantPresenter mPresenter) {
+        return new AuthMerchantPresenter();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        upload();
     }
 
     @Override
@@ -100,6 +122,32 @@ public class AuthMerchantActivity extends BaseActivity implements View.OnClickLi
                 tv_text.setText(this.getResources().getString(R.string.merchant_c2c_advantage_tip));
                 break;
         }
+    }
+
+    @Override
+    public void ownCenter(OwnCenterModel model) {
+        UserManageUtils.setPersonInfo(model, null);
+        if (ordinarMerchantFragment != null) {
+            ordinarMerchantFragment.setValue(model);
+        }
+        if (authMerchantFragment != null) {
+            authMerchantFragment.setValue(model);
+        }
+    }
+
+    @Override
+    public void BondAccount(OtcAmountModel model) {
+        if (ordinarMerchantFragment != null) {
+            ordinarMerchantFragment.setBondAccount(model);
+        }
+        if (authMerchantFragment != null) {
+            authMerchantFragment.setBondAccount(model);
+        }
+    }
+
+    private void upload() {
+        mPresenter.ownCenter();
+        mPresenter.BondAccount(Constant.ACU_CURRENCY_ID);
     }
 
     private void initPop() {

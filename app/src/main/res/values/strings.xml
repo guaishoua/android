@@ -651,6 +651,7 @@
     <string name="please_choose_pay_method">请选择支付方式</string>
     <string name="otc_xieyi">本人已认真阅读，同意且遵守平台关于OTC场外交易的安全提示以及</string>
     <string name="otc_xieyi_name">《TACU数字资产交易平台OTC场外交易规范及免责声明》</string>
+    <string name="please_check_xieyi">请勾选协议！</string>
     <string name="otc_order_create_countdown1">请于</string>
     <string name="otc_order_create_countdown2">内完成订单生成，超时将取消本次订单生成</string>
     <string name="confirm_create_order">确认生成订单</string>
@@ -804,8 +805,9 @@
     <string name="member_ship">会员身份</string>
     <string name="buy_member">购买会员</string>
     <string name="binding_tel_email">绑定手机号&amp;邮箱</string>
+    <string name="binded">已绑定</string>
     <string name="go_binding">去绑定</string>
-    <string name="net_assets_dayu">净资产≥5000ACU</string>
+    <string name="net_assets_dayu">保证金≥5000ACU</string>
     <string name="go_recharge">去充值</string>
     <string name="go_auth">去认证</string>
     <string name="kyc_60_day">通过实名KYC认证60日</string>
@@ -871,6 +873,9 @@
     <string name="month_12">12个月</string>
     <string name="automatic_renewal">到期自动续费</string>
     <string name="endtime_renewal">到期续费</string>
+    <string name="wait_day">等待%1$s天</string>
+    <string name="cha_bi">还差%1$s笔</string>
+    <string name="apply_success">申请成功！</string>
 
     <!--充值保证金-->
     <string name="recharge_deposit">充值保证金</string>

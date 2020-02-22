@@ -38,58 +38,6 @@
                 app:layout_constraintLeft_toRightOf="@+id/img_satisfy_ordinary_mechant"
                 app:layout_constraintRight_toLeftOf="@+id/tv_membership_right"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_membership_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/buy_member"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_12"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_53"
-            android:layout_marginTop="@dimen/dp_1"
-            android:background="@color/content_bg_color"
-            android:paddingHorizontal="@dimen/dp_15">
-
-            <ImageView
-                android:id="@+id/img_enough"
-                android:layout_width="@dimen/dp_15"
-                android:layout_height="@dimen/dp_15"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/icon_auth_success" />
-
-            <TextView
-                android:id="@+id/tv_enough"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_5"
-                android:text="@string/register_60_enough"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_14"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/img_enough"
-                app:layout_constraintRight_toLeftOf="@+id/tv_enough_right"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_enough_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_12"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/need_day" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
@@ -117,7 +65,6 @@
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14"
                 app:layout_constraintLeft_toRightOf="@+id/img_bond"
-                app:layout_constraintRight_toLeftOf="@+id/tv_asset_right"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
@@ -138,6 +85,7 @@
         </android.support.constraint.ConstraintLayout>
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_submit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_49"
             android:layout_marginHorizontal="@dimen/dp_50"

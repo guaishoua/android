@@ -344,7 +344,7 @@ public class BuyVipFragment extends BaseFragment<BuyVipPresenter> implements Buy
     private boolean judgeBuy() {
         if (vipDetailModel != null) {
             if (vipType == 1) {
-                if ((vipDetailModel.vipOneYear != null && vipDetailModel.vipOneYear == 1) || (vipDetailModel.vipYearAuto != null && vipDetailModel.vipYearAuto == 1)) {
+                if (vipDetailModel.vipYearAuto != null && vipDetailModel.vipYearAuto == 1) {
                     return false;
                 }
             } else if (vipType == 2) {

@@ -89,6 +89,7 @@ public class UserManageUtils {
             spUtil.setNickName(model.nickname);
             spUtil.setHeadImg(model.headImg);
             spUtil.setKYCName(model.name);
+            spUtil.setVip(model.vip);
         }
         if (list != null && list.size() > 0) {
             spUtil.setIsPayInfo(true);
@@ -99,6 +100,7 @@ public class UserManageUtils {
      * 退出登录清理数据
      */
     public static void clearUserInfo() {
+        spUtil.setVip(0);
         spUtil.setAuth(0);
         spUtil.setUserUid(0);
         spUtil.setIsAuthSenior(0);

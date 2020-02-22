@@ -119,7 +119,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                android:id="@+id/tv_asset_right"
+                android:id="@+id/btn_asset_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/dp_10"
@@ -164,7 +164,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                android:id="@+id/tv_kyc_right"
+                android:id="@+id/btn_kyc_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/dp_10"
@@ -187,7 +187,7 @@
                 android:textColor="@color/text_error"
                 android:textSize="@dimen/text_size_sp_12"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/tv_kyc_right"
+                app:layout_constraintRight_toLeftOf="@+id/btn_kyc_right"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="111" />
         </android.support.constraint.ConstraintLayout>
@@ -221,7 +221,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                android:id="@+id/tv_otc_right"
+                android:id="@+id/btn_otc_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/dp_10"
@@ -244,7 +244,7 @@
                 android:textColor="@color/text_error"
                 android:textSize="@dimen/text_size_sp_12"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/tv_otc_right"
+                app:layout_constraintRight_toLeftOf="@+id/btn_otc_right"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="111" />
         </android.support.constraint.ConstraintLayout>
@@ -267,13 +267,14 @@
 
             <TextView
                 android:id="@+id/tv_video"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:text="@string/video_merchant"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14"
                 app:layout_constraintLeft_toRightOf="@+id/img_video"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton

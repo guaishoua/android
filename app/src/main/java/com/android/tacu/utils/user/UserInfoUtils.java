@@ -290,7 +290,9 @@ public class UserInfoUtils {
     /**
      * @param uid uid
      */
-    public void setUserUid(int uid) {
+    public void setUserUid(Integer uid) {
+        if (uid == null)
+            uid = 0;
         editor.putInt("uid", uid);
         editor.commit();
     }
@@ -418,7 +420,10 @@ public class UserInfoUtils {
     /**
      * 认证等级 (kyc1 kyc2 kyc3)
      */
-    public void setAuth(int auth) {
+    public void setAuth(Integer auth) {
+        if (auth == null) {
+            auth = 0;
+        }
         editor.putInt("Auth", auth);
         editor.commit();
     }
@@ -432,7 +437,9 @@ public class UserInfoUtils {
      *
      * @param isAuthSenior
      */
-    public void setIsAuthSenior(int isAuthSenior) {
+    public void setIsAuthSenior(Integer isAuthSenior) {
+        if (isAuthSenior == null)
+            isAuthSenior = 0;
         editor.putInt("isAuthSenior", isAuthSenior);
         editor.commit();
     }
@@ -574,5 +581,21 @@ public class UserInfoUtils {
 
     public String getKYCName() {
         return sp.getString("kycName", "");
+    }
+
+    /**
+     * 是否是会员身份
+     * 0不是vip 1月度会员(30天) 2年度会员(12月) 3连续包年
+     */
+    public void setVip(Integer vipStatus) {
+        if (vipStatus == null) {
+            vipStatus = 0;
+        }
+        editor.putInt("vipStatus", vipStatus);
+        editor.commit();
+    }
+
+    public int getVip() {
+        return sp.getInt("vipStatus", 0);
     }
 }
