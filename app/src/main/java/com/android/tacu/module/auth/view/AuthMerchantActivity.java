@@ -3,6 +3,7 @@ package com.android.tacu.module.auth.view;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabAdapter;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.auth.contract.AuthMerchantContract;
+import com.android.tacu.module.auth.model.OtcSectionModel;
+import com.android.tacu.module.auth.model.SelectC2cSection;
 import com.android.tacu.module.auth.presenter.AuthMerchantPresenter;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.utils.user.UserManageUtils;
@@ -46,6 +49,8 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
     private OrdinarMerchantFragment ordinarMerchantFragment;
     private AuthMerchantFragment authMerchantFragment;
 
+    private String leftString;
+    private String rightString;
     private OtcPopWindow popWindow;
 
     @Override
@@ -95,6 +100,13 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
     }
 
     @Override
+    protected void onPresenterCreated(AuthMerchantPresenter presenter) {
+        super.onPresenterCreated(presenter);
+        mPresenter.selectOtcSection();
+        mPresenter.selectC2cSection();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         upload();
@@ -114,12 +126,16 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
             case R.id.btn_left:
                 btn_left.setTextColor(ContextCompat.getColor(this, R.color.text_default));
                 btn_right.setTextColor(ContextCompat.getColor(this, R.color.text_color));
-                tv_text.setText(this.getResources().getString(R.string.merchant_otc_advantage_tip));
+                if (!TextUtils.isEmpty(leftString)) {
+                    tv_text.setText(leftString);
+                }
                 break;
             case R.id.btn_right:
                 btn_left.setTextColor(ContextCompat.getColor(this, R.color.text_color));
                 btn_right.setTextColor(ContextCompat.getColor(this, R.color.text_default));
-                tv_text.setText(this.getResources().getString(R.string.merchant_c2c_advantage_tip));
+                if (!TextUtils.isEmpty(rightString)) {
+                    tv_text.setText(rightString);
+                }
                 break;
         }
     }
@@ -142,6 +158,100 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
         }
         if (authMerchantFragment != null) {
             authMerchantFragment.setBondAccount(model);
+        }
+    }
+
+    @Override
+    public void selectOtcSection(List<OtcSectionModel> list) {
+        if (list != null && list.size() > 0) {
+            OtcSectionModel model;
+            String value1 = null, value2 = null, value3 = null, value4 = null, value5 = null, value6 = null, value7 = null, value8 = null;
+            for (int i = 0; i < list.size(); i++) {
+                model = list.get(i);
+                if (model.id != null) {
+                    if (model.id == 1) {
+                        value1 = model.sellStartPriceSection + "~" + model.sellEndPriceSection;
+                        value2 = model.buyStartPriceSection + "~" + model.buyEndPriceSection;
+                        value3 = model.startTradeSection + "~" + model.endTradeSection;
+                        value4 = model.otcUserTypeEndTimeDay;
+                    } else if (model.id == 2) {
+                        value5 = model.buyStartPriceSection + "~" + model.buyEndPriceSection;
+                        value6 = model.startTradeSection + "~" + model.endTradeSection;
+                    } else if (model.id == 3) {
+                        value7 = model.buyStartPriceSection + "~" + model.buyEndPriceSection;
+                        value8 = model.startTradeSection + "~" + model.endTradeSection;
+                    }
+                }
+            }
+            leftString = String.format(getResources().getString(R.string.merchant_otc_advantage_tip), value1, value2, value3, value4, value5, value6, value7, value8);
+            tv_text.setText(leftString);
+        }
+    }
+
+    @Override
+    public void selectC2cSection(List<SelectC2cSection> list) {
+        if (list != null && list.size() > 0) {
+            SelectC2cSection model;
+            String value1 = null, value2 = null, value3 = null, value4 = null, value5 = null, value6 = null, value7 = null;
+            String value8 = null, value9 = null, value10 = null, value11 = null, value12 = null, value13 = null, value14 = null;
+            String value15 = null, value16 = null, value17 = null, value18 = null, value19 = null, value20 = null, value21 = null;
+            String value22 = null, value23 = null, value24 = null, value25 = null, value26 = null, value27 = null, value28 = null;
+            for (int i = 0; i < list.size(); i++) {
+                model = list.get(i);
+                if (model.id != null) {
+                    switch (model.id) {
+                        case 1:
+                            value1 = model.startNumSection + "-" + model.endNumSection;
+                            value2 = model.endNumSection;
+                            value3 = model.price;
+                            break;
+                        case 2:
+                            value4 = model.startNumSection + "-" + model.endNumSection;
+                            value5 = model.endNumSection;
+                            value6 = model.price;
+                            break;
+                        case 3:
+                            value7 = model.startNumSection + "-" + model.endNumSection;
+                            value8 = model.endNumSection;
+                            value9 = model.price;
+                            break;
+                        case 4:
+                            value10 = model.startNumSection + "-" + model.endNumSection;
+                            value11 = model.endNumSection;
+                            value12 = model.price;
+                            break;
+                        case 5:
+                            value13 = model.startNumSection;
+                            value14 = model.price;
+                            break;
+                        case 6:
+                            value15 = model.startNumSection + "-" + model.endNumSection;
+                            value16 = model.endNumSection;
+                            value17 = model.price;
+                            break;
+                        case 7:
+                            value18 = model.startNumSection + "-" + model.endNumSection;
+                            value19 = model.endNumSection;
+                            value20 = model.price;
+                            break;
+                        case 8:
+                            value21 = model.startNumSection + "-" + model.endNumSection;
+                            value22 = model.endNumSection;
+                            value23 = model.price;
+                            break;
+                        case 9:
+                            value24 = model.startNumSection + "-" + model.endNumSection;
+                            value25 = model.endNumSection;
+                            value26 = model.price;
+                            break;
+                        case 10:
+                            value27 = model.startNumSection;
+                            value28 = model.price;
+                            break;
+                    }
+                }
+            }
+            rightString = String.format(getResources().getString(R.string.merchant_c2c_advantage_tip), value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14, value15, value16, value17, value18, value19, value20, value21, value22, value23, value24, value25, value26, value27, value28);
         }
     }
 

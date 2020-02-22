@@ -11,7 +11,9 @@ import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.model.SelectTakeCoinAddressModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
+import com.android.tacu.module.auth.model.OtcSectionModel;
 import com.android.tacu.module.auth.model.SelectAuthLevelModel;
+import com.android.tacu.module.auth.model.SelectC2cSection;
 import com.android.tacu.module.auth.model.UserInfoModel;
 import com.android.tacu.module.main.model.ConvertModel;
 import com.android.tacu.module.main.model.GoogleAuthModel;
@@ -920,7 +922,7 @@ public interface Api {
     );
 
     /**
-     *  查看交易单数
+     * 查看交易单数
      */
     @POST("countTrade")
     Observable<BaseModel<Integer>> countTrade();
@@ -939,4 +941,16 @@ public interface Api {
      */
     @POST("applyMerchantAuth")
     Observable<BaseModel> applyMerchantAuth();
+
+    /**
+     * 配置认证商户提示1
+     */
+    @POST("selectOtcSection")
+    Observable<BaseModel<List<OtcSectionModel>>> selectOtcSection();
+
+    /**
+     * 配置认证商户提示2
+     */
+    @POST("selectC2cSection")
+    Observable<BaseModel<List<SelectC2cSection>>> selectC2cSection();
 }

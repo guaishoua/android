@@ -3,7 +3,11 @@ package com.android.tacu.module.auth.contract;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
+import com.android.tacu.module.auth.model.OtcSectionModel;
+import com.android.tacu.module.auth.model.SelectC2cSection;
 import com.android.tacu.module.main.model.OwnCenterModel;
+
+import java.util.List;
 
 public class AuthMerchantContract {
 
@@ -11,6 +15,10 @@ public class AuthMerchantContract {
         void ownCenter(OwnCenterModel model);
 
         void BondAccount(OtcAmountModel model);
+
+        void selectOtcSection(List<OtcSectionModel> list);
+
+        void selectC2cSection(List<SelectC2cSection> list);
     }
 
     public interface IOrdinarView extends IBaseMvpView {
@@ -37,5 +45,9 @@ public class AuthMerchantContract {
         void applyMerchant(String video);
 
         void applyMerchantAuth();
+
+        void selectOtcSection();
+
+        void selectC2cSection();
     }
 }
