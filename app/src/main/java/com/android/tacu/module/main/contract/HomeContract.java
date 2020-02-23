@@ -1,7 +1,6 @@
 package com.android.tacu.module.main.contract;
 
 import com.android.tacu.base.IBaseMvpView;
-import com.android.tacu.module.main.model.HomeModel;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.NoticeModel;
 
@@ -13,14 +12,10 @@ import java.util.List;
 public class HomeContract {
 
     public interface IView extends IBaseMvpView {
-        void home(HomeModel homeModel);
-
         void showNoticeList(List<NoticeModel> list);
     }
 
     public interface IPresenter {
-        void getHome(boolean isShowLoadingView);
-
         void getNoticeInfo();
 
         /**

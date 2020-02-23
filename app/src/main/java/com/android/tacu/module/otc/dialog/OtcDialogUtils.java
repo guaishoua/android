@@ -7,21 +7,21 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.android.tacu.R;
-import com.android.tacu.module.assets.view.BindingPayInfoActivity;
 import com.android.tacu.module.auth.view.AuthActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.my.view.BindModeActivity;
 import com.android.tacu.module.my.view.EditPersonalDataActivity;
 import com.android.tacu.module.my.view.TradeActivity;
-import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.user.UserInfoUtils;
 import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 
 public class OtcDialogUtils {
 
+    private static DroidDialog droidDialog = null;
+
     /**
-     * 这里还需要判断是否登录
+     * 为true则弹窗提示
      *
      * @param mContext
      * @return
@@ -34,25 +34,32 @@ public class OtcDialogUtils {
             return true;
         }
 
+        boolean isFlag = false;
         boolean isAuth = false, isPhone = false, isTradePwd = false, isNickHead = false, isPayInfo = false;
 
         if (spUtil.getIsAuthSenior() < 2) {
+            isFlag = true;
             isAuth = true;
         }
         if (!spUtil.getPhoneStatus()) {
+            isFlag = true;
             isPhone = true;
         }
         if (!spUtil.getValidatePass()) {
+            isFlag = true;
             isTradePwd = true;
         }
         if (TextUtils.isEmpty(spUtil.getNickName()) || TextUtils.isEmpty(spUtil.getHeadImg())) {
+            isFlag = true;
             isNickHead = true;
         }
         if (!spUtil.getIsPayInfo()) {
+            isFlag = true;
             isPayInfo = true;
         }
 
-        if (isAuth & isPhone & isTradePwd && isNickHead && isPayInfo) {
+        if (isFlag) {
+
             View view = View.inflate(mContext, R.layout.view_otc_judge, null);
             RelativeLayout rl_auth = view.findViewById(R.id.rl_auth);
             RelativeLayout rl_tel = view.findViewById(R.id.rl_tel);
@@ -71,6 +78,7 @@ public class OtcDialogUtils {
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, AuthActivity.class);
                     mContext.startActivity(intent);
+                    droidDialog.dismiss();
                 }
             });
             btn_go_binding.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +86,7 @@ public class OtcDialogUtils {
                 public void onClick(View v) {
                     Intent intent = BindModeActivity.createActivity(mContext, 3);
                     mContext.startActivity(intent);
+                    droidDialog.dismiss();
                 }
             });
             btn_go_setting.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +94,7 @@ public class OtcDialogUtils {
                 public void onClick(View v) {
                     Intent intent = TradeActivity.createActivity(mContext, 2);
                     mContext.startActivity(intent);
+                    droidDialog.dismiss();
                 }
             });
             btn_go_prefect.setOnClickListener(new View.OnClickListener() {
@@ -92,17 +102,15 @@ public class OtcDialogUtils {
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, EditPersonalDataActivity.class);
                     mContext.startActivity(intent);
+                    droidDialog.dismiss();
                 }
             });
             btn_go_binding_pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (spUtil.getIsAuthSenior() == -1 || spUtil.getIsAuthSenior() == 0 || spUtil.getIsAuthSenior() == 1) {
-                        ShowToast.error(mContext.getResources().getString(R.string.please_get_the_level_of_KYC));
-                    } else {
-                        Intent intent = new Intent(mContext, BindingPayInfoActivity.class);
-                        mContext.startActivity(intent);
-                    }
+                    Intent intent = new Intent(mContext, EditPersonalDataActivity.class);
+                    mContext.startActivity(intent);
+                    droidDialog.dismiss();
                 }
             });
 
@@ -132,12 +140,12 @@ public class OtcDialogUtils {
                 rl_binding_pay_info.setVisibility(View.GONE);
             }
 
-            new DroidDialog.Builder(mContext)
+            droidDialog = new DroidDialog.Builder(mContext)
                     .title(mContext.getResources().getString(R.string.go_prefect))
                     .viewCustomLayout(view)
                     .cancelable(false, false)
                     .show();
         }
-        return isAuth & isPhone & isTradePwd && isNickHead && isPayInfo;
+        return isFlag;
     }
 }

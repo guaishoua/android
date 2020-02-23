@@ -21,6 +21,7 @@ import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.EventManage;
 import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.HomeNotifyEvent;
+import com.android.tacu.EventBus.model.MainBannerEvent;
 import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
@@ -165,7 +166,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         refreshHome.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                mPresenter.getHome(false);
+                EventManage.sendEvent(new BaseEvent<>(EventConstant.MainBanner, new MainBannerEvent(true)));
                 mPresenter.getNoticeInfo();
             }
         });
@@ -188,8 +189,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     public void onResume() {
         super.onResume();
-
-        mPresenter.getHome(homeModel == null);
         mPresenter.getNoticeInfo();
     }
 
@@ -233,7 +232,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @OnClick(R.id.tv_otc)
     void otcClick() {
-
     }
 
     @OnClick(R.id.tv_help)
@@ -276,15 +274,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void home(HomeModel model) {
-        this.homeModel = model;
-        if (model != null) {
-            SPUtils.getInstance().put(Constant.HOME_CACHE, gson.toJson(model));
-        }
-        setBannerValue();
-    }
-
-    @Override
     public void showNoticeList(List<NoticeModel> list) {
         this.noticeList = list;
         if (list != null && list.size() > 0) {
@@ -323,6 +312,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 }
             }
         });
+    }
+
+    public void setHome(HomeModel model) {
+        this.homeModel = model;
+        setBannerValue();
     }
 
     private void sendValue(final List<MarketNewModel> marketModelList) {

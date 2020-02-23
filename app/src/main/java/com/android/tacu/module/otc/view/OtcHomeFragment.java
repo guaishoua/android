@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,13 +19,23 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.common.MyFragmentPagerAdapter;
-import com.android.tacu.module.login.view.LoginActivity;
+import com.android.tacu.module.main.model.HomeModel;
 import com.android.tacu.module.otc.contract.OtcHomeContract;
+import com.android.tacu.module.otc.dialog.OtcDialogUtils;
 import com.android.tacu.module.otc.presenter.OtcHomePresenter;
+import com.android.tacu.module.webview.view.WebviewActivity;
+import com.android.tacu.utils.GlideUtils;
+import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
+import com.google.gson.Gson;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.stx.xhb.xbanner.XBanner;
+import com.stx.xhb.xbanner.entity.CustomViewsInfo;
+import com.stx.xhb.xbanner.entity.LocalImageInfo;
 import com.stx.xhb.xbanner.transformers.Transformer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -62,6 +73,12 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
     private OtcHomeChildFragment btcFragment;
     private OtcHomeC2cFragment c2cFragment;
 
+    private Gson gson = new Gson();
+
+    private HomeModel homeModel;
+    private List<CustomViewsInfo> bannerImageList = new ArrayList<>();
+    private List<LocalImageInfo> bannerLocalList = new ArrayList<>();
+
     public static OtcHomeFragment newInstance() {
         Bundle bundle = new Bundle();
         OtcHomeFragment fragment = new OtcHomeFragment();
@@ -96,6 +113,7 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
 
         initFragments();
         setCurrentValue(0);
+        initCache();
     }
 
     @Override
@@ -141,16 +159,20 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
         lps.topMargin = UIUtils.dp2px(15);
         lps.rightMargin = UIUtils.dp2px(8);
         mTopBar.addLeftView(circleImageView, R.id.qmui_topbar_item_left_back, lps);
-        mTopBar.addRightImageButton(R.drawable.icon_ordercenter, R.id.qmui_topbar_item_right, 18, 18).setOnClickListener(new View.OnClickListener() {
+        mTopBar.addRightImageButton(R.drawable.icon_ordercenter, R.id.qmui_topbar_item_right, 22, 22).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (spUtil.getLogin()) {
+                if (!OtcDialogUtils.isDialogShow(getContext())) {
                     jumpTo(OtcOrderListActivity.class);
-                } else {
-                    jumpTo(LoginActivity.class);
                 }
             }
         });
+    }
+
+    private void initCache() {
+        String homeCacheString = SPUtils.getInstance().getString(Constant.HOME_CACHE);
+        homeModel = gson.fromJson(homeCacheString, HomeModel.class);
+        setBannerValue();
     }
 
     private void initFragments() {
@@ -203,5 +225,53 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
         view_btc.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_transparent));
         tv_c2c.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color));
         img_c2c.setImageResource(R.drawable.icon_arrow_right);
+    }
+
+    public void setHome(HomeModel model) {
+        this.homeModel = model;
+        setBannerValue();
+    }
+
+    private void setBannerValue() {
+        if (homeModel != null && homeModel.banner != null && homeModel.banner.size() > 0) {
+            banner_home.setOnItemClickListener(new XBanner.OnItemClickListener() {
+                @Override
+                public void onItemClick(XBanner banner, Object model, View view, int position) {
+                    CustomViewsInfo customViewsInfo = (CustomViewsInfo) model;
+                    if (!TextUtils.isEmpty(customViewsInfo.getXBannerUrl())) {
+                        jumpTo(WebviewActivity.createActivity(getContext(), customViewsInfo.getXBannerUrl()));
+                    }
+                }
+            });
+            banner_home.loadImage(new XBanner.XBannerAdapter() {
+                @Override
+                public void loadBanner(XBanner banner, Object model, View view, int position) {
+                    ImageView imageView = (ImageView) view;
+                    imageView.setScaleType(CENTER_CROP);
+                    CustomViewsInfo customViewsInfo = (CustomViewsInfo) model;
+                    GlideUtils.disPlay(getContext(), customViewsInfo.getXBannerImage(), imageView);
+                }
+            });
+            bannerImageList.clear();
+            for (int i = 0; i < homeModel.banner.size(); i++) {
+                bannerImageList.add(new CustomViewsInfo(homeModel.banner.get(i).image, homeModel.banner.get(i).url));
+            }
+            banner_home.setBannerData(bannerImageList);
+        } else {
+            banner_home.loadImage(new XBanner.XBannerAdapter() {
+                @Override
+                public void loadBanner(XBanner banner, Object model, View view, int position) {
+                    ImageView imageView = (ImageView) view;
+                    imageView.setScaleType(CENTER_CROP);
+                    LocalImageInfo localImageInfo = (LocalImageInfo) model;
+                    GlideUtils.disPlay(getContext(), localImageInfo.getXBannerUrl(), imageView);
+                }
+            });
+            bannerLocalList.clear();
+            bannerLocalList.add(new LocalImageInfo(R.mipmap.img_banner));
+            bannerLocalList.add(new LocalImageInfo(R.mipmap.img_banner));
+            bannerLocalList.add(new LocalImageInfo(R.mipmap.img_banner));
+            banner_home.setBannerData(bannerLocalList);
+        }
     }
 }

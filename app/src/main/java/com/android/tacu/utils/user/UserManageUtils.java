@@ -75,10 +75,16 @@ public class UserManageUtils {
             if (!TextUtils.isEmpty(model.email)) {
                 spUtil.setEmailStatus(true);
                 spUtil.setAccount(model.email);
+            } else {
+                spUtil.setEmailStatus(false);
+                spUtil.setAccount("");
             }
             if (!TextUtils.isEmpty(model.phone)) {
                 spUtil.setPhoneStatus(true);
                 spUtil.setAccount(model.phone);
+            } else {
+                spUtil.setPhoneStatus(false);
+                spUtil.setAccount("");
             }
 
             spUtil.setPhone(model.phone);
@@ -93,6 +99,8 @@ public class UserManageUtils {
         }
         if (list != null && list.size() > 0) {
             spUtil.setIsPayInfo(true);
+        } else {
+            spUtil.setIsPayInfo(false);
         }
     }
 

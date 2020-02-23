@@ -3,6 +3,7 @@ package com.android.tacu.module.main.contract;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.main.model.ConvertModel;
+import com.android.tacu.module.main.model.HomeModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.main.model.UploadModel;
 import com.android.tacu.module.market.model.SelfModel;
@@ -17,6 +18,8 @@ public class MainContract {
     public interface IView extends IBaseMvpView {
         void upload(UploadModel model, boolean isTip);
 
+        void home(HomeModel homeModel);
+
         void ownCenter(OwnCenterModel model);
 
         void getSelfSelectionValue(SelfModel selfModel);
@@ -28,6 +31,8 @@ public class MainContract {
 
     public interface IPresenter {
         void upload(String version, String channel, boolean isTip);
+
+        void getHome(boolean isShowLoadingView);
 
         void ownCenter();
 

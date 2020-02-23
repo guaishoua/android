@@ -21,6 +21,7 @@ import com.android.tacu.module.my.view.EditPersonalDataActivity;
 import com.android.tacu.module.my.view.InvitedinfoActivity;
 import com.android.tacu.module.my.view.LanguageActivity;
 import com.android.tacu.module.my.view.SecurityCenterActivity;
+import com.android.tacu.module.otc.dialog.OtcDialogUtils;
 import com.android.tacu.module.otc.view.OtcManageActivity;
 import com.android.tacu.module.otc.view.OtcOrderListActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
@@ -272,7 +273,9 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         if (TextUtils.equals(text, realName)) {
             jumpTo(AuthActivity.class);
         } else if (TextUtils.equals(text, orderCenter)) {
-            jumpTo(OtcOrderListActivity.class);
+            if (!OtcDialogUtils.isDialogShow(mActivity)) {
+                jumpTo(OtcOrderListActivity.class);
+            }
         } else if (TextUtils.equals(text, otcManage)) {
             jumpTo(OtcManageActivity.class);
         } else if (TextUtils.equals(text, securitySetting)) {
