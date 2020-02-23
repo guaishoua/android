@@ -193,7 +193,7 @@ public class SecurityCenterActivity extends BaseActivity<SecurityCenterPresenter
     @Override
     public void ownCenter(OwnCenterModel model) {
         if (model != null) {
-            UserManageUtils.setPersonInfo(model, null);
+            UserManageUtils.setPersonInfo(model);
 
             if (!spUtil.getPhoneStatus()) {
                 itemBindPhone.setDetailText(getResources().getString(R.string.no_bind));

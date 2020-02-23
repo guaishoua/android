@@ -145,25 +145,26 @@
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_3"
                 android:background="@drawable/checkbox_rect_default"
                 android:button="@null"
                 android:checked="false"
                 android:padding="@dimen/dp_2"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/tv_weixin"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tv_weixin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_3"
                 android:text="@string/weixin"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14"
-                app:layout_constraintBottom_toBottomOf="@+id/cb_weixin"
-                app:layout_constraintLeft_toRightOf="@+id/cb_weixin"
-                app:layout_constraintTop_toTopOf="@+id/cb_weixin" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <CheckBox
                 android:id="@+id/cb_yinhangka"
@@ -215,7 +216,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:background="@null"
+                android:digits="0123456789."
                 android:hint="@string/please_input_trade_single_price"
+                android:inputType="number"
                 android:textColor="@color/text_color"
                 android:textColorHint="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_14" />
@@ -254,7 +257,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:background="@null"
+                android:digits="0123456789."
                 android:hint="@string/please_input_trade_num"
+                android:inputType="number"
                 android:textColor="@color/text_color"
                 android:textColorHint="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_14" />
@@ -287,15 +292,13 @@
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14" />
 
-            <EditText
-                android:id="@+id/edit_trade_all_price"
+            <TextView
+                android:id="@+id/tv_trade_all_price"
                 android:layout_width="@dimen/dp_200"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:background="@null"
-                android:hint="@string/please_input_trade_all_price"
                 android:textColor="@color/text_color"
-                android:textColorHint="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_14" />
 
             <TextView
@@ -332,7 +335,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:background="@null"
+                android:digits="0123456789."
                 android:hint="@string/please_input_min_limit"
+                android:inputType="number"
                 android:textColor="@color/text_color"
                 android:textColorHint="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_14" />
@@ -371,7 +376,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:background="@null"
+                android:digits="0123456789."
                 android:hint="@string/please_input_max_limit"
+                android:inputType="number"
                 android:textColor="@color/text_color"
                 android:textColorHint="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_14" />
@@ -411,9 +418,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                tools:text="111"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_14" />
+                android:textSize="@dimen/text_size_sp_14"
+                tools:text="111" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -435,10 +442,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="www"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_14" />
+                android:textSize="@dimen/text_size_sp_14"
+                tools:text="www" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -461,13 +467,13 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_10"
-                android:layout_toLeftOf="@+id/tv_recharge"
-                android:text="www"
+                android:layout_toLeftOf="@+id/btn_recharge"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_14" />
+                android:textSize="@dimen/text_size_sp_14"
+                tools:text="www" />
 
             <com.qmuiteam.qmui.alpha.QMUIAlphaButton
-                android:id="@+id/tv_recharge"
+                android:id="@+id/btn_recharge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -527,8 +533,8 @@
 
                 <CheckBox
                     android:id="@+id/cb_xieyi"
-                    android:layout_width="@dimen/dp_16"
-                    android:layout_height="@dimen/dp_16"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
                     android:layout_marginTop="@dimen/dp_2"
                     android:background="@drawable/checkbox_rect_default"
                     android:button="@null"

@@ -172,6 +172,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         reboundAnim(ll_tab_assets);
 
         initFragments();
+        initCache();
         setTabSelection(Constant.MAIN_HOME);
     }
 
@@ -318,16 +319,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             SPUtils.getInstance().put(Constant.HOME_CACHE, gson.toJson(model));
         }
         if (homeFragment != null) {
-            homeFragment.setHome(homeModel);
+            homeFragment.setHome(homeModel, false);
         }
         if (otcHomeFragment != null) {
-            otcHomeFragment.setHome(homeModel);
+            otcHomeFragment.setHome(homeModel, false);
         }
     }
 
     @Override
     public void ownCenter(OwnCenterModel model) {
-        UserManageUtils.setPersonInfo(model, null);
+        UserManageUtils.setPersonInfo(model);
     }
 
     @Override
@@ -355,7 +356,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
     @Override
     public void selectBank(List<PayInfoModel> list) {
-        UserManageUtils.setPersonInfo(null, list);
+        UserManageUtils.setPeoplePayInfo(list);
     }
 
     @Override
@@ -521,6 +522,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             setTabSelection(Constant.MAIN_OTC);
         }
     }*/
+
+    private void initCache() {
+        String homeCacheString = SPUtils.getInstance().getString(Constant.HOME_CACHE);
+        homeModel = gson.fromJson(homeCacheString, HomeModel.class);
+        if (homeFragment != null) {
+            homeFragment.setHome(homeModel, true);
+        }
+        if (otcHomeFragment != null) {
+            otcHomeFragment.setHome(homeModel, true);
+        }
+    }
 
     /**
      * FaceBook的弹簧效果

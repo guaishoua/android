@@ -59,7 +59,7 @@ public class UserManageUtils {
     /**
      * 设置个人信息数据
      */
-    public static void setPersonInfo(OwnCenterModel model, List<PayInfoModel> list) {
+    public static void setPersonInfo(OwnCenterModel model) {
         if (model != null) {
             //是否开启谷歌认证
             spUtil.setGaStatus(model.isValidateGoogle);
@@ -96,7 +96,11 @@ public class UserManageUtils {
             spUtil.setHeadImg(model.headImg);
             spUtil.setKYCName(model.name);
             spUtil.setVip(model.vip);
+            spUtil.setOtcUserType(model.otcUserType);
         }
+    }
+
+    public static void setPeoplePayInfo(List<PayInfoModel> list) {
         if (list != null && list.size() > 0) {
             spUtil.setIsPayInfo(true);
         } else {
@@ -111,6 +115,7 @@ public class UserManageUtils {
         spUtil.setVip(0);
         spUtil.setAuth(0);
         spUtil.setUserUid(0);
+        spUtil.setOtcUserType(0);
         spUtil.setIsAuthSenior(0);
         spUtil.setToken("");
         spUtil.setPhone("");

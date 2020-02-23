@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <com.qmuiteam.qmui.alpha.QMUIAlphaButton
-            android:id="@+id/tv_publish_otc_order"
+            android:id="@+id/btn_publish_otc_order"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -26,7 +26,7 @@
             android:textSize="@dimen/text_size_sp_16" />
 
         <com.qmuiteam.qmui.alpha.QMUIAlphaButton
-            android:id="@+id/tv_certified_shoper"
+            android:id="@+id/btn_certified_shoper"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

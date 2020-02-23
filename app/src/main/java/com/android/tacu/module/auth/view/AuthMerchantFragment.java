@@ -107,6 +107,11 @@ public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> im
         if (ownCenterModel != null && ownCenterModel.applyAuthMerchantStatus != null && (ownCenterModel.applyAuthMerchantStatus == 1 || ownCenterModel.applyAuthMerchantStatus == 2)) {
             btn_submit.setEnabled(false);
             ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_grey));
+            if (ownCenterModel.applyAuthMerchantStatus == 1) {
+                btn_submit.setText(getResources().getString(R.string.to_be_examine));
+            } else if (ownCenterModel.applyAuthMerchantStatus == 2) {
+                btn_submit.setText(getResources().getString(R.string.apply_success1));
+            }
         }
     }
 }

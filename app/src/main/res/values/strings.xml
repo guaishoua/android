@@ -689,6 +689,7 @@
     <string name="sell_all_money">出售总金额</string>
     <string name="confirm_order">确认订单</string>
     <string name="otc_manage">广告中心</string>
+    <string name="you_art_shoper_first">请先认证商户！</string>
     <string name="publish_otc_order">发布广告</string>
     <string name="certified_shoper">认证商户</string>
     <string name="all_otc_order">全部广告</string>
@@ -704,7 +705,7 @@
     <string name="chushou">出售</string>
     <string name="trade_coin_type">交易币种</string>
     <string name="trade_money">交易货币</string>
-    <string name="current_market_value">当前市值：</string>
+    <string name="current_market_value">当前市值：1CNY/ACU</string>
     <string name="order_operation_time_limit">订单操作时限</string>
     <string name="minute_15">15分钟</string>
     <string name="minute_30">30分钟</string>
@@ -726,7 +727,7 @@
     <string name="max_limit">最大限额</string>
     <string name="please_input_max_limit">请输入最大限额</string>
     <string name="deal_fee">成交手续费</string>
-    <string name="purchase_deposit">购买保证金</string>
+    <string name="purchase_deposit">交易保证金</string>
     <string name="margin_balance">保证金余额</string>
     <string name="please_input_ask">请输入问候语.....</string>
     <string name="confirm_publish">确认发布</string>
@@ -795,7 +796,6 @@
     <string name="apply_business">申请商家</string>
     <string name="applied">已申请</string>
     <string name="to_be_examine">待审核</string>
-    <string name="examine_failure">审核失败</string>
     <string name="apply_business_not">您还没有申请商家</string>
     <string name="please_binding_pay_info">请绑定您的支付信息</string>
     <string name="setting_success">设置成功！</string>
@@ -876,6 +876,7 @@
     <string name="wait_day">等待%1$s天</string>
     <string name="cha_bi">还差%1$s笔</string>
     <string name="apply_success">申请成功！</string>
+    <string name="apply_success1">申请成功</string>
 
     <!--充值保证金-->
     <string name="recharge_deposit">充值保证金</string>

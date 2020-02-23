@@ -25,9 +25,7 @@ import com.android.tacu.module.otc.dialog.OtcDialogUtils;
 import com.android.tacu.module.otc.presenter.OtcHomePresenter;
 import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.GlideUtils;
-import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
-import com.google.gson.Gson;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.entity.CustomViewsInfo;
@@ -73,8 +71,6 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
     private OtcHomeChildFragment btcFragment;
     private OtcHomeC2cFragment c2cFragment;
 
-    private Gson gson = new Gson();
-
     private HomeModel homeModel;
     private List<CustomViewsInfo> bannerImageList = new ArrayList<>();
     private List<LocalImageInfo> bannerLocalList = new ArrayList<>();
@@ -112,8 +108,8 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
         });
 
         initFragments();
+        setBannerValue();
         setCurrentValue(0);
-        initCache();
     }
 
     @Override
@@ -169,12 +165,6 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
         });
     }
 
-    private void initCache() {
-        String homeCacheString = SPUtils.getInstance().getString(Constant.HOME_CACHE);
-        homeModel = gson.fromJson(homeCacheString, HomeModel.class);
-        setBannerValue();
-    }
-
     private void initFragments() {
         acuFragment = OtcHomeChildFragment.newInstance(0, "ACU");
         usdtFragment = OtcHomeChildFragment.newInstance(0, "USDT");
@@ -227,9 +217,11 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
         img_c2c.setImageResource(R.drawable.icon_arrow_right);
     }
 
-    public void setHome(HomeModel model) {
+    public void setHome(HomeModel model, boolean isCache) {
         this.homeModel = model;
-        setBannerValue();
+        if (!isCache) {
+            setBannerValue();
+        }
     }
 
     private void setBannerValue() {

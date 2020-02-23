@@ -182,7 +182,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void ownCenterSuccess(OwnCenterModel model) {
         if (model != null) {
-            UserManageUtils.setPersonInfo(model, null);
+            UserManageUtils.setPersonInfo(model);
 
             getMustNeed();
         }
@@ -209,7 +209,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void selectBankSuccess(List<PayInfoModel> list) {
-        UserManageUtils.setPersonInfo(null, list);
+        UserManageUtils.setPeoplePayInfo(list);
         getMustNeed();
     }
 

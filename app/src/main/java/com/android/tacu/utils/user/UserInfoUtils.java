@@ -598,4 +598,19 @@ public class UserInfoUtils {
     public int getVip() {
         return sp.getInt("vipStatus", 0);
     }
+
+    /**
+     * 用户的Otc身份 1个人(默认) 2商户 3机器人
+     */
+    public void setOtcUserType(Integer otcUserType) {
+        if (otcUserType == null) {
+            otcUserType = 0;
+        }
+        editor.putInt("otcUserType", otcUserType);
+        editor.commit();
+    }
+
+    public int getOtcUserType() {
+        return sp.getInt("otcUserType", 0);
+    }
 }

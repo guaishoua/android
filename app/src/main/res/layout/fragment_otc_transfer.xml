@@ -70,7 +70,8 @@
                     style="@style/common_edit_style"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_12"
-                    android:inputType="numberDecimal"
+                    android:digits="0123456789."
+                    android:inputType="number"
                     android:maxLength="20"
                     android:textColorHint="@color/text_grey_3"
                     android:textSize="@dimen/text_size_sp_16" />
@@ -102,7 +103,8 @@
                     style="@style/common_edit_style"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_12"
-                    android:inputType="numberDecimal"
+                    android:digits="0123456789."
+                    android:inputType="number"
                     android:maxLength="20"
                     android:textColorHint="@color/text_grey_3"
                     android:textSize="@dimen/text_size_sp_16" />

@@ -70,6 +70,11 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
 
     //0=币币账户划转到保证金账户（充值） 1=保证金账户划转到币币账户（提取）
     private int type = 0;
+    //上面的币币账户币种ID
+    private int CC_CoinId = Constant.ACU_CURRENCY_ID;
+    //上面的保证金账户币种ID
+    private int Bond_CoinId = Constant.ACU_CURRENCY_ID;
+
     private View emptyView;
 
     @Override
@@ -255,16 +260,16 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
     }
 
     private void upload() {
-        mPresenter.customerCoinByOneCoin(Constant.ACU_CURRENCY_ID);
-        mPresenter.BondAccount(Constant.ACU_CURRENCY_ID);
+        mPresenter.customerCoinByOneCoin(CC_CoinId);
+        mPresenter.BondAccount(CC_CoinId);
         mPresenter.selectBondRecord();
     }
 
     public void bondOrCC(String pwd) {
         if (type == 0) {
-            mPresenter.CcToBond(edit_amount.getText().toString(), Constant.ACU_CURRENCY_ID, pwd);
+            mPresenter.CcToBond(edit_amount.getText().toString(), Bond_CoinId, pwd);
         } else if (type == 1) {
-            mPresenter.BondToCc(edit_amount.getText().toString(), Constant.ACU_CURRENCY_ID, pwd);
+            mPresenter.BondToCc(edit_amount.getText().toString(), Bond_CoinId, pwd);
         }
     }
 
@@ -292,19 +297,24 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
             listPopup.dismiss();
             return;
         }
-        if (listPopup == null) {
-            final List<String> data = new ArrayList<>();
-            data.add(Constant.OTC_ACU);
-            ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.simple_list_item, data);
-            listPopup = new ListPopWindow(this, adapter);
-            listPopup.create(UIUtils.dp2px(80), UIUtils.dp2px(40), new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    tv.setText(data.get(position));
-                    listPopup.dismiss();
+        final List<String> data = new ArrayList<>();
+        final List<Integer> dataId = new ArrayList<>();
+        data.add(Constant.OTC_ACU);
+        dataId.add(Constant.ACU_CURRENCY_ID);
+        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.simple_list_item, data);
+        listPopup = new ListPopWindow(this, adapter);
+        listPopup.create(UIUtils.dp2px(80), UIUtils.dp2px(40), new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                tv.setText(data.get(position));
+                if (tv == tv_accont_coin) {
+                    CC_CoinId = dataId.get(position);
+                } else if (tv == tv_coin) {
+                    Bond_CoinId = dataId.get(position);
                 }
-            });
-        }
+                listPopup.dismiss();
+            }
+        });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             listPopup.setDropDownGravity(Gravity.END);
         }

@@ -102,7 +102,7 @@ public class BindingPayInfoActivity extends BaseActivity<BindingPayInfoPresenter
 
     @Override
     public void selectBank(List<PayInfoModel> list) {
-        UserManageUtils.setPersonInfo(null, list);
+        UserManageUtils.setPeoplePayInfo(list);
         PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {

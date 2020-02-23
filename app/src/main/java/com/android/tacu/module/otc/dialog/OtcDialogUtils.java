@@ -59,7 +59,6 @@ public class OtcDialogUtils {
         }
 
         if (isFlag) {
-
             View view = View.inflate(mContext, R.layout.view_otc_judge, null);
             RelativeLayout rl_auth = view.findViewById(R.id.rl_auth);
             RelativeLayout rl_tel = view.findViewById(R.id.rl_tel);

@@ -100,9 +100,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
+            android:digits="0123456789."
             android:gravity="center"
             android:hint="@string/price"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_grey_3"
             android:textSize="@dimen/text_size_sp_12" />
@@ -162,9 +163,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
+            android:digits="0123456789."
             android:gravity="center"
             android:hint="@string/amount"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_grey_3"
             android:textSize="@dimen/text_size_sp_12" />

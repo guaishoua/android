@@ -238,55 +238,36 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
 
     @Override
     public void ownCenter(OwnCenterModel model) {
-        UserManageUtils.setPersonInfo(model, null);
+        UserManageUtils.setPersonInfo(model);
         setValue();
         if (model != null) {
-            if (model.applyMerchantStatus != null) {
+            if (model.otcUserType == 2) {
                 tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this, R.color.text_color));
-                switch (model.applyMerchantStatus) {
-                    case 0:
-                        tv_apply_buniness.setText(getResources().getString(R.string.apply_business_not));
-                        tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this, R.color.text_grey));
-                        break;
-                    case 1:
-                        tv_apply_buniness.setText(getResources().getString(R.string.ordinary_merchant) + getResources().getString(R.string.to_be_examine));
-                        break;
-                    case 2:
-                        if (model.applyAuthMerchantStatus != null) {
-                            switch (model.applyAuthMerchantStatus) {
-                                case 0:
-                                    tv_apply_buniness.setText(getResources().getString(R.string.ordinary_merchant));
-                                    break;
-                                case 1:
-                                    tv_apply_buniness.setText(getResources().getString(R.string.certified_shoper) + getResources().getString(R.string.to_be_examine));
-                                    break;
-                                case 2:
-                                    tv_apply_buniness.setText(getResources().getString(R.string.certified_shoper));
-                                    break;
-                                case 3:
-                                    tv_apply_buniness.setText(getResources().getString(R.string.certified_shoper) + getResources().getString(R.string.examine_failure));
-                                    break;
-                            }
-                        }
-                        break;
-                    case 3:
-                        tv_apply_buniness.setText(getResources().getString(R.string.ordinary_merchant) + getResources().getString(R.string.examine_failure));
-                        break;
+                String value = "";
+                if (model.applyMerchantStatus != null && model.applyMerchantStatus == 2) {
+                    value = getResources().getString(R.string.ordinary_merchant);
                 }
+                if (model.applyAuthMerchantStatus != null) {
+                    if (model.applyAuthMerchantStatus != null && model.applyAuthMerchantStatus == 2) {
+                        if (TextUtils.isEmpty(value)) {
+                            value = getResources().getString(R.string.certified_shoper);
+                        } else {
+                            value = value + " & " + getResources().getString(R.string.certified_shoper);
+                        }
+                    }
+                }
+                tv_apply_buniness.setText(value);
+            } else {
+                tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this, R.color.text_grey));
+                tv_apply_buniness.setText(getResources().getString(R.string.apply_business_not));
             }
         }
     }
 
     @Override
     public void selectBank(List<PayInfoModel> list) {
-        UserManageUtils.setPersonInfo(null, list);
-        if (list != null && list.size() > 0) {
-            tv_binding_payinfo.setText(getResources().getString(R.string.binding_success));
-            tv_binding_payinfo.setTextColor(ContextCompat.getColorStateList(this, R.color.text_color));
-        } else {
-            tv_binding_payinfo.setText(getResources().getString(R.string.please_binding_pay_info));
-            tv_binding_payinfo.setTextColor(ContextCompat.getColorStateList(this, R.color.text_grey));
-        }
+        UserManageUtils.setPeoplePayInfo(list);
+        setValue();
     }
 
     @Override
@@ -309,7 +290,7 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
     private void setValue() {
         if (!TextUtils.isEmpty(spUtil.getHeadImg())) {
             GlideUtils.disPlay(this, Constant.HEAD_IMG_URL + spUtil.getHeadImg(), img_head_sculpture);
-        }else{
+        } else {
             img_head_sculpture.setImageResource(R.mipmap.img_maindrawer_unlogin);
         }
         tv_account.setText(spUtil.getAccount());
@@ -338,6 +319,13 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
             tv_apply_kyc.setText("KYC2");
         } else if (spUtil.getIsAuthSenior() < 2) {
             tv_apply_kyc.setText("KYC1");
+        }
+        if (spUtil.getIsPayInfo()) {
+            tv_binding_payinfo.setText(getResources().getString(R.string.binding_success));
+            tv_binding_payinfo.setTextColor(ContextCompat.getColorStateList(this, R.color.text_color));
+        } else {
+            tv_binding_payinfo.setText(getResources().getString(R.string.please_binding_pay_info));
+            tv_binding_payinfo.setTextColor(ContextCompat.getColorStateList(this, R.color.text_grey));
         }
     }
 

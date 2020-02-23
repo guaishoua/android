@@ -1,6 +1,5 @@
 package com.android.tacu.module.otc.view;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
@@ -23,7 +22,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import butterknife.BindView;
 
-public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implements OtcManageContract.IView {
+public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implements OtcManageContract.IChildView {
 
     @BindView(R.id.refreshlayout)
     SmartRefreshLayout refreshManage;

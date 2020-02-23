@@ -263,7 +263,8 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="@color/color_transparent"
                     android:hint="@string/recharge_grin_amount_hint"
-                    android:inputType="numberDecimal"
+                    android:digits="0123456789."
+                    android:inputType="number"
                     android:textColor="@color/text_color"
                     android:textColorHint="@color/text_grey_2"
                     android:textSize="@dimen/text_size_sp_12" />

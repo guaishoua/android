@@ -133,7 +133,7 @@ public class GestureActivity extends BaseActivity<LoginPresenter> implements Log
     @Override
     public void ownCenterSuccess(OwnCenterModel model) {
         if (model != null) {
-            UserManageUtils.setPersonInfo(model, null);
+            UserManageUtils.setPersonInfo(model);
 
             getMustNeed();
         }
@@ -160,7 +160,7 @@ public class GestureActivity extends BaseActivity<LoginPresenter> implements Log
 
     @Override
     public void selectBankSuccess(List<PayInfoModel> list) {
-        UserManageUtils.setPersonInfo(null, list);
+        UserManageUtils.setPeoplePayInfo(list);
         getMustNeed();
     }
 

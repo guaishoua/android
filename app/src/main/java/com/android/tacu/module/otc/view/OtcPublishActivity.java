@@ -9,7 +9,7 @@ import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabAdapter;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
-import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 import java.util.ArrayList;
@@ -44,10 +44,10 @@ public class OtcPublishActivity extends BaseActivity {
 
         titleIndicatorView.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
         titleIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.tab_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
-        titleIndicatorView.setScrollBar(new ColorBar(this, ContextCompat.getColor(this, R.color.tab_default), 4));
+        titleIndicatorView.setScrollBar(new TextWidthColorBar(this, titleIndicatorView, ContextCompat.getColor(this, R.color.tab_default), 4));
         titleIndicatorView.setSplitAuto(true);
 
-        viewpager.setOffscreenPageLimit(tabTitle.length - 1);
+        viewpager.setOffscreenPageLimit(fragmentList.size() - 1);
         indicatorViewPager = new IndicatorViewPager(titleIndicatorView, viewpager);
         indicatorViewPager.setAdapter(new TabAdapter(getSupportFragmentManager(), this, tabTitle, fragmentList));
     }

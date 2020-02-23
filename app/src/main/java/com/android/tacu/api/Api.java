@@ -27,6 +27,7 @@ import com.android.tacu.module.market.model.SelfModel;
 import com.android.tacu.module.assets.model.CoinListModel;
 import com.android.tacu.module.my.model.InvitedAllModel;
 import com.android.tacu.module.my.model.InvitedInfoModel;
+import com.android.tacu.module.otc.model.OtcSelectFeeModel;
 import com.android.tacu.module.transaction.model.DealDetailsModel;
 import com.android.tacu.module.transaction.model.ShowOrderListModel;
 import com.android.tacu.module.transaction.model.ShowTradeListModel;
@@ -953,4 +954,35 @@ public interface Api {
      */
     @POST("selectC2cSection")
     Observable<BaseModel<List<SelectC2cSection>>> selectC2cSection();
+
+    /**
+     * 发布广告
+     */
+    @FormUrlEncoded
+    @POST("order")
+    Observable<BaseModel> order(
+            @Field("buyorsell") Integer buyorsell,//1买2卖
+            @Field("currencyId") Integer currencyId,
+            @Field("money") Integer money,//1 人民币
+            @Field("timeOut") Integer timeOut,//超时时间
+            @Field("price") String price,//单价
+            @Field("num") String num,//数量
+            @Field("amount") String amount,//金额
+            @Field("lowLimit") String lowLimit,//最细限额
+            @Field("highLimit") String highLimit,//最高限额
+            @Field("explain") String explain,//问候
+            @Field("payByCard") Integer payByCard,//银行卡支付 1支持0 不支持
+            @Field("payWechat") Integer payWechat,//微信支付 1支持0 不支持
+            @Field("payAlipay") Integer payAlipay,//支付 1支持0 不支持
+            @Field("fdPassword") String fdPassword
+    );
+
+    /**
+     * otc交易手续费
+     */
+    @FormUrlEncoded
+    @POST("selectFee")
+    Observable<BaseModel<OtcSelectFeeModel>> selectFee(
+            @Field("currencyId") Integer currencyId
+    );
 }

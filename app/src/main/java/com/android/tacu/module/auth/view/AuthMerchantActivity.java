@@ -150,7 +150,7 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
 
     @Override
     public void ownCenter(OwnCenterModel model) {
-        UserManageUtils.setPersonInfo(model, null);
+        UserManageUtils.setPersonInfo(model);
         if (ordinarMerchantFragment != null) {
             ordinarMerchantFragment.setValue(model);
         }

@@ -277,7 +277,9 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
                 jumpTo(OtcOrderListActivity.class);
             }
         } else if (TextUtils.equals(text, otcManage)) {
-            jumpTo(OtcManageActivity.class);
+            if (!OtcDialogUtils.isDialogShow(mActivity)) {
+                jumpTo(OtcManageActivity.class);
+            }
         } else if (TextUtils.equals(text, securitySetting)) {
             jumpTo(SecurityCenterActivity.class);
         } else if (TextUtils.equals(text, inviting)) {

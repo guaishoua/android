@@ -314,9 +314,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         });
     }
 
-    public void setHome(HomeModel model) {
+    public void setHome(HomeModel model, boolean isCache) {
         this.homeModel = model;
-        setBannerValue();
+        if (!isCache){
+            setBannerValue();
+        }
     }
 
     private void sendValue(final List<MarketNewModel> marketModelList) {
@@ -525,9 +527,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
      * 加载本地缓存
      */
     private void initCache() {
-        String homeCacheString = SPUtils.getInstance().getString(Constant.HOME_CACHE);
-        homeModel = gson.fromJson(homeCacheString, HomeModel.class);
-
         String noticeCacheString = SPUtils.getInstance().getString(Constant.HOME_NOTICE_CACHE);
         noticeCloseCacheString = SPUtils.getInstance().getString(Constant.HOME_NOTICE_CLOSE_CACHE);
         if (TextUtils.equals(noticeCacheString, noticeCloseCacheString)) {
@@ -545,8 +544,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             sendValue(cacheList);
         }
 
-        setBannerValue();
         setInitHomeNoticeValue();
+        setBannerValue();
     }
 
     private void setBannerValue() {
