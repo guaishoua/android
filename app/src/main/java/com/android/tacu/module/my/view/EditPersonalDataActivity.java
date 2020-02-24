@@ -289,7 +289,7 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
 
     private void setValue() {
         if (!TextUtils.isEmpty(spUtil.getHeadImg())) {
-            GlideUtils.disPlay(this, Constant.HEAD_IMG_URL + spUtil.getHeadImg(), img_head_sculpture);
+            GlideUtils.disPlay(this, CommonUtils.getHead(spUtil.getHeadImg()), img_head_sculpture);
         } else {
             img_head_sculpture.setImageResource(R.mipmap.img_maindrawer_unlogin);
         }

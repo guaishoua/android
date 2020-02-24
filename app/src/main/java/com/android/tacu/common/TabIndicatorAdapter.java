@@ -18,12 +18,12 @@ public class TabIndicatorAdapter extends Indicator.IndicatorAdapter {
     private Context context;
     private List<String> tabTitle;
 
-    public TabIndicatorAdapter(Activity context, String[] tabTitle) {
+    public TabIndicatorAdapter(Context context, String[] tabTitle) {
         this.context = context;
         this.tabTitle = Arrays.asList(tabTitle);
     }
 
-    public TabIndicatorAdapter(Activity context, List<String> tabTitle) {
+    public TabIndicatorAdapter(Context context, List<String> tabTitle) {
         this.context = context;
         this.tabTitle = tabTitle;
     }

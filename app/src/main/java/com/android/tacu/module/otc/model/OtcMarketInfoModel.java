@@ -14,23 +14,23 @@ public class OtcMarketInfoModel implements Serializable {
      * private Integer isAuthSenior;
      * private Integer isValidatePhone;
      * private Integer applyMerchantStatus;
-     *
-     *
+     * <p>
+     * <p>
      * private BigDecimal bondMoney;  //保证金总额
-     *
+     * <p>
      * private Integer total;       //总成交数
      * private Integer buy;         //总成交数
      * private Integer sell;        //总成交数
      * private Integer success;
      * private Integer fail;
-     *
+     * <p>
      * private Integer disputeTotal;   //纠纷量
      * private Integer disputeBySelf;   //仲裁量
      * private Integer disputeByOther;  //被仲裁量
      * private Integer otherDispute;     //申诉量
      * private Integer winDispute;     //胜诉量
-     *
-     *
+     * <p>
+     * <p>
      * private Integer buyorsell; //1.买 2.卖
      * private Integer currencyId; //
      * private String currencyName;
@@ -39,7 +39,7 @@ public class OtcMarketInfoModel implements Serializable {
      * private Integer payByCard; //1.银行卡 0 不支持
      * private Integer payWechat; //1.微信 0 不支持
      * private Integer payAlipay; //1.支付宝 0 不支持
-     *
+     * <p>
      * private BigDecimal price; // 单价
      * private BigDecimal num;   //数量
      * private BigDecimal amount; //总额
@@ -52,8 +52,8 @@ public class OtcMarketInfoModel implements Serializable {
      * private Integer feeType; // 手续费类型
      * private String explaininfo; // 说明信息
      * private BigDecimal bondFreezeAmount;   // 保证金冻结数量
-     *
-     *
+     * <p>
+     * <p>
      * private Integer finishNum; //已成交单数
      * private Integer waitNum;//待处理单数
      * private Integer failNum;//失败单数
@@ -61,13 +61,13 @@ public class OtcMarketInfoModel implements Serializable {
      * private BigDecimal cardPay;// 银行卡收款额
      * private BigDecimal chatPay;//微信收款额
      * private BigDecimal aliPay;//支付宝收款额
-     *
-     *
-     *
+     * <p>
+     * <p>
+     * <p>
      * private Integer status; // 0未成交 1部分成交 2 全部成交 3 撤销
      */
     @SerializedName("uid")
-    public String uid;
+    public Integer uid;
     @SerializedName("headImg")
     public String headImg;
     @SerializedName("nickname")
@@ -75,11 +75,11 @@ public class OtcMarketInfoModel implements Serializable {
     @SerializedName("secondName")
     public String secondName;
     @SerializedName("isValidateEmail")
-    public String isValidateEmail;
+    public Integer isValidateEmail;//0. 未设置 1. 已设置
     @SerializedName("isAuthSenior")
-    public String isAuthSenior;
+    public Integer isAuthSenior;
     @SerializedName("isValidatePhone")
-    public String isValidatePhone;
+    public Integer isValidatePhone;//0. 未设置 1. 已设置
     @SerializedName("applyMerchantStatus")
     public Integer applyMerchantStatus;
 

@@ -8,7 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tacu.R;
-import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcMarketBuySellContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
@@ -25,6 +23,7 @@ import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
 import com.android.tacu.module.otc.presenter.OtcMarketBuySellPresenter;
+import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
@@ -229,7 +228,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                     if (model.infoList != null && model.infoList.size() > 0) {
                         for (int j = 0; j < model.infoList.size(); j++) {
                             infoListModel = model.infoList.get(j);
-                            if (TextUtils.equals(infoListModel.uid, orderListModel.uid)) {
+                            if (infoListModel.uid != null && orderListModel.uid != null && infoListModel.uid.equals(orderListModel.uid)) {
                                 allModel.infoModel = infoListModel;
                             }
                         }
@@ -350,40 +349,44 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         }
 
         @Override
-        protected void convert(BaseViewHolder holder, OtcMarketOrderAllModel item) {
-            GlideUtils.disPlay(getContext(), Constant.HEAD_IMG_URL + item.infoModel.headImg, (ImageView) holder.getView(R.id.img_user));
-            holder.setText(R.id.tv_nickname, item.infoModel.nickname);
-            if (item.infoModel.vip != null && item.infoModel.vip != 0) {
-                holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_green);
-            } else if (item.infoModel.applyMerchantStatus != null && item.infoModel.applyMerchantStatus == 2) {
-                holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_grey);
-            } else if (item.infoModel.applyAuthMerchantStatus != null && item.infoModel.applyAuthMerchantStatus == 2) {
-                holder.setImageResource(R.id.img_vip, R.drawable.icon_vip);
+        protected void convert(BaseViewHolder holder, final OtcMarketOrderAllModel item) {
+            if (item.infoModel != null) {
+                GlideUtils.disPlay(getContext(), CommonUtils.getHead(item.infoModel.headImg), (ImageView) holder.getView(R.id.img_user));
+                holder.setText(R.id.tv_nickname, item.infoModel.nickname);
+                if (item.infoModel.vip != null && item.infoModel.vip != 0) {
+                    holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_green);
+                } else if (item.infoModel.applyMerchantStatus != null && item.infoModel.applyMerchantStatus == 2) {
+                    holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_grey);
+                } else if (item.infoModel.applyAuthMerchantStatus != null && item.infoModel.applyAuthMerchantStatus == 2) {
+                    holder.setImageResource(R.id.img_vip, R.drawable.icon_vip);
+                }
+                holder.setText(R.id.tv_history_deal, getResources().getString(R.string.history_deal) + "：" + item.infoModel.total);
             }
-            holder.setText(R.id.tv_history_deal, getResources().getString(R.string.history_deal) + "：" + item.infoModel.total);
-            holder.setText(R.id.tv_surplus, item.orderModel.remainAmount + "/" + item.orderModel.amount + " " + currencyNameEn);
+            if (item.orderModel != null) {
+                holder.setText(R.id.tv_surplus, item.orderModel.remainAmount + "/" + item.orderModel.amount + " " + currencyNameEn);
 
-            String moneyWei = "";
-            if (item.orderModel.money != null && item.orderModel.money == 1) {
-                moneyWei = "CNY";
-            }
-            holder.setText(R.id.tv_single_quota, item.orderModel.lowLimit + "~" + item.orderModel.highLimit + " " + moneyWei);
-            holder.setText(R.id.tv_single_price, item.orderModel.price + " " + moneyWei);
+                String moneyWei = "";
+                if (item.orderModel.money != null && item.orderModel.money == 1) {
+                    moneyWei = "CNY";
+                }
+                holder.setText(R.id.tv_single_quota, item.orderModel.lowLimit + "~" + item.orderModel.highLimit + " " + moneyWei);
+                holder.setText(R.id.tv_single_price, item.orderModel.price + " " + moneyWei);
 
-            if (item.orderModel.payByCard != null && item.orderModel.payByCard == 1) {
-                holder.setGone(R.id.img_yhk, true);
-            } else {
-                holder.setGone(R.id.img_yhk, false);
-            }
-            if (item.orderModel.payWechat != null && item.orderModel.payWechat == 1) {
-                holder.setGone(R.id.img_wx, true);
-            } else {
-                holder.setGone(R.id.img_wx, false);
-            }
-            if (item.orderModel.payAlipay != null && item.orderModel.payAlipay == 1) {
-                holder.setGone(R.id.img_zfb, true);
-            } else {
-                holder.setGone(R.id.img_zfb, false);
+                if (item.orderModel.payByCard != null && item.orderModel.payByCard == 1) {
+                    holder.setGone(R.id.img_yhk, true);
+                } else {
+                    holder.setGone(R.id.img_yhk, false);
+                }
+                if (item.orderModel.payWechat != null && item.orderModel.payWechat == 1) {
+                    holder.setGone(R.id.img_wx, true);
+                } else {
+                    holder.setGone(R.id.img_wx, false);
+                }
+                if (item.orderModel.payAlipay != null && item.orderModel.payAlipay == 1) {
+                    holder.setGone(R.id.img_zfb, true);
+                } else {
+                    holder.setGone(R.id.img_zfb, false);
+                }
             }
 
             if (isBuy) {
@@ -397,7 +400,11 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
             holder.setOnClickListener(R.id.btn, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
+                        jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), isBuy));
+                    } else {
+                        jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
+                    }
                 }
             });
         }

@@ -70,7 +70,7 @@ public class OtcMarketOrderModel implements Serializable {
     @SerializedName("id")
     public Integer id;
     @SerializedName("uid")
-    public String uid;
+    public Integer uid;
     @SerializedName("uuid")
     public String uuid;
     @SerializedName("buyorsell")

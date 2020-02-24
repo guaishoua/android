@@ -231,4 +231,20 @@ public class CommonUtils {
                     R.drawable.qmui_icon_edittext_pwdgone_bright_bg);
         }
     }
+
+    /**
+     * 处理头像中的a-Heads-image
+     *
+     * @param url
+     * @return
+     */
+    public static String getHead(String url) {
+        if (!TextUtils.isEmpty(url)) {
+            if (url.contains(Constant.OSS_HEAD_DIR)) {
+                url.replace(Constant.OSS_HEAD_DIR, "");
+            }
+            return Constant.HEAD_IMG_URL + url;
+        }
+        return "";
+    }
 }

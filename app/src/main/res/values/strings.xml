@@ -679,6 +679,10 @@
     <string name="otc_sell_page">卖出页面</string>
     <string name="plan_buy_amount">计划购入总量：</string>
     <string name="remaining_unsold">剩余未购入量：</string>
+    <string name="remaining_unsold_all">剩余购入总价：</string>
+    <string name="all_num">总量</string>
+    <string name="remind_num">剩余量</string>
+    <string name="remind_all">剩余总价</string>
     <string name="single_min_limit">单笔最小限额：</string>
     <string name="single_max_limit">单笔最大限额：</string>
     <string name="seller_coined_time_limit">卖家放币时限：</string>
@@ -686,7 +690,12 @@
     <string name="account_balance1">账户余额</string>
     <string name="sell_number">出售数量</string>
     <string name="input_sell_number">输入出售数量</string>
+    <string name="buy_number">购买数量</string>
+    <string name="input_buy_number">输入购买数量</string>
     <string name="sell_all_money">出售总金额</string>
+    <string name="input_sell_all_money">输入出售总金额</string>
+    <string name="buy_all_money">购买总金额</string>
+    <string name="input_buy_all_money">输入购买总金额</string>
     <string name="confirm_order">确认订单</string>
     <string name="otc_manage">广告中心</string>
     <string name="you_art_shoper_first">请先认证商户！</string>

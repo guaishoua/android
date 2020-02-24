@@ -25,6 +25,7 @@ import com.android.tacu.module.otc.dialog.OtcDialogUtils;
 import com.android.tacu.module.otc.view.OtcManageActivity;
 import com.android.tacu.module.otc.view.OtcOrderListActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
+import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.PackageUtils;
 import com.android.tacu.utils.UIUtils;
@@ -229,7 +230,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             tvUser.setText("Hi," + spUtil.getAccount());
             tvUid.setText("UID " + spUtil.getUserUid());
             if (!TextUtils.isEmpty(spUtil.getHeadImg())) {
-                GlideUtils.disPlay(mActivity, Constant.HEAD_IMG_URL + spUtil.getHeadImg(), img_login);
+                GlideUtils.disPlay(mActivity, CommonUtils.getHead(spUtil.getHeadImg()), img_login);
             } else {
                 img_login.setImageResource(R.mipmap.img_maindrawer_unlogin);
             }
@@ -260,7 +261,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
      */
     public void openDraw() {
         if (spUtil.getLogin() && !TextUtils.isEmpty(spUtil.getHeadImg())) {
-            GlideUtils.disPlay(mActivity, Constant.HEAD_IMG_URL + spUtil.getHeadImg(), img_login);
+            GlideUtils.disPlay(mActivity, CommonUtils.getHead(spUtil.getHeadImg()), img_login);
         } else {
             img_login.setImageResource(R.mipmap.img_maindrawer_unlogin);
         }

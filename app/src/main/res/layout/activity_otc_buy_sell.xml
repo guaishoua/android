@@ -113,6 +113,27 @@
                     tools:text="100" />
 
                 <TextView
+                    android:id="@+id/tv_remaining_all_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_7"
+                    android:text="@string/remaining_unsold_all"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_remaining_unsold_title" />
+
+                <TextView
+                    android:id="@+id/tv_remaining_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_remaining_all_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:text="100" />
+
+                <TextView
                     android:id="@+id/tv_single_min_limit_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -121,7 +142,7 @@
                     android:textColor="@color/text_grey"
                     android:textSize="@dimen/text_size_sp_14"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_remaining_unsold_title" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_remaining_all_title" />
 
                 <TextView
                     android:id="@+id/tv_single_min_limit"
@@ -254,6 +275,14 @@
                         android:textSize="@dimen/text_size_sp_16"
                         tools:text="1234567" />
                 </LinearLayout>
+
+                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                    android:id="@+id/img_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_250"
+                    android:layout_marginTop="@dimen/dp_5"
+                    app:qmui_border_color="@color/color_grey"
+                    app:qmui_border_width="@dimen/dp_1" />
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout
@@ -304,19 +333,22 @@
                     android:layout_height="@dimen/dp_20"
                     android:layout_marginLeft="@dimen/dp_20"
                     android:background="@null"
+                    android:digits="0123456789."
                     android:hint="@string/input_sell_number"
+                    android:inputType="number"
                     android:textColor="@color/text_color"
                     android:textColorHint="@color/text_grey"
                     android:textSize="@dimen/text_size_sp_14"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_sell_number_title"
                     app:layout_constraintLeft_toRightOf="@+id/tv_sell_number_title"
-                    app:layout_constraintRight_toLeftOf="@+id/btn_all" />
+                    app:layout_constraintRight_toLeftOf="@+id/btn_all_number" />
 
                 <com.qmuiteam.qmui.alpha.QMUIAlphaButton
-                    android:id="@+id/btn_all"
+                    android:id="@+id/btn_all_number"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_20"
                     android:background="@null"
+                    android:gravity="right"
                     android:text="@string/all"
                     android:textColor="@color/text_default"
                     android:textSize="@dimen/text_size_sp_14"
@@ -334,17 +366,68 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_sell_number_title" />
 
+                <EditText
+                    android:id="@+id/edit_sell_allmoney"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:background="@null"
+                    android:digits="0123456789."
+                    android:hint="@string/input_sell_all_money"
+                    android:inputType="number"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_sell_allmoney_title"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_sell_allmoney_title"
+                    app:layout_constraintRight_toLeftOf="@+id/btn_allmoney" />
+
+                <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+                    android:id="@+id/btn_allmoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_20"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:text="@string/all"
+                    android:textColor="@color/text_default"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_sell_allmoney_title"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_trade_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_marginTop="@dimen/dp_1"
+                android:background="@color/content_bg_color"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dp_8">
+
                 <TextView
-                    android:id="@+id/tv_sell_allmoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_centerVertical="true"
+                    android:text="@string/trade_password"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_sell_allmoney_title"
-                    app:layout_constraintLeft_toRightOf="@+id/tv_sell_allmoney_title"
-                    tools:text="123" />
-            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout>
+                    android:textSize="@dimen/text_size_sp_14" />
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
+                    android:id="@+id/edit_trade_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_22"
+                    android:background="@null"
+                    android:hint="@string/please_input_trade_password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:paddingRight="@dimen/dp_5"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_14" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
