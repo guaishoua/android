@@ -1,6 +1,7 @@
 package com.android.tacu.common;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class TabIndicatorAdapter extends Indicator.IndicatorAdapter {
 
-    private Activity context;
+    private Context context;
     private List<String> tabTitle;
 
     public TabIndicatorAdapter(Activity context, String[] tabTitle) {
@@ -35,7 +36,7 @@ public class TabIndicatorAdapter extends Indicator.IndicatorAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup container) {
         if (convertView == null) {
-            convertView = context.getLayoutInflater().inflate(R.layout.view_tab, container, false);
+            convertView = ((Activity) context).getLayoutInflater().inflate(R.layout.view_tab, container, false);
         }
         TextView textView = (TextView) convertView;
         textView.setText(tabTitle.get(position));

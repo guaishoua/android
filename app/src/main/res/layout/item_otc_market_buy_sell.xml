@@ -43,11 +43,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
+        android:text="@string/surplus_all_amount"
         android:textColor="@color/text_grey"
         android:textSize="@dimen/text_size_sp_13"
         app:layout_constraintLeft_toLeftOf="@id/img_user"
-        app:layout_constraintTop_toBottomOf="@id/img_user"
-        tools:text="@string/surplus_all_amount" />
+        app:layout_constraintTop_toBottomOf="@id/img_user" />
 
     <TextView
         android:id="@+id/tv_surplus"
@@ -65,11 +65,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_5"
+        android:text="@string/single_quota"
         android:textColor="@color/text_grey"
         android:textSize="@dimen/text_size_sp_13"
         app:layout_constraintLeft_toLeftOf="@id/img_user"
-        app:layout_constraintTop_toBottomOf="@id/tv_surplus_title"
-        tools:text="@string/single_quota" />
+        app:layout_constraintTop_toBottomOf="@id/tv_surplus_title" />
 
     <TextView
         android:id="@+id/tv_single_quota"

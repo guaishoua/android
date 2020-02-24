@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabAdapter;
 import com.shizhefei.view.indicator.IndicatorViewPager;
@@ -57,25 +58,16 @@ public class OtcMarketListActivity extends BaseActivity {
 
         currencyNameEn = getIntent().getStringExtra("currencyNameEn");
 
-        tabTitle.add("ACU");
-        tabTitle.add("USDT");
-        tabTitle.add("BTC");
-
-        fragmentList.add(OtcMarketFragment.newInstance(0, "ACU"));
-        fragmentList.add(OtcMarketFragment.newInstance(0, "USDT"));
-        fragmentList.add(OtcMarketFragment.newInstance(0, "BTC"));
+        tabTitle.add(Constant.OTC_ACU);
+        fragmentList.add(OtcMarketFragment.newInstance(Constant.ACU_CURRENCY_ID, Constant.OTC_ACU));
 
         magic_indicator.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
         magic_indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
         magic_indicator.setScrollBar(new TextWidthColorBar(this, magic_indicator, ContextCompat.getColor(this, R.color.text_default), 4));
         magic_indicator.setSplitAuto(true);
 
-        if (TextUtils.equals(currencyNameEn, "ACU")) {
+        if (TextUtils.equals(currencyNameEn, Constant.OTC_ACU)) {
             currentPage = 0;
-        } else if (TextUtils.equals(currencyNameEn, "USDT")) {
-            currentPage = 1;
-        } else if (TextUtils.equals(currencyNameEn, "BTC")) {
-            currentPage = 2;
         }
 
         IndicatorViewPager indicatorViewPager = new IndicatorViewPager(magic_indicator, viewPager);

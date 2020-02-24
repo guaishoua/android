@@ -27,6 +27,7 @@ import com.android.tacu.module.market.model.SelfModel;
 import com.android.tacu.module.assets.model.CoinListModel;
 import com.android.tacu.module.my.model.InvitedAllModel;
 import com.android.tacu.module.my.model.InvitedInfoModel;
+import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
 import com.android.tacu.module.otc.model.OtcSelectFeeModel;
 import com.android.tacu.module.transaction.model.DealDetailsModel;
 import com.android.tacu.module.transaction.model.ShowOrderListModel;
@@ -984,5 +985,19 @@ public interface Api {
     @POST("selectFee")
     Observable<BaseModel<OtcSelectFeeModel>> selectFee(
             @Field("currencyId") Integer currencyId
+    );
+
+    /**
+     * 交易市场
+     */
+    @FormUrlEncoded
+    @POST("orderList")
+    Observable<BaseModel<OtcMarketOrderListModel>> orderList(
+            @Field("type") Integer type,//1价格升序 2价格降序 3 剩余量升序 4 剩余量降序 5最高限价降序 6最低限价升序
+            @Field("currencyId") Integer currencyId,
+            @Field("start") Integer start,
+            @Field("size") Integer size,
+            @Field("payType") Integer payType,//支付方式 0 全部 1 银行卡 2 微信 3 支付宝
+            @Field("buyorsell") Integer buyorsell//1买2卖
     );
 }

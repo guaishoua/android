@@ -1,7 +1,7 @@
 package com.android.tacu.module.otc.view;
 
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,12 +33,10 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
     private boolean isBuy = true; //默认true=买
     private OtcOrderAdapter orderAdapter;
 
-    public static OtcMarketBuySellFragment newInstance(boolean isBuy) {
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("isBuy", isBuy);
-        OtcMarketBuySellFragment fragment = new OtcMarketBuySellFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static Intent createActivity(Context context, boolean isBuy) {
+        Intent intent = new Intent(context, OtcManageBuySellDetailActivity.class);
+        intent.putExtra("isBuy", isBuy);
+        return intent;
     }
 
     @Override

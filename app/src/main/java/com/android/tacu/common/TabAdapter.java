@@ -1,6 +1,7 @@
 package com.android.tacu.common;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
@@ -17,18 +18,18 @@ import java.util.List;
 
 public class TabAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
 
-    private Activity context;
+    private Context context;
     private List<String> tabList;
     private List<Fragment> fragmentList;
 
-    public TabAdapter(FragmentManager fragmentManager, Activity context, String[] tabTitle, List<Fragment> fragmentList) {
+    public TabAdapter(FragmentManager fragmentManager, Context context, String[] tabTitle, List<Fragment> fragmentList) {
         super(fragmentManager);
         this.context = context;
         this.tabList = Arrays.asList(tabTitle);
         this.fragmentList = fragmentList;
     }
 
-    public TabAdapter(FragmentManager fragmentManager, Activity context, List<String> tabList, List<Fragment> fragmentList) {
+    public TabAdapter(FragmentManager fragmentManager, Context context, List<String> tabList, List<Fragment> fragmentList) {
         super(fragmentManager);
         this.context = context;
         this.tabList = tabList;
@@ -43,7 +44,7 @@ public class TabAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter
     @Override
     public View getViewForTab(int position, View convertView, ViewGroup container) {
         if (convertView == null) {
-            convertView = context.getLayoutInflater().inflate(R.layout.view_tab, container, false);
+            convertView = ((Activity) context).getLayoutInflater().inflate(R.layout.view_tab, container, false);
         }
         TextView textView = (TextView) convertView;
         textView.setText(tabList.get(position));

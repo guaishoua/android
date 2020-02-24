@@ -50,14 +50,14 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
     TextView tv_acu;
     @BindView(R.id.view_acu)
     View view_acu;
-    @BindView(R.id.tv_usdt)
+   /* @BindView(R.id.tv_usdt)
     TextView tv_usdt;
     @BindView(R.id.view_usdt)
     View view_usdt;
     @BindView(R.id.tv_btc)
     TextView tv_btc;
     @BindView(R.id.view_btc)
-    View view_btc;
+    View view_btc;*/
     @BindView(R.id.tv_c2c)
     TextView tv_c2c;
     @BindView(R.id.img_c2c)
@@ -67,8 +67,6 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
 
     private Fragment[] fragments;
     private OtcHomeChildFragment acuFragment;
-    private OtcHomeChildFragment usdtFragment;
-    private OtcHomeChildFragment btcFragment;
     private OtcHomeC2cFragment c2cFragment;
 
     private HomeModel homeModel;
@@ -122,7 +120,7 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
         setCurrentValue(0);
     }
 
-    @OnClick(R.id.rl_usdt)
+    /*@OnClick(R.id.rl_usdt)
     void rlUsdtClick() {
         setCurrentValue(1);
     }
@@ -130,7 +128,7 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
     @OnClick(R.id.rl_btc)
     void rlBtcClick() {
         setCurrentValue(2);
-    }
+    }*/
 
     @OnClick(R.id.rl_c2c)
     void rlC2cClick() {
@@ -166,12 +164,10 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
     }
 
     private void initFragments() {
-        acuFragment = OtcHomeChildFragment.newInstance(0, "ACU");
-        usdtFragment = OtcHomeChildFragment.newInstance(0, "USDT");
-        btcFragment = OtcHomeChildFragment.newInstance(0, "BTC");
+        acuFragment = OtcHomeChildFragment.newInstance(Constant.ACU_CURRENCY_ID, Constant.OTC_ACU);
         c2cFragment = OtcHomeC2cFragment.newInstance();
 
-        fragments = new Fragment[]{acuFragment, usdtFragment, btcFragment, c2cFragment};
+        fragments = new Fragment[]{acuFragment, c2cFragment};
         viewpager.setAdapter(new MyFragmentPagerAdapter(getChildFragmentManager(), fragments));
         viewpager.setOffscreenPageLimit(3);
     }
@@ -191,14 +187,14 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
                 tv_acu.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 view_acu.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_default));
                 break;
-            case 1:
+           /* case 1:
                 tv_usdt.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 view_usdt.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_default));
                 break;
             case 2:
                 tv_btc.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 view_btc.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_default));
-                break;
+                break;*/
             case 3:
                 tv_c2c.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 img_c2c.setImageResource(R.drawable.icon_arrow_right_default);
@@ -209,10 +205,10 @@ public class OtcHomeFragment extends BaseFragment<OtcHomePresenter> implements O
     private void clearStatus() {
         tv_acu.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color));
         view_acu.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_transparent));
-        tv_usdt.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color));
+      /*  tv_usdt.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color));
         view_usdt.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_transparent));
         tv_btc.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color));
-        view_btc.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_transparent));
+        view_btc.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.color_transparent));*/
         tv_c2c.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color));
         img_c2c.setImageResource(R.drawable.icon_arrow_right);
     }

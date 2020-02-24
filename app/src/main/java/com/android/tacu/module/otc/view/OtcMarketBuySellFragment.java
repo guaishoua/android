@@ -1,6 +1,5 @@
 package com.android.tacu.module.otc.view;
 
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,21 +8,33 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcMarketBuySellContract;
+import com.android.tacu.module.otc.model.OtcMarketInfoModel;
+import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
+import com.android.tacu.module.otc.model.OtcMarketOrderModel;
+import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
 import com.android.tacu.module.otc.presenter.OtcMarketBuySellPresenter;
+import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.UIUtils;
+import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +43,8 @@ import butterknife.BindView;
 
 public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPresenter> implements OtcMarketBuySellContract.IView, View.OnClickListener {
 
+    @BindView(R.id.refreshlayout_home)
+    SmartRefreshLayout refreshlayout;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
@@ -41,17 +54,23 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     private TextView tv_all_manner_sort;
     private View view_flag;
 
-    // 0 =默认不排序 1=代表向下，由高到低 2=代表向上，由低到高
+    //0=代表向下，由高到低 1=代表向上，由低到高
     private int sort_price = 0;
     private int sort_surplus_amount = 0;
     private int sort_quota = 0;
+    //1价格升序 2价格降序 3 剩余量升序 4 剩余量降序 5最高限价降序 6最低限价升序
+    private Integer type = -1;
+    //支付方式 0 全部 1 银行卡 2 微信 3 支付宝
+    private Integer payType = 0;
 
     private int currencyId;
     private String currencyNameEn;
     private boolean isBuy = true; //默认true=买
+    private int start = 1;
 
     private ListPopWindow listPopup;
     private OtcMarketBuySellAdapter mAdapter;
+    private List<OtcMarketOrderAllModel> allList = new ArrayList<>();
 
     public static OtcMarketBuySellFragment newInstance(int currencyId, String currencyNameEn, boolean isBuy) {
         Bundle bundle = new Bundle();
@@ -64,12 +83,23 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     }
 
     @Override
+    protected void initLazy() {
+        super.initLazy();
+        upload(true);
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
             currencyId = bundle.getInt("currencyId");
             currencyNameEn = bundle.getString("currencyNameEn");
             isBuy = bundle.getBoolean("isBuy", true);
+            if (isBuy) {
+                type = 1;
+            } else {
+                type = 2;
+            }
         }
         super.onCreate(savedInstanceState);
     }
@@ -81,6 +111,23 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
 
     @Override
     protected void initData(View view) {
+        CustomTextHeaderView header = new CustomTextHeaderView(getContext());
+        header.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
+        refreshlayout.setRefreshHeader(header);
+        refreshlayout.setEnableLoadmore(false);
+        refreshlayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                start = 1;
+                upload(false);
+            }
+
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                upload(false);
+            }
+        });
+
         mAdapter = new OtcMarketBuySellAdapter();
         mAdapter.setHeaderFooterEmpty(true, false);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
@@ -90,15 +137,19 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         recyclerView.setAdapter(mAdapter);
 
         initHeader();
-
-        List<String> list = new ArrayList<>();
-        list.add("1");
-        mAdapter.setNewData(list);
     }
 
     @Override
     protected OtcMarketBuySellPresenter createPresenter(OtcMarketBuySellPresenter mPresenter) {
         return new OtcMarketBuySellPresenter();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isVisibleToUser) {
+            upload(true);
+        }
     }
 
     @Override
@@ -110,30 +161,108 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     }
 
     @Override
+    public void hideRefreshView() {
+        super.hideRefreshView();
+        if (refreshlayout != null && (refreshlayout.isRefreshing() || refreshlayout.isLoading())) {
+            refreshlayout.finishRefresh();
+            refreshlayout.finishLoadmore();
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_price_sort:
-                sort_price = (sort_price + 1) > 2 ? 0 : sort_price + 1;
+                sort_price = (sort_price + 1) > 1 ? 0 : sort_price + 1;
                 sort_surplus_amount = 0;
                 sort_quota = 0;
                 setSortView(tv_price_sort, sort_price);
+                if (sort_price == 0) {
+                    type = 2;
+                } else if (sort_price == 1) {
+                    type = 1;
+                }
+                upload(true);
                 break;
             case R.id.tv_surplus_amount_sort:
-                sort_surplus_amount = (sort_surplus_amount + 1) > 2 ? 0 : sort_surplus_amount + 1;
+                sort_surplus_amount = (sort_surplus_amount + 1) > 1 ? 0 : sort_surplus_amount + 1;
                 sort_price = 0;
                 sort_quota = 0;
                 setSortView(tv_surplus_amount_sort, sort_surplus_amount);
+                if (sort_surplus_amount == 0) {
+                    type = 4;
+                } else if (sort_surplus_amount == 1) {
+                    type = 3;
+                }
+                upload(true);
                 break;
             case R.id.tv_quota_sort:
-                sort_quota = (sort_quota + 1) > 2 ? 0 : sort_quota + 1;
+                sort_quota = (sort_quota + 1) > 1 ? 0 : sort_quota + 1;
                 sort_price = 0;
                 sort_surplus_amount = 0;
                 setSortView(tv_quota_sort, sort_quota);
+                if (sort_quota == 0) {
+                    type = 5;
+                } else if (sort_quota == 1) {
+                    type = 6;
+                }
+                upload(true);
                 break;
             case R.id.tv_all_manner_sort:
                 showAllMannerType(tv_all_manner_sort);
                 break;
         }
+    }
+
+    @Override
+    public void orderList(OtcMarketOrderListModel model) {
+        if (model != null) {
+            if (model.list != null && model.list.size() > 0) {
+                OtcMarketOrderAllModel allModel = new OtcMarketOrderAllModel();
+                OtcMarketInfoModel infoListModel = null;
+                OtcMarketOrderModel orderListModel = null;
+                List<OtcMarketOrderAllModel> list = new ArrayList<>();
+
+                for (int i = 0; i < model.list.size(); i++) {
+                    orderListModel = model.list.get(i);
+                    allModel.orderModel = orderListModel;
+                    if (model.infoList != null && model.infoList.size() > 0) {
+                        for (int j = 0; j < model.infoList.size(); j++) {
+                            infoListModel = model.infoList.get(j);
+                            if (TextUtils.equals(infoListModel.uid, orderListModel.uid)) {
+                                allModel.infoModel = infoListModel;
+                            }
+                        }
+                    }
+                    list.add(allModel);
+                }
+
+                if (allList != null && list.size() > 0) {
+                    allList.addAll(list);
+                } else {
+                    allList = list;
+                }
+                if (allList != null && allList.size() > 0) {
+                    mAdapter.setNewData(allList);
+                    if (allList.size() >= model.total) {
+                        refreshlayout.setEnableLoadmore(false);
+                    } else {
+                        start++;
+                        refreshlayout.setEnableLoadmore(true);
+                    }
+                }
+            }
+        } else if (start == 1) {
+            mAdapter.setNewData(null);
+            refreshlayout.setEnableLoadmore(false);
+        }
+    }
+
+    private void upload(boolean isShowViewing) {
+        if (start == 1 && allList != null && allList.size() > 0) {
+            allList.clear();
+        }
+        mPresenter.orderList(isShowViewing, type, currencyId, start, 10, payType, isBuy ? 2 : 1);
     }
 
     private void initHeader() {
@@ -152,26 +281,19 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         mAdapter.addHeaderView(headerView);
     }
 
-    public void setRefreshFragment() {
-
-    }
-
     private void setSortView(TextView tv, int status) {
-        clearSortView(tv);
+        clearSortView();
         switch (status) {
             case 0:
-                setDrawableR(tv, R.drawable.icon_sort_default);
-                break;
-            case 1:
                 setDrawableR(tv, R.drawable.icon_sort_down);
                 break;
-            case 2:
+            case 1:
                 setDrawableR(tv, R.drawable.icon_sort_up);
                 break;
         }
     }
 
-    private void clearSortView(TextView tv) {
+    private void clearSortView() {
         setDrawableR(tv_price_sort, R.drawable.icon_sort_default);
         setDrawableR(tv_surplus_amount_sort, R.drawable.icon_sort_default);
         setDrawableR(tv_quota_sort, R.drawable.icon_sort_default);
@@ -198,6 +320,18 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     tv.setText(data.get(position));
+                    switch (position) {
+                        case 0:
+                            payType = 1;
+                            break;
+                        case 1:
+                            payType = 3;
+                            break;
+                        case 2:
+                            payType = 2;
+                            break;
+                    }
+                    upload(true);
                     listPopup.dismiss();
                 }
             });
@@ -209,21 +343,63 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         listPopup.show();
     }
 
-    public class OtcMarketBuySellAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+    public class OtcMarketBuySellAdapter extends BaseQuickAdapter<OtcMarketOrderAllModel, BaseViewHolder> {
 
         public OtcMarketBuySellAdapter() {
             super(R.layout.item_otc_market_buy_sell);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, String item) {
-            if (isBuy) {
-                helper.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_riseup));
-                ((QMUIRoundButtonDrawable) helper.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_riseup));
-            } else {
-                helper.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_risedown));
-                ((QMUIRoundButtonDrawable) helper.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_risedown));
+        protected void convert(BaseViewHolder holder, OtcMarketOrderAllModel item) {
+            GlideUtils.disPlay(getContext(), Constant.HEAD_IMG_URL + item.infoModel.headImg, (ImageView) holder.getView(R.id.img_user));
+            holder.setText(R.id.tv_nickname, item.infoModel.nickname);
+            if (item.infoModel.vip != null && item.infoModel.vip != 0) {
+                holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_green);
+            } else if (item.infoModel.applyMerchantStatus != null && item.infoModel.applyMerchantStatus == 2) {
+                holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_grey);
+            } else if (item.infoModel.applyAuthMerchantStatus != null && item.infoModel.applyAuthMerchantStatus == 2) {
+                holder.setImageResource(R.id.img_vip, R.drawable.icon_vip);
             }
+            holder.setText(R.id.tv_history_deal, getResources().getString(R.string.history_deal) + "：" + item.infoModel.total);
+            holder.setText(R.id.tv_surplus, item.orderModel.remainAmount + "/" + item.orderModel.amount + " " + currencyNameEn);
+
+            String moneyWei = "";
+            if (item.orderModel.money != null && item.orderModel.money == 1) {
+                moneyWei = "CNY";
+            }
+            holder.setText(R.id.tv_single_quota, item.orderModel.lowLimit + "~" + item.orderModel.highLimit + " " + moneyWei);
+            holder.setText(R.id.tv_single_price, item.orderModel.price + " " + moneyWei);
+
+            if (item.orderModel.payByCard != null && item.orderModel.payByCard == 1) {
+                holder.setGone(R.id.img_yhk, true);
+            } else {
+                holder.setGone(R.id.img_yhk, false);
+            }
+            if (item.orderModel.payWechat != null && item.orderModel.payWechat == 1) {
+                holder.setGone(R.id.img_wx, true);
+            } else {
+                holder.setGone(R.id.img_wx, false);
+            }
+            if (item.orderModel.payAlipay != null && item.orderModel.payAlipay == 1) {
+                holder.setGone(R.id.img_zfb, true);
+            } else {
+                holder.setGone(R.id.img_zfb, false);
+            }
+
+            if (isBuy) {
+                holder.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_riseup));
+                ((QMUIRoundButtonDrawable) holder.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_riseup));
+            } else {
+                holder.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_risedown));
+                ((QMUIRoundButtonDrawable) holder.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_risedown));
+            }
+
+            holder.setOnClickListener(R.id.btn, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
     }
 }

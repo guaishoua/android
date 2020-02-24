@@ -230,6 +230,5 @@ public class CommonUtils {
                     R.drawable.qmui_icon_edittext_pwdvis_bright_bg,
                     R.drawable.qmui_icon_edittext_pwdgone_bright_bg);
         }
-
     }
 }

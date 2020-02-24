@@ -4,28 +4,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.module.otc.contract.OtcMarketContract;
-import com.android.tacu.module.otc.presenter.OtcMarketPresenter;
+import com.android.tacu.common.TabAdapter;
 import com.android.tacu.utils.UIUtils;
-import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
@@ -37,22 +28,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class OtcMarketFragment extends BaseFragment<OtcMarketPresenter> implements OtcMarketContract.IView {
+public class OtcMarketFragment extends BaseFragment{
 
-    @BindView(R.id.refreshlayout_home)
-    SmartRefreshLayout refreshView;
     @BindView(R.id.tv_money)
     TextView tv_money;
     @BindView(R.id.tv_real_price)
     TextView tv_real_price;
-    @BindView(R.id.tv_24h_range)
-    TextView tv_24h_range;
-    @BindView(R.id.img_24h_range)
-    ImageView img_24h_range;
-    @BindView(R.id.tv_24h_maxprice)
-    TextView tv_24h_maxprice;
-    @BindView(R.id.tv_24h_minprice)
-    TextView tv_24h_minprice;
     @BindView(R.id.magic_indicator)
     ScrollIndicatorView magic_indicator;
     @BindView(R.id.vp)
@@ -61,8 +42,6 @@ public class OtcMarketFragment extends BaseFragment<OtcMarketPresenter> implemen
     private int currencyId;
     private String currencyNameEn;
 
-    private OtcMarketBuySellFragment buyFragment;
-    private OtcMarketBuySellFragment sellFragment;
     private List<String> tabTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
 
@@ -94,30 +73,11 @@ public class OtcMarketFragment extends BaseFragment<OtcMarketPresenter> implemen
 
     @Override
     protected void initData(View view) {
-        CustomTextHeaderView header = new CustomTextHeaderView(getContext());
-        header.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
-        refreshView.setRefreshHeader(header);
-        refreshView.setEnableLoadmore(false);
-        refreshView.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                if (buyFragment != null) {
-                    buyFragment.setRefreshFragment();
-                }
-                if (sellFragment != null) {
-                    sellFragment.setRefreshFragment();
-                }
-            }
-        });
-
         tabTitle.add(getResources().getString(R.string.buy));
         tabTitle.add(getResources().getString(R.string.sell));
 
-        buyFragment = OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, true);
-        sellFragment = OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, false);
-
-        fragmentList.add(buyFragment);
-        fragmentList.add(sellFragment);
+        fragmentList.add(OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, true));
+        fragmentList.add(OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, false));
 
         magic_indicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tab_bg_color));
         magic_indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.text_default), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(14, 14));
@@ -125,14 +85,9 @@ public class OtcMarketFragment extends BaseFragment<OtcMarketPresenter> implemen
         magic_indicator.setSplitAuto(true);
 
         IndicatorViewPager indicatorViewPager = new IndicatorViewPager(magic_indicator, viewPager);
-        indicatorViewPager.setAdapter(new TabAdapter(getChildFragmentManager()));
+        indicatorViewPager.setAdapter(new TabAdapter(getChildFragmentManager(), getContext(), tabTitle, fragmentList));
         viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
         viewPager.setCurrentItem(0, false);
-    }
-
-    @Override
-    protected OtcMarketPresenter createPresenter(OtcMarketPresenter mPresenter) {
-        return new OtcMarketPresenter();
     }
 
     @Override
@@ -171,41 +126,5 @@ public class OtcMarketFragment extends BaseFragment<OtcMarketPresenter> implemen
         }
         listPopup.setAnchorView(tv);
         listPopup.show();
-    }
-
-    private class TabAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
-
-        public TabAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-        @Override
-        public int getCount() {
-            return tabTitle != null ? tabTitle.size() : 0;
-        }
-
-        @Override
-        public View getViewForTab(int position, View convertView, ViewGroup container) {
-            if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.view_tab, container, false);
-            }
-            TextView textView = (TextView) convertView;
-            textView.setText(tabTitle.get(position));
-            int padding = UIUtils.dp2px(10);
-            textView.setPadding(padding, 0, padding, 0);
-            return convertView;
-        }
-
-        @Override
-        public Fragment getFragmentForPage(int position) {
-            return fragmentList.get(position);
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            //这是ViewPager适配器的特点,有两个值 POSITION_NONE，POSITION_UNCHANGED，默认就是POSITION_UNCHANGED,
-            // 表示数据没变化不用更新.notifyDataChange的时候重新调用getViewForPage
-            return PagerAdapter.POSITION_UNCHANGED;
-        }
     }
 }
