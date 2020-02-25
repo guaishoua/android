@@ -23,7 +23,6 @@ import com.android.tacu.module.otc.model.OtcMarketOrderModel;
 import com.android.tacu.module.otc.presenter.OtcBuyOrSellPresenter;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.GlideUtils;
-import com.android.tacu.utils.LogUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
@@ -120,8 +119,6 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     protected void initView() {
         isBuy = getIntent().getBooleanExtra("isBuy", true);
         orderId = getIntent().getIntExtra("orderId", 0);
-
-        LogUtils.i("jiazhen", orderId + "");
 
         if (isBuy) {
             mTopBar.setTitle(getResources().getString(R.string.otc_buy_page));
@@ -263,21 +260,21 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     @OnClick(R.id.btn_confirm)
     void confirmClick() {
         String num = edit_sell_number.getText().toString();
-        String all = edit_sell_allmoney.getText().toString();
+        String amount = edit_sell_allmoney.getText().toString();
         String pwd = edit_trade_password.getText().toString();
         if (TextUtils.isEmpty(num)) {
             showToastError(getResources().getString(R.string.input_sell_number));
             return;
         }
-        if (TextUtils.isEmpty(all)) {
+        if (TextUtils.isEmpty(amount)) {
             showToastError(getResources().getString(R.string.sell_all_money));
             return;
         }
         if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwd)) {
             showToastError(getResources().getString(R.string.please_input_trade_password));
+            return;
         }
-
-        //num  和  all需要截取8位
+        jumpTo(OtcOrderCreateActivity.createActivity(this, isBuy, pwd, num, amount, allModel));
     }
 
     @OnClick(R.id.btn_return)
@@ -332,18 +329,13 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     public void orderListOne(OtcMarketOrderAllModel model) {
         this.allModel = model;
         setInfoValue(allModel);
-        setOrderInfo(allModel);
+        setOrderInfo();
     }
 
-    @Override
-    public void otcTradeSuccess() {
-
-    }
-
-    public void setOrderInfo(OtcMarketOrderAllModel model) {
+    public void setOrderInfo() {
         if (allModel != null) {
             OtcMarketOrderModel orderModel = allModel.orderModel;
-            String valueWei = "";
+            String valueWei = "CNY";
             if (orderModel.money != null && orderModel.money == 1) {
                 valueWei = " CNY";
             }

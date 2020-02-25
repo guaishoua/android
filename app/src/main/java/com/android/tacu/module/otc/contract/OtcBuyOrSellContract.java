@@ -17,8 +17,6 @@ public class OtcBuyOrSellContract {
         void otcAmount(OtcAmountModel model);
 
         void orderListOne(OtcMarketOrderAllModel model);
-
-        void otcTradeSuccess();
     }
 
     public interface IPresenter {
@@ -29,7 +27,5 @@ public class OtcBuyOrSellContract {
         void otcAmount(int currencyId);
 
         void orderListOne(Integer orderId);
-
-        void otcTrade(Integer orderId, String fdPassword, Integer payType, String num, String amount);
     }
 }

@@ -150,6 +150,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     public void onResume() {
         super.onResume();
         if (isVisibleToUser) {
+            start = 1;
             upload(true);
         }
     }

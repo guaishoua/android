@@ -59,15 +59,4 @@ public class OtcBuyOrSellPresenter extends BaseMvpPresenter implements OtcBuyOrS
             }
         });
     }
-
-    @Override
-    public void otcTrade(Integer orderId, String fdPassword, Integer payType, String num, String amount) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).otcTrade(orderId, fdPassword, payType, num, amount), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
-            @Override
-            public void onNext(BaseModel model) {
-                OtcBuyOrSellContract.IView view = (OtcBuyOrSellContract.IView) getView();
-                view.otcTradeSuccess();
-            }
-        });
-    }
 }

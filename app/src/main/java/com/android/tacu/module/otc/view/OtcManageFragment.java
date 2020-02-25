@@ -107,6 +107,7 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
     public void onResume() {
         super.onResume();
         if (isVisibleToUser) {
+            start = 1;
             upload(true);
         }
     }
@@ -197,7 +198,7 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
             holder.setText(R.id.tv_surplus_amount_title, getResources().getString(R.string.biao_surplus_num) + "(" + item.currencyName + ")");
             holder.setText(R.id.tv_surplus_amount, item.remainAmount);
 
-            String valueWei = "";
+            String valueWei = "CNY";
             if (item.money == 1) {
                 valueWei = "CNY";
             }
