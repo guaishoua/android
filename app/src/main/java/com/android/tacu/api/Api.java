@@ -1023,4 +1023,15 @@ public interface Api {
     Observable<BaseModel<OtcMarketOrderAllModel>> orderListOne(
             @Field("orderId") Integer orderId
     );
+
+    /**
+     * 交易市场
+     */
+    @FormUrlEncoded
+    @POST("orderListOwn")
+    Observable<BaseModel<OtcMarketOrderListModel>> orderListOwn(
+            @Field("start") Integer start,
+            @Field("size") Integer size,
+            @Field("buyorsell") Integer buyorsell//0=全部 1买 2卖
+    );
 }

@@ -240,28 +240,6 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
     public void ownCenter(OwnCenterModel model) {
         UserManageUtils.setPersonInfo(model);
         setValue();
-        if (model != null) {
-            if (model.otcUserType == 2) {
-                tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this, R.color.text_color));
-                String value = "";
-                if (model.applyMerchantStatus != null && model.applyMerchantStatus == 2) {
-                    value = getResources().getString(R.string.ordinary_merchant);
-                }
-                if (model.applyAuthMerchantStatus != null) {
-                    if (model.applyAuthMerchantStatus != null && model.applyAuthMerchantStatus == 2) {
-                        if (TextUtils.isEmpty(value)) {
-                            value = getResources().getString(R.string.certified_shoper);
-                        } else {
-                            value = value + " & " + getResources().getString(R.string.certified_shoper);
-                        }
-                    }
-                }
-                tv_apply_buniness.setText(value);
-            } else {
-                tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this, R.color.text_grey));
-                tv_apply_buniness.setText(getResources().getString(R.string.apply_business_not));
-            }
-        }
     }
 
     @Override
@@ -320,6 +298,26 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         } else if (spUtil.getIsAuthSenior() < 2) {
             tv_apply_kyc.setText("KYC1");
         }
+
+        if (spUtil.getApplyMerchantStatus() != 2 && spUtil.getApplyAuthMerchantStatus() != 2) {
+            tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this, R.color.text_grey));
+            tv_apply_buniness.setText(getResources().getString(R.string.apply_business_not));
+        } else {
+            tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this, R.color.text_color));
+            String value = "";
+            if (spUtil.getApplyMerchantStatus() == 2) {
+                value = getResources().getString(R.string.ordinary_merchant);
+            }
+            if (spUtil.getApplyAuthMerchantStatus() == 2) {
+                if (TextUtils.isEmpty(value)) {
+                    value = getResources().getString(R.string.certified_shoper);
+                } else {
+                    value = value + " & " + getResources().getString(R.string.certified_shoper);
+                }
+            }
+            tv_apply_buniness.setText(value);
+        }
+
         if (spUtil.getIsPayInfo()) {
             tv_binding_payinfo.setText(getResources().getString(R.string.binding_success));
             tv_binding_payinfo.setTextColor(ContextCompat.getColorStateList(this, R.color.text_color));

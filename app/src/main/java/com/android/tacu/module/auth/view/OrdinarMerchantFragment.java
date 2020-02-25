@@ -363,12 +363,12 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
             btn_submit.setEnabled(false);
             ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_grey));
         }
-        if (ownCenterModel != null && ownCenterModel.applyMerchantStatus != null && (ownCenterModel.applyMerchantStatus == 1 || ownCenterModel.applyMerchantStatus == 2)) {
+        if (spUtil.getApplyMerchantStatus() == 1 || spUtil.getApplyMerchantStatus() == 2) {
             btn_submit.setEnabled(false);
             ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_grey));
-            if (ownCenterModel.applyMerchantStatus == 1) {
+            if (spUtil.getApplyMerchantStatus() == 1) {
                 btn_submit.setText(getResources().getString(R.string.to_be_examine));
-            } else if (ownCenterModel.applyMerchantStatus == 2) {
+            } else if (spUtil.getApplyMerchantStatus() == 2) {
                 btn_submit.setText(getResources().getString(R.string.apply_success1));
             }
         }

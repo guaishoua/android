@@ -33,6 +33,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.util.ArrayList;
@@ -113,6 +115,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         CustomTextHeaderView header = new CustomTextHeaderView(getContext());
         header.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
         refreshlayout.setRefreshHeader(header);
+        refreshlayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(getContext(), R.color.color_default)));
         refreshlayout.setEnableLoadmore(false);
         refreshlayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
@@ -217,12 +220,13 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     public void orderList(OtcMarketOrderListModel model) {
         if (model != null) {
             if (model.list != null && model.list.size() > 0) {
-                OtcMarketOrderAllModel allModel = new OtcMarketOrderAllModel();
+                OtcMarketOrderAllModel allModel = null;
                 OtcMarketInfoModel infoListModel = null;
                 OtcMarketOrderModel orderListModel = null;
                 List<OtcMarketOrderAllModel> list = new ArrayList<>();
 
                 for (int i = 0; i < model.list.size(); i++) {
+                    allModel = new OtcMarketOrderAllModel();
                     orderListModel = model.list.get(i);
                     allModel.orderModel = orderListModel;
                     if (model.infoList != null && model.infoList.size() > 0) {
@@ -250,6 +254,9 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                         refreshlayout.setEnableLoadmore(true);
                     }
                 }
+            } else if (start == 1) {
+                mAdapter.setNewData(null);
+                refreshlayout.setEnableLoadmore(false);
             }
         } else if (start == 1) {
             mAdapter.setNewData(null);
@@ -352,7 +359,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         protected void convert(BaseViewHolder holder, final OtcMarketOrderAllModel item) {
             if (item.infoModel != null) {
                 GlideUtils.disPlay(getContext(), CommonUtils.getHead(item.infoModel.headImg), (ImageView) holder.getView(R.id.img_user));
-                holder.setText(R.id.tv_nickname, item.infoModel.nickname);
+                holder.setText(R.id.tv_nickname, item.infoModel.nickname + "(" + item.infoModel.secondName + ")");
                 if (item.infoModel.vip != null && item.infoModel.vip != 0) {
                     holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_green);
                 } else if (item.infoModel.applyMerchantStatus != null && item.infoModel.applyMerchantStatus == 2) {
@@ -360,7 +367,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 } else if (item.infoModel.applyAuthMerchantStatus != null && item.infoModel.applyAuthMerchantStatus == 2) {
                     holder.setImageResource(R.id.img_vip, R.drawable.icon_vip);
                 }
-                holder.setText(R.id.tv_history_deal, getResources().getString(R.string.history_deal) + "：" + item.infoModel.total);
+                holder.setText(R.id.tv_history_deal, getResources().getString(R.string.history_deal) + "：" + item.infoModel.total + getResources().getString(R.string.dan));
             }
             if (item.orderModel != null) {
                 holder.setText(R.id.tv_surplus, item.orderModel.remainAmount + "/" + item.orderModel.amount + " " + currencyNameEn);

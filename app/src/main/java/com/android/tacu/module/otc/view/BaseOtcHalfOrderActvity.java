@@ -80,7 +80,7 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
             OtcMarketInfoModel infoModel = allModel.infoModel;
             if (infoModel != null) {
                 GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_people);
-                tv_people_nickname.setText(infoModel.nickname);
+                tv_people_nickname.setText(infoModel.nickname + "(" + infoModel.secondName + ")");
                 if (infoModel.vip != null && infoModel.vip != 0) {
                     img_people_vip.setImageResource(R.mipmap.img_vip_green);
                 } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
@@ -109,9 +109,9 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
                     img_people_video_auth.setImageResource(R.drawable.icon_auth_failure);
                 }
                 tv_bond.setText(FormatterUtils.getFormatValue(infoModel.bondMoney) + " " + Constant.OTC_ACU);
-                tv_all_deal_amount.setText(FormatterUtils.getFormatValue(infoModel.total));
-                tv_buy_amount.setText(FormatterUtils.getFormatValue(infoModel.buy));
-                tv_sell_amount.setText(FormatterUtils.getFormatValue(infoModel.sell));
+                tv_all_deal_amount.setText(FormatterUtils.getFormatValue(infoModel.total) + getResources().getString(R.string.dan));
+                tv_buy_amount.setText(FormatterUtils.getFormatValue(infoModel.buy) + getResources().getString(R.string.dan));
+                tv_sell_amount.setText(FormatterUtils.getFormatValue(infoModel.sell) + getResources().getString(R.string.dan));
                 if (!TextUtils.isEmpty(infoModel.success) && !TextUtils.isEmpty(infoModel.total) && !TextUtils.equals(infoModel.success, "0") && !TextUtils.equals(infoModel.total, "0")) {
                     tv_deal_rate.setText((Double.parseDouble(infoModel.success) / Double.valueOf(infoModel.total)) * 100 + " %");
                 } else {

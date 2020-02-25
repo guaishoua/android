@@ -592,6 +592,8 @@
     <string name="surplus_all_amount">剩余量/总量</string>
     <string name="single_quota">单笔限额</string>
     <string name="single_price">单价</string>
+    <string name="single_price_acu_cny">单价(ACU/CNY)</string>
+    <string name="dan">单</string>
     <string name="click_look">点击查看</string>
     <string name="order_center">订单中心</string>
     <string name="otc_order_all">全部</string>
@@ -704,7 +706,7 @@
     <string name="all_otc_order">全部广告</string>
     <string name="look_buy_order">查看买单</string>
     <string name="look_sell_order">查看卖单</string>
-    <string name="finish_order">完成订单</string>
+    <string name="finish_order">完成订单(单)</string>
     <string name="wait_deal_order">待处理订单</string>
     <string name="biao_num">标的物数量</string>
     <string name="biao_surplus_num">标的物余量</string>
@@ -730,7 +732,6 @@
     <string name="trade_num">交易数量</string>
     <string name="please_input_trade_num">请输入交易数量</string>
     <string name="trade_all_price">交易总价</string>
-    <string name="please_input_trade_all_price">请输入交易总价</string>
     <string name="min_limit">最小限额</string>
     <string name="please_input_min_limit">请输入最小限额</string>
     <string name="max_limit">最大限额</string>

@@ -600,17 +600,34 @@ public class UserInfoUtils {
     }
 
     /**
-     * 用户的Otc身份 1个人(默认) 2商户 3机器人
+     * 申请商户状态 0未申请(默认) 1待审核 2审核成功 3审核失败
+     *
      */
-    public void setOtcUserType(Integer otcUserType) {
-        if (otcUserType == null) {
-            otcUserType = 0;
+    public void setApplyMerchantStatus(Integer applyMerchantStatus) {
+        if (applyMerchantStatus == null) {
+            applyMerchantStatus = 0;
         }
-        editor.putInt("otcUserType", otcUserType);
+        editor.putInt("applyMerchantStatus", applyMerchantStatus);
         editor.commit();
     }
 
-    public int getOtcUserType() {
-        return sp.getInt("otcUserType", 0);
+    public int getApplyMerchantStatus() {
+        return sp.getInt("applyMerchantStatus", 0);
+    }
+
+    /**
+     * //申请认证商户状态 0未申请(默认) 1待审核 2审核成功 3审核失败
+     *
+     */
+    public void setApplyAuthMerchantStatus(Integer applyAuthMerchantStatus) {
+        if (applyAuthMerchantStatus == null) {
+            applyAuthMerchantStatus = 0;
+        }
+        editor.putInt("applyAuthMerchantStatus", applyAuthMerchantStatus);
+        editor.commit();
+    }
+
+    public int getApplyAuthMerchantStatus() {
+        return sp.getInt("applyAuthMerchantStatus", 0);
     }
 }

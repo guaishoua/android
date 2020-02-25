@@ -96,7 +96,8 @@ public class UserManageUtils {
             spUtil.setHeadImg(model.headImg);
             spUtil.setKYCName(model.name);
             spUtil.setVip(model.vip);
-            spUtil.setOtcUserType(model.otcUserType);
+            spUtil.setApplyMerchantStatus(model.applyMerchantStatus);
+            spUtil.setApplyAuthMerchantStatus(model.applyAuthMerchantStatus);
         }
     }
 
@@ -115,8 +116,9 @@ public class UserManageUtils {
         spUtil.setVip(0);
         spUtil.setAuth(0);
         spUtil.setUserUid(0);
-        spUtil.setOtcUserType(0);
         spUtil.setIsAuthSenior(0);
+        spUtil.setApplyMerchantStatus(0);
+        spUtil.setApplyAuthMerchantStatus(0);
         spUtil.setToken("");
         spUtil.setPhone("");
         spUtil.setEmail("");

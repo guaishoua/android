@@ -9,6 +9,7 @@ import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.otc.contract.OtcManageContract;
+import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
 
 public class OtcManagePresenter extends BaseMvpPresenter implements OtcManageContract.IPresenter {
     @Override
@@ -18,6 +19,17 @@ public class OtcManagePresenter extends BaseMvpPresenter implements OtcManageCon
             public void onNext(BaseModel<OwnCenterModel> model) {
                 OtcManageContract.IView view = (OtcManageContract.IView) getView();
                 view.ownCenter(model.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void orderListOwn(boolean isShowView, Integer start, Integer size, Integer buyorsell) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).orderListOwn(start, size, buyorsell), new NetDisposableObserver<BaseModel<OtcMarketOrderListModel>>((IBaseMvpView) getView(), isShowView) {
+            @Override
+            public void onNext(BaseModel<OtcMarketOrderListModel> model) {
+                OtcManageContract.IChildView view = (OtcManageContract.IChildView) getView();
+                view.orderListOwn(model.attachment);
             }
         });
     }

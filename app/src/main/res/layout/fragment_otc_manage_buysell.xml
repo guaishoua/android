@@ -288,7 +288,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/trade_num"
+                android:text="@string/trade_all_price"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14" />
 

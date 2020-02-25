@@ -45,9 +45,9 @@ public class OtcManageActivity extends BaseActivity<OtcManagePresenter> implemen
 
         tabTitle = new String[]{getResources().getString(R.string.all_otc_order), getResources().getString(R.string.look_buy_order), getResources().getString(R.string.look_sell_order)};
 
-        fragmentList.add(OtcManageFragment.newInstance());
-        fragmentList.add(OtcManageFragment.newInstance());
-        fragmentList.add(OtcManageFragment.newInstance());
+        fragmentList.add(OtcManageFragment.newInstance(0));
+        fragmentList.add(OtcManageFragment.newInstance(1));
+        fragmentList.add(OtcManageFragment.newInstance(2));
 
         titleIndicatorView.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
         titleIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.tab_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
@@ -61,7 +61,7 @@ public class OtcManageActivity extends BaseActivity<OtcManagePresenter> implemen
 
     @OnClick(R.id.btn_publish_otc_order)
     void publishClick() {
-        if (spUtil.getOtcUserType() != 2) {
+        if (spUtil.getApplyMerchantStatus() != 2 && spUtil.getApplyAuthMerchantStatus() != 2) {
             showToastError(getResources().getString(R.string.you_art_shoper_first));
             return;
         }

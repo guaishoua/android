@@ -253,7 +253,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
         if (allModel != null && allModel.orderModel != null) {
             double reminALL = Double.parseDouble(allModel.orderModel.remainAmount) * Double.parseDouble(allModel.orderModel.price);
             if (reminALL <= Double.parseDouble(allModel.orderModel.highLimit)) {
-                edit_sell_allmoney.setText(reminALL + "");
+                edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, reminALL) + "");
             } else {
                 edit_sell_allmoney.setText(allModel.orderModel.highLimit);
             }
@@ -276,6 +276,8 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
         if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwd)) {
             showToastError(getResources().getString(R.string.please_input_trade_password));
         }
+
+        //num  和  all需要截取8位
     }
 
     @OnClick(R.id.btn_return)
@@ -349,7 +351,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
             tv_plan_buy_amount.setText(orderModel.num + " " + orderModel.currencyName);
             tv_remaining_unsold.setText(orderModel.remainAmount + " " + orderModel.currencyName);
             if (!TextUtils.isEmpty(orderModel.price) && !TextUtils.isEmpty(orderModel.remainAmount)) {
-                tv_remaining_all.setText(FormatterUtils.getFormatValue(Double.parseDouble(orderModel.price) * Double.parseDouble(orderModel.remainAmount)) + valueWei);
+                tv_remaining_all.setText(FormatterUtils.getFormatRoundDown(2, Double.parseDouble(orderModel.price) * Double.parseDouble(orderModel.remainAmount)) + valueWei);
             }
             tv_single_min_limit.setText(orderModel.lowLimit + valueWei);
             tv_single_max_limit.setText(orderModel.highLimit + valueWei);

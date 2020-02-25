@@ -7,15 +7,15 @@
     android:background="@color/content_bg_color"
     android:paddingVertical="@dimen/dp_10">
 
-    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-        android:id="@+id/img_coin"
-        android:layout_width="@dimen/dp_30"
-        android:layout_height="@dimen/dp_30"
-        android:layout_marginLeft="@dimen/dp_10"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:qmui_border_width="0dp"
-        app:qmui_is_circle="true" />
+    <!-- <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+         android:id="@+id/img_coin"
+         android:layout_width="@dimen/dp_30"
+         android:layout_height="@dimen/dp_30"
+         android:layout_marginLeft="@dimen/dp_10"
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:qmui_border_width="0dp"
+         app:qmui_is_circle="true" />-->
 
     <TextView
         android:id="@+id/tv_coin_name"
@@ -24,9 +24,8 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_sp_14"
-        app:layout_constraintBottom_toBottomOf="@id/img_coin"
-        app:layout_constraintLeft_toRightOf="@id/img_coin"
-        app:layout_constraintTop_toTopOf="@id/img_coin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="BTC" />
 
     <TextView
@@ -55,10 +54,11 @@
         android:id="@+id/lin_pay_method"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_15"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/img_coin"
+        app:layout_constraintBottom_toBottomOf="@id/tv_coin_name"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/img_coin">
+        app:layout_constraintTop_toTopOf="@id/tv_coin_name">
 
         <ImageView
             android:id="@+id/img_wx"
@@ -87,7 +87,7 @@
         android:layout_height="@dimen/dp_1"
         android:layout_marginTop="@dimen/dp_8"
         android:background="@color/content_bg_color_grey"
-        app:layout_constraintTop_toBottomOf="@id/img_coin" />
+        app:layout_constraintTop_toBottomOf="@id/tv_coin_name" />
 
     <TextView
         android:id="@+id/tv_dealed_title"
@@ -188,7 +188,7 @@
         android:id="@+id/tv_single_price_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/single_price"
+        android:text="@string/single_price_acu_cny"
         android:textColor="@color/text_grey"
         android:textSize="@dimen/text_size_sp_13"
         app:layout_constraintBottom_toBottomOf="@id/tv_num_title"

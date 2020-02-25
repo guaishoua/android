@@ -83,7 +83,7 @@ public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> im
     }
 
     private void dealValue() {
-        if (ownCenterModel != null && ownCenterModel.applyMerchantStatus != null && ownCenterModel.applyMerchantStatus == 2) {
+        if (spUtil.getApplyMerchantStatus() == 2) {
             isMechant = true;
             img_satisfy_ordinary_mechant.setImageResource(R.drawable.icon_auth_success);
         } else {
@@ -104,12 +104,12 @@ public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> im
             btn_submit.setEnabled(false);
             ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_grey));
         }
-        if (ownCenterModel != null && ownCenterModel.applyAuthMerchantStatus != null && (ownCenterModel.applyAuthMerchantStatus == 1 || ownCenterModel.applyAuthMerchantStatus == 2)) {
+        if (spUtil.getApplyAuthMerchantStatus() == 1 || spUtil.getApplyAuthMerchantStatus() == 2) {
             btn_submit.setEnabled(false);
             ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_grey));
-            if (ownCenterModel.applyAuthMerchantStatus == 1) {
+            if (spUtil.getApplyAuthMerchantStatus() == 1) {
                 btn_submit.setText(getResources().getString(R.string.to_be_examine));
-            } else if (ownCenterModel.applyAuthMerchantStatus == 2) {
+            } else if (spUtil.getApplyAuthMerchantStatus() == 2) {
                 btn_submit.setText(getResources().getString(R.string.apply_success1));
             }
         }
