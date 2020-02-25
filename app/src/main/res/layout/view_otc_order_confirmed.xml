@@ -37,13 +37,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
-            android:text="@string/dui_fang_confirm_time"
             android:textColor="@color/text_grey"
             android:textSize="@dimen/text_size_sp_13"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_please_get_pay_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_please_get_pay_title"
+            tools:text="@string/dui_fang_confirm_time" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_return"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_28"
             android:paddingHorizontal="@dimen/dp_28"

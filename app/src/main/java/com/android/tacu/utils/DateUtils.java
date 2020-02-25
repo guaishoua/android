@@ -746,7 +746,7 @@ public class DateUtils {
      * 根据毫秒换算成相应单位后是否大于10来返回相应时间
      */
     private static String getTime(long time) {
-        return time > 10 ? String.valueOf(time) : "0" + time;
+        return time > 9 ? String.valueOf(time) : "0" + time;
     }
 
     /**

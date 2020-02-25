@@ -226,10 +226,18 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_confirmed));
                             break;
                         case 2:
-                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_payed));
+                            if (item.tradeModel.buyuid == spUtil.getUserUid()) {
+                                holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_payed));
+                            } else if (item.tradeModel.selluid == spUtil.getUserUid()) {
+                                holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_payget));
+                            }
                             break;
                         case 3:
-                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_coined));
+                            if (item.tradeModel.buyuid == spUtil.getUserUid()) {
+                                holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_coinget));
+                            } else if (item.tradeModel.selluid == spUtil.getUserUid()) {
+                                holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_coined));
+                            }
                             break;
                         case 4:
                             holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_arbitration));
@@ -276,7 +284,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                                 if (item.tradeModel.merchantId == spUtil.getUserUid()) {
                                     jumpTo(OtcOrderConfirmActivity.createActivity(getContext(), item.tradeModel.id, item.tradeModel.orderNo));
                                 } else {
-
+                                    jumpTo(OtcOrderDetailActivity.createActivity(getContext(), item.tradeModel.orderNo));
                                 }
                                 break;
                             case 2:

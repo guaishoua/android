@@ -584,9 +584,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 }
             });
             bannerLocalList.clear();
-            bannerLocalList.add(new LocalImageInfo(R.mipmap.img_banner));
-            bannerLocalList.add(new LocalImageInfo(R.mipmap.img_banner));
-            bannerLocalList.add(new LocalImageInfo(R.mipmap.img_banner));
             banner_home.setBannerData(bannerLocalList);
         }
     }
