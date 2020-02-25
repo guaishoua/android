@@ -42,7 +42,7 @@ public class OtcTradeModel implements Serializable {
      */
 
     @SerializedName("id")
-    public Integer id;
+    public String id;
     @SerializedName("buyuid")
     public Integer buyuid;
     @SerializedName("selluid")
@@ -50,7 +50,7 @@ public class OtcTradeModel implements Serializable {
     @SerializedName("merchantId")
     public Integer merchantId;
     @SerializedName("orderId")
-    public Integer orderId;
+    public String orderId;
     @SerializedName("num")
     public String num;
     @SerializedName("price")

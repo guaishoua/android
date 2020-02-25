@@ -27,10 +27,12 @@ import com.android.tacu.module.market.model.SelfModel;
 import com.android.tacu.module.assets.model.CoinListModel;
 import com.android.tacu.module.my.model.InvitedAllModel;
 import com.android.tacu.module.my.model.InvitedInfoModel;
+import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
 import com.android.tacu.module.otc.model.OtcSelectFeeModel;
 import com.android.tacu.module.otc.model.OtcTradeListModel;
+import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.transaction.model.DealDetailsModel;
 import com.android.tacu.module.transaction.model.ShowOrderListModel;
 import com.android.tacu.module.transaction.model.ShowTradeListModel;
@@ -1086,4 +1088,28 @@ public interface Api {
             @Field("buyorsell") Integer buyorsell,//1买2卖
             @Field("status") Integer status // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成 11 待确认 待付款，待放币
     );
+
+    /**
+     * 查询单个订单
+     */
+    @FormUrlEncoded
+    @POST("selectTradeOne")
+    Observable<BaseModel<OtcTradeModel>> selectTradeOne(
+            @Field("orderNo") String orderNo
+    );
+
+    /**
+     * 查看用户基本信息
+     */
+    @FormUrlEncoded
+    @POST("userBaseInfo")
+    Observable<BaseModel<OtcMarketInfoModel>> userBaseInfo(
+            @Field("queryUid") Integer queryUid
+    );
+
+    /**
+     * 获取服务器时间戳
+     */
+    @POST("currentTime")
+    Observable<BaseModel<Long>> currentTime();
 }

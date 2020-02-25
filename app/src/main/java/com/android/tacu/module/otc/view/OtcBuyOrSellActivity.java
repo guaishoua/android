@@ -328,7 +328,9 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     @Override
     public void orderListOne(OtcMarketOrderAllModel model) {
         this.allModel = model;
-        setInfoValue(allModel);
+        if (allModel != null && allModel.infoModel != null) {
+            setInfoValue(allModel.infoModel);
+        }
         setOrderInfo();
     }
 

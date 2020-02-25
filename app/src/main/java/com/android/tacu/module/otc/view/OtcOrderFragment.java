@@ -193,17 +193,17 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         }
 
         @Override
-        protected void convert(BaseViewHolder holder, OtcTradeAllModel item) {
+        protected void convert(BaseViewHolder holder, final OtcTradeAllModel item) {
             if (item.infoModel != null) {
                 holder.setText(R.id.tv_nickname, item.infoModel.nickname + "(" + item.infoModel.secondName + ")");
             }
             if (item.tradeModel != null) {
                 if (item.tradeModel.buyuid == spUtil.getUserUid()) {
-                    holder.setText(R.id.tv_buy_status, getResources().getString(R.string.sell));
-                    holder.setTextColor(R.id.tv_buy_status, ContextCompat.getColor(getContext(), R.color.color_otc_sell));
-                } else if (item.tradeModel.selluid == spUtil.getUserUid()) {
                     holder.setText(R.id.tv_buy_status, getResources().getString(R.string.buy));
                     holder.setTextColor(R.id.tv_buy_status, ContextCompat.getColor(getContext(), R.color.color_otc_buy));
+                } else if (item.tradeModel.selluid == spUtil.getUserUid()) {
+                    holder.setText(R.id.tv_buy_status, getResources().getString(R.string.sell));
+                    holder.setTextColor(R.id.tv_buy_status, ContextCompat.getColor(getContext(), R.color.color_otc_sell));
                 }
                 if (item.tradeModel.payType != null) {
                     //支付类型 1 银行 2微信3支付宝
@@ -265,6 +265,32 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                 holder.setText(R.id.tv_price_title, getResources().getString(R.string.amount_price) + "(CNY)");
                 holder.setText(R.id.tv_price, item.tradeModel.amount);
             }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (item.tradeModel != null && item.tradeModel.status != null) {
+                        // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成 11 待确认 待付款，待放币
+                        switch (item.tradeModel.status) {
+                            case 1:
+                                if (item.tradeModel.merchantId == spUtil.getUserUid()) {
+                                    jumpTo(OtcOrderConfirmActivity.createActivity(getContext(), item.tradeModel.id, item.tradeModel.orderNo));
+                                } else {
+
+                                }
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 10:
+                                break;
+                        }
+                    }
+                }
+            });
         }
     }
 }

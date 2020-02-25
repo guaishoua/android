@@ -205,8 +205,8 @@
 
                 <CheckBox
                     android:id="@+id/cb_xieyi"
-                    android:layout_width="@dimen/dp_16"
-                    android:layout_height="@dimen/dp_16"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
                     android:layout_marginTop="@dimen/dp_2"
                     android:background="@drawable/checkbox_rect_default"
                     android:button="@null"
