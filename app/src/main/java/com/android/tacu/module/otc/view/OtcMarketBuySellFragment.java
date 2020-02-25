@@ -15,6 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.OTCListVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcMarketBuySellContract;
@@ -72,6 +75,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     private ListPopWindow listPopup;
     private OtcMarketBuySellAdapter mAdapter;
     private List<OtcMarketOrderAllModel> allList = new ArrayList<>();
+    private boolean isVisibleToUserParent = false;
 
     public static OtcMarketBuySellFragment newInstance(int currencyId, String currencyNameEn, boolean isBuy) {
         Bundle bundle = new Bundle();
@@ -86,7 +90,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     @Override
     protected void initLazy() {
         super.initLazy();
-        upload(true);
+        upload(true, true);
     }
 
     @Override
@@ -120,13 +124,12 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         refreshlayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                start = 1;
-                upload(false);
+                upload(false, true);
             }
 
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                upload(false);
+                upload(false, false);
             }
         });
 
@@ -149,10 +152,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     @Override
     public void onResume() {
         super.onResume();
-        if (isVisibleToUser) {
-            start = 1;
-            upload(true);
-        }
+        upload(false, true);
     }
 
     @Override
@@ -160,6 +160,20 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         super.onDestroy();
         if (listPopup != null) {
             listPopup.dismiss();
+        }
+    }
+
+    @Override
+    protected void receiveEvent(BaseEvent event) {
+        super.receiveEvent(event);
+        if (event != null) {
+            switch (event.getCode()) {
+                case EventConstant.OTCListVisibleCode:
+                    OTCListVisibleHintEvent otcListVisibleHintEvent = (OTCListVisibleHintEvent) event.getData();
+                    isVisibleToUserParent = otcListVisibleHintEvent.isVisibleToUser();
+                    upload(true, true);
+                    break;
+            }
         }
     }
 
@@ -185,7 +199,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 } else if (sort_price == 1) {
                     type = 1;
                 }
-                upload(true);
+                upload(true, true);
                 break;
             case R.id.tv_surplus_amount_sort:
                 sort_surplus_amount = (sort_surplus_amount + 1) > 1 ? 0 : sort_surplus_amount + 1;
@@ -197,7 +211,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 } else if (sort_surplus_amount == 1) {
                     type = 3;
                 }
-                upload(true);
+                upload(true, true);
                 break;
             case R.id.tv_quota_sort:
                 sort_quota = (sort_quota + 1) > 1 ? 0 : sort_quota + 1;
@@ -209,7 +223,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 } else if (sort_quota == 1) {
                     type = 6;
                 }
-                upload(true);
+                upload(true, true);
                 break;
             case R.id.tv_all_manner_sort:
                 showAllMannerType(tv_all_manner_sort);
@@ -265,7 +279,13 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         }
     }
 
-    private void upload(boolean isShowViewing) {
+    private void upload(boolean isShowViewing, boolean isTop) {
+        if (!isVisibleToUser || !isVisibleToUserParent) {
+            return;
+        }
+        if (isTop) {
+            start = 1;
+        }
         if (start == 1 && allList != null && allList.size() > 0) {
             allList.clear();
         }
@@ -338,7 +358,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                             payType = 2;
                             break;
                     }
-                    upload(true);
+                    upload(true, true);
                     listPopup.dismiss();
                 }
             });

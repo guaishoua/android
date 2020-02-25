@@ -53,7 +53,7 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
     @Override
     protected void initLazy() {
         super.initLazy();
-        upload(true);
+        upload(true, true);
     }
 
     @Override
@@ -80,13 +80,12 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
         refreshManage.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                start = 1;
-                upload(false);
+                upload(false, true);
             }
 
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                upload(false);
+                upload(false, false);
             }
         });
 
@@ -107,8 +106,7 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
     public void onResume() {
         super.onResume();
         if (isVisibleToUser) {
-            start = 1;
-            upload(true);
+            upload(true, true);
         }
     }
 
@@ -149,7 +147,10 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
         }
     }
 
-    private void upload(boolean isShowView) {
+    private void upload(boolean isShowView, boolean isTop) {
+        if (isTop) {
+            start = 1;
+        }
         if (start == 1 && orderList != null && orderList.size() > 0) {
             orderList.clear();
         }

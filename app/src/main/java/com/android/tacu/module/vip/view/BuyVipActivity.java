@@ -1,7 +1,5 @@
 package com.android.tacu.module.vip.view;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -54,12 +52,6 @@ public class BuyVipActivity extends BaseActivity<BuyVipPresenter> implements Buy
     private BuyVipFragment monthFragment;
     private BuyVipFragment yearFragment;
     private BuyVipFragment yearContinueFragment;
-
-    public static Intent createActivity(Context context, boolean isPay) {
-        Intent intent = new Intent(context, BuyVipActivity.class);
-        intent.putExtra("isPay", isPay);
-        return intent;
-    }
 
     @Override
     protected void setView() {

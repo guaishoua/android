@@ -94,7 +94,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
 
     private int selectPayInfo = 0;//0=支付宝 1=微信 2=银行卡
     private boolean isBuy = true;
-    private Integer orderId = 0;
+    private String orderId;
     private List<String> tabTitle = new ArrayList<>();
 
     private OtcMarketOrderAllModel allModel;
@@ -103,7 +103,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     //防止EditText和SeekBar死循环
     private boolean isInput = true;
 
-    public static Intent createActivity(Context context, boolean isBuy, Integer orderId) {
+    public static Intent createActivity(Context context, boolean isBuy, String orderId) {
         Intent intent = new Intent(context, OtcBuyOrSellActivity.class);
         intent.putExtra("isBuy", isBuy);
         intent.putExtra("orderId", orderId);
@@ -118,7 +118,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     @Override
     protected void initView() {
         isBuy = getIntent().getBooleanExtra("isBuy", true);
-        orderId = getIntent().getIntExtra("orderId", 0);
+        orderId = getIntent().getStringExtra("orderId");
 
         if (isBuy) {
             mTopBar.setTitle(getResources().getString(R.string.otc_buy_page));
@@ -238,9 +238,9 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
         if (allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price) && !TextUtils.isEmpty(allModel.orderModel.remainAmount) && !TextUtils.isEmpty(allModel.orderModel.remainAmount)) {
             double highLimitNum = Double.parseDouble(allModel.orderModel.highLimit) / Double.parseDouble(allModel.orderModel.price);
             if (highLimitNum <= Double.parseDouble(allModel.orderModel.remainAmount)) {
-                edit_sell_number.setText(highLimitNum + "");
+                edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, highLimitNum));
             } else {
-                edit_sell_number.setText(allModel.orderModel.remainAmount);
+                edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, allModel.orderModel.remainAmount));
             }
         }
     }
@@ -250,9 +250,9 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
         if (allModel != null && allModel.orderModel != null) {
             double reminALL = Double.parseDouble(allModel.orderModel.remainAmount) * Double.parseDouble(allModel.orderModel.price);
             if (reminALL <= Double.parseDouble(allModel.orderModel.highLimit)) {
-                edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, reminALL) + "");
+                edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, reminALL));
             } else {
-                edit_sell_allmoney.setText(allModel.orderModel.highLimit);
+                edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, allModel.orderModel.highLimit));
             }
         }
     }
@@ -274,7 +274,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
             showToastError(getResources().getString(R.string.please_input_trade_password));
             return;
         }
-        jumpTo(OtcOrderCreateActivity.createActivity(this, isBuy, pwd, num, amount, allModel));
+        jumpTo(OtcOrderCreateActivity.createActivity(this, isBuy, pwd, FormatterUtils.getFormatRoundDown(2, num), FormatterUtils.getFormatRoundDown(2, amount), allModel));
     }
 
     @OnClick(R.id.btn_return)

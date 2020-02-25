@@ -604,6 +604,11 @@
     <string name="otc_order_coined">待放币</string>
     <string name="otc_order_coinget">待收币</string>
     <string name="otc_order_arbitration">仲裁中</string>
+    <string name="otc_notcomfirm_timeout_cancel">未确认超时取消</string>
+    <string name="otc_refuse_order">拒绝订单</string>
+    <string name="otc_pay_timeout_cancel">付款超时取消</string>
+    <string name="otc_giveup_pay">放弃支付</string>'
+    <string name="otc_coin_timeout">放币超时</string>
     <string name="market_order">生成订单</string>
     <string name="buyer_pay">买方付款</string>
     <string name="seller_coin">卖方放币</string>
@@ -702,6 +707,10 @@
     <string name="otc_manage">广告中心</string>
     <string name="you_art_shoper_first">请先认证商户！</string>
     <string name="publish_otc_order">发布广告</string>
+    <string name="publish">发布</string>
+    <string name="guanggao">广告</string>
+    <string name="certified">认证</string>
+    <string name="shoper">商户</string>
     <string name="certified_shoper">认证商户</string>
     <string name="all_otc_order">全部广告</string>
     <string name="look_buy_order">查看买单</string>

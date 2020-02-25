@@ -58,7 +58,7 @@
         android:background="@color/content_bg_color_grey"
         app:layout_constraintTop_toBottomOf="@id/tv_nickname" />
 
-    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+   <!-- <com.qmuiteam.qmui.widget.QMUIRadiusImageView
         android:id="@+id/img_coin"
         android:layout_width="@dimen/dp_30"
         android:layout_height="@dimen/dp_30"
@@ -66,18 +66,16 @@
         app:layout_constraintLeft_toLeftOf="@id/tv_nickname"
         app:layout_constraintTop_toBottomOf="@id/view_line"
         app:qmui_border_width="0dp"
-        app:qmui_is_circle="true" />
+        app:qmui_is_circle="true" />-->
 
     <TextView
         android:id="@+id/tv_order_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
         android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_sp_14"
-        app:layout_constraintBottom_toBottomOf="@id/img_coin"
-        app:layout_constraintLeft_toRightOf="@id/img_coin"
-        app:layout_constraintTop_toTopOf="@id/img_coin"
+        app:layout_constraintLeft_toLeftOf="@id/tv_nickname"
+        app:layout_constraintTop_toBottomOf="@id/view_line"
         tools:text="BTC(000011111)" />
 
     <TextView
@@ -91,7 +89,7 @@
         android:textSize="@dimen/text_size_sp_13"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/tv_amount_title"
-        app:layout_constraintTop_toBottomOf="@id/img_coin"
+        app:layout_constraintTop_toBottomOf="@id/tv_order_number"
         app:layout_constraintWidth_percent="0.4" />
 
     <TextView

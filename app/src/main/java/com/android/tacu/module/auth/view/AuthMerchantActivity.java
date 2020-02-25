@@ -41,7 +41,7 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
     ViewPager viewPager;
 
     private QMUIAlphaButton btn_left;
-    private QMUIAlphaButton btn_right;
+    //private QMUIAlphaButton btn_right;
     private TextView tv_text;
 
     private List<String> tabTitle = new ArrayList<>();
@@ -50,7 +50,7 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
     private AuthMerchantFragment authMerchantFragment;
 
     private String leftString;
-    private String rightString;
+    //private String rightString;
     private OtcPopWindow popWindow;
 
     @Override
@@ -103,7 +103,7 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
     protected void onPresenterCreated(AuthMerchantPresenter presenter) {
         super.onPresenterCreated(presenter);
         mPresenter.selectOtcSection();
-        mPresenter.selectC2cSection();
+        //mPresenter.selectC2cSection();
     }
 
     @Override
@@ -125,7 +125,7 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
         switch (v.getId()) {
             case R.id.btn_left:
                 btn_left.setTextColor(ContextCompat.getColor(this, R.color.text_default));
-                btn_right.setTextColor(ContextCompat.getColor(this, R.color.text_color));
+                //btn_right.setTextColor(ContextCompat.getColor(this, R.color.text_color));
                 if (!TextUtils.isEmpty(leftString)) {
                     try {
                         tv_text.setText(leftString);
@@ -134,7 +134,7 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
                     }
                 }
                 break;
-            case R.id.btn_right:
+            /*case R.id.btn_right:
                 btn_left.setTextColor(ContextCompat.getColor(this, R.color.text_color));
                 btn_right.setTextColor(ContextCompat.getColor(this, R.color.text_default));
                 if (!TextUtils.isEmpty(rightString)) {
@@ -143,8 +143,8 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
-                break;
+                }*/
+            // break;
         }
     }
 
@@ -258,7 +258,7 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
                     }
                 }
             }
-            rightString = String.format(getResources().getString(R.string.merchant_c2c_advantage_tip), value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14, value15, value16, value17, value18, value19, value20, value21, value22, value23, value24, value25, value26, value27, value28);
+            //rightString = String.format(getResources().getString(R.string.merchant_c2c_advantage_tip), value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14, value15, value16, value17, value18, value19, value20, value21, value22, value23, value24, value25, value26, value27, value28);
         }
     }
 
@@ -276,10 +276,10 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
         if (popWindow == null) {
             View view = View.inflate(this, R.layout.pop_merchant_advantage, null);
             btn_left = view.findViewById(R.id.btn_left);
-            btn_right = view.findViewById(R.id.btn_right);
+            // btn_right = view.findViewById(R.id.btn_right);
             tv_text = view.findViewById(R.id.tv_text);
             btn_left.setOnClickListener(this);
-            btn_right.setOnClickListener(this);
+            //btn_right.setOnClickListener(this);
 
             if (!TextUtils.isEmpty(leftString)) {
                 tv_text.setText(leftString);

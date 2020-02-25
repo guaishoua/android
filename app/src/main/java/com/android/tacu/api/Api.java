@@ -30,6 +30,7 @@ import com.android.tacu.module.my.model.InvitedInfoModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
 import com.android.tacu.module.otc.model.OtcSelectFeeModel;
+import com.android.tacu.module.otc.model.OtcTradeListModel;
 import com.android.tacu.module.transaction.model.DealDetailsModel;
 import com.android.tacu.module.transaction.model.ShowOrderListModel;
 import com.android.tacu.module.transaction.model.ShowTradeListModel;
@@ -1008,7 +1009,7 @@ public interface Api {
     @FormUrlEncoded
     @POST("otcTrade")
     Observable<BaseModel> otcTrade(
-            @Field("orderId") Integer orderId,//广告id
+            @Field("orderId") String orderId,//广告id
             @Field("fdPassword") String fdPassword,
             @Field("payType") Integer payType,//支付类型 1银行卡 2微信 3支付宝
             @Field("num") String num,
@@ -1021,7 +1022,7 @@ public interface Api {
     @FormUrlEncoded
     @POST("orderListOne")
     Observable<BaseModel<OtcMarketOrderAllModel>> orderListOne(
-            @Field("orderId") Integer orderId
+            @Field("orderId") String orderId
     );
 
     /**
@@ -1033,5 +1034,56 @@ public interface Api {
             @Field("start") Integer start,
             @Field("size") Integer size,
             @Field("buyorsell") Integer buyorsell//0=全部 1买 2卖
+    );
+
+    /**
+     * 确认订单
+     */
+    @FormUrlEncoded
+    @POST("confirmOrder")
+    Observable<BaseModel> confirmOrder(
+            @Field("orderId") String orderId
+    );
+
+    /**
+     * 拒绝订单
+     */
+    @FormUrlEncoded
+    @POST("confirmCancelOrder")
+    Observable<BaseModel> confirmCancelOrder(
+            @Field("orderId") String orderId
+    );
+
+    /**
+     * 支付订单
+     */
+    @FormUrlEncoded
+    @POST("payOrder")
+    Observable<BaseModel> payOrder(
+            @Field("orderId") String orderId,
+            @Field("payImg") String payImg//支付凭证
+    );
+
+    /**
+     * 取消支付订单
+     */
+    @FormUrlEncoded
+    @POST("payOrder")
+    Observable<BaseModel> payCancelOrder(
+            @Field("orderId") String orderId
+    );
+
+    /**
+     * 交易单列表
+     */
+    @FormUrlEncoded
+    @POST("tradeList")
+    Observable<BaseModel<OtcTradeListModel>> tradeList(
+            @Field("orderId") String orderId,
+            @Field("currencyId") Integer currencyId,
+            @Field("start") Integer start,
+            @Field("size") Integer size,
+            @Field("buyorsell") Integer buyorsell,//1买2卖
+            @Field("status") Integer status // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成 11 待确认 待付款，待放币
     );
 }

@@ -216,7 +216,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
         zfbChatNo = edit_zfb_name.getText().toString().trim();
         pwdString = edit_trade_password.getText().toString().trim();
         if (TextUtils.isEmpty(zfbChatNo)) {
-            showToastError(getResources().getString(R.string.please_input_wx_account));
+            showToastError(getResources().getString(R.string.please_input_zfb_account));
             return;
         }
         if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
@@ -224,7 +224,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
             return;
         }
         if (uploadFile == null) {
-            showToastError(getResources().getString(R.string.please_upload_wx_shoukuanma));
+            showToastError(getResources().getString(R.string.upload_zfb_shoukuanma));
             return;
         }
         showLoadingView();
@@ -283,8 +283,8 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
             lin_edit.setVisibility(View.GONE);
             lin_list.setVisibility(View.VISIBLE);
 
-            tv_zfb_name.setText(model.weChatNo);
-            mPresenter.uselectUserInfo(3, model.weChatImg);
+            tv_zfb_name.setText(model.aliPayNo);
+            mPresenter.uselectUserInfo(3, model.aliPayImg);
         } else {
             lin_edit.setVisibility(View.VISIBLE);
             lin_list.setVisibility(View.GONE);
@@ -324,7 +324,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     private void dealValue(int flag) {
         if (flag == 1) {
             mHandler.sendEmptyMessage(0);
-            mPresenter.insertBank(3, null, null, null, null, zfbChatNo, uploadImageName, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+            mPresenter.insertBank(3, null, null, null, null, null, null, zfbChatNo, uploadImageName, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
         } else {
             mHandler.sendEmptyMessage(1);
         }

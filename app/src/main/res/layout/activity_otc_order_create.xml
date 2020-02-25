@@ -65,7 +65,7 @@
                     android:drawableRight="@drawable/icon_expand_more_grey"
                     android:text="@string/please_choose_pay_method"
                     android:textColor="@color/text_grey"
-                    android:textSize="@dimen/text_size_sp_17" />
+                    android:textSize="@dimen/text_size_sp_14" />
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
 
             <LinearLayout

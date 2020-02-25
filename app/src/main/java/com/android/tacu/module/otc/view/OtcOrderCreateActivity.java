@@ -15,11 +15,15 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.android.tacu.R;
+import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.assets.view.BindingPayInfoActivity;
 import com.android.tacu.module.otc.contract.OtcOrderCreateContract;
 import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderModel;
 import com.android.tacu.module.otc.presenter.OtcOrderCreatePresenter;
+import com.android.tacu.utils.LogUtils;
 import com.android.tacu.utils.UIUtils;
+import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
 
 import java.util.ArrayList;
@@ -49,6 +53,8 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
     private OtcMarketOrderAllModel allModel;
     //支付类型 1银行卡 2微信 3支付宝
     private Integer payType;
+    private PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
+    private List<String> data = new ArrayList<>();
 
     public static Intent createActivity(Context context, boolean isBuy, String fdPassword, String num, String amount, OtcMarketOrderAllModel allModel) {
         Intent intent = new Intent(context, OtcOrderCreateActivity.class);
@@ -88,6 +94,12 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.selectBank();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (listPopup != null) {
@@ -97,7 +109,11 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
 
     @OnClick(R.id.tv_pay_method)
     void payMethodClick() {
-        showAllMannerType();
+        if (TextUtils.equals(tv_pay_method.getText().toString(), getResources().getString(R.string.go_binding))) {
+            jumpTo(BindingPayInfoActivity.class);
+        } else {
+            showAllMannerType();
+        }
     }
 
     @OnClick(R.id.btn_confirm)
@@ -119,6 +135,47 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
     }
 
     @Override
+    public void selectBank(List<PayInfoModel> list) {
+        UserManageUtils.setPeoplePayInfo(list);
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).type != null && list.get(i).type == 1) {
+                    yhkModel = list.get(i);
+                }
+                if (list.get(i).type != null && list.get(i).type == 2) {
+                    wxModel = list.get(i);
+                }
+                if (list.get(i).type != null && list.get(i).type == 3) {
+                    zfbModel = list.get(i);
+                }
+            }
+        } else {
+            yhkModel = null;
+            wxModel = null;
+            zfbModel = null;
+        }
+        if (allModel != null) {
+            OtcMarketOrderModel orderModel = allModel.orderModel;
+            if (orderModel != null) {
+                if (orderModel.payByCard == 1 && yhkModel != null) {
+                    data.add(getResources().getString(R.string.yinhanngka));
+                }
+                if (orderModel.payWechat == 1 && wxModel != null) {
+                    data.add(getResources().getString(R.string.weixin));
+                }
+                if (orderModel.payAlipay == 1 && zfbModel != null) {
+                    data.add(getResources().getString(R.string.zhifubao));
+                }
+                if (data != null && data.size() > 0) {
+                    tv_pay_method.setText(getResources().getString(R.string.please_choose_pay_method));
+                } else {
+                    tv_pay_method.setText(getResources().getString(R.string.go_binding));
+                }
+            }
+        }
+    }
+
+    @Override
     public void otcTradeSuccess() {
         finish();
         activityManage.finishActivity(OtcBuyOrSellActivity.class);
@@ -129,21 +186,6 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
         if (listPopup != null && listPopup.isShowing()) {
             listPopup.dismiss();
             return;
-        }
-        final List<String> data = new ArrayList<>();
-        if (allModel != null) {
-            OtcMarketOrderModel orderModel = allModel.orderModel;
-            if (orderModel != null) {
-                if (orderModel.payByCard == 1) {
-                    data.add(getResources().getString(R.string.yinhanngka));
-                }
-                if (orderModel.payWechat == 1) {
-                    data.add(getResources().getString(R.string.weixin));
-                }
-                if (orderModel.payAlipay == 1) {
-                    data.add(getResources().getString(R.string.zhifubao));
-                }
-            }
         }
 
         if (data != null && data.size() > 0) {

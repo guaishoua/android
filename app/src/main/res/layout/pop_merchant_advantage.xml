@@ -29,7 +29,8 @@
             android:background="@null"
             android:text="@string/merchant_c2c_advantage"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_16" />
+            android:textSize="@dimen/text_size_sp_16"
+            android:visibility="gone" />
     </LinearLayout>
 
     <View

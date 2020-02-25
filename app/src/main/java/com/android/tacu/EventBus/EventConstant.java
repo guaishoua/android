@@ -25,4 +25,6 @@ public class EventConstant {
     public static final int VipBuyCode = 1009;
     //通知MainActivity刷新banner
     public static final int MainBanner = 1010;
+    //OtcMarketListFragment 发送当前的isVisibleToUser
+    public static final int OTCListVisibleCode = 1011;
 }

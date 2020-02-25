@@ -26,6 +26,6 @@ public class OtcBuyOrSellContract {
 
         void otcAmount(int currencyId);
 
-        void orderListOne(Integer orderId);
+        void orderListOne(String orderId);
     }
 }

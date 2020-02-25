@@ -36,7 +36,7 @@ import com.android.tacu.module.main.model.UploadModel;
 import com.android.tacu.module.main.presenter.MainPresenter;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.SelfModel;
-import com.android.tacu.module.otc.view.OtcHomeFragment;
+import com.android.tacu.module.otc.view.OtcMarketListFragment;
 import com.android.tacu.module.transaction.view.TradeFragment;
 import com.android.tacu.EventBus.model.MainSwitchEvent;
 import com.android.tacu.utils.ConvertMoneyUtils;
@@ -93,7 +93,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private Fragment[] fragments;
     private HomeFragment homeFragment;
     private TradeFragment tradeFragment;
-    private OtcHomeFragment otcHomeFragment;
+    private OtcMarketListFragment otcHomeFragment;
     private AssetsFragment assetsFragment;
 
     private HomeModel homeModel;
@@ -321,9 +321,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         if (homeFragment != null) {
             homeFragment.setHome(homeModel, false);
         }
-        if (otcHomeFragment != null) {
-            otcHomeFragment.setHome(homeModel, false);
-        }
     }
 
     @Override
@@ -372,7 +369,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                     if (mainSwitchEvent != null) {
                         if (drawerMain.isDrawerOpen(Gravity.LEFT)) {
                             drawerMain.closeDrawer(Gravity.LEFT);
-                            return;
                         }
                         switch (mainSwitchEvent.getMainSwitch()) {
                             case Constant.MAIN_HOME:
@@ -452,7 +448,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private void initFragments() {
         homeFragment = HomeFragment.newInstance();
         tradeFragment = TradeFragment.newInstance();
-        otcHomeFragment = OtcHomeFragment.newInstance();
+        otcHomeFragment = OtcMarketListFragment.newInstance();
         assetsFragment = AssetsFragment.newInstance();
 
         fragments = new Fragment[]{homeFragment, tradeFragment, otcHomeFragment, assetsFragment};
@@ -528,9 +524,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         homeModel = gson.fromJson(homeCacheString, HomeModel.class);
         if (homeFragment != null) {
             homeFragment.setHome(homeModel, true);
-        }
-        if (otcHomeFragment != null) {
-            otcHomeFragment.setHome(homeModel, true);
         }
     }
 

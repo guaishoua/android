@@ -50,7 +50,7 @@ public class OtcBuyOrSellPresenter extends BaseMvpPresenter implements OtcBuyOrS
     }
 
     @Override
-    public void orderListOne(Integer orderId) {
+    public void orderListOne(String orderId) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).orderListOne(orderId), new NetDisposableObserver<BaseModel<OtcMarketOrderAllModel>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<OtcMarketOrderAllModel> model) {

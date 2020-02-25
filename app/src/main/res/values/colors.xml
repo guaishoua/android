@@ -83,6 +83,8 @@
     <color name="tab_default">#E2BF1C</color>
     <!--透明度40%的黑色-->
     <color name="transparent_40">#99000000</color>
+    <!--透明度80%的黑色-->
+    <color name="transparent_80">#5A000000</color>
     <!--透明度40%的白色-->
     <color name="white_40">#99FFFFFF</color>
     <!--小图标的颜色-->
