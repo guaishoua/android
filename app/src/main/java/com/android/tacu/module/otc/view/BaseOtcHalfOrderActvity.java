@@ -103,7 +103,7 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
     protected void setInfoValue(OtcMarketInfoModel infoModel) {
         if (infoModel != null) {
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_people);
-            tv_people_nickname.setText(infoModel.nickname + "(" + infoModel.secondName + ")");
+            tv_people_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
             if (infoModel.vip != null && infoModel.vip != 0) {
                 img_people_vip.setImageResource(R.mipmap.img_vip_green);
             } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {

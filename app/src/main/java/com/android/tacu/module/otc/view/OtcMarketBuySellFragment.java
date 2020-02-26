@@ -380,7 +380,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         protected void convert(BaseViewHolder holder, final OtcMarketOrderAllModel item) {
             if (item.infoModel != null) {
                 GlideUtils.disPlay(getContext(), CommonUtils.getHead(item.infoModel.headImg), (ImageView) holder.getView(R.id.img_user));
-                holder.setText(R.id.tv_nickname, item.infoModel.nickname + "(" + item.infoModel.secondName + ")");
+                holder.setText(R.id.tv_nickname, item.infoModel.nickname + "(" + CommonUtils.nameXing(item.infoModel.secondName) + ")");
                 if (item.infoModel.vip != null && item.infoModel.vip != 0) {
                     holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_green);
                 } else if (item.infoModel.applyMerchantStatus != null && item.infoModel.applyMerchantStatus == 2) {

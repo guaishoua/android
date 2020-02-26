@@ -16,6 +16,7 @@ import com.android.tacu.module.otc.model.OtcTradeAllModel;
 import com.android.tacu.module.otc.model.OtcTradeListModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcOrderPresenter;
+import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -195,7 +196,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         @Override
         protected void convert(BaseViewHolder holder, final OtcTradeAllModel item) {
             if (item.infoModel != null) {
-                holder.setText(R.id.tv_nickname, item.infoModel.nickname + "(" + item.infoModel.secondName + ")");
+                holder.setText(R.id.tv_nickname, item.infoModel.nickname + "(" + CommonUtils.nameXing(item.infoModel.secondName) + ")");
             }
             if (item.tradeModel != null) {
                 if (item.tradeModel.buyuid == spUtil.getUserUid()) {

@@ -2,22 +2,43 @@ package com.android.tacu.module.otc.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.alibaba.sdk.android.oss.ClientConfiguration;
+import com.alibaba.sdk.android.oss.OSS;
+import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.common.OSSLog;
+import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
+import com.android.tacu.base.MyApplication;
+import com.android.tacu.module.assets.model.AuthOssModel;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcOrderDetailContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.orderView.ConfirmView;
+import com.android.tacu.module.otc.orderView.PayedView;
 import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 import com.android.tacu.widget.NodeProgressView;
 
-import butterknife.BindView;
+import java.io.File;
+import java.util.ArrayList;
 
-public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPresenter> implements OtcOrderDetailContract.IView, View.OnClickListener {
+import butterknife.BindView;
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
+import id.zelory.compressor.Compressor;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
+public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPresenter> implements OtcOrderDetailContract.IView {
 
     private int current = -1;
     private Integer status = -1;
@@ -31,6 +52,8 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     //接口30s轮训一次
     private static final int KREFRESH_TIME = 1000 * 30;
 
+    public static final int TAKE_PIC = 1001;
+
     @BindView(R.id.node_progress)
     NodeProgressView nodeProgress;
     @BindView(R.id.lin_switch)
@@ -40,7 +63,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     private ConfirmView confirmView;
 
     //待付款
-    private ImageView img_payment_code;
+    private PayedView payedView;
 
     //待收款
 
@@ -54,12 +77,13 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
 
     private String orderNo;
     private boolean isFirst = true;
+    private OtcTradeModel tradeModel;
 
     private Handler kHandler = new Handler();
     private Runnable kRunnable = new Runnable() {
         @Override
         public void run() {
-            upload();
+            upload(isFirst);
             if (kHandler != null) {
                 kHandler.postDelayed(this, KREFRESH_TIME);
             }
@@ -115,24 +139,54 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_payment_code:
-                break;
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        if (requestCode == TAKE_PIC) {
+            ArrayList<String> imageList = BGAPhotoPickerActivity.getSelectedImages(data);
+            for (int i = 0; i < imageList.size(); i++) {
+                String imageUri = imageList.get(i);
+                File fileOrgin = new File(imageUri);
+                new Compressor(this)
+                        .setMaxWidth(640)
+                        .setMaxHeight(480)
+                        .setQuality(75)
+                        .setCompressFormat(Bitmap.CompressFormat.JPEG)
+                        .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                        .compressToFileAsFlowable(fileOrgin)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<File>() {
+                            @Override
+                            public void accept(File file) {
+                                switch (current) {
+                                    case ORDER_PAYED:
+                                        if (payedView != null) {
+                                            payedView.getPic(file);
+                                        }
+                                        break;
+                                }
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) {
+                            }
+                        });
+            }
         }
     }
 
     @Override
     public void selectTradeOne(boolean isFirst, OtcTradeModel model) {
+        this.tradeModel = model;
         if (model != null) {
             if (model.buyuid != null && isFirst) {
                 mPresenter.userBaseInfo(1, model.buyuid);
             }
             if (model.selluid != null && isFirst) {
                 mPresenter.userBaseInfo(2, model.selluid);
-            }
-            if (isFirst) {
-                mPresenter.currentTime();
             }
 
             setBuyPayInfoString(model);
@@ -172,10 +226,25 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 }
             }
 
+            if (isFirst) {
+                if (current == ORDER_CONFIRMED) {
+                    mPresenter.currentTime();
+                }
+                if (current == ORDER_PAYED) {
+                    mPresenter.currentTime();
+                    mPresenter.selectPayInfoById(model.id);
+                }
+            }
+
             switch (current) {
                 case ORDER_CONFIRMED:
                     if (confirmView != null) {
                         confirmView.selectTradeOne(model);
+                    }
+                    break;
+                case ORDER_PAYED:
+                    if (payedView != null) {
+                        payedView.selectTradeOne(model);
                     }
                     break;
             }
@@ -183,12 +252,21 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     }
 
     @Override
-    public void userBaseInfo(int buyOrSell, OtcMarketInfoModel model) {
+    public void userBaseInfo(Integer buyOrSell, OtcMarketInfoModel model) {
         if (model != null) {
             if (buyOrSell == 1) {//买
                 setBuyValue(model);
             } else if (buyOrSell == 2) {
                 setSellValue(model);
+            }
+            if (buyOrSell == null) {
+                switch (current) {
+                    case ORDER_PAYED:
+                        if (payedView != null) {
+                            payedView.userBaseInfo(model);
+                        }
+                        break;
+                }
             }
         }
     }
@@ -201,11 +279,83 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     confirmView.currentTime(time);
                 }
                 break;
+            case ORDER_PAYED:
+                if (payedView != null) {
+                    payedView.currentTime(time);
+                }
+                break;
         }
     }
 
-    private void upload() {
-        mPresenter.selectTradeOne(isFirst, orderNo);
+    @Override
+    public void selectPayInfoById(PayInfoModel model) {
+        switch (current) {
+            case ORDER_PAYED:
+                if (payedView != null) {
+                    payedView.selectPayInfoById(model);
+                }
+                break;
+        }
+        if (tradeModel != null && tradeModel.payType != null) {
+            switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
+                case 1:
+                    if (model.uid != null) {
+                        mPresenter.userBaseInfo(null, model.uid);
+                    }
+                    break;
+                case 2:
+                    mPresenter.uselectUserInfo(model.weChatImg);
+                    break;
+                case 3:
+                    mPresenter.uselectUserInfo(model.aliPayImg);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void uselectUserInfo(String imageUrl) {
+        switch (current) {
+            case ORDER_PAYED:
+                if (payedView != null) {
+                    payedView.uselectUserInfo(imageUrl);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void getOssSetting(AuthOssModel model) {
+        if (model != null) {
+            OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(model.AccessKeyId, model.AccessKeySecret, model.SecurityToken);
+            ClientConfiguration conf = new ClientConfiguration();
+            conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
+            conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
+            conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
+            conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
+            OSSLog.enableLog();
+
+            OSS mOss = new OSSClient(MyApplication.getInstance(), Constant.OSS_ENDPOINT, credentialProvider);
+            String bucketName = model.bucket;
+
+            switch (current) {
+                case ORDER_PAYED:
+                    if (payedView != null) {
+                        payedView.uploadImgs(mOss, bucketName);
+                    }
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void payOrderSuccess() {
+        showToastSuccess(getResources().getString(R.string.success));
+        upload(true);
+    }
+
+    private void upload(boolean isShowView) {
+        mPresenter.selectTradeOne(isShowView, isFirst, orderNo);
         if (isFirst) {
             isFirst = false;
         }
@@ -222,8 +372,9 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 break;
             case ORDER_PAYED://待付款
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_payed));
-                statusView = View.inflate(this, R.layout.view_otc_order_payed, null);
-                initPayedView(statusView);
+                payedView = new PayedView();
+                statusView = payedView.create(this, mPresenter);
+                nodeProgress.setCurentNode(1);
                 break;
             case ORDER_PAYGET://待收款
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_payed));
@@ -255,17 +406,6 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
             linSwitch.removeAllViews();
             linSwitch.addView(statusView);
         }
-    }
-
-    /**
-     * 待付款
-     */
-    private void initPayedView(View view) {
-        nodeProgress.setCurentNode(1);
-
-        img_payment_code = view.findViewById(R.id.img_payment_code);
-
-        img_payment_code.setOnClickListener(this);
     }
 
     /**
@@ -307,6 +447,10 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
         if (confirmView != null) {
             confirmView.destory();
             confirmView = null;
+        }
+        if (payedView != null) {
+            payedView.destory();
+            payedView = null;
         }
     }
 }

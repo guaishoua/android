@@ -642,6 +642,7 @@
     <string name="confirm_and_pay">确认并支付</string>
     <string name="giveup_pay">放弃支付</string>
     <string name="please_scan_with_wx">请使用微信扫描该付款码</string>
+    <string name="please_scan_with_zfb">请使用支付宝扫描该付款码</string>
     <string name="picture">图片</string>
     <string name="please_confirm_wx_get_money">请确认您绑定的微信是否收到款项</string>
     <string name="confirm_getmoney_and_coined">确认收款并放币</string>
@@ -800,6 +801,7 @@
     <string name="please_upload_wx_shoukuanma">请上传微信收款码</string>
     <string name="upload_zfb_shoukuanma">上传支付宝收款码</string>
     <string name="please_upload_zfb_shoukuanma">请上传支付宝收款码</string>
+    <string name="please_upload_your_payimg">请上传您的付款凭证</string>
 
     <!--修改个人资料-->
     <string name="edit_person_data">修改个人资料</string>

@@ -89,7 +89,7 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
     public void setSellValue(OtcMarketInfoModel infoModel) {
         if (infoModel != null) {
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_seller);
-            tv_seller_nickname.setText(infoModel.nickname + "(" + infoModel.secondName + ")");
+            tv_seller_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
             if (infoModel.vip != null && infoModel.vip != 0) {
                 img_seller_vip.setImageResource(R.mipmap.img_vip_green);
             } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
@@ -155,7 +155,7 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
     public void setBuyValue(OtcMarketInfoModel infoModel) {
         if (infoModel != null) {
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_buyer);
-            tv_buyer_nickname.setText(infoModel.nickname + "(" + infoModel.secondName + ")");
+            tv_buyer_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
             if (infoModel.vip != null && infoModel.vip != 0) {
                 img_buyer_vip.setImageResource(R.mipmap.img_vip_green);
             } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {

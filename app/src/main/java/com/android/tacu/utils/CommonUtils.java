@@ -148,6 +148,17 @@ public class CommonUtils {
     }
 
     /**
+     * 付款凭证
+     *
+     * @returnx
+     */
+    public static String getPayImageName() {
+        String replace = UUID.randomUUID().toString().replace("-", "");
+        long currentTimeMillis = System.currentTimeMillis();
+        return replace.substring(0, 15) + currentTimeMillis + replace.substring(14, 31) + "Android_PayImage";
+    }
+
+    /**
      * 判断绑定邮箱或者手机号
      * 1：绑定手机号和邮箱
      * 2：单邦定邮箱
@@ -246,5 +257,30 @@ public class CommonUtils {
             return Constant.HEAD_IMG_URL + url;
         }
         return "";
+    }
+
+    public static String nameXing(String name) {
+        if (name == null || name.isEmpty()) {
+            return "";
+        }
+        return "*" + name;
+    }
+
+    public static String nameDesensitization(String name) {
+        if (name == null || name.isEmpty()) {
+            return "";
+        }
+        String myName = null;
+        char[] chars = name.toCharArray();
+        if (chars.length == 1) {
+            myName = name;
+        }
+        if (chars.length == 2) {
+            myName = name.replaceFirst(name.substring(1), "*");
+        }
+        if (chars.length > 2) {
+            myName = name.replaceAll(name.substring(1, chars.length - 1), "*");
+        }
+        return myName;
     }
 }

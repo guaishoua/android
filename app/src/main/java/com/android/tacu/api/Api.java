@@ -1112,4 +1112,13 @@ public interface Api {
      */
     @POST("currentTime")
     Observable<BaseModel<Long>> currentTime();
+
+    /**
+     * 查看收款账号
+     */
+    @FormUrlEncoded
+    @POST("selectPayInfoById")
+    Observable<BaseModel<PayInfoModel>> selectPayInfoById(
+            @Field("id") String id
+    );
 }

@@ -7,6 +7,8 @@ import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
+import com.android.tacu.module.assets.model.AuthOssModel;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcOrderDetailContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
@@ -14,8 +16,8 @@ import com.android.tacu.module.otc.model.OtcTradeModel;
 public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrderDetailContract.IPresenter {
 
     @Override
-    public void selectTradeOne(final boolean isFirst, String orderNo) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectTradeOne(orderNo), new NetDisposableObserver<BaseModel<OtcTradeModel>>((IBaseMvpView) getView(), isFirst) {
+    public void selectTradeOne(boolean isShowView, final boolean isFirst, String orderNo) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectTradeOne(orderNo), new NetDisposableObserver<BaseModel<OtcTradeModel>>((IBaseMvpView) getView(), isShowView) {
             @Override
             public void onNext(BaseModel<OtcTradeModel> model) {
                 OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
@@ -25,7 +27,7 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
     }
 
     @Override
-    public void userBaseInfo(final int buyOrSell, Integer queryUid) {
+    public void userBaseInfo(final Integer buyOrSell, Integer queryUid) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).userBaseInfo(queryUid), new NetDisposableObserver<BaseModel<OtcMarketInfoModel>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<OtcMarketInfoModel> model) {
@@ -42,6 +44,50 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
             public void onNext(BaseModel<Long> model) {
                 OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
                 view.currentTime(model.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void selectPayInfoById(String id) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectPayInfoById(id), new NetDisposableObserver<BaseModel<PayInfoModel>>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel<PayInfoModel> model) {
+                OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
+                view.selectPayInfoById(model.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void uselectUserInfo(String headImg) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).uselectUserInfo(headImg), new NetDisposableObserver<BaseModel<String>>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel<String> o) {
+                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
+                wView.uselectUserInfo(o.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void getOssSetting() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).getSts(), new NetDisposableObserver<BaseModel<AuthOssModel>>((IBaseMvpView) getView(), false) {
+            @Override
+            public void onNext(BaseModel<AuthOssModel> model) {
+                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
+                wView.getOssSetting(model.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void payOrder(String orderId, String payImg) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).payOrder(orderId, payImg), new NetDisposableObserver<BaseModel<AuthOssModel>>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel<AuthOssModel> model) {
+                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
+                wView.payOrderSuccess();
             }
         });
     }

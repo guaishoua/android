@@ -10,11 +10,11 @@ import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.utils.DateUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
+//待确认
 public class ConfirmView implements View.OnClickListener {
 
     private Activity activity;
 
-    //待确认
     private TextView tv_please_get_pay;
     private TextView tv_confirm_time;
     private QMUIRoundButton btn_return;
@@ -30,9 +30,6 @@ public class ConfirmView implements View.OnClickListener {
         return statusView;
     }
 
-    /**
-     * 待确认
-     */
     private void initConfirmedView(View view) {
         tv_please_get_pay = view.findViewById(R.id.tv_please_get_pay);
         tv_confirm_time = view.findViewById(R.id.tv_confirm_time);
@@ -53,16 +50,16 @@ public class ConfirmView implements View.OnClickListener {
     public void selectTradeOne(OtcTradeModel model) {
         this.tradeModel = model;
         dealConfirmed();
-        dealTimeConfirmed();
+        dealTime();
     }
 
     public void currentTime(Long currentTime) {
         this.currentTime = currentTime;
-        dealTimeConfirmed();
+        dealTime();
     }
 
     private void dealConfirmed() {
-        if (tradeModel.payType != null) {
+        if (tradeModel != null && tradeModel.payType != null) {
             switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
                 case 1:
                     tv_please_get_pay.setText(activity.getResources().getString(R.string.yinhanngka));
@@ -77,16 +74,16 @@ public class ConfirmView implements View.OnClickListener {
         }
     }
 
-    private void dealTimeConfirmed() {
+    private void dealTime() {
         if (currentTime != null && tradeModel != null && tradeModel.confirmEndTime != null) {
             long confirmEndTime = DateUtils.string2Millis(tradeModel.confirmEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
             if (confirmEndTime > 0) {
-                startCountDownTimerConfirmed(confirmEndTime);
+                startCountDownTimer(confirmEndTime);
             }
         }
     }
 
-    private void startCountDownTimerConfirmed(long valueTime) {
+    private void startCountDownTimer(long valueTime) {
         if (time != null) {
             return;
         }
