@@ -55,7 +55,6 @@ public class CoinGetView implements View.OnClickListener {
     private TextView tv_trade_coin;
 
     private QMUIRadiusImageView img_voucher;
-    private TextView tv_get_money_tip;
 
     private QMUIRoundEditText edit_submit_arbitration;
     private LinearLayout lin_upload;
@@ -87,14 +86,13 @@ public class CoinGetView implements View.OnClickListener {
     }
 
     private void initCoinGetView(View view) {
-        tv_countdown = view.findViewById(R.id.tv_trade_coin);
+        tv_countdown = view.findViewById(R.id.tv_countdown);
         tv_order_id = view.findViewById(R.id.tv_order_id);
         tv_pay_method = view.findViewById(R.id.tv_pay_method);
         tv_trade_get = view.findViewById(R.id.tv_trade_get);
         tv_trade_coin = view.findViewById(R.id.tv_trade_coin);
 
         img_voucher = view.findViewById(R.id.img_voucher);
-        tv_get_money_tip = view.findViewById(R.id.tv_get_money_tip);
 
         edit_submit_arbitration = view.findViewById(R.id.edit_submit_arbitration);
         lin_upload = view.findViewById(R.id.lin_upload);
@@ -102,7 +100,7 @@ public class CoinGetView implements View.OnClickListener {
         tv_add = view.findViewById(R.id.tv_add);
         img_url = view.findViewById(R.id.img_url);
 
-        btn_submit_arbitration = view.findViewById(R.id.btn_coined);
+        btn_submit_arbitration = view.findViewById(R.id.btn_submit_arbitration);
         btn_return = view.findViewById(R.id.btn_return);
 
         lin_upload.setOnClickListener(this);
@@ -221,15 +219,12 @@ public class CoinGetView implements View.OnClickListener {
                 switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
                     case 1:
                         tv_pay_method.setText(activity.getResources().getString(R.string.yinhanngka));
-                        tv_get_money_tip.setText(activity.getResources().getString(R.string.please_confirm_yhk_get_money));
                         break;
                     case 2:
                         tv_pay_method.setText(activity.getResources().getString(R.string.weixin));
-                        tv_get_money_tip.setText(activity.getResources().getString(R.string.please_confirm_wx_get_money));
                         break;
                     case 3:
                         tv_pay_method.setText(activity.getResources().getString(R.string.zhifubao));
-                        tv_get_money_tip.setText(activity.getResources().getString(R.string.please_confirm_zfb_get_money));
                         break;
                 }
             }
@@ -278,7 +273,7 @@ public class CoinGetView implements View.OnClickListener {
             @Override
             public void onTick(long millisUntilFinished) {
                 try {
-                    tv_countdown.setText(String.format(activity.getResources().getString(R.string.dui_fang_confirm_time), DateUtils.getCountDownTime1(millisUntilFinished)));
+                    tv_countdown.setText(DateUtils.getCountDownTime1(millisUntilFinished));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

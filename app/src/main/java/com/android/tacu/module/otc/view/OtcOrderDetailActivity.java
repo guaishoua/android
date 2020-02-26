@@ -325,9 +325,9 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     @Override
     public void userBaseInfo(Integer buyOrSell, OtcMarketInfoModel model) {
         if (model != null) {
-            if (buyOrSell == 1) {//买
+            if (buyOrSell != null && buyOrSell == 1) {//买
                 setBuyValue(model);
-            } else if (buyOrSell == 2) {
+            } else if (buyOrSell != null && buyOrSell == 2) {
                 setSellValue(model);
             }
             if (buyOrSell == null) {
@@ -516,7 +516,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 nodeProgress.setCurentNode(1);
                 break;
             case ORDER_PAYGET://待收款
-                mTopBar.setTitle(getResources().getString(R.string.otc_order_payed));
+                mTopBar.setTitle(getResources().getString(R.string.otc_order_payget));
                 payGetView = new PayGetView();
                 statusView = payGetView.create(this);
                 nodeProgress.setCurentNode(1);

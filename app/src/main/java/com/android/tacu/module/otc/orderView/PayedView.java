@@ -311,7 +311,7 @@ public class PayedView implements View.OnClickListener {
             @Override
             public void onTick(long millisUntilFinished) {
                 try {
-                    tv_countdown.setText(String.format(activity.getResources().getString(R.string.dui_fang_confirm_time), DateUtils.getCountDownTime1(millisUntilFinished)));
+                    tv_countdown.setText(DateUtils.getCountDownTime1(millisUntilFinished));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

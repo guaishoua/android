@@ -169,8 +169,10 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
             holder.setText(R.id.tv_coin_name, item.currencyName);
             if (item.buyorsell != null && item.buyorsell == 1) {
                 holder.setText(R.id.tv_status, getResources().getString(R.string.buy));
+                holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.color_otc_buy));
             } else if (item.buyorsell != null && item.buyorsell == 2) {
                 holder.setText(R.id.tv_status, getResources().getString(R.string.sell));
+                holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.color_otc_sell));
             }
             holder.setText(R.id.tv_time, item.createTime);
             if (item.payByCard != null && item.payByCard == 1) {

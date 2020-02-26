@@ -35,7 +35,7 @@ public class PayGetView implements View.OnClickListener {
     }
 
     private void initPayGetView(View view) {
-        tv_countdown = view.findViewById(R.id.tv_trade_coin);
+        tv_countdown = view.findViewById(R.id.tv_countdown);
         tv_order_id = view.findViewById(R.id.tv_order_id);
         tv_pay_method = view.findViewById(R.id.tv_pay_method);
         tv_trade_get = view.findViewById(R.id.tv_trade_get);
@@ -103,7 +103,7 @@ public class PayGetView implements View.OnClickListener {
             @Override
             public void onTick(long millisUntilFinished) {
                 try {
-                    tv_countdown.setText(String.format(activity.getResources().getString(R.string.dui_fang_confirm_time), DateUtils.getCountDownTime1(millisUntilFinished)));
+                    tv_countdown.setText(DateUtils.getCountDownTime1(millisUntilFinished));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
