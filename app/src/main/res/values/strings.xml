@@ -609,6 +609,7 @@
     <string name="otc_pay_timeout_cancel">付款超时取消</string>
     <string name="otc_giveup_pay">放弃支付</string>'
     <string name="otc_coin_timeout">放币超时</string>
+    <string name="timeouted">已超时</string>
     <string name="market_order">生成订单</string>
     <string name="buyer_pay">买方付款</string>
     <string name="seller_coin">卖方放币</string>

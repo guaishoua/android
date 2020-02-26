@@ -221,7 +221,8 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                     }
                 }
                 if (item.tradeModel.status != null) {
-                    // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成 11 待确认 待付款，待放币
+                    // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成
+                    // 12仲裁成功 13仲裁失败
                     switch (item.tradeModel.status) {
                         case 1:
                             holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_confirmed));
@@ -234,6 +235,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             }
                             break;
                         case 3:
+                        case 9:
                             if (item.tradeModel.buyuid == spUtil.getUserUid()) {
                                 holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_coinget));
                             } else if (item.tradeModel.selluid == spUtil.getUserUid()) {
@@ -244,21 +246,12 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_arbitration));
                             break;
                         case 5:
-                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_notcomfirm_timeout_cancel));
-                            break;
                         case 6:
-                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_refuse_order));
-                            break;
                         case 7:
-                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_pay_timeout_cancel));
-                            break;
                         case 8:
-                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_giveup_pay));
-                            break;
-                        case 9:
-                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_coin_timeout));
-                            break;
                         case 10:
+                        case 12:
+                        case 13:
                             holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_finished));
                             break;
                     }
@@ -289,12 +282,17 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                                 }
                                 break;
                             case 2:
-                                break;
                             case 3:
-                                break;
                             case 4:
-                                break;
+                            case 5:
+                            case 6:
+                            case 7:
+                            case 8:
+                            case 9:
                             case 10:
+                            case 12:
+                            case 13:
+                                jumpTo(OtcOrderDetailActivity.createActivity(getContext(), item.tradeModel.orderNo));
                                 break;
                         }
                     }

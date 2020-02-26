@@ -42,6 +42,7 @@ public class CoinGetView implements View.OnClickListener {
 
     private OtcOrderDetailActivity activity;
     private OtcOrderDetailPresenter mPresenter;
+    private Integer status;
 
     private TextView tv_countdown;
     private TextView tv_order_id;
@@ -72,9 +73,10 @@ public class CoinGetView implements View.OnClickListener {
 
     private Handler mHandler = new Handler();
 
-    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter) {
+    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter, Integer status) {
         this.activity = activity;
         this.mPresenter = mPresenter;
+        this.status = status;
         View statusView = View.inflate(activity, R.layout.view_otc_order_coinget, null);
         initCoinGetView(statusView);
         return statusView;
@@ -109,7 +111,9 @@ public class CoinGetView implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_voucher:
-                activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrl));
+                if (!TextUtils.isEmpty(imageUrl)) {
+                    activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrl));
+                }
                 break;
             case R.id.lin_upload:
                 PermissionUtils.requestPermissions(activity, new OnPermissionListener() {
@@ -142,7 +146,7 @@ public class CoinGetView implements View.OnClickListener {
 
     public void selectTradeOne(OtcTradeModel model) {
         this.tradeModel = model;
-        dealCoined();
+        dealCoinGet();
         dealTime();
     }
 
@@ -196,11 +200,11 @@ public class CoinGetView implements View.OnClickListener {
         }
     }
 
-    private void dealCoined() {
+    private void dealCoinGet() {
         if (tradeModel != null) {
             tv_order_id.setText(tradeModel.orderNo);
             tv_trade_get.setText(tradeModel.amount + " CNY");
-            tv_trade_coin.setText(tradeModel.num + tradeModel.currencyName);
+            tv_trade_coin.setText(tradeModel.num + " " + tradeModel.currencyName);
             if (tradeModel.payType != null) {
                 switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
                     case 1:
@@ -222,9 +226,13 @@ public class CoinGetView implements View.OnClickListener {
 
     private void dealTime() {
         if (currentTime != null && tradeModel != null && tradeModel.payEndTime != null) {
-            long payEndTime = DateUtils.string2Millis(tradeModel.payEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
-            if (payEndTime > 0) {
-                startCountDownTimer(payEndTime);
+            if (status != null && status == 9) {
+                tv_countdown.setText(activity.getResources().getString(R.string.timeouted));
+            } else {
+                long payEndTime = DateUtils.string2Millis(tradeModel.payEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
+                if (payEndTime > 0) {
+                    startCountDownTimer(payEndTime);
+                }
             }
         }
     }

@@ -121,7 +121,9 @@ public class PayedView implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_payment_code:
-                activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrl));
+                if (!TextUtils.isEmpty(imageUrl)){
+                    activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrl));
+                }
                 break;
             case R.id.lin_upload:
                 PermissionUtils.requestPermissions(activity, new OnPermissionListener() {

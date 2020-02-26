@@ -163,6 +163,7 @@
             tools:text="2019-10-9" />
 
         <TextView
+            android:id="@+id/tv_order_make_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
@@ -184,6 +185,7 @@
             tools:text="2019-10-9" />
 
         <TextView
+            android:id="@+id/tv_order_pay_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
@@ -205,6 +207,7 @@
             tools:text="2019-10-9" />
 
         <TextView
+            android:id="@+id/tv_order_finish_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"

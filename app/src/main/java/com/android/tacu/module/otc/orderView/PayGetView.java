@@ -68,7 +68,7 @@ public class PayGetView implements View.OnClickListener {
         if (tradeModel != null) {
             tv_order_id.setText(tradeModel.orderNo);
             tv_trade_get.setText(tradeModel.amount + " CNY");
-            tv_trade_coin.setText(tradeModel.num + tradeModel.currencyName);
+            tv_trade_coin.setText(tradeModel.num + " " +tradeModel.currencyName);
             if (tradeModel.payType != null) {
                 switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
                     case 1:

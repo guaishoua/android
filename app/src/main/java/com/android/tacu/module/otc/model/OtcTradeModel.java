@@ -20,7 +20,7 @@ public class OtcTradeModel implements Serializable {
      * private String orderNo;    //订单号
      * private Integer payType;   //支付类型 1 银行 2微信3支付宝
      * private Integer payId;
-     * private Integer status; //1 待确认 2 未确认超时取消 3拒绝订单 4已确认待付款 5 已付款 6 付款超时取消 7 放弃支付 8放币 9放币超时 10仲裁
+     * private Integer status; //1待确认  2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成  12仲裁成功 13仲裁失败
      * private Integer timeOut; //
      * private String payInfo;  //付款凭证
      * <p>

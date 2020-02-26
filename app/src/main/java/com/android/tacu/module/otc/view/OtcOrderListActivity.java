@@ -40,10 +40,10 @@ public class OtcOrderListActivity extends BaseActivity {
 
         tabTitle = new String[]{getResources().getString(R.string.otc_order_all), getResources().getString(R.string.otc_order_finished), getResources().getString(R.string.otc_order_confirmed), getResources().getString(R.string.otc_order_payed), getResources().getString(R.string.otc_order_coined), getResources().getString(R.string.otc_order_arbitration)};
         fragmentList.add(OtcOrderFragment.newInstance(0));
-        fragmentList.add(OtcOrderFragment.newInstance(10));
+        fragmentList.add(OtcOrderFragment.newInstance(14));
         fragmentList.add(OtcOrderFragment.newInstance(1));
         fragmentList.add(OtcOrderFragment.newInstance(2));
-        fragmentList.add(OtcOrderFragment.newInstance(3));
+        fragmentList.add(OtcOrderFragment.newInstance(15));
         fragmentList.add(OtcOrderFragment.newInstance(4));
 
         titleIndicatorView.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
