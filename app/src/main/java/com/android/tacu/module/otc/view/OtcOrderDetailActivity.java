@@ -24,6 +24,7 @@ import com.android.tacu.module.otc.contract.OtcOrderDetailContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.orderView.ConfirmView;
+import com.android.tacu.module.otc.orderView.PayGetView;
 import com.android.tacu.module.otc.orderView.PayedView;
 import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 import com.android.tacu.widget.NodeProgressView;
@@ -61,12 +62,10 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
 
     //待确认
     private ConfirmView confirmView;
-
     //待付款
     private PayedView payedView;
-
     //待收款
-
+    private PayGetView payGetView;
     //待放币
 
     //待收币
@@ -247,6 +246,11 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         payedView.selectTradeOne(model);
                     }
                     break;
+                case ORDER_PAYGET:
+                    if (payGetView != null) {
+                        payGetView.selectTradeOne(model);
+                    }
+                    break;
             }
         }
     }
@@ -282,6 +286,11 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
             case ORDER_PAYED:
                 if (payedView != null) {
                     payedView.currentTime(time);
+                }
+                break;
+            case ORDER_PAYGET:
+                if (payGetView != null) {
+                    payGetView.currentTime(time);
                 }
                 break;
         }
@@ -378,8 +387,9 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 break;
             case ORDER_PAYGET://待收款
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_payed));
-                statusView = View.inflate(this, R.layout.view_otc_order_payget, null);
-                initPayGetView(statusView);
+                payGetView = new PayGetView();
+                statusView = payGetView.create(this);
+                nodeProgress.setCurentNode(1);
                 break;
             case ORDER_COINED://待放币
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_coined));
@@ -406,13 +416,6 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
             linSwitch.removeAllViews();
             linSwitch.addView(statusView);
         }
-    }
-
-    /**
-     * 待收款
-     */
-    private void initPayGetView(View view) {
-        nodeProgress.setCurentNode(1);
     }
 
     /**
@@ -451,6 +454,10 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
         if (payedView != null) {
             payedView.destory();
             payedView = null;
+        }
+        if (payGetView != null) {
+            payGetView.destory();
+            payGetView = null;
         }
     }
 }

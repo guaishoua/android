@@ -178,7 +178,7 @@ public class PayedView implements View.OnClickListener {
 
     public void userBaseInfo(OtcMarketInfoModel model) {
         if (model != null) {
-            tv_cardholder_name1.setText(model.secondName);
+            tv_cardholder_name1.setText(model.firstName + model.secondName);
         }
     }
 

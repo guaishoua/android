@@ -1,19 +1,19 @@
 package com.android.tacu.module.otc.orderView;
 
-import android.app.Activity;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.module.otc.model.OtcTradeModel;
+import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
 import com.android.tacu.utils.DateUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 //待确认
 public class ConfirmView implements View.OnClickListener {
 
-    private Activity activity;
+    private OtcOrderDetailActivity activity;
 
     private TextView tv_please_get_pay;
     private TextView tv_confirm_time;
@@ -23,7 +23,7 @@ public class ConfirmView implements View.OnClickListener {
     private Long currentTime;
     private CountDownTimer time;
 
-    public View create(Activity activity) {
+    public View create(OtcOrderDetailActivity activity) {
         this.activity = activity;
         View statusView = View.inflate(activity, R.layout.view_otc_order_confirmed, null);
         initConfirmedView(statusView);

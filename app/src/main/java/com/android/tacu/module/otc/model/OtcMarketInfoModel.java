@@ -72,7 +72,9 @@ public class OtcMarketInfoModel implements Serializable {
     public String headImg;
     @SerializedName("nickname")
     public String nickname;
-    @SerializedName("secondName")
+    @SerializedName("firstName")//姓氏
+    public String firstName;
+    @SerializedName("secondName")//名
     public String secondName;
     @SerializedName("isValidateEmail")
     public Integer isValidateEmail;//0. 未设置 1. 已设置
