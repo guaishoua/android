@@ -144,25 +144,17 @@
         app:qmui_backgroundColor="@color/content_bg_color"
         app:qmui_radius="@dimen/dp_3">
 
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
-            android:id="@+id/lin_upload"
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/img_voucher"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
             android:padding="@dimen/dp_10"
+            android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="W,1:1.2"
             app:layout_constraintTop_toTopOf="parent"
             app:qmui_borderColor="@color/color_grey"
             app:qmui_borderWidth="@dimen/dp_1"
-            app:qmui_radius="@dimen/dp_2">
-
-            <ImageView
-                android:id="@+id/img_voucher"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
-        </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+            app:qmui_radius="@dimen/dp_2" />
 
         <TextView
             android:id="@+id/tv_get_money_tip"
@@ -172,7 +164,7 @@
             android:textColor="@color/text_grey"
             android:textSize="@dimen/text_size_sp_13"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lin_upload"
+            app:layout_constraintTop_toBottomOf="@id/img_voucher"
             tools:text="@string/please_confirm_wx_get_money" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton

@@ -116,6 +116,7 @@
             android:id="@+id/img_payment_code"
             android:layout_width="@dimen/dp_80"
             android:layout_height="@dimen/dp_80"
+            android:scaleType="centerCrop"
             android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"

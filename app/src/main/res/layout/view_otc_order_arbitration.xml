@@ -109,6 +109,17 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_trade_coin_title"
             app:layout_constraintLeft_toRightOf="@id/tv_trade_coin_title"
             app:srcCompat="@drawable/icon_auth_failure" />
+
+        <TextView
+            android:id="@+id/tv_trade_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_7"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintBottom_toBottomOf="@id/tv_trade_coin_title"
+            app:layout_constraintLeft_toRightOf="@id/img_trade_coin"
+            tools:text="24000" />
     </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout>
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout
@@ -120,25 +131,17 @@
         app:qmui_backgroundColor="@color/content_bg_color"
         app:qmui_radius="@dimen/dp_3">
 
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
-            android:id="@+id/lin_upload"
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/img_voucher"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
             android:padding="@dimen/dp_10"
+            android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="W,1:1.2"
             app:layout_constraintTop_toTopOf="parent"
             app:qmui_borderColor="@color/color_grey"
             app:qmui_borderWidth="@dimen/dp_1"
-            app:qmui_radius="@dimen/dp_2">
-
-            <ImageView
-                android:id="@+id/img_voucher"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
-        </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+            app:qmui_radius="@dimen/dp_2" />
 
         <TextView
             android:id="@+id/tv_order_make"
@@ -148,7 +151,7 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_12"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lin_upload"
+            app:layout_constraintTop_toBottomOf="@id/img_voucher"
             tools:text="2019-10-9" />
 
         <TextView
@@ -231,6 +234,17 @@
             tools:text="Lorem ipsum dolor sit amet, consectetur adipi
 scing elit. Aenean euismod bibendum laore" />
 
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/img_voucher_arbitration_reason"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:layout_marginTop="@dimen/dp_7"
+            android:padding="@dimen/dp_10"
+            android:scaleType="centerCrop"
+            app:qmui_borderColor="@color/color_grey"
+            app:qmui_borderWidth="@dimen/dp_1"
+            app:qmui_radius="@dimen/dp_2" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -266,6 +280,41 @@ scing elit. Aenean euismod bibendum laore" />
         app:qmui_borderColor="@color/color_grey"
         app:qmui_borderWidth="@dimen/dp_1"
         app:qmui_radius="@dimen/dp_3" />
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+        android:id="@+id/lin_upload"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:qmui_borderColor="@color/color_grey"
+        app:qmui_borderWidth="@dimen/dp_1"
+        app:qmui_radius="@dimen/dp_2">
+
+        <ImageView
+            android:id="@+id/img_add"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            app:srcCompat="@drawable/icon_add_grey" />
+
+        <TextView
+            android:id="@+id/tv_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:gravity="center"
+            android:text="@string/upload_beArbitration_tip"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14" />
+
+        <ImageView
+            android:id="@+id/img_url"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

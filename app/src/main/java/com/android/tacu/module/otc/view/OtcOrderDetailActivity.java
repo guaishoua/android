@@ -23,6 +23,7 @@ import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcOrderDetailContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
+import com.android.tacu.module.otc.orderView.ArbitrationView;
 import com.android.tacu.module.otc.orderView.CoinGetView;
 import com.android.tacu.module.otc.orderView.CoinedView;
 import com.android.tacu.module.otc.orderView.ConfirmView;
@@ -76,6 +77,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     //已完成
     private FinishView finishView;
     //仲裁中
+    private ArbitrationView arbitrationView;
 
     private String orderNo;
     private boolean isFirst = true;
@@ -173,6 +175,11 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                                             coinGetView.getPic(file);
                                         }
                                         break;
+                                    case ORDER_ARBITRATION:
+                                        if (arbitrationView != null) {
+                                            arbitrationView.getPic(file);
+                                        }
+                                        break;
                                 }
                             }
                         }, new Consumer<Throwable>() {
@@ -261,6 +268,9 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     case ORDER_FINISHED:
                         mPresenter.uselectUserInfo(model.payInfo);
                         break;
+                    case ORDER_ARBITRATION:
+                        mPresenter.uselectUserInfo(model.payInfo);
+                        break;
                 }
             }
 
@@ -293,6 +303,11 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 case ORDER_FINISHED:
                     if (finishView != null) {
                         finishView.selectTradeOne(model);
+                    }
+                    break;
+                case ORDER_ARBITRATION:
+                    if (arbitrationView != null) {
+                        arbitrationView.selectTradeOne(model);
                     }
                     break;
             }
@@ -384,6 +399,22 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     finishView.uselectUserInfo(imageUrl);
                 }
                 break;
+            case ORDER_ARBITRATION:
+                if (arbitrationView != null) {
+                    arbitrationView.uselectUserInfo(imageUrl);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void uselectUserInfoArbitration(String imageUrl) {
+        switch (current) {
+            case ORDER_ARBITRATION:
+                if (arbitrationView != null) {
+                    arbitrationView.uselectUserInfoArbitration(imageUrl);
+                }
+                break;
         }
     }
 
@@ -412,13 +443,18 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         coinGetView.uploadImgs(mOss, bucketName);
                     }
                     break;
+                case ORDER_ARBITRATION:
+                    if (arbitrationView != null) {
+                        arbitrationView.uploadImgs(mOss, bucketName);
+                    }
+                    break;
             }
         }
     }
 
     @Override
     public void payOrderSuccess() {
-        showToastSuccess(getResources().getString(R.string.success));
+        showToastSuccess(getResources().getString(R.string.submit_success));
         upload(true);
     }
 
@@ -430,8 +466,20 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
 
     @Override
     public void finishOrderSuccess() {
-        showToastSuccess(getResources().getString(R.string.success));
+        showToastSuccess(getResources().getString(R.string.submit_success));
         upload(true);
+    }
+
+    @Override
+    public void arbitrationOrderSuccess() {
+        showToastSuccess(getResources().getString(R.string.submit_success));
+        upload(true);
+    }
+
+    @Override
+    public void beArbitrationOrderSuccess() {
+        showToastSuccess(getResources().getString(R.string.submit_success));
+        finish();
     }
 
     private void upload(boolean isShowView) {
@@ -483,21 +531,15 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 break;
             case ORDER_ARBITRATION://仲裁中
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_arbitration));
-                statusView = View.inflate(this, R.layout.view_otc_order_arbitration, null);
-                initArbitrationView(statusView);
+                arbitrationView = new ArbitrationView();
+                statusView = arbitrationView.create(this, mPresenter);
+                nodeProgress.setCurentNode(4);
                 break;
         }
         if (statusView != null) {
             linSwitch.removeAllViews();
             linSwitch.addView(statusView);
         }
-    }
-
-    /**
-     * 仲裁中
-     */
-    private void initArbitrationView(View view) {
-        nodeProgress.setCurentNode(4);
     }
 
     private void destoryAllView() {
@@ -524,6 +566,10 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
         if (finishView != null) {
             finishView.destory();
             finishView = null;
+        }
+        if (arbitrationView != null) {
+            arbitrationView.destory();
+            arbitrationView = null;
         }
     }
 }

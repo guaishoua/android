@@ -19,6 +19,8 @@ public class OtcOrderDetailContract {
 
         void uselectUserInfo(String imageUrl);
 
+        void uselectUserInfoArbitration(String imageUrl);
+
         void getOssSetting(AuthOssModel model);
 
         void payOrderSuccess();
@@ -26,6 +28,10 @@ public class OtcOrderDetailContract {
         void payCancelOrderSuccess();
 
         void finishOrderSuccess();
+
+        void arbitrationOrderSuccess();
+
+        void beArbitrationOrderSuccess();
     }
 
     public interface IPresenter {
@@ -40,6 +46,8 @@ public class OtcOrderDetailContract {
 
         void uselectUserInfo(String headImg);
 
+        void uselectUserInfoArbitration(String headImg);
+
         void getOssSetting();
 
         void payOrder(String orderId, String payImg);
@@ -47,5 +55,9 @@ public class OtcOrderDetailContract {
         void payCancelOrder(String orderId);
 
         void finishOrder(String orderId);
+
+        void arbitrationOrder(String id, String arbitrateExp, String arbitrateImg);
+
+        void beArbitrationOrder(String id, String beArbitrateExp, String beArbitrateImg);
     }
 }

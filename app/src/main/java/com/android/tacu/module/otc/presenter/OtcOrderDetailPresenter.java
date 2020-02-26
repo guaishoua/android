@@ -71,6 +71,17 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
     }
 
     @Override
+    public void uselectUserInfoArbitration(String headImg) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).uselectUserInfo(headImg), new NetDisposableObserver<BaseModel<String>>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel<String> o) {
+                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
+                wView.uselectUserInfoArbitration(o.attachment);
+            }
+        });
+    }
+
+    @Override
     public void getOssSetting() {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).getSts(), new NetDisposableObserver<BaseModel<AuthOssModel>>((IBaseMvpView) getView(), false) {
             @Override
@@ -110,6 +121,28 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
             public void onNext(BaseModel model) {
                 OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
                 wView.finishOrderSuccess();
+            }
+        });
+    }
+
+    @Override
+    public void arbitrationOrder(String id, String arbitrateExp, String arbitrateImg) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).arbitrationOrder(id, arbitrateExp, arbitrateImg), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
+                wView.arbitrationOrderSuccess();
+            }
+        });
+    }
+
+    @Override
+    public void beArbitrationOrder(String id, String beArbitrateExp, String beArbitrateImg) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).beArbitrationOrder(id, beArbitrateExp, beArbitrateImg), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
+                wView.beArbitrationOrderSuccess();
             }
         });
     }

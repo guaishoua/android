@@ -643,6 +643,9 @@
     <string name="upload_arbitration_tip">上传仲裁凭证
         \n图片请图片控制在20MB大小
         \n支持JPG\PNG\BMP格式</string>
+    <string name="upload_beArbitration_tip">上传申诉凭证
+        \n图片请图片控制在20MB大小
+        \n支持JPG\PNG\BMP格式</string>
     <string name="confirm_and_pay">确认并支付</string>
     <string name="giveup_pay">放弃支付</string>
     <string name="please_scan_with_wx">请使用微信扫描该付款码</string>
@@ -656,6 +659,7 @@
     <string name="submit_arbitration">提交仲裁</string>
     <string name="order_make">订单生成</string>
     <string name="order_pay">订单支付</string>
+    <string name="not_pay">未支付</string>
     <string name="not_coined">未放币</string>
     <string name="arbitration_reason">仲裁理由：</string>
     <string name="arbitration_result">仲裁结果：</string>

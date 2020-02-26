@@ -131,25 +131,17 @@
         app:qmui_backgroundColor="@color/content_bg_color"
         app:qmui_radius="@dimen/dp_3">
 
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
-            android:id="@+id/lin_upload"
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/img_voucher"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
             android:padding="@dimen/dp_10"
+            android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="W,1:1.2"
             app:layout_constraintTop_toTopOf="parent"
             app:qmui_borderColor="@color/color_grey"
             app:qmui_borderWidth="@dimen/dp_1"
-            app:qmui_radius="@dimen/dp_2">
-
-            <ImageView
-                android:id="@+id/img_voucher"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
-        </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+            app:qmui_radius="@dimen/dp_2"/>
 
         <TextView
             android:id="@+id/tv_order_make"
@@ -159,7 +151,7 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_12"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lin_upload"
+            app:layout_constraintTop_toBottomOf="@id/img_voucher"
             tools:text="2019-10-9" />
 
         <TextView
@@ -211,8 +203,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="@string/order_finish"
-            android:textColor="@color/color_otc_buy"
+            android:text="@string/not_pay"
+            android:textColor="@color/color_otc_sell"
             android:textSize="@dimen/text_size_sp_12"
             app:layout_constraintBottom_toBottomOf="@id/tv_order_finish"
             app:layout_constraintRight_toRightOf="parent" />

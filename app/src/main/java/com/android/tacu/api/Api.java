@@ -1130,4 +1130,26 @@ public interface Api {
     Observable<BaseModel<PayInfoModel>> selectPayInfoById(
             @Field("id") String id
     );
+
+    /**
+     * 申请仲裁
+     */
+    @FormUrlEncoded
+    @POST("arbitrationOrder")
+    Observable<BaseModel> arbitrationOrder(
+            @Field("id") String id,
+            @Field("arbitrateExp") String arbitrateExp,//仲裁说明
+            @Field("arbitrateImg") String arbitrateImg//图片
+    );
+
+    /**
+     * 申请申述
+     */
+    @FormUrlEncoded
+    @POST("beArbitrationOrder")
+    Observable<BaseModel> beArbitrationOrder(
+            @Field("id") String id,
+            @Field("beArbitrateExp") String beArbitrateExp,//申诉说明
+            @Field("beArbitrateImg") String beArbitrateImg//图片
+    );
 }

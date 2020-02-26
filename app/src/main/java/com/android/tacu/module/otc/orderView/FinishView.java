@@ -1,5 +1,6 @@
 package com.android.tacu.module.otc.orderView;
 
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
 import com.android.tacu.utils.GlideUtils;
+import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 //已完成
@@ -25,7 +27,7 @@ public class FinishView implements View.OnClickListener {
     private ImageView img_trade_get;
     private ImageView img_trade_coin;
 
-    private ImageView img_voucher;
+    private QMUIRadiusImageView img_voucher;
 
     private TextView tv_order_make;
     private TextView tv_order_make_status;
@@ -90,6 +92,16 @@ public class FinishView implements View.OnClickListener {
         dealFinish();
     }
 
+    public void uselectUserInfo(String imageUrl) {
+        this.imageUrl = imageUrl;
+        if (!TextUtils.isEmpty(imageUrl)){
+            GlideUtils.disPlay(activity, imageUrl, img_voucher);
+            img_voucher.setVisibility(View.VISIBLE);
+        }else{
+            img_voucher.setVisibility(View.GONE);
+        }
+    }
+
     private void dealFinish() {
         if (tradeModel != null) {
             tv_order_id.setText(tradeModel.orderNo);
@@ -120,6 +132,18 @@ public class FinishView implements View.OnClickListener {
                 tv_order_pay.setVisibility(View.VISIBLE);
                 tv_order_pay_status.setVisibility(View.VISIBLE);
                 tv_order_pay.setText(tradeModel.payTime);
+
+                if (status != null) {
+                    switch (status) {
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                            tv_order_pay_status.setText(activity.getResources().getString(R.string.not_pay));
+                            tv_order_pay_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_sell));
+                            break;
+                    }
+                }
             } else {
                 tv_order_pay.setVisibility(View.GONE);
                 tv_order_pay_status.setVisibility(View.GONE);
@@ -128,6 +152,16 @@ public class FinishView implements View.OnClickListener {
                 tv_order_finish.setVisibility(View.VISIBLE);
                 tv_order_finish_status.setVisibility(View.VISIBLE);
                 tv_order_finish.setText(tradeModel.updateTime);
+
+                if (status != null) {
+                    switch (status) {
+                        case 12:
+                        case 13:
+                            tv_order_finish_status.setText(activity.getResources().getString(R.string.not_coined));
+                            tv_order_finish_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_sell));
+                            break;
+                    }
+                }
             } else {
                 tv_order_finish.setVisibility(View.GONE);
                 tv_order_finish_status.setVisibility(View.GONE);
@@ -153,11 +187,6 @@ public class FinishView implements View.OnClickListener {
                     break;
             }
         }
-    }
-
-    public void uselectUserInfo(String imageUrl) {
-        this.imageUrl = imageUrl;
-        GlideUtils.disPlay(activity, imageUrl, img_voucher);
     }
 
     public void destory() {

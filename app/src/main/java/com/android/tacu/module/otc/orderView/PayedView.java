@@ -29,6 +29,7 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
+import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.yanzhenjie.permission.Permission;
 
@@ -48,7 +49,7 @@ public class PayedView implements View.OnClickListener {
     private TextView tv_order_id;
     private TextView tv_need_pay;
     private TextView tv_pay_method;
-    private ImageView img_payment_code;
+    private QMUIRadiusImageView img_payment_code;
     private TextView tv_payment_code_tip;
 
     private LinearLayout lin_pay;
@@ -121,7 +122,7 @@ public class PayedView implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_payment_code:
-                if (!TextUtils.isEmpty(imageUrl)){
+                if (!TextUtils.isEmpty(imageUrl)) {
                     activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrl));
                 }
                 break;
@@ -206,7 +207,12 @@ public class PayedView implements View.OnClickListener {
 
     public void uselectUserInfo(String imageUrl) {
         this.imageUrl = imageUrl;
-        GlideUtils.disPlay(activity, imageUrl, img_payment_code);
+        if (!TextUtils.isEmpty(imageUrl)) {
+            GlideUtils.disPlay(activity, imageUrl, img_payment_code);
+            img_payment_code.setVisibility(View.VISIBLE);
+        } else {
+            img_payment_code.setVisibility(View.GONE);
+        }
     }
 
     public void userBaseInfo(OtcMarketInfoModel model) {

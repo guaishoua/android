@@ -13,6 +13,7 @@ import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.GlideUtils;
+import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 //待放币
@@ -28,7 +29,7 @@ public class CoinedView implements View.OnClickListener {
     private TextView tv_trade_get;
     private TextView tv_trade_coin;
 
-    private ImageView img_voucher;
+    private QMUIRadiusImageView img_voucher;
     private TextView tv_get_money_tip;
 
     private QMUIRoundButton btn_coined;
@@ -71,7 +72,7 @@ public class CoinedView implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_voucher:
-                if (!TextUtils.isEmpty(imageUrl)){
+                if (!TextUtils.isEmpty(imageUrl)) {
                     activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrl));
                 }
                 break;
@@ -99,14 +100,19 @@ public class CoinedView implements View.OnClickListener {
 
     public void uselectUserInfo(String imageUrl) {
         this.imageUrl = imageUrl;
-        GlideUtils.disPlay(activity, imageUrl, img_voucher);
+        if (!TextUtils.isEmpty(imageUrl)) {
+            GlideUtils.disPlay(activity, imageUrl, img_voucher);
+            img_voucher.setVisibility(View.VISIBLE);
+        } else {
+            img_voucher.setVisibility(View.GONE);
+        }
     }
 
     private void dealCoined() {
         if (tradeModel != null) {
             tv_order_id.setText(tradeModel.orderNo);
             tv_trade_get.setText(tradeModel.amount + " CNY");
-            tv_trade_coin.setText(tradeModel.num + " " +tradeModel.currencyName);
+            tv_trade_coin.setText(tradeModel.num + " " + tradeModel.currencyName);
             if (tradeModel.payType != null) {
                 switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
                     case 1:
