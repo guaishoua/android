@@ -163,11 +163,39 @@ public class PayedView implements View.OnClickListener {
     }
 
     public void selectPayInfoById(PayInfoModel model) {
-        if (model != null) {
-            tv_bank_name.setText(model.bankName);
-            tv_open_bank_name.setText(model.openBankName);
-            tv_open_bank_address.setText(model.openBankAdress);
-            tv_bank_id.setText(model.bankCard);
+        if (model != null && model.type!=null) {
+            switch (model.type){
+                case 1:
+                    if (model.uid != null) {
+                        mPresenter.userBaseInfo(null, model.uid);
+                    }
+
+                    img_payment_code.setVisibility(View.GONE);
+                    tv_payment_code_tip.setVisibility(View.GONE);
+                    lin_pay.setVisibility(View.VISIBLE);
+
+                    tv_bank_name.setText(model.bankName);
+                    tv_open_bank_name.setText(model.openBankName);
+                    tv_open_bank_address.setText(model.openBankAdress);
+                    tv_bank_id.setText(model.bankCard);
+                    break;
+                case 2:
+                    mPresenter.uselectUserInfo(model.weChatImg);
+
+                    img_payment_code.setVisibility(View.VISIBLE);
+                    tv_payment_code_tip.setVisibility(View.VISIBLE);
+                    tv_payment_code_tip.setText(activity.getResources().getString(R.string.please_scan_with_wx));
+                    lin_pay.setVisibility(View.GONE);
+                    break;
+                case 3:
+                    mPresenter.uselectUserInfo(model.aliPayImg);
+
+                    img_payment_code.setVisibility(View.VISIBLE);
+                    tv_payment_code_tip.setVisibility(View.VISIBLE);
+                    tv_payment_code_tip.setText(activity.getResources().getString(R.string.please_scan_with_zfb));
+                    lin_pay.setVisibility(View.GONE);
+                    break;
+            }
         }
     }
 
@@ -239,23 +267,12 @@ public class PayedView implements View.OnClickListener {
                 switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
                     case 1:
                         tv_pay_method.setText(activity.getResources().getString(R.string.yinhanngka));
-                        img_payment_code.setVisibility(View.GONE);
-                        tv_payment_code_tip.setVisibility(View.GONE);
-                        lin_pay.setVisibility(View.VISIBLE);
                         break;
                     case 2:
                         tv_pay_method.setText(activity.getResources().getString(R.string.weixin));
-                        img_payment_code.setVisibility(View.VISIBLE);
-                        tv_payment_code_tip.setVisibility(View.VISIBLE);
-                        tv_payment_code_tip.setText(activity.getResources().getString(R.string.please_scan_with_wx));
-                        lin_pay.setVisibility(View.GONE);
                         break;
                     case 3:
                         tv_pay_method.setText(activity.getResources().getString(R.string.zhifubao));
-                        img_payment_code.setVisibility(View.VISIBLE);
-                        tv_payment_code_tip.setVisibility(View.VISIBLE);
-                        tv_payment_code_tip.setText(activity.getResources().getString(R.string.please_scan_with_zfb));
-                        lin_pay.setVisibility(View.GONE);
                         break;
                 }
             }

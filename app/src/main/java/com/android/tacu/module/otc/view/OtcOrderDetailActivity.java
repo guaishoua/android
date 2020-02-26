@@ -76,7 +76,6 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
 
     private String orderNo;
     private boolean isFirst = true;
-    private OtcTradeModel tradeModel;
 
     private Handler kHandler = new Handler();
     private Runnable kRunnable = new Runnable() {
@@ -179,7 +178,6 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
 
     @Override
     public void selectTradeOne(boolean isFirst, OtcTradeModel model) {
-        this.tradeModel = model;
         if (model != null) {
             if (model.buyuid != null && isFirst) {
                 mPresenter.userBaseInfo(1, model.buyuid);
@@ -304,21 +302,6 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     payedView.selectPayInfoById(model);
                 }
                 break;
-        }
-        if (tradeModel != null && tradeModel.payType != null) {
-            switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
-                case 1:
-                    if (model.uid != null) {
-                        mPresenter.userBaseInfo(null, model.uid);
-                    }
-                    break;
-                case 2:
-                    mPresenter.uselectUserInfo(model.weChatImg);
-                    break;
-                case 3:
-                    mPresenter.uselectUserInfo(model.aliPayImg);
-                    break;
-            }
         }
     }
 
