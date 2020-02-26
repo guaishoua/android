@@ -60,7 +60,7 @@ public class OtcOrderConfirmPresenter extends BaseMvpPresenter implements OtcOrd
 
     @Override
     public void currentTime() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).currentTime(), new NetDisposableObserver<BaseModel<Long>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).currentTime(), new NetDisposableObserver<BaseModel<Long>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<Long> model) {
                 OtcOrderConfirmContract.IView view = (OtcOrderConfirmContract.IView) getView();

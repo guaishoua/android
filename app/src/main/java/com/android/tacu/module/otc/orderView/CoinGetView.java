@@ -245,13 +245,13 @@ public class CoinGetView implements View.OnClickListener {
     }
 
     private void dealTime() {
-        if (currentTime != null && tradeModel != null && tradeModel.payEndTime != null) {
+        if (currentTime != null && tradeModel != null && tradeModel.transCoinEndTime != null) {
             if (status != null && status == 9) {
                 tv_countdown.setText(activity.getResources().getString(R.string.timeouted));
             } else {
-                long payEndTime = DateUtils.string2Millis(tradeModel.payEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
-                if (payEndTime > 0) {
-                    startCountDownTimer(payEndTime);
+                long transCoinEndTime = DateUtils.string2Millis(tradeModel.transCoinEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
+                if (transCoinEndTime > 0) {
+                    startCountDownTimer(transCoinEndTime);
                 }
             }
         }

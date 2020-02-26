@@ -15,6 +15,8 @@ public class OtcManageBuySellDetailContract {
         void confirmOrderSuccess();
 
         void confirmCancelOrderSuccess();
+
+        void currentTime(Long time);
     }
 
     public interface IRecordView extends IBaseMvpView {
@@ -35,5 +37,7 @@ public class OtcManageBuySellDetailContract {
         void confirmOrder(String orderId);
 
         void confirmCancelOrder(String orderId);
+
+        void currentTime();
     }
 }

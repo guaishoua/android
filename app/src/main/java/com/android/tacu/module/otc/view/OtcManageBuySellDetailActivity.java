@@ -2,10 +2,13 @@ package com.android.tacu.module.otc.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import com.android.tacu.module.otc.model.OtcTradeListModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcManageBuySellDetailPresenter;
 import com.android.tacu.utils.CommonUtils;
+import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.UIUtils;
@@ -35,6 +39,7 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +51,8 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
     SmartRefreshLayout refreshManage;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+
+    private final long DATA_TIME = 1000;
 
     private TextView tv_left;
     private TextView tv_right;
@@ -71,6 +78,22 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
     private int start = 1;
     private List<OtcTradeAllModel> tradeModelList = new ArrayList<>();
     private Integer buyorsell;
+    private Long currentTime;//当前服务器时间戳
+    private long valueTime;
+    private TimeModel timeModel;
+
+    private SparseArray<TimeModel> timeArray = new SparseArray<>();
+
+    private Handler timeHandler = new Handler();
+    private Runnable timeRunnable = new Runnable() {
+        @Override
+        public void run() {
+            dealTime();
+            if (timeHandler != null) {
+                timeHandler.postDelayed(this, DATA_TIME);
+            }
+        }
+    };
 
     /**
      * @param orderId 广告的id
@@ -128,6 +151,26 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
     protected void onResume() {
         super.onResume();
         upload(true, true);
+        if (timeHandler != null && timeRunnable != null) {
+            timeHandler.post(timeRunnable);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (timeHandler != null && timeRunnable != null) {
+            timeHandler.removeCallbacks(timeRunnable);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (timeHandler != null && timeRunnable != null) {
+            timeHandler.removeCallbacks(timeRunnable);
+        }
+        cancelTime();
     }
 
     @Override
@@ -275,6 +318,12 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
         upload(true, true);
     }
 
+    @Override
+    public void currentTime(Long time) {
+        this.currentTime = time;
+        orderAdapter.notifyDataSetChanged();
+    }
+
     private void initHeader() {
         View headerView = View.inflate(this, R.layout.header_otc_manage_buy_sell_detail, null);
         tv_left = headerView.findViewById(R.id.tv_left);
@@ -306,6 +355,8 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
         if (start == 1 && tradeModelList != null && tradeModelList.size() > 0) {
             tradeModelList.clear();
         }
+        currentTime = null;
+        mPresenter.currentTime();
         mPresenter.orderListOne(isShowView, isTop, orderId);
     }
 
@@ -358,6 +409,15 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                         holder.setGone(R.id.btn_right, true);
 
                         holder.setText(R.id.btn_right, getResources().getString(R.string.look_detail));
+
+                        if (currentTime != null) {
+                            if (!TextUtils.isEmpty(item.tradeModel.confirmEndTime)) {
+                                valueTime = DateUtils.string2Millis(item.tradeModel.confirmEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
+                                if (valueTime > 0) {
+                                    timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_operation_countdown)));
+                                }
+                            }
+                        }
                         break;
                     case 2:
                         switch (buyorsell) {
@@ -373,6 +433,14 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                                 holder.setText(R.id.btn_right, getResources().getString(R.string.look_detail));
                                 break;
                         }
+                        if (currentTime != null) {
+                            if (!TextUtils.isEmpty(item.tradeModel.payEndTime)) {
+                                valueTime = DateUtils.string2Millis(item.tradeModel.payEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
+                                if (valueTime > 0) {
+                                    timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_operation_countdown)));
+                                }
+                            }
+                        }
                         break;
                     case 3:
                         switch (buyorsell) {
@@ -384,6 +452,14 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                                 break;
                         }
                         holder.setText(R.id.btn_right, getResources().getString(R.string.look_detail));
+                        if (currentTime != null) {
+                            if (!TextUtils.isEmpty(item.tradeModel.transCoinEndTime)) {
+                                valueTime = DateUtils.string2Millis(item.tradeModel.transCoinEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
+                                if (valueTime > 0) {
+                                    timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_operation_countdown)));
+                                }
+                            }
+                        }
                         break;
                     case 4:
                         holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_arbitration));
@@ -425,6 +501,37 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                     }
                 });
             }
+        }
+    }
+
+    private void dealTime() {
+        if (timeArray != null && timeArray.size() > 0) {
+            for (int i = 0; i < timeArray.size(); i++) {
+                timeModel = timeArray.get(timeArray.keyAt(i));
+                if (timeModel != null) {
+                    timeModel.tv.setText(DateUtils.getCountDownTime1(timeModel.millisInFuture));
+                    timeModel.millisInFuture = timeModel.millisInFuture - DATA_TIME;
+                    if (timeModel.millisInFuture <= 0) {
+                        timeArray.remove(timeArray.keyAt(i));
+                    }
+                }
+            }
+        }
+    }
+
+    private void cancelTime() {
+        if (timeArray != null && timeArray.size() > 0) {
+            timeArray.clear();
+        }
+    }
+
+    class TimeModel implements Serializable {
+        public long millisInFuture;
+        public TextView tv;
+
+        public TimeModel(long millisInFuture, TextView tv) {
+            this.millisInFuture = millisInFuture;
+            this.tv = tv;
         }
     }
 }

@@ -258,7 +258,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         break;
                     case ORDER_PAYED:
                         mPresenter.currentTime();
-                        mPresenter.selectPayInfoById(model.id);
+                        mPresenter.selectPayInfoById(model.payId);
                         break;
                     case ORDER_PAYGET:
                         mPresenter.currentTime();

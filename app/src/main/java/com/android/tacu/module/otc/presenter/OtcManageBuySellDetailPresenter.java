@@ -78,4 +78,15 @@ public class OtcManageBuySellDetailPresenter extends BaseMvpPresenter implements
             }
         });
     }
+
+    @Override
+    public void currentTime() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).currentTime(), new NetDisposableObserver<BaseModel<Long>>((IBaseMvpView) getView(), false) {
+            @Override
+            public void onNext(BaseModel<Long> model) {
+                OtcManageBuySellDetailContract.IDetailView view = (OtcManageBuySellDetailContract.IDetailView) getView();
+                view.currentTime(model.attachment);
+            }
+        });
+    }
 }
