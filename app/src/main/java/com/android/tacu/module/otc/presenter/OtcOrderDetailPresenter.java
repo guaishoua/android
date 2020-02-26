@@ -83,11 +83,33 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
 
     @Override
     public void payOrder(String orderId, String payImg) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).payOrder(orderId, payImg), new NetDisposableObserver<BaseModel<AuthOssModel>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).payOrder(orderId, payImg), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
-            public void onNext(BaseModel<AuthOssModel> model) {
+            public void onNext(BaseModel model) {
                 OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
                 wView.payOrderSuccess();
+            }
+        });
+    }
+
+    @Override
+    public void payCancelOrder(String orderId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).payCancelOrder(orderId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
+                wView.payCancelOrderSuccess();
+            }
+        });
+    }
+
+    @Override
+    public void finishOrder(String orderId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).finishOrder(orderId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
+                wView.finishOrderSuccess();
             }
         });
     }

@@ -23,6 +23,8 @@ import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcOrderDetailContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
+import com.android.tacu.module.otc.orderView.CoinGetView;
+import com.android.tacu.module.otc.orderView.CoinedView;
 import com.android.tacu.module.otc.orderView.ConfirmView;
 import com.android.tacu.module.otc.orderView.PayGetView;
 import com.android.tacu.module.otc.orderView.PayedView;
@@ -67,9 +69,9 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     //待收款
     private PayGetView payGetView;
     //待放币
-
+    private CoinedView coinedView;
     //待收币
-
+    private CoinGetView coinGetView;
     //已完成
 
     //仲裁中
@@ -165,6 +167,11 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                                             payedView.getPic(file);
                                         }
                                         break;
+                                    case ORDER_COINGET:
+                                        if (coinGetView != null) {
+                                            coinGetView.getPic(file);
+                                        }
+                                        break;
                                 }
                             }
                         }, new Consumer<Throwable>() {
@@ -224,12 +231,25 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
             }
 
             if (isFirst) {
-                if (current == ORDER_CONFIRMED) {
-                    mPresenter.currentTime();
-                }
-                if (current == ORDER_PAYED) {
-                    mPresenter.currentTime();
-                    mPresenter.selectPayInfoById(model.id);
+                switch (current) {
+                    case ORDER_CONFIRMED:
+                        mPresenter.currentTime();
+                        break;
+                    case ORDER_PAYED:
+                        mPresenter.currentTime();
+                        mPresenter.selectPayInfoById(model.id);
+                        break;
+                    case ORDER_PAYGET:
+                        mPresenter.currentTime();
+                        break;
+                    case ORDER_COINED:
+                        mPresenter.currentTime();
+                        mPresenter.uselectUserInfo(model.payInfo);
+                        break;
+                    case ORDER_COINGET:
+                        mPresenter.currentTime();
+                        mPresenter.uselectUserInfo(model.payInfo);
+                        break;
                 }
             }
 
@@ -247,6 +267,16 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 case ORDER_PAYGET:
                     if (payGetView != null) {
                         payGetView.selectTradeOne(model);
+                    }
+                    break;
+                case ORDER_COINED:
+                    if (coinedView != null) {
+                        coinedView.selectTradeOne(model);
+                    }
+                    break;
+                case ORDER_COINGET:
+                    if (coinGetView != null) {
+                        coinGetView.selectTradeOne(model);
                     }
                     break;
             }
@@ -291,6 +321,16 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     payGetView.currentTime(time);
                 }
                 break;
+            case ORDER_COINED:
+                if (coinedView != null) {
+                    coinedView.currentTime(time);
+                }
+                break;
+            case ORDER_COINGET:
+                if (coinGetView != null) {
+                    coinGetView.currentTime(time);
+                }
+                break;
         }
     }
 
@@ -311,6 +351,16 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
             case ORDER_PAYED:
                 if (payedView != null) {
                     payedView.uselectUserInfo(imageUrl);
+                }
+                break;
+            case ORDER_COINED:
+                if (coinedView != null) {
+                    coinedView.uselectUserInfo(imageUrl);
+                }
+                break;
+            case ORDER_COINGET:
+                if (coinGetView != null) {
+                    coinGetView.uselectUserInfo(imageUrl);
                 }
                 break;
         }
@@ -336,12 +386,29 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         payedView.uploadImgs(mOss, bucketName);
                     }
                     break;
+                case ORDER_COINGET:
+                    if (coinGetView != null) {
+                        coinGetView.uploadImgs(mOss, bucketName);
+                    }
+                    break;
             }
         }
     }
 
     @Override
     public void payOrderSuccess() {
+        showToastSuccess(getResources().getString(R.string.success));
+        upload(true);
+    }
+
+    @Override
+    public void payCancelOrderSuccess() {
+        showToastSuccess(getResources().getString(R.string.cancel_success));
+        finish();
+    }
+
+    @Override
+    public void finishOrderSuccess() {
         showToastSuccess(getResources().getString(R.string.success));
         upload(true);
     }
@@ -376,13 +443,16 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 break;
             case ORDER_COINED://待放币
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_coined));
-                statusView = View.inflate(this, R.layout.view_otc_order_coined, null);
-                initCoinedView(statusView);
+                coinedView = new CoinedView();
+                statusView = coinedView.create(this, mPresenter);
+                nodeProgress.setCurentNode(2);
                 break;
             case ORDER_COINGET://待收币
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_coinget));
-                statusView = View.inflate(this, R.layout.view_otc_order_coinget, null);
-                initCoinGetView(statusView);
+                coinGetView = new CoinGetView();
+                statusView = coinGetView.create(this, mPresenter);
+                nodeProgress.setCurentNode(2);
+                ;
                 break;
             case ORDER_FINISHED://已完成
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_finished));
@@ -399,20 +469,6 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
             linSwitch.removeAllViews();
             linSwitch.addView(statusView);
         }
-    }
-
-    /**
-     * 待放币
-     */
-    private void initCoinedView(View view) {
-        nodeProgress.setCurentNode(2);
-    }
-
-    /**
-     * 待收币
-     */
-    private void initCoinGetView(View view) {
-        nodeProgress.setCurentNode(2);
     }
 
     /**
@@ -441,6 +497,14 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
         if (payGetView != null) {
             payGetView.destory();
             payGetView = null;
+        }
+        if (coinedView != null) {
+            coinedView.destory();
+            coinedView = null;
+        }
+        if (coinGetView != null) {
+            coinGetView.destory();
+            coinGetView = null;
         }
     }
 }

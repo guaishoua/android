@@ -22,6 +22,10 @@ public class OtcOrderDetailContract {
         void getOssSetting(AuthOssModel model);
 
         void payOrderSuccess();
+
+        void payCancelOrderSuccess();
+
+        void finishOrderSuccess();
     }
 
     public interface IPresenter {
@@ -39,5 +43,9 @@ public class OtcOrderDetailContract {
         void getOssSetting();
 
         void payOrder(String orderId, String payImg);
+
+        void payCancelOrder(String orderId);
+
+        void finishOrder(String orderId);
     }
 }

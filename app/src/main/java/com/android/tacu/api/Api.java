@@ -1076,6 +1076,15 @@ public interface Api {
     );
 
     /**
+     * 已收款放币
+     */
+    @FormUrlEncoded
+    @POST("payOrder")
+    Observable<BaseModel> finishOrder(
+            @Field("orderId") String orderId
+    );
+
+    /**
      * 交易单列表
      */
     @FormUrlEncoded

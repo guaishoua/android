@@ -145,7 +145,7 @@
         app:qmui_radius="@dimen/dp_3">
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
-            android:id="@+id/lin_upload"
+            android:id="@+id/lin_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center_horizontal"
@@ -177,11 +177,48 @@
             android:textColorHint="@color/text_grey"
             android:textSize="@dimen/text_size_sp_14"
             app:layout_constraintDimensionRatio="W,1:2.3"
-            app:layout_constraintTop_toBottomOf="@+id/lin_upload"
+            app:layout_constraintTop_toBottomOf="@+id/lin_view"
             app:qmui_backgroundColor="@color/content_bg_color_grey"
             app:qmui_borderColor="@color/color_grey"
             app:qmui_borderWidth="@dimen/dp_1"
             app:qmui_radius="@dimen/dp_3" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+            android:id="@+id/lin_upload"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintDimensionRatio="W,1:2.3"
+            app:layout_constraintTop_toBottomOf="@+id/edit_submit_arbitration"
+            app:qmui_borderColor="@color/color_grey"
+            app:qmui_borderWidth="@dimen/dp_1"
+            app:qmui_radius="@dimen/dp_2">
+
+            <ImageView
+                android:id="@+id/img_add"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                app:srcCompat="@drawable/icon_add_grey" />
+
+            <TextView
+                android:id="@+id/tv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:gravity="center"
+                android:text="@string/upload_arbitration_tip"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_14" />
+
+            <ImageView
+                android:id="@+id/img_url"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+        </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/btn_submit_arbitration"
@@ -192,7 +229,7 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_14"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_submit_arbitration"
+            app:layout_constraintTop_toBottomOf="@id/lin_upload"
             app:layout_constraintWidth_percent="0.48"
             app:qmui_backgroundColor="@color/color_otc_unhappy"
             app:qmui_radius="@dimen/dp_3" />

@@ -20,8 +20,6 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.android.tacu.R;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.ZoomImageViewActivity;
-import com.android.tacu.module.assets.model.PayInfoModel;
-import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
@@ -30,6 +28,7 @@ import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 import com.yanzhenjie.permission.Permission;
 
 import java.io.File;
@@ -38,33 +37,29 @@ import java.util.List;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 
-//待付款
-public class PayedView implements View.OnClickListener {
+//待收币
+public class CoinGetView implements View.OnClickListener {
 
     private OtcOrderDetailActivity activity;
     private OtcOrderDetailPresenter mPresenter;
 
     private TextView tv_countdown;
     private TextView tv_order_id;
-    private TextView tv_need_pay;
     private TextView tv_pay_method;
-    private ImageView img_payment_code;
-    private TextView tv_payment_code_tip;
+    private TextView tv_trade_get;
+    private TextView tv_trade_coin;
 
-    private LinearLayout lin_pay;
-    private TextView tv_cardholder_name1;
-    private TextView tv_bank_name;
-    private TextView tv_open_bank_name;
-    private TextView tv_open_bank_address;
-    private TextView tv_bank_id;
+    private ImageView img_voucher;
+    private TextView tv_get_money_tip;
 
+    private QMUIRoundEditText edit_submit_arbitration;
     private LinearLayout lin_upload;
     private ImageView img_add;
     private TextView tv_add;
     private ImageView img_url;
 
-    private QMUIRoundButton btn_pay;
-    private QMUIRoundButton btn_giveup;
+    private QMUIRoundButton btn_submit_arbitration;
+    private QMUIRoundButton btn_return;
 
     private OtcTradeModel tradeModel;
     private Long currentTime;
@@ -80,47 +75,40 @@ public class PayedView implements View.OnClickListener {
     public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter) {
         this.activity = activity;
         this.mPresenter = mPresenter;
-        View statusView = View.inflate(activity, R.layout.view_otc_order_payed, null);
-        initPayedView(statusView);
+        View statusView = View.inflate(activity, R.layout.view_otc_order_coinget, null);
+        initCoinGetView(statusView);
         return statusView;
     }
 
-    /**
-     * 待付款
-     */
-    private void initPayedView(View view) {
-        tv_countdown = view.findViewById(R.id.tv_countdown);
+    private void initCoinGetView(View view) {
+        tv_countdown = view.findViewById(R.id.tv_trade_coin);
         tv_order_id = view.findViewById(R.id.tv_order_id);
-        tv_need_pay = view.findViewById(R.id.tv_need_pay);
         tv_pay_method = view.findViewById(R.id.tv_pay_method);
-        img_payment_code = view.findViewById(R.id.img_payment_code);
-        tv_payment_code_tip = view.findViewById(R.id.tv_payment_code_tip);
+        tv_trade_get = view.findViewById(R.id.tv_trade_get);
+        tv_trade_coin = view.findViewById(R.id.tv_trade_coin);
 
-        lin_pay = view.findViewById(R.id.lin_pay);
-        tv_cardholder_name1 = view.findViewById(R.id.tv_cardholder_name1);
-        tv_bank_name = view.findViewById(R.id.tv_bank_name);
-        tv_open_bank_name = view.findViewById(R.id.tv_open_bank_name);
-        tv_open_bank_address = view.findViewById(R.id.tv_open_bank_address);
-        tv_bank_id = view.findViewById(R.id.tv_bank_id);
+        img_voucher = view.findViewById(R.id.img_voucher);
+        tv_get_money_tip = view.findViewById(R.id.tv_get_money_tip);
 
+        edit_submit_arbitration = view.findViewById(R.id.edit_submit_arbitration);
         lin_upload = view.findViewById(R.id.lin_upload);
         img_add = view.findViewById(R.id.img_add);
         tv_add = view.findViewById(R.id.tv_add);
         img_url = view.findViewById(R.id.img_url);
 
-        btn_pay = view.findViewById(R.id.btn_pay);
-        btn_giveup = view.findViewById(R.id.btn_giveup);
+        btn_submit_arbitration = view.findViewById(R.id.btn_coined);
+        btn_return = view.findViewById(R.id.btn_return);
 
-        img_payment_code.setOnClickListener(this);
         lin_upload.setOnClickListener(this);
-        btn_pay.setOnClickListener(this);
-        btn_giveup.setOnClickListener(this);
+        img_voucher.setOnClickListener(this);
+        btn_submit_arbitration.setOnClickListener(this);
+        btn_return.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.img_payment_code:
+            case R.id.img_voucher:
                 activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrl));
                 break;
             case R.id.lin_upload:
@@ -138,25 +126,23 @@ public class PayedView implements View.OnClickListener {
                     }
                 }, Permission.Group.STORAGE, Permission.Group.CAMERA);
                 break;
-            case R.id.btn_pay:
-                if (uploadFile == null) {
-                    activity.showToastError(activity.getResources().getString(R.string.please_upload_your_payimg));
-                    return;
+            case R.id.btn_submit_arbitration:
+                if (uploadFile != null) {
+                    activity.showLoadingView();
+                    mPresenter.getOssSetting();
+                } else {
+
                 }
-                activity.showLoadingView();
-                mPresenter.getOssSetting();
                 break;
-            case R.id.btn_giveup:
-                if (tradeModel != null) {
-                    mPresenter.payCancelOrder(tradeModel.id);
-                }
+            case R.id.btn_return:
+                activity.finish();
                 break;
         }
     }
 
     public void selectTradeOne(OtcTradeModel model) {
         this.tradeModel = model;
-        dealPayed();
+        dealCoined();
         dealTime();
     }
 
@@ -165,52 +151,9 @@ public class PayedView implements View.OnClickListener {
         dealTime();
     }
 
-    public void selectPayInfoById(PayInfoModel model) {
-        if (model != null && model.type != null) {
-            switch (model.type) {
-                case 1:
-                    if (model.uid != null) {
-                        mPresenter.userBaseInfo(null, model.uid);
-                    }
-
-                    img_payment_code.setVisibility(View.GONE);
-                    tv_payment_code_tip.setVisibility(View.GONE);
-                    lin_pay.setVisibility(View.VISIBLE);
-
-                    tv_bank_name.setText(model.bankName);
-                    tv_open_bank_name.setText(model.openBankName);
-                    tv_open_bank_address.setText(model.openBankAdress);
-                    tv_bank_id.setText(model.bankCard);
-                    break;
-                case 2:
-                    mPresenter.uselectUserInfo(model.weChatImg);
-
-                    img_payment_code.setVisibility(View.VISIBLE);
-                    tv_payment_code_tip.setVisibility(View.VISIBLE);
-                    tv_payment_code_tip.setText(activity.getResources().getString(R.string.please_scan_with_wx));
-                    lin_pay.setVisibility(View.GONE);
-                    break;
-                case 3:
-                    mPresenter.uselectUserInfo(model.aliPayImg);
-
-                    img_payment_code.setVisibility(View.VISIBLE);
-                    tv_payment_code_tip.setVisibility(View.VISIBLE);
-                    tv_payment_code_tip.setText(activity.getResources().getString(R.string.please_scan_with_zfb));
-                    lin_pay.setVisibility(View.GONE);
-                    break;
-            }
-        }
-    }
-
     public void uselectUserInfo(String imageUrl) {
         this.imageUrl = imageUrl;
-        GlideUtils.disPlay(activity, imageUrl, img_payment_code);
-    }
-
-    public void userBaseInfo(OtcMarketInfoModel model) {
-        if (model != null) {
-            tv_cardholder_name1.setText(model.firstName + model.secondName);
-        }
+        GlideUtils.disPlay(activity, imageUrl, img_voucher);
     }
 
     public void getPic(File file) {
@@ -253,6 +196,30 @@ public class PayedView implements View.OnClickListener {
         }
     }
 
+    private void dealCoined() {
+        if (tradeModel != null) {
+            tv_order_id.setText(tradeModel.orderNo);
+            tv_trade_get.setText(tradeModel.amount + " CNY");
+            tv_trade_coin.setText(tradeModel.num + tradeModel.currencyName);
+            if (tradeModel.payType != null) {
+                switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
+                    case 1:
+                        tv_pay_method.setText(activity.getResources().getString(R.string.yinhanngka));
+                        tv_get_money_tip.setText(activity.getResources().getString(R.string.please_confirm_yhk_get_money));
+                        break;
+                    case 2:
+                        tv_pay_method.setText(activity.getResources().getString(R.string.weixin));
+                        tv_get_money_tip.setText(activity.getResources().getString(R.string.please_confirm_wx_get_money));
+                        break;
+                    case 3:
+                        tv_pay_method.setText(activity.getResources().getString(R.string.zhifubao));
+                        tv_get_money_tip.setText(activity.getResources().getString(R.string.please_confirm_zfb_get_money));
+                        break;
+                }
+            }
+        }
+    }
+
     private void dealTime() {
         if (currentTime != null && tradeModel != null && tradeModel.payEndTime != null) {
             long payEndTime = DateUtils.string2Millis(tradeModel.payEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
@@ -262,32 +229,12 @@ public class PayedView implements View.OnClickListener {
         }
     }
 
-    private void dealPayed() {
-        if (tradeModel != null) {
-            tv_order_id.setText(tradeModel.orderNo);
-            tv_need_pay.setText(tradeModel.amount + " CNY");
-            if (tradeModel.payType != null) {
-                switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
-                    case 1:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.yinhanngka));
-                        break;
-                    case 2:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.weixin));
-                        break;
-                    case 3:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.zhifubao));
-                        break;
-                }
-            }
-        }
-    }
-
     private void dealValue(final int flag) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 if (flag == 1 && tradeModel != null) {
-                    mPresenter.payOrder(tradeModel.id, uploadImageName);
+
                 }
                 activity.hideLoadingView();
             }
