@@ -95,7 +95,7 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
             ((QMUIRoundButtonDrawable) rl_people_bg.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_sell_bg));
             tv_people_pay.setTextColor(ContextCompat.getColorStateList(this, R.color.color_otc_sell_bg));
             if (model != null) {
-                tv_people_pay.setText(model.num + model.currencyName);
+                tv_people_pay.setText(model.num + " " +model.currencyName);
             }
         }
     }

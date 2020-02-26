@@ -53,7 +53,8 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     private static final int ORDER_COINED = 4;//待放币
     private static final int ORDER_COINGET = 5;//待收币
     private static final int ORDER_FINISHED = 6;//已完成
-    private static final int ORDER_ARBITRATION = 7;//仲裁中
+    public static final int ORDER_ARBITRATION_BUY = 7;//买方仲裁中
+    public static final int ORDER_ARBITRATION_SELL = 8;//买方仲裁中
     //接口30s轮训一次
     private static final int KREFRESH_TIME = 1000 * 30;
 
@@ -175,7 +176,8 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                                             coinGetView.getPic(file);
                                         }
                                         break;
-                                    case ORDER_ARBITRATION:
+                                    case ORDER_ARBITRATION_BUY:
+                                    case ORDER_ARBITRATION_SELL:
                                         if (arbitrationView != null) {
                                             arbitrationView.getPic(file);
                                         }
@@ -226,7 +228,11 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         }
                         break;
                     case 4:
-                        current = ORDER_ARBITRATION;
+                        if (model.buyuid == spUtil.getUserUid()) {
+                            current = ORDER_ARBITRATION_BUY;
+                        } else if (model.selluid == spUtil.getUserUid()) {
+                            current = ORDER_ARBITRATION_SELL;
+                        }
                         break;
                     case 5:
                     case 6:
@@ -268,7 +274,8 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     case ORDER_FINISHED:
                         mPresenter.uselectUserInfo(model.payInfo);
                         break;
-                    case ORDER_ARBITRATION:
+                    case ORDER_ARBITRATION_BUY:
+                    case ORDER_ARBITRATION_SELL:
                         mPresenter.uselectUserInfo(model.payInfo);
                         break;
                 }
@@ -305,7 +312,8 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         finishView.selectTradeOne(model);
                     }
                     break;
-                case ORDER_ARBITRATION:
+                case ORDER_ARBITRATION_BUY:
+                case ORDER_ARBITRATION_SELL:
                     if (arbitrationView != null) {
                         arbitrationView.selectTradeOne(model);
                     }
@@ -399,7 +407,8 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     finishView.uselectUserInfo(imageUrl);
                 }
                 break;
-            case ORDER_ARBITRATION:
+            case ORDER_ARBITRATION_BUY:
+            case ORDER_ARBITRATION_SELL:
                 if (arbitrationView != null) {
                     arbitrationView.uselectUserInfo(imageUrl);
                 }
@@ -410,7 +419,8 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     @Override
     public void uselectUserInfoArbitration(String imageUrl) {
         switch (current) {
-            case ORDER_ARBITRATION:
+            case ORDER_ARBITRATION_BUY:
+            case ORDER_ARBITRATION_SELL:
                 if (arbitrationView != null) {
                     arbitrationView.uselectUserInfoArbitration(imageUrl);
                 }
@@ -443,7 +453,8 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         coinGetView.uploadImgs(mOss, bucketName);
                     }
                     break;
-                case ORDER_ARBITRATION:
+                case ORDER_ARBITRATION_BUY:
+                case ORDER_ARBITRATION_SELL:
                     if (arbitrationView != null) {
                         arbitrationView.uploadImgs(mOss, bucketName);
                     }
@@ -529,10 +540,11 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 statusView = finishView.create(this, status);
                 nodeProgress.setCurentNode(4);
                 break;
-            case ORDER_ARBITRATION://仲裁中
+            case ORDER_ARBITRATION_BUY://仲裁中
+            case ORDER_ARBITRATION_SELL:
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_arbitration));
                 arbitrationView = new ArbitrationView();
-                statusView = arbitrationView.create(this, mPresenter);
+                statusView = arbitrationView.create(this, mPresenter, current);
                 nodeProgress.setCurentNode(4);
                 break;
         }

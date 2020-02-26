@@ -3,6 +3,7 @@ package com.android.tacu.module.otc.orderView;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.otc.model.OtcTradeModel;
@@ -29,6 +31,7 @@ import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 import com.yanzhenjie.permission.Permission;
 
@@ -212,7 +215,7 @@ public class CoinGetView implements View.OnClickListener {
     private void dealCoinGet() {
         if (tradeModel != null) {
             tv_order_id.setText(tradeModel.orderNo);
-            tv_trade_get.setText(tradeModel.amount + " CNY");
+            tv_trade_get.setText(tradeModel.amount + " " + Constant.CNY);
             tv_trade_coin.setText(tradeModel.num + " " + tradeModel.currencyName);
             if (tradeModel.payType != null) {
                 switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
@@ -229,6 +232,14 @@ public class CoinGetView implements View.OnClickListener {
                         tv_get_money_tip.setText(activity.getResources().getString(R.string.please_confirm_zfb_get_money));
                         break;
                 }
+            }
+
+            if (status != null && status != 9) {
+                btn_submit_arbitration.setEnabled(true);
+                ((QMUIRoundButtonDrawable) btn_submit_arbitration.getBackground()).setBgData(ContextCompat.getColorStateList(activity, R.color.color_default));
+            } else {
+                btn_submit_arbitration.setEnabled(false);
+                ((QMUIRoundButtonDrawable) btn_submit_arbitration.getBackground()).setBgData(ContextCompat.getColorStateList(activity, R.color.color_grey));
             }
         }
     }

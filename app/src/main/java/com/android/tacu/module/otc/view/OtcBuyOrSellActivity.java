@@ -337,9 +337,9 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     public void setOrderInfo() {
         if (allModel != null) {
             OtcMarketOrderModel orderModel = allModel.orderModel;
-            String valueWei = "CNY";
+            String valueWei = " "+Constant.CNY;
             if (orderModel.money != null && orderModel.money == 1) {
-                valueWei = " CNY";
+                valueWei = " " + Constant.CNY;
             }
             tv_single_price.setText(orderModel.price + valueWei);
             tv_plan_buy_amount.setText(orderModel.num + " " + orderModel.currencyName);

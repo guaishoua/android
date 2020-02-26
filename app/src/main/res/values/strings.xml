@@ -610,6 +610,7 @@
     <string name="otc_giveup_pay">放弃支付</string>'
     <string name="otc_coin_timeout">放币超时</string>
     <string name="timeouted">已超时</string>
+    <string name="pay_timeout">支付超时</string>
     <string name="market_order">生成订单</string>
     <string name="buyer_pay">买方付款</string>
     <string name="seller_coin">卖方放币</string>
@@ -770,7 +771,9 @@
     <string name="single_limit_range">单笔限价区间：</string>
     <string name="finished_trade">已完成交易：</string>
     <string name="success_buy">成功购买：</string>
+    <string name="success_sell">成功卖出：</string>
     <string name="pay_after2">已支付：</string>
+    <string name="get_money">已收款：</string>
     <string name="surplus_total">剩余总量：</string>
     <string name="yhk_pay">银行卡支付：</string>
     <string name="wx_pay">微信支付：</string>
@@ -785,6 +788,8 @@
     <string name="order_status">订单状态</string>
     <string name="create_otc_order">创建广告</string>
     <string name="quantity_closed">已成交数量</string>
+    <string name="look_detail">查看详情</string>
+    <string name="pay1">付款</string>
 
     <!--绑定支付-->
     <string name="binding_pay_info">绑定支付信息</string>

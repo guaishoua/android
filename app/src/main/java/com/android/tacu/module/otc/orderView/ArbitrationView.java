@@ -17,6 +17,7 @@ import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.otc.model.OtcTradeModel;
@@ -40,6 +41,7 @@ public class ArbitrationView implements View.OnClickListener {
 
     private OtcOrderDetailActivity activity;
     private OtcOrderDetailPresenter mPresenter;
+    private int status;
 
     private TextView tv_order_id;
     private TextView tv_pay_method;
@@ -76,7 +78,7 @@ public class ArbitrationView implements View.OnClickListener {
 
     private Handler mHandler = new Handler();
 
-    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter) {
+    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter, int status) {
         this.activity = activity;
         this.mPresenter = mPresenter;
         View statusView = View.inflate(activity, R.layout.view_otc_order_arbitration, null);
@@ -109,6 +111,16 @@ public class ArbitrationView implements View.OnClickListener {
 
         btn_submit_arbitration = view.findViewById(R.id.btn_submit_arbitration);
         btn_return = view.findViewById(R.id.btn_return);
+
+        if (status == OtcOrderDetailActivity.ORDER_ARBITRATION_BUY) {
+            edit_submit_arbitration.setVisibility(View.VISIBLE);
+            lin_upload.setVisibility(View.VISIBLE);
+            btn_submit_arbitration.setVisibility(View.VISIBLE);
+        } else if (status == OtcOrderDetailActivity.ORDER_ARBITRATION_SELL) {
+            edit_submit_arbitration.setVisibility(View.GONE);
+            lin_upload.setVisibility(View.GONE);
+            btn_submit_arbitration.setVisibility(View.GONE);
+        }
 
         img_voucher.setOnClickListener(this);
         img_voucher_arbitration_reason.setOnClickListener(this);
@@ -230,7 +242,7 @@ public class ArbitrationView implements View.OnClickListener {
     private void dealArbitration() {
         if (tradeModel != null) {
             tv_order_id.setText(tradeModel.orderNo);
-            tv_trade_get.setText(tradeModel.amount + " CNY");
+            tv_trade_get.setText(tradeModel.amount + " " + Constant.CNY);
             tv_trade_coin.setText(tradeModel.num + " " + tradeModel.currencyName);
             if (tradeModel.payType != null) {
                 switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
@@ -263,6 +275,7 @@ public class ArbitrationView implements View.OnClickListener {
             if (!TextUtils.isEmpty(tradeModel.arbitrateImg)) {
                 mPresenter.uselectUserInfoArbitration(tradeModel.arbitrateImg);
             }
+
         }
     }
 

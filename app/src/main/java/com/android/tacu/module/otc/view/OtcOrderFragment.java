@@ -121,7 +121,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         }
     }
 
-
     @Override
     public void tradeList(OtcTradeListModel model) {
         if (model != null) {
@@ -261,7 +260,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                 holder.setText(R.id.tv_order_number, item.tradeModel.currencyName + " (" + item.tradeModel.orderNo + ")");
                 holder.setText(R.id.tv_time, item.tradeModel.createTime);
 
-                holder.setText(R.id.tv_amount_title, getResources().getString(R.string.amount) + item.tradeModel.currencyName);
+                holder.setText(R.id.tv_amount_title, getResources().getString(R.string.amount) + " " +item.tradeModel.currencyName);
                 holder.setText(R.id.tv_amount, item.tradeModel.num);
 
                 holder.setText(R.id.tv_price_title, getResources().getString(R.string.amount_price) + "(CNY)");

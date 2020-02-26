@@ -18,6 +18,7 @@ import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.assets.model.PayInfoModel;
@@ -273,7 +274,7 @@ public class PayedView implements View.OnClickListener {
     private void dealPayed() {
         if (tradeModel != null) {
             tv_order_id.setText(tradeModel.orderNo);
-            tv_need_pay.setText(tradeModel.amount + " CNY");
+            tv_need_pay.setText(tradeModel.amount + " " + Constant.CNY);
             if (tradeModel.payType != null) {
                 switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
                     case 1:

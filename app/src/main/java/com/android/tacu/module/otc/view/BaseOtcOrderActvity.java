@@ -219,9 +219,9 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
     }
 
     private void setBuyPayInfoString(OtcMarketOrderAllModel allModel, String amount) {
-        String valueWei = "CNY";
+        String valueWei = " " + Constant.CNY;
         if (allModel != null && allModel.orderModel != null && allModel.orderModel.money != null && allModel.orderModel.money == 1) {
-            valueWei = "CNY";
+            valueWei = " " + Constant.CNY;
         }
         tv_buyer_pay.setText(amount + " " + valueWei);
     }
@@ -236,7 +236,7 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
 
     public void setBuyPayInfoString(OtcTradeModel model) {
         if (model != null) {
-            tv_buyer_pay.setText(model.amount + " CNY");
+            tv_buyer_pay.setText(model.amount + " " + Constant.CNY);
         }
     }
 

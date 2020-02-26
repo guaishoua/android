@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
@@ -111,7 +112,7 @@ public class CoinedView implements View.OnClickListener {
     private void dealCoined() {
         if (tradeModel != null) {
             tv_order_id.setText(tradeModel.orderNo);
-            tv_trade_get.setText(tradeModel.amount + " CNY");
+            tv_trade_get.setText(tradeModel.amount + " " + Constant.CNY);
             tv_trade_coin.setText(tradeModel.num + " " + tradeModel.currencyName);
             if (tradeModel.payType != null) {
                 switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝

@@ -1095,7 +1095,7 @@ public interface Api {
             @Field("start") Integer start,
             @Field("size") Integer size,
             @Field("buyorsell") Integer buyorsell,//1买2卖
-            @Field("status") Integer status // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成  11 (1,2,3)12仲裁成功 13仲裁失败  14 (5,6,7,8,10,12,13) 15(3,9)
+            @Field("status") Integer status // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成  11 (1,2,3)12仲裁成功 13仲裁失败  14 (5,6,7,8,10,12,13) 15(3,9) 16（1,2,3,4,9)
     );
 
     /**
@@ -1151,5 +1151,16 @@ public interface Api {
             @Field("id") String id,
             @Field("beArbitrateExp") String beArbitrateExp,//申诉说明
             @Field("beArbitrateImg") String beArbitrateImg//图片
+    );
+
+    /**
+     * 根据广告id查询交易列表
+     */
+    @FormUrlEncoded
+    @POST("tradeListByOrder")
+    Observable<BaseModel<OtcTradeListModel>> tradeListByOrder(
+            @Field("orderId") String orderId,
+            @Field("start") Integer start,
+            @Field("size") Integer size
     );
 }

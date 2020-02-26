@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcManageContract;
 import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
@@ -164,7 +165,7 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
         }
 
         @Override
-        protected void convert(BaseViewHolder holder, OtcMarketOrderModel item) {
+        protected void convert(BaseViewHolder holder, final OtcMarketOrderModel item) {
             holder.setText(R.id.tv_coin_name, item.currencyName);
             if (item.buyorsell != null && item.buyorsell == 1) {
                 holder.setText(R.id.tv_status, getResources().getString(R.string.buy));
@@ -199,13 +200,20 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
             holder.setText(R.id.tv_surplus_amount_title, getResources().getString(R.string.biao_surplus_num) + "(" + item.currencyName + ")");
             holder.setText(R.id.tv_surplus_amount, item.remainAmount);
 
-            String valueWei = "CNY";
+            String valueWei = " " + Constant.CNY;
             if (item.money == 1) {
-                valueWei = "CNY";
+                valueWei = " " + Constant.CNY;
             }
             holder.setText(R.id.tv_total_value_title, getResources().getString(R.string.total_value) + "(" + valueWei + ")");
             holder.setText(R.id.tv_total_value, item.amount);
             holder.setText(R.id.tv_trade_limit, item.lowLimit + "~" + item.highLimit);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.id));
+                }
+            });
         }
     }
 }

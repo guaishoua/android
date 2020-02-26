@@ -103,7 +103,7 @@ public class OtcOrderConfirmActivity extends BaseOtcHalfOrderActvity<OtcOrderCon
                 isBuy = false;
             }
             if (isBuy != null) {
-                jumpTo(OtcManageBuySellDetailActivity.createActivity(this, isBuy));
+                jumpTo(OtcManageBuySellDetailActivity.createActivity(this, tradeModel.orderId));
             }
         }
     }
@@ -156,7 +156,7 @@ public class OtcOrderConfirmActivity extends BaseOtcHalfOrderActvity<OtcOrderCon
                 mPresenter.orderListOne(model.orderId);
             }
 
-            tv_current_trade_amount.setText(model.num + model.currencyName);
+            tv_current_trade_amount.setText(model.num + " " + model.currencyName);
             tv_current_trade_price.setText(model.amount + "CNY");
             if (model.payType != null) {
                 switch (model.payType) {//支付类型 1 银行 2微信3支付宝
@@ -211,8 +211,8 @@ public class OtcOrderConfirmActivity extends BaseOtcHalfOrderActvity<OtcOrderCon
 
     private void dealValueNum() {
         if (model != null && model.orderModel != null && model.orderModel.remainAmount != null && tradeModel != null) {
-            double value = Double.parseDouble(model.orderModel.remainAmount) - Double.parseDouble(tradeModel.num);
-            tv_completed_transaction_advertising_balance.setText(FormatterUtils.getFormatValue(value) + tradeModel.currencyName);
+            double value = Double.parseDouble(model.orderModel.remainAmount);
+            tv_completed_transaction_advertising_balance.setText(FormatterUtils.getFormatValue(value) + " " + tradeModel.currencyName);
         }
     }
 

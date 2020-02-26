@@ -19,6 +19,7 @@ import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.OTCListVisibleHintEvent;
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcMarketBuySellContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
@@ -393,9 +394,9 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
             if (item.orderModel != null) {
                 holder.setText(R.id.tv_surplus, item.orderModel.remainAmount + "/" + item.orderModel.amount + " " + currencyNameEn);
 
-                String moneyWei = "";
+                String moneyWei = " " + Constant.CNY;
                 if (item.orderModel.money != null && item.orderModel.money == 1) {
-                    moneyWei = "CNY";
+                    moneyWei = " " + Constant.CNY;
                 }
                 holder.setText(R.id.tv_single_quota, item.orderModel.lowLimit + "~" + item.orderModel.highLimit + " " + moneyWei);
                 holder.setText(R.id.tv_single_price, item.orderModel.price + " " + moneyWei);
@@ -429,7 +430,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 @Override
                 public void onClick(View v) {
                     if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
-                        jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), isBuy));
+                        jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
                     } else {
                         jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
                     }

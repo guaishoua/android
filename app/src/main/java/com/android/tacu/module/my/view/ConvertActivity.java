@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
+import com.android.tacu.module.assets.view.AssetsActivity;
+import com.android.tacu.module.assets.view.AssetsCenterActivity;
 import com.android.tacu.module.main.view.MainActivity;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.UIUtils;
@@ -155,6 +157,7 @@ public class ConvertActivity extends BaseActivity {
 
     private void restartActivity() {
         activityManage.finishActivity(MainActivity.class);
+        activityManage.finishActivity(AssetsCenterActivity.class);
         Intent[] intents = {new Intent(this, MainActivity.class), new Intent(this, ConvertActivity.class)};
         startActivities(intents);
         finish();

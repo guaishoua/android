@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
@@ -94,10 +95,10 @@ public class FinishView implements View.OnClickListener {
 
     public void uselectUserInfo(String imageUrl) {
         this.imageUrl = imageUrl;
-        if (!TextUtils.isEmpty(imageUrl)){
+        if (!TextUtils.isEmpty(imageUrl)) {
             GlideUtils.disPlay(activity, imageUrl, img_voucher);
             img_voucher.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             img_voucher.setVisibility(View.GONE);
         }
     }
@@ -105,7 +106,7 @@ public class FinishView implements View.OnClickListener {
     private void dealFinish() {
         if (tradeModel != null) {
             tv_order_id.setText(tradeModel.orderNo);
-            tv_trade_get.setText(tradeModel.amount + " CNY");
+            tv_trade_get.setText(tradeModel.amount + " " + Constant.CNY);
             tv_trade_coin.setText(tradeModel.num + " " + tradeModel.currencyName);
             if (tradeModel.payType != null) {
                 switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
