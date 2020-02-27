@@ -35,6 +35,7 @@ import com.android.tacu.widget.popupwindow.ListPopWindow;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
+import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
@@ -117,8 +118,8 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
 
     @Override
     protected void initData(View view) {
-        CustomTextHeaderView header = new CustomTextHeaderView(getContext());
-        header.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
+        MaterialHeader header = new MaterialHeader(getContext());
+        header.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.color_default));
         refreshlayout.setRefreshHeader(header);
         refreshlayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(getContext(), R.color.color_default)));
         refreshlayout.setEnableLoadmore(false);
@@ -135,14 +136,13 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         });
 
         mAdapter = new OtcMarketBuySellAdapter();
-        mAdapter.setHeaderFooterEmpty(true, false);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.item_recyclerview_divider));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(mAdapter);
 
-        initHeader();
+        initHeader(view);
     }
 
     @Override
@@ -293,20 +293,17 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         mPresenter.orderList(isShowViewing, type, currencyId, start, 10, payType, isBuy ? 2 : 1);
     }
 
-    private void initHeader() {
-        View headerView = View.inflate(getContext(), R.layout.header_otc_market_buy_sell, null);
-        tv_price_sort = headerView.findViewById(R.id.tv_price_sort);
-        tv_surplus_amount_sort = headerView.findViewById(R.id.tv_surplus_amount_sort);
-        tv_quota_sort = headerView.findViewById(R.id.tv_quota_sort);
-        tv_all_manner_sort = headerView.findViewById(R.id.tv_all_manner_sort);
-        view_flag = headerView.findViewById(R.id.view_flag);
+    private void initHeader(View view) {
+        tv_price_sort = view.findViewById(R.id.tv_price_sort);
+        tv_surplus_amount_sort = view.findViewById(R.id.tv_surplus_amount_sort);
+        tv_quota_sort = view.findViewById(R.id.tv_quota_sort);
+        tv_all_manner_sort = view.findViewById(R.id.tv_all_manner_sort);
+        view_flag = view.findViewById(R.id.view_flag);
 
         tv_price_sort.setOnClickListener(this);
         tv_surplus_amount_sort.setOnClickListener(this);
         tv_quota_sort.setOnClickListener(this);
         tv_all_manner_sort.setOnClickListener(this);
-
-        mAdapter.addHeaderView(headerView);
     }
 
     private void setSortView(TextView tv, int status) {

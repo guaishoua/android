@@ -71,12 +71,12 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
     }
 
     @Override
-    public void uselectUserInfoArbitration(String headImg) {
+    public void uselectUserInfoArbitration(final int type, String headImg) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).uselectUserInfo(headImg), new NetDisposableObserver<BaseModel<String>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<String> o) {
                 OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
-                wView.uselectUserInfoArbitration(o.attachment);
+                wView.uselectUserInfoArbitration(type, o.attachment);
             }
         });
     }

@@ -70,22 +70,6 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
     @BindView(R.id.tv_buyer_pay)
     TextView tv_buyer_pay;
 
-    public void setValue(boolean isBuy, OtcMarketOrderAllModel allModel, String num, String amount) {
-        if (isBuy) {
-            if (allModel != null && allModel.infoModel != null) {
-                setSellValue(allModel.infoModel);
-            }
-            setBuyValueLocal();
-        } else {
-            setSellValueLocal();
-            if (allModel != null && allModel.infoModel != null) {
-                setBuyValue(allModel.infoModel);
-            }
-        }
-        setBuyPayInfoString(allModel, amount);
-        setSellPayInfoString(allModel, num);
-    }
-
     public void setSellValue(OtcMarketInfoModel infoModel) {
         if (infoModel != null) {
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_seller);
@@ -117,38 +101,6 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
             } else {
                 img_seller_video_auth.setImageResource(R.drawable.icon_auth_failure);
             }
-        }
-    }
-
-    private void setSellValueLocal() {
-        GlideUtils.disPlay(this, CommonUtils.getHead(spUtil.getHeadImg()), img_seller);
-        tv_seller_nickname.setText(spUtil.getNickName() + "(" + spUtil.getKYCName() + ")");
-        if (spUtil.getVip() != 0) {
-            img_seller_vip.setImageResource(R.mipmap.img_vip_green);
-        } else if (spUtil.getApplyMerchantStatus() == 2) {
-            img_seller_vip.setImageResource(R.mipmap.img_vip_grey);
-        } else if (spUtil.getApplyAuthMerchantStatus() == 2) {
-            img_seller_vip.setImageResource(R.drawable.icon_vip);
-        }
-        if (spUtil.getPhoneStatus()) {
-            img_seller_phone_auth.setImageResource(R.drawable.icon_auth_success);
-        } else {
-            img_seller_phone_auth.setImageResource(R.drawable.icon_auth_failure);
-        }
-        if (spUtil.getIsAuthSenior() >= 2) {
-            img_seller_truenname_auth.setImageResource(R.drawable.icon_auth_success);
-        } else {
-            img_seller_truenname_auth.setImageResource(R.drawable.icon_auth_failure);
-        }
-        if (spUtil.getEmailStatus()) {
-            img_seller_email_auth.setImageResource(R.drawable.icon_auth_success);
-        } else {
-            img_seller_email_auth.setImageResource(R.drawable.icon_auth_failure);
-        }
-        if ((spUtil.getApplyMerchantStatus() == 2) || (spUtil.getApplyAuthMerchantStatus() == 2)) {
-            img_seller_video_auth.setImageResource(R.drawable.icon_auth_success);
-        } else {
-            img_seller_video_auth.setImageResource(R.drawable.icon_auth_failure);
         }
     }
 
@@ -186,39 +138,7 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
         }
     }
 
-    private void setBuyValueLocal() {
-        GlideUtils.disPlay(this, CommonUtils.getHead(spUtil.getHeadImg()), img_buyer);
-        tv_buyer_nickname.setText(spUtil.getNickName() + "(" + spUtil.getKYCName() + ")");
-        if (spUtil.getVip() != 0) {
-            img_buyer_vip.setImageResource(R.mipmap.img_vip_green);
-        } else if (spUtil.getApplyMerchantStatus() == 2) {
-            img_buyer_vip.setImageResource(R.mipmap.img_vip_grey);
-        } else if (spUtil.getApplyAuthMerchantStatus() == 2) {
-            img_buyer_vip.setImageResource(R.drawable.icon_vip);
-        }
-        if (spUtil.getPhoneStatus()) {
-            img_buyer_phone_auth.setImageResource(R.drawable.icon_auth_success);
-        } else {
-            img_buyer_phone_auth.setImageResource(R.drawable.icon_auth_failure);
-        }
-        if (spUtil.getIsAuthSenior() >= 2) {
-            img_buyer_truenname_auth.setImageResource(R.drawable.icon_auth_success);
-        } else {
-            img_buyer_truenname_auth.setImageResource(R.drawable.icon_auth_failure);
-        }
-        if (spUtil.getEmailStatus()) {
-            img_buyer_email_auth.setImageResource(R.drawable.icon_auth_success);
-        } else {
-            img_buyer_email_auth.setImageResource(R.drawable.icon_auth_failure);
-        }
-        if ((spUtil.getApplyMerchantStatus() == 2) || (spUtil.getApplyAuthMerchantStatus() == 2)) {
-            img_buyer_video_auth.setImageResource(R.drawable.icon_auth_success);
-        } else {
-            img_buyer_video_auth.setImageResource(R.drawable.icon_auth_failure);
-        }
-    }
-
-    private void setBuyPayInfoString(OtcMarketOrderAllModel allModel, String amount) {
+    public void setBuyPayInfoString(OtcMarketOrderAllModel allModel, String amount) {
         String valueWei = " " + Constant.CNY;
         if (allModel != null && allModel.orderModel != null && allModel.orderModel.money != null && allModel.orderModel.money == 1) {
             valueWei = " " + Constant.CNY;
@@ -226,12 +146,10 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
         tv_buyer_pay.setText(amount + " " + valueWei);
     }
 
-    private void setSellPayInfoString(OtcMarketOrderAllModel allModel, String num) {
-        String valueCoin = Constant.OTC_ACU;
-        if (allModel != null && allModel.orderModel != null && allModel.orderModel.currencyName != null && !TextUtils.isEmpty(allModel.orderModel.currencyName)) {
-            valueCoin = allModel.orderModel.currencyName;
+    public void setSellPayInfoString(OtcMarketOrderAllModel allModel, String num) {
+        if (allModel != null && allModel.orderModel != null) {
+            tv_seller_pay.setText(num + " " + allModel.orderModel.currencyName);
         }
-        tv_seller_pay.setText(num + " " + valueCoin);
     }
 
     public void setBuyPayInfoString(OtcTradeModel model) {

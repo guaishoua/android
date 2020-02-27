@@ -18,10 +18,10 @@ import com.android.tacu.R;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.view.BindingPayInfoActivity;
 import com.android.tacu.module.otc.contract.OtcOrderCreateContract;
+import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderModel;
 import com.android.tacu.module.otc.presenter.OtcOrderCreatePresenter;
-import com.android.tacu.utils.LogUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
@@ -85,12 +85,29 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
 
         tv_xieyi.setText(Html.fromHtml(getResources().getString(R.string.otc_xieyi) + "<font color=" + ContextCompat.getColor(this, R.color.color_otc_unhappy) + ">" + getResources().getString(R.string.otc_xieyi_name) + "</font>"));
 
-        setValue(isBuy, allModel, num, amount);
+        setBuyPayInfoString(allModel, amount);
+        setSellPayInfoString(allModel, num);
     }
 
     @Override
     protected OtcOrderCreatePresenter createPresenter(OtcOrderCreatePresenter mPresenter) {
         return new OtcOrderCreatePresenter();
+    }
+
+    @Override
+    protected void onPresenterCreated(OtcOrderCreatePresenter presenter) {
+        super.onPresenterCreated(presenter);
+        if (isBuy) {
+            mPresenter.userBaseInfo(true, spUtil.getUserUid());
+            if (allModel != null && allModel.infoModel != null) {
+                mPresenter.userBaseInfo(false, allModel.infoModel.uid);
+            }
+        } else {
+            mPresenter.userBaseInfo(false, spUtil.getUserUid());
+            if (allModel != null && allModel.infoModel != null) {
+                mPresenter.userBaseInfo(true, allModel.infoModel.uid);
+            }
+        }
     }
 
     @Override
@@ -132,6 +149,15 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
     @OnClick(R.id.btn_cancel)
     void cancelClick() {
         finish();
+    }
+
+    @Override
+    public void userBaseInfo(boolean isBuy, OtcMarketInfoModel model) {
+        if (isBuy) {
+            setBuyValue(model);
+        } else {
+            setSellValue(model);
+        }
     }
 
     @Override

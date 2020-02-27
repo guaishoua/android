@@ -247,7 +247,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
 
     @OnClick(R.id.btn_allmoney)
     void btnAllmoney() {
-        if (allModel != null && allModel.orderModel != null) {
+        if (allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price) && !TextUtils.isEmpty(allModel.orderModel.remainAmount) && !TextUtils.isEmpty(allModel.orderModel.remainAmount)) {
             double reminALL = Double.parseDouble(allModel.orderModel.remainAmount) * Double.parseDouble(allModel.orderModel.price);
             if (reminALL <= Double.parseDouble(allModel.orderModel.highLimit)) {
                 edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, reminALL));

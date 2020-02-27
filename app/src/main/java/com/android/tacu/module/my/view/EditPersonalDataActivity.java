@@ -1,5 +1,6 @@
 package com.android.tacu.module.my.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Environment;
@@ -8,6 +9,7 @@ import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,6 +43,7 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.utils.user.UserManageUtils;
+import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.yanzhenjie.permission.Permission;
 
@@ -64,8 +67,8 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
     TextView tv_account;
     @BindView(R.id.tv_uid)
     TextView tv_uid;
-    @BindView(R.id.edit_nickname)
-    EditText edit_nickname;
+    @BindView(R.id.tv_nickname)
+    TextView tv_nickname;
     @BindView(R.id.tv_binding_tel)
     TextView tv_binding_tel;
     @BindView(R.id.tv_binding_email)
@@ -78,6 +81,7 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
     TextView tv_binding_payinfo;
 
     private final int TAKE_PIC = 1001;
+    private DroidDialog droidDialog;
 
     //oss
     private String imageName;
@@ -110,16 +114,6 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
     protected void initView() {
         mTopBar.setTitle(getResources().getString(R.string.edit_person_data));
 
-        edit_nickname.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    mPresenter.updateUserInfo(edit_nickname.getText().toString(), null);
-                    return true;
-                }
-                return false;
-            }
-        });
         setValue();
     }
 
@@ -145,6 +139,9 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
             for (OSSAsyncTask ossAsyncTask : ossAsynTaskList) {
                 ossAsyncTask.cancel();
             }
+        }
+        if (droidDialog != null && droidDialog.isShowing()) {
+            droidDialog.dismiss();
         }
     }
 
@@ -199,6 +196,11 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
             public void onPermissionFailed() {
             }
         }, Permission.Group.STORAGE, Permission.Group.CAMERA);
+    }
+
+    @OnClick(R.id.tv_nickname)
+    void nickNameClick() {
+        showNickNameDialog(spUtil.getNickName());
     }
 
     @OnClick(R.id.tv_binding_tel)
@@ -273,7 +275,7 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         }
         tv_account.setText(spUtil.getAccount());
         tv_uid.setText(String.valueOf(spUtil.getUserUid()));
-        edit_nickname.setText(spUtil.getNickName());
+        tv_nickname.setText(spUtil.getNickName());
 
         if (!spUtil.getPhoneStatus()) {
             tv_binding_tel.setText(getResources().getString(R.string.plesase_binding_telephone));
@@ -355,6 +357,37 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
             //可以等待直到任务完成
             //task.waitUntilFinished();
         }
+    }
+
+    private void showNickNameDialog(String nickname) {
+        final View view = View.inflate(this, R.layout.view_nickname, null);
+        final EditText edit_nickname = view.findViewById(R.id.edit_nickname);
+
+        if (!TextUtils.isEmpty(nickname)) {
+            edit_nickname.setText(nickname);
+        }
+
+        droidDialog = new DroidDialog.Builder(this)
+                .title(this.getResources().getString(R.string.please_set_nickname))
+                .viewCustomLayout(view)
+                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        String nickString = edit_nickname.getText().toString();
+                        if (TextUtils.isEmpty(nickString)) {
+                            showToastError(getResources().getString(R.string.please_set_nickname));
+                            return;
+                        }
+                        mPresenter.updateUserInfo(edit_nickname.getText().toString(), null);
+                    }
+                })
+                .negativeButton(getResources().getString(R.string.cancel), new DroidDialog.onNegativeListener() {
+                    @Override
+                    public void onNegative(Dialog droidDialog) {
+                    }
+                })
+                .cancelable(false, false)
+                .show();
     }
 
     private void dealValue(int flag) {

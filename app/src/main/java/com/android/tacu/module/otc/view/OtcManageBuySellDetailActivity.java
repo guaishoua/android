@@ -211,7 +211,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                             tv_right.setText(orderModel.num + " " + orderModel.currencyName);
                             tv_success_buy_title.setText(getResources().getString(R.string.success_buy));
                             tv_pay_after2_title.setText(getResources().getString(R.string.pay_after2));
-                            if (orderModel.remainAmount != null && orderModel.price != null) {
+                            if (!TextUtils.isEmpty(orderModel.remainAmount) && !TextUtils.isEmpty(orderModel.price)) {
                                 tv_surplus_total.setText(FormatterUtils.getFormatValue(Double.parseDouble(orderModel.remainAmount) * Double.parseDouble(orderModel.price)) + valueWei);
                             } else {
                                 tv_surplus_total.setText("0" + valueWei);
@@ -237,7 +237,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                 tv_single_limit_range.setText(orderModel.lowLimit + "~" + orderModel.highLimit + valueWei);
                 tv_finished_trade.setText(orderModel.finishNum + getResources().getString(R.string.dan));
                 tv_success_buy.setText(orderModel.tradeAmount + " " + orderModel.currencyName);
-                if (orderModel.tradeAmount != null && orderModel.price != null) {
+                if (!TextUtils.isEmpty(orderModel.tradeAmount) && !TextUtils.isEmpty(orderModel.price)) {
                     tv_pay_after2.setText(FormatterUtils.getFormatValue(Double.parseDouble(orderModel.tradeAmount) * Double.parseDouble(orderModel.price)) + valueWei);
                 } else {
                     tv_pay_after2.setText("0" + valueWei);

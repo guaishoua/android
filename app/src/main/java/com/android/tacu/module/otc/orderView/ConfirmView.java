@@ -1,6 +1,7 @@
 package com.android.tacu.module.otc.orderView;
 
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -75,7 +76,7 @@ public class ConfirmView implements View.OnClickListener {
     }
 
     private void dealTime() {
-        if (currentTime != null && tradeModel != null && tradeModel.confirmEndTime != null) {
+        if (currentTime != null && tradeModel != null && !TextUtils.isEmpty(tradeModel.confirmEndTime)) {
             long confirmEndTime = DateUtils.string2Millis(tradeModel.confirmEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
             if (confirmEndTime > 0) {
                 startCountDownTimer(confirmEndTime);

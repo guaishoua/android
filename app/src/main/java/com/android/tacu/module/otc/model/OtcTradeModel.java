@@ -43,7 +43,7 @@ public class OtcTradeModel implements Serializable {
      * private Long arbitrateUid;  //仲裁uid
      *     private String arbitrateExp;  //仲裁说明
      *     private String arbitrateImg;  //仲裁图片
-     *     private Long beArbitrateUid;  //被仲裁人uid
+     *     private Long beArbitrateUid;  //申诉人uid
      *     private String beArbitrateExp;  //申诉说明
      *     private String beArbitrateImg;  //申诉图片
      *     private String arbitrateResults; //仲裁结果说明
@@ -107,11 +107,18 @@ public class OtcTradeModel implements Serializable {
     public String updateTime;
     @SerializedName("relationPay")
     public String relationPay;
-
+    @SerializedName("arbitrateUid")
+    public Integer arbitrateUid;
     @SerializedName("arbitrateExp")
     public String arbitrateExp;
     @SerializedName("arbitrateImg")
     public String arbitrateImg;
+    @SerializedName("beArbitrateUid")
+    public Integer beArbitrateUid;
+    @SerializedName("beArbitrateExp")
+    public String beArbitrateExp;
+    @SerializedName("beArbitrateImg")
+    public String beArbitrateImg;
     @SerializedName("arbitrateResults")
     public String arbitrateResults;
 

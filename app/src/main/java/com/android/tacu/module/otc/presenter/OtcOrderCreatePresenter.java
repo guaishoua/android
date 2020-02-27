@@ -9,10 +9,22 @@ import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcOrderCreateContract;
+import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 
 import java.util.List;
 
 public class OtcOrderCreatePresenter extends BaseMvpPresenter implements OtcOrderCreateContract.IPresenter {
+
+    @Override
+    public void userBaseInfo(final boolean isBuy, Integer queryUid) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).userBaseInfo(queryUid), new NetDisposableObserver<BaseModel<OtcMarketInfoModel>>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel<OtcMarketInfoModel> model) {
+                OtcOrderCreateContract.IView view = (OtcOrderCreateContract.IView) getView();
+                view.userBaseInfo(isBuy, model.attachment);
+            }
+        });
+    }
 
     @Override
     public void selectBank() {

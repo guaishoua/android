@@ -264,7 +264,7 @@ public class PayedView implements View.OnClickListener {
     }
 
     private void dealTime() {
-        if (currentTime != null && tradeModel != null && tradeModel.payEndTime != null) {
+        if (currentTime != null && tradeModel != null && !TextUtils.isEmpty(tradeModel.payEndTime)) {
             long payEndTime = DateUtils.string2Millis(tradeModel.payEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
             if (payEndTime > 0) {
                 startCountDownTimer(payEndTime);

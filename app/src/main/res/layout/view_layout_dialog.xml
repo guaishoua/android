@@ -40,9 +40,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/dp_7"
                 android:layout_marginRight="@dimen/dp_7"
-                android:paddingLeft="@dimen/dp_15"
-                android:paddingBottom="@dimen/dp_15"
-                app:srcCompat="@drawable/icon_circle_close" />
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingBottom="@dimen/dp_20"
+                app:srcCompat="@drawable/icon_close_white" />
         </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
 
         <View

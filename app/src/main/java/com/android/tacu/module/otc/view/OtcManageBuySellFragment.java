@@ -146,9 +146,9 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
                         tv_trade_all_price.setText(FormatterUtils.getFormatValue(Double.valueOf(s.toString()) * Double.valueOf(edit_trade_num.getText().toString())));
                         if (otcSelectFeeModel != null) {
                             if (isBuy) {
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatValue(Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.buyFee) + " " + coinName);
+                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.buyFee) + " " + coinName);
                             } else {
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatValue(Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.sellFee) + " " + coinName);
+                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.sellFee) + " " + coinName);
                             }
                         }
                     }
@@ -173,9 +173,9 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
                         tv_trade_all_price.setText(FormatterUtils.getFormatValue(Double.valueOf(s.toString()) * Double.valueOf(edit_trade_single_price.getText().toString())));
                         if (otcSelectFeeModel != null) {
                             if (isBuy) {
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatValue(Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.buyFee) + " " +coinName);
+                                tv_purchase_deposit.setText(FormatterUtils.getFormatValue(Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.buyFee) + " " + coinName);
                             } else {
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatValue(Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.sellFee) + " "+coinName);
+                                tv_purchase_deposit.setText(FormatterUtils.getFormatValue(Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.sellFee) + " " + coinName);
                             }
                         }
                     }
@@ -326,7 +326,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     public void BondAccount(OtcAmountModel model) {
         if (model != null) {
             if (!TextUtils.isEmpty(model.cashAmount)) {
-                tv_margin_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + " "+coinName);
+                tv_margin_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + " " + coinName);
             } else {
                 tv_margin_balance.setText("0 " + coinName);
             }

@@ -201,7 +201,7 @@ public class OtcOrderConfirmActivity extends BaseOtcHalfOrderActvity<OtcOrderCon
     }
 
     private void dealTime() {
-        if (currentTime != null && tradeModel != null && tradeModel.confirmEndTime != null) {
+        if (currentTime != null && tradeModel != null && !TextUtils.isEmpty(tradeModel.confirmEndTime)) {
             long confirmEndTime = DateUtils.string2Millis(tradeModel.confirmEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
             if (confirmEndTime > 0) {
                 startCountDownTimer(confirmEndTime);
@@ -210,7 +210,7 @@ public class OtcOrderConfirmActivity extends BaseOtcHalfOrderActvity<OtcOrderCon
     }
 
     private void dealValueNum() {
-        if (model != null && model.orderModel != null && model.orderModel.remainAmount != null && tradeModel != null) {
+        if (model != null && model.orderModel != null && !TextUtils.isEmpty(model.orderModel.remainAmount) && tradeModel != null) {
             double value = Double.parseDouble(model.orderModel.remainAmount);
             tv_completed_transaction_advertising_balance.setText(FormatterUtils.getFormatValue(value) + " " + tradeModel.currencyName);
         }

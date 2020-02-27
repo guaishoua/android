@@ -240,7 +240,7 @@ public class CoinGetView implements View.OnClickListener {
     }
 
     private void dealTime() {
-        if (currentTime != null && tradeModel != null && tradeModel.transCoinEndTime != null) {
+        if (currentTime != null && tradeModel != null && !TextUtils.isEmpty(tradeModel.transCoinEndTime)) {
             if (status != null && status == 9) {
                 tv_countdown.setText(activity.getResources().getString(R.string.timeouted));
             } else {

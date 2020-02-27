@@ -196,6 +196,7 @@
             tools:text="2019-10-9" />
 
         <TextView
+            android:id="@+id/tv_order_finish_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
@@ -234,7 +235,36 @@
 scing elit. Aenean euismod bibendum laore" />
 
         <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-            android:id="@+id/img_voucher_arbitration_reason"
+            android:id="@+id/img_arbitration_reason"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:layout_marginTop="@dimen/dp_7"
+            android:padding="@dimen/dp_10"
+            android:scaleType="centerCrop"
+            app:qmui_borderColor="@color/color_grey"
+            app:qmui_borderWidth="@dimen/dp_1"
+            app:qmui_radius="@dimen/dp_2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_7"
+            android:text="@string/appeal_reason"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14" />
+
+        <TextView
+            android:id="@+id/tv_appeal_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_7"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_sp_14"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipi
+scing elit. Aenean euismod bibendum laore" />
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/img_appeal_reason"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_200"
             android:layout_marginTop="@dimen/dp_7"

@@ -56,8 +56,10 @@ public class ArbitrationView implements View.OnClickListener {
     private QMUIRadiusImageView img_voucher;
 
     private TextView tv_arbitration_reason;
+    private QMUIRadiusImageView img_arbitration_reason;
+    private TextView tv_appeal_reason;
+    private QMUIRadiusImageView img_appeal_reason;
     private TextView tv_arbitration_result;
-    private QMUIRadiusImageView img_voucher_arbitration_reason;
 
     private QMUIRoundEditText edit_submit_arbitration;
     private LinearLayout lin_upload;
@@ -71,6 +73,7 @@ public class ArbitrationView implements View.OnClickListener {
     private OtcTradeModel tradeModel;
     private String imageUrl;
     private String imageUrlAritrotion;
+    private String imageUrlBeAritrotion;
     private File uploadFile;
     private String uploadImageName;
 
@@ -81,6 +84,7 @@ public class ArbitrationView implements View.OnClickListener {
     public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter, int status) {
         this.activity = activity;
         this.mPresenter = mPresenter;
+        this.status = status;
         View statusView = View.inflate(activity, R.layout.view_otc_order_arbitration, null);
         initArbitrationView(statusView);
         return statusView;
@@ -100,8 +104,10 @@ public class ArbitrationView implements View.OnClickListener {
         tv_order_finish_status = view.findViewById(R.id.tv_order_finish_status);
 
         tv_arbitration_reason = view.findViewById(R.id.tv_arbitration_reason);
+        img_arbitration_reason = view.findViewById(R.id.img_arbitration_reason);
+        tv_appeal_reason = view.findViewById(R.id.tv_appeal_reason);
+        img_appeal_reason = view.findViewById(R.id.img_appeal_reason);
         tv_arbitration_result = view.findViewById(R.id.tv_arbitration_result);
-        img_voucher_arbitration_reason = view.findViewById(R.id.img_voucher_arbitration_reason);
 
         edit_submit_arbitration = view.findViewById(R.id.edit_submit_arbitration);
         lin_upload = view.findViewById(R.id.lin_upload);
@@ -113,17 +119,18 @@ public class ArbitrationView implements View.OnClickListener {
         btn_return = view.findViewById(R.id.btn_return);
 
         if (status == OtcOrderDetailActivity.ORDER_ARBITRATION_BUY) {
-            edit_submit_arbitration.setVisibility(View.VISIBLE);
-            lin_upload.setVisibility(View.VISIBLE);
-            btn_submit_arbitration.setVisibility(View.VISIBLE);
-        } else if (status == OtcOrderDetailActivity.ORDER_ARBITRATION_SELL) {
             edit_submit_arbitration.setVisibility(View.GONE);
             lin_upload.setVisibility(View.GONE);
             btn_submit_arbitration.setVisibility(View.GONE);
+        } else if (status == OtcOrderDetailActivity.ORDER_ARBITRATION_SELL) {
+            edit_submit_arbitration.setVisibility(View.VISIBLE);
+            lin_upload.setVisibility(View.VISIBLE);
+            btn_submit_arbitration.setVisibility(View.VISIBLE);
         }
 
         img_voucher.setOnClickListener(this);
-        img_voucher_arbitration_reason.setOnClickListener(this);
+        img_arbitration_reason.setOnClickListener(this);
+        img_appeal_reason.setOnClickListener(this);
         lin_upload.setOnClickListener(this);
         btn_submit_arbitration.setOnClickListener(this);
         btn_return.setOnClickListener(this);
@@ -137,9 +144,14 @@ public class ArbitrationView implements View.OnClickListener {
                     activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrl));
                 }
                 break;
-            case R.id.img_voucher_arbitration_reason:
+            case R.id.img_arbitration_reason:
                 if (!TextUtils.isEmpty(imageUrlAritrotion)) {
                     activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrlAritrotion));
+                }
+                break;
+            case R.id.img_appeal_reason:
+                if (!TextUtils.isEmpty(imageUrlBeAritrotion)) {
+                    activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrlBeAritrotion));
                 }
                 break;
             case R.id.lin_upload:
@@ -189,13 +201,26 @@ public class ArbitrationView implements View.OnClickListener {
         }
     }
 
-    public void uselectUserInfoArbitration(String imageUrl) {
-        this.imageUrlAritrotion = imageUrl;
-        if (!TextUtils.isEmpty(imageUrl)) {
-            GlideUtils.disPlay(activity, imageUrl, img_voucher_arbitration_reason);
-            img_voucher_arbitration_reason.setVisibility(View.VISIBLE);
-        } else {
-            img_voucher_arbitration_reason.setVisibility(View.GONE);
+    public void uselectUserInfoArbitration(int type, String imageUrl) {
+        switch (type) {
+            case 1:
+                this.imageUrlAritrotion = imageUrl;
+                if (!TextUtils.isEmpty(imageUrl)) {
+                    GlideUtils.disPlay(activity, imageUrl, img_arbitration_reason);
+                    img_arbitration_reason.setVisibility(View.VISIBLE);
+                } else {
+                    img_arbitration_reason.setVisibility(View.GONE);
+                }
+                break;
+            case 2:
+                this.imageUrlBeAritrotion = imageUrl;
+                if (!TextUtils.isEmpty(imageUrl)) {
+                    GlideUtils.disPlay(activity, imageUrl, img_appeal_reason);
+                    img_appeal_reason.setVisibility(View.VISIBLE);
+                } else {
+                    img_appeal_reason.setVisibility(View.GONE);
+                }
+                break;
         }
     }
 
@@ -241,6 +266,16 @@ public class ArbitrationView implements View.OnClickListener {
 
     private void dealArbitration() {
         if (tradeModel != null) {
+            if (tradeModel.beArbitrateUid != null && tradeModel.beArbitrateUid != 0) {
+                edit_submit_arbitration.setVisibility(View.GONE);
+                lin_upload.setVisibility(View.GONE);
+                btn_submit_arbitration.setVisibility(View.GONE);
+            } else {
+                edit_submit_arbitration.setVisibility(View.VISIBLE);
+                lin_upload.setVisibility(View.VISIBLE);
+                btn_submit_arbitration.setVisibility(View.VISIBLE);
+            }
+
             tv_order_id.setText(tradeModel.orderNo);
             tv_trade_get.setText(tradeModel.amount + " " + Constant.CNY);
             tv_trade_coin.setText(tradeModel.num + " " + tradeModel.currencyName);
@@ -270,12 +305,15 @@ public class ArbitrationView implements View.OnClickListener {
             }
 
             tv_arbitration_reason.setText(tradeModel.arbitrateExp);
+            tv_appeal_reason.setText(tradeModel.beArbitrateExp);
             tv_arbitration_result.setText(tradeModel.arbitrateResults);
 
             if (!TextUtils.isEmpty(tradeModel.arbitrateImg)) {
-                mPresenter.uselectUserInfoArbitration(tradeModel.arbitrateImg);
+                mPresenter.uselectUserInfoArbitration(1, tradeModel.arbitrateImg);
             }
-
+            if (!TextUtils.isEmpty(tradeModel.beArbitrateImg)) {
+                mPresenter.uselectUserInfoArbitration(2, tradeModel.beArbitrateImg);
+            }
         }
     }
 

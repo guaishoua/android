@@ -19,7 +19,7 @@ public class OtcOrderDetailContract {
 
         void uselectUserInfo(String imageUrl);
 
-        void uselectUserInfoArbitration(String imageUrl);
+        void uselectUserInfoArbitration(int type, String imageUrl);
 
         void getOssSetting(AuthOssModel model);
 
@@ -46,7 +46,8 @@ public class OtcOrderDetailContract {
 
         void uselectUserInfo(String headImg);
 
-        void uselectUserInfoArbitration(String headImg);
+        //type 1=仲裁图片 2=申诉图片
+        void uselectUserInfoArbitration(int type, String headImg);
 
         void getOssSetting();
 

@@ -663,6 +663,7 @@
     <string name="not_pay">未支付</string>
     <string name="not_coined">未放币</string>
     <string name="arbitration_reason">仲裁理由：</string>
+    <string name="appeal_reason">申诉理由：</string>
     <string name="arbitration_result">仲裁结果：</string>
     <string name="please_submit_appeal_content">请输入您要提交申诉内容…………</string>
     <string name="submit_appeal">提交申诉</string>

@@ -82,6 +82,8 @@ public class OwnCenterModel implements Serializable {
     public Integer vip;// 0不是vip 1月度会员(30天) 2年度会员(12月) 3连续包年
     @SerializedName("keytowAdoptTime")
     public String keytowAdoptTime;
+    @SerializedName("applyVideoAuth")
+    public String applyVideoAuth;//视频认证地址
 
     public boolean getIsValidatePass() {
         if (isValidatePass == 1) {

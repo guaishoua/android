@@ -417,12 +417,12 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     }
 
     @Override
-    public void uselectUserInfoArbitration(String imageUrl) {
+    public void uselectUserInfoArbitration(int type, String imageUrl) {
         switch (current) {
             case ORDER_ARBITRATION_BUY:
             case ORDER_ARBITRATION_SELL:
                 if (arbitrationView != null) {
-                    arbitrationView.uselectUserInfoArbitration(imageUrl);
+                    arbitrationView.uselectUserInfoArbitration(type, imageUrl);
                 }
                 break;
         }

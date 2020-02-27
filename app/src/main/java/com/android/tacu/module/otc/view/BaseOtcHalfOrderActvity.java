@@ -95,7 +95,7 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
             ((QMUIRoundButtonDrawable) rl_people_bg.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_sell_bg));
             tv_people_pay.setTextColor(ContextCompat.getColorStateList(this, R.color.color_otc_sell_bg));
             if (model != null) {
-                tv_people_pay.setText(model.num + " " +model.currencyName);
+                tv_people_pay.setText(model.num + " " + model.currencyName);
             }
         }
     }
@@ -136,7 +136,7 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
             tv_buy_amount.setText(FormatterUtils.getFormatValue(infoModel.buy) + getResources().getString(R.string.dan));
             tv_sell_amount.setText(FormatterUtils.getFormatValue(infoModel.sell) + getResources().getString(R.string.dan));
             if (!TextUtils.isEmpty(infoModel.success) && !TextUtils.isEmpty(infoModel.total) && !TextUtils.equals(infoModel.success, "0") && !TextUtils.equals(infoModel.total, "0")) {
-                tv_deal_rate.setText((Double.parseDouble(infoModel.success) / Double.valueOf(infoModel.total)) * 100 + " %");
+                tv_deal_rate.setText(FormatterUtils.getFormatRoundDown(2, (Double.parseDouble(infoModel.success) / Double.valueOf(infoModel.total)) * 100) + " %");
             } else {
                 tv_deal_rate.setText("0%");
             }
@@ -147,8 +147,8 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
             tv_win_lawsuit_amount.setText(infoModel.winDispute);
 
             if (!TextUtils.isEmpty(infoModel.allTime) && !TextUtils.isEmpty(infoModel.success) && !TextUtils.equals(infoModel.allTime, "0") && !TextUtils.equals(infoModel.success, "0")) {
-                String value = Double.valueOf(infoModel.allTime) / Double.valueOf(infoModel.success) + " min";
-                Spanned text = Html.fromHtml(getResources().getString(R.string.average_payment_time) + "<font color=" + ContextCompat.getColor(this, R.color.text_default) + ">" + value + " min</font>");
+                String value = FormatterUtils.getFormatRoundDown(2, Double.valueOf(infoModel.allTime) / Double.valueOf(infoModel.success)) + " min";
+                Spanned text = Html.fromHtml(getResources().getString(R.string.average_payment_time) + "<font color=" + ContextCompat.getColor(this, R.color.text_default) + ">" + value + "</font>");
                 tv_average_payment_time.setText(text);
             } else {
                 Spanned text = Html.fromHtml(getResources().getString(R.string.average_payment_time) + "<font color=" + ContextCompat.getColor(this, R.color.text_default) + ">0 min</font>");
