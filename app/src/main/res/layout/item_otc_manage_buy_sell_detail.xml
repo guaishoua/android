@@ -155,11 +155,14 @@
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginTop="@dimen/dp_18"
         android:text="@string/confirm_order"
+        android:textColor="@color/text_default"
         android:textSize="@dimen/text_size_sp_13"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_sell_num"
         app:layout_constraintWidth_percent="0.2"
+        app:qmui_borderColor="@color/text_default"
+        app:qmui_borderWidth="@dimen/dp_1"
         app:qmui_radius="@dimen/dp_3" />
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
@@ -168,11 +171,15 @@
         android:layout_height="@dimen/dp_27"
         android:layout_marginTop="@dimen/dp_18"
         android:text="@string/otc_refuse_order"
+        android:textColor="@color/text_default"
         android:textSize="@dimen/text_size_sp_13"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/btn_left"
-        app:layout_constraintLeft_toLeftOf="@id/tv_receive_money"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintWidth_percent="0.2"
+        app:qmui_borderColor="@color/text_default"
+        app:qmui_borderWidth="@dimen/dp_1"
         app:qmui_radius="@dimen/dp_3" />
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton

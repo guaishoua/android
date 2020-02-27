@@ -609,7 +609,7 @@
         \n1. After the seller initiates a transaction request, the digital assets of the order will be locked for custody;
         \n2. The buyer needs to complete the payment within the payment validity period and confirm the payment completion operation before the seller will put the currency.
         \n3. The buyer should save the screenshot of the payment voucher after payment. In case of dispute, the payment can be proved according to the screenshot
-        \n4. The seller should use the buyer's remarks to determine whether the digital asset in custody should be released in time after receiving the corresponding payment amount.
+        \n4. The seller should use the buyer\'s remarks to determine whether the digital asset in custody should be released in time after receiving the corresponding payment amount.
         \n5. After the buyer receives the corresponding digital assets, if no arbitration occurs, the order will be successfully completed.
         \n6. If there is an objection during the transaction, buyers and sellers can contact or submit arbitration at any time to defend their rights. For details, please refer to the OTC OTC Rules.
     </string>
