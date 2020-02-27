@@ -835,7 +835,7 @@
     <string name="video_merchant">After uploading my hand-held ID and handwritten UID, name, mobile phone number, date voucher,and TACU, I read out "I (name), ID number (ID number), my source of funds is legal and reliable,I am willing to trade digital assets such as Bitcoin. I fully understand digital currencies andpotential risks. I have the ability to resist risks and are willing to bear all risks. "</string>
     <string name="upload_video">Upload video</string>
     <string name="auth_xieyi1">I have carefully read and understood and agree to abide by the platform\'s off-site business</string>
-    <string name="auth_xieyi2">《OTC Service Agreement》</ string>
+    <string name="auth_xieyi2">《OTC Service Agreement》</string>
     <string name="auth_tip">※ The general merchant identity is a cycle of 30 natural days. It will be automatically counted after successful application. If you need to continue to use the merchant identity after 30 days, please reapply.</string>
     <string name="confirm_apply_submit">Confirm application and submit</string>
     <string name="satisfy_ordinary_mechant">Whether the general merchant status requirements are met</string>
