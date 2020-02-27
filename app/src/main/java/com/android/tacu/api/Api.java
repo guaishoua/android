@@ -1070,7 +1070,7 @@ public interface Api {
      * 取消支付订单
      */
     @FormUrlEncoded
-    @POST("payOrder")
+    @POST("payCancelOrder")
     Observable<BaseModel> payCancelOrder(
             @Field("orderId") String orderId
     );

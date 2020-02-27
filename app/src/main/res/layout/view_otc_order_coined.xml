@@ -9,7 +9,6 @@
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
         android:paddingHorizontal="@dimen/dp_8"
         android:paddingVertical="@dimen/dp_10"
         app:qmui_backgroundColor="@color/content_bg_color"
@@ -194,13 +193,4 @@
             app:qmui_backgroundColor="@color/color_otc_giveup"
             app:qmui_radius="@dimen/dp_3" />
     </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_35"
-        android:lineSpacingExtra="@dimen/dp_3"
-        android:text="@string/otc_order_confirmed_tip"
-        android:textColor="@color/text_grey"
-        android:textSize="@dimen/text_size_sp_13" />
 </LinearLayout>

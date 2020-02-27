@@ -185,7 +185,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_fee_send:
+            case R.id.tv_record:
                 if (allModel != null && allModel.orderModel != null) {
                     jumpTo(OtcManageBuySellRecordActivity.createActivity(this, allModel.orderModel.id));
                 }
@@ -231,7 +231,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                     }
 
                     buyorsell = orderModel.buyorsell;
-                    mPresenter.tradeList(isShowView, orderModel.id, null, start, 10, buyorsell, 16);
+                    mPresenter.tradeList(isShowView, orderModel.id, null, start, 10, null, 16);
                 }
                 tv_single_price.setText("1 CNY/ACU");
                 tv_single_limit_range.setText(orderModel.lowLimit + "~" + orderModel.highLimit + valueWei);
@@ -342,7 +342,6 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
         tv_failure_trade = headerView.findViewById(R.id.tv_failure_trade);
         tv_fee_send = headerView.findViewById(R.id.tv_fee_send);
         tv_record = headerView.findViewById(R.id.tv_record);
-        tv_record = headerView.findViewById(R.id.tv_record);
 
         tv_record.setOnClickListener(this);
         orderAdapter.addHeaderView(headerView);
@@ -390,6 +389,9 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                 }
                 holder.setText(R.id.tv_sell_num_title, getResources().getString(R.string.amount) + "(" + item.tradeModel.currencyName + ")");
                 holder.setText(R.id.tv_receive_money_title, getResources().getString(R.string.amount_price) + "(" + Constant.CNY + ")");
+
+                holder.setText(R.id.tv_sell_num, item.tradeModel.num);
+                holder.setText(R.id.tv_receive_money, item.tradeModel.amount);
 
                 holder.setGone(R.id.tv_order_status_title, true);
                 holder.setGone(R.id.tv_order_status, true);

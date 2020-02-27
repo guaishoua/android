@@ -82,7 +82,7 @@ public class Constant {
     public static final int BTC_CURRENCY_ID = 1;
 
     //OTC开放的币种
-    public static final String[] OTCList = new String[]{"ACU", "USDT", "BTC"};
+    public static final String[] OTCList = new String[]{"ACU"};
     public static final String OTC_ACU = "ACU";
     public static final String OTC_USDT = "USDT";
     public static final String OTC_BTC = "BTC";

@@ -9,7 +9,6 @@
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
         android:paddingHorizontal="@dimen/dp_8"
         android:paddingVertical="@dimen/dp_10"
         app:qmui_backgroundColor="@color/content_bg_color"
@@ -111,41 +110,49 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_pay_method_title"
             app:layout_constraintLeft_toRightOf="@id/tv_pay_method_title"
             tools:text="微信支付" />
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout>
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+        android:id="@+id/lin_pay_wz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/dp_8"
+        android:paddingVertical="@dimen/dp_10"
+        android:visibility="gone"
+        app:qmui_backgroundColor="@color/content_bg_color"
+        app:qmui_radius="@dimen/dp_3">
 
         <com.qmuiteam.qmui.widget.QMUIRadiusImageView
             android:id="@+id/img_payment_code"
             android:layout_width="@dimen/dp_80"
             android:layout_height="@dimen/dp_80"
             android:scaleType="centerCrop"
-            android:visibility="gone"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:qmui_corner_radius="@dimen/dp_3" />
 
         <TextView
             android:id="@+id/tv_payment_code_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginTop="@dimen/dp_5"
             android:textColor="@color/text_grey"
             android:textSize="@dimen/text_size_sp_10"
-            android:visibility="gone"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_payment_code"
             tools:text="@string/please_scan_with_wx" />
-    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout>
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
-    <LinearLayout
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
         android:id="@+id/lin_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:qmui_backgroundColor="@color/content_bg_color"
+        app:qmui_radius="@dimen/dp_3">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_30"
-            android:background="@color/content_bg_color"
             android:paddingHorizontal="@dimen/dp_10">
 
             <TextView
@@ -276,7 +283,7 @@
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_16" />
         </LinearLayout>
-    </LinearLayout>
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout
         android:layout_width="match_parent"

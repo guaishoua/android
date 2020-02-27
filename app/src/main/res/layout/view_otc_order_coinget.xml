@@ -9,7 +9,6 @@
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
         android:paddingHorizontal="@dimen/dp_8"
         android:paddingVertical="@dimen/dp_10"
         app:qmui_backgroundColor="@color/content_bg_color"

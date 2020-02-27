@@ -50,6 +50,8 @@ public class PayedView implements View.OnClickListener {
     private TextView tv_order_id;
     private TextView tv_need_pay;
     private TextView tv_pay_method;
+
+    private LinearLayout lin_pay_wz;
     private QMUIRadiusImageView img_payment_code;
     private TextView tv_payment_code_tip;
 
@@ -95,6 +97,8 @@ public class PayedView implements View.OnClickListener {
         tv_order_id = view.findViewById(R.id.tv_order_id);
         tv_need_pay = view.findViewById(R.id.tv_need_pay);
         tv_pay_method = view.findViewById(R.id.tv_pay_method);
+
+        lin_pay_wz = view.findViewById(R.id.lin_pay_wz);
         img_payment_code = view.findViewById(R.id.img_payment_code);
         tv_payment_code_tip = view.findViewById(R.id.tv_payment_code_tip);
 
@@ -177,8 +181,7 @@ public class PayedView implements View.OnClickListener {
                         mPresenter.userBaseInfo(null, model.uid);
                     }
 
-                    img_payment_code.setVisibility(View.GONE);
-                    tv_payment_code_tip.setVisibility(View.GONE);
+                    lin_pay_wz.setVisibility(View.GONE);
                     lin_pay.setVisibility(View.VISIBLE);
 
                     tv_bank_name.setText(model.bankName);
@@ -189,16 +192,14 @@ public class PayedView implements View.OnClickListener {
                 case 2:
                     mPresenter.uselectUserInfo(model.weChatImg);
 
-                    img_payment_code.setVisibility(View.VISIBLE);
-                    tv_payment_code_tip.setVisibility(View.VISIBLE);
+                    lin_pay_wz.setVisibility(View.VISIBLE);
                     tv_payment_code_tip.setText(activity.getResources().getString(R.string.please_scan_with_wx));
                     lin_pay.setVisibility(View.GONE);
                     break;
                 case 3:
                     mPresenter.uselectUserInfo(model.aliPayImg);
 
-                    img_payment_code.setVisibility(View.VISIBLE);
-                    tv_payment_code_tip.setVisibility(View.VISIBLE);
+                    lin_pay_wz.setVisibility(View.VISIBLE);
                     tv_payment_code_tip.setText(activity.getResources().getString(R.string.please_scan_with_zfb));
                     lin_pay.setVisibility(View.GONE);
                     break;
@@ -210,9 +211,9 @@ public class PayedView implements View.OnClickListener {
         this.imageUrl = imageUrl;
         if (!TextUtils.isEmpty(imageUrl)) {
             GlideUtils.disPlay(activity, imageUrl, img_payment_code);
-            img_payment_code.setVisibility(View.VISIBLE);
+            lin_pay_wz.setVisibility(View.VISIBLE);
         } else {
-            img_payment_code.setVisibility(View.GONE);
+            lin_pay_wz.setVisibility(View.GONE);
         }
     }
 
