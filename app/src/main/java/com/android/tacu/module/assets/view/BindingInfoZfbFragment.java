@@ -224,7 +224,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
             return;
         }
         if (uploadFile == null) {
-            showToastError(getResources().getString(R.string.upload_zfb_shoukuanma));
+            showToastError(getResources().getString(R.string.please_upload_zfb_shoukuanma));
             return;
         }
         showLoadingView();

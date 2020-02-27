@@ -578,8 +578,8 @@
     <string name="real_time_price">实时价格指数</string>
     <string name="gointo_market">进入市场</string>
     <string name="range_24h">24h漲跌幅</string>
-    <string name="maxprice_24h">24h最高價</string>
-    <string name="minprice_24h">24h最低價</string>
+    <string name="maxprice_24h">24h最高价</string>
+    <string name="minprice_24h">24h最低价</string>
     <string name="renminbi">人民币(CNY)</string>
     <string name="meiyuan">美元(USD)</string>
     <string name="sort_single_price">按单价</string>
@@ -808,7 +808,7 @@
     <string name="confirm_binding">确认绑定</string>
     <string name="account_owner">账号所有人</string>
     <string name="account_owner_wx_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的微信</string>
-    <string name="account_owner_zfb_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的微信</string>
+    <string name="account_owner_zfb_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的支付宝</string>
     <string name="wx_account">微信账号</string>
     <string name="zfb_account">支付宝账号</string>
     <string name="please_input_wx_account">请输入您绑定微信的账号</string>
@@ -854,7 +854,7 @@
     <string name="video_merchant">上传本人手持证件及手写UID、姓名、手机号、日期凭证和TACU字样后宣读“本人（姓名），身份证号（身份证号码），我的资金来源合法可靠，自愿交易比特币等数字资产，本人充分了解数字货币及潜在风险，本人具有抗风险的能力并愿意承担一切风险。”的视频文件</string>
     <string name="upload_video">上传视频</string>
     <string name="auth_xieyi1">本人已经仔细阅读理解并同意遵守平台针对场外业务的</string>
-    <string name="auth_xieyi2">《OTC服務協議》</string>
+    <string name="auth_xieyi2">《OTC服务协议》</string>
     <string name="auth_tip">※  普通商户身份为30个自然日一个週期，申请成功后自动计时，满30日后如需继续使用商户身份请重新申请。</string>
     <string name="confirm_apply_submit">确认申请并提交</string>
     <string name="satisfy_ordinary_mechant">是否滿足普通商戶身份要求资格</string>

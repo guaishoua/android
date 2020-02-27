@@ -554,4 +554,396 @@
 \n6.本活动最终解释权归TACU平台所有。</string>
 
     <string name="currency">币种</string>
+
+    <!--OTC-->
+    <string name="please_perfect_follow_info">请完善以下信息方可进行交易</string>
+    <string name="buy_amount_going">您将买入的数量...</string>
+    <string name="last_buy_price">最新买入价</string>
+    <string name="now_buy">立即买入</string>
+    <string name="buy_dan">买入%1$s单</string>
+    <string name="sell_dan">卖出%1$s单</string>
+    <string name="real_time_price">实时价格指数</string>
+    <string name="gointo_market">进入市场</string>
+    <string name="range_24h">24h漲跌幅</string>
+    <string name="maxprice_24h">24h最高价</string>
+    <string name="minprice_24h">24h最低价</string>
+    <string name="renminbi">人民币(CNY)</string>
+    <string name="meiyuan">美元(USD)</string>
+    <string name="sort_single_price">按单价</string>
+    <string name="sort_surplus_amount">按剩余量</string>
+    <string name="sort_quota">按限额</string>
+    <string name="sort_all_manner">全部方式</string>
+    <string name="yinhanngka">银行卡</string>
+    <string name="zhifubao">支付宝</string>
+    <string name="weixin">微信</string>
+    <string name="surplus_all_amount">剩余量/总量</string>
+    <string name="single_quota">单笔限额</string>
+    <string name="single_price">单价</string>
+    <string name="single_price_acu_cny">单价(ACU/CNY)</string>
+    <string name="dan">单</string>
+    <string name="click_look">点击查看</string>
+    <string name="order_center">订单中心</string>
+    <string name="otc_order_all">全部</string>
+    <string name="otc_order_finished">已完成</string>
+    <string name="otc_order_confirmed">待确认</string>
+    <string name="otc_order_payed">待付款</string>
+    <string name="otc_order_payget">待收款</string>
+    <string name="otc_order_coined">待放币</string>
+    <string name="otc_order_coinget">待收币</string>
+    <string name="otc_order_arbitration">仲裁中</string>
+    <string name="otc_notcomfirm_timeout_cancel">未确认超时取消</string>
+    <string name="otc_refuse_order">拒绝订单</string>
+    <string name="otc_pay_timeout_cancel">付款超时取消</string>
+    <string name="otc_giveup_pay">放弃支付</string>'
+    <string name="otc_coin_timeout">放币超时</string>
+    <string name="timeouted">已超时</string>
+    <string name="pay_timeout">支付超时</string>
+    <string name="market_order">生成订单</string>
+    <string name="buyer_pay">买方付款</string>
+    <string name="seller_coin">卖方放币</string>
+    <string name="order_finish">订单完成</string>
+    <string name="phone_auth">手机认证</string>
+    <string name="email_auth">邮箱认证</string>
+    <string name="truename_auth">实名认证</string>
+    <string name="video_auth">视频认证</string>
+    <string name="buy_pay">买方支付</string>
+    <string name="sell_pay">卖方支付</string>
+    <string name="please_choose_get_pay">请选择收/付款方式：</string>
+    <string name="dui_fang_confirm_time">对方须在 %1$s 内确认本订单</string>
+    <string name="returnString">返回</string>
+    <string name="otc_order_confirmed_tip">交易須知
+        \n1.卖家发起交易请求后，该订单的数字资产将会锁定託管；
+        \n2.买家需在付款有效期限内完成付款并进行确认支付完成操作，卖家才会放币。
+        \n3.买家付款后应自行保存付款凭证截图，如出现纠纷可根据截图证明付款行为
+        \n4.卖家通过买家备注信息确定是否收到相应付款金额后应及时放行处于託管中的数字资产。
+        \n5.买家收到相应数字资产后，如未发生仲裁，该笔订单将成功完成。
+        \n6.交易过程中如发生异议，买卖双方可随时联繫或提交仲裁进行各自维权，具体请查看  《OTC场外交易规则》。
+    </string>
+    <string name="payed_time_countdown">付款期限倒计时</string>
+    <string name="order_id">订单编号</string>
+    <string name="pay_method">支付方式</string>
+    <string name="current_trade_should_get">本次交易应收</string>
+    <string name="current_trade_should_coin">本次交易放币</string>
+    <string name="current_trade_need_pay">本次交易需支付</string>
+    <string name="upload_img_tip">上传付款凭证
+        \n图片请图片控制在20MB大小
+        \n支持JPG\PNG\BMP格式</string>
+    <string name="upload_arbitration_tip">上传仲裁凭证
+        \n图片请图片控制在20MB大小
+        \n支持JPG\PNG\BMP格式</string>
+    <string name="upload_beArbitration_tip">上传申诉凭证
+        \n图片请图片控制在20MB大小
+        \n支持JPG\PNG\BMP格式</string>
+    <string name="confirm_and_pay">确认并支付</string>
+    <string name="giveup_pay">放弃支付</string>
+    <string name="please_scan_with_wx">请使用微信扫描该付款码</string>
+    <string name="please_scan_with_zfb">请使用支付宝扫描该付款码</string>
+    <string name="picture">图片</string>
+    <string name="please_confirm_yhk_get_money">请确认您绑定的微信是否收到款项</string>
+    <string name="please_confirm_zfb_get_money">请确认您绑定的微信是否收到款项</string>
+    <string name="please_confirm_wx_get_money">请确认您绑定的微信是否收到款项</string>
+    <string name="confirm_getmoney_and_coined">确认收款并放币</string>
+    <string name="please_submit_arbitration_content">请输入您要提交仲裁内容…………</string>
+    <string name="submit_arbitration">提交仲裁</string>
+    <string name="order_make">订单生成</string>
+    <string name="order_pay">订单支付</string>
+    <string name="not_pay">未支付</string>
+    <string name="not_coined">未放币</string>
+    <string name="arbitration_reason">仲裁理由：</string>
+    <string name="appeal_reason">申诉理由：</string>
+    <string name="arbitration_result">仲裁结果：</string>
+    <string name="please_submit_appeal_content">请输入您要提交申诉内容…………</string>
+    <string name="submit_appeal">提交申诉</string>
+    <string name="otc_order_create">订单生成页</string>
+    <string name="please_choose_pay_method">请选择支付方式</string>
+    <string name="otc_xieyi">本人已认真阅读，同意且遵守平台关于OTC场外交易的安全提示以及</string>
+    <string name="otc_xieyi_name">《TACU数字资产交易平台OTC场外交易规范及免责声明》</string>
+    <string name="please_check_xieyi">请勾选协议！</string>
+    <string name="otc_order_create_countdown1">请于</string>
+    <string name="otc_order_create_countdown2">内完成订单生成，超时将取消本次订单生成</string>
+    <string name="confirm_create_order">确认生成订单</string>
+    <string name="refuse_order">拒绝订单</string>
+    <string name="otc_order_confirm">订单确认页</string>
+    <string name="order_confirm">订单已确认</string>
+    <string name="cancel_success">取消成功</string>
+    <string name="bond">保证金：</string>
+    <string name="all_deal_amount">总成单量：</string>
+    <string name="buy_amount">买单量：</string>
+    <string name="sell_amount">卖单量：</string>
+    <string name="deal_rate">成单率：</string>
+    <string name="dispute_amount">纠纷量：</string>
+    <string name="be_arbitrated_amount">被仲裁量：</string>
+    <string name="arbitration_amount">仲裁量：</string>
+    <string name="appeal_amount">申诉量：</string>
+    <string name="win_lawsuit_amount">胜诉量：</string>
+    <string name="average_payment_time">平均付款时间：</string>
+    <string name="current_trade_amount">本次交易数量：</string>
+    <string name="current_trade_price">本次交易金额：</string>
+    <string name="current_pay_method">本次付款方式：</string>
+    <string name="shoper_confirm_count_down">商家确认倒计时：</string>
+    <string name="account_balance">账户余额：</string>
+    <string name="completed_transaction_advertising_balance">完成交易广告余额：</string>
+    <string name="look_advertising_info">查看广告信息</string>
+    <string name="otc_buy_page">买入页面</string>
+    <string name="otc_sell_page">卖出页面</string>
+    <string name="plan_buy_amount">计划购入总量：</string>
+    <string name="remaining_unsold">剩余未购入量：</string>
+    <string name="remaining_unsold_all">剩余购入总价：</string>
+    <string name="all_num">总量</string>
+    <string name="remind_num">剩余量</string>
+    <string name="remind_all">剩余总价</string>
+    <string name="single_min_limit">单笔最小限额：</string>
+    <string name="single_max_limit">单笔最大限额：</string>
+    <string name="seller_coined_time_limit">卖家放币时限：</string>
+    <string name="receiving_account">收款账号</string>
+    <string name="account_balance1">账户余额</string>
+    <string name="sell_number">出售数量</string>
+    <string name="input_sell_number">输入出售数量</string>
+    <string name="buy_number">购买数量</string>
+    <string name="input_buy_number">输入购买数量</string>
+    <string name="sell_all_money">出售总金额</string>
+    <string name="input_sell_all_money">输入出售总金额</string>
+    <string name="buy_all_money">购买总金额</string>
+    <string name="input_buy_all_money">输入购买总金额</string>
+    <string name="confirm_order">确认订单</string>
+    <string name="otc_manage">广告中心</string>
+    <string name="you_art_shoper_first">请先认证商户！</string>
+    <string name="publish_otc_order">发布广告</string>
+    <string name="publish">发布</string>
+    <string name="guanggao">广告</string>
+    <string name="certified">认证</string>
+    <string name="shoper">商户</string>
+    <string name="certified_shoper">认证商户</string>
+    <string name="all_otc_order">全部广告</string>
+    <string name="look_buy_order">查看买单</string>
+    <string name="look_sell_order">查看卖单</string>
+    <string name="finish_order">完成订单(单)</string>
+    <string name="wait_deal_order">待处理订单</string>
+    <string name="biao_num">标的物数量</string>
+    <string name="biao_surplus_num">标的物余量</string>
+    <string name="total_value">价值总量</string>
+    <string name="trading_limit">交易限额</string>
+    <string name="goumai">购买</string>
+    <string name="chushou">出售</string>
+    <string name="trade_coin_type">交易币种</string>
+    <string name="trade_money">交易货币</string>
+    <string name="current_market_value">当前市值：1CNY/ACU</string>
+    <string name="order_operation_time_limit">订单操作时限</string>
+    <string name="minute_15">15分钟</string>
+    <string name="minute_30">30分钟</string>
+    <string name="hour_1_5">1.5小时</string>
+    <string name="hour_2">2小时</string>
+    <string name="hour_4">4小时</string>
+    <string name="hour_6">6小时</string>
+    <string name="hour_8">8小时</string>
+    <string name="hour_12">12小时</string>
+    <string name="hour_24">24小时</string>
+    <string name="trade_single_price">交易单价</string>
+    <string name="please_input_trade_single_price">请输入交易单价</string>
+    <string name="trade_num">交易数量</string>
+    <string name="please_input_trade_num">请输入交易数量</string>
+    <string name="trade_all_price">交易总价</string>
+    <string name="min_limit">最小限额</string>
+    <string name="please_input_min_limit">请输入最小限额</string>
+    <string name="max_limit">最大限额</string>
+    <string name="please_input_max_limit">请输入最大限额</string>
+    <string name="deal_fee">成交手续费</string>
+    <string name="purchase_deposit">交易保证金</string>
+    <string name="margin_balance">保证金余额</string>
+    <string name="please_input_ask">请输入问候语.....</string>
+    <string name="confirm_publish">确认发布</string>
+    <string name="give_up">放弃</string>
+    <string name="buy_order_detail">买单详情页</string>
+    <string name="sell_order_detail">卖单详情页</string>
+    <string name="single_price2">单价：</string>
+    <string name="single_limit_range">单笔限价区间：</string>
+    <string name="finished_trade">已完成交易：</string>
+    <string name="success_buy">成功购买：</string>
+    <string name="success_sell">成功卖出：</string>
+    <string name="pay_after2">已支付：</string>
+    <string name="get_money">已收款：</string>
+    <string name="surplus_total">剩余总量：</string>
+    <string name="yhk_pay">银行卡支付：</string>
+    <string name="wx_pay">微信支付：</string>
+    <string name="zfb_pay">支付宝支付：</string>
+    <string name="failure_trade">失败交易：</string>
+    <string name="fee_send">手续费支出：</string>
+    <string name="wait_deal_matter">待处理事项</string>
+    <string name="record">记录</string>
+    <string name="sell_num">卖出数量</string>
+    <string name="receive_money">收入金额</string>
+    <string name="operation_countdown">操作计时</string>
+    <string name="order_status">订单状态</string>
+    <string name="create_otc_order">创建广告</string>
+    <string name="quantity_closed">已成交数量</string>
+    <string name="look_detail">查看详情</string>
+    <string name="pay1">付款</string>
+
+    <!--绑定支付-->
+    <string name="binding_pay_info">绑定支付信息</string>
+    <string name="cardholder_name">持卡人姓名</string>
+    <string name="cardholder_name_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的银行</string>
+    <string name="bank_name">银行名称</string>
+    <string name="please_input_bank_name">请输入您绑定银行卡的银行名称</string>
+    <string name="open_bank_name">开户行名称</string>
+    <string name="please_input_open_bank_name">请输入开户行名称</string>
+    <string name="open_bank_address">开户行地址</string>
+    <string name="please_input_open_bank_address">请输入开户行地址</string>
+    <string name="bank_id">银行账号</string>
+    <string name="please_input_bank_id">请输入您的银行卡账号</string>
+    <string name="please_input_trade_password">请输入您平台的交易密码</string>
+    <string name="confirm_binding">确认绑定</string>
+    <string name="account_owner">账号所有人</string>
+    <string name="account_owner_wx_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的微信</string>
+    <string name="account_owner_zfb_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的支付宝</string>
+    <string name="wx_account">微信账号</string>
+    <string name="zfb_account">支付宝账号</string>
+    <string name="please_input_wx_account">请输入您绑定微信的账号</string>
+    <string name="please_input_zfb_account">请输入您绑定支付宝的账号</string>
+    <string name="upload_wx_shoukuanma">上传微信收款码</string>
+    <string name="please_upload_wx_shoukuanma">请上传微信收款码</string>
+    <string name="upload_zfb_shoukuanma">上传支付宝收款码</string>
+    <string name="please_upload_zfb_shoukuanma">请上传支付宝收款码</string>
+    <string name="please_upload_your_payimg">请上传您的付款凭证</string>
+
+    <!--修改个人资料-->
+    <string name="edit_person_data">修改个人资料</string>
+    <string name="head_sculpture">头像</string>
+    <string name="account">账号</string>
+    <string name="nickname">昵称</string>
+    <string name="please_set_nickname">请设置您的昵称</string>
+    <string name="binding_telephone">绑定电话</string>
+    <string name="plesase_binding_telephone">请绑定您的电话号码</string>
+    <string name="binding_email">绑定邮箱</string>
+    <string name="plesase_binding_email">请绑定您的邮箱</string>
+    <string name="binding_success">您已绑定成功</string>
+    <string name="apply_kyc">进行KYC申请</string>
+    <string name="apply_kyc_not">您目前还未进行KYC申请</string>
+    <string name="apply_business">申请商家</string>
+    <string name="applied">已申请</string>
+    <string name="to_be_examine">待审核</string>
+    <string name="apply_business_not">您还没有申请商家</string>
+    <string name="please_binding_pay_info">请绑定您的支付信息</string>
+    <string name="setting_success">设置成功！</string>
+
+    <!--认证商户-->
+    <string name="ordinary_merchant">普通商户</string>
+    <string name="member_ship">会员身份</string>
+    <string name="buy_member">购买会员</string>
+    <string name="binding_tel_email">绑定手机号&amp;邮箱</string>
+    <string name="binded">已绑定</string>
+    <string name="go_binding">去绑定</string>
+    <string name="net_assets_dayu">保证金≥5000ACU</string>
+    <string name="go_recharge">去充值</string>
+    <string name="go_auth">去认证</string>
+    <string name="kyc_60_day">通过实名KYC认证60日</string>
+    <string name="success_trade_otc_10">成功交易10笔OTC订单</string>
+    <string name="video_merchant">上传本人手持证件及手写UID、姓名、手机号、日期凭证和TACU字样后宣读“本人（姓名），身份证号（身份证号码），我的资金来源合法可靠，自愿交易比特币等数字资产，本人充分了解数字货币及潜在风险，本人具有抗风险的能力并愿意承担一切风险。”的视频文件</string>
+    <string name="upload_video">上传视频</string>
+    <string name="auth_xieyi1">本人已经仔细阅读理解并同意遵守平台针对场外业务的</string>
+    <string name="auth_xieyi2">《OTC服务协议》</string>
+    <string name="auth_tip">※  普通商户身份为30个自然日一个週期，申请成功后自动计时，满30日后如需继续使用商户身份请重新申请。</string>
+    <string name="confirm_apply_submit">确认申请并提交</string>
+    <string name="satisfy_ordinary_mechant">是否滿足普通商戶身份要求资格</string>
+    <string name="register_60_enough">平台注册时间是否满60日或以上</string>
+    <string name="need_day">还需要%1$s天</string>
+    <string name="need_5000_bond">商户保证金账户需提交50,000ACU作为保证金</string>
+    <string name="go_pay">去缴纳</string>
+    <string name="merchant_advantage">商家优势</string>
+    <string name="merchant_otc_advantage">商家OTC优势</string>
+    <string name="merchant_c2c_advantage">商家C2C优势</string>
+    <string name="merchant_otc_advantage_tip">
+        普通商户：
+        \n• 商户可以 %1$s 元/ACU出售ACU。
+        \n• 商户可以 %2$s 元/ACU购买ACU。
+        \n• 每单交易额度在 %3$s ACU内。
+        \n• 身份週期 %4$s 天。
+        \n
+        \n认证商户：
+        \n• 享有普通商户权益。
+        \n• 商户可以 %5$s 元/ACU购买ACU。
+        \n• 每单交易额度在 %6$s ACU内。
+        \n• 永久商户身份。
+        \n
+        \n用户&amp;会员：
+        \n• 仅可针对已有广告发起订单，不可发佈广告。
+        \n• 商户可以 %7$s 元/ACU购买ACU。
+        \n• 每单交易额度在 %8$s ACU内。
+    </string>
+    <string name="merchant_c2c_advantage_tip">
+        商戶：
+        \n• 在C2C模塊中交易
+        \n
+        \n購買ACU
+        \n %1$s 万（含 %2$s 万）        优惠价格 %3$s
+        \n %4$s 万（含 %5$s 万）      优惠价格 %6$s
+        \n %7$s 万（含 %8$s 万）     优惠价格 %9$s
+        \n %10$s 万（含 %11$s 万）     优惠价格 %12$s
+        \n %13$s 万以上              优惠价格 %14$s
+        \n
+        \n出售ACU:
+        \n %15$s 万（含 %16$s 万）        价格 %17$s
+        \n %18$s 万（含 %19$s 万）      价格 %20$s
+        \n %21$s 万（含 %22$s 万）     价格 %23$s
+        \n %24$s 万（含 %25$s 万）     价格 %26$s
+        \n %27$s 万以上              价格 %28$s
+    </string>
+    <string name="go_setting">去设置</string>
+    <string name="go_prefect">去完善</string>
+    <string name="nickname_and_head">昵称&amp;头像</string>
+    <string name="cancel_renew">取消续费</string>
+    <string name="acu_month">%1$s ACU/月</string>
+    <string name="acu_year">%1$s ACU/年</string>
+    <string name="original_price">原价</string>
+    <string name="current_price">现价</string>
+    <string name="month_12">12个月</string>
+    <string name="automatic_renewal">到期自动续费</string>
+    <string name="endtime_renewal">到期续费</string>
+    <string name="wait_day">等待%1$s天</string>
+    <string name="cha_bi">还差%1$s笔</string>
+    <string name="apply_success">申请成功！</string>
+    <string name="apply_success1">申请成功</string>
+
+    <!--充值保证金-->
+    <string name="recharge_deposit">充值保证金</string>
+    <string name="available_balance">可操作余额</string>
+    <string name="frozen_balance">冻结中余额</string>
+    <string name="please_input_recharge_amount">请填写您要充值的数量</string>
+    <string name="order_record">订单记录</string>
+    <string name="extract">提取</string>
+    <string name="failure">失败</string>
+    <string name="success_get_account">成功到账</string>
+    <string name="auditing">审核中</string>
+
+    <!--会员-->
+    <string name="buy_vip">购买会员</string>
+    <string name="vip_month">月度会员</string>
+    <string name="vip_year">年度会员</string>
+    <string name="vip_year_continue">连续包年</string>
+    <string name="vip_cycle">会员周期</string>
+    <string name="click_recharge">点击充值</string>
+    <string name="vip_good_1">▪新产品内测资格。\n▪专属客服通道。\n▪OTC商户资格。\n▪抢购新币种。</string>
+    <string name="vip_good_2">▪免费参加线下活。\n▪尊享会员手续费标准。\n▪参与优质项目airDrop。\n▪高比例推广佣金。</string>
+    <string name="vip_kyc_tip">您还未通过KYC实名认证</string>
+    <string name="vip_tip">
+        连续包年逻辑中需要注意几点：
+        \n1.用户可自行手动进行取消自动续费操作，取消后将从下一週期不再扣费并终止会员身份。
+        \n2.当用户账户馀额不足抵扣续费数量时，在到期前3日为该用户推送邮件和短信提醒，若到期时账户内馀额仍不足抵扣则按照取消自动续费流程操作。
+        \n3.账户馀额不包括因平台业务被冻结的馀额。
+    </string>
+    <string name="nee_pay">需要支付</string>
+    <string name="confirm_pay">确认支付</string>
+    <string name="buy_success">购买成功</string>
+    <string name="buy_success_tip">恭喜您，已经成为平台%1$s尊享会员独有权利！</string>
+    <string name="year_continue_success_tip1">到期后平台将自动从您的账户中扣除相应费用</string>
+    <string name="year_continue_success_tip2">* 为了保证您续费成功，请您实时关注您的账户余额以免不足抵扣</string>
+    <string name="vip_end_time">会员到期日 \n%1$s</string>
+    <string name="vip_surplus_time">会员身份剩余时间：%1$s</string>
+
+    <!--划转-->
+    <string name="transfer">划转</string>
+    <string name="transfer_available2">可用：</string>
+    <string name="asset_num">数量</string>
+    <string name="transfer_in">转入</string>
+    <string name="transfer_out">转出</string>
 </resources>
