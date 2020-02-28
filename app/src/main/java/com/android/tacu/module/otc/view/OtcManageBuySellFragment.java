@@ -101,7 +101,6 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     private OtcPublishParam param;
     private OtcSelectFeeModel otcSelectFeeModel;
     private String coinName = Constant.OTC_ACU;
-    private List<PayInfoModel> payInfoList = new ArrayList<>();
     private PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
 
     public static OtcManageBuySellFragment newInstance(boolean isBuy) {
@@ -355,7 +354,6 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     }
 
     public void setPayList(List<PayInfoModel> list) {
-        this.payInfoList = list;
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).type != null && list.get(i).type == 1) {
