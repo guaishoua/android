@@ -176,6 +176,7 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
     }
 
     public void setValue(PayInfoModel model) {
+        clearValue();
         this.payInfoModel = model;
         if (model != null) {
             lin_edit.setVisibility(View.GONE);
@@ -189,5 +190,17 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
             lin_edit.setVisibility(View.VISIBLE);
             lin_list.setVisibility(View.GONE);
         }
+    }
+
+    private void clearValue(){
+        edit_bank_name.setText("");
+        edit_open_bank_name.setText("");
+        edit_open_bank_address.setText("");
+        edit_bank_id.setText("");
+        edit_trade_password.setText("");
+        tv_bank_name.setText("");
+        tv_open_bank_name.setText("");
+        tv_open_bank_address.setText("");
+        tv_bank_id.setText("");
     }
 }

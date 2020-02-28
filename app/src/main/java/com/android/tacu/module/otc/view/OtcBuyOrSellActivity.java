@@ -100,8 +100,9 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     private OtcMarketOrderAllModel allModel;
     private PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
     private String wxImage = null, zfbImage = null;
-    //防止EditText和SeekBar死循环
-    private boolean isInput = true;
+    //防止EditText和EditText死循环
+    private boolean isInputNum = true;
+    private boolean isInputAmount = true;
 
     public static Intent createActivity(Context context, boolean isBuy, String orderId) {
         Intent intent = new Intent(context, OtcBuyOrSellActivity.class);
@@ -171,14 +172,14 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
         edit_sell_number.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                isInput = false;
+                isInputNum = false;
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (isInput && !TextUtils.isEmpty(s.toString().trim()) && allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price)) {
+                if (isInputAmount && !TextUtils.isEmpty(s.toString().trim()) && allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price)) {
                     try {
-                        edit_sell_allmoney.setText(String.valueOf(Double.parseDouble(s.toString()) * Double.parseDouble(allModel.orderModel.price)));
+                        edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, Double.parseDouble(s.toString()) * Double.parseDouble(allModel.orderModel.price)));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -187,20 +188,20 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
 
             @Override
             public void afterTextChanged(Editable s) {
-                isInput = true;
+                isInputNum = true;
             }
         });
         edit_sell_allmoney.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                isInput = false;
+                isInputAmount = false;
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (isInput && !TextUtils.isEmpty(s.toString().trim()) && allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price)) {
+                if (isInputNum && !TextUtils.isEmpty(s.toString().trim()) && allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price)) {
                     try {
-                        edit_sell_number.setText(String.valueOf(Double.parseDouble(s.toString()) / Double.parseDouble(allModel.orderModel.price)));
+                        edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, Double.parseDouble(s.toString()) / Double.parseDouble(allModel.orderModel.price)));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -209,7 +210,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
 
             @Override
             public void afterTextChanged(Editable s) {
-                isInput = true;
+                isInputAmount = true;
             }
         });
         if (spUtil.getPwdVisibility()) {
@@ -259,22 +260,36 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
 
     @OnClick(R.id.btn_confirm)
     void confirmClick() {
-        String num = edit_sell_number.getText().toString();
-        String amount = edit_sell_allmoney.getText().toString();
-        String pwd = edit_trade_password.getText().toString();
-        if (TextUtils.isEmpty(num)) {
-            showToastError(getResources().getString(R.string.input_sell_number));
-            return;
+        try {
+            String num = edit_sell_number.getText().toString();
+            String amount = edit_sell_allmoney.getText().toString();
+            String pwd = edit_trade_password.getText().toString();
+            if (TextUtils.isEmpty(num)) {
+                showToastError(getResources().getString(R.string.input_sell_number));
+                return;
+            }
+            if (TextUtils.isEmpty(amount)) {
+                showToastError(getResources().getString(R.string.sell_all_money));
+                return;
+            }
+            if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwd)) {
+                showToastError(getResources().getString(R.string.please_input_trade_password));
+                return;
+            }
+            if (allModel != null && allModel.orderModel != null) {
+                if (TextUtils.isEmpty(allModel.orderModel.lowLimit) || Double.parseDouble(amount) < Double.parseDouble(allModel.orderModel.lowLimit)) {
+                    showToastError(getResources().getString(R.string.exceeding_min_limit));
+                    return;
+                }
+                if (TextUtils.isEmpty(allModel.orderModel.highLimit) || Double.parseDouble(amount) > Double.parseDouble(allModel.orderModel.highLimit)) {
+                    showToastError(getResources().getString(R.string.exceeding_max_limit));
+                    return;
+                }
+            }
+            jumpTo(OtcOrderCreateActivity.createActivity(this, isBuy, pwd, FormatterUtils.getFormatRoundDown(2, num), FormatterUtils.getFormatRoundDown(2, amount), allModel));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        if (TextUtils.isEmpty(amount)) {
-            showToastError(getResources().getString(R.string.sell_all_money));
-            return;
-        }
-        if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwd)) {
-            showToastError(getResources().getString(R.string.please_input_trade_password));
-            return;
-        }
-        jumpTo(OtcOrderCreateActivity.createActivity(this, isBuy, pwd, FormatterUtils.getFormatRoundDown(2, num), FormatterUtils.getFormatRoundDown(2, amount), allModel));
     }
 
     @OnClick(R.id.btn_return)
@@ -301,6 +316,9 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
             yhkModel = null;
             wxModel = null;
             zfbModel = null;
+        }
+        if (zfbModel != null && TextUtils.isEmpty(zfbImage)) {
+            mPresenter.uselectUserInfo(0, zfbModel.aliPayImg);
         }
         dealPayInfo();
     }
@@ -337,7 +355,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     public void setOrderInfo() {
         if (allModel != null) {
             OtcMarketOrderModel orderModel = allModel.orderModel;
-            String valueWei = " "+Constant.CNY;
+            String valueWei = " " + Constant.CNY;
             if (orderModel.money != null && orderModel.money == 1) {
                 valueWei = " " + Constant.CNY;
             }

@@ -516,7 +516,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 nodeProgress.setCurentNode(1);
                 break;
             case ORDER_PAYGET://待收款
-                mTopBar.setTitle(getResources().getString(R.string.otc_order_payget));
+                mTopBar.setTitle(getResources().getString(R.string.otc_order_payed));
                 payGetView = new PayGetView();
                 statusView = payGetView.create(this);
                 nodeProgress.setCurentNode(1);
@@ -528,11 +528,10 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 nodeProgress.setCurentNode(2);
                 break;
             case ORDER_COINGET://待收币
-                mTopBar.setTitle(getResources().getString(R.string.otc_order_coinget));
+                mTopBar.setTitle(getResources().getString(R.string.otc_order_coined));
                 coinGetView = new CoinGetView();
                 statusView = coinGetView.create(this, mPresenter, status);
                 nodeProgress.setCurentNode(2);
-                ;
                 break;
             case ORDER_FINISHED://已完成
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_finished));

@@ -278,6 +278,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     }
 
     public void setValue(PayInfoModel model) {
+        clearValue();
         this.payInfoModel = model;
         if (model != null) {
             lin_edit.setVisibility(View.GONE);
@@ -289,6 +290,16 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
             lin_edit.setVisibility(View.VISIBLE);
             lin_list.setVisibility(View.GONE);
         }
+    }
+
+    private void clearValue(){
+        edit_zfb_name.setText("");
+        edit_trade_password.setText("");
+        img_zfb_shoukuan.setImageResource(0);
+        rl_upload.setVisibility(View.GONE);
+        tv_upload_tip.setVisibility(View.GONE);
+        tv_zfb_name.setText("");
+        img_zfb_shoukuan1.setImageResource(0);
     }
 
     private void uploadImgs(String fileLocalNameAddress) {

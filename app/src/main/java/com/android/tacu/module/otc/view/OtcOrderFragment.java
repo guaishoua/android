@@ -227,19 +227,11 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_confirmed));
                             break;
                         case 2:
-                            if (item.tradeModel.buyuid == spUtil.getUserUid()) {
-                                holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_payed));
-                            } else if (item.tradeModel.selluid == spUtil.getUserUid()) {
-                                holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_payget));
-                            }
+                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_payed));
                             break;
                         case 3:
                         case 9:
-                            if (item.tradeModel.buyuid == spUtil.getUserUid()) {
-                                holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_coinget));
-                            } else if (item.tradeModel.selluid == spUtil.getUserUid()) {
-                                holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_coined));
-                            }
+                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_coined));
                             break;
                         case 4:
                             holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_arbitration));

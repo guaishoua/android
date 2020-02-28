@@ -20,6 +20,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.assets.model.OtcAmountModel;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcManageBuySellContract;
 import com.android.tacu.module.otc.model.OtcPublishParam;
 import com.android.tacu.module.otc.model.OtcSelectFeeModel;
@@ -38,7 +39,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPresenter> implements OtcManageBuySellContract.IView {
+public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPresenter> implements OtcManageBuySellContract.IChildView {
 
     @BindView(R.id.tv_trade_type)
     TextView tv_trade_type;
@@ -100,6 +101,8 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     private OtcPublishParam param;
     private OtcSelectFeeModel otcSelectFeeModel;
     private String coinName = Constant.OTC_ACU;
+    private List<PayInfoModel> payInfoList = new ArrayList<>();
+    private PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
 
     public static OtcManageBuySellFragment newInstance(boolean isBuy) {
         Bundle bundle = new Bundle();
@@ -248,6 +251,18 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
             showToastError(getResources().getString(R.string.please_choose_pay_method));
             return;
         }
+        if (cb_yinhangka.isChecked() && yhkModel == null) {
+            showToastError(getResources().getString(R.string.no_pay_tip));
+            return;
+        }
+        if (cb_weixin.isChecked() && wxModel == null) {
+            showToastError(getResources().getString(R.string.no_pay_tip));
+            return;
+        }
+        if (cb_zhifubao.isChecked() && zfbModel == null) {
+            showToastError(getResources().getString(R.string.no_pay_tip));
+            return;
+        }
         if (cb_yinhangka.isChecked()) {
             param.payByCard = 1;
         } else {
@@ -337,6 +352,27 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     public void orderSuccess() {
         showToastSuccess(getResources().getString(R.string.success));
         getHostActivity().finish();
+    }
+
+    public void setPayList(List<PayInfoModel> list) {
+        this.payInfoList = list;
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).type != null && list.get(i).type == 1) {
+                    yhkModel = list.get(i);
+                }
+                if (list.get(i).type != null && list.get(i).type == 2) {
+                    wxModel = list.get(i);
+                }
+                if (list.get(i).type != null && list.get(i).type == 3) {
+                    zfbModel = list.get(i);
+                }
+            }
+        } else {
+            yhkModel = null;
+            wxModel = null;
+            zfbModel = null;
+        }
     }
 
     private void upload() {

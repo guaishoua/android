@@ -772,6 +772,8 @@
     <string name="quantity_closed">Number of transactions</string>
     <string name="look_detail">View details</string>
     <string name="pay1">Payment</string>
+    <string name="exceeding_max_limit">You exceeded the maximum limit</string>
+    <string name="exceeding_min_limit">You exceeded the minimum limit</string>
 
     <!--绑定支付-->
     <string name="binding_pay_info">Binding payment information</string>
@@ -799,6 +801,7 @@
     <string name="upload_zfb_shoukuanma">Upload Alipay receipt code</string>
     <string name="please_upload_zfb_shoukuanma">Please upload Alipay receipt code</string>
     <string name="please_upload_your_payimg">Please upload your payment voucher</string>
+    <string name="no_pay_tip">You are not tied to this payment method, please confirm again after binding.</string>
 
     <!--修改个人资料-->
     <string name="edit_person_data">Edit profile</string>

@@ -278,6 +278,7 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     }
 
     public void setValue(PayInfoModel model) {
+        clearValue();
         this.payInfoModel = model;
         if (model != null) {
             lin_edit.setVisibility(View.GONE);
@@ -289,6 +290,16 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
             lin_edit.setVisibility(View.VISIBLE);
             lin_list.setVisibility(View.GONE);
         }
+    }
+
+    private void clearValue() {
+        edit_wx_name.setText("");
+        edit_trade_password.setText("");
+        img_wx_shoukuan.setImageResource(0);
+        rl_upload.setVisibility(View.VISIBLE);
+        tv_upload_tip.setVisibility(View.VISIBLE);
+        tv_wx_name.setText("");
+        img_wx_shoukuan1.setImageResource(0);
     }
 
     private void uploadImgs(String fileLocalNameAddress) {

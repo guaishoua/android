@@ -791,6 +791,8 @@
     <string name="quantity_closed">已成交数量</string>
     <string name="look_detail">查看详情</string>
     <string name="pay1">付款</string>
+    <string name="exceeding_max_limit">你超出了最大限额</string>
+    <string name="exceeding_min_limit">你超出了最小限额</string>
 
     <!--绑定支付-->
     <string name="binding_pay_info">绑定支付信息</string>
@@ -818,6 +820,7 @@
     <string name="upload_zfb_shoukuanma">上传支付宝收款码</string>
     <string name="please_upload_zfb_shoukuanma">请上传支付宝收款码</string>
     <string name="please_upload_your_payimg">请上传您的付款凭证</string>
+    <string name="no_pay_tip">您未绑定该种支付方式，请绑定后再次确认。</string>
 
     <!--修改个人资料-->
     <string name="edit_person_data">修改个人资料</string>
