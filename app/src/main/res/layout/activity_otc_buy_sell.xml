@@ -39,8 +39,7 @@
                     app:node_current="1" />
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
-            <include
-                layout="@layout/view_otc_order_half_money" />
+            <include layout="@layout/view_otc_order_half_money" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout
                 android:layout_width="match_parent"
@@ -276,13 +275,15 @@
                         tools:text="1234567" />
                 </LinearLayout>
 
-                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
                     android:id="@+id/img_pay"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_250"
                     android:layout_marginTop="@dimen/dp_5"
-                    app:qmui_border_color="@color/color_grey"
-                    app:qmui_border_width="@dimen/dp_1" />
+                    android:scaleType="fitCenter"
+                    app:qmui_borderColor="@color/color_grey"
+                    app:qmui_borderWidth="@dimen/dp_1"
+                    app:qmui_radius="@dimen/dp_1" />
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout

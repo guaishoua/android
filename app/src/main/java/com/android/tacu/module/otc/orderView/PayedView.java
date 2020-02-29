@@ -30,8 +30,8 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 import com.yanzhenjie.permission.Permission;
 
 import java.io.File;
@@ -52,7 +52,7 @@ public class PayedView implements View.OnClickListener {
     private TextView tv_pay_method;
 
     private LinearLayout lin_pay_wz;
-    private QMUIRadiusImageView img_payment_code;
+    private QMUIRoundImageView img_payment_code;
     private TextView tv_payment_code_tip;
 
     private LinearLayout lin_pay;

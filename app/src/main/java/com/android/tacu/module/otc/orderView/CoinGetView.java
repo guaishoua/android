@@ -29,10 +29,10 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 import com.yanzhenjie.permission.Permission;
 
 import java.io.File;
@@ -54,7 +54,7 @@ public class CoinGetView implements View.OnClickListener {
     private TextView tv_trade_get;
     private TextView tv_trade_coin;
 
-    private QMUIRadiusImageView img_voucher;
+    private QMUIRoundImageView img_voucher;
 
     private QMUIRoundEditText edit_submit_arbitration;
     private LinearLayout lin_upload;

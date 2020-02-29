@@ -130,12 +130,12 @@
         app:qmui_backgroundColor="@color/content_bg_color"
         app:qmui_radius="@dimen/dp_3">
 
-        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
             android:id="@+id/img_voucher"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="@dimen/dp_10"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:layout_constraintDimensionRatio="W,1:1.2"
             app:layout_constraintTop_toTopOf="parent"
             app:qmui_borderColor="@color/color_grey"

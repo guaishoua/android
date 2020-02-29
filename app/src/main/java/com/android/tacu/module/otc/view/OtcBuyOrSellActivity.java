@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.common.TabIndicatorAdapter;
+import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcBuyOrSellContract;
@@ -24,9 +25,9 @@ import com.android.tacu.module.otc.presenter.OtcBuyOrSellPresenter;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.user.UserManageUtils;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -75,7 +76,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     @BindView(R.id.tv_receiving_account)
     TextView tv_receiving_account;
     @BindView(R.id.img_pay)
-    QMUIRadiusImageView img_pay;
+    QMUIRoundImageView img_pay;
     @BindView(R.id.tv_account_balance)
     TextView tv_account_balance;
     @BindView(R.id.tv_sell_number_title)
@@ -103,6 +104,8 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     //防止EditText和EditText死循环
     private boolean isInputNum = true;
     private boolean isInputAmount = true;
+
+    private String imageUrl;
 
     public static Intent createActivity(Context context, boolean isBuy, String orderId) {
         Intent intent = new Intent(context, OtcBuyOrSellActivity.class);
@@ -232,6 +235,13 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
         mPresenter.selectBank();
         mPresenter.otcAmount(Constant.ACU_CURRENCY_ID);
         mPresenter.orderListOne(orderId);
+    }
+
+    @OnClick(R.id.img_pay)
+    void imagePayClick() {
+        if (!TextUtils.isEmpty(imageUrl)) {
+            jumpTo(ZoomImageViewActivity.createActivity(this, imageUrl));
+        }
     }
 
     @OnClick(R.id.btn_all_number)
@@ -389,12 +399,14 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
 
     private void dealPayInfo() {
         //0=支付宝 1=微信 2=银行卡
+        imageUrl = "";
         switch (selectPayInfo) {
             case 0:
                 if (zfbModel != null) {
                     tv_receiving_account.setText(zfbModel.aliPayNo);
                     img_pay.setImageResource(0);
                     if (!TextUtils.isEmpty(zfbImage)) {
+                        imageUrl = zfbImage;
                         img_pay.setVisibility(View.VISIBLE);
                         GlideUtils.disPlay(this, zfbImage, img_pay);
                     } else {
@@ -410,6 +422,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
                     tv_receiving_account.setText(wxModel.weChatNo);
                     img_pay.setImageResource(0);
                     if (!TextUtils.isEmpty(wxImage)) {
+                        imageUrl = wxImage;
                         img_pay.setVisibility(View.VISIBLE);
                         GlideUtils.disPlay(this, wxImage, img_pay);
                     } else {

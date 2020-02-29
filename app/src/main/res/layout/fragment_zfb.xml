@@ -140,15 +140,17 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
                     android:id="@+id/img_zfb_shoukuan"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/dp_3"
+                    android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_zfb_shoukuan"
-                    app:qmui_border_color="@color/color_grey"
-                    app:qmui_border_width="@dimen/dp_1" />
+                    app:qmui_borderColor="@color/color_grey"
+                    app:qmui_borderWidth="@dimen/dp_1"
+                    app:qmui_radius="@dimen/dp_1" />
 
                 <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
                     android:id="@+id/rl_upload"
@@ -308,15 +310,17 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
                     android:id="@+id/img_zfb_shoukuan1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/dp_3"
+                    android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_zfb_shoukuan1"
-                    app:qmui_border_color="@color/color_grey"
-                    app:qmui_border_width="@dimen/dp_1" />
+                    app:qmui_borderColor="@color/color_grey"
+                    app:qmui_borderWidth="@dimen/dp_1"
+                    app:qmui_radius="@dimen/dp_1" />
             </android.support.constraint.ConstraintLayout>
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton

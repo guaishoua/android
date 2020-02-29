@@ -124,11 +124,11 @@
         app:qmui_backgroundColor="@color/content_bg_color"
         app:qmui_radius="@dimen/dp_3">
 
-        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
             android:id="@+id/img_payment_code"
             android:layout_width="@dimen/dp_80"
             android:layout_height="@dimen/dp_80"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:qmui_corner_radius="@dimen/dp_3" />
 
         <TextView
@@ -327,7 +327,7 @@
                 android:id="@+id/img_url"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:visibility="gone" />
         </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 

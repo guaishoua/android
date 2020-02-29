@@ -26,9 +26,9 @@ import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 import com.yanzhenjie.permission.Permission;
 
 import java.io.File;
@@ -53,12 +53,12 @@ public class ArbitrationView implements View.OnClickListener {
     private TextView tv_order_finish;
     private TextView tv_order_finish_status;
 
-    private QMUIRadiusImageView img_voucher;
+    private QMUIRoundImageView img_voucher;
 
     private TextView tv_arbitration_reason;
-    private QMUIRadiusImageView img_arbitration_reason;
+    private QMUIRoundImageView img_arbitration_reason;
     private TextView tv_appeal_reason;
-    private QMUIRadiusImageView img_appeal_reason;
+    private QMUIRoundImageView img_appeal_reason;
     private TextView tv_arbitration_result;
 
     private QMUIRoundEditText edit_submit_arbitration;

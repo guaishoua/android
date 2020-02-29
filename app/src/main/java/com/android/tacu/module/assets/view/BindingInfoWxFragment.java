@@ -1,7 +1,6 @@
 package com.android.tacu.module.assets.view;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -34,6 +33,7 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.base.MyApplication;
 import com.android.tacu.interfaces.OnPermissionListener;
+import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.assets.contract.BindingPayInfoContract;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
@@ -42,7 +42,7 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.permission.PermissionUtils;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout;
 import com.yanzhenjie.permission.Permission;
 
@@ -53,10 +53,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
-import id.zelory.compressor.Compressor;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter> implements BindingPayInfoContract.IWxView {
 
@@ -71,7 +67,7 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     @BindView(R.id.edit_trade_password)
     EditText edit_trade_password;
     @BindView(R.id.img_wx_shoukuan)
-    QMUIRadiusImageView img_wx_shoukuan;
+    QMUIRoundImageView img_wx_shoukuan;
     @BindView(R.id.rl_upload)
     QMUIRoundRelativeLayout rl_upload;
     @BindView(R.id.tv_upload_tip)
@@ -84,7 +80,7 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     @BindView(R.id.tv_wx_name)
     TextView tv_wx_name;
     @BindView(R.id.img_wx_shoukuan1)
-    QMUIRadiusImageView img_wx_shoukuan1;
+    QMUIRoundImageView img_wx_shoukuan1;
 
     private final int TAKE_PIC = 1001;
     private PayInfoModel payInfoModel;
@@ -99,6 +95,8 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     private OSS mOss = null;
     private String bucketName;
     private List<OSSAsyncTask> ossAsynTaskList = new ArrayList<>();
+
+    private String imageUrl;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -168,28 +166,11 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
             for (int i = 0; i < imageList.size(); i++) {
                 String imageUri = imageList.get(i);
                 File fileOrgin = new File(imageUri);
-                new Compressor(getContext())
-                        .setMaxWidth(640)
-                        .setMaxHeight(480)
-                        .setQuality(75)
-                        .setCompressFormat(Bitmap.CompressFormat.JPEG)
-                        .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath())
-                        .compressToFileAsFlowable(fileOrgin)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Consumer<File>() {
-                            @Override
-                            public void accept(File file) {
-                                uploadFile = file;
-                                rl_upload.setVisibility(View.GONE);
-                                tv_upload_tip.setVisibility(View.GONE);
-                                GlideUtils.disPlay(getContext(), "file://" + file.getPath(), img_wx_shoukuan);
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) {
-                            }
-                        });
+
+                uploadFile = fileOrgin;
+                rl_upload.setVisibility(View.GONE);
+                tv_upload_tip.setVisibility(View.GONE);
+                GlideUtils.disPlay(getContext(), "file://" + fileOrgin.getPath(), img_wx_shoukuan);
             }
         }
     }
@@ -209,6 +190,13 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
             public void onPermissionFailed() {
             }
         }, Permission.Group.STORAGE, Permission.Group.CAMERA);
+    }
+
+    @OnClick(R.id.img_wx_shoukuan1)
+    void lookBigClick() {
+        if (!TextUtils.isEmpty(imageUrl)) {
+            jumpTo(ZoomImageViewActivity.createActivity(getContext(), imageUrl));
+        }
     }
 
     @OnClick(R.id.btn_bindinng)
@@ -270,7 +258,10 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
 
     @Override
     public void uselectUserInfo(String imageUrl) {
-        GlideUtils.disPlay(getContext(), imageUrl, img_wx_shoukuan1);
+        this.imageUrl = imageUrl;
+        if (!TextUtils.isEmpty(imageUrl)) {
+            GlideUtils.disPlay(getContext(), imageUrl, img_wx_shoukuan1);
+        }
     }
 
     private void sendRefresh() {

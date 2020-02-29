@@ -3,7 +3,6 @@ package com.android.tacu.module.otc.orderView;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tacu.R;
@@ -14,8 +13,8 @@ import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.GlideUtils;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 
 //待放币
 public class CoinedView implements View.OnClickListener {
@@ -30,7 +29,7 @@ public class CoinedView implements View.OnClickListener {
     private TextView tv_trade_get;
     private TextView tv_trade_coin;
 
-    private QMUIRadiusImageView img_voucher;
+    private QMUIRoundImageView img_voucher;
     private TextView tv_get_money_tip;
 
     private QMUIRoundButton btn_coined;

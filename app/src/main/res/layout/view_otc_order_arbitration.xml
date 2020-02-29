@@ -130,12 +130,12 @@
         app:qmui_backgroundColor="@color/content_bg_color"
         app:qmui_radius="@dimen/dp_3">
 
-        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
             android:id="@+id/img_voucher"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="@dimen/dp_10"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:layout_constraintDimensionRatio="W,1:1.2"
             app:layout_constraintTop_toTopOf="parent"
             app:qmui_borderColor="@color/color_grey"
@@ -234,13 +234,13 @@
             tools:text="Lorem ipsum dolor sit amet, consectetur adipi
 scing elit. Aenean euismod bibendum laore" />
 
-        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
             android:id="@+id/img_arbitration_reason"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_200"
             android:layout_marginTop="@dimen/dp_7"
             android:padding="@dimen/dp_10"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:qmui_borderColor="@color/color_grey"
             app:qmui_borderWidth="@dimen/dp_1"
             app:qmui_radius="@dimen/dp_2" />
@@ -263,13 +263,13 @@ scing elit. Aenean euismod bibendum laore" />
             tools:text="Lorem ipsum dolor sit amet, consectetur adipi
 scing elit. Aenean euismod bibendum laore" />
 
-        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
             android:id="@+id/img_appeal_reason"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_200"
             android:layout_marginTop="@dimen/dp_7"
             android:padding="@dimen/dp_10"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:qmui_borderColor="@color/color_grey"
             app:qmui_borderWidth="@dimen/dp_1"
             app:qmui_radius="@dimen/dp_2" />
@@ -341,7 +341,7 @@ scing elit. Aenean euismod bibendum laore" />
             android:id="@+id/img_url"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:visibility="gone" />
     </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 

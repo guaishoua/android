@@ -3,10 +3,8 @@ package com.android.tacu.module.auth.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -48,10 +46,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
-import id.zelory.compressor.Compressor;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by xiaohong on 2018/8/27.
@@ -213,29 +207,11 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
                     String imageUri = imageList.get(i);
                     File fileOrgin = new File(imageUri);
 
-                    new Compressor(this)
-                            .setMaxWidth(640)
-                            .setMaxHeight(480)
-                            .setQuality(75)
-                            .setCompressFormat(Bitmap.CompressFormat.JPEG)
-                            .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath())
-                            .compressToFileAsFlowable(fileOrgin)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Consumer<File>() {
-                                @Override
-                                public void accept(File file) {
-                                    positiveImage = new MultipartImageModel(CommonUtils.getOSSUuidName(), file.getPath());
-                                    GlideUtils.disPlay(RealNameTwoActivity.this, "file://" + file.getPath(), iv_picture);
+                    positiveImage = new MultipartImageModel(CommonUtils.getOSSUuidName(), fileOrgin.getPath());
+                    GlideUtils.disPlay(RealNameTwoActivity.this, "file://" + fileOrgin.getPath(), iv_picture);
 
-                                    iv_camera.setVisibility(View.GONE);
-                                    tv_info.setVisibility(View.GONE);
-                                }
-                            }, new Consumer<Throwable>() {
-                                @Override
-                                public void accept(Throwable throwable) {
-                                }
-                            });
+                    iv_camera.setVisibility(View.GONE);
+                    tv_info.setVisibility(View.GONE);
                 }
                 break;
         }

@@ -2,8 +2,6 @@ package com.android.tacu.module.otc.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -38,10 +36,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
-import id.zelory.compressor.Compressor;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPresenter> implements OtcOrderDetailContract.IView {
 
@@ -153,42 +147,25 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
             for (int i = 0; i < imageList.size(); i++) {
                 String imageUri = imageList.get(i);
                 File fileOrgin = new File(imageUri);
-                new Compressor(this)
-                        .setMaxWidth(640)
-                        .setMaxHeight(480)
-                        .setQuality(75)
-                        .setCompressFormat(Bitmap.CompressFormat.JPEG)
-                        .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath())
-                        .compressToFileAsFlowable(fileOrgin)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Consumer<File>() {
-                            @Override
-                            public void accept(File file) {
-                                switch (current) {
-                                    case ORDER_PAYED:
-                                        if (payedView != null) {
-                                            payedView.getPic(file);
-                                        }
-                                        break;
-                                    case ORDER_COINGET:
-                                        if (coinGetView != null) {
-                                            coinGetView.getPic(file);
-                                        }
-                                        break;
-                                    case ORDER_ARBITRATION_BUY:
-                                    case ORDER_ARBITRATION_SELL:
-                                        if (arbitrationView != null) {
-                                            arbitrationView.getPic(file);
-                                        }
-                                        break;
-                                }
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) {
-                            }
-                        });
+
+                switch (current) {
+                    case ORDER_PAYED:
+                        if (payedView != null) {
+                            payedView.getPic(fileOrgin);
+                        }
+                        break;
+                    case ORDER_COINGET:
+                        if (coinGetView != null) {
+                            coinGetView.getPic(fileOrgin);
+                        }
+                        break;
+                    case ORDER_ARBITRATION_BUY:
+                    case ORDER_ARBITRATION_SELL:
+                        if (arbitrationView != null) {
+                            arbitrationView.getPic(fileOrgin);
+                        }
+                        break;
+                }
             }
         }
     }

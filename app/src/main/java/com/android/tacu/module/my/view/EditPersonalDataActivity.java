@@ -2,15 +2,12 @@ package com.android.tacu.module.my.view;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -54,10 +51,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
-import id.zelory.compressor.Compressor;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPresenter> implements EditPersonalDataContact.IView {
 
@@ -156,27 +149,10 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
             for (int i = 0; i < imageList.size(); i++) {
                 String imageUri = imageList.get(i);
                 File fileOrgin = new File(imageUri);
-                new Compressor(this)
-                        .setMaxWidth(640)
-                        .setMaxHeight(480)
-                        .setQuality(75)
-                        .setCompressFormat(Bitmap.CompressFormat.JPEG)
-                        .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath())
-                        .compressToFileAsFlowable(fileOrgin)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Consumer<File>() {
-                            @Override
-                            public void accept(File file) {
-                                showLoadingView();
-                                GlideUtils.disPlay(EditPersonalDataActivity.this, "file://" + file.getPath(), img_head_sculpture);
-                                mPresenter.getOssSetting(file.getPath());
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) {
-                            }
-                        });
+
+                showLoadingView();
+                GlideUtils.disPlay(EditPersonalDataActivity.this, "file://" + fileOrgin.getPath(), img_head_sculpture);
+                mPresenter.getOssSetting(fileOrgin.getPath());
             }
         }
     }

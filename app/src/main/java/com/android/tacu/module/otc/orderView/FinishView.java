@@ -12,8 +12,8 @@ import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
 import com.android.tacu.utils.GlideUtils;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 
 //已完成
 public class FinishView implements View.OnClickListener {
@@ -28,7 +28,7 @@ public class FinishView implements View.OnClickListener {
     private ImageView img_trade_get;
     private ImageView img_trade_coin;
 
-    private QMUIRadiusImageView img_voucher;
+    private QMUIRoundImageView img_voucher;
 
     private TextView tv_order_make;
     private TextView tv_order_make_status;

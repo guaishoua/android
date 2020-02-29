@@ -22,6 +22,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcMarketBuySellContract;
+import com.android.tacu.module.otc.dialog.OtcDialogUtils;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderModel;
@@ -30,7 +31,6 @@ import com.android.tacu.module.otc.presenter.OtcMarketBuySellPresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.UIUtils;
-import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -426,10 +426,12 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
             holder.setOnClickListener(R.id.btn, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
-                        jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
-                    } else {
-                        jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
+                    if (!OtcDialogUtils.isDialogShow(getContext())) {
+                        if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
+                            jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
+                        } else {
+                            jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
+                        }
                     }
                 }
             });
