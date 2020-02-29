@@ -17,7 +17,7 @@ import com.android.tacu.EventBus.model.VipBuyEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.module.assets.model.OtcAmountModel;
+import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.view.AssetsActivity;
 import com.android.tacu.module.auth.view.AuthActivity;
 import com.android.tacu.module.vip.contract.BuyVipContract;
@@ -129,7 +129,7 @@ public class BuyVipFragment extends BaseFragment<BuyVipPresenter> implements Buy
         if (!isKeyc2()) {
             return;
         }
-        jumpTo(AssetsActivity.createActivity(getContext(), Constant.OTC_ACU, Constant.ACU_CURRENCY_ID, 2, true));
+        jumpTo(AssetsActivity.createActivity(getContext(), Constant.OTC_ACU, Constant.ACU_CURRENCY_ID, 0, true));
     }
 
     @OnClick(R.id.btn)
@@ -184,6 +184,9 @@ public class BuyVipFragment extends BaseFragment<BuyVipPresenter> implements Buy
         if (!judgeBuy()) {
             btn.setEnabled(false);
             ((QMUIRoundButtonDrawable) btn.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_grey));
+        }else{
+            btn.setEnabled(true);
+            ((QMUIRoundButtonDrawable) btn.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
         }
     }
 
@@ -230,9 +233,9 @@ public class BuyVipFragment extends BaseFragment<BuyVipPresenter> implements Buy
         }
     }
 
-    public void setOtcAccount(OtcAmountModel model) {
+    public void customerCoinByOneCoin(AmountModel model) {
         if (model != null) {
-            tv_account_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + Constant.OTC_ACU);
+            tv_account_balance.setText(FormatterUtils.getFormatValue(model.attachment) + Constant.OTC_ACU);
         }
     }
 

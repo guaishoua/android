@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.tacu.utils.ConvertMoneyUtils;
+import com.android.tacu.utils.FormatterUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.EventBus.EventConstant;
@@ -84,8 +84,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     private String searchStr;
     //true：已有资产  false：全部资产
     private boolean isChecked = false;
-    //总资产比特币小数点后几位
-    private int btcAmount = 8;
     private View emptyView;
     private View assetHeaderView;
     private AssetAdapter adapter;
@@ -302,11 +300,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     public void showContent(AssetDetailsModel model) {
         this.assetDetailsModel = model;
 
-        int indexOf = assetDetailsModel.allMoney.indexOf(".");
-        if (indexOf > 0) {
-            btcAmount = assetDetailsModel.allMoney.length() - (indexOf + 1);
-        }
-
         if (assetDetailsModel != null) {
             if (refreshlayout != null && refreshlayout.isRefreshing()) {
                 refreshlayout.finishRefresh();
@@ -498,14 +491,11 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
 
     private void myAssets() {
         if (assetDetailsModel != null) {
-            ycn_total_string = "≈" + getMcM(1, Double.parseDouble(assetDetailsModel.allMoney));
-            btc_total_string = getMcMValue(1, Double.parseDouble(assetDetailsModel.allMoney)).toPlainString() + "ACU";
-
             double allAcu = Double.parseDouble(assetDetailsModel.allMoney);
-            if (ConvertMoneyUtils.getMcMBean() != null) {
-                ycn_total_string = "≈" + ConvertMoneyUtils.getMcMBean().sign + BigDecimal.valueOf(allAcu).setScale(ConvertMoneyUtils.getMcMBean().priceDot, BigDecimal.ROUND_HALF_UP).toPlainString();
-                btc_total_string = BigDecimal.valueOf(allAcu).setScale(ConvertMoneyUtils.getMcMBean().priceDot, BigDecimal.ROUND_HALF_UP).toPlainString() + "ACU";
-            }
+
+            ycn_total_string = "≈" + getMcM(Constant.ACU_CURRENCY_ID, allAcu);
+            btc_total_string = FormatterUtils.getFormatRoundUp(2, allAcu) + Constant.OTC_ACU;
+
             tv_ycn_total.setText(defaultEyeStatus ? ycn_total_string : "*****");
             tv_btc_total.setText(defaultEyeStatus ? btc_total_string : "*****");
         }

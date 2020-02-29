@@ -1,7 +1,7 @@
 package com.android.tacu.module.vip.contract;
 
 import com.android.tacu.base.IBaseMvpView;
-import com.android.tacu.module.assets.model.OtcAmountModel;
+import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.vip.model.VipDetailModel;
 import com.android.tacu.module.vip.model.VipDetailRankModel;
 
@@ -14,7 +14,7 @@ public class BuyVipContract {
 
         void selectVipDetail(List<VipDetailRankModel> list);
 
-        void otcAmount(OtcAmountModel model);
+        void customerCoinByOneCoin(AmountModel model);
     }
 
     public interface IChildView extends IBaseMvpView {
@@ -30,7 +30,7 @@ public class BuyVipContract {
 
         void buyVip(Integer type, String fdPassword);
 
-        void otcAmount(int currencyId);
+        void customerCoinByOneCoin(int currencyId);
 
         void cancleVip();
     }

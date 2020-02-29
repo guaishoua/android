@@ -14,6 +14,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.MyFragmentPagerAdapter;
+import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.vip.contract.BuyVipContract;
 import com.android.tacu.module.vip.model.VipDetailModel;
@@ -167,16 +168,17 @@ public class BuyVipActivity extends BaseActivity<BuyVipPresenter> implements Buy
         }
     }
 
+
     @Override
-    public void otcAmount(OtcAmountModel model) {
+    public void customerCoinByOneCoin(AmountModel model) {
         if (monthFragment != null) {
-            monthFragment.setOtcAccount(model);
+            monthFragment.customerCoinByOneCoin(model);
         }
         if (yearFragment != null) {
-            yearFragment.setOtcAccount(model);
+            yearFragment.customerCoinByOneCoin(model);
         }
         if (yearContinueFragment != null) {
-            yearContinueFragment.setOtcAccount(model);
+            yearContinueFragment.customerCoinByOneCoin(model);
         }
     }
 
@@ -193,7 +195,7 @@ public class BuyVipActivity extends BaseActivity<BuyVipPresenter> implements Buy
     private void upload() {
         mPresenter.selectVip();
         mPresenter.selectVipDetail();
-        mPresenter.otcAmount(Constant.ACU_CURRENCY_ID);
+        mPresenter.customerCoinByOneCoin(Constant.ACU_CURRENCY_ID);
     }
 
     /**

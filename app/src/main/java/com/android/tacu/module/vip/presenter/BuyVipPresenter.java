@@ -6,8 +6,9 @@ import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
+import com.android.tacu.http.factory.ModelTransformerFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
-import com.android.tacu.module.assets.model.OtcAmountModel;
+import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.vip.contract.BuyVipContract;
 import com.android.tacu.module.vip.model.VipDetailModel;
 import com.android.tacu.module.vip.model.VipDetailRankModel;
@@ -53,14 +54,14 @@ public class BuyVipPresenter extends BaseMvpPresenter implements BuyVipContract.
     }
 
     @Override
-    public void otcAmount(int currencyId) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).OtcAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView()) {
+    public void customerCoinByOneCoin(int currencyId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).customerCoinByOneCoin(currencyId), new NetDisposableObserver<AmountModel>((IBaseMvpView) getView()) {
             @Override
-            public void onNext(BaseModel<OtcAmountModel> o) {
+            public void onNext(AmountModel o) {
                 BuyVipContract.IView view = (BuyVipContract.IView) getView();
-                view.otcAmount(o.attachment);
+                view.customerCoinByOneCoin(o);
             }
-        });
+        }, ModelTransformerFactory.getNonStandardModelTransformer());
     }
 
     @Override
