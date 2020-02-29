@@ -412,8 +412,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     }
 
     private void logoutSuccess() {
-        if (viewpager.getCurrentItem() != 1 && viewpager.getCurrentItem() != 2) {
-            setTabSelection(0);
+        if (viewpager.getCurrentItem() != 0 && viewpager.getCurrentItem() != 1) {
+            setTabSelection(Constant.MAIN_HOME);
         }
         mPresenter.logout();
         showToastSuccess(getResources().getString(R.string.logout_success));
