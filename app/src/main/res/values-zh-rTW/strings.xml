@@ -758,7 +758,7 @@
     <string name="pay1">付款</string>
     <string name="exceeding_max_limit">妳超出了最大限額</string>
     <string name="exceeding_min_limit">妳超出了最小限額</string>
-    <string name="no_pay_tip">您未綁定該種支付方式，請綁定後再次確認。</string>
+    <string name="you_not_set_tradepwd">您還未設置交易密碼</string>
 
     <!--綁定支付-->
     <string name="binding_pay_info">綁定支付信息</string>
@@ -786,6 +786,7 @@
     <string name="upload_zfb_shoukuanma">上傳支付寶收款碼</string>
     <string name="please_upload_zfb_shoukuanma">請上傳支付寶收款碼</string>
     <string name="please_upload_your_payimg">請上傳您的付款憑證</string>
+    <string name="no_pay_tip">您未綁定該種支付方式，請綁定後再次確認。</string>
 
     <!--修改個人資料-->
     <string name="edit_person_data">修改個人資料</string>

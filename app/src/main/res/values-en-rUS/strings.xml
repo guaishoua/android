@@ -754,6 +754,7 @@
     <string name="pay1">Payment</string>
     <string name="exceeding_max_limit">You exceeded the maximum limit</string>
     <string name="exceeding_min_limit">You exceeded the minimum limit</string>
+    <string name="you_not_set_tradepwd">You have not set a trading password</string>
 
     <!--绑定支付-->
     <string name="binding_pay_info">Binding payment information</string>
