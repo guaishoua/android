@@ -27,6 +27,7 @@ import com.android.tacu.module.otc.model.OtcSelectFeeModel;
 import com.android.tacu.module.otc.presenter.OtcManageBuySellPresenter;
 import com.android.tacu.module.vip.view.RechargeDepositActivity;
 import com.android.tacu.utils.FormatterUtils;
+import com.android.tacu.utils.MathHelper;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
@@ -147,12 +148,16 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
                     if (!TextUtils.isEmpty(s.toString()) && !TextUtils.isEmpty(edit_trade_num.getText().toString())) {
-                        tv_trade_all_price.setText(FormatterUtils.getFormatValue(Double.valueOf(s.toString()) * Double.valueOf(edit_trade_num.getText().toString())));
+                        double valueD = MathHelper.mul(Double.valueOf(s.toString()), Double.valueOf(edit_trade_num.getText().toString()));
+                        tv_trade_all_price.setText(FormatterUtils.getFormatRoundDown(2, valueD));
                         if (otcSelectFeeModel != null) {
+                            double value;
                             if (isBuy) {
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.buyFee) + " " + coinName);
+                                value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.buyFee);
+                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
                             } else {
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.sellFee) + " " + coinName);
+                                value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.sellFee);
+                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
                             }
                         }
                     }
@@ -174,12 +179,16 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
                     if (!TextUtils.isEmpty(s.toString()) && !TextUtils.isEmpty(edit_trade_single_price.getText().toString())) {
-                        tv_trade_all_price.setText(FormatterUtils.getFormatValue(Double.valueOf(s.toString()) * Double.valueOf(edit_trade_single_price.getText().toString())));
+                        double valueD = MathHelper.mul(Double.valueOf(s.toString()), Double.valueOf(edit_trade_single_price.getText().toString()));
+                        tv_trade_all_price.setText(FormatterUtils.getFormatRoundDown(2, valueD));
                         if (otcSelectFeeModel != null) {
+                            double value;
                             if (isBuy) {
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatValue(Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.buyFee) + " " + coinName);
+                                value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.buyFee);
+                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
                             } else {
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatValue(Double.valueOf(tv_trade_all_price.getText().toString()) * otcSelectFeeModel.sellFee) + " " + coinName);
+                                value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.sellFee);
+                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
                             }
                         }
                     }

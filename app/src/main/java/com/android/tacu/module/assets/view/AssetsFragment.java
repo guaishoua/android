@@ -43,6 +43,7 @@ import com.android.tacu.utils.UIUtils;
 import com.android.tacu.view.popup.CoinPickerView;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -94,6 +95,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     private List<AssetDetailsModel.CoinListBean> currentList = new ArrayList<>();
     private List<AssetDetailsModel.CoinListBean> currentSearchList = new ArrayList<>();
     private QMUIAlphaImageButton currentPrivacyView;
+    private List<MarketNewModel> marketNewModelList = new ArrayList<>();
 
     private ScreenShareHelper screenShareHelper;
 
@@ -491,11 +493,41 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
 
     private void myAssets() {
         if (assetDetailsModel != null) {
-            double allAcu = Double.parseDouble(assetDetailsModel.allMoney);
+            double btcxAmount = 0;
+            double acuxAmount = 0;
+            double btcx_acuxPrice = 0;
+            if (assetDetailsModel.coinList != null && assetDetailsModel.coinList.size() > 0) {
+                for (int i = 0; i < assetDetailsModel.coinList.size(); i++) {
+                    if (TextUtils.equals(assetDetailsModel.coinList.get(i).currencyNameEn, "BTCX")) {
+                        btcxAmount = assetDetailsModel.coinList.get(i).amount;
+                    }
+                    if (TextUtils.equals(assetDetailsModel.coinList.get(i).currencyNameEn, "ACUX")) {
+                        acuxAmount = assetDetailsModel.coinList.get(i).amount;
+                    }
+                }
+            }
+
+            if (btcxAmount != 0) {
+                String cacheString = SPUtils.getInstance().getString(Constant.SELECT_COIN_GROUP_CACHE);
+                marketNewModelList = new Gson().fromJson(cacheString, new TypeToken<List<MarketNewModel>>() {
+                }.getType());
+
+                if (marketNewModelList != null && marketNewModelList.size() > 0) {
+                    FLAG:
+                    for (int i = 0; i < marketNewModelList.size(); i++) {
+                        for (int j = 0; j < marketNewModelList.get(i).tradeCoinsList.size(); j++) {
+                            if (TextUtils.equals(marketNewModelList.get(i).tradeCoinsList.get(j).baseCurrencyNameEn, "ACUX") && TextUtils.equals(marketNewModelList.get(i).tradeCoinsList.get(j).currencyNameEn, "BTCX")) {
+                                btcx_acuxPrice = marketNewModelList.get(i).tradeCoinsList.get(j).currentAmount;
+                                break FLAG;
+                            }
+                        }
+                    }
+                }
+            }
+            double allAcu = acuxAmount + btcxAmount * btcx_acuxPrice + Double.parseDouble(assetDetailsModel.allMoney);
 
             ycn_total_string = "≈" + getMcM(Constant.ACU_CURRENCY_ID, allAcu);
             btc_total_string = FormatterUtils.getFormatRoundUp(2, allAcu) + Constant.OTC_ACU;
-
             tv_ycn_total.setText(defaultEyeStatus ? ycn_total_string : "*****");
             tv_btc_total.setText(defaultEyeStatus ? btc_total_string : "*****");
         }

@@ -60,4 +60,13 @@ public class MathHelper {
         BigDecimal b2 = new BigDecimal("100");
         return b1.multiply(b2).doubleValue();
     }
+
+    /**
+     * 除法
+     */
+    public static double div(double v1, double v2) {
+        BigDecimal b1 = new BigDecimal(Double.toString(v1));
+        BigDecimal b2 = new BigDecimal(Double.toString(v2));
+        return b1.divide(b2, 2, BigDecimal.ROUND_DOWN).doubleValue();
+    }
 }

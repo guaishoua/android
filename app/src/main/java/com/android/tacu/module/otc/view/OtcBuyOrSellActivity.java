@@ -24,6 +24,7 @@ import com.android.tacu.module.otc.model.OtcMarketOrderModel;
 import com.android.tacu.module.otc.presenter.OtcBuyOrSellPresenter;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.GlideUtils;
+import com.android.tacu.utils.MathHelper;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
@@ -183,7 +184,8 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (isInputAmount && !TextUtils.isEmpty(s.toString().trim()) && allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price)) {
                     try {
-                        edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, Double.parseDouble(s.toString()) * Double.parseDouble(allModel.orderModel.price)));
+                        double value = MathHelper.mul(Double.parseDouble(s.toString()), Double.parseDouble(allModel.orderModel.price));
+                        edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, value));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -205,7 +207,8 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (isInputNum && !TextUtils.isEmpty(s.toString().trim()) && allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price)) {
                     try {
-                        edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, Double.parseDouble(s.toString()) / Double.parseDouble(allModel.orderModel.price)));
+                        double value = MathHelper.div(Double.parseDouble(s.toString()), Double.parseDouble(allModel.orderModel.price));
+                        edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, value));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -248,7 +251,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     @OnClick(R.id.btn_all_number)
     void btnAllNumber() {
         if (allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price) && !TextUtils.isEmpty(allModel.orderModel.remainAmount) && !TextUtils.isEmpty(allModel.orderModel.remainAmount)) {
-            double highLimitNum = Double.parseDouble(allModel.orderModel.highLimit) / Double.parseDouble(allModel.orderModel.price);
+            double highLimitNum = MathHelper.div(Double.parseDouble(allModel.orderModel.highLimit), Double.parseDouble(allModel.orderModel.price));
             if (highLimitNum <= Double.parseDouble(allModel.orderModel.remainAmount)) {
                 edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, highLimitNum));
             } else {
@@ -260,7 +263,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     @OnClick(R.id.btn_allmoney)
     void btnAllmoney() {
         if (allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price) && !TextUtils.isEmpty(allModel.orderModel.remainAmount) && !TextUtils.isEmpty(allModel.orderModel.remainAmount)) {
-            double reminALL = Double.parseDouble(allModel.orderModel.remainAmount) * Double.parseDouble(allModel.orderModel.price);
+            double reminALL = MathHelper.mul(Double.parseDouble(allModel.orderModel.remainAmount), Double.parseDouble(allModel.orderModel.price));
             if (reminALL <= Double.parseDouble(allModel.orderModel.highLimit)) {
                 edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, reminALL));
             } else {
@@ -375,7 +378,8 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
             tv_plan_buy_amount.setText(orderModel.num + " " + orderModel.currencyName);
             tv_remaining_unsold.setText(orderModel.remainAmount + " " + orderModel.currencyName);
             if (!TextUtils.isEmpty(orderModel.price) && !TextUtils.isEmpty(orderModel.remainAmount)) {
-                tv_remaining_all.setText(FormatterUtils.getFormatRoundDown(2, Double.parseDouble(orderModel.price) * Double.parseDouble(orderModel.remainAmount)) + valueWei);
+                double value = MathHelper.mul(Double.parseDouble(orderModel.price), Double.parseDouble(orderModel.remainAmount));
+                tv_remaining_all.setText(FormatterUtils.getFormatRoundDown(2, value) + valueWei);
             }
             tv_single_min_limit.setText(orderModel.lowLimit + valueWei);
             tv_single_max_limit.setText(orderModel.highLimit + valueWei);

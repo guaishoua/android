@@ -25,6 +25,7 @@ import com.android.tacu.module.vip.contract.RechargeDepositContract;
 import com.android.tacu.module.vip.model.BondRecordModel;
 import com.android.tacu.module.vip.presenter.RechargeDepositPresenter;
 import com.android.tacu.utils.FormatterUtils;
+import com.android.tacu.utils.MathHelper;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
@@ -198,7 +199,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
 
             Double value1 = (!TextUtils.isEmpty(model.freezeAmount)) ? Double.valueOf(model.freezeAmount) : 0;
             Double value2 = (!TextUtils.isEmpty(model.bondFreezeAmount)) ? Double.valueOf(model.bondFreezeAmount) : 0;
-            tv_frozen_balance.setText(FormatterUtils.getFormatValue(value1 + value2) + Constant.OTC_ACU);
+            tv_frozen_balance.setText(FormatterUtils.getFormatValue(MathHelper.add(value1, value2)) + Constant.OTC_ACU);
         } else {
             tv_margin_balance.setText("0" + Constant.OTC_ACU);
             tv_available_balance.setText("0" + Constant.OTC_ACU);

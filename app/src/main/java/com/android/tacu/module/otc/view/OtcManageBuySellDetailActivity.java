@@ -28,6 +28,7 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.GlideUtils;
+import com.android.tacu.utils.MathHelper;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -212,7 +213,8 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                             tv_success_buy_title.setText(getResources().getString(R.string.success_buy));
                             tv_pay_after2_title.setText(getResources().getString(R.string.pay_after2));
                             if (!TextUtils.isEmpty(orderModel.remainAmount) && !TextUtils.isEmpty(orderModel.price)) {
-                                tv_surplus_total.setText(FormatterUtils.getFormatValue(Double.parseDouble(orderModel.remainAmount) * Double.parseDouble(orderModel.price)) + valueWei);
+                                double value = MathHelper.mul(Double.parseDouble(orderModel.remainAmount), Double.parseDouble(orderModel.price));
+                                tv_surplus_total.setText(FormatterUtils.getFormatRoundDown(2, value) + valueWei);
                             } else {
                                 tv_surplus_total.setText("0" + valueWei);
                             }
@@ -238,7 +240,8 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                 tv_finished_trade.setText(orderModel.finishNum + getResources().getString(R.string.dan));
                 tv_success_buy.setText(orderModel.tradeAmount + " " + orderModel.currencyName);
                 if (!TextUtils.isEmpty(orderModel.tradeAmount) && !TextUtils.isEmpty(orderModel.price)) {
-                    tv_pay_after2.setText(FormatterUtils.getFormatValue(Double.parseDouble(orderModel.tradeAmount) * Double.parseDouble(orderModel.price)) + valueWei);
+                    double value = MathHelper.mul(Double.parseDouble(orderModel.tradeAmount), Double.parseDouble(orderModel.price));
+                    tv_pay_after2.setText(FormatterUtils.getFormatRoundDown(2, value) + valueWei);
                 } else {
                     tv_pay_after2.setText("0" + valueWei);
                 }
