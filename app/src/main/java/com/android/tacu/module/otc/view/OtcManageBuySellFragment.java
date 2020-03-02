@@ -309,11 +309,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
         param.lowLimit = min;
         param.highLimit = max;
         param.explain = explain;
-        if (spUtil.getPwdVisibility()) {
-            param.fdPassword = Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase();
-        } else {
-            param.fdPassword = null;
-        }
+        param.fdPassword = spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase() : null;
         mPresenter.order(param);
     }
 

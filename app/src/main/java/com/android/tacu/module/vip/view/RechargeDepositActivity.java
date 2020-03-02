@@ -25,6 +25,7 @@ import com.android.tacu.module.vip.contract.RechargeDepositContract;
 import com.android.tacu.module.vip.model.BondRecordModel;
 import com.android.tacu.module.vip.presenter.RechargeDepositPresenter;
 import com.android.tacu.utils.FormatterUtils;
+import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.android.tacu.widget.dialog.DroidDialog;
@@ -340,7 +341,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
                             showToastError(getResources().getString(R.string.please_input_trade_password));
                             return;
                         }
-                        bondOrCC(pwd);
+                        bondOrCC(Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
                     }
                 })
                 .cancelable(false, false)

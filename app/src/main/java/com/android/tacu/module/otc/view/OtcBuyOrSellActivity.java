@@ -24,6 +24,7 @@ import com.android.tacu.module.otc.model.OtcMarketOrderModel;
 import com.android.tacu.module.otc.presenter.OtcBuyOrSellPresenter;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.GlideUtils;
+import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
@@ -296,7 +297,8 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
                     return;
                 }
             }
-            jumpTo(OtcOrderCreateActivity.createActivity(this, isBuy, pwd, FormatterUtils.getFormatRoundDown(2, num), FormatterUtils.getFormatRoundDown(2, amount), allModel));
+            String pwdString = spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase() : null;
+            jumpTo(OtcOrderCreateActivity.createActivity(this, isBuy, pwdString, FormatterUtils.getFormatRoundDown(2, num), FormatterUtils.getFormatRoundDown(2, amount), allModel));
         } catch (Exception e) {
             e.printStackTrace();
         }
