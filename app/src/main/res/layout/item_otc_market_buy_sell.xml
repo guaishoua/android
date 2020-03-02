@@ -95,20 +95,20 @@
             android:id="@+id/img_wx"
             android:layout_width="@dimen/dp_18"
             android:layout_height="@dimen/dp_18"
+            android:layout_marginRight="@dimen/dp_5"
             android:src="@mipmap/img_wx" />
 
         <ImageView
             android:id="@+id/img_zfb"
             android:layout_width="@dimen/dp_18"
             android:layout_height="@dimen/dp_18"
-            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_5"
             android:src="@mipmap/img_zfb" />
 
         <ImageView
             android:id="@+id/img_yhk"
             android:layout_width="@dimen/dp_18"
             android:layout_height="@dimen/dp_18"
-            android:layout_marginLeft="@dimen/dp_5"
             android:src="@mipmap/img_yhk" />
     </LinearLayout>
 

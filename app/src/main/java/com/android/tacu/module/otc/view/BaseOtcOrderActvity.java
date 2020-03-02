@@ -74,13 +74,15 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
         if (infoModel != null) {
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_seller);
             tv_seller_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
-            if (infoModel.vip != null && infoModel.vip != 0) {
-                img_seller_vip.setImageResource(R.mipmap.img_vip_green);
-            } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
-                img_seller_vip.setImageResource(R.mipmap.img_vip_grey);
-            } else if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
+
+            if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
                 img_seller_vip.setImageResource(R.drawable.icon_vip);
+            } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
+                img_seller_vip.setImageResource(R.drawable.icon_vip_grey);
+            } else if (infoModel.vip != null && infoModel.vip != 0) {
+                img_seller_vip.setImageResource(R.mipmap.img_vip_green);
             }
+
             if (infoModel.isValidatePhone != null && infoModel.isValidatePhone == 1) {
                 img_seller_phone_auth.setImageResource(R.drawable.icon_auth_success);
             } else {
@@ -108,12 +110,12 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
         if (infoModel != null) {
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_buyer);
             tv_buyer_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
-            if (infoModel.vip != null && infoModel.vip != 0) {
-                img_buyer_vip.setImageResource(R.mipmap.img_vip_green);
-            } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
-                img_buyer_vip.setImageResource(R.mipmap.img_vip_grey);
-            } else if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
+            if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
                 img_buyer_vip.setImageResource(R.drawable.icon_vip);
+            } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
+                img_buyer_vip.setImageResource(R.drawable.icon_vip_grey);
+            } else if (infoModel.vip != null && infoModel.vip != 0) {
+                img_buyer_vip.setImageResource(R.mipmap.img_vip_green);
             }
             if (infoModel.isValidatePhone != null && infoModel.isValidatePhone == 1) {
                 img_buyer_phone_auth.setImageResource(R.drawable.icon_auth_success);

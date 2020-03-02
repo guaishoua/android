@@ -384,12 +384,12 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
             if (item.infoModel != null) {
                 GlideUtils.disPlay(getContext(), CommonUtils.getHead(item.infoModel.headImg), (ImageView) holder.getView(R.id.img_user));
                 holder.setText(R.id.tv_nickname, item.infoModel.nickname + "(" + CommonUtils.nameXing(item.infoModel.secondName) + ")");
-                if (item.infoModel.vip != null && item.infoModel.vip != 0) {
-                    holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_green);
-                } else if (item.infoModel.applyMerchantStatus != null && item.infoModel.applyMerchantStatus == 2) {
-                    holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_grey);
-                } else if (item.infoModel.applyAuthMerchantStatus != null && item.infoModel.applyAuthMerchantStatus == 2) {
+                if (item.infoModel.applyAuthMerchantStatus != null && item.infoModel.applyAuthMerchantStatus == 2) {
                     holder.setImageResource(R.id.img_vip, R.drawable.icon_vip);
+                } else if (item.infoModel.applyMerchantStatus != null && item.infoModel.applyMerchantStatus == 2) {
+                    holder.setImageResource(R.id.img_vip, R.drawable.icon_vip_grey);
+                } else if (item.infoModel.vip != null && item.infoModel.vip != 0) {
+                    holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_green);
                 }
                 holder.setText(R.id.tv_history_deal, getResources().getString(R.string.history_deal) + "：" + item.infoModel.total + getResources().getString(R.string.dan));
             }

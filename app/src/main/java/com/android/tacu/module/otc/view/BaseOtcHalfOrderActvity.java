@@ -104,13 +104,14 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
         if (infoModel != null) {
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_people);
             tv_people_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
-            if (infoModel.vip != null && infoModel.vip != 0) {
-                img_people_vip.setImageResource(R.mipmap.img_vip_green);
-            } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
-                img_people_vip.setImageResource(R.mipmap.img_vip_grey);
-            } else if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
+            if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
                 img_people_vip.setImageResource(R.drawable.icon_vip);
+            } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
+                img_people_vip.setImageResource(R.drawable.icon_vip_grey);
+            } else if (infoModel.vip != null && infoModel.vip != 0) {
+                img_people_vip.setImageResource(R.mipmap.img_vip_green);
             }
+
             if (infoModel.isValidatePhone != null && infoModel.isValidatePhone == 1) {
                 img_people_phone_auth.setImageResource(R.drawable.icon_auth_success);
             } else {

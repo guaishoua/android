@@ -14,15 +14,15 @@
         <item name="progress_unreached_bar_height">3dp</item>
     </style>
 
-    <style name="UpdateAppNumberProgressBar_Blue">
+    <style name="UpdateAppNumberProgressBar">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="progress_max">100</item>
         <item name="progress_current">0</item>
-        <item name="progress_unreached_color">#CCCCCC</item>
-        <item name="progress_reached_color">#0066FF</item>
+        <item name="progress_unreached_color">#FFFFFF</item>
+        <item name="progress_reached_color">#E2BF1C</item>
         <item name="progress_text_size">12sp</item>
-        <item name="progress_text_color">#0066FF</item>
+        <item name="progress_text_color">#E2BF1C</item>
         <item name="progress_reached_bar_height">4dp</item>
         <item name="progress_unreached_bar_height">3dp</item>
     </style>
