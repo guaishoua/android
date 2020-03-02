@@ -1,6 +1,5 @@
 package com.android.tacu.module.assets.view;
 
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -27,7 +26,6 @@ import com.android.tacu.module.assets.presenter.MoneyFlowPresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.IdentityAuthUtils;
 import com.android.tacu.utils.SPUtils;
-import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.StatusBarUtils;
 import com.android.tacu.view.popup.CoinFilterView;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
@@ -105,7 +103,6 @@ public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implemen
         mTopBar.setTitle(getResources().getString(R.string.history));
 
         emptyView = View.inflate(this, R.layout.view_empty, null);
-        filterView.findViewById(R.id.btn_header_filter).setVisibility(View.VISIBLE);
         initRecyclerView();
         initDatas();
         updateFilterView();
@@ -317,20 +314,8 @@ public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implemen
                     }
                 }
             }
-
             helper.setText(R.id.tv_time, item.createTime);
         }
-    }
-
-    /**
-     * 复制
-     *
-     * @param str
-     */
-    private void copy(String str) {
-        ClipboardManager cmb = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
-        cmb.setText(str); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
-        ShowToast.success(getString(R.string.copy_success));
     }
 
     public void initData(boolean isLoad, boolean showLoad) {

@@ -302,12 +302,12 @@ public class OTCTransferFragment extends BaseFragment<OTCTransferPresenter> impl
             helper.setText(R.id.tv_currency, item.currencyNameEn + "/" + item.baseCurrencyNameEn);
             if (item.changeRate >= 0) {
                 helper.setText(R.id.tv_absolutely, "+" + BigDecimal.valueOf(item.changeRate).toPlainString() + "%");
-                helper.setTextColor(R.id.tv_absolutely, ContextCompat.getColor(getContext(), R.color.text_blue));
-                helper.setTextColor(R.id.tv_situation, ContextCompat.getColor(getContext(), R.color.text_blue));
+                helper.setTextColor(R.id.tv_absolutely, ContextCompat.getColor(getContext(), R.color.color_riseup));
+                helper.setTextColor(R.id.tv_situation, ContextCompat.getColor(getContext(), R.color.color_riseup));
             } else {
                 helper.setText(R.id.tv_absolutely, BigDecimal.valueOf(item.changeRate).toPlainString() + "%");
-                helper.setTextColor(R.id.tv_absolutely, ContextCompat.getColor(getContext(), R.color.text_red));
-                helper.setTextColor(R.id.tv_situation, ContextCompat.getColor(getContext(), R.color.text_red));
+                helper.setTextColor(R.id.tv_absolutely, ContextCompat.getColor(getContext(), R.color.color_risedown));
+                helper.setTextColor(R.id.tv_situation, ContextCompat.getColor(getContext(), R.color.color_risedown));
             }
 
             helper.setText(R.id.tv_situation, BigDecimal.valueOf(item.currentAmount).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString());

@@ -8,7 +8,7 @@
     android:layout_margin="@dimen/dp_5"
     android:background="@color/content_bg_color"
     android:orientation="vertical"
-    app:qmui_borderColor="@color/color_grey_3"
+    app:qmui_borderColor="@color/content_bg_color_grey"
     app:qmui_borderWidth="@dimen/dp_1"
     app:qmui_radius="@dimen/dp_8">
 
@@ -42,7 +42,6 @@
             android:text="@string/label_coin_trans_history_price"
             android:textColor="@color/color_grey_3"
             android:textSize="@dimen/text_size_sp_12" />
-
     </LinearLayout>
 
     <View
@@ -75,7 +74,6 @@
                 android:layout_width="@dimen/dp_1"
                 android:layout_height="@dimen/dp_10" />
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
@@ -97,9 +95,6 @@
                     android:textSize="@dimen/text_size_sp_12"
                     tools:text="12345678" />
             </LinearLayout>
-
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -128,7 +123,6 @@
                 android:textColor="@color/color_grey_3"
                 android:textSize="@dimen/text_size_sp_12"
                 tools:text="2019-06-10:08:09:10" />
-
         </LinearLayout>
 
 
@@ -158,9 +152,7 @@
                 android:textColor="@color/color_riseup"
                 android:textSize="@dimen/text_size_sp_12"
                 tools:text="USDT" />
-
         </LinearLayout>
-
     </LinearLayout>
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
@@ -168,7 +160,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/dp_10"
-        app:qmui_backgroundColor="@color/color_grey_3"
+        app:qmui_backgroundColor="@color/content_bg_color_grey"
         app:qmui_radiusBottomLeft="@dimen/dp_5"
         app:qmui_radiusBottomRight="@dimen/dp_5">
 
@@ -181,7 +173,7 @@
                 android:layout_width="@dimen/dp_35"
                 android:layout_height="wrap_content"
                 android:text="@string/label_coin_trans_history_address"
-                android:textColor="#999999"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_10" />
 
             <TextView
@@ -189,10 +181,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#999999"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_10"
                 tools:text="nckbzjkcbjkxbclbdsbcdjbvkbvbkdjbcjbxjbxjnkzcbjxbbxjzbcxbcjvbdbvkjfbxkbhhzckjh" />
-
         </LinearLayout>
 
         <Space
@@ -208,7 +199,7 @@
                 android:layout_width="@dimen/dp_35"
                 android:layout_height="wrap_content"
                 android:text="@string/label_coin_trans_history_txid"
-                android:textColor="#999999"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_10" />
 
             <TextView
@@ -216,13 +207,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#999999"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_10"
                 tools:text="nckbzjkcbjkxbclbdsbcdjbvkbvbkdjbcjbxjbxjnkzcbjxbbxjzbcx" />
-
         </LinearLayout>
-
-
     </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
     <TextView
@@ -231,12 +219,9 @@
         android:layout_height="@dimen/dp_0"
         android:visibility="gone" />
 
-
     <CheckBox
         android:layout_width="@dimen/dp_0"
         android:layout_height="@dimen/dp_0"
         android:background="@drawable/checkbox_record"
         android:button="@null" />
-
-
 </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>

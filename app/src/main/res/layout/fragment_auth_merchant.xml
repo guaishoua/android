@@ -27,7 +27,6 @@
                 tools:src="@drawable/icon_auth_success" />
 
             <TextView
-                android:id="@+id/tv_satisfy_ordinary_mechant"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_5"

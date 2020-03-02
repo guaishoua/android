@@ -83,6 +83,8 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     TextView tv_purchase_deposit;
     @BindView(R.id.tv_margin_balance)
     TextView tv_margin_balance;
+    @BindView(R.id.tv_otc_balance)
+    TextView tv_otc_balance;
 
     @BindView(R.id.edit_ask)
     EditText edit_ask;
@@ -348,6 +350,13 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     }
 
     @Override
+    public void OtcAccount(OtcAmountModel model) {
+        if (model != null) {
+            tv_otc_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + Constant.OTC_ACU);
+        }
+    }
+
+    @Override
     public void orderSuccess() {
         showToastSuccess(getResources().getString(R.string.success));
         getHostActivity().finish();
@@ -377,6 +386,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
         if (isVisibleToUser) {
             mPresenter.selectFee(param.currencyId);
             mPresenter.BondAccount(param.currencyId);
+            mPresenter.OtcAccount(param.currencyId);
         }
     }
 

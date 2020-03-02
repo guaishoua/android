@@ -336,23 +336,28 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         }
         if (listPopup == null) {
             final List<String> data = new ArrayList<>();
+            data.add(getResources().getString(R.string.all));
             data.add(getResources().getString(R.string.yinhanngka));
             data.add(getResources().getString(R.string.zhifubao));
             data.add(getResources().getString(R.string.weixin));
             ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.simple_list_item, data);
             listPopup = new ListPopWindow(getContext(), adapter);
-            listPopup.create(UIUtils.dp2px(120), UIUtils.dp2px(122), new AdapterView.OnItemClickListener() {
+            listPopup.create(UIUtils.dp2px(120), UIUtils.dp2px(163), new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     tv.setText(data.get(position));
+                    //支付方式 0 全部 1 银行卡 2 微信 3 支付宝
                     switch (position) {
                         case 0:
-                            payType = 1;
+                            payType = 0;
                             break;
                         case 1:
-                            payType = 3;
+                            payType = 1;
                             break;
                         case 2:
+                            payType = 3;
+                            break;
+                        case 3:
                             payType = 2;
                             break;
                     }

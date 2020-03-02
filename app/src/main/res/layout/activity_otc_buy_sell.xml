@@ -186,7 +186,6 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_single_max_limit_title" />
 
                 <LinearLayout
-                    android:id="@+id/lin_pay_method"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -258,7 +257,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_receiving_account_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/receiving_account"

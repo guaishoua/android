@@ -19,6 +19,8 @@ public class OtcManageBuySellContract {
 
         void BondAccount(OtcAmountModel model);
 
+        void OtcAccount(OtcAmountModel model);
+
         void orderSuccess();
     }
 
@@ -28,6 +30,8 @@ public class OtcManageBuySellContract {
         void selectFee(Integer currencyId);
 
         void BondAccount(int currencyId);
+
+        void OtcAccount(int currencyId);
 
         void order(OtcPublishParam param);
     }

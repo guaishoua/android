@@ -38,6 +38,7 @@ import com.android.tacu.module.assets.contract.BindingPayInfoContract;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
+import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
@@ -201,22 +202,24 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
 
     @OnClick(R.id.btn_bindinng)
     void bindingClick() {
-        weChatNo = edit_wx_name.getText().toString().trim();
-        pwdString = edit_trade_password.getText().toString().trim();
-        if (TextUtils.isEmpty(weChatNo)) {
-            showToastError(getResources().getString(R.string.please_input_wx_account));
-            return;
+        if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
+            weChatNo = edit_wx_name.getText().toString().trim();
+            pwdString = edit_trade_password.getText().toString().trim();
+            if (TextUtils.isEmpty(weChatNo)) {
+                showToastError(getResources().getString(R.string.please_input_wx_account));
+                return;
+            }
+            if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
+                showToastError(getResources().getString(R.string.please_input_trade_password));
+                return;
+            }
+            if (uploadFile == null) {
+                showToastError(getResources().getString(R.string.please_upload_wx_shoukuanma));
+                return;
+            }
+            showLoadingView();
+            mPresenter.getOssSetting(2, uploadFile.getPath());
         }
-        if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
-            showToastError(getResources().getString(R.string.please_input_trade_password));
-            return;
-        }
-        if (uploadFile == null) {
-            showToastError(getResources().getString(R.string.please_upload_wx_shoukuanma));
-            return;
-        }
-        showLoadingView();
-        mPresenter.getOssSetting(2, uploadFile.getPath());
     }
 
     @OnClick(R.id.btn_cancel)

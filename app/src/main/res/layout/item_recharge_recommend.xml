@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             tools:text="+2.22%"
-            android:textColor="@color/text_blue"
+            android:textColor="@color/color_riseup"
             android:textSize="@dimen/text_size_sp_10" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_currency"
             tools:text="+2.22%"
-            android:textColor="@color/text_blue"
+            android:textColor="@color/color_riseup"
             android:textSize="@dimen/text_size_sp_10" />
 
         <TextView

@@ -21,13 +21,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textColor="@color/text_grey_3"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_sp_14"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:qmui_backgroundColor="@color/color_grey_3"
-        app:qmui_borderColor="@color/color_grey_3"
-        app:qmui_borderWidth="@dimen/dp_1"
+        app:qmui_backgroundColor="@color/color_grey"
         app:qmui_radius="@dimen/dp_2"
         tools:text="標題" />
-
 </android.support.constraint.ConstraintLayout>

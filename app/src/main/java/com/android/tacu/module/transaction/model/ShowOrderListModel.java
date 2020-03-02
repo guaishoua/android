@@ -149,9 +149,9 @@ public class ShowOrderListModel implements Serializable {
         public int getTextColor() {
             switch (buyOrSell) {
                 case 1:
-                    return R.color.text_blue;
+                    return R.color.color_riseup;
                 case 2:
-                    return R.color.text_red;
+                    return R.color.color_risedown;
             }
             return 0;
         }

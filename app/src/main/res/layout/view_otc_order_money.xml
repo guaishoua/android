@@ -159,7 +159,6 @@
             tools:text="34000ACU" />
 
         <TextView
-            android:id="@+id/tv_seller_pay_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sell_pay"
@@ -323,7 +322,6 @@
             tools:text="34000ACU" />
 
         <TextView
-            android:id="@+id/tv_buyer_pay_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/buy_pay"

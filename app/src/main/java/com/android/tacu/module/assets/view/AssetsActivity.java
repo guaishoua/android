@@ -15,6 +15,7 @@ import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.assets.contract.AssetsContract;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.CoinListModel;
+import com.android.tacu.module.assets.model.MoneyFlowEvent;
 import com.android.tacu.module.assets.model.RecordEvent;
 import com.android.tacu.module.assets.presenter.AssetsPresenter;
 import com.android.tacu.utils.SPUtils;
@@ -104,8 +105,22 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
         recordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecordEvent event = new RecordEvent(currencyId, currencyNameEn, "", "");
-                jumpTo(RecordActivity.createActivity(AssetsActivity.this, current, event));
+                if (current == 2) {
+                    MoneyFlowEvent event = new MoneyFlowEvent(
+                            getString(R.string.all),
+                            "0",
+                            currencyId,
+                            currencyNameEn,
+                            "",
+                            ""
+                    );
+
+                    event.setType("0");
+                    jumpTo(MoneyFlowActivity.createActivity(AssetsActivity.this, event));
+                }else{
+                    RecordEvent event = new RecordEvent(currencyId, currencyNameEn, "", "");
+                    jumpTo(RecordActivity.createActivity(AssetsActivity.this, current, event));
+                }
             }
         });
     }

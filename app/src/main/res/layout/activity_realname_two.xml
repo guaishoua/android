@@ -10,89 +10,102 @@
         android:id="@+id/title"
         layout="@layout/common_titlebar" />
 
-    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_15"
-        android:orientation="vertical"
-        android:padding="@dimen/dp_10"
-        app:qmui_backgroundColor="@color/content_bg_color"
-        app:qmui_radius="@dimen/dp_10">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_real_title"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_30"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_20"
-            android:gravity="center"
-            android:text="@string/real_reverse_title"
-            android:textSize="@dimen/text_size_sp_14" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_real_hint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_14"
-            android:gravity="center"
-            android:text="@string/real_reverse_hint"
-            android:textSize="@dimen/text_size_sp_12" />
-
-        <TextView
-            android:id="@+id/tv_real_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:gravity="center"
-            android:lineSpacingExtra="@dimen/dp_6"
-            android:text="@string/real_reverse_content"
-            android:textColor="@color/text_grey_2"
-            android:textSize="@dimen/text_size_sp_12" />
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
-            android:id="@+id/rl_picture"
-            android:layout_width="@dimen/dp_240"
-            android:layout_height="@dimen/dp_160"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_30"
-            app:qmui_backgroundColor="@color/content_bg_color"
-            app:qmui_isRadiusAdjustBounds="true"
-            app:qmui_radius="@dimen/dp_5">
-
-            <ImageView
-                android:id="@+id/iv_picture"
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/dp_15"
-                android:background="@mipmap/img_real_reverse"
-                android:scaleType="fitXY" />
-
-            <ImageView
-                android:id="@+id/iv_camera"
-                android:layout_width="@dimen/dp_70"
-                android:layout_height="@dimen/dp_70"
-                android:layout_centerInParent="true"
-                android:background="@mipmap/img_real_camera" />
-
-            <TextView
-                android:id="@+id/tv_info"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/uploaded"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_16"
-                android:visibility="gone" />
-        </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
-    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+                android:layout_margin="@dimen/dp_15"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_10"
+                app:qmui_backgroundColor="@color/content_bg_color"
+                app:qmui_radius="@dimen/dp_10">
 
-    <com.qmuiteam.qmui.alpha.QMUIAlphaButton
-        android:id="@+id/btn_next"
-        style="@style/btn_gradient_blue"
-        android:text="@string/next" />
+                <TextView
+                    android:id="@+id/tv_real_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:gravity="center"
+                    android:text="@string/real_reverse_title"
+                    android:textColor="@color/text_grey_2"
+                    android:textSize="@dimen/text_size_sp_14" />
+
+                <TextView
+                    android:id="@+id/tv_real_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:gravity="center"
+                    android:text="@string/real_reverse_hint"
+                    android:textColor="@color/text_grey_2"
+                    android:textSize="@dimen/text_size_sp_12" />
+
+                <TextView
+                    android:id="@+id/tv_real_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/dp_6"
+                    android:text="@string/real_reverse_content"
+                    android:textColor="@color/text_grey_2"
+                    android:textSize="@dimen/text_size_sp_12" />
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
+                    android:id="@+id/rl_picture"
+                    android:layout_width="@dimen/dp_240"
+                    android:layout_height="@dimen/dp_160"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_20"
+                    app:qmui_backgroundColor="@color/content_bg_color"
+                    app:qmui_isRadiusAdjustBounds="true"
+                    app:qmui_radius="@dimen/dp_5">
+
+                    <ImageView
+                        android:id="@+id/iv_picture"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/dp_15"
+                        android:background="@mipmap/img_real_reverse"
+                        android:scaleType="fitXY" />
+
+                    <ImageView
+                        android:id="@+id/iv_camera"
+                        android:layout_width="@dimen/dp_70"
+                        android:layout_height="@dimen/dp_70"
+                        android:layout_centerInParent="true"
+                        android:background="@mipmap/img_real_camera" />
+
+                    <TextView
+                        android:id="@+id/tv_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/uploaded"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_16"
+                        android:visibility="gone" />
+                </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+                android:id="@+id/btn_next"
+                style="@style/btn_gradient_blue"
+                android:text="@string/next" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

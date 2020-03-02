@@ -20,6 +20,7 @@ import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabIndicatorAdapter;
 import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
+import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.module.vip.contract.RechargeDepositContract;
 import com.android.tacu.module.vip.model.BondRecordModel;
 import com.android.tacu.module.vip.presenter.RechargeDepositPresenter;
@@ -31,6 +32,7 @@ import com.android.tacu.widget.popupwindow.ListPopWindow;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
@@ -147,15 +149,17 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
                 showCoinType(tv_coin);
                 break;
             case R.id.btn_ok:
-                String inputString = edit_amount.getText().toString().trim();
-                if (TextUtils.isEmpty(inputString)) {
-                    showToastError(getResources().getString(R.string.please_input_recharge_amount));
-                    return;
-                }
-                if (spUtil.getPwdVisibility()) {
-                    showDialog();
-                } else {
-                    bondOrCC(null);
+                if (!OtcTradeDialogUtils.isDialogShow(this)) {
+                    String inputString = edit_amount.getText().toString().trim();
+                    if (TextUtils.isEmpty(inputString)) {
+                        showToastError(getResources().getString(R.string.please_input_recharge_amount));
+                        return;
+                    }
+                    if (spUtil.getPwdVisibility()) {
+                        showDialog();
+                    } else {
+                        bondOrCC(null);
+                    }
                 }
                 break;
         }
@@ -324,7 +328,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
 
     private void showDialog() {
         View view = View.inflate(this, R.layout.view_dialog_trade_pwd, null);
-        final EditText edit_trade_pwd = view.findViewById(R.id.edit_trade_pwd);
+        final QMUIRoundEditText edit_trade_pwd = view.findViewById(R.id.edit_trade_pwd);
         droidDialog = new DroidDialog.Builder(this)
                 .title(getResources().getString(R.string.trade_password))
                 .viewCustomLayout(view)

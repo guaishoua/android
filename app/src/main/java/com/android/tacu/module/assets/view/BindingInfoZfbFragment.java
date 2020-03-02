@@ -38,6 +38,7 @@ import com.android.tacu.module.assets.contract.BindingPayInfoContract;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
+import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
@@ -194,7 +195,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     }
 
     @OnClick(R.id.img_zfb_shoukuan1)
-    void lookBigClick(){
+    void lookBigClick() {
         if (!TextUtils.isEmpty(imageUrl)) {
             jumpTo(ZoomImageViewActivity.createActivity(getContext(), imageUrl));
         }
@@ -202,22 +203,24 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
 
     @OnClick(R.id.btn_bindinng)
     void bindingClick() {
-        zfbChatNo = edit_zfb_name.getText().toString().trim();
-        pwdString = edit_trade_password.getText().toString().trim();
-        if (TextUtils.isEmpty(zfbChatNo)) {
-            showToastError(getResources().getString(R.string.please_input_zfb_account));
-            return;
+        if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
+            zfbChatNo = edit_zfb_name.getText().toString().trim();
+            pwdString = edit_trade_password.getText().toString().trim();
+            if (TextUtils.isEmpty(zfbChatNo)) {
+                showToastError(getResources().getString(R.string.please_input_zfb_account));
+                return;
+            }
+            if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
+                showToastError(getResources().getString(R.string.please_input_trade_password));
+                return;
+            }
+            if (uploadFile == null) {
+                showToastError(getResources().getString(R.string.please_upload_zfb_shoukuanma));
+                return;
+            }
+            showLoadingView();
+            mPresenter.getOssSetting(3, uploadFile.getPath());
         }
-        if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
-            showToastError(getResources().getString(R.string.please_input_trade_password));
-            return;
-        }
-        if (uploadFile == null) {
-            showToastError(getResources().getString(R.string.please_upload_zfb_shoukuanma));
-            return;
-        }
-        showLoadingView();
-        mPresenter.getOssSetting(3, uploadFile.getPath());
     }
 
     @OnClick(R.id.btn_cancel)

@@ -397,7 +397,6 @@
     <!--首页-->
     <string name="home_recharge">Recharge</string>
 
-    <string name="please_bind_phone">Please bind your cell phone number first.</string>
     <string name="refresh_string">tacu</string>
     <string name="exit">Exit TACU</string>
     <string name="register_fast">register immediately</string>
@@ -551,18 +550,8 @@
 
     <!--OTC-->
     <string name="please_perfect_follow_info">Please complete the following information to make a transaction</string>
-    <string name="buy_amount_going">The amount you will buy ...</string>
-    <string name="last_buy_price">Last purchase price</string>
-    <string name="now_buy">Buy now</string>
-    <string name="buy_dan">Buy%1$sorder</string>
-    <string name="sell_dan">Sell%1$s order</string>
     <string name="real_time_price">Real-time price index</string>
-    <string name="gointo_market">Enter the market</string>
-    <string name="range_24h">24h rise and fall</string>
-    <string name="maxprice_24h">24h highest price</string>
-    <string name="minprice_24h">24h minimum price</string>
     <string name="renminbi">RMB(CNY)</string>
-    <string name="meiyuan">United States dollar(USD)</string>
     <string name="sort_single_price">by unit price</string>
     <string name="sort_surplus_amount">By remaining amount</string>
     <string name="sort_quota">By Quota</string>
@@ -585,11 +574,7 @@
     <string name="otc_order_coined">Pending coins</string>
     <string name="otc_order_coinget">Coins to be received</string>
     <string name="otc_order_arbitration">In arbitration</string>
-    <string name="otc_notcomfirm_timeout_cancel">Cancel without confirmation timeout</string>
     <string name="otc_refuse_order">Reject order</string>
-    <string name="otc_pay_timeout_cancel">Cancellation of payment timeout</string>
-    <string name="otc_giveup_pay">Abandon payment</string>
-    <string name="otc_coin_timeout">Coin timeout</string>
     <string name="timeouted">Timed out</string>
     <string name="pay_timeout">Payout timeout</string>
     <string name="market_order">Generate order</string>
@@ -653,8 +638,6 @@
     <string name="otc_xieyi">I have read it carefully, agree and abide by the platform\'s security tips on OTC OTC transactions and</string>
     <string name="otc_xieyi_name">《TCC OTC OTC OTC Trading Specifications and Disclaimer》</string>
     <string name="please_check_xieyi">Please check the agreement!</string>
-    <string name="otc_order_create_countdown1">Please at</string>
-    <string name="otc_order_create_countdown2">The order generation is completed within the time limit, this time the order generation will be canceled</string>
     <string name="confirm_create_order">Confirm order generation</string>
     <string name="refuse_order">Reject order</string>
     <string name="otc_order_confirm">Order confirmation page</string>
@@ -724,7 +707,6 @@
     <string name="current_market_value">Current market value: 1CNY/ACU</string>
     <string name="order_operation_time_limit">Order operation time limit</string>
     <string name="minute_15">15 minutes</string>
-    <string name="minute_30">30 minutes</string>
     <string name="hour_1_5">1.5 hours</string>
     <string name="hour_2">2 hours</string>
     <string name="hour_4">4 hours</string>
@@ -764,8 +746,6 @@
     <string name="fee_send">Fee:</string>
     <string name="wait_deal_matter">Pending matters</string>
     <string name="record">Record</string>
-    <string name="sell_num">Number of sales</string>
-    <string name="receive_money">Revenue amount</string>
     <string name="operation_countdown">Operation Timing</string>
     <string name="order_status">Order status</string>
     <string name="create_otc_order">Create an ad</string>
@@ -815,9 +795,7 @@
     <string name="plesase_binding_email">Please bind your email</string>
     <string name="binding_success">You have successfully bound</string>
     <string name="apply_kyc">KYC application</string>
-    <string name="apply_kyc_not">You have not applied for KYC yet</string>
     <string name="apply_business">Apply for business</string>
-    <string name="applied">Applied</string>
     <string name="to_be_examine">Pending review</string>
     <string name="apply_business_not">You have not applied for a business yet</string>
     <string name="please_binding_pay_info">Please bind your payment information</string>
@@ -842,8 +820,6 @@
     <string name="auth_tip">※ The general merchant identity is a cycle of 30 natural days. It will be automatically counted after successful application. If you need to continue to use the merchant identity after 30 days, please reapply.</string>
     <string name="confirm_apply_submit">Confirm application and submit</string>
     <string name="satisfy_ordinary_mechant">Whether the general merchant status requirements are met</string>
-    <string name="register_60_enough">Whether the platform registration time is 60 days or more</string>
-    <string name="need_day">%1$s days left</string>
     <string name="need_5000_bond">Merchant margin account needs to submit 50,000ACU as margin</string>
     <string name="go_pay">Go to pay</string>
     <string name="merchant_advantage">Merchant Advantage</string>
@@ -866,24 +842,6 @@
          \n • Orders can only be placed for existing ads, not ads.
          \n • Merchants can purchase ACU at %7$s/ACU.
          \n • The amount of each transaction is within %8$s ACU.
-     </string>
-    <string name="merchant_c2c_advantage_tip">
-         Merchant:
-         \n • Trading in C2C modules
-         \n
-         \nBuy ACU
-         \n%1$s million (including %2$s million) discount %3$s
-         \n%4$s (including %5$s) Discount %6$s
-         \n%7$s (including %8$s) Discount %9$s
-         \n%10$s (including %11$s) Discount %12$s
-         \n%13$s above 10% discount %14$s
-         \n
-         \nSell ACU:
-         \n%15$s (including %16$s) Price %17$s
-         \n%18$s million (including %19$s million) price %20$s
-         \n%21$s (including %22$s) Price %23$s
-         \n%24$s (including %25$s) Price %26$s
-         \n%27$s and above Price %28$s
      </string>
     <string name="go_setting">Go to Settings</string>
     <string name="go_prefect">to perfect</string>

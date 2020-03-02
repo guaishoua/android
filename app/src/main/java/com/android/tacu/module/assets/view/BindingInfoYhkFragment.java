@@ -18,6 +18,7 @@ import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.assets.contract.BindingPayInfoContract;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
+import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.permission.PermissionUtils;
 import com.yanzhenjie.permission.Permission;
@@ -112,32 +113,34 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
 
     @OnClick(R.id.btn_bindinng)
     void bindingClick() {
-        String bankName = edit_bank_name.getText().toString().trim();
-        String openBankName = edit_open_bank_name.getText().toString().trim();
-        String openBankAdress = edit_open_bank_address.getText().toString().trim();
-        String bankCard = edit_bank_id.getText().toString().trim();
-        String pwdString = edit_trade_password.getText().toString().trim();
-        if (TextUtils.isEmpty(bankName)) {
-            showToastError(getResources().getString(R.string.please_input_bank_name));
-            return;
+        if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
+            String bankName = edit_bank_name.getText().toString().trim();
+            String openBankName = edit_open_bank_name.getText().toString().trim();
+            String openBankAdress = edit_open_bank_address.getText().toString().trim();
+            String bankCard = edit_bank_id.getText().toString().trim();
+            String pwdString = edit_trade_password.getText().toString().trim();
+            if (TextUtils.isEmpty(bankName)) {
+                showToastError(getResources().getString(R.string.please_input_bank_name));
+                return;
+            }
+            if (TextUtils.isEmpty(openBankName)) {
+                showToastError(getResources().getString(R.string.please_input_open_bank_name));
+                return;
+            }
+            if (TextUtils.isEmpty(openBankAdress)) {
+                showToastError(getResources().getString(R.string.please_input_open_bank_address));
+                return;
+            }
+            if (TextUtils.isEmpty(bankCard)) {
+                showToastError(getResources().getString(R.string.please_input_bank_id));
+                return;
+            }
+            if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
+                showToastError(getResources().getString(R.string.please_input_trade_password));
+                return;
+            }
+            mPresenter.insertBank(1, bankName, openBankName, openBankAdress, bankCard, null, null, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
         }
-        if (TextUtils.isEmpty(openBankName)) {
-            showToastError(getResources().getString(R.string.please_input_open_bank_name));
-            return;
-        }
-        if (TextUtils.isEmpty(openBankAdress)) {
-            showToastError(getResources().getString(R.string.please_input_open_bank_address));
-            return;
-        }
-        if (TextUtils.isEmpty(bankCard)) {
-            showToastError(getResources().getString(R.string.please_input_bank_id));
-            return;
-        }
-        if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
-            showToastError(getResources().getString(R.string.please_input_trade_password));
-            return;
-        }
-        mPresenter.insertBank(1, bankName, openBankName, openBankAdress, bankCard, null, null, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
     }
 
     @OnClick(R.id.btn_cancel)
@@ -192,7 +195,7 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
         }
     }
 
-    private void clearValue(){
+    private void clearValue() {
         edit_bank_name.setText("");
         edit_open_bank_name.setText("");
         edit_open_bank_address.setText("");

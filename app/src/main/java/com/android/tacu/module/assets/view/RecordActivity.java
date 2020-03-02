@@ -398,7 +398,9 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
             helper.setText(R.id.tv_fee, BigDecimal.valueOf(item.fee).toPlainString());
             helper.setText(R.id.tv_coins_name, getMainCoinString() + getResources().getString(R.string.recharge));
             helper.setText(R.id.tv_coin_currency_name, item.currencyNameEn);
+            helper.setTextColor(R.id.tv_coin_currency_name, getResources().getColor(R.color.color_riseup));
             helper.setText(R.id.tv_coins_amount, BigDecimal.valueOf(item.realNum).toPlainString());
+            helper.setTextColor(R.id.tv_coins_amount, getResources().getColor(R.color.color_riseup));
             helper.setText(R.id.tv_status, getResources().getString(R.string.recharge));
             helper.setText(R.id.tv_state, "(" + item.confirms + ")");
             helper.setText(R.id.tv_time, item.createTime);

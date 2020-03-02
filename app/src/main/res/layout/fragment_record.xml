@@ -26,9 +26,8 @@
             android:paddingRight="@dimen/dp_15">
 
             <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/tv_selected_coin"
@@ -42,22 +41,19 @@
                     tools:text="BTC" />
             </FrameLayout>
 
-
             <com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout
                 android:id="@+id/btn_header_filter"
                 android:layout_width="@dimen/dp_100"
                 android:layout_height="match_parent"
                 android:layout_gravity="right|center_vertical"
                 android:gravity="right|center_vertical"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
                     android:background="@null"
                     app:srcCompat="@drawable/icon_shaixuan" />
-
             </com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout>
 
         </com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout>
@@ -85,6 +81,4 @@
     <include
         android:id="@+id/view_drawer"
         layout="@layout/drawerlayout_record_screen" />
-
-
 </android.support.v4.widget.DrawerLayout>

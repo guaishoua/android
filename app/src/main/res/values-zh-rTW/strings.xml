@@ -389,10 +389,9 @@
     <string name="amount_tips">請輸入充幣數量</string>
 
     <!--首頁-->    
-    <string name="home_recharge">充值</string>    
+    <string name="home_recharge">充值</string><![CDATA[    
 
-    <string name="please_bind_phone">請先綁定手機號</string>
-
+    ]]>
     <string name="refresh_string">tacu</string>
     <string name="exit">再按壹次退出TACU</string>
     <string name="register_fast">立即註冊</string>
@@ -554,18 +553,8 @@
 
     <!--OTC-->
     <string name="please_perfect_follow_info">請完善以下信息方可進行交易</string>
-    <string name="buy_amount_going">您將買入的數量...</string>
-    <string name="last_buy_price">最新買入價</string>
-    <string name="now_buy">立即買入</string>
-    <string name="buy_dan">買入%1$s單</string>
-    <string name="sell_dan">賣出%1$s單</string>
     <string name="real_time_price">實時價格指數</string>
-    <string name="gointo_market">進入市場</string>
-    <string name="range_24h">24h漲跌幅</string>
-    <string name="maxprice_24h">24h最高價</string>
-    <string name="minprice_24h">24h最低價</string>
     <string name="renminbi">人民幣(CNY)</string>
-    <string name="meiyuan">美元(USD)</string>
     <string name="sort_single_price">按單價</string>
     <string name="sort_surplus_amount">按剩余量</string>
     <string name="sort_quota">按限額</string>
@@ -588,11 +577,8 @@
     <string name="otc_order_coined">待放幣</string>
     <string name="otc_order_coinget">待收幣</string>
     <string name="otc_order_arbitration">仲裁中</string>
-    <string name="otc_notcomfirm_timeout_cancel">未確認超時取消</string>
     <string name="otc_refuse_order">拒絕訂單</string>
-    <string name="otc_pay_timeout_cancel">付款超時取消</string>
-    <string name="otc_giveup_pay">放棄支付</string>'
-    <string name="otc_coin_timeout">放幣超時</string>
+    '
     <string name="timeouted">已超時</string>
     <string name="pay_timeout">支付超時</string>
     <string name="market_order">生成訂單</string>
@@ -656,8 +642,6 @@
     <string name="otc_xieyi">本人已認真閱讀，同意且遵守平臺關於OTC場外交易的安全提示以及</string>
     <string name="otc_xieyi_name">《TACU數字資產交易平臺OTC場外交易規範及免責聲明》</string>
     <string name="please_check_xieyi">請勾選協議！</string>
-    <string name="otc_order_create_countdown1">請於</string>
-    <string name="otc_order_create_countdown2">內完成訂單生成，超時將取消本次訂單生成</string>
     <string name="confirm_create_order">確認生成訂單</string>
     <string name="refuse_order">拒絕訂單</string>
     <string name="otc_order_confirm">訂單確認頁</string>
@@ -727,7 +711,6 @@
     <string name="current_market_value">當前市值：1CNY/ACU</string>
     <string name="order_operation_time_limit">訂單操作時限</string>
     <string name="minute_15">15分鐘</string>
-    <string name="minute_30">30分鐘</string>
     <string name="hour_1_5">1.5小時</string>
     <string name="hour_2">2小時</string>
     <string name="hour_4">4小時</string>
@@ -767,8 +750,6 @@
     <string name="fee_send">手續費支出：</string>
     <string name="wait_deal_matter">待處理事項</string>
     <string name="record">記錄</string>
-    <string name="sell_num">賣出數量</string>
-    <string name="receive_money">收入金額</string>
     <string name="operation_countdown">操作計時</string>
     <string name="order_status">訂單狀態</string>
     <string name="create_otc_order">創建廣告</string>
@@ -818,9 +799,7 @@
     <string name="plesase_binding_email">請綁定您的郵箱</string>
     <string name="binding_success">您已綁定成功</string>
     <string name="apply_kyc">進行KYC申請</string>
-    <string name="apply_kyc_not">您目前還未進行KYC申請</string>
     <string name="apply_business">申請商家</string>
-    <string name="applied">已申請</string>
     <string name="to_be_examine">待審核</string>
     <string name="apply_business_not">您還沒有申請商家</string>
     <string name="please_binding_pay_info">請綁定您的支付信息</string>
@@ -845,8 +824,6 @@
     <string name="auth_tip">※  普通商戶身份為30個自然日壹個週期，申請成功後自動計時，滿30日後如需繼續使用商戶身份請重新申請。</string>
     <string name="confirm_apply_submit">確認申請並提交</string>
     <string name="satisfy_ordinary_mechant">是否滿足普通商戶身份要求資格</string>
-    <string name="register_60_enough">平臺註冊時間是否滿60日或以上</string>
-    <string name="need_day">還需要%1$s天</string>
     <string name="need_5000_bond">商戶保證金賬戶需提交50,000ACU作為保證金</string>
     <string name="go_pay">去繳納</string>
     <string name="merchant_advantage">商家優勢</string>
@@ -869,24 +846,6 @@
         \n• 僅可針對已有廣告發起訂單，不可發佈廣告。
         \n• 商戶可以 %7$s 元/ACU購買ACU。
         \n• 每單交易額度在 %8$s ACU內。
-    </string>
-    <string name="merchant_c2c_advantage_tip">
-        商戶：
-        \n• 在C2C模塊中交易
-        \n
-        \n購買ACU
-        \n %1$s 萬（含 %2$s 萬）        優惠價格 %3$s
-        \n %4$s 萬（含 %5$s 萬）      優惠價格 %6$s
-        \n %7$s 萬（含 %8$s 萬）     優惠價格 %9$s
-        \n %10$s 萬（含 %11$s 萬）     優惠價格 %12$s
-        \n %13$s 萬以上              優惠價格 %14$s
-        \n
-        \n出售ACU:
-        \n %15$s 萬（含 %16$s 萬）        價格 %17$s
-        \n %18$s 萬（含 %19$s 萬）      價格 %20$s
-        \n %21$s 萬（含 %22$s 萬）     價格 %23$s
-        \n %24$s 萬（含 %25$s 萬）     價格 %26$s
-        \n %27$s 萬以上              價格 %28$s
     </string>
     <string name="go_setting">去設置</string>
     <string name="go_prefect">去完善</string>

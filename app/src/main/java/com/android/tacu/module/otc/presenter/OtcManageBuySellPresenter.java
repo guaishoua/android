@@ -50,6 +50,17 @@ public class OtcManageBuySellPresenter extends BaseMvpPresenter implements OtcMa
     }
 
     @Override
+    public void OtcAccount(int currencyId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).OtcAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel<OtcAmountModel> o) {
+                OtcManageBuySellContract.IChildView view = (OtcManageBuySellContract.IChildView) getView();
+                view.OtcAccount(o.attachment);
+            }
+        });
+    }
+
+    @Override
     public void order(OtcPublishParam param) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).order(param.buyorsell, param.currencyId, param.money, param.timeOut, param.price, param.num, param.amount, param.lowLimit, param.highLimit, param.explain, param.payByCard, param.payWechat, param.payAlipay, param.fdPassword), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override

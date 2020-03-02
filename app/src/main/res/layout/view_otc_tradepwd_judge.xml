@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/you_not_set_tradepwd"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14" />
+
+        <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+            android:id="@+id/btn_go_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:text="@string/go_setting"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_size_sp_13" />
+    </RelativeLayout>
+</LinearLayout>

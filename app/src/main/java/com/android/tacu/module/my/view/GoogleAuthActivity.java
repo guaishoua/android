@@ -181,14 +181,14 @@ public class GoogleAuthActivity extends BaseActivity<GoogleAuthPresenter> implem
             view_email.setVisibility(View.VISIBLE);
             view_phone.setVisibility(View.GONE);
             et_phone_code.setHint(getResources().getString(R.string.email_hint_code));
-            tv_mode_email.setTextColor(ContextCompat.getColor(this, R.color.text_blue));
+            tv_mode_email.setTextColor(ContextCompat.getColor(this, R.color.text_default));
             tv_mode_phone.setTextColor(ContextCompat.getColor(this, R.color.text_color));
         } else {
             view_email.setVisibility(View.GONE);
             view_phone.setVisibility(View.VISIBLE);
             et_phone_code.setHint(getResources().getString(R.string.phone_code));
             tv_mode_email.setTextColor(ContextCompat.getColor(this, R.color.text_color));
-            tv_mode_phone.setTextColor(ContextCompat.getColor(this, R.color.text_blue));
+            tv_mode_phone.setTextColor(ContextCompat.getColor(this, R.color.text_default));
         }
     }
 

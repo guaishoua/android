@@ -279,17 +279,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_20"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <CheckBox
                         android:id="@+id/cb_xieyi"
-                        android:layout_width="@dimen/dp_16"
-                        android:layout_height="@dimen/dp_16"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/checkbox_circle_default"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:background="@drawable/checkbox_rect_default"
                         android:button="@null"
-                        android:checked="false"
-                        android:paddingLeft="@dimen/dp_20" />
+                        android:checked="false" />
 
                     <TextView
                         android:id="@+id/tv_xieyi"

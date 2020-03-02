@@ -112,9 +112,7 @@ public class MoneyFlowDrawerLayoutHelper implements View.OnClickListener {
                 tv_end_time.setText("");
                 tv_currency.setText("");
                 moneyFlowEvent.setType("0");
-//                moneyFlowEvent.setCurrencyId();
                 typeAdapter.notifyDataSetChanged();
-//                currencyAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_start_time:
                 clickListener.timeClick(tv_start_time, tv_end_time.getText().toString().trim(), true);
@@ -314,9 +312,8 @@ public class MoneyFlowDrawerLayoutHelper implements View.OnClickListener {
                 helper.setTextColor(R.id.tv_item, ContextCompat.getColor(mContext, R.color.color_white));
                 helper.setGone(R.id.iv_item, true);
             } else {
-                ((QMUIRoundButtonDrawable) helper.getView(R.id.tv_item).getBackground()).setBgData(ContextCompat.getColorStateList(mContext, R.color.color_grey_3));
-
-                helper.setTextColor(R.id.tv_item, ContextCompat.getColor(mContext, R.color.text_grey_3));
+                ((QMUIRoundButtonDrawable) helper.getView(R.id.tv_item).getBackground()).setBgData(ContextCompat.getColorStateList(mContext, R.color.color_grey));
+                helper.setTextColor(R.id.tv_item, ContextCompat.getColor(mContext, R.color.text_color));
                 helper.setGone(R.id.iv_item, true);
             }
             helper.itemView.setOnClickListener(new View.OnClickListener() {

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/content_bg_color">
 
-    <EditText
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
         android:id="@+id/edit_trade_pwd"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
@@ -12,6 +12,9 @@
         android:background="@null"
         android:gravity="center"
         android:hint="@string/please_input_trade_password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingRight="@dimen/dp_5"
         android:textColor="@color/text_color"
         android:textColorHint="@color/text_grey"
         android:textSize="@dimen/text_size_sp_14" />

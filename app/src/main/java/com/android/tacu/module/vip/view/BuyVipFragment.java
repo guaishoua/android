@@ -20,6 +20,7 @@ import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.view.AssetsActivity;
 import com.android.tacu.module.auth.view.AuthActivity;
+import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.module.vip.contract.BuyVipContract;
 import com.android.tacu.module.vip.model.VipDetailModel;
 import com.android.tacu.module.vip.model.VipDetailRankModel;
@@ -134,22 +135,24 @@ public class BuyVipFragment extends BaseFragment<BuyVipPresenter> implements Buy
 
     @OnClick(R.id.btn)
     void btnClick() {
-        switch (btnStatus) {
-            case 0:
-                isPay = true;
-                dealView();
-                break;
-            case 1:
-                jumpTo(AuthActivity.class);
-                break;
-            case 2:
-                String pwdString = edit_trade_password.getText().toString().trim();
-                if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
-                    showToastError(getResources().getString(R.string.please_input_trade_password));
-                    return;
-                }
-                mPresenter.buyVip(vipType, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
-                break;
+        if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
+            switch (btnStatus) {
+                case 0:
+                    isPay = true;
+                    dealView();
+                    break;
+                case 1:
+                    jumpTo(AuthActivity.class);
+                    break;
+                case 2:
+                    String pwdString = edit_trade_password.getText().toString().trim();
+                    if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
+                        showToastError(getResources().getString(R.string.please_input_trade_password));
+                        return;
+                    }
+                    mPresenter.buyVip(vipType, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+                    break;
+            }
         }
     }
 
@@ -184,7 +187,7 @@ public class BuyVipFragment extends BaseFragment<BuyVipPresenter> implements Buy
         if (!judgeBuy()) {
             btn.setEnabled(false);
             ((QMUIRoundButtonDrawable) btn.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_grey));
-        }else{
+        } else {
             btn.setEnabled(true);
             ((QMUIRoundButtonDrawable) btn.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
         }
