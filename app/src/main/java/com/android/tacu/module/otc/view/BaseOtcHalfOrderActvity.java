@@ -131,7 +131,7 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
             } else {
                 img_people_video_auth.setImageResource(R.drawable.icon_auth_failure);
             }
-            tv_bond.setText(FormatterUtils.getFormatValue(infoModel.bondMoney) + " " + Constant.OTC_ACU);
+            tv_bond.setText(FormatterUtils.getFormatValue(infoModel.bondMoney) + " " + Constant.ACU_CURRENCY_NAME);
             tv_all_deal_amount.setText(FormatterUtils.getFormatValue(infoModel.total) + getResources().getString(R.string.dan));
             tv_buy_amount.setText(FormatterUtils.getFormatValue(infoModel.buy) + getResources().getString(R.string.dan));
             tv_sell_amount.setText(FormatterUtils.getFormatValue(infoModel.sell) + getResources().getString(R.string.dan));

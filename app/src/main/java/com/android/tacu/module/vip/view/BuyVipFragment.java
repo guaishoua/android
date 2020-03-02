@@ -130,7 +130,7 @@ public class BuyVipFragment extends BaseFragment<BuyVipPresenter> implements Buy
         if (!isKeyc2()) {
             return;
         }
-        jumpTo(AssetsActivity.createActivity(getContext(), Constant.OTC_ACU, Constant.ACU_CURRENCY_ID, 0, true));
+        jumpTo(AssetsActivity.createActivity(getContext(), Constant.ACU_CURRENCY_NAME, Constant.ACU_CURRENCY_ID, 0, true));
     }
 
     @OnClick(R.id.btn)
@@ -238,7 +238,7 @@ public class BuyVipFragment extends BaseFragment<BuyVipPresenter> implements Buy
 
     public void customerCoinByOneCoin(AmountModel model) {
         if (model != null) {
-            tv_account_balance.setText(FormatterUtils.getFormatValue(model.attachment) + Constant.OTC_ACU);
+            tv_account_balance.setText(FormatterUtils.getFormatValue(model.attachment) + Constant.ACU_CURRENCY_NAME);
         }
     }
 

@@ -527,7 +527,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             double allAcu = acuxAmount + btcxAmount * btcx_acuxPrice + Double.parseDouble(assetDetailsModel.allMoney);
 
             ycn_total_string = "≈" + getMcM(Constant.ACU_CURRENCY_ID, allAcu);
-            btc_total_string = FormatterUtils.getFormatRoundUp(2, allAcu) + Constant.OTC_ACU;
+            btc_total_string = FormatterUtils.getFormatRoundUp(2, allAcu) + Constant.ACU_CURRENCY_NAME;
             tv_ycn_total.setText(defaultEyeStatus ? ycn_total_string : "*****");
             tv_btc_total.setText(defaultEyeStatus ? btc_total_string : "*****");
         }

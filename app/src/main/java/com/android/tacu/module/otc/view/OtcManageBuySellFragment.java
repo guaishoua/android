@@ -103,7 +103,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     private boolean isBuy = true; //默认true=买
     private OtcPublishParam param;
     private OtcSelectFeeModel otcSelectFeeModel;
-    private String coinName = Constant.OTC_ACU;
+    private String coinName = Constant.ACU_CURRENCY_NAME;
     private PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
 
     public static OtcManageBuySellFragment newInstance(boolean isBuy) {
@@ -357,7 +357,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     @Override
     public void OtcAccount(OtcAmountModel model) {
         if (model != null) {
-            tv_otc_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + Constant.OTC_ACU);
+            tv_otc_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + Constant.ACU_CURRENCY_NAME);
         }
     }
 
@@ -403,7 +403,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
         if (coinPopup == null) {
             final List<String> data = new ArrayList<>();
             final List<Integer> dataId = new ArrayList<>();
-            data.add(Constant.OTC_ACU);
+            data.add(Constant.ACU_CURRENCY_NAME);
             dataId.add(Constant.ACU_CURRENCY_ID);
             ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.simple_list_item, data);
             coinPopup = new ListPopWindow(getContext(), adapter);

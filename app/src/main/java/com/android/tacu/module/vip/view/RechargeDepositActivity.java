@@ -179,7 +179,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
     @Override
     public void customerCoinByOneCoin(AmountModel model) {
         if (model != null) {
-            tv_account_balance.setText(FormatterUtils.getFormatValue(model.attachment) + Constant.OTC_ACU);
+            tv_account_balance.setText(FormatterUtils.getFormatValue(model.attachment) + Constant.ACU_CURRENCY_NAME);
         }
     }
 
@@ -187,23 +187,23 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
     public void BondAccount(OtcAmountModel model) {
         if (model != null) {
             if (!TextUtils.isEmpty(model.amount)) {
-                tv_margin_balance.setText(FormatterUtils.getFormatValue(model.amount) + Constant.OTC_ACU);
+                tv_margin_balance.setText(FormatterUtils.getFormatValue(model.amount) + Constant.ACU_CURRENCY_NAME);
             } else {
-                tv_margin_balance.setText("0" + Constant.OTC_ACU);
+                tv_margin_balance.setText("0" + Constant.ACU_CURRENCY_NAME);
             }
             if (!TextUtils.isEmpty(model.cashAmount)) {
-                tv_available_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + Constant.OTC_ACU);
+                tv_available_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + Constant.ACU_CURRENCY_NAME);
             } else {
-                tv_available_balance.setText("0" + Constant.OTC_ACU);
+                tv_available_balance.setText("0" + Constant.ACU_CURRENCY_NAME);
             }
 
             Double value1 = (!TextUtils.isEmpty(model.freezeAmount)) ? Double.valueOf(model.freezeAmount) : 0;
             Double value2 = (!TextUtils.isEmpty(model.bondFreezeAmount)) ? Double.valueOf(model.bondFreezeAmount) : 0;
-            tv_frozen_balance.setText(FormatterUtils.getFormatValue(MathHelper.add(value1, value2)) + Constant.OTC_ACU);
+            tv_frozen_balance.setText(FormatterUtils.getFormatValue(MathHelper.add(value1, value2)) + Constant.ACU_CURRENCY_NAME);
         } else {
-            tv_margin_balance.setText("0" + Constant.OTC_ACU);
-            tv_available_balance.setText("0" + Constant.OTC_ACU);
-            tv_frozen_balance.setText("0" + Constant.OTC_ACU);
+            tv_margin_balance.setText("0" + Constant.ACU_CURRENCY_NAME);
+            tv_available_balance.setText("0" + Constant.ACU_CURRENCY_NAME);
+            tv_frozen_balance.setText("0" + Constant.ACU_CURRENCY_NAME);
         }
     }
 
@@ -305,7 +305,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
         }
         final List<String> data = new ArrayList<>();
         final List<Integer> dataId = new ArrayList<>();
-        data.add(Constant.OTC_ACU);
+        data.add(Constant.ACU_CURRENCY_NAME);
         dataId.add(Constant.ACU_CURRENCY_ID);
         ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.simple_list_item, data);
         listPopup = new ListPopWindow(this, adapter);

@@ -72,8 +72,8 @@ public class OtcMarketListFragment extends BaseFragment {
     protected void initData(View view) {
         initTitle();
 
-        tabTitle.add(Constant.OTC_ACU);
-        fragmentList.add(OtcMarketFragment.newInstance(Constant.ACU_CURRENCY_ID, Constant.OTC_ACU));
+        tabTitle.add(Constant.ACU_CURRENCY_NAME);
+        fragmentList.add(OtcMarketFragment.newInstance(Constant.ACU_CURRENCY_ID, Constant.ACU_CURRENCY_NAME));
 
         magic_indicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tab_bg_color));
         magic_indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.text_default), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(14, 14));

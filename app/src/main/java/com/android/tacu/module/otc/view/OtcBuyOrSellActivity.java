@@ -354,7 +354,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     @Override
     public void otcAmount(OtcAmountModel model) {
         if (model != null) {
-            tv_account_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + Constant.OTC_ACU);
+            tv_account_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + Constant.ACU_CURRENCY_NAME);
         }
     }
 
