@@ -8,30 +8,36 @@
     android:paddingHorizontal="@dimen/dp_10"
     android:paddingTop="@dimen/dp_15">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/lin_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/content_bg_color"
-        android:orientation="horizontal">
+        android:background="@color/content_bg_color">
 
         <ImageView
             android:id="@+id/img_coins_icon"
             android:layout_width="@dimen/dp_38"
             android:layout_height="@dimen/dp_38"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/dp_8" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/lin_coin_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginLeft="@dimen/dp_10"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toRightOf="@+id/img_coins_icon"
+            app:layout_constraintRight_toLeftOf="@+id/lin_current_amount"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tv_coins_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_16"
                 android:textStyle="bold"
@@ -41,16 +47,23 @@
                 android:id="@+id/tv_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/text_grey_2"
                 android:textSize="@dimen/text_size_sp_13"
                 tools:text="212.00001234" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lin_current_amount"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_10"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toRightOf="@id/lin_coin_name"
+            app:layout_constraintRight_toLeftOf="@+id/tv_change_rate"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tv_current_amount"
@@ -58,11 +71,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
-                android:layout_marginRight="@dimen/dp_10"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_16"
                 android:textStyle="bold"
-                tools:text="0.00001234" />
+                tools:text="0.0000123411" />
 
             <TextView
                 android:id="@+id/tv_rmb_scale"
@@ -70,7 +84,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
-                android:layout_marginRight="@dimen/dp_10"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/text_grey_2"
                 android:textSize="@dimen/text_size_sp_13"
                 tools:text="≈￥12345.00" />
@@ -80,9 +95,6 @@
             android:id="@+id/tv_change_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_20"
             android:enabled="false"
             android:gravity="center"
             android:minWidth="@dimen/dp_80"
@@ -91,10 +103,12 @@
             android:textColor="@color/text_white"
             android:textSize="@dimen/text_size_sp_14"
             android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:qmui_backgroundColor="@color/color_riseup"
             app:qmui_radius="@dimen/dp_3"
             tools:text="-150.89%" />
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/lin_layout"
@@ -201,7 +215,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="right"
                 android:paddingVertical="@dimen/dp_2">
 
                 <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundTextView

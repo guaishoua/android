@@ -83,10 +83,16 @@ public class SplashActivity extends AppCompatActivity {
      * 跳转MainActivity
      */
     private void goMainActivity() {
-        //退出全屏 防止切换非全屏卡顿
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        if (TradeMatchActivity.isGoMain()) {
+            //退出全屏 防止切换非全屏卡顿
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(this, TradeMatchActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

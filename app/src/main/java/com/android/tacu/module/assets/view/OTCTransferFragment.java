@@ -311,11 +311,8 @@ public class OTCTransferFragment extends BaseFragment<OTCTransferPresenter> impl
             }
 
             helper.setText(R.id.tv_situation, BigDecimal.valueOf(item.currentAmount).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
-            if (item.baseCurrencyId == 22) {
-                helper.setText(R.id.tv_money, "");
-            } else {
-                helper.setText(R.id.tv_money, "≈" + getMcM(item.baseCurrencyId, item.currentAmount));
-            }
+            helper.setText(R.id.tv_money, "≈" + getMcM(item.baseCurrencyId, item.currentAmount));
+
             helper.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

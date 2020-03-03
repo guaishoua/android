@@ -906,4 +906,37 @@
     <string name="asset_num">數量</string>
     <string name="transfer_in">轉入</string>
     <string name="transfer_out">轉出</string>
+
+    <!--交易赛-->
+    <string name="match_title1">全员尊享新系统内测</string>
+    <string name="match_title2">零风险参赛赢取</string>
+    <string name="match_title3">28888ACU大奖</string>
+    <string name="match_tag1">大赛介绍</string>
+    <string name="match_tag1_text1">尊敬的用戶：</string>
+    <string name="match_tag1_text2">承蒙各位的信任和厚愛，TACU平臺已順利完成v3.0版本的開發和測試，為了讓廣大用戶提前體驗新系統，盡承蒙各位的信任和厚愛，TACU平臺已順利完成v3.0版本的開發和測試，為了讓廣大用戶提前體驗新系統，盡快學會新系統的使用，降低新系統正式上線后的操作風險現為您提供3.0內測版本系統，誠邀您參與共建TACU平臺，我們為您提供了零風險零投入以及豐厚獎勵的模擬交易大賽。</string>
+    <string name="match_tag1_text3">比賽時間：</string>
+    <string name="match_tag1_text4">2020年3月4日 20:00（GMT+8) ~ 2020年3月21日 20:00（GMT+8)</string>
+    <string name="match_tag1_text5">距比賽開始，還有：</string>
+    <string name="hour">小时</string>
+    <string name="minute">分钟</string>
+    <string name="second1">秒</string>
+    <string name="match_tag2">賽制獎勵</string>
+    <string name="match_tag2_text1">比赛期间内至少达到200万ACU交易额（买入量+卖出量），最后按照账户总资产折合的ACU数量进行排名</string>
+    <string name="match_tag2_text2">• 战绩排名第1名奖励28888ACU；\n• 战绩排名第2-3名奖励8888ACU；\n• 战绩排名第4-10名奖励288ACU；\n• 战绩排名第11-100名奖励88ACU；</string>
+    <string name="match_tag2_text3">体验奖：</string>
+    <string name="match_tag2_text4">凡参与交易且提出交易过程中的产品体验、BUG等意见和建议，官方将从中随机抽取50名幸运用户获得88ACU奖励，优秀意见和建议还会有额外奖励，意见和建议的在线提交表单网址为http://tacu2020.mikecrm.com/VpWHaaX</string>
+    <string name="match_tag3">大賽細則</string>
+    <string name="match_tag3_text1">參賽要求：</string>
+    <string name="match_tag3_text2">1.登陆网址www.cdcbk.com参赛或下载APP参赛；</string>
+    <string name="match_tag3_text3">2.系统将为每位参赛账户充值50万枚虚拟ACU作为交易底仓，虚拟ACU在活动结束后清零，不可提现，不可转账；</string>
+    <string name="match_tag3_text4">3.活动期间，用户可以任意选择模拟系统内已开盘的交易对参赛；</string>
+    <string name="match_tag3_text5">4.平台用户在比赛期间内至少达到200万ACU交易额（买入量+卖出量），最后按照账户总资产折合的ACU数量进行排名；</string>
+    <string name="match_tag3_text6">5.比赛结束后，平台将公布领奖登记网址，参赛获奖用户须提交相关信息才可领取奖励。</string>
+    <string name="match_tag3_text7">其他說明：</string>
+    <string name="match_tag3_text8">1.本次活动，面向全体实名认证用户，未完成实名认证用户参与将无法获得奖励；</string>
+    <string name="match_tag3_text9">2.ACU奖励将在新版系统上线后发放至获奖用户账户；</string>
+    <string name="match_tag3_text10">3.活动结束后，3.0内测版系统的所有数据将清零，包括用户的账户信息，请大家勿充值；</string>
+    <string name="match_tag3_text11">4.活动结束后，系统将自动快照参赛用户在3.0内测系统的资产，自动折算账户等值的虚拟ACU数量。</string>
+    <string name="match_tag3_text12">5.如有任何恶意刷量和作弊行为，TACU有权取消用户获奖资格；</string>
+    <string name="match_tag3_text13">6.本次活动最终解释权归TACU平台所有。</string>
 </resources>

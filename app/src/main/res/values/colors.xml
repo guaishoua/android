@@ -54,7 +54,6 @@
     <!--字体红色-->
     <color name="text_red">#FB5B71</color>
     <!--字体蓝色-->
-    <color name="text_blue">#00A3FD</color>
     <!--字体黑色-->
     <color name="text_black">#000000</color>
     <!--Auction当前价-->

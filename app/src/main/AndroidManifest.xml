@@ -62,6 +62,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.android.tacu.module.splash.TradeMatchActivity"
+            android:hardwareAccelerated="false" />
+        <activity
             android:name="com.android.tacu.module.main.view.MainActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" />

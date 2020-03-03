@@ -394,7 +394,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 holder.setText(R.id.tv_history_deal, getResources().getString(R.string.history_deal) + "：" + item.infoModel.total + getResources().getString(R.string.dan));
             }
             if (item.orderModel != null) {
-                holder.setText(R.id.tv_surplus, item.orderModel.remainAmount + "/" + item.orderModel.amount + " " + currencyNameEn);
+                holder.setText(R.id.tv_surplus, item.orderModel.remainAmount + "/" + item.orderModel.num + " " + currencyNameEn);
 
                 String moneyWei = " " + Constant.CNY;
                 if (item.orderModel.money != null && item.orderModel.money == 1) {

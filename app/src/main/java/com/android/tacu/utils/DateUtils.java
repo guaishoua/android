@@ -742,6 +742,17 @@ public class DateUtils {
         return strHr + ":" + strLMin + ":" + strLSec;
     }
 
+    public static String[] getCountDownTime2(long millisUntilFinished) {
+        // 剩余的小时，分钟，秒，毫秒
+        long lHr = millisUntilFinished / hr;
+        long lMin = (millisUntilFinished - lHr * hr) / min;
+        long lSec = (millisUntilFinished - lHr * hr - lMin * min) / sec;
+        String strHr = getTime(lHr);
+        String strLMin = getTime(lMin);
+        String strLSec = getTime(lSec);
+        return new String[]{strHr, strLMin, strLSec};
+    }
+
     /**
      * 根据毫秒换算成相应单位后是否大于10来返回相应时间
      */

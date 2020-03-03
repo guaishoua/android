@@ -335,11 +335,8 @@ public class SelfSelectionFragment extends BaseFragment<MarketPresenter> impleme
             helper.setText(R.id.tv_current_amount, BigDecimal.valueOf(item.currentAmount).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
             String value = BigDecimal.valueOf(item.currentAmount * item.volume).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString();
             helper.setText(R.id.tv_amount, value);
-            if (item.baseCurrencyId == 22) {
-                helper.setText(R.id.tv_rmb_scale, "");
-            } else {
-                helper.setText(R.id.tv_rmb_scale, "≈" + getMcM(item.baseCurrencyId, item.currentAmount));
-            }
+            helper.setText(R.id.tv_rmb_scale, "≈" + getMcM(item.baseCurrencyId, item.currentAmount));
+
             if (item.changeRate >= 0) {
                 helper.setText(R.id.tv_change_rate, "+" + BigDecimal.valueOf(item.changeRate).toPlainString() + "%");
                 ((QMUIRoundButtonDrawable) helper.getView(R.id.tv_change_rate).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_riseup));
