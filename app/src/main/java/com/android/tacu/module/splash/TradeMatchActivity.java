@@ -83,7 +83,7 @@ public class TradeMatchActivity extends BaseActivity {
     }
 
     private void dealGo() {
-        currentTime = System.currentTimeMillis();
+        currentTime = DateUtils.getCurrentBeiJingTime();
         if (currentTime >= SHOW_START && currentTime < MATCH_START) {
             isFlag = false;
         } else {
@@ -115,7 +115,7 @@ public class TradeMatchActivity extends BaseActivity {
      * @return true=跳转首页 false跳转TradeMatchActivity页面
      */
     public static boolean isGoMain() {
-        currentTimeS = System.currentTimeMillis();
+        currentTimeS = DateUtils.getCurrentBeiJingTime();
         if (currentTimeS >= SHOW_START && currentTimeS < MATCH_START) {
             return false;
         }
