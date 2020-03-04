@@ -9,6 +9,7 @@ import android.view.WindowManager;
 
 import com.android.tacu.R;
 import com.android.tacu.module.main.view.MainActivity;
+import com.android.tacu.module.splash.view.TradeMatchActivity;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.LanguageUtils;
 

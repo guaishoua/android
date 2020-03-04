@@ -1,4 +1,4 @@
-package com.android.tacu.module.splash;
+package com.android.tacu.module.splash.view;
 
 import android.os.Handler;
 import android.view.WindowManager;
@@ -6,13 +6,18 @@ import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
+import com.android.tacu.module.main.model.UploadModel;
 import com.android.tacu.module.main.view.MainActivity;
+import com.android.tacu.module.splash.contract.TradeMatchContract;
+import com.android.tacu.module.splash.presenter.TradeMatchPresenter;
 import com.android.tacu.utils.DateUtils;
+import com.android.tacu.utils.PackageUtils;
+import com.android.tacu.utils.downloadfile.AppUpdateUtils;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import butterknife.BindView;
 
-public class TradeMatchActivity extends BaseActivity {
+public class TradeMatchActivity extends BaseActivity<TradeMatchPresenter> implements TradeMatchContract.IView {
 
     @BindView(R.id.tv_hour)
     TextView tv_hour;
@@ -57,11 +62,17 @@ public class TradeMatchActivity extends BaseActivity {
     }
 
     @Override
+    protected TradeMatchPresenter createPresenter(TradeMatchPresenter mPresenter) {
+        return new TradeMatchPresenter();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if (kHandler != null && kRunnable != null) {
             kHandler.post(kRunnable);
         }
+        mPresenter.upload(PackageUtils.getVersion(), PackageUtils.getMetaValue(this, PackageUtils.META_NAME));
     }
 
     @Override
@@ -79,6 +90,15 @@ public class TradeMatchActivity extends BaseActivity {
             kHandler.removeCallbacks(kRunnable);
             kHandler = null;
             kRunnable = null;
+        }
+    }
+
+    @Override
+    public void upload(UploadModel model) {
+        if (model != null) {
+            if (PackageUtils.splitVersionNum(model.nowVersion, PackageUtils.getVersion())) {
+                AppUpdateUtils.showSimpleUpdate(this, model);
+            }
         }
     }
 
