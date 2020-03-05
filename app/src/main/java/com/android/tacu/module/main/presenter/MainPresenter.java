@@ -24,7 +24,7 @@ public class MainPresenter extends BaseMvpPresenter implements MainContract.IPre
 
     @Override
     public void upload(String version, String channel, final boolean isTip) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.UPLOAD, Api.class).update(), new NetDisposableObserver<BaseModel<UploadModel>>((IBaseMvpView) getView(), false) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.UPLOAD, Api.class).update(), new NetDisposableObserver<BaseModel<UploadModel>>((IBaseMvpView) getView(), false, false) {
             @Override
             public void onNext(BaseModel<UploadModel> model) {
                 MainContract.IView view = (MainContract.IView) getView();
@@ -35,7 +35,7 @@ public class MainPresenter extends BaseMvpPresenter implements MainContract.IPre
 
     @Override
     public void getHome(boolean isShowLoadingView) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).getHome(), new NetDisposableObserver<BaseModel<HomeModel>>((IBaseMvpView) getView(), isShowLoadingView) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).getHome(), new NetDisposableObserver<BaseModel<HomeModel>>((IBaseMvpView) getView(), isShowLoadingView, false) {
             @Override
             public void onNext(BaseModel<HomeModel> model) {
                 MainContract.IView view = (MainContract.IView) getView();
@@ -46,7 +46,7 @@ public class MainPresenter extends BaseMvpPresenter implements MainContract.IPre
 
     @Override
     public void ownCenter() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).ownCenter(), new NetDisposableObserver<BaseModel<OwnCenterModel>>((IBaseMvpView) getView(), false) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).ownCenter(), new NetDisposableObserver<BaseModel<OwnCenterModel>>((IBaseMvpView) getView(), false, false) {
             @Override
             public void onNext(BaseModel<OwnCenterModel> model) {
                 MainContract.IView view = (MainContract.IView) getView();
@@ -57,7 +57,7 @@ public class MainPresenter extends BaseMvpPresenter implements MainContract.IPre
 
     @Override
     public void getSelfList() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).getSelfList(), new NetDisposableObserver<BaseModel<SelfModel>>((IBaseMvpView) getView(), false) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).getSelfList(), new NetDisposableObserver<BaseModel<SelfModel>>((IBaseMvpView) getView(), false, false) {
             @Override
             public void onNext(BaseModel<SelfModel> model) {
                 MainContract.IView view = (MainContract.IView) getView();
@@ -77,7 +77,7 @@ public class MainPresenter extends BaseMvpPresenter implements MainContract.IPre
 
     @Override
     public void getConvertModel() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).getConvertList(), new NetDisposableObserver<BaseModel<ConvertModel>>((IBaseMvpView) getView(), false) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).getConvertList(), new NetDisposableObserver<BaseModel<ConvertModel>>((IBaseMvpView) getView(), false, false) {
             @Override
             public void onNext(BaseModel<ConvertModel> model) {
                 MainContract.IView view = (MainContract.IView) getView();
@@ -88,7 +88,7 @@ public class MainPresenter extends BaseMvpPresenter implements MainContract.IPre
 
     @Override
     public void selectBank() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView(), false) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView(), false, false) {
             @Override
             public void onNext(BaseModel<List<PayInfoModel>> o) {
                 MainContract.IView view = (MainContract.IView) getView();

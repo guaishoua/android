@@ -9,15 +9,24 @@ public abstract class NetDisposableObserver<T> extends DisposableObserver<T> {
 
     private IBaseMvpView mBaseMvpView;
     private boolean isShowLoadingView;
+    private boolean isToast;
 
     public NetDisposableObserver(IBaseMvpView baseMvpView) {
         this.mBaseMvpView = baseMvpView;
         this.isShowLoadingView = true;
+        this.isToast = true;
     }
 
     public NetDisposableObserver(IBaseMvpView baseMvpView, boolean isShowLoadingView) {
         this.mBaseMvpView = baseMvpView;
         this.isShowLoadingView = isShowLoadingView;
+        this.isToast = true;
+    }
+
+    public NetDisposableObserver(IBaseMvpView baseMvpView, boolean isShowLoadingView, boolean isToast) {
+        this.mBaseMvpView = baseMvpView;
+        this.isShowLoadingView = isShowLoadingView;
+        this.isToast = isToast;
     }
 
     @Override
@@ -37,7 +46,7 @@ public abstract class NetDisposableObserver<T> extends DisposableObserver<T> {
                 ResponseException responseException = (ResponseException) throwable;
                 if (responseException.status == ApiStatus.ERROR_TOKEN) {
                     this.mBaseMvpView.tokenInvalid();
-                } else if (responseException.status == ApiStatus.ERROR_TOAST) {
+                } else if (responseException.status == ApiStatus.ERROR_TOAST && this.isToast) {
                     this.mBaseMvpView.showToastError(responseException.message);
                 }
             }

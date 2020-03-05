@@ -897,11 +897,14 @@
     <string name="vip_surplus_time">Membership remaining:%1$s</string>
 
     <!--划转-->
+    <string name="coin_account">Exchange balances</string>
+    <string name="otc_account">OTC balances</string>
+    <string name="coin_account_available">Available exchange balance</string>
+    <string name="otc_account_available">Available OTC balance</string>
+    <string name="num">number</string>
+    <string name="please_input_transfer_num">Please input transfer quantity</string>
+    <string name="transfer_success">Transfer success！</string>
     <string name="transfer">Transfer</string>
-    <string name="transfer_available2">Available:</string>
-    <string name="asset_num">quantity</string>
-    <string name="transfer_in">transfer in</string>
-    <string name="transfer_out">transfer out</string>
 
     <!--交易赛-->
     <string name="match_title1">All members enjoy the new system beta</string>

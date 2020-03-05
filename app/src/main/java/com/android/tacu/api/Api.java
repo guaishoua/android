@@ -1163,4 +1163,12 @@ public interface Api {
             @Field("start") Integer start,
             @Field("size") Integer size
     );
+
+    /**
+     * 交易大赛获奖
+     */
+    @FormUrlEncoded
+    @POST("tradeWinList")
+    Observable<BaseModel> tradeWinList(
+    );
 }

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -126,9 +127,12 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
         tv_history_entrust.setOnClickListener(this);
         tv_revoke_all.setOnClickListener(this);
 
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.item_recyclerview_divider));
         currentAdapter = new CurrentAdapter();
         currentAdapter.setHeaderFooterEmpty(true, false);
         ryEntrust.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ryEntrust.addItemDecoration(dividerItemDecoration);
         ryEntrust.setAdapter(currentAdapter);
 
         currentAdapter.setEmptyView(emptyView);

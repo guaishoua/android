@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:background="@color/content_bg_color_grey"--><!--android:orientation="vertical">-->
-
 
 <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:text="@string/recharge"
     android:textSize="@dimen/text_size_sp_20"
     android:layout_width="wrap_content"
@@ -15,6 +12,3 @@
     android:drawableRight="@mipmap/icon_btn_arrow_right_white"
     android:layout_height="wrap_content"
     tools:background="@color/color_default"/>
-
-
-    <!--</LinearLayout>-->

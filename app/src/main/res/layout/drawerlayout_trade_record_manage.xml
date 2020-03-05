@@ -59,7 +59,7 @@
             android:textSize="@dimen/text_size_sp_12"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_transactionpair_all"
-            app:qmui_backgroundColor="@color/color_grey_3"
+            app:qmui_backgroundColor="@color/color_grey"
             app:qmui_borderWidth="@dimen/dp_1"
             app:qmui_radius="@dimen/dp_3" />
 
@@ -158,7 +158,7 @@
             android:textSize="@dimen/text_size_sp_12"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_tradetype_all"
-            app:qmui_backgroundColor="@color/color_grey_3"
+            app:qmui_backgroundColor="@color/color_grey"
             app:qmui_borderWidth="@dimen/dp_1"
             app:qmui_radius="@dimen/dp_3" />
 
@@ -173,7 +173,7 @@
             android:textSize="@dimen/text_size_sp_12"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_tradetype_all"
-            app:qmui_backgroundColor="@color/color_grey_3"
+            app:qmui_backgroundColor="@color/color_grey"
             app:qmui_borderWidth="@dimen/dp_1"
             app:qmui_radius="@dimen/dp_3" />
     </android.support.constraint.ConstraintLayout>
@@ -278,9 +278,9 @@
             android:layout_height="@dimen/dp_50"
             android:layout_weight="1"
             android:text="@string/reset"
-            android:textColor="@color/text_grey"
+            android:textColor="@color/text_color"
             android:textSize="@dimen/dp_16"
-            app:qmui_backgroundColor="@color/color_grey_3"
+            app:qmui_backgroundColor="@color/color_grey"
             app:qmui_radius="1dp" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton

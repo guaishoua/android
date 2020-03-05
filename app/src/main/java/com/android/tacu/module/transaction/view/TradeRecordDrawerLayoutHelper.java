@@ -382,7 +382,7 @@ public class TradeRecordDrawerLayoutHelper implements View.OnClickListener {
      * @param tv
      */
     private void unSelectedView(QMUIRoundTextView tv) {
-        ((QMUIRoundButtonDrawable) tv.getBackground()).setBgData(ContextCompat.getColorStateList(mActivity, R.color.color_grey_3));
+        ((QMUIRoundButtonDrawable) tv.getBackground()).setBgData(ContextCompat.getColorStateList(mActivity, R.color.color_grey));
         tv.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color));
     }
 

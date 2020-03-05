@@ -2,13 +2,10 @@ package com.android.tacu.module.assets.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,10 +20,7 @@ import com.android.tacu.module.assets.model.MoneyFlowEvent;
 import com.android.tacu.module.assets.model.MoneyFlowModel;
 import com.android.tacu.module.assets.model.RecordEvent;
 import com.android.tacu.module.assets.presenter.MoneyFlowPresenter;
-import com.android.tacu.utils.CommonUtils;
-import com.android.tacu.utils.IdentityAuthUtils;
 import com.android.tacu.utils.SPUtils;
-import com.android.tacu.utils.StatusBarUtils;
 import com.android.tacu.view.popup.CoinFilterView;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.google.gson.Gson;
@@ -55,10 +49,6 @@ import static com.android.tacu.utils.UIUtils.getContext;
 
 public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implements MoneyFlowContract.IView {
 
-    @BindView(R.id.view_drawer)
-    View view_drawer;
-    @BindView(R.id.drawer_right)
-    DrawerLayout drawer_right;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.refreshlayout)
@@ -74,18 +64,17 @@ public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implemen
     private Integer currencyId = null;
 
     private View emptyView;
-    private MoneyFlowEvent moneyFlowEvent;
     private Gson gson = new Gson();
+    private MoneyFlowEvent moneyFlowEvent;
     private TakeCoinAdapter takeCoinAdapter;
     private List<CoinListModel.AttachmentBean> cacheList;
     private List<MoneyFlowModel.TypeModel> typeList = new ArrayList<>();
 
-    private MoneyFlowDrawerLayoutHelper helper;
     private CoinFilterView coinFilterView;
 
     @Override
     protected void setView() {
-        setContentView(R.layout.fragment_record);
+        setContentView(R.layout.activity_record);
     }
 
     public static Intent createActivity(Context context, MoneyFlowEvent event) {
@@ -98,7 +87,6 @@ public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implemen
     protected void initView() {
         moneyFlowEvent = (MoneyFlowEvent) getIntent().getSerializableExtra("moneyFlowEvent");
         coinFilterView = new CoinFilterView(this, onReceiveEvent);
-        StatusBarUtils.setColorForDrawerLayout(this, drawer_right, ContextCompat.getColor(this, R.color.content_bg_color), 0);
 
         mTopBar.setTitle(getResources().getString(R.string.history));
 
@@ -106,6 +94,40 @@ public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implemen
         initRecyclerView();
         initDatas();
         updateFilterView();
+    }
+
+    @Override
+    protected MoneyFlowPresenter createPresenter(MoneyFlowPresenter mPresenter) {
+        return new MoneyFlowPresenter();
+    }
+
+    @Override
+    protected void onPresenterCreated(MoneyFlowPresenter presenter) {
+        super.onPresenterCreated(presenter);
+        if (cacheList != null && cacheList.size() > 0) {
+            mPresenter.coins(false);
+        } else {
+            mPresenter.coins(true);
+        }
+        initData(true, true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (coinFilterView != null) {
+            coinFilterView.destroy();
+            coinFilterView = null;
+        }
+    }
+
+    @Override
+    public void hideRefreshView() {
+        super.hideRefreshView();
+        if (refreshLayout != null && (refreshLayout.isRefreshing() || refreshLayout.isLoading())) {
+            refreshLayout.finishRefresh();
+            refreshLayout.finishLoadmore();
+        }
     }
 
     @OnClick(R.id.btn_selected_coin)
@@ -117,109 +139,50 @@ public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implemen
                     true);
     }
 
-
-    @OnClick(R.id.btn_header_filter)
-    void onFilterPressed() {
-        if (!drawer_right.isDrawerOpen(Gravity.RIGHT)) {
-            drawer_right.openDrawer(Gravity.RIGHT);
-        } else {
-            drawer_right.closeDrawer(Gravity.RIGHT);
+    @Override
+    public void showTakeCoinList(MoneyFlowModel attachment) {
+        if (currentPage == 1) {
+            takeCoinAdapter.setNewData(null);
+        }
+        if (attachment != null && attachment.type.size() > 0) {
+            typeList = attachment.type;
+        }
+        if (attachment.total == 0) {
+            takeCoinAdapter.setEmptyView(emptyView);
+            takeCoinAdapter.setNewData(null);
+            takeCoinAdapter.notifyDataSetChanged();
+        } else if (attachment.list.size() == 0) {
+            refreshLayout.setEnableLoadmore(false);
+        } else if (attachment.total > 10) {
+            takeCoinAdapter.addData(attachment.list);
+            refreshLayout.setEnableLoadmore(true);
+        } else if (attachment.total <= 10) {
+            refreshLayout.setEnableLoadmore(false);
+            takeCoinAdapter.setNewData(attachment.list);
         }
     }
 
     @Override
-    protected void initLazy() {
-        super.initLazy();
-        getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                initDrawer();
-                initData(true, true);
-                if (cacheList != null && cacheList.size() > 0) {
-                    mPresenter.coins(false);
-                } else {
-                    mPresenter.coins(true);
-                }
-                drawerListener();
-            }
-        });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (helper != null) {
-            helper.clearActivity();
-            helper = null;
-        }
+    public void currencyView(List<CoinListModel.AttachmentBean> attachment) {
+        SPUtils.getInstance().put(Constant.SELECT_COIN_NOGROUP_CACHE, gson.toJson(attachment));
         if (coinFilterView != null) {
-            coinFilterView.destroy();
-            coinFilterView = null;
+            coinFilterView.setList(attachment);
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (drawer_right.isDrawerOpen(Gravity.RIGHT)) {
-            drawer_right.closeDrawer(Gravity.RIGHT);
-            return;
-        }
-        finish();
     }
 
     private void initDatas() {
         String cacheString = SPUtils.getInstance().getString(Constant.SELECT_COIN_NOGROUP_CACHE);
         cacheList = gson.fromJson(cacheString, new TypeToken<List<CoinListModel.AttachmentBean>>() {
         }.getType());
-    }
-
-    private void drawerListener() {
-        drawer_right.setDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-            }
-
-            @Override
-            public void onDrawerOpened(@NonNull View drawerView) {
-            }
-
-            @Override
-            public void onDrawerClosed(@NonNull View drawerView) {
-                IdentityAuthUtils.closeKeyBoard(MoneyFlowActivity.this);
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-            }
-        });
+        if (coinFilterView != null) {
+            coinFilterView.setList(cacheList);
+        }
     }
 
     private void updateFilterView() {
         if (moneyFlowEvent != null) {
             tvSelectedCoin.setText(moneyFlowEvent.getCurrencyNameEn());
         }
-    }
-
-    private void initDrawer() {
-        helper = new MoneyFlowDrawerLayoutHelper(getContext(), view_drawer, moneyFlowEvent.getCurrencyId());
-        helper.setDrawerMenuView(new MoneyFlowDrawerLayoutHelper.RecordClickListener() {
-            @Override
-            public void RecordClick(MoneyFlowEvent money) {
-                MoneyFlowActivity.this.moneyFlowEvent = money;
-                initData(true, true);
-                drawer_right.closeDrawer(Gravity.RIGHT);
-                updateFilterView();
-            }
-
-            @Override
-            public void timeClick(TextView tv, String time, boolean isStart) {
-                if (isStart) {
-                    CommonUtils.selectTime(MoneyFlowActivity.this, tv, time);
-                } else {
-                    CommonUtils.endTime(MoneyFlowActivity.this, tv, time);
-                }
-            }
-        });
     }
 
     private void initRecyclerView() {
@@ -247,53 +210,6 @@ public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implemen
 
         takeCoinAdapter = new TakeCoinAdapter();
         recyclerView.setAdapter(takeCoinAdapter);
-    }
-
-    @Override
-    protected MoneyFlowPresenter createPresenter(MoneyFlowPresenter mPresenter) {
-        return new MoneyFlowPresenter();
-    }
-
-    @Override
-    public void hideRefreshView() {
-        super.hideRefreshView();
-        if (refreshLayout != null && (refreshLayout.isRefreshing() || refreshLayout.isLoading())) {
-            refreshLayout.finishRefresh();
-            refreshLayout.finishLoadmore();
-        }
-    }
-
-    @Override
-    public void showTakeCoinList(MoneyFlowModel attachment) {
-        if (currentPage == 1) {
-            takeCoinAdapter.setNewData(null);
-        }
-        if (attachment != null && attachment.type.size() > 0) {
-            typeList = attachment.type;
-            helper.initDatas(attachment.type);
-        }
-        if (attachment.total == 0) {
-            takeCoinAdapter.setEmptyView(emptyView);
-            takeCoinAdapter.setNewData(null);
-            takeCoinAdapter.notifyDataSetChanged();
-        } else if (attachment.list.size() == 0) {
-            refreshLayout.setEnableLoadmore(false);
-        } else if (attachment.total > 10) {
-            takeCoinAdapter.addData(attachment.list);
-            refreshLayout.setEnableLoadmore(true);
-        } else if (attachment.total <= 10) {
-            refreshLayout.setEnableLoadmore(false);
-            takeCoinAdapter.setNewData(attachment.list);
-        }
-    }
-
-    @Override
-    public void currencyView(List<CoinListModel.AttachmentBean> attachment) {
-        SPUtils.getInstance().put(Constant.SELECT_COIN_NOGROUP_CACHE, gson.toJson(attachment));
-        if (helper != null) {
-            helper.setDatas(attachment);
-            coinFilterView.setList(attachment);
-        }
     }
 
     private class TakeCoinAdapter extends BaseQuickAdapter<MoneyFlowModel.ListBean, BaseViewHolder> {
@@ -354,7 +270,6 @@ public class MoneyFlowActivity extends BaseActivity<MoneyFlowPresenter> implemen
         public void onItemPress(RecordEvent event) {
             moneyFlowEvent.setCurrencyId(event.getCurrencyId());
             moneyFlowEvent.setCurrencyNameEn(event.getCurrencyNameEn());
-            helper.updateSelectedCoin(event.getCurrencyId());
             updateFilterView();
             initData(true, true);
         }

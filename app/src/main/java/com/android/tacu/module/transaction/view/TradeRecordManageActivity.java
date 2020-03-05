@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -165,7 +166,10 @@ public class TradeRecordManageActivity extends BaseActivity<TradeRecordManagePre
             }
         });
 
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.item_recyclerview_divider));
         ryManage.setLayoutManager(new LinearLayoutManager(this));
+        ryManage.addItemDecoration(dividerItemDecoration);
     }
 
     @Override

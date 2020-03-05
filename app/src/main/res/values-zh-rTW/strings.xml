@@ -901,11 +901,14 @@
     <string name="vip_surplus_time">會員身份剩余時間：%1$s</string>
 
     <!--劃轉-->
+    <string name="coin_account">幣幣賬戶</string>
+    <string name="otc_account">OTC賬戶</string>
+    <string name="coin_account_available">幣幣賬戶可用數量</string>
+    <string name="otc_account_available">OTC賬戶可用數量</string>
+    <string name="num">數量</string>
+    <string name="please_input_transfer_num">請輸入劃轉數量</string>
+    <string name="transfer_success">劃轉成功！</string>
     <string name="transfer">劃轉</string>
-    <string name="transfer_available2">可用：</string>
-    <string name="asset_num">數量</string>
-    <string name="transfer_in">轉入</string>
-    <string name="transfer_out">轉出</string>
 
     <!--交易赛-->
     <string name="match_title1">全员尊享新系统内测</string>

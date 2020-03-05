@@ -903,11 +903,14 @@
     <string name="vip_surplus_time">会员身份剩余时间：%1$s</string>
 
     <!--划转-->
+    <string name="coin_account">币币账户</string>
+    <string name="otc_account">OTC账户</string>
+    <string name="coin_account_available">币币账户可用数量</string>
+    <string name="otc_account_available">OTC账户可用数量</string>
+    <string name="num">数量</string>
+    <string name="please_input_transfer_num">请输入划转数量</string>
+    <string name="transfer_success">划转成功！</string>
     <string name="transfer">划转</string>
-    <string name="transfer_available2">可用：</string>
-    <string name="asset_num">数量</string>
-    <string name="transfer_in">转入</string>
-    <string name="transfer_out">转出</string>
 
     <!--交易赛-->
     <string name="match_title1">全员尊享新系统内测</string>

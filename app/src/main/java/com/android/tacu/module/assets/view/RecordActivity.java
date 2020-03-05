@@ -3,16 +3,16 @@ package com.android.tacu.module.assets.view;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.tacu.api.Constant;
+import com.android.tacu.module.assets.model.CoinListModel;
+import com.android.tacu.utils.SPUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.R;
@@ -22,12 +22,12 @@ import com.android.tacu.module.assets.model.ChargeModel;
 import com.android.tacu.module.assets.model.RecordEvent;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
 import com.android.tacu.module.assets.presenter.RecordPresenter;
-import com.android.tacu.utils.IdentityAuthUtils;
 import com.android.tacu.utils.ShowToast;
-import com.android.tacu.utils.StatusBarUtils;
 import com.android.tacu.view.popup.CoinFilterView;
 import com.android.tacu.view.popup.TypeSwitcherView;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -36,6 +36,7 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -52,10 +53,6 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
 
     @BindView(R.id.title)
     View title;
-    @BindView(R.id.view_drawer)
-    View view_drawer;
-    @BindView(R.id.drawer_right)
-    DrawerLayout drawer_right;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.refreshlayout)
@@ -71,11 +68,13 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
     private int typeRecord = 0;
     private TypeSwitcherView switchView;
     private CoinFilterView coinFilterView;
+    private Gson gson = new Gson();
 
     private View emptyView;
     private RecordEvent recordEvent;
     private TakeCoinAdapter takeCoinAdapter;
     private ChargeCoinAdapter chargeCoinAdapter;
+    private List<CoinListModel.AttachmentBean> cacheList;
 
     public static Intent createActivity(Context context, int typeRecord, RecordEvent event) {
         Intent intent = new Intent(context, RecordActivity.class);
@@ -86,132 +85,37 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
 
     @Override
     protected void setView() {
-        setContentView(R.layout.fragment_record);
+        setContentView(R.layout.activity_record);
     }
-
-    @OnClick(R.id.btn_selected_coin)
-    void onSelectedCoinsPressed() {
-        if (coinFilterView != null)
-            coinFilterView.showOnAnchor(filterView,
-                    RelativePopupWindow.VerticalPosition.BELOW,
-                    RelativePopupWindow.HorizontalPosition.CENTER,
-                    true);
-    }
-
-    CoinFilterView.Listener onReceiveEvent = new CoinFilterView.Listener() {
-        @Override
-        public void onItemPress(RecordEvent event) {
-            recordEvent = event;
-            updateFilterView();
-            initData(true, true);
-        }
-    };
 
     @Override
     protected void initView() {
-        coinFilterView = new CoinFilterView(this, onReceiveEvent);
-        StatusBarUtils.setColorForDrawerLayout(this, drawer_right, ContextCompat.getColor(this, R.color.content_bg_color), 0);
         typeRecord = getIntent().getIntExtra("typeRecord", 0);
         recordEvent = (RecordEvent) getIntent().getSerializableExtra("recordEvent");
-        switch (typeRecord) {
-            case 0:
-                mTopBar.setTitle(getResources().getString(R.string.deposit_history));
-                break;
-            case 1:
-                mTopBar.setTitle(getResources().getString(R.string.take_history));
-                break;
-        }
+
+        coinFilterView = new CoinFilterView(this, onReceiveEvent);
 
         emptyView = View.inflate(this, R.layout.view_empty, null);
         initRecyclerView();
         updateCenterTitleView();
+        initDatas();
         updateFilterView();
     }
 
-    private void updateFilterView() {
-        if (recordEvent != null) {
-            tvSelectedCoin.setText(recordEvent.getCurrencyNameEn());
-        }
+    @Override
+    protected RecordPresenter createPresenter(RecordPresenter mPresenter) {
+        return new RecordPresenter();
     }
 
     @Override
-    protected void initLazy() {
-        super.initLazy();
-        getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                drawerListener();
-            }
-        });
-    }
-
-    private void updateCenterTitleView() {
-        mTopBar.setTitle("");
-        TextView view = (TextView) View.inflate(this, R.layout.view_record_switch, null);
-        view.setText(typeRecord == 0 ? getString(R.string.recharge) : getString(R.string.withdrawals));
-        view.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_btn_arrow_right_white, 0);
-        mTopBar.setCenterView(view);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextView view = (TextView) v;
-                view.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_btn_arrow_down_white, 0);
-                showSwitchPopupWindow();
-            }
-        });
-    }
-
-    private void updateEmptyView() {
-        ViewGroup view = (ViewGroup) emptyView.getParent();
-        if (view != null)
-            view.removeView(emptyView);
-    }
-
-    private void showSwitchPopupWindow() {
-        setBackGroundAlpha(0.5f);
-        switchView = new TypeSwitcherView(this, typeRecord, new TypeSwitcherView.Listener() {
-
-            @Override
-            public void onItemPressed(int flag) {
-                if (flag == typeRecord) return;
-                updateEmptyView();
-                typeRecord = flag;
-                initAdapter();
-                updateCenterTitleView();
-                initData(true, true);
-            }
-
-            @Override
-            public void onDismiss() {
-                setBackGroundAlpha(1f);
-            }
-        });
-
-        switchView.showOnAnchor(title,
-                RelativePopupWindow.VerticalPosition.BELOW,
-                RelativePopupWindow.HorizontalPosition.CENTER,
-                false);
-    }
-
-    private void drawerListener() {
-        drawer_right.setDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-            }
-
-            @Override
-            public void onDrawerOpened(@NonNull View drawerView) {
-            }
-
-            @Override
-            public void onDrawerClosed(@NonNull View drawerView) {
-                IdentityAuthUtils.closeKeyBoard(RecordActivity.this);
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-            }
-        });
+    protected void onPresenterCreated(RecordPresenter mPresenter) {
+        super.onPresenterCreated(mPresenter);
+        if (cacheList != null && cacheList.size() > 0) {
+            mPresenter.coins(false);
+        } else {
+            mPresenter.coins(true);
+        }
+        initData(true, true);
     }
 
     @Override
@@ -223,55 +127,6 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
         }
     }
 
-    private void initRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        CustomTextHeaderView headerView = new CustomTextHeaderView(getContext());
-        headerView.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
-        refreshlayout.setRefreshHeader(headerView);
-        refreshlayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_default)));
-        refreshlayout.setEnableLoadmore(false);
-        refreshlayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                if (isAvailable()) {
-                    initData(false, false);
-                } else {
-                    showToastError(getResources().getString(R.string.net_unavailable));
-                }
-            }
-
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                initData(true, false);
-            }
-        });
-
-        takeCoinAdapter = new TakeCoinAdapter();
-        chargeCoinAdapter = new ChargeCoinAdapter();
-
-        initAdapter();
-    }
-
-    @Override
-    protected RecordPresenter createPresenter(RecordPresenter mPresenter) {
-        return new RecordPresenter();
-    }
-
-    @Override
-    protected void onPresenterCreated(RecordPresenter mPresenter) {
-        super.onPresenterCreated(mPresenter);
-        initData(true, true);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (drawer_right.isDrawerOpen(Gravity.RIGHT)) {
-            drawer_right.closeDrawer(Gravity.RIGHT);
-            return;
-        }
-        finish();
-    }
-
     @Override
     public void hideRefreshView() {
         super.hideRefreshView();
@@ -279,6 +134,15 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
             refreshlayout.finishRefresh();
             refreshlayout.finishLoadmore();
         }
+    }
+
+    @OnClick(R.id.btn_selected_coin)
+    void onSelectedCoinsPressed() {
+        if (coinFilterView != null)
+            coinFilterView.showOnAnchor(filterView,
+                    RelativePopupWindow.VerticalPosition.BELOW,
+                    RelativePopupWindow.HorizontalPosition.CENTER,
+                    true);
     }
 
     /**
@@ -331,6 +195,97 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
         }
     }
 
+    @Override
+    public void currencyView(List<CoinListModel.AttachmentBean> attachment) {
+        SPUtils.getInstance().put(Constant.SELECT_COIN_NOGROUP_CACHE, gson.toJson(attachment));
+        if (coinFilterView != null) {
+            coinFilterView.setList(attachment);
+        }
+    }
+
+    private void updateFilterView() {
+        if (recordEvent != null) {
+            tvSelectedCoin.setText(recordEvent.getCurrencyNameEn());
+        }
+    }
+
+    private void updateCenterTitleView() {
+        mTopBar.setTitle("");
+        TextView view = (TextView) View.inflate(this, R.layout.view_record_switch, null);
+        view.setText(typeRecord == 0 ? getString(R.string.recharge) : getString(R.string.withdrawals));
+        view.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_btn_arrow_right_white, 0);
+        mTopBar.setCenterView(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView view = (TextView) v;
+                view.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_btn_arrow_down_white, 0);
+                showSwitchPopupWindow();
+            }
+        });
+    }
+
+    private void updateEmptyView() {
+        ViewGroup view = (ViewGroup) emptyView.getParent();
+        if (view != null)
+            view.removeView(emptyView);
+    }
+
+    private void showSwitchPopupWindow() {
+        setBackGroundAlpha(0.5f);
+        switchView = new TypeSwitcherView(this, typeRecord, new TypeSwitcherView.Listener() {
+
+            @Override
+            public void onItemPressed(int flag) {
+                if (flag == typeRecord) return;
+                updateEmptyView();
+                typeRecord = flag;
+                initAdapter();
+                updateCenterTitleView();
+                initData(true, true);
+            }
+
+            @Override
+            public void onDismiss() {
+                setBackGroundAlpha(1f);
+            }
+        });
+
+        switchView.showOnAnchor(title,
+                RelativePopupWindow.VerticalPosition.BELOW,
+                RelativePopupWindow.HorizontalPosition.CENTER,
+                false);
+    }
+
+    private void initRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        CustomTextHeaderView headerView = new CustomTextHeaderView(getContext());
+        headerView.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
+        refreshlayout.setRefreshHeader(headerView);
+        refreshlayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_default)));
+        refreshlayout.setEnableLoadmore(false);
+        refreshlayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                if (isAvailable()) {
+                    initData(false, false);
+                } else {
+                    showToastError(getResources().getString(R.string.net_unavailable));
+                }
+            }
+
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                initData(true, false);
+            }
+        });
+
+        takeCoinAdapter = new TakeCoinAdapter();
+        chargeCoinAdapter = new ChargeCoinAdapter();
+
+        initAdapter();
+    }
+
     /**
      * 根据不同的记录绑定不同的adapter
      */
@@ -368,7 +323,6 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
             helper.setText(R.id.tv_coins_address, item.address);
             helper.setText(R.id.tv_txid, item.walletWaterSn);
 
-
             helper.setOnClickListener(R.id.tv_txid, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -388,7 +342,6 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
      * 充币
      */
     private class ChargeCoinAdapter extends BaseQuickAdapter<ChargeModel.PointsBean, BaseViewHolder> {
-
         public ChargeCoinAdapter() {
             super(R.layout.item_record_global);
         }
@@ -426,10 +379,8 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
         String coin = "";
         if (recordEvent != null)
             coin = recordEvent.getCurrencyNameEn();
-
         return coin;
     }
-
 
     /**
      * 复制
@@ -442,13 +393,21 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
         ShowToast.success(getString(R.string.copy_success));
     }
 
+    private void initDatas() {
+        String cacheString = SPUtils.getInstance().getString(Constant.SELECT_COIN_NOGROUP_CACHE);
+        cacheList = gson.fromJson(cacheString, new TypeToken<List<CoinListModel.AttachmentBean>>() {
+        }.getType());
+        if (coinFilterView != null) {
+            coinFilterView.setList(cacheList);
+        }
+    }
+
     public void initData(boolean isLoad, boolean showLoad) {
         if (isLoad) {
             currentPage = 1;
         } else {
             ++currentPage;
         }
-
         switch (typeRecord) {
             case 0:
                 if (recordEvent == null) {
@@ -466,4 +425,13 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
                 break;
         }
     }
+
+    CoinFilterView.Listener onReceiveEvent = new CoinFilterView.Listener() {
+        @Override
+        public void onItemPress(RecordEvent event) {
+            recordEvent = event;
+            updateFilterView();
+            initData(true, true);
+        }
+    };
 }

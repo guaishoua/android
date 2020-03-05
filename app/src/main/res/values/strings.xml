@@ -917,11 +917,14 @@
     <string name="vip_surplus_time">会员身份剩余时间：%1$s</string>
 
     <!--划转-->
+    <string name="coin_account">币币账户</string>
+    <string name="otc_account">OTC账户</string>
+    <string name="coin_account_available">币币账户可用数量</string>
+    <string name="otc_account_available">OTC账户可用数量</string>
+    <string name="num">数量</string>
+    <string name="please_input_transfer_num">请输入划转数量</string>
+    <string name="transfer_success">划转成功！</string>
     <string name="transfer">划转</string>
-    <string name="transfer_available2">可用：</string>
-    <string name="asset_num">数量</string>
-    <string name="transfer_in">转入</string>
-    <string name="transfer_out">转出</string>
 
     <!--交易赛-->
     <string name="match_title1">全员尊享新系统内测</string>
@@ -929,30 +932,8 @@
     <string name="match_title3">28888ACU大奖</string>
     <string name="match_tag1">大赛介绍</string>
     <string name="match_tag1_text1">尊敬的用户：</string>
-    <string name="match_tag1_text2">承蒙各位的信任和厚爱，TACU平台已顺利完成v3.0版本的开发和测试，为了让广大用户提前体验新系统，尽承蒙各位的信任和厚爱，TACU平台已顺利完成v3.0版本的开发和测试，为了让广大用户提前体验新系统，尽快学会新系统的使用，降低新系统正式上线后的操作风险现为您提供3.0内测版本系统，诚邀您参与共建TACU平台，我们为您提供了零风险零投入以及丰厚奖励的模拟交易大赛。</string>
-    <string name="match_tag1_text3">比赛时间：</string>
-    <string name="match_tag1_text4">2020年3月4日 20:00（GMT+8) ~ 2020年3月12日 20:00（GMT+8)</string>
-    <string name="match_tag1_text5">距比赛开始，还有：</string>
-    <string name="hour">小时</string>
-    <string name="minute">分钟</string>
-    <string name="second1">秒</string>
-    <string name="match_tag2">赛制奖励</string>
-    <string name="match_tag2_text1">比赛期间内至少达到200万ACU交易额（买入量+卖出量），最后按照账户总资产折合的ACU数量进行排名</string>
-    <string name="match_tag2_text2">• 战绩排名第1名奖励28888ACU；\n• 战绩排名第2-3名奖励8888ACU；\n• 战绩排名第4-10名奖励288ACU；\n• 战绩排名第11-100名奖励88ACU；</string>
-    <string name="match_tag2_text3">体验奖：</string>
-    <string name="match_tag2_text4">凡参与交易且提出交易过程中的产品体验、BUG等意见和建议，官方将从中随机抽取50名幸运用户获得88ACU奖励，优秀意见和建议还会有额外奖励，意见和建议的在线提交表单网址为http://tacu2020.mikecrm.com/VpWHaaX</string>
-    <string name="match_tag3">大赛细则</string>
-    <string name="match_tag3_text1">参赛要求：</string>
-    <string name="match_tag3_text2">1.登陆网址www.cdcbk.com参赛或下载APP参赛；</string>
-    <string name="match_tag3_text3">2.系统将为每位参赛账户充值50万枚虚拟ACU作为交易底仓，虚拟ACU在活动结束后清零，不可提现，不可转账；</string>
-    <string name="match_tag3_text4">3.活动期间，用户可以任意选择模拟系统内已开盘的交易对参赛；</string>
-    <string name="match_tag3_text5">4.平台用户在比赛期间内至少达到200万ACU交易额（买入量+卖出量），最后按照账户总资产折合的ACU数量进行排名；</string>
-    <string name="match_tag3_text6">5.比赛结束后，平台将公布领奖登记网址，参赛获奖用户须提交相关信息才可领取奖励。</string>
-    <string name="match_tag3_text7">其他说明：</string>
-    <string name="match_tag3_text8">1.本次活动，面向全体实名认证用户，未完成实名认证用户参与将无法获得奖励；</string>
-    <string name="match_tag3_text9">2.ACU奖励将在新版系统上线后发放至获奖用户账户；</string>
-    <string name="match_tag3_text10">3.活动结束后，3.0内测版系统的所有数据将清零，包括用户的账户信息，请大家勿充值；</string>
-    <string name="match_tag3_text11">4.活动结束后，系统将自动快照参赛用户在3.0内测系统的资产，自动折算账户等值的虚拟ACU数量。</string>
-    <string name="match_tag3_text12">5.如有任何恶意刷量和作弊行为，TACU有权取消用户获奖资格；</string>
-    <string name="match_tag3_text13">6.本次活动最终解释权归TACU平台所有。</string>
+    <string name="match_tag1_text2">内测交易大赛</string>
+    <string name="match_tag1_text3">已经圆满结束</string>
+    <string name="match_tag2">统计结果</string>
+    <string name="match_tag2_text1">比赛结果正在计算中……</string>
 </resources>

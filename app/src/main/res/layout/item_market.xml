@@ -61,7 +61,6 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginRight="@dimen/dp_10"
             android:orientation="vertical"
-            app:layout_constraintLeft_toRightOf="@id/lin_coin_name"
             app:layout_constraintRight_toLeftOf="@+id/tv_change_rate"
             app:layout_constraintTop_toTopOf="parent">
 

@@ -196,6 +196,5 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0.5"
         android:layout_marginTop="@dimen/dp_5"
-        android:background="@color/color_grey_3"
         app:layout_constraintTop_toBottomOf="@id/tv_deal_price" />
 </android.support.constraint.ConstraintLayout>

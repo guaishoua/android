@@ -6,9 +6,11 @@ import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
+import com.android.tacu.http.factory.ModelTransformerFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.contract.RecordContract;
 import com.android.tacu.module.assets.model.ChargeModel;
+import com.android.tacu.module.assets.model.CoinListModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
 
 /**
@@ -42,5 +44,16 @@ public class RecordPresenter extends BaseMvpPresenter implements RecordContract.
                 view.showTakeCoinList(takeModel.attachment);
             }
         });
+    }
+
+    @Override
+    public void coins(boolean isShowLoadingView) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).coins(), new NetDisposableObserver<CoinListModel>((IBaseMvpView) getView(), isShowLoadingView) {
+            @Override
+            public void onNext(CoinListModel coinsList) {
+                RecordContract.IRecordView view = (RecordContract.IRecordView) getView();
+                view.currencyView(coinsList.attachment);
+            }
+        }, ModelTransformerFactory.getNonStandardModelTransformer());
     }
 }
