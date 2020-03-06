@@ -148,7 +148,7 @@ public class TradeMatchActivity extends BaseActivity<TradeMatchPresenter> implem
 
     @Override
     public void tradeWinList(TradeWinListModel model) {
-        if (model != null) {
+        if (model != null && ((model.win != null && model.win.size() > 0) || (model.expe != null && model.expe.size() > 0))) {
             view_end.setVisibility(View.GONE);
             view_result.setVisibility(View.VISIBLE);
             if (model.win != null && model.win.size() > 0) {
