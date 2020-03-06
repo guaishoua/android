@@ -1080,7 +1080,7 @@ public interface Api {
      * 已收款放币
      */
     @FormUrlEncoded
-    @POST("payOrder")
+    @POST("finishOrder")
     Observable<BaseModel> finishOrder(
             @Field("orderId") String orderId
     );
