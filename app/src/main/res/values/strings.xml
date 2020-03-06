@@ -936,4 +936,13 @@
     <string name="match_tag1_text3">已经圆满结束</string>
     <string name="match_tag2">统计结果</string>
     <string name="match_tag2_text1">比赛结果正在计算中……</string>
+    <string name="matchresult_tag1_text2">承蒙各位的信任和厚爱，TACU平台已顺利完成v3.0版本的开发和测试，为了让广大用户提前体验新系统，尽快学会新系统的使用，降低新系统正式上线后的操作风险现为您提供3.0内测版本系统，诚邀您参与共建TACU平台，我们为您提供了零风险零投入以及丰厚奖励的模拟交易大赛。</string>
+    <string name="matchresult_tag2">获奖用户</string>
+    <string name="matchreslut_tag3">体验奖</string>
+    <string name="matchreslut_tag3_text1">账号/UID</string>
+    <string name="matchreslut_tag3_text2">奖励</string>
+    <string name="rank">战绩排名</string>
+    <string name="trade_amount">交易额</string>
+    <string name="all_amount">总资产</string>
+    <string name="rank_num">第%1$s名</string>
 </resources>

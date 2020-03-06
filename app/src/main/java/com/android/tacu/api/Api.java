@@ -33,6 +33,7 @@ import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
 import com.android.tacu.module.otc.model.OtcSelectFeeModel;
 import com.android.tacu.module.otc.model.OtcTradeListModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
+import com.android.tacu.module.splash.model.TradeWinListModel;
 import com.android.tacu.module.transaction.model.DealDetailsModel;
 import com.android.tacu.module.transaction.model.ShowOrderListModel;
 import com.android.tacu.module.transaction.model.ShowTradeListModel;
@@ -1167,8 +1168,6 @@ public interface Api {
     /**
      * 交易大赛获奖
      */
-    @FormUrlEncoded
     @POST("tradeWinList")
-    Observable<BaseModel> tradeWinList(
-    );
+    Observable<BaseModel<TradeWinListModel>> tradeWinList();
 }

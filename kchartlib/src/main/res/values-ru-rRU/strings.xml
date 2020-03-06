@@ -1,9 +1,0 @@
-<resources>
-    <string name="high">высокая</string>
-    <string name="low">низкий</string>
-    <string name="open">открытый</string>
-    <string name="close">получить</string>
-    <string name="volume">объем</string>
-    <string name = "vol_price">цена транзакции</string>
-    <string name = "ave_price">средняя цена</string>
-</resources>

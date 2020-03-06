@@ -1,9 +1,0 @@
-<resources>
-    <string name="high">Haute</string>
-    <string name="low">Faible</string>
-    <string name="open">Ouvert</string>
-    <string name="close">Recevoir</string>
-    <string name="volume">Volume</string>
-    <string name="vol_price">prix de transaction</string>
-    <string name="ave_price">prix moyen</string>
-</resources>
