@@ -202,8 +202,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="@string/not_pay"
-            android:textColor="@color/color_otc_sell"
+            android:text="@string/order_finish"
+            android:textColor="@color/color_otc_buy"
             android:textSize="@dimen/text_size_sp_12"
             app:layout_constraintBottom_toBottomOf="@id/tv_order_finish"
             app:layout_constraintRight_toRightOf="parent" />
