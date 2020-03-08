@@ -17,6 +17,7 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.main.model.UploadModel;
 import com.android.tacu.module.main.view.MainActivity;
+import com.android.tacu.module.splash.SplashActivity;
 import com.android.tacu.module.splash.contract.TradeMatchContract;
 import com.android.tacu.module.splash.model.TradeWinListModel;
 import com.android.tacu.module.splash.model.TradeWinModel;
@@ -125,6 +126,12 @@ public class TradeMatchActivity extends BaseActivity<TradeMatchPresenter> implem
             kHandler = null;
             kRunnable = null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        activityManage.finishActivity(SplashActivity.class);
+        finish();
     }
 
     @OnClick(R.id.btn_end_close)

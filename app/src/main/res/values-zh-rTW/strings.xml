@@ -578,7 +578,6 @@
     <string name="otc_order_coinget">待收幣</string>
     <string name="otc_order_arbitration">仲裁中</string>
     <string name="otc_refuse_order">拒絕訂單</string>
-    '
     <string name="timeouted">已超時</string>
     <string name="pay_timeout">支付超時</string>
     <string name="market_order">生成訂單</string>

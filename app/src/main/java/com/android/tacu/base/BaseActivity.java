@@ -19,6 +19,7 @@ import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.R;
 import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.module.login.view.LoginActivity;
+import com.android.tacu.module.splash.SplashActivity;
 import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.MainSocketManager;
 import com.android.tacu.utils.ActivityStack;
@@ -40,15 +41,12 @@ import java.util.Observer;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.android.tacu.utils.ActivityStack.STATUS_KILLED;
+
 /**
  * Created by jiazhen on 2018/8/8.
  */
 public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompatActivity implements IBaseMvpView {
-
-    /**
-     * 重要 勿动 不能修改
-     */
-    static final String FRAGMENTS_TAG = "android:support:fragments";
 
     protected P mPresenter;
     private Unbinder unBinder;
@@ -92,13 +90,8 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        /**
-         * 通过判断paramBundle是否为空来确定activity是否被回收过
-         * 如果为true表示被回收过 清除activity里存储的fragment 重新创建
-         * 注意setUserVisibleHint 它的执行顺序在onCreate前面
-         */
         if (savedInstanceState != null) {
-            savedInstanceState.putParcelable(FRAGMENTS_TAG, null);
+            protectApp();
         }
         super.onCreate(savedInstanceState);
         //沉浸栏
@@ -108,6 +101,10 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         activityManage = ActivityStack.getInstance();
+        if (activityManage.getAppStatus() == STATUS_KILLED) {
+            protectApp();
+            return;
+        }
         activityManage.addActivity(this);
         spUtil = UserInfoUtils.getInstance();
 
@@ -334,6 +331,11 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         } else {
             return true;
         }
+    }
+
+    protected void protectApp() {
+        jumpTo(SplashActivity.createActivity(this, true));
+        finish();
     }
 
     /**

@@ -235,9 +235,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             if (!TextUtils.isEmpty(LockUtils.getGesture())) {
                 jumpTo(GestureActivity.createActivity(LoginActivity.this, isGoMain, isClearTop));
                 finish();
+                return;
             } else if (LockUtils.getIsFinger()) {
                 jumpTo(FingerprintActivity.createActivity(LoginActivity.this, isGoMain, isClearTop));
                 finish();
+                return;
             }
         }
     }

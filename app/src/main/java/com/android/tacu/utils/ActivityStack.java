@@ -8,15 +8,28 @@ import java.util.Stack;
  * 应用程序Activity管理类：用于Activity管理和应用程序退出
  */
 final public class ActivityStack {
+    public static final int STATUS_KILLED = -1;//应用在后台被强杀了
+    public static final int STATUS_NORMAL = 2; //APP正常态
+
+    //默认为被后台回收了
+    private int appStatus = STATUS_KILLED;
 
     private static Stack<AppCompatActivity> activityStack;
-    private static final ActivityStack instance = new ActivityStack();
-
-    private ActivityStack() {
-    }
+    private static ActivityStack instance;
 
     public static ActivityStack getInstance() {
+        if (instance == null) {
+            instance = new ActivityStack();
+        }
         return instance;
+    }
+
+    public int getAppStatus() {
+        return appStatus;
+    }
+
+    public void setAppStatus(int appStatus) {
+        this.appStatus = appStatus;
     }
 
     /**

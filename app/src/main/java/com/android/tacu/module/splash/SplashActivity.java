@@ -1,5 +1,6 @@
 package com.android.tacu.module.splash;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,14 +11,30 @@ import android.view.WindowManager;
 import com.android.tacu.R;
 import com.android.tacu.module.main.view.MainActivity;
 import com.android.tacu.module.splash.view.TradeMatchActivity;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.LanguageUtils;
 
 import java.util.Locale;
 
+import static com.android.tacu.utils.ActivityStack.STATUS_NORMAL;
+
 public class SplashActivity extends AppCompatActivity {
 
     private Handler timerHandler = new Handler();
+
+    /**
+     * @param context
+     * @param isClearTop A-B-C-D 如果D-B 需要清空C 设置FLAG_ACTIVITY_CLEAR_TOP 和 FLAG_ACTIVITY_SINGLE_TOP(设置这个则B不需要重新创建)
+     * @return
+     */
+    public static Intent createActivity(Context context, boolean isClearTop) {
+        Intent intent = new Intent(context, SplashActivity.class);
+        if (isClearTop) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        }
+        return intent;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +47,10 @@ public class SplashActivity extends AppCompatActivity {
     private void setView() {
         //全屏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        ActivityStack activityStack = ActivityStack.getInstance();
+        activityStack.setAppStatus(STATUS_NORMAL);
+        activityStack.addActivity(this);
+
         setContentView(R.layout.activity_splash);
 
         //问题描述：安装成功之后会有两个提示 （完成和打开）如果点击打开就会有问题
@@ -89,11 +110,9 @@ public class SplashActivity extends AppCompatActivity {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-            finish();
         } else {
             Intent intent = new Intent(this, TradeMatchActivity.class);
             startActivity(intent);
-            finish();
         }
     }
 }
