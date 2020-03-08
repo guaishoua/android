@@ -21,6 +21,7 @@ import static com.android.tacu.utils.ActivityStack.STATUS_NORMAL;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private ActivityStack activityStack;
     private Handler timerHandler = new Handler();
 
     /**
@@ -47,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
     private void setView() {
         //全屏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        ActivityStack activityStack = ActivityStack.getInstance();
+        activityStack = ActivityStack.getInstance();
         activityStack.setAppStatus(STATUS_NORMAL);
         activityStack.addActivity(this);
 
@@ -89,6 +90,7 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        activityStack.finishActivity(this);
         if (timerHandler != null) {
             timerHandler.removeCallbacksAndMessages(null);
             timerHandler = null;

@@ -3,7 +3,6 @@ package com.android.tacu.module.main.view;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -129,15 +128,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
         return intent;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            lastShowFragment = savedInstanceState.getInt("lastfragment", 0);
-            setTabSelection(lastShowFragment);
-        }
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -281,12 +271,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         EventManage.removeAllStickyEvent();
         AppUpdateUtils.cancel();
         AppUpdateUtils.clear();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("lastfragment", lastShowFragment);
     }
 
     @Override
