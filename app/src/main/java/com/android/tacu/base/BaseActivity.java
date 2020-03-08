@@ -53,7 +53,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     private LoadingAnim loadingView;
     protected QMUITopBar mTopBar;
     protected UserInfoUtils spUtil;
-    protected ActivityStack activityManage;
     //Socket
     private ISocketEvent baseSocketEvent;
     private Observer baseObserver;
@@ -100,12 +99,12 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         //禁止app横竖屏切换
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        activityManage = ActivityStack.getInstance();
-        if (activityManage.getAppStatus() == STATUS_KILLED) {
+        if (ActivityStack.getInstance().getAppStatus() == STATUS_KILLED) {
             protectApp();
             return;
         }
-        activityManage.addActivity(this);
+        ActivityStack.getInstance().addActivity(this);
+
         spUtil = UserInfoUtils.getInstance();
 
         setView();
@@ -152,7 +151,7 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     protected void onDestroy() {
         super.onDestroy();
         hideLoadingView();
-        activityManage.finishActivity(this);
+        ActivityStack.getInstance().finishActivity(this);
         if (unBinder != null) {
             unBinder.unbind();
         }

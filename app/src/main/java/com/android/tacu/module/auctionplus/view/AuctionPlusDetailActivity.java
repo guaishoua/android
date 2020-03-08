@@ -32,6 +32,7 @@ import com.android.tacu.module.auctionplus.modal.AuctionPlusModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusPayInfoModel;
 import com.android.tacu.module.auctionplus.presenter.AuctionPlusPresent;
 import com.android.tacu.module.login.view.LoginActivity;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.AnimUtils;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.FormatterUtils;
@@ -239,7 +240,7 @@ public class AuctionPlusDetailActivity extends BaseActivity<AuctionPlusPresent> 
     @OnClick(R.id.btn_trade)
     void btnTradeClick() {
         EventManage.sendEvent(new BaseEvent<>(EventConstant.JumpTradeIsBuyCode, new JumpTradeCodeIsBuyEvent(Constant.BTC_CURRENCY_ID, Constant.ACU_CURRENCY_ID, "BTC", "ACU", true)));
-        activityManage.finishActivity(AuctionActivity.class);
+        ActivityStack.getInstance().finishActivity(AuctionActivity.class);
         finish();
     }
 
@@ -267,7 +268,7 @@ public class AuctionPlusDetailActivity extends BaseActivity<AuctionPlusPresent> 
     void btnRechargeClick() {
         if (spUtil.getLogin()) {
             EventManage.sendEvent(new BaseEvent<>(EventConstant.MainSwitchCode, new MainSwitchEvent(Constant.MAIN_ASSETS)));
-            activityManage.finishActivity(AuctionActivity.class);
+            ActivityStack.getInstance().finishActivity(AuctionActivity.class);
             finish();
         } else {
             jumpTo(LoginActivity.class);

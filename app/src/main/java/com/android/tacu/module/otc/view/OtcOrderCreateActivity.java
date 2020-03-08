@@ -22,6 +22,7 @@ import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderModel;
 import com.android.tacu.module.otc.presenter.OtcOrderCreatePresenter;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
@@ -204,7 +205,7 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
     @Override
     public void otcTradeSuccess() {
         finish();
-        activityManage.finishActivity(OtcBuyOrSellActivity.class);
+        ActivityStack.getInstance().finishActivity(OtcBuyOrSellActivity.class);
         jumpTo(OtcOrderListActivity.class);
     }
 

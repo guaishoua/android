@@ -22,6 +22,7 @@ import com.android.tacu.module.splash.contract.TradeMatchContract;
 import com.android.tacu.module.splash.model.TradeWinListModel;
 import com.android.tacu.module.splash.model.TradeWinModel;
 import com.android.tacu.module.splash.presenter.TradeMatchPresenter;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.PackageUtils;
 import com.android.tacu.utils.downloadfile.AppUpdateUtils;
@@ -130,7 +131,7 @@ public class TradeMatchActivity extends BaseActivity<TradeMatchPresenter> implem
 
     @Override
     public void onBackPressed() {
-        activityManage.finishActivity(SplashActivity.class);
+        ActivityStack.getInstance().finishActivity(SplashActivity.class);
         finish();
     }
 

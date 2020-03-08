@@ -21,7 +21,6 @@ import static com.android.tacu.utils.ActivityStack.STATUS_NORMAL;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private ActivityStack activityStack;
     private Handler timerHandler = new Handler();
 
     /**
@@ -32,6 +31,7 @@ public class SplashActivity extends AppCompatActivity {
     public static Intent createActivity(Context context, boolean isClearTop) {
         Intent intent = new Intent(context, SplashActivity.class);
         if (isClearTop) {
+            ActivityStack.getInstance().setAppStatus(STATUS_NORMAL);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
         return intent;
@@ -48,9 +48,8 @@ public class SplashActivity extends AppCompatActivity {
     private void setView() {
         //全屏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        activityStack = ActivityStack.getInstance();
-        activityStack.setAppStatus(STATUS_NORMAL);
-        activityStack.addActivity(this);
+        ActivityStack.getInstance().setAppStatus(STATUS_NORMAL);
+        ActivityStack.getInstance().addActivity(this);
 
         setContentView(R.layout.activity_splash);
 
@@ -90,7 +89,7 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        activityStack.finishActivity(this);
+        ActivityStack.getInstance().finishActivity(this);
         if (timerHandler != null) {
             timerHandler.removeCallbacksAndMessages(null);
             timerHandler = null;

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.ShowToast;
@@ -217,7 +218,7 @@ public class GoogleAuthActivity extends BaseActivity<GoogleAuthPresenter> implem
         timer.cancel();
         spUtil.setGaStatus("1");
         showToastSuccess(getResources().getString(R.string.success));
-        activityManage.finishActivity(GoogleHintActivity.class);
+        ActivityStack.getInstance().finishActivity(GoogleHintActivity.class);
         finish();
     }
 

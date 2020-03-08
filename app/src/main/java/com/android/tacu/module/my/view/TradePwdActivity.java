@@ -8,6 +8,7 @@ import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.my.contract.ChangePwdContact;
 import com.android.tacu.module.my.presenter.ChangePwdPresenter;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.RegexUtils;
 import com.android.tacu.utils.ShowToast;
@@ -102,7 +103,7 @@ public class TradePwdActivity extends BaseActivity<ChangePwdPresenter> implement
     public void bindStatus() {
         ShowToast.success(getString(R.string.success));
         spUtil.setValidatePass(true);
-        activityManage.finishActivity(TradeActivity.class);
+        ActivityStack.getInstance().finishActivity(TradeActivity.class);
         finish();
     }
 }

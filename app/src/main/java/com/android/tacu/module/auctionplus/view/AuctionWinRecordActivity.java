@@ -12,6 +12,7 @@ import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.EventManage;
 import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.MainSwitchEvent;
+import com.android.tacu.utils.ActivityStack;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.R;
@@ -212,7 +213,7 @@ public class AuctionWinRecordActivity extends BaseActivity<AuctionWinRecordPrese
             @Override
             public void onClick(View v) {
                 EventManage.sendEvent(new BaseEvent<>(EventConstant.MainSwitchCode, new MainSwitchEvent(Constant.MAIN_ASSETS)));
-                activityManage.finishActivity(AuctionActivity.class);
+                ActivityStack.getInstance().finishActivity(AuctionActivity.class);
                 finish();
             }
         });

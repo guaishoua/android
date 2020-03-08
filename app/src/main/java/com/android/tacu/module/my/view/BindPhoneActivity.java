@@ -19,6 +19,7 @@ import com.android.tacu.module.dingxiang.presenter.SwitchPresenter;
 import com.android.tacu.module.login.view.CityListActivity;
 import com.android.tacu.module.my.contract.BindContact;
 import com.android.tacu.module.my.presenter.BindPresenter;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.ShowToast;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
@@ -251,7 +252,7 @@ public class BindPhoneActivity extends BaseActivity<BindPresenter> implements Bi
         spUtil.saveOldCode("");
         spUtil.saveOldAccount("");
         if (flags == 1) {
-            activityManage.finishActivity(BindModeActivity.class);
+            ActivityStack.getInstance().finishActivity(BindModeActivity.class);
         }
         finish();
     }

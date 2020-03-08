@@ -43,6 +43,7 @@ import com.android.tacu.module.otc.view.OtcMarketListFragment;
 import com.android.tacu.module.splash.SplashActivity;
 import com.android.tacu.module.transaction.view.TradeFragment;
 import com.android.tacu.EventBus.model.MainSwitchEvent;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.LogUtils;
 import com.android.tacu.utils.SPUtils;
@@ -283,7 +284,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             showToast(getResources().getString(R.string.exit));
             firstTime = System.currentTimeMillis();
         } else {
-            activityManage.finishActivity(SplashActivity.class);
+            ActivityStack.getInstance().finishActivity(SplashActivity.class);
             finish();
             System.exit(0);
         }

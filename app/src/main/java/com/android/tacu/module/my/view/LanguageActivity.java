@@ -11,6 +11,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.main.view.MainActivity;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.LanguageUtils;
 import com.android.tacu.utils.UIUtils;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
@@ -157,7 +158,7 @@ public class LanguageActivity extends BaseActivity {
     }
 
     private void restartActivity() {
-        activityManage.finishActivity(MainActivity.class);
+        ActivityStack.getInstance().finishActivity(MainActivity.class);
         Intent[] intents = {new Intent(this, MainActivity.class), new Intent(this, LanguageActivity.class)};
         startActivities(intents);
         finish();

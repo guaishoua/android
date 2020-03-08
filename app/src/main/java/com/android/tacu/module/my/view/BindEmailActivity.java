@@ -18,6 +18,7 @@ import com.android.tacu.module.dingxiang.contract.ISwitchView;
 import com.android.tacu.module.dingxiang.presenter.SwitchPresenter;
 import com.android.tacu.module.my.contract.BindContact;
 import com.android.tacu.module.my.presenter.BindPresenter;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.RegexUtils;
 import com.android.tacu.utils.ShowToast;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
@@ -222,7 +223,7 @@ public class BindEmailActivity extends BaseActivity<BindPresenter> implements Bi
         spUtil.saveOldAccount("");
         spUtil.setEmailStatus(true);
         if (flags == 1) {
-            activityManage.finishActivity(BindModeActivity.class);
+            ActivityStack.getInstance().finishActivity(BindModeActivity.class);
         }
         finish();
     }
