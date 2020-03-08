@@ -345,7 +345,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     @Override
     public void ownCenter(OwnCenterModel model) {
         UserManageUtils.setPersonInfo(model);
-        if (spUtil.getIsAuthVideo() != 2) {
+        //必须登录并且KYC2通过
+        if (spUtil.getIsAuthSenior() == 2 && spUtil.getIsAuthVideo() != 2) {
             //showALAuth();
         }
         showALAuth();
