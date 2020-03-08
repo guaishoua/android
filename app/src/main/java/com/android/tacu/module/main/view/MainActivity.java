@@ -350,7 +350,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         if (spUtil.getIsAuthSenior() == 2 && spUtil.getIsAuthVideo() != 2) {
             //showALAuth();
         }
-        showALAuth();
     }
 
     @Override
@@ -618,6 +617,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                         }, Permission.Group.CAMERA, new String[]{Permission.READ_PHONE_STATE}, Permission.Group.STORAGE);
                     }
                 })
+                .cancelable(false, false)
                 .show();
     }
 
@@ -632,6 +632,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         videoAuthFailureDialog = new DroidDialog.Builder(MainActivity.this)
                 .title(getResources().getString(R.string.authentication_failed))
                 .viewCustomLayout(view)
+                .cancelable(false, false)
                 .show();
     }
 

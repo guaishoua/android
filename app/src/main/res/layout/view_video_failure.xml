@@ -18,6 +18,7 @@
         android:layout_height="@dimen/dp_135"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_17"
+        android:layout_marginBottom="@dimen/dp_20"
         android:background="@color/color_white"
         android:padding="@dimen/dp_5"
         android:src="@mipmap/img_contract_custom" />
