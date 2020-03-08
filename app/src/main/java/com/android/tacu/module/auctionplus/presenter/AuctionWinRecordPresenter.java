@@ -1,6 +1,5 @@
 package com.android.tacu.module.auctionplus.presenter;
 
-
 import com.android.tacu.api.Api;
 import com.android.tacu.api.ApiHost;
 import com.android.tacu.base.BaseModel;
@@ -9,7 +8,6 @@ import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.factory.ModelTransformerFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.CoinListModel;
 import com.android.tacu.module.auctionplus.contract.AuctionWinRecordConstract;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusWinLisyModel;
@@ -43,13 +41,13 @@ public class AuctionWinRecordPresenter extends BaseMvpPresenter implements Aucti
 
     @Override
     public void customerCoinByOneCoin(final int currencyId, final AuctionPlusWinLisyModel.Bean plusBean) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).customerCoinByOneCoin(currencyId), new NetDisposableObserver<AmountModel>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).customerCoinByOneCoin(currencyId), new NetDisposableObserver<BaseModel<Double>>((IBaseMvpView) getView()) {
             @Override
-            public void onNext(AmountModel o) {
+            public void onNext(BaseModel<Double> o) {
                 AuctionWinRecordConstract.IView view = (AuctionWinRecordConstract.IView) getView();
-                view.customerCoinByOneCoin(o, plusBean);
+                view.customerCoinByOneCoin(o.attachment, plusBean);
             }
-        }, ModelTransformerFactory.getNonStandardModelTransformer());
+        });
     }
 
     @Override

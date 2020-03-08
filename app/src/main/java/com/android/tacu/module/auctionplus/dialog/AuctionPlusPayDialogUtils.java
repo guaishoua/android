@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.android.tacu.R;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusPayInfoModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusWinLisyModel;
@@ -59,7 +58,7 @@ public class AuctionPlusPayDialogUtils {
                 .show();
     }
 
-    public static DroidDialog dialogWinPlusShow(Context mContext, AmountModel model, AuctionPlusWinLisyModel.Bean plusBean, View.OnClickListener payClick, View.OnClickListener rechargeClick) {
+    public static DroidDialog dialogWinPlusShow(Context mContext, Double value, AuctionPlusWinLisyModel.Bean plusBean, View.OnClickListener payClick, View.OnClickListener rechargeClick) {
         View view = View.inflate(mContext, R.layout.view_dialog_auctionplus_pay, null);
         TextView tv_get = view.findViewById(R.id.tv_get);
         TextView tv_dealprice_title = view.findViewById(R.id.tv_dealprice_title);
@@ -75,7 +74,9 @@ public class AuctionPlusPayDialogUtils {
 
         tv_get.setText(FormatterUtils.getFormatValue(plusBean.gain) + plusBean.gainName);
         tv_dealprice.setText(FormatterUtils.getFormatValue(plusBean.tradePrice));
-        tv_balance.setText(FormatterUtils.getFormatRoundDown(2, model.attachment));
+        if (value != null) {
+            tv_balance.setText(FormatterUtils.getFormatRoundDown(2, value));
+        }
         if (!TextUtils.isEmpty(plusBean.paymentOverdueTime)) {
             tv_tip.setText(String.format(mContext.getResources().getString(R.string.successful_tip), plusBean.paymentOverdueTime));
         } else {

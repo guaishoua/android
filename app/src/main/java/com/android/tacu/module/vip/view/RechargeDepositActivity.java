@@ -18,7 +18,6 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabIndicatorAdapter;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.module.vip.contract.RechargeDepositContract;
@@ -177,9 +176,9 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
     }
 
     @Override
-    public void customerCoinByOneCoin(AmountModel model) {
-        if (model != null) {
-            tv_account_balance.setText(FormatterUtils.getFormatValue(model.attachment) + Constant.ACU_CURRENCY_NAME);
+    public void customerCoinByOneCoin(Double value) {
+        if (value != null) {
+            tv_account_balance.setText(FormatterUtils.getFormatValue(value) + Constant.ACU_CURRENCY_NAME);
         }
     }
 

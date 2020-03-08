@@ -2,6 +2,7 @@ package com.android.tacu.module.main.contract;
 
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.main.model.AliModel;
 import com.android.tacu.module.main.model.ConvertModel;
 import com.android.tacu.module.main.model.HomeModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
@@ -27,6 +28,12 @@ public class MainContract {
         void convertMoney(ConvertModel model);
 
         void selectBank(List<PayInfoModel> list);
+
+        void getVerifyToken(AliModel model);
+
+        void getVerifyTokenError(int status);
+
+        void vedioAuth();
     }
 
     public interface IPresenter {
@@ -43,5 +50,9 @@ public class MainContract {
         void getConvertModel();
 
         void selectBank();
+
+        void getVerifyToken();
+
+        void vedioAuth();
     }
 }

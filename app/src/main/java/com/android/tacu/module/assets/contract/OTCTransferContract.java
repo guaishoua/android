@@ -1,7 +1,6 @@
 package com.android.tacu.module.assets.contract;
 
 import com.android.tacu.base.IBaseMvpView;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 
 public class OTCTransferContract {
@@ -11,7 +10,7 @@ public class OTCTransferContract {
 
         void transInSuccess();
 
-        void customerCoinByOneCoin(AmountModel model);
+        void customerCoinByOneCoin(Double value);
 
         void otcAmount(OtcAmountModel model);
     }

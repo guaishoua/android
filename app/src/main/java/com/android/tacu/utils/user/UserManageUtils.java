@@ -91,6 +91,7 @@ public class UserManageUtils {
             spUtil.setEmail(model.email);
             spUtil.setAuth(model.isAuth);
             spUtil.setIsAuthSenior(model.isAuthSenior);
+            spUtil.setIsAuthVideo(model.isAuthVideo);
             spUtil.setValidatePass(model.getIsValidatePass());
             spUtil.setNickName(model.nickname);
             spUtil.setHeadImg(model.headImg);

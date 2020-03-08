@@ -21,7 +21,7 @@ public class ModelTransformerFactory {
             public ObservableSource<T> apply(Observable<BaseModel<T>> baseModelObservable) {
                 return baseModelObservable.map(new Function<BaseModel<T>, T>() {
                     @Override
-                    public T apply(BaseModel<T> tBaseModel) throws Exception {
+                    public T apply(BaseModel<T> tBaseModel) {
                         if (tBaseModel.status != ApiStatus.SUCCESS_HTTPS) {
                             throw new ServerException(tBaseModel.status, tBaseModel.message);
                         } else {
@@ -44,7 +44,7 @@ public class ModelTransformerFactory {
             public ObservableSource<T> apply(Observable<T> tObservable) {
                 return tObservable.map(new Function<T, T>() {
                     @Override
-                    public T apply(T t) throws Exception {
+                    public T apply(T t) {
                         return t;
                     }
                 }).onErrorResumeNext(new Function<Throwable, ObservableSource<? extends T>>() {

@@ -93,12 +93,10 @@ public class AppUpdateUtils {
                     });
             //强更
             if (model.updateForce == 1) {
-                builder.cancelable(false, false)
-                        .ivCancelShow(false);
+                builder.cancelable(false, false);
             } else {
                 builder.negativeButton(mContext.getResources().getString(R.string.cancel), null)
-                        .cancelable(true, false)
-                        .ivCancelShow(true);
+                        .cancelable(true, false);
             }
         }
         if (droidDialog == null) {

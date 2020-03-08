@@ -6,10 +6,8 @@ import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
-import com.android.tacu.http.factory.ModelTransformerFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.contract.OTCTransferContract;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 
 public class OTCTransferPresenter extends BaseMvpPresenter implements OTCTransferContract.IPresenter {
@@ -37,13 +35,13 @@ public class OTCTransferPresenter extends BaseMvpPresenter implements OTCTransfe
 
     @Override
     public void customerCoinByOneCoin(int currencyId) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).customerCoinByOneCoin(currencyId), new NetDisposableObserver<AmountModel>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).customerCoinByOneCoin(currencyId), new NetDisposableObserver<BaseModel<Double>>((IBaseMvpView) getView()) {
             @Override
-            public void onNext(AmountModel o) {
+            public void onNext(BaseModel<Double> o) {
                 OTCTransferContract.IView view = (OTCTransferContract.IView) getView();
-                view.customerCoinByOneCoin(o);
+                view.customerCoinByOneCoin(o.attachment);
             }
-        }, ModelTransformerFactory.getNonStandardModelTransformer());
+        });
     }
 
     @Override

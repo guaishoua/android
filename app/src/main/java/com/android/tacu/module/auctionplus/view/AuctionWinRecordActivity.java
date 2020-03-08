@@ -17,7 +17,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.CoinListModel;
 import com.android.tacu.module.auctionplus.contract.AuctionWinRecordConstract;
 import com.android.tacu.module.auctionplus.dialog.AuctionPlusPayDialogUtils;
@@ -203,8 +202,8 @@ public class AuctionWinRecordActivity extends BaseActivity<AuctionWinRecordPrese
     }
 
     @Override
-    public void customerCoinByOneCoin(AmountModel model, final AuctionPlusWinLisyModel.Bean plusBean) {
-        dialog = AuctionPlusPayDialogUtils.dialogWinPlusShow(this, model, plusBean, new View.OnClickListener() {
+    public void customerCoinByOneCoin(Double value, final AuctionPlusWinLisyModel.Bean plusBean) {
+        dialog = AuctionPlusPayDialogUtils.dialogWinPlusShow(this, value, plusBean, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPresenter.plusPay(plusBean.id, 1);

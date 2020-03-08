@@ -6,7 +6,6 @@ import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
-import com.android.tacu.http.factory.ModelTransformerFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.login.contract.LoginContract;
@@ -29,7 +28,7 @@ public class LoginPresenter extends BaseMvpPresenter implements LoginContract.IP
                 LoginContract.IView view = (LoginContract.IView) getView();
                 view.showContent(model);
             }
-        }, ModelTransformerFactory.getNonStandardModelTransformer());
+        });
     }
 
     @Override

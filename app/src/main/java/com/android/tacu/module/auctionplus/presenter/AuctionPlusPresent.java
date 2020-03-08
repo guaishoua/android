@@ -6,9 +6,7 @@ import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
-import com.android.tacu.http.factory.ModelTransformerFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.auctionplus.contract.AuctionPlusContract;
 import com.android.tacu.module.auctionplus.modal.AuctionPayStatusModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusDataBaseModel;
@@ -77,22 +75,22 @@ public class AuctionPlusPresent extends BaseMvpPresenter implements AuctionPlusC
 
     /**
      * @param model
-     * @param type              1=列表页 2=详情页
+     * @param type  1=列表页 2=详情页
      */
     @Override
     public void customerCoinByOneCoin(final Integer currencyId, final AuctionPlusModel model, final int type) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).customerCoinByOneCoin(currencyId), new NetDisposableObserver<AmountModel>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).customerCoinByOneCoin(currencyId), new NetDisposableObserver<BaseModel<Double>>((IBaseMvpView) getView()) {
             @Override
-            public void onNext(AmountModel o) {
+            public void onNext(BaseModel<Double> o) {
                 if (type == 1) {
                     AuctionPlusContract.IListView view = (AuctionPlusContract.IListView) getView();
-                    view.customerCoinByOneCoin(o, model);
+                    view.customerCoinByOneCoin(o.attachment, model);
                 } else if (type == 2) {
                     AuctionPlusContract.IDetailView view = (AuctionPlusContract.IDetailView) getView();
-                    view.customerCoinByOneCoin(o, model);
+                    view.customerCoinByOneCoin(o.attachment, model);
                 }
             }
-        }, ModelTransformerFactory.getNonStandardModelTransformer());
+        });
     }
 
     /**

@@ -1,7 +1,6 @@
 package com.android.tacu.module.auctionplus.contract;
 
 import com.android.tacu.base.IBaseMvpView;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.CoinListModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusWinLisyModel;
 
@@ -17,7 +16,7 @@ public class AuctionWinRecordConstract {
 
         void plusWinLisy(AuctionPlusWinLisyModel model);
 
-        void customerCoinByOneCoin(AmountModel model, AuctionPlusWinLisyModel.Bean plusBean);
+        void customerCoinByOneCoin(Double value, AuctionPlusWinLisyModel.Bean plusBean);
 
         void auctionPaySuccess();
     }

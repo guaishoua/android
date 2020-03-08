@@ -82,6 +82,14 @@ public enum ApiHost implements Retrofit2Host {
         public String getHost() {
             return host + "/otcTacu/";
         }
+    },
+    /**
+     * ali
+     */
+    ALI {
+        public String getHost() {
+            return host + "/ali/";
+        }
     };
 
     public static String host = BuildConfig.API_HOST;

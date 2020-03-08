@@ -1,7 +1,6 @@
 package com.android.tacu.module.auctionplus.contract;
 
 import com.android.tacu.base.IBaseMvpView;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPayStatusModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusDataBaseModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusListByIdModel;
@@ -21,7 +20,7 @@ public class AuctionPlusContract {
 
         void auctionPlusData(AuctionPlusDataBaseModel model);
 
-        void customerCoinByOneCoin(AmountModel model, AuctionPlusModel auctionModel);
+        void customerCoinByOneCoin(Double value, AuctionPlusModel auctionModel);
 
         void auctionPlusListPay(List<AuctionPayStatusModel> list);
 
@@ -35,7 +34,7 @@ public class AuctionPlusContract {
     public interface IDetailView extends IBaseMvpView {
         void listPlusById(AuctionPlusListByIdModel model);
 
-        void customerCoinByOneCoin(AmountModel model, AuctionPlusModel auctionModel);
+        void customerCoinByOneCoin(Double value, AuctionPlusModel auctionModel);
 
         void collectCheck(boolean isCollect);
 

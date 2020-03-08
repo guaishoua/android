@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,7 +47,6 @@ public class DroidDialog {
          **/
         RelativeLayout rlTitle = view.findViewById(R.id.rl_title);
         TextView txtTitle = view.findViewById(R.id.txtTitle);
-        ImageView ivCancel = view.findViewById(R.id.ivCancel);
         TextView txtContent = view.findViewById(R.id.txtContent);
 
         QMUIAlphaButton btnPositive = view.findViewById(R.id.btnPositive);
@@ -57,7 +55,6 @@ public class DroidDialog {
 
         NestedScrollView scrollview = view.findViewById(R.id.scrollview);
         LinearLayout lin_view = view.findViewById(R.id.lin_view);
-        View view_line = view.findViewById(R.id.view_line);
 
         /**
          *apply customization to dialog
@@ -70,9 +67,6 @@ public class DroidDialog {
             rlTitle.setVisibility(View.GONE);
         } else {
             rlTitle.setVisibility(View.VISIBLE);
-            if (!builder.isIvCancelShow) {
-                ivCancel.setVisibility(View.GONE);
-            }
             txtTitle.setText(builder.title);
         }
 
@@ -102,7 +96,6 @@ public class DroidDialog {
 
         if (TextUtils.isEmpty(builder.content) && builder.lin_view_layout == null) {
             scrollview.setVisibility(View.GONE);
-            view_line.setVisibility(View.GONE);
         }
 
         if (TextUtils.isEmpty(builder.positiveText)) {
@@ -138,16 +131,6 @@ public class DroidDialog {
                 }
             });
         }
-
-        ivCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (builder.onNegativeListener != null) {
-                    builder.onNegativeListener.onNegative(dialog);
-                }
-                dismiss();
-            }
-        });
 
         if (TextUtils.isEmpty(builder.neutralText)) {
             btnNeutral.setVisibility(View.GONE);
@@ -212,8 +195,6 @@ public class DroidDialog {
 
         private boolean isCancelable = true;
         private boolean isCancelableTouchOutside = true;
-
-        private boolean isIvCancelShow = true;
 
         private String positiveText = "";
         private boolean isPositiveClickDismiss = true;//true=当前的按钮点击之后 直接自动关闭 false=当前的按钮需要写代码控制按钮消失
@@ -289,11 +270,6 @@ public class DroidDialog {
         public Builder cancelable(boolean isCancelable, boolean isCancelableTouchOutside) {
             this.isCancelable = isCancelable;
             this.isCancelableTouchOutside = isCancelableTouchOutside;
-            return this;
-        }
-
-        public Builder ivCancelShow(boolean isIvCancelShow) {
-            this.isIvCancelShow = isIvCancelShow;
             return this;
         }
 

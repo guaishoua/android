@@ -6,7 +6,6 @@ import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
-import com.android.tacu.http.factory.ModelTransformerFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.my.contract.InvitedinfoContract;
 import com.android.tacu.module.my.model.InvitedAllModel;
@@ -24,6 +23,6 @@ public class InvitedinfoPresenter extends BaseMvpPresenter implements Invitedinf
                 InvitedinfoContract.IView view = (InvitedinfoContract.IView) getView();
                 view.showInvitedInfo(model.attachment);
             }
-        }, ModelTransformerFactory.getNonStandardModelTransformer());
+        });
     }
 }

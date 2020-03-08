@@ -53,9 +53,9 @@ public class OwnCenterModel implements Serializable {
     @SerializedName("isValidateGoogle")
     public String isValidateGoogle;//谷歌设置标示 0=未设置 1=已设置 2=已关闭
     @SerializedName("isAuthSenior")
-    public int isAuthSenior;
+    public int isAuthSenior;//-1：认证被拒绝 0：未提交认证资料 1：待认证 2：认证通过
     @SerializedName("isAuthVideo")
-    public int isAuthVideo;
+    public int isAuthVideo; //-1：认证被拒绝 0：未提交认证资料 1：待认证 2：认证通过
     @SerializedName("email")
     public String email;
     @SerializedName("isAuth")

@@ -15,6 +15,7 @@ import com.android.tacu.module.auth.model.OtcSectionModel;
 import com.android.tacu.module.auth.model.SelectAuthLevelModel;
 import com.android.tacu.module.auth.model.SelectC2cSection;
 import com.android.tacu.module.auth.model.UserInfoModel;
+import com.android.tacu.module.main.model.AliModel;
 import com.android.tacu.module.main.model.ConvertModel;
 import com.android.tacu.module.main.model.GoogleAuthModel;
 import com.android.tacu.module.main.model.HomeModel;
@@ -185,7 +186,7 @@ public interface Api {
      */
     @FormUrlEncoded
     @POST("customerCoinByOneCoin")
-    Observable<AmountModel> customerCoinByOneCoin(
+    Observable<BaseModel<Double>> customerCoinByOneCoin(
             @Field("currencyId") Integer currencyId
     );
 
@@ -1170,4 +1171,16 @@ public interface Api {
      */
     @POST("tradeWinList")
     Observable<BaseModel<TradeWinListModel>> tradeWinList();
+
+    /**
+     * 实人认证获取verifyToken
+     */
+    @POST("appToken")
+    Observable<BaseModel<AliModel>> aliToken();
+
+    /**
+     * 确认实人认证是否成功
+     */
+    @POST("vedioAuth")
+    Observable<BaseModel> vedioAuth();
 }

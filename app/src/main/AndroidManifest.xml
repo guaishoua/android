@@ -54,6 +54,7 @@
 
         <activity
             android:name="com.android.tacu.module.splash.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppLauncherTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

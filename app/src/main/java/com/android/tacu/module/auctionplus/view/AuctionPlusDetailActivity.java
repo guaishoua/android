@@ -22,7 +22,6 @@ import com.android.tacu.EventBus.model.MainSwitchEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.view.AssetsActivity;
 import com.android.tacu.module.auctionplus.adapter.AuctionPlusOfferPriceAdapter;
 import com.android.tacu.module.auctionplus.contract.AuctionPlusContract;
@@ -314,9 +313,9 @@ public class AuctionPlusDetailActivity extends BaseActivity<AuctionPlusPresent> 
     }
 
     @Override
-    public void customerCoinByOneCoin(AmountModel model, AuctionPlusModel auctionModel) {
-        if (model != null && auctionModel != null) {
-            mPresenter.auctionPayInfo(auctionModel, String.valueOf(model.attachment), 2);
+    public void customerCoinByOneCoin(Double value, AuctionPlusModel auctionModel) {
+        if (value != null && auctionModel != null) {
+            mPresenter.auctionPayInfo(auctionModel, String.valueOf(value), 2);
         }
     }
 

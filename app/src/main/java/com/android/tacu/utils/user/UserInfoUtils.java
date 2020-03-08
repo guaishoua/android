@@ -434,7 +434,7 @@ public class UserInfoUtils {
 
     /**
      * 用户认证状态 (已认证 未通过 之类的)
-     *
+     * -1：认证被拒绝 0：未提交认证资料 1：待认证 2：认证通过
      * @param isAuthSenior
      */
     public void setIsAuthSenior(Integer isAuthSenior) {
@@ -446,6 +446,21 @@ public class UserInfoUtils {
 
     public int getIsAuthSenior() {
         return sp.getInt("isAuthSenior", 0);
+    }
+
+    /**
+     * 用户实人认证状态
+     * -1：认证被拒绝 0：未提交认证资料 1：待认证 2：认证通过
+     */
+    public void setIsAuthVideo(Integer isAuthVideo){
+        if (isAuthVideo==null)
+            isAuthVideo = 0;
+        editor.putInt("isAuthVideo", isAuthVideo);
+        editor.commit();
+    }
+
+    public int getIsAuthVideo(){
+        return sp.getInt("isAuthVideo", 0);
     }
 
     /**

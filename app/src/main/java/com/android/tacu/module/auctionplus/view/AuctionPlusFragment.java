@@ -21,7 +21,6 @@ import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.view.AssetsActivity;
 import com.android.tacu.module.auctionplus.adapter.AuctionPlusListAdapter;
 import com.android.tacu.module.auctionplus.contract.AuctionPlusContract;
@@ -342,9 +341,9 @@ public class AuctionPlusFragment extends BaseFragment<AuctionPlusPresent> implem
     }
 
     @Override
-    public void customerCoinByOneCoin(AmountModel model, AuctionPlusModel auctionModel) {
-        if (model != null && auctionModel != null) {
-            mPresenter.auctionPayInfo(auctionModel, String.valueOf(model.attachment), 1);
+    public void customerCoinByOneCoin(Double value, AuctionPlusModel auctionModel) {
+        if (value != null && auctionModel != null) {
+            mPresenter.auctionPayInfo(auctionModel, String.valueOf(value), 1);
         }
     }
 

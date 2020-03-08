@@ -17,7 +17,6 @@ import com.android.tacu.EventBus.model.VipBuyEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.view.AssetsActivity;
 import com.android.tacu.module.auth.view.AuthActivity;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
@@ -236,9 +235,9 @@ public class BuyVipFragment extends BaseFragment<BuyVipPresenter> implements Buy
         }
     }
 
-    public void customerCoinByOneCoin(AmountModel model) {
-        if (model != null) {
-            tv_account_balance.setText(FormatterUtils.getFormatValue(model.attachment) + Constant.ACU_CURRENCY_NAME);
+    public void customerCoinByOneCoin(Double value) {
+        if (value != null) {
+            tv_account_balance.setText(FormatterUtils.getFormatValue(value) + Constant.ACU_CURRENCY_NAME);
         }
     }
 

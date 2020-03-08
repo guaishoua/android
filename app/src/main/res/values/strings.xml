@@ -945,4 +945,9 @@
     <string name="trade_amount">交易额</string>
     <string name="all_amount">总资产</string>
     <string name="rank_num">第%1$s名</string>
+    
+    <!--实人认证-->
+    <string name="friendly_tip">温馨提示</string>
+    <string name="please_go_shirenrenzheng">很抱歉，您目前未在平台上进行实人验证请完成验证后操作</string>
+    <string name="video_auth_failure">很遗憾，您的实人认证失败请联系客服</string>
 </resources>

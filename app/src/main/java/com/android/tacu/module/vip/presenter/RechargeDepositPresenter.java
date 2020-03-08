@@ -6,9 +6,7 @@ import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
-import com.android.tacu.http.factory.ModelTransformerFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.vip.contract.RechargeDepositContract;
 import com.android.tacu.module.vip.model.BondRecordModel;
@@ -22,13 +20,13 @@ public class RechargeDepositPresenter extends BaseMvpPresenter implements Rechar
 
     @Override
     public void customerCoinByOneCoin(int currencyId) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).customerCoinByOneCoin(currencyId), new NetDisposableObserver<AmountModel>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).customerCoinByOneCoin(currencyId), new NetDisposableObserver<BaseModel<Double>>((IBaseMvpView) getView()) {
             @Override
-            public void onNext(AmountModel o) {
+            public void onNext(BaseModel<Double> o) {
                 RechargeDepositContract.IView view = (RechargeDepositContract.IView) getView();
-                view.customerCoinByOneCoin(o);
+                view.customerCoinByOneCoin(o.attachment);
             }
-        }, ModelTransformerFactory.getNonStandardModelTransformer());
+        });
     }
 
     @Override

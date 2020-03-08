@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.security.rp.RPSDK;
 import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.EventManage;
 import com.android.tacu.EventBus.model.BaseEvent;
@@ -25,10 +27,12 @@ import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
+import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.view.AssetsFragment;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.MainContract;
+import com.android.tacu.module.main.model.AliModel;
 import com.android.tacu.module.main.model.ConvertModel;
 import com.android.tacu.module.main.model.HomeModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
@@ -44,6 +48,7 @@ import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.StatusBarUtils;
 import com.android.tacu.utils.downloadfile.AppUpdateUtils;
 import com.android.tacu.utils.PackageUtils;
+import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.NoSlideViewPager;
 import com.android.tacu.widget.dialog.DroidDialog;
@@ -52,6 +57,7 @@ import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
 import com.google.gson.Gson;
+import com.yanzhenjie.permission.Permission;
 
 import java.util.List;
 
@@ -104,6 +110,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private long firstTime = 0;
     private Dialog gaDialog;
     private Gson gson = new Gson();
+    //实人认证的时候，认证成功返回需要发送接口通知后端，这时候不能调用ownceterapp接口，因为这时候后端还没有收到认证成功的消息
+    private boolean isOwnCenterFlag = true;
+
+    private DroidDialog goVideoAuthDialog;
+    private DroidDialog videoAuthFailureDialog;
 
     /**
      * @param context
@@ -233,7 +244,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     protected void onResume() {
         super.onResume();
         if (spUtil.getLogin()) {
-            mPresenter.ownCenter();
+            if (isOwnCenterFlag) {
+                mPresenter.ownCenter();
+            }
             mPresenter.getSelfList();
             mPresenter.selectBank();
         }
@@ -254,6 +267,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         if (mainDrawerLayoutHelper != null) {
             mainDrawerLayoutHelper.clearActivity();
             mainDrawerLayoutHelper = null;
+        }
+        if (goVideoAuthDialog != null && goVideoAuthDialog.isShowing()) {
+            goVideoAuthDialog.dismiss();
+        }
+        if (videoAuthFailureDialog != null && videoAuthFailureDialog.isShowing()) {
+            videoAuthFailureDialog.dismiss();
         }
 
         //应用退出 就清空所有粘性事件 因为这部分是存在内存中的
@@ -326,6 +345,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     @Override
     public void ownCenter(OwnCenterModel model) {
         UserManageUtils.setPersonInfo(model);
+        if (spUtil.getIsAuthVideo() != 2) {
+            //showALAuth();
+        }
+        showALAuth();
     }
 
     @Override
@@ -354,6 +377,57 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     @Override
     public void selectBank(List<PayInfoModel> list) {
         UserManageUtils.setPeoplePayInfo(list);
+    }
+
+    @Override
+    public void getVerifyToken(AliModel model) {
+        if (model != null && !TextUtils.isEmpty(model.token)) {
+            isOwnCenterFlag = false;
+            RPSDK.start(model.token, this, new RPSDK.RPCompletedListener() {
+                @Override
+                public void onAuditResult(RPSDK.AUDIT audit, String code) {
+                    if (audit == RPSDK.AUDIT.AUDIT_PASS) {
+                        //认证通过。建议接入方调用实人认证服务端接口DescribeVerifyResult来获取最终的认证状态，并以此为准进行业务上的判断和处理
+                        goVideoAuthDialog.dismiss();
+                        mPresenter.vedioAuth();
+                    } else if (audit == RPSDK.AUDIT.AUDIT_FAIL) {
+                        showALAuthFailure();
+                        isOwnCenterFlag = true;
+                        //认证不通过。建议接入方调用实人认证服务端接口DescribeVerifyResult来获取最终的认证状态，并以此为准进行业务上的判断和处理
+                    } else if (audit == RPSDK.AUDIT.AUDIT_NOT) {
+                        showALAuthFailure();
+                        isOwnCenterFlag = true;
+                        //未认证，具体原因可通过code来区分（code取值参见下方表格），通常是用户主动退出或者姓名身份证号实名校验不匹配等原因，导致未完成认证流程
+                        /**
+                         * 1=认证通过
+                         * 2-12 表示认证不通过，具体的不通过原因可以查看服务端的查询认证结果（DescribeVerifyResult）接口文档中认证状态的表格说明。
+                         * -1=未完成认证，原因：用户在认证过程中，主动退出。
+                         * 3001=未完成认证，原因：认证token无效或已过期。
+                         * 3101=未完成认证，原因：用户姓名身份证实名校验不匹配。
+                         * 3102=未完成认证，原因：实名校验身份证号不存在。
+                         * 3103=未完成认证，原因：实名校验身份证号不合法。
+                         * 3104=未完成认证，原因：认证已通过，重复提交。
+                         * 3204=未完成认证，原因：非本人操作。
+                         * 3206=未完成认证，原因：非本人操作。
+                         * 3208=未完成认证，原因：公安网无底照。
+                         */
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void getVerifyTokenError(int status) {
+        if (status == -1000) {
+            showALAuthFailure();
+        }
+    }
+
+    @Override
+    public void vedioAuth() {
+        isOwnCenterFlag = true;
+        mPresenter.ownCenter();
     }
 
     @Override
@@ -507,24 +581,55 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         tv_otc.setTextColor(ContextCompat.getColor(this, R.color.main_tab_text_color));
     }
 
-    /*private void otcClick() {
-        if (!spUtil.getLogin()) {
-            jumpTo(LoginActivity.class);
-        } else if (spUtil.getIsAuthSenior() == -1 || spUtil.getIsAuthSenior() == 0 || spUtil.getIsAuthSenior() == 1) {
-            showToastError(getResources().getString(R.string.please_get_the_level_of_KYC));
-        } else if (!spUtil.getPhoneStatus()) {
-            showToastError(getResources().getString(R.string.please_bind_phone));
-        } else {
-            setTabSelection(Constant.MAIN_OTC);
-        }
-    }*/
-
     private void initCache() {
         String homeCacheString = SPUtils.getInstance().getString(Constant.HOME_CACHE);
         homeModel = gson.fromJson(homeCacheString, HomeModel.class);
         if (homeFragment != null) {
             homeFragment.setHome(homeModel, true);
         }
+    }
+
+    private void showALAuth() {
+        if (videoAuthFailureDialog != null && videoAuthFailureDialog.isShowing()) {
+            return;
+        }
+        if (goVideoAuthDialog != null && goVideoAuthDialog.isShowing()) {
+            return;
+        }
+        goVideoAuthDialog = new DroidDialog.Builder(MainActivity.this)
+                .title(getResources().getString(R.string.friendly_tip))
+                .content(getResources().getString(R.string.please_go_shirenrenzheng))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(getResources().getString(R.string.go_auth), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        PermissionUtils.requestPermissions(MainActivity.this, new OnPermissionListener() {
+                            @Override
+                            public void onPermissionSucceed() {
+                                mPresenter.getVerifyToken();
+                            }
+
+                            @Override
+                            public void onPermissionFailed() {
+                            }
+                        }, Permission.Group.CAMERA, new String[]{Permission.READ_PHONE_STATE}, Permission.Group.STORAGE);
+                    }
+                })
+                .show();
+    }
+
+    private void showALAuthFailure() {
+        if (goVideoAuthDialog != null && goVideoAuthDialog.isShowing()) {
+            goVideoAuthDialog.dismiss();
+        }
+        if (videoAuthFailureDialog != null && videoAuthFailureDialog.isShowing()) {
+            return;
+        }
+        View view = View.inflate(this, R.layout.view_video_failure, null);
+        videoAuthFailureDialog = new DroidDialog.Builder(MainActivity.this)
+                .title(getResources().getString(R.string.authentication_failed))
+                .viewCustomLayout(view)
+                .show();
     }
 
     /**

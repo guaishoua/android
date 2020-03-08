@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.assets.contract.OTCTransferContract;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.assets.presenter.OTCTransferPresenter;
 import com.android.tacu.utils.FormatterUtils;
@@ -36,7 +35,7 @@ public class OTCTransferFragment extends BaseFragment<OTCTransferPresenter> impl
     private boolean isFlag;
     private int type = 1;//1=币币账户->OTC账户 2=OTC账户->币币账户
 
-    private AmountModel amountModel;
+    private Double amountValue;
     private OtcAmountModel otcAmountModel;
 
     public static OTCTransferFragment newInstance(int currencyId, String currencyNameEn, boolean isFlag) {
@@ -100,8 +99,8 @@ public class OTCTransferFragment extends BaseFragment<OTCTransferPresenter> impl
 
     @OnClick(R.id.btn_all)
     void allClick() {
-        if (type == 1 && amountModel != null) {
-            edit_num.setText(FormatterUtils.getFormatValue(amountModel.attachment));
+        if (type == 1 && amountValue != null) {
+            edit_num.setText(FormatterUtils.getFormatValue(amountValue));
         } else if (type == 2 && otcAmountModel != null) {
             edit_num.setText(FormatterUtils.getFormatValue(otcAmountModel.cashAmount));
         }
@@ -137,10 +136,10 @@ public class OTCTransferFragment extends BaseFragment<OTCTransferPresenter> impl
     }
 
     @Override
-    public void customerCoinByOneCoin(AmountModel model) {
-        this.amountModel = model;
-        if (model != null) {
-            tv_coin_account_available.setText(FormatterUtils.getFormatValue(model.attachment));
+    public void customerCoinByOneCoin(Double value) {
+        this.amountValue = value;
+        if (value != null) {
+            tv_coin_account_available.setText(FormatterUtils.getFormatValue(value));
         }
     }
 

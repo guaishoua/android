@@ -5,10 +5,12 @@ import com.android.tacu.api.ApiHost;
 import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
+import com.android.tacu.http.exceptions.ResponseException;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.main.contract.MainContract;
+import com.android.tacu.module.main.model.AliModel;
 import com.android.tacu.module.main.model.ConvertModel;
 import com.android.tacu.module.main.model.HomeModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
@@ -93,6 +95,38 @@ public class MainPresenter extends BaseMvpPresenter implements MainContract.IPre
             public void onNext(BaseModel<List<PayInfoModel>> o) {
                 MainContract.IView view = (MainContract.IView) getView();
                 view.selectBank(o.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void getVerifyToken() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ALI, Api.class).aliToken(), new NetDisposableObserver<BaseModel<AliModel>>((IBaseMvpView) getView(), false, false) {
+            @Override
+            public void onNext(BaseModel<AliModel> model) {
+                MainContract.IView view = (MainContract.IView) getView();
+                view.getVerifyToken(model.attachment);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                super.onError(throwable);
+                if (throwable instanceof ResponseException) {
+                    ResponseException responseException = (ResponseException) throwable;
+                    MainContract.IView view = (MainContract.IView) getView();
+                    view.getVerifyTokenError(responseException.status);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void vedioAuth() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ALI, Api.class).vedioAuth(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView(), false, false) {
+            @Override
+            public void onNext(BaseModel model) {
+                MainContract.IView view = (MainContract.IView) getView();
+                view.vedioAuth();
             }
         });
     }
