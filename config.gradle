@@ -41,7 +41,8 @@ ext {
 
     okhttpDeps = [
             okhttp        : "com.squareup.okhttp3:okhttp:$dependVersion.okhttpSdkVersion",
-            okhttpLogginig: "com.squareup.okhttp3:logging-interceptor:$dependVersion.okhttpSdkVersion"
+            okhttpLogginig: "com.squareup.okhttp3:logging-interceptor:$dependVersion.okhttpSdkVersion",
+            okio          : "com.squareup.okio:okio:1.16.0"
     ]
 
     retrofitDeps = [

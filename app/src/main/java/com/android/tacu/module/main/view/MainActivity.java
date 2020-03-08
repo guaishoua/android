@@ -44,6 +44,7 @@ import com.android.tacu.module.otc.view.OtcMarketListFragment;
 import com.android.tacu.module.transaction.view.TradeFragment;
 import com.android.tacu.EventBus.model.MainSwitchEvent;
 import com.android.tacu.utils.ConvertMoneyUtils;
+import com.android.tacu.utils.LogUtils;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.StatusBarUtils;
 import com.android.tacu.utils.downloadfile.AppUpdateUtils;
@@ -387,6 +388,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             RPSDK.start(model.token, this, new RPSDK.RPCompletedListener() {
                 @Override
                 public void onAuditResult(RPSDK.AUDIT audit, String code) {
+                    LogUtils.i("jiazhen", "audit=" + audit + " code=" + code);
                     if (audit == RPSDK.AUDIT.AUDIT_PASS) {
                         //认证通过。建议接入方调用实人认证服务端接口DescribeVerifyResult来获取最终的认证状态，并以此为准进行业务上的判断和处理
                         goVideoAuthDialog.dismiss();

@@ -154,9 +154,8 @@ dependencies {
     implementation(name: 'dx-captcha-1.5.4', ext: 'aar')
     //实人认证
     implementation (name:'rpsdk-3.3.0.1', ext:'aar')
-    implementation (name:'oss-android-sdk-2.9.2', ext:'aar')
-    implementation (name:'SecurityBodySDK-external-release-5.4.109-preInstall', ext:'aar')
-    implementation (name:'SecurityGuardSDK-external-release-5.4.187-preInstall', ext:'aar')
+    implementation (name:'SecurityGuardSDK-external-release-5.4.187', ext:'aar')
+    implementation (name:'SecurityBodySDK-external-release-5.4.109', ext:'aar')
     //k线图
     implementation project(':kchartlib')
     //qmui

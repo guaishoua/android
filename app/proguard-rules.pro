@@ -420,50 +420,6 @@
 public static final int *;
 }
 
-# 友盟自动更新
--keepclassmembers class * { public <init>(org.json.JSONObject); }
--keep public class cn.irains.parking.cloud.pub.R$*{ public static final int *; }
--keep public class * extends com.umeng.**
--keep class com.umeng.** { *; }
-
-# 友盟推送 start
--dontwarn com.taobao.**
--dontwarn anet.channel.**
--dontwarn anetwork.channel.**
--dontwarn org.android.**
--dontwarn org.apache.thrift.**
--dontwarn com.xiaomi.**
--dontwarn com.huawei.**
--keepattributes *Annotation*
--keep class com.taobao.** {*;}
--keep class org.android.** {*;}
--keep class anet.channel.** {*;}
--keep class com.umeng.** {*;}
--keep class com.xiaomi.** {*;}
--keep class com.huawei.** {*;}
--keep class org.apache.thrift.** {*;}
--keep class com.alibaba.sdk.android.**{*;}
--keep class com.ut.**{*;}
--keep class com.ta.**{*;}
--keep public class **.R$*{
-   public static final int *;
-}
-# 友盟推送 end
-
-# 支付宝钱包
--dontwarn com.alipay.**
--dontwarn HttpUtils.HttpFetcher
--dontwarn com.ta.utdid2.**
--dontwarn com.ut.device.**
--keep class com.alipay.android.app.IAlixPay{*;}
--keep class com.alipay.android.app.IAlixPay$Stub{*;}
--keep class com.alipay.android.app.IRemoteServiceCallback{*;}
--keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
--keep class com.alipay.sdk.app.PayTask{ public *;}
--keep class com.alipay.sdk.app.AuthTask{ public *;}
--keep class com.alipay.mobilesecuritysdk.*
--keep class com.ut.*
-
 # SwipeRecyclerView
 -keepclasseswithmembers class android.support.v7.widget.RecyclerView$ViewHolder {
    public final View *;
@@ -548,7 +504,7 @@ public static java.lang.String TABLENAME;
 -keep public interface com.zopim.android.** { *; }
 -keep public class com.zopim.android.** { *; }
 
-# Sdk
+# zendesk
 -keep public interface com.zendesk.** { *; }
 -keep public class com.zendesk.** { *; }
 -dontwarn java.awt.**
