@@ -40,6 +40,7 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
     //0=全部 1买 2卖
     private int buyorsell = 0;
     private int start = 1;
+    private boolean isFirst = true;
 
     private List<OtcMarketOrderModel> orderList = new ArrayList<>();
 
@@ -54,7 +55,9 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
     @Override
     protected void initLazy() {
         super.initLazy();
-        upload(true, true);
+        if (isFirst) {
+            upload(true, true);
+        }
     }
 
     @Override
@@ -107,7 +110,7 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
     public void onResume() {
         super.onResume();
         if (isVisibleToUser) {
-            upload(true, true);
+            upload(isFirst, true);
         }
     }
 
@@ -149,6 +152,9 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
     }
 
     private void upload(boolean isShowView, boolean isTop) {
+        if (isFirst) {
+            isFirst = false;
+        }
         if (isTop) {
             start = 1;
         }

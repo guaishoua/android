@@ -78,6 +78,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     private OtcMarketBuySellAdapter mAdapter;
     private List<OtcMarketOrderAllModel> allList = new ArrayList<>();
     private boolean isVisibleToUserParent = false;
+    private boolean isFirst = true;
 
     public static OtcMarketBuySellFragment newInstance(int currencyId, String currencyNameEn, boolean isBuy) {
         Bundle bundle = new Bundle();
@@ -92,7 +93,9 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     @Override
     protected void initLazy() {
         super.initLazy();
-        upload(true, true);
+        if (isFirst) {
+            upload(true, true);
+        }
     }
 
     @Override
@@ -153,7 +156,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     @Override
     public void onResume() {
         super.onResume();
-        upload(false, true);
+        upload(isFirst, true);
     }
 
     @Override
@@ -172,7 +175,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 case EventConstant.OTCListVisibleCode:
                     OTCListVisibleHintEvent otcListVisibleHintEvent = (OTCListVisibleHintEvent) event.getData();
                     isVisibleToUserParent = otcListVisibleHintEvent.isVisibleToUser();
-                    upload(true, true);
+                    upload(isFirst, true);
                     break;
             }
         }
@@ -283,6 +286,9 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     private void upload(boolean isShowViewing, boolean isTop) {
         if (!isVisibleToUser || !isVisibleToUserParent) {
             return;
+        }
+        if (isFirst) {
+            isFirst = false;
         }
         if (isTop) {
             start = 1;

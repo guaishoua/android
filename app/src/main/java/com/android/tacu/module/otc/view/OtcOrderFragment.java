@@ -41,6 +41,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     private int orderStatus = 0;
     private OtcOrderAdapter orderAdapter;
 
+    private boolean isFirst = true;
     private int start = 1;
     private List<OtcTradeAllModel> tradeModelList = new ArrayList<>();
 
@@ -55,7 +56,9 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     @Override
     protected void initLazy() {
         super.initLazy();
-        upload(true, true);
+        if (isFirst) {
+            upload(true, true);
+        }
     }
 
     @Override
@@ -108,7 +111,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     public void onResume() {
         super.onResume();
         if (isVisibleToUser) {
-            upload(true, true);
+            upload(isFirst, true);
         }
     }
 
@@ -177,6 +180,9 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     }
 
     private void upload(boolean isShowView, boolean isTop) {
+        if (isFirst) {
+            isFirst = false;
+        }
         if (isTop) {
             start = 1;
         }
@@ -252,7 +258,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                 holder.setText(R.id.tv_order_number, item.tradeModel.currencyName + " (" + item.tradeModel.orderNo + ")");
                 holder.setText(R.id.tv_time, item.tradeModel.createTime);
 
-                holder.setText(R.id.tv_amount_title, getResources().getString(R.string.amount) + " " +item.tradeModel.currencyName);
+                holder.setText(R.id.tv_amount_title, getResources().getString(R.string.amount) + " " + item.tradeModel.currencyName);
                 holder.setText(R.id.tv_amount, item.tradeModel.num);
 
                 holder.setText(R.id.tv_price_title, getResources().getString(R.string.amount_price) + "(CNY)");

@@ -27,11 +27,11 @@ public class OtcManageBuySellContract {
     public interface IPresenter {
         void selectBank();
 
-        void selectFee(Integer currencyId);
+        void selectFee(boolean isShowView, Integer currencyId);
 
-        void BondAccount(int currencyId);
+        void BondAccount(boolean isShowView, int currencyId);
 
-        void OtcAccount(int currencyId);
+        void OtcAccount(boolean isShowView, int currencyId);
 
         void order(OtcPublishParam param);
     }

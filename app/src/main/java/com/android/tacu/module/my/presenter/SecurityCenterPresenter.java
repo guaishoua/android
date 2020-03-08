@@ -17,7 +17,7 @@ public class SecurityCenterPresenter extends BaseMvpPresenter implements Securit
 
     @Override
     public void ownCenter() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).ownCenter(), new NetDisposableObserver<BaseModel<OwnCenterModel>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).ownCenter(), new NetDisposableObserver<BaseModel<OwnCenterModel>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<OwnCenterModel> model) {
                 SecurityCenterContract.IView view = (SecurityCenterContract.IView) getView();

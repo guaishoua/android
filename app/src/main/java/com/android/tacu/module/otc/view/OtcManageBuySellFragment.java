@@ -105,6 +105,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     private OtcSelectFeeModel otcSelectFeeModel;
     private String coinName = Constant.ACU_CURRENCY_NAME;
     private PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
+    private boolean isFirst = true;
 
     public static OtcManageBuySellFragment newInstance(boolean isBuy) {
         Bundle bundle = new Bundle();
@@ -117,7 +118,9 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     @Override
     protected void initLazy() {
         super.initLazy();
-        upload();
+        if (isFirst) {
+            upload();
+        }
     }
 
     @Override
@@ -389,9 +392,12 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
 
     private void upload() {
         if (isVisibleToUser) {
-            mPresenter.selectFee(param.currencyId);
-            mPresenter.BondAccount(param.currencyId);
-            mPresenter.OtcAccount(param.currencyId);
+            mPresenter.selectFee(isFirst, param.currencyId);
+            mPresenter.BondAccount(isFirst, param.currencyId);
+            mPresenter.OtcAccount(isFirst, param.currencyId);
+            if (isFirst) {
+                isFirst = false;
+            }
         }
     }
 

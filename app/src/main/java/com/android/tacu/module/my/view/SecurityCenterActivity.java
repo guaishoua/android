@@ -167,9 +167,50 @@ public class SecurityCenterActivity extends BaseActivity<SecurityCenterPresenter
     protected void onResume() {
         super.onResume();
         mPresenter.ownCenter();
+        setValue();
+    }
 
+    @Override
+    public void ownCenter(OwnCenterModel model) {
+        if (model != null) {
+            UserManageUtils.setPersonInfo(model);
+            setValue();
+        }
+    }
+
+    @Override
+    public void updateFdPwdSuccess() {
+        if (spUtil.getPwdVisibility()) {
+            spUtil.setPwdVisibility(false);
+            showToastSuccess(getResources().getString(R.string.close_tradepwd_message));
+        } else {
+            spUtil.setPwdVisibility(true);
+        }
+    }
+
+    @Override
+    public void updateFdPwdError() {
         checkTrade.setChecked(spUtil.getPwdVisibility());
+    }
 
+    private void setValue() {
+        if (!spUtil.getPhoneStatus()) {
+            itemBindPhone.setDetailText(getResources().getString(R.string.no_bind));
+        } else {
+            itemBindPhone.setDetailText(getResources().getString(R.string.pwd_change));
+        }
+        if (TextUtils.isEmpty(spUtil.getEmail())) {
+            itemBindEmail.setDetailText(getResources().getString(R.string.no_bind));
+        } else {
+            itemBindEmail.setDetailText(getResources().getString(R.string.pwd_change));
+        }
+        if (spUtil.getValidatePass()) {
+            itemTradePwd.setDetailText(getResources().getString(R.string.pwd_change));
+        } else {
+            itemTradePwd.setDetailText(getResources().getString(R.string.settings));
+        }
+        //是否每次都需要输入交易密码
+        checkTrade.setChecked(spUtil.getPwdVisibility());
         if (!TextUtils.isEmpty(LockUtils.getGesture())) {
             checkGesture.setChecked(true);
         } else {
@@ -188,51 +229,6 @@ public class SecurityCenterActivity extends BaseActivity<SecurityCenterPresenter
         } else if (TextUtils.equals(spUtil.getGaStatus(), "2")) {
             itemWithGa.setDetailText(getResources().getString(R.string.ga_not));
         }
-    }
-
-    @Override
-    public void ownCenter(OwnCenterModel model) {
-        if (model != null) {
-            UserManageUtils.setPersonInfo(model);
-
-            if (!spUtil.getPhoneStatus()) {
-                itemBindPhone.setDetailText(getResources().getString(R.string.no_bind));
-            } else {
-                itemBindPhone.setDetailText(getResources().getString(R.string.pwd_change));
-            }
-            if (TextUtils.isEmpty(spUtil.getEmail())) {
-                itemBindEmail.setDetailText(getResources().getString(R.string.no_bind));
-            } else {
-                itemBindEmail.setDetailText(getResources().getString(R.string.pwd_change));
-            }
-            if (spUtil.getValidatePass()) {
-                itemTradePwd.setDetailText(getResources().getString(R.string.pwd_change));
-            } else {
-                itemTradePwd.setDetailText(getResources().getString(R.string.settings));
-            }
-
-            //是否每次都需要输入交易密码
-            if (TextUtils.equals(model.fdPwdOrderEnabled, "1")) {
-                checkTrade.setChecked(true);
-            } else if (TextUtils.equals(model.fdPwdOrderEnabled, "2")) {
-                checkTrade.setChecked(false);
-            }
-        }
-    }
-
-    @Override
-    public void updateFdPwdSuccess() {
-        if (spUtil.getPwdVisibility()) {
-            spUtil.setPwdVisibility(false);
-            showToastSuccess(getResources().getString(R.string.close_tradepwd_message));
-        } else {
-            spUtil.setPwdVisibility(true);
-        }
-    }
-
-    @Override
-    public void updateFdPwdError() {
-        checkTrade.setChecked(spUtil.getPwdVisibility());
     }
 
     /**

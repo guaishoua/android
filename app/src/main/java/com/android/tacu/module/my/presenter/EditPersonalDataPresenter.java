@@ -28,7 +28,7 @@ public class EditPersonalDataPresenter extends BaseMvpPresenter implements EditP
 
     @Override
     public void ownCenter() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).ownCenter(), new NetDisposableObserver<BaseModel<OwnCenterModel>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).ownCenter(), new NetDisposableObserver<BaseModel<OwnCenterModel>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<OwnCenterModel> model) {
                 EditPersonalDataContact.IView view = (EditPersonalDataContact.IView) getView();
@@ -39,7 +39,7 @@ public class EditPersonalDataPresenter extends BaseMvpPresenter implements EditP
 
     @Override
     public void selectBank() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<List<PayInfoModel>> o) {
                 EditPersonalDataContact.IView view = (EditPersonalDataContact.IView) getView();

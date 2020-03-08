@@ -18,7 +18,7 @@ import java.util.List;
 public class OtcManageBuySellPresenter extends BaseMvpPresenter implements OtcManageBuySellContract.IPresenter {
     @Override
     public void selectBank() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<List<PayInfoModel>> o) {
                 OtcManageBuySellContract.IView view = (OtcManageBuySellContract.IView) getView();
@@ -28,8 +28,8 @@ public class OtcManageBuySellPresenter extends BaseMvpPresenter implements OtcMa
     }
 
     @Override
-    public void selectFee(Integer currencyId) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectFee(currencyId), new NetDisposableObserver<BaseModel<OtcSelectFeeModel>>((IBaseMvpView) getView(), false) {
+    public void selectFee(boolean isShowView, Integer currencyId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectFee(currencyId), new NetDisposableObserver<BaseModel<OtcSelectFeeModel>>((IBaseMvpView) getView(), isShowView) {
             @Override
             public void onNext(BaseModel<OtcSelectFeeModel> model) {
                 OtcManageBuySellContract.IChildView view = (OtcManageBuySellContract.IChildView) getView();
@@ -39,8 +39,8 @@ public class OtcManageBuySellPresenter extends BaseMvpPresenter implements OtcMa
     }
 
     @Override
-    public void BondAccount(int currencyId) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).BondAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView(), false) {
+    public void BondAccount(boolean isShowView, int currencyId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).BondAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView(), isShowView) {
             @Override
             public void onNext(BaseModel<OtcAmountModel> o) {
                 OtcManageBuySellContract.IChildView view = (OtcManageBuySellContract.IChildView) getView();
@@ -50,8 +50,8 @@ public class OtcManageBuySellPresenter extends BaseMvpPresenter implements OtcMa
     }
 
     @Override
-    public void OtcAccount(int currencyId) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).OtcAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView()) {
+    public void OtcAccount(boolean isShowView, int currencyId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).OtcAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView(), isShowView) {
             @Override
             public void onNext(BaseModel<OtcAmountModel> o) {
                 OtcManageBuySellContract.IChildView view = (OtcManageBuySellContract.IChildView) getView();
