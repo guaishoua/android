@@ -67,7 +67,7 @@ public class RechargeDepositPresenter extends BaseMvpPresenter implements Rechar
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBondRecord(null), new NetDisposableObserver<BaseModel<List<BondRecordModel>>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<List<BondRecordModel>> o) {
-                RechargeDepositContract.IView view = (RechargeDepositContract.IView) getView();
+                RechargeDepositContract.IRecordView view = (RechargeDepositContract.IRecordView) getView();
                 view.selectBondRecord(o.attachment);
             }
         });

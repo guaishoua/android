@@ -2,12 +2,16 @@ package com.android.tacu.module.otc.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.EventManage;
@@ -23,6 +27,7 @@ import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.otc.dialog.OtcDialogUtils;
 import com.android.tacu.utils.UIUtils;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
@@ -36,7 +41,7 @@ import butterknife.OnClick;
 
 import static android.widget.ImageView.ScaleType.CENTER_CROP;
 
-public class OtcMarketListFragment extends BaseFragment {
+public class OtcMarketListFragment extends BaseFragment implements View.OnTouchListener {
 
     @BindView(R.id.title)
     QMUITopBar mTopBar;
@@ -45,8 +50,28 @@ public class OtcMarketListFragment extends BaseFragment {
     @BindView(R.id.vp)
     ViewPager viewPager;
 
+    @BindView(R.id.lin_guanggao)
+    QMUIRoundLinearLayout lin_guanggao;
+    @BindView(R.id.lin_guanggao2)
+    LinearLayout lin_guanggao2;
+    @BindView(R.id.tv_guanggao1)
+    TextView tv_guanggao1;
+    @BindView(R.id.tv_guanggao2)
+    TextView tv_guanggao2;
+
+    @BindView(R.id.lin_auth)
+    QMUIRoundLinearLayout lin_auth;
+    @BindView(R.id.lin_auth2)
+    LinearLayout lin_auth2;
+    @BindView(R.id.tv_auth1)
+    TextView tv_auth1;
+    @BindView(R.id.tv_auth2)
+    TextView tv_auth2;
+
     private List<String> tabTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
+
+    private Handler mHandler = new Handler();
 
     public static OtcMarketListFragment newInstance() {
         Bundle bundle = new Bundle();
@@ -65,7 +90,7 @@ public class OtcMarketListFragment extends BaseFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.activity_otc_market_list;
+        return R.layout.fragment_otc_market_list;
     }
 
     @Override
@@ -84,6 +109,18 @@ public class OtcMarketListFragment extends BaseFragment {
         indicatorViewPager.setAdapter(new TabAdapter(getChildFragmentManager(), getContext(), tabTitle, fragmentList));
         viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
         viewPager.setCurrentItem(0, false);
+
+        lin_guanggao2.setOnTouchListener(this);
+        lin_auth2.setOnTouchListener(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+            mHandler = null;
+        }
     }
 
     @OnClick(R.id.lin_guanggao)
@@ -100,6 +137,41 @@ public class OtcMarketListFragment extends BaseFragment {
         } else {
             jumpTo(LoginActivity.class);
         }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (v.getId()){
+            case R.id.lin_guanggao2:
+                if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
+                    lin_guanggao.setVisibility(View.VISIBLE);
+                    lin_guanggao2.setVisibility(View.GONE);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            lin_guanggao.setVisibility(View.GONE);
+                            lin_guanggao2.setVisibility(View.VISIBLE);
+                        }
+                    }, 1500);
+                }
+                break;
+            case R.id.lin_auth2:
+                if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
+                    lin_auth.setVisibility(View.VISIBLE);
+                    lin_auth2.setVisibility(View.GONE);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            lin_auth.setVisibility(View.GONE);
+                            lin_auth2.setVisibility(View.VISIBLE);
+                        }
+                    }, 1500);
+                }
+                break;
+        }
+        return true;
     }
 
     private void initTitle() {

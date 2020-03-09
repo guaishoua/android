@@ -16,7 +16,9 @@ public class RechargeDepositContract {
         void CcToBondSuccess();
 
         void BondToCcSuccess();
+    }
 
+    public interface IRecordView extends IBaseMvpView {
         void selectBondRecord(List<BondRecordModel> list);
     }
 
