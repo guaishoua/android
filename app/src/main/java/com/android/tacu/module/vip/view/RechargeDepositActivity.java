@@ -337,7 +337,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
                     @Override
                     public void onPositive(Dialog droidDialog) {
                         String pwd = edit_trade_pwd.getText().toString().trim();
-                        if (!TextUtils.isEmpty(pwd)) {
+                        if (TextUtils.isEmpty(pwd)) {
                             showToastError(getResources().getString(R.string.please_input_trade_password));
                             return;
                         }

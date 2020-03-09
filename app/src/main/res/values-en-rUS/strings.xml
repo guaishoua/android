@@ -549,381 +549,386 @@
     <string name="currency">Currency</string>
 
     <!--OTC-->
-    <string name="please_perfect_follow_info">Please complete the following information to make a transaction</string>
-    <string name="real_time_price">Real-time price index</string>
+    <string name="please_perfect_follow_info">Fill in the info to make transaction</string>
+    <string name="real_time_price">Real-time price</string>
     <string name="renminbi">RMB(CNY)</string>
-    <string name="sort_single_price">by unit price</string>
-    <string name="sort_surplus_amount">By remaining amount</string>
-    <string name="sort_quota">By Quota</string>
+    <string name="sort_single_price">By price</string>
+    <string name="sort_surplus_amount">By amount</string>
+    <string name="sort_quota">By quota</string>
     <string name="sort_all_manner">All methods</string>
-    <string name="yinhanngka">Bank Card</string>
+    <string name="yinhanngka">Bank card</string>
     <string name="zhifubao">Alipay</string>
     <string name="weixin">WeChat</string>
     <string name="surplus_all_amount">Remaining/Total</string>
-    <string name="single_quota">Single Quota</string>
-    <string name="single_price">Unit price</string>
-    <string name="single_price_acu_cny">Unit price(ACU/CNY)</string>
-    <string name="dan">single</string>
-    <string name="click_look">Click to view</string>
+    <string name="single_quota">Amount</string>
+    <string name="single_price">Price</string>
+    <string name="single_price_acu_cny">Price(ACU/CNY)</string>
+    <string name="dan">Unit</string>
+    <string name="click_look">View</string>
     <string name="order_center">Order Center</string>
     <string name="otc_order_all">All</string>
     <string name="otc_order_finished">Completed</string>
     <string name="otc_order_confirmed">To be confirmed</string>
     <string name="otc_order_payed">To be paid</string>
-    <string name="otc_order_payget">To be paid</string>
-    <string name="otc_order_coined">Pending coins</string>
-    <string name="otc_order_coinget">Coins to be received</string>
+    <string name="otc_order_payget">To be received</string>
+    <string name="otc_order_coined">Pending</string>
+    <string name="otc_order_coinget">To be received</string>
     <string name="otc_order_arbitration">In arbitration</string>
-    <string name="otc_refuse_order">Reject order</string>
+    <string name="otc_refuse_order">Order rejected</string>
     <string name="timeouted">Timed out</string>
     <string name="pay_timeout">Payout timeout</string>
-    <string name="market_order">Generate order</string>
-    <string name="buyer_pay">Buyer pay</string>
-    <string name="seller_coin">The seller puts coins</string>
+    <string name="market_order">Place order</string>
+    <string name="buyer_pay">Buyer to pay</string>
+    <string name="seller_coin">Seller to pay</string>
     <string name="order_finish">Order completed</string>
-    <string name="phone_auth">Mobile authentication</string>
-    <string name="email_auth">Email authentication</string>
-    <string name="truename_auth">Real name authentication</string>
-    <string name="video_auth">Video authentication</string>
+    <string name="phone_auth">Mobile verification</string>
+    <string name="email_auth">Email verification</string>
+    <string name="truename_auth">Real-name verification</string>
+    <string name="video_auth">Video verification</string>
     <string name="buy_pay">Buyer pay</string>
     <string name="sell_pay">Seller pay</string>
-    <string name="please_choose_get_pay">Please select a payment method:</string>
-    <string name="dui_fang_confirm_time">The other party must confirm this order within %1$s</string>
+    <string name="please_choose_get_pay">Select payment method:</string>
+    <string name="dui_fang_confirm_time">Other party confirms the order in %1$s</string>
     <string name="returnString">Return</string>
-    <string name="otc_order_confirmed_tip">Transaction Notes
-        \n1. After the seller initiates a transaction request, the digital assets of the order will be locked for custody;
-        \n2. The buyer needs to complete the payment within the payment validity period and confirm the payment completion operation before the seller will put the currency.
-        \n3. The buyer should save the screenshot of the payment voucher after payment. In case of dispute, the payment can be proved according to the screenshot
-        \n4. The seller should use the buyer\'s remarks to determine whether the digital asset in custody should be released in time after receiving the corresponding payment amount.
-        \n5. After the buyer receives the corresponding digital assets, if no arbitration occurs, the order will be successfully completed.
-        \n6. If there is an objection during the transaction, buyers and sellers can contact or submit arbitration at any time to defend their rights. For details, please refer to the OTC OTC Rules.
+    <string name="otc_order_confirmed_tip">Notes
+        \n1. Once the seller places an order, his coins will be locked for custody;
+        \n2. The buyer needs to complete the payment within the payment validity period and confirm the payment before the seller release the coins.
+        \n3. The buyer should save the screenshot of the payment voucher. In case of dispute, the payment can be proved by the voucher.
+        \n4. The seller should use the buyer\'s remarks to determine whether the payment has been completed to release the coins from custody.
+        \n5. After the buyer receives the coins, if no arbitration occurs, the order will be successfully completed.
+        \n6. If there is a discord during the transaction, buyers and sellers can submit arbitration at any time to defend their rights. For details, please refer to the OTC Rules.
     </string>
-    <string name="payed_time_countdown">Countdown to payment period</string>
+    <string name="payed_time_countdown">Payment time</string>
     <string name="order_id">Order number</string>
     <string name="pay_method">Payment method</string>
-    <string name="current_trade_should_get">Receivable for this transaction</string>
-    <string name="current_trade_should_coin">The currency will be released for this transaction</string>
-    <string name="current_trade_need_pay">This transaction requires payment</string>
+    <string name="current_trade_should_get">To be received</string>
+    <string name="current_trade_should_coin">Coin</string>
+    <string name="current_trade_need_pay">To be payed</string>
     <string name="upload_img_tip">Upload payment voucher
-        \nPictures should be controlled at 20MB
-        \nSupport JPG\PNG\BMP format</string>
-    <string name="upload_arbitration_tip">Upload arbitration credentials
-        \nPictures should be controlled at 20MB
-        \nSupport JPG\PNG\BMP format</string>
-    <string name="upload_beArbitration_tip">Upload Appeal Credentials
-        \nPictures should be controlled at 20MB
-        \nSupport JPG\PNG\BMP format</string>
+        \nPicture should be up to 20MB
+        \nSupport JPG\PNG\BMP</string>
+    <string name="upload_arbitration_tip">Upload proof of arbitration
+        \nPicture should be up to 20MB
+        \nSupport JPG\PNG\BMP</string>
+    <string name="upload_beArbitration_tip">Upload proof of appeal
+        \nPicture should be up to 20MB
+        \nSupport JPG\PNG\BMP</string>
     <string name="confirm_and_pay">Confirm and pay</string>
-    <string name="giveup_pay">Abandon payment</string>
-    <string name="please_scan_with_wx">Please use WeChat to scan the payment code</string>
-    <string name="please_scan_with_zfb">Please use Alipay to scan the payment code</string>
+    <string name="giveup_pay">Cancel payment</string>
+    <string name="please_scan_with_wx">Use WeChat to scan</string>
+    <string name="please_scan_with_zfb">Use Alipay to scan</string>
     <string name="picture">picture</string>
-    <string name="please_confirm_yhk_get_money">Please confirm whether the payment has been received by WeChat you are bound to.</string>
-    <string name="please_confirm_zfb_get_money">Please confirm whether the payment has been received on WeChat to which you bind</string>
-    <string name="please_confirm_wx_get_money">Please confirm whether the payment has been received on the WeChat you bind to.</string>
-    <string name="confirm_getmoney_and_coined">Confirm receipt and deposit money</string>
-    <string name="please_submit_arbitration_content">Please enter the content you want to submit for arbitration .........</string>
-    <string name="submit_arbitration">Submit to Arbitration</string>
+    <string name="please_confirm_yhk_get_money">Confirm WeChat payment has been received.</string>
+    <string name="please_confirm_zfb_get_money">Confirm WeChat payment has been received.</string>
+    <string name="please_confirm_wx_get_money">Confirm WeChat payment has been received.</string>
+    <string name="confirm_getmoney_and_coined">Confirm and release coins</string>
+    <string name="please_submit_arbitration_content">Describe arbitration request.........</string>
+    <string name="submit_arbitration">Submit Arbitration</string>
     <string name="order_make">Order generation</string>
     <string name="order_pay">Order payment</string>
     <string name="not_pay">Not paid</string>
-    <string name="not_coined">Uncoined</string>
+    <string name="not_coined">Coins not released</string>
     <string name="arbitration_reason">Arbitration reason:</string>
-    <string name="appeal_reason">Reason for appeal:</string>
+    <string name="appeal_reason">Appeal reason:</string>
     <string name="arbitration_result">Arbitration result:</string>
-    <string name="please_submit_appeal_content">Please enter the content of your appeal .........</string>
-    <string name="submit_appeal">Submit an Appeal</string>
-    <string name="otc_order_create">Order generation page</string>
-    <string name="please_choose_pay_method">Please select a payment method</string>
-    <string name="otc_xieyi">I have read it carefully, agree and abide by the platform\'s security tips on OTC OTC transactions and</string>
-    <string name="otc_xieyi_name">《TCC OTC OTC OTC Trading Specifications and Disclaimer》</string>
-    <string name="please_check_xieyi">Please check the agreement!</string>
-    <string name="confirm_create_order">Confirm order generation</string>
+    <string name="please_submit_appeal_content">Describe your appeal request.........</string>
+    <string name="submit_appeal">Submit Appeal</string>
+    <string name="otc_order_create">Order page</string>
+    <string name="please_choose_pay_method">Select payment method</string>
+    <string name="otc_xieyi">I have read it carefully, agree and abide by the platform\'s security tips on OTC transactions and</string>
+    <string name="otc_xieyi_name">《TACU digital assets trading platform OTC Specifications and Disclaimer》</string>
+    <string name="please_check_xieyi">Please read the agreement!</string>
+    <string name="confirm_create_order">Confirm order</string>
     <string name="refuse_order">Reject order</string>
     <string name="otc_order_confirm">Order confirmation page</string>
     <string name="order_confirm">Order confirmed</string>
-    <string name="cancel_success">Cancel successfully</string>
+    <string name="cancel_success">Order cancelled</string>
     <string name="bond">Margin:</string>
-    <string name="all_deal_amount">Unit quantity:</string>
-    <string name="buy_amount">Buy order amount:</string>
-    <string name="sell_amount">Sell Order:</string>
-    <string name="deal_rate">Consolidation rate:</string>
+    <string name="all_deal_amount">Total orders:</string>
+    <string name="buy_amount">Buy orders:</string>
+    <string name="sell_amount">Sell orders:</string>
+    <string name="deal_rate">Success rate:</string>
     <string name="dispute_amount">Disputes:</string>
     <string name="be_arbitrated_amount">Arbitrated:</string>
     <string name="arbitration_amount">Arbitration:</string>
-    <string name="appeal_amount">Appeal volume:</string>
+    <string name="appeal_amount">Appeal:</string>
     <string name="win_lawsuit_amount">Wins:</string>
-    <string name="average_payment_time">Average payment time:</string>
-    <string name="current_trade_amount">Number of this transaction:</string>
-    <string name="current_trade_price">Amount of this transaction:</string>
-    <string name="current_pay_method">This payment method:</string>
-    <string name="shoper_confirm_count_down">Countdown to Merchant Confirmation:</string>
+    <string name="average_payment_time">Average pay time:</string>
+    <string name="current_trade_amount">Current trades:</string>
+    <string name="current_trade_price">Current trading volume:</string>
+    <string name="current_pay_method">Payment method:</string>
+    <string name="shoper_confirm_count_down">Confirmation time:</string>
     <string name="account_balance">Account balance:</string>
     <string name="completed_transaction_advertising_balance">Completed transaction ad balance:</string>
-    <string name="look_advertising_info">View advertising information</string>
+    <string name="look_advertising_info">View ad info</string>
     <string name="otc_buy_page">Buy page</string>
     <string name="otc_sell_page">Sell page</string>
-    <string name="plan_buy_amount">Plan purchase total:</string>
-    <string name="remaining_unsold">Remaining unpurchased volume:</string>
-    <string name="remaining_unsold_all">Total remaining purchase price:</string>
+    <string name="plan_buy_amount">Plan purchase:</string>
+    <string name="remaining_unsold">Remaining unpurchased:</string>
+    <string name="remaining_unsold_all">Remaining purchase price:</string>
     <string name="all_num">Total</string>
     <string name="remind_num">Remaining amount</string>
-    <string name="remind_all">Total remaining price</string>
-    <string name="single_min_limit">Single minimum limit:</string>
-    <string name="single_max_limit">Maximum single limit:</string>
-    <string name="seller_coined_time_limit">Selling time limit for sellers:</string>
-    <string name="receiving_account">Receiving Account Number</string>
+    <string name="remind_all">Remaining price</string>
+    <string name="single_min_limit">Min limit:</string>
+    <string name="single_max_limit">Max limit:</string>
+    <string name="seller_coined_time_limit">Seller release coins in:</string>
+    <string name="receiving_account">Receiving account number</string>
     <string name="account_balance1">Account balance</string>
-    <string name="sell_number">Number of sales</string>
-    <string name="input_sell_number">Enter the number of sales</string>
-    <string name="buy_number">Buy quantity</string>
-    <string name="input_buy_number">Enter the purchase quantity</string>
-    <string name="sell_all_money">Total sales amount</string>
-    <string name="input_sell_all_money">Enter the total amount for sale</string>
-    <string name="buy_all_money">Total purchase amount</string>
-    <string name="input_buy_all_money">Enter the total purchase amount</string>
+    <string name="sell_number">Sell amount</string>
+    <string name="input_sell_number">Enter sell amount</string>
+    <string name="buy_number">Buy amount</string>
+    <string name="input_buy_number">Enter buy amount</string>
+    <string name="sell_all_money">Total sell amount</string>
+    <string name="input_sell_all_money">Enter total sell amount</string>
+    <string name="buy_all_money">Total buy amount</string>
+    <string name="input_buy_all_money">Enter total buy amount</string>
     <string name="confirm_order">Confirm order</string>
     <string name="otc_manage">Ad Center</string>
-    <string name="you_art_shoper_first">Please verify your business first!</string>
+    <string name="you_art_shoper_first">Please verify your business!</string>
     <string name="publish_otc_order">Post an ad</string>
-    <string name="publish">Publishing</string>
-    <string name="guanggao">ad</string>
-    <string name="certified">certified</string>
-    <string name="shoper">Merchants</string>
-    <string name="certified_shoper">Certified Merchant</string>
+    <string name="publish">Publish</string>
+    <string name="guanggao">Ad</string>
+    <string name="certified">Verified</string>
+    <string name="shoper">Merchant</string>
+    <string name="certified_shoper">Verified Merchant</string>
     <string name="all_otc_order">All ads</string>
     <string name="look_buy_order">View Buy Orders</string>
     <string name="look_sell_order">View Sell Order</string>
     <string name="finish_order">Complete order (order)</string>
-    <string name="wait_deal_order">Pending order</string>
+    <string name="wait_deal_order">Order pending</string>
     <string name="biao_num">Number of objects</string>
     <string name="biao_surplus_num">Subject matter balance</string>
     <string name="total_value">Total value</string>
     <string name="trading_limit">Transaction Limit</string>
     <string name="goumai">Purchase</string>
     <string name="chushou">Sale</string>
-    <string name="trade_coin_type">Transaction currency</string>
-    <string name="trade_money">Trading currency</string>
+    <string name="trade_coin_type">Coin type</string>
+    <string name="trade_money">Fiat type</string>
     <string name="current_market_value">Current market value: 1CNY/ACU</string>
-    <string name="order_operation_time_limit">Order operation time limit</string>
-    <string name="minute_15">15 minutes</string>
-    <string name="hour_1_5">1.5 hours</string>
-    <string name="hour_2">2 hours</string>
-    <string name="hour_4">4 hours</string>
-    <string name="hour_6">6 hours</string>
-    <string name="hour_8">8 hours</string>
-    <string name="hour_12">12 hours</string>
-    <string name="hour_24">24 hours</string>
-    <string name="trade_single_price">Transaction price</string>
-    <string name="please_input_trade_single_price">Please enter a transaction price</string>
-    <string name="trade_num">Number of transactions</string>
-    <string name="please_input_trade_num">Please enter the number of transactions</string>
-    <string name="trade_all_price">Total transaction price</string>
-    <string name="min_limit">Minimum Limit</string>
-    <string name="please_input_min_limit">Please enter a minimum limit</string>
-    <string name="max_limit">maximum limit</string>
-    <string name="please_input_max_limit">Please enter a maximum limit</string>
-    <string name="deal_fee">Transaction fee</string>
+    <string name="order_operation_time_limit">Order time limit</string>
+    <string name="minute_15">15 min</string>
+    <string name="hour_1_5">1.5 hr</string>
+    <string name="hour_2">2 hr</string>
+    <string name="hour_4">4 hr</string>
+    <string name="hour_6">6 hr</string>
+    <string name="hour_8">8 hr</string>
+    <string name="hour_12">12 hr</string>
+    <string name="hour_24">24 hr</string>
+    <string name="trade_single_price">Order price</string>
+    <string name="please_input_trade_single_price">Enter order price</string>
+    <string name="trade_num">Order amount</string>
+    <string name="please_input_trade_num">Enter order amount</string>
+    <string name="trade_all_price">Total order price</string>
+    <string name="min_limit">Min limit</string>
+    <string name="please_input_min_limit">Enter min limit</string>
+    <string name="max_limit">Max limit</string>
+    <string name="please_input_max_limit">Enter max limit</string>
+    <string name="deal_fee">Margin fee</string>
     <string name="purchase_deposit">Transaction margin</string>
     <string name="margin_balance">Margin balance</string>
-    <string name="please_input_ask">Please enter a greeting .....</string>
-    <string name="confirm_publish">Confirm publication</string>
-    <string name="give_up">Abandon</string>
-    <string name="buy_order_detail">Buy order details page</string>
-    <string name="sell_order_detail">Sell Order Details Page</string>
-    <string name="single_price2">Unit price:</string>
-    <string name="single_limit_range">Single Limit Range:</string>
+    <string name="OTC_balance">Account balance</string>
+    <string name="please_input_ask">Enter greeting .....</string>
+    <string name="confirm_publish">Publish</string>
+    <string name="give_up">Cancel</string>
+    <string name="buy_order_detail">Buy details</string>
+    <string name="sell_order_detail">Sell details</string>
+    <string name="single_price2">Price:</string>
+    <string name="single_limit_range">Limit Range:</string>
     <string name="finished_trade">Transaction completed:</string>
     <string name="success_buy">Buy successfully:</string>
     <string name="success_sell">Sell successfully:</string>
     <string name="pay_after2">Paid:</string>
     <string name="get_money">Received:</string>
     <string name="surplus_total">Total remaining:</string>
-    <string name="yhk_pay">Pay by bank card:</string>
+    <string name="yhk_pay">Bank card pay:</string>
     <string name="wx_pay">WeChat Pay:</string>
     <string name="zfb_pay">Alipay Pay:</string>
-    <string name="failure_trade">Failed transaction:</string>
+    <string name="failure_trade">Failed:</string>
     <string name="fee_send">Fee:</string>
-    <string name="wait_deal_matter">Pending matters</string>
-    <string name="record">Record</string>
-    <string name="operation_countdown">Operation Timing</string>
+    <string name="wait_deal_matter">Pending</string>
+    <string name="record">Records</string>
+    <string name="operation_countdown">Operation Time</string>
     <string name="order_status">Order status</string>
-    <string name="create_otc_order">Create an ad</string>
-    <string name="quantity_closed">Number of transactions</string>
+    <string name="create_otc_order">Create ad</string>
+    <string name="quantity_closed">Closed orders</string>
     <string name="look_detail">View details</string>
     <string name="pay1">Payment</string>
-    <string name="exceeding_max_limit">You exceeded the maximum limit</string>
-    <string name="exceeding_min_limit">You exceeded the minimum limit</string>
+    <string name="exceeding_max_limit">You exceeded the max limit</string>
+    <string name="exceeding_min_limit">You exceeded the min limit</string>
     <string name="you_not_set_tradepwd">You have not set a trading password</string>
 
     <!--绑定支付-->
-    <string name="binding_pay_info">Binding payment information</string>
+    <string name="binding_pay_info">Bind payment info</string>
     <string name="cardholder_name">Cardholder Name</string>
-    <string name="cardholder_name_tip">In order to ensure your normal transactions, please bind the bank with your KYC real name</string>
+    <string name="cardholder_name_tip">To ensure normal trading, please bind your bank card.</string>
     <string name="bank_name">Bank name</string>
-    <string name="please_input_bank_name">Please enter the name of the bank to which your bank card is bound</string>
-    <string name="open_bank_name">Account Bank Name</string>
-    <string name="please_input_open_bank_name">Please enter bank account name</string>
-    <string name="open_bank_address">Bank account address</string>
-    <string name="please_input_open_bank_address">Please enter the bank address</string>
-    <string name="bank_id">Bank account number</string>
-    <string name="please_input_bank_id">Please enter your bank card account number</string>
-    <string name="please_input_trade_password">Please enter your platform\'s trading password</string>
-    <string name="confirm_binding">Confirmation binding</string>
+    <string name="please_input_bank_name">Enter your card bank name</string>
+    <string name="open_bank_name">Bank\'s branch name</string>
+    <string name="please_input_open_bank_name">Enter your bank\'s branch name</string>
+    <string name="open_bank_address">Bank address</string>
+    <string name="please_input_open_bank_address">Enter the bank address</string>
+    <string name="bank_id">Card number</string>
+    <string name="please_input_bank_id">Enter your bank card number</string>
+    <string name="please_input_trade_password">Enter your trading password</string>
+    <string name="confirm_binding">Confirm binding</string>
     <string name="account_owner">Account Owner</string>
-    <string name="account_owner_wx_tip">To ensure your normal transactions, please bind WeChat with your KYC real name</string>
-    <string name="account_owner_zfb_tip">In order to guarantee your normal transactions, please bind Alipay with your KYC real name</string>
+    <string name="account_owner_wx_tip">To ensure normal trading, please bind WeChat</string>
+    <string name="account_owner_zfb_tip">To ensure normal trading, please bind Alipay</string>
     <string name="wx_account">WeChat account</string>
     <string name="zfb_account">Alipay account</string>
-    <string name="please_input_wx_account">Please enter the account that you have linked to WeChat</string>
-    <string name="please_input_zfb_account">Please enter the account that you have linked to Alipay</string>
-    <string name="upload_wx_shoukuanma">Upload WeChat payment code</string>
-    <string name="please_upload_wx_shoukuanma">Please upload a WeChat payment code</string>
-    <string name="upload_zfb_shoukuanma">Upload Alipay receipt code</string>
-    <string name="please_upload_zfb_shoukuanma">Please upload Alipay receipt code</string>
-    <string name="please_upload_your_payimg">Please upload your payment voucher</string>
-    <string name="no_pay_tip">You are not tied to this payment method, please confirm again after binding.</string>
+    <string name="please_input_wx_account">Enter your WeChat account</string>
+    <string name="please_input_zfb_account">Enter your Alipay account</string>
+    <string name="upload_wx_shoukuanma">WeChat payment code</string>
+    <string name="please_upload_wx_shoukuanma">Upload WeChat payment code</string>
+    <string name="upload_zfb_shoukuanma">Alipay payment code</string>
+    <string name="please_upload_zfb_shoukuanma">Upload Alipay payment code</string>
+    <string name="please_upload_your_payimg">Upload your payment voucher</string>
+    <string name="no_pay_tip">Binding failed. Please enter valid information and try again.</string>
 
     <!--修改个人资料-->
     <string name="edit_person_data">Edit profile</string>
-    <string name="head_sculpture">avatar</string>
+    <string name="head_sculpture">Avatar</string>
     <string name="account">Account</string>
-    <string name="nickname">nickname</string>
-    <string name="please_set_nickname">Please set your nickname</string>
-    <string name="binding_telephone">Binding phone</string>
+    <string name="nickname">Nickname</string>
+    <string name="please_set_nickname">Set your nickname</string>
+    <string name="binding_telephone">Bind mobile</string>
     <string name="plesase_binding_telephone">Please bind your phone number</string>
-    <string name="binding_email">bind email</string>
+    <string name="binding_email">Bind email</string>
     <string name="plesase_binding_email">Please bind your email</string>
-    <string name="binding_success">You have successfully bound</string>
-    <string name="apply_kyc">KYC application</string>
-    <string name="apply_business">Apply for business</string>
-    <string name="to_be_examine">Pending review</string>
-    <string name="apply_business_not">You have not applied for a business yet</string>
-    <string name="please_binding_pay_info">Please bind your payment information</string>
-    <string name="setting_success">Setup succeeded!</string>
+    <string name="binding_success">Bound succeed</string>
+    <string name="apply_kyc">KYC</string>
+    <string name="apply_business">Apply as merchant</string>
+    <string name="to_be_examine">Pending</string>
+    <string name="apply_business_not">You have not applied fas merchant yet</string>
+    <string name="please_binding_pay_info">Bind your payment info</string>
+    <string name="setting_success">Setup succeed!</string>
 
     <!--认证商户-->
     <string name="ordinary_merchant">Ordinary merchants</string>
     <string name="member_ship">Membership</string>
     <string name="buy_member">Buy Membership</string>
-    <string name="binding_tel_email">Binding mobile phone number email</string>
+    <string name="binding_tel_email">Bind mobile phone number email</string>
     <string name="binded">Bound</string>
-    <string name="go_binding">Go to binding</string>
+    <string name="go_binding">Go to bind</string>
     <string name="net_assets_dayu">Margin ≥5000ACU</string>
-    <string name="go_recharge">Recharge</string>
-    <string name="go_auth">Go authentication</string>
-    <string name="kyc_60_day">Passed real name KYC certification for 60 days</string>
-    <string name="success_trade_otc_10">Successfully traded 10 OTC orders</string>
-    <string name="video_merchant">After uploading my hand-held ID and handwritten UID, name, mobile phone number, date voucher,and TACU, I read out "I (name), ID number (ID number), my source of funds is legal and reliable,I am willing to trade digital assets such as Bitcoin. I fully understand digital currencies andpotential risks. I have the ability to resist risks and are willing to bear all risks. "</string>
+    <string name="go_recharge">Deposit</string>
+    <string name="go_auth">Pass KYC</string>
+    <string name="kyc_60_day">Passed KYC for 60 days</string>
+    <string name="success_trade_otc_10">Traded 10 OTC orders</string>
+    <string name="video_merchant">Upload video holding your ID and handwritten paper with UID, name, mobile phone number, date and TACU, read outloud "I (name), ID number (ID number), my source of funds is legal and reliable,I am willing to trade digital assets such as Bitcoin. I fully understand digital currencies and potential risks. I have the ability to resist risks and are willing to bear all risks."</string>
     <string name="upload_video">Upload video</string>
     <string name="auth_xieyi1">I have carefully read and understood and agree to abide by the platform\'s off-site business</string>
     <string name="auth_xieyi2">《OTC Service Agreement》</string>
-    <string name="auth_tip">※ The general merchant identity is a cycle of 30 natural days. It will be automatically counted after successful application. If you need to continue to use the merchant identity after 30 days, please reapply.</string>
-    <string name="confirm_apply_submit">Confirm application and submit</string>
-    <string name="satisfy_ordinary_mechant">Whether the general merchant status requirements are met</string>
-    <string name="need_5000_bond">Merchant margin account needs to submit 50,000ACU as margin</string>
+    <string name="auth_tip">※ Ordinary merchant can be verified for 30 days only.If you need to continue to use the merchant account after 30 days, please reapply.</string>
+    <string name="confirm_apply_submit">Confirm and submit</string>
+    <string name="satisfy_ordinary_mechant">Ordinary Merchant requirements are met</string>
+    <string name="need_5000_bond">Merchant account must have 50,000ACU warranty deposit</string>
     <string name="go_pay">Go to pay</string>
-    <string name="merchant_advantage">Merchant Advantage</string>
+    <string name="merchant_advantage">Merchant Benefits</string>
     <string name="merchant_otc_advantage">Merchant OTC Advantage</string>
     <string name="merchant_c2c_advantage">C2C Merchant Advantage</string>
     <string name="merchant_otc_advantage_tip">
-         General merchants:
-         \n • Merchants can sell ACU for %1$s/ACU.
-         \n • Merchants can purchase ACU at %2$s/ACU.
+         Ordinary merchant:
+         \n • Can sell ACU for %1$s/ACU.
+         \n • Can buy ACU at %2$s/ACU.
          \n • The amount of each order is within %3$s ACU.
-         \n • Identity cycle %4$s days.
+         \n • Verification time %4$s days.
          \n
          \nCertified Merchant:
-         \n • Enjoy common business rights.
-         \n • Merchants can purchase ACU at %5$s/ACU.
+         \n • Enjoy ordinary merchant rights.
+         \n • Can buy ACU at %5$s/ACU.
          \n • The amount of each transaction is within %6$s ACU.
-         \n • Permanent business identity.
+         \n • Permanent verification.
          \n
-         \nUser Member:
-         \n • Orders can only be placed for existing ads, not ads.
-         \n • Merchants can purchase ACU at %7$s/ACU.
+         \nUser&amp; VIP:
+         \n • Orders can only be placed for existing ads, can not publish ads.
+         \n • Can purchase ACU at %7$s/ACU.
          \n • The amount of each transaction is within %8$s ACU.
      </string>
-    <string name="go_setting">Go to Settings</string>
-    <string name="go_prefect">to perfect</string>
-    <string name="nickname_and_head">nickname avatar</string>
+    <string name="go_setting">Settings</string>
+    <string name="go_prefect">Complete</string>
+    <string name="nickname_and_head">nickname&amp;avatar</string>
     <string name="cancel_renew">Cancel Renewal</string>
     <string name="acu_month">%1$s ACU/month</string>
     <string name="acu_year">%1$s ACU/year</string>
-    <string name="original_price">original price</string>
+    <string name="original_price">Original price</string>
     <string name="current_price">Current price</string>
     <string name="month_12">12 months</string>
     <string name="automatic_renewal">Automatic renewal upon expiration</string>
     <string name="endtime_renewal">Renewal due</string>
     <string name="wait_day">Waiting for %1$s days</string>
     <string name="cha_bi">%1$s pen left</string>
-    <string name="apply_success">Successful application!</string>
-    <string name="apply_success1">Application succeeded</string>
+    <string name="apply_success">Application succeed!</string>
+    <string name="apply_success1">Application succeed</string>
 
     <!--充值保证金-->
-    <string name="recharge_deposit">Recharge margin</string>
-    <string name="available_balance">Operable balance</string>
+    <string name="recharge_deposit">Add warranty deposit</string>
+    <string name="available_balance">Available balance</string>
     <string name="frozen_balance">Frozen balance</string>
-    <string name="please_input_recharge_amount">Please fill in the amount you want to recharge</string>
+    <string name="please_input_recharge_amount">Enter deposit amount</string>
     <string name="order_record">Order record</string>
     <string name="extract">Extract</string>
-    <string name="failure">Failure</string>
-    <string name="success_get_account">Successfully arrived</string>
-    <string name="auditing">Under review</string>
+    <string name="failure">Failed</string>
+    <string name="success_get_account">Deposit succeed</string>
+    <string name="auditing">Pending</string>
 
     <!--会员-->
     <string name="buy_vip">Buy membership</string>
-    <string name="vip_month">Member of the month</string>
+    <string name="vip_month">Month Membership</string>
     <string name="vip_year">Annual Membership</string>
-    <string name="vip_year_continue">Continuous annual subscriptions</string>
-    <string name="vip_cycle">Member cycle</string>
-    <string name="click_recharge">Click to recharge</string>
-    <string name="vip_good_1">▪ Eligibility for new product internal testing. \n▪ Exclusive customer service channel. \n▪OTC merchant qualification. \n ▪ Buy new currencies.</string>
-    <string name="vip_good_2">▪ Participate in offline activities for free. \n▪ Enjoy the standard membership fee. \n▪ Participate in the quality project airDrop. \n▪ High percentage promotion commission.</string>
-    <string name="vip_kyc_tip">You have not yet passed KYC real-name authentication</string>
+    <string name="vip_year_continue">Automatic renewal</string>
+    <string name="vip_cycle">Membership period</string>
+    <string name="click_recharge">Click to deposit</string>
+    <string name="vip_good_1">▪ New product internal testing. \n▪ Exclusive customer service. \n▪OTC merchant status. \n ▪ New currencies.</string>
+    <string name="vip_good_2">▪ Free participate in offline activities. \n▪ Enjoy standard membership fee. \n▪ Participate in the quality project airDrop. \n▪ High promotion commission.</string>
+    <string name="vip_kyc_tip">You have not passed KYC verification</string>
     <string name="vip_tip">
-        Several points need to be paid attention to in continuous year-round logic:
-        \n1. The user can manually cancel the automatic renewal operation manually. After cancellation, the user will not be charged again in the next cycle and the membership will be terminated.
-        \n2. When the user\'s account balance is insufficient to deduct the renewal amount, an email and SMS reminder will be sent to the user 3 days before the expiration date. If the account\'s remaining balance is still insufficient to be deducted when it expires, follow the automatic renewal process.
-        \n3. The account balance does not include the balance frozen due to platform business.
+        Choosing automatic membership renewal, please note:
+        \n1. Any user can manually cancel the automatic renewal of the membership for the next year. After cancellation, the user will not be charged for the upcoming period and the membership will be terminated.
+        \n2. When the user\'s account balance is insufficient to deduct the membership fee, an email and SMS reminder will be sent to the user 3 days before the expiration date. If the account\'s remaining balance is still insufficient to be deducted when it expires, the automatic renewal will be cancelled.
+        \n3. The account balance does not include the balance frozen due to other operations.
     </string>
     <string name="nee_pay">Need to pay</string>
     <string name="confirm_pay">Confirm payment</string>
-    <string name="buy_success">The purchase was successful</string>
+    <string name="buy_success">Purchase succeed</string>
     <string name="buy_success_tip">Congratulations, you have become the platform %1$s and enjoy exclusive membership rights!</string>
     <string name="year_continue_success_tip1">The platform will automatically deduct the corresponding fee from your account upon expiration</string>
-    <string name="year_continue_success_tip2">* In order to ensure that your renewal is successful, please follow your account balance in real time to avoid insufficient deductions</string>
-    <string name="vip_end_time">Member Expiration Date \n%1$s</string>
-    <string name="vip_surplus_time">Membership remaining:%1$s</string>
+    <string name="year_continue_success_tip2">* In order to ensure that your renewal is successful, please keep your account balance sufficient for renewal fee deduction</string>
+    <string name="vip_end_time">Member Expiration date \n%1$s</string>
+    <string name="vip_surplus_time">Remaining time:%1$s</string>
 
     <!--划转-->
-    <string name="coin_account">Exchange balances</string>
-    <string name="otc_account">OTC balances</string>
+    <string name="coin_account">Exchange balance</string>
+    <string name="otc_account">OTC balance</string>
     <string name="coin_account_available">Available exchange balance</string>
     <string name="otc_account_available">Available OTC balance</string>
     <string name="num">number</string>
-    <string name="please_input_transfer_num">Please input transfer quantity</string>
-    <string name="transfer_success">Transfer success！</string>
+    <string name="please_input_transfer_num">Enter transfer amount</string>
+    <string name="transfer_success">Transfer succeed！</string>
     <string name="transfer">Transfer</string>
 
     <!--交易赛-->
     <string name="match_title1">All members enjoy the new system beta</string>
     <string name="match_title2">Win at zero risk</string>
     <string name="match_title3">28888ACU Award</string>
-    <string name="match_tag1">Contest introduction</string>
+    <string name="match_tag1">Contest intro</string>
     <string name="match_tag1_text1">Dear user,</string>
     <string name="match_tag1_text2">Beta Trading Competition</string>
-    <string name="match_tag1_text3">It has ended successfully</string>
+    <string name="match_tag1_text3">Successfully ended</string>
     <string name="match_tag2">Statistics</string>
-    <string name="match_tag2_text1">The match result is being calculated ...</string>
-    <string name="matchresult_tag1_text2">Thanks for your trust and love, the TACU platform has successfully completed the development and testing of v3.0. In order to allow users to experience the new system in advance, learn to use the new system as soon as possible, and reduce the new system to go online After the operation risk, we will now provide you with a 3.0 beta system. We invite you to participate in the co-construction of the TACU platform. We provide you with a zero-risk, zero-input and rich reward simulation trading contest.</string>
+    <string name="match_tag2_text1">The result is being calculated ...</string>
+    <string name="matchresult_tag1_text2">Thanks for your trust and love, TACU platform has successfully completed the development and testing of v3.0 internal beta. In order to allow users to experience the new system, learn its functions, and reduce the operational risk after the official launch, we invite you to participate in the development of the TACU platform. We provide you with a zero-risk, zero-input and generous reward simulation trading contest.</string>
     <string name="matchresult_tag2">Winning users</string>
     <string name="matchreslut_tag3">Experience Award</string>
     <string name="matchreslut_tag3_text1">Account/UID</string>
     <string name="matchreslut_tag3_text2">Reward</string>
-    <string name="rank">Record ranking</string>
-    <string name="trade_amount">Transaction Amount</string>
+    <string name="rank">Ranking</string>
+    <string name="trade_amount">Trade Amount</string>
     <string name="all_amount">Total assets</string>
     <string name="rank_num">No.%1$s</string>
+    <!--实人认证-->
+    <string name="friendly_tip">Kind reminder</string>
+    <string name="please_go_shirenrenzheng">Sorry, but your verification is not completed. Please complete verification before operating.</string>
+    <string name="video_auth_failure">Sorry, your real-name verification failed. Please contact customer service.</string>
 </resources>
 

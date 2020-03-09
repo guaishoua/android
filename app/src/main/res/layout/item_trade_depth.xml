@@ -5,15 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_20">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="right"
-        android:max="100"
-        android:progress="0" />
-
     <TextView
         android:id="@+id/tv_current"
         android:layout_width="0dp"

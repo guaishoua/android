@@ -428,13 +428,15 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
 
             if (isBuy) {
                 holder.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_riseup));
+                holder.setText(R.id.btn,getResources().getString(R.string.goumai));
                 ((QMUIRoundButtonDrawable) holder.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_riseup));
             } else {
                 holder.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_risedown));
+                holder.setText(R.id.btn,getResources().getString(R.string.chushou));
                 ((QMUIRoundButtonDrawable) holder.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_risedown));
             }
 
-            holder.setOnClickListener(R.id.btn, new View.OnClickListener() {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!OtcDialogUtils.isDialogShow(getContext())) {

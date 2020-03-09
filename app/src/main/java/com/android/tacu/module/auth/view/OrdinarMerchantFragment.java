@@ -85,6 +85,8 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
 
     @BindView(R.id.img_video)
     ImageView img_video;
+    @BindView(R.id.btn_upload_video)
+    QMUIRoundButton btn_upload_video;
 
     @BindView(R.id.cb_xieyi)
     CheckBox cb_xieyi;
@@ -371,6 +373,11 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
             } else if (spUtil.getApplyMerchantStatus() == 2) {
                 btn_submit.setText(getResources().getString(R.string.apply_success1));
             }
+            img_video.setImageResource(R.drawable.icon_auth_success);
+            btn_upload_video.setVisibility(View.GONE);
+        }else{
+            btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
+            btn_upload_video.setVisibility(View.VISIBLE);
         }
     }
 

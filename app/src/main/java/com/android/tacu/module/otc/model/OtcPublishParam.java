@@ -23,9 +23,7 @@ public class OtcPublishParam implements Serializable {
     public String amount;//金额
     public String lowLimit;//最细限额
     public String highLimit;//最高限额
-    public String explain;//问候
     public Integer payByCard;//银行卡支付 1支持0 不支持
     public Integer payWechat;//微信支付 1支持0 不支持
     public Integer payAlipay;//支付 1支持0 不支持
-    public String fdPassword;
 }

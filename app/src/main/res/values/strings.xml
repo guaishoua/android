@@ -741,7 +741,7 @@
     <string name="please_input_min_limit">请输入最小限额</string>
     <string name="max_limit">最大限额</string>
     <string name="please_input_max_limit">请输入最大限额</string>
-    <string name="deal_fee">成交手续费</string>
+    <string name="deal_fee">保证金手续费</string>
     <string name="purchase_deposit">交易保证金</string>
     <string name="margin_balance">保证金余额</string>
     <string name="OTC_balance">OTC账户余额</string>
@@ -949,4 +949,8 @@
     <string name="friendly_tip">温馨提示</string>
     <string name="please_go_shirenrenzheng">很抱歉，您目前未在平台上进行实人验证请完成验证后操作</string>
     <string name="video_auth_failure">很遗憾，您的实人认证失败请联系客服</string>
+
+    <!--OTC2-->
+    <string name="confirm_buy">确认购买</string>
+    <string name="confirm_sell">确认出售</string>
 </resources>

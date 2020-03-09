@@ -48,7 +48,6 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
     private ListPopWindow listPopup;
 
     private boolean isBuy = true;
-    private String fdPassword;
     private String num;
     private String amount;
     private OtcMarketOrderAllModel allModel;
@@ -57,10 +56,9 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
     private PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
     private List<String> data = new ArrayList<>();
 
-    public static Intent createActivity(Context context, boolean isBuy, String fdPassword, String num, String amount, OtcMarketOrderAllModel allModel) {
+    public static Intent createActivity(Context context, boolean isBuy, String num, String amount, OtcMarketOrderAllModel allModel) {
         Intent intent = new Intent(context, OtcOrderCreateActivity.class);
         intent.putExtra("isBuy", isBuy);
-        intent.putExtra("fdPassword", fdPassword);
         intent.putExtra("num", num);
         intent.putExtra("amount", amount);
         Bundle bundle = new Bundle();
@@ -77,7 +75,6 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
     @Override
     protected void initView() {
         isBuy = getIntent().getBooleanExtra("isBuy", true);
-        fdPassword = getIntent().getStringExtra("fdPassword");
         num = getIntent().getStringExtra("num");
         amount = getIntent().getStringExtra("amount");
         allModel = (OtcMarketOrderAllModel) getIntent().getSerializableExtra("allModel");
@@ -144,7 +141,7 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
             showToastError(getResources().getString(R.string.please_check_xieyi));
             return;
         }
-        mPresenter.otcTrade(allModel.orderModel.id, fdPassword, payType, num, amount);
+        mPresenter.otcTrade(allModel.orderModel.id, payType, num, amount);
     }
 
     @OnClick(R.id.btn_cancel)

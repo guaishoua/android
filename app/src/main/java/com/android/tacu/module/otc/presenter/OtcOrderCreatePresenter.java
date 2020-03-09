@@ -38,8 +38,8 @@ public class OtcOrderCreatePresenter extends BaseMvpPresenter implements OtcOrde
     }
 
     @Override
-    public void otcTrade(String orderId, String fdPassword, Integer payType, String num, String amount) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).otcTrade(orderId, fdPassword, payType, num, amount), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+    public void otcTrade(String orderId, Integer payType, String num, String amount) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).otcTrade(orderId, payType, num, amount), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel model) {
                 OtcOrderCreateContract.IView view = (OtcOrderCreateContract.IView) getView();

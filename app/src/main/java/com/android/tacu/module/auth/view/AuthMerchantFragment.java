@@ -112,6 +112,8 @@ public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> im
             } else if (spUtil.getApplyAuthMerchantStatus() == 2) {
                 btn_submit.setText(getResources().getString(R.string.apply_success1));
             }
+        }else{
+            btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
         }
     }
 }

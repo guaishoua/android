@@ -27,6 +27,7 @@ import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.MathHelper;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.user.UserManageUtils;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
@@ -90,10 +91,8 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     @BindView(R.id.edit_sell_allmoney)
     EditText edit_sell_allmoney;
 
-    @BindView(R.id.lin_trade_pwd)
-    LinearLayout lin_trade_pwd;
-    @BindView(R.id.edit_trade_password)
-    QMUIRoundEditText edit_trade_password;
+    @BindView(R.id.btn_confirm)
+    QMUIRoundButton btn_confirm;
 
     private int selectPayInfo = 0;//0=支付宝 1=微信 2=银行卡
     private boolean isBuy = true;
@@ -136,6 +135,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
             edit_sell_number.setHint(getResources().getString(R.string.input_buy_number));
             tv_sell_allmoney_title.setText(getResources().getString(R.string.buy_all_money));
             edit_sell_allmoney.setHint(getResources().getString(R.string.input_buy_all_money));
+            btn_confirm.setText(getResources().getString(R.string.confirm_buy));
         } else {
             mTopBar.setTitle(getResources().getString(R.string.otc_sell_page));
             ((QMUIRoundButtonDrawable) rl_people_bg.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_sell_bg));
@@ -146,6 +146,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
             edit_sell_number.setHint(getResources().getString(R.string.input_sell_number));
             tv_sell_allmoney_title.setText(getResources().getString(R.string.sell_all_money));
             edit_sell_allmoney.setHint(getResources().getString(R.string.input_sell_all_money));
+            btn_confirm.setText(getResources().getString(R.string.confirm_sell));
         }
 
         tabTitle.add(getResources().getString(R.string.zhifubao));
@@ -220,11 +221,6 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
                 isInputAmount = true;
             }
         });
-        if (spUtil.getPwdVisibility()) {
-            lin_trade_pwd.setVisibility(View.VISIBLE);
-        } else {
-            lin_trade_pwd.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -277,17 +273,12 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
         try {
             String num = edit_sell_number.getText().toString();
             String amount = edit_sell_allmoney.getText().toString();
-            String pwd = edit_trade_password.getText().toString();
             if (TextUtils.isEmpty(num)) {
                 showToastError(getResources().getString(R.string.input_sell_number));
                 return;
             }
             if (TextUtils.isEmpty(amount)) {
                 showToastError(getResources().getString(R.string.sell_all_money));
-                return;
-            }
-            if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwd)) {
-                showToastError(getResources().getString(R.string.please_input_trade_password));
                 return;
             }
             if (allModel != null && allModel.orderModel != null) {
@@ -300,8 +291,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
                     return;
                 }
             }
-            String pwdString = spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase() : null;
-            jumpTo(OtcOrderCreateActivity.createActivity(this, isBuy, pwdString, FormatterUtils.getFormatRoundDown(2, num), FormatterUtils.getFormatRoundDown(2, amount), allModel));
+            jumpTo(OtcOrderCreateActivity.createActivity(this, isBuy, FormatterUtils.getFormatRoundDown(2, num), FormatterUtils.getFormatRoundDown(2, amount), allModel));
         } catch (Exception e) {
             e.printStackTrace();
         }

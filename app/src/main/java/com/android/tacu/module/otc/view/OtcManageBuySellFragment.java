@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.tacu.R;
@@ -28,10 +29,8 @@ import com.android.tacu.module.otc.presenter.OtcManageBuySellPresenter;
 import com.android.tacu.module.vip.view.RechargeDepositActivity;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.MathHelper;
-import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -78,8 +77,12 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     @BindView(R.id.tv_trade_all_price)
     TextView tv_trade_all_price;
 
+    @BindView(R.id.rl_deal_fee)
+    RelativeLayout rl_deal_fee;
     @BindView(R.id.tv_deal_fee)
     TextView tv_deal_fee;
+    @BindView(R.id.rl_purchase_deposit)
+    RelativeLayout rl_purchase_deposit;
     @BindView(R.id.tv_purchase_deposit)
     TextView tv_purchase_deposit;
     @BindView(R.id.tv_margin_balance)
@@ -87,10 +90,6 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     @BindView(R.id.tv_otc_balance)
     TextView tv_otc_balance;
 
-    @BindView(R.id.edit_ask)
-    EditText edit_ask;
-    @BindView(R.id.et_pwd)
-    QMUIRoundEditText et_pwd;
     @BindView(R.id.cb_xieyi)
     CheckBox cb_xieyi;
     @BindView(R.id.tv_xieyi)
@@ -155,10 +154,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
                         tv_trade_all_price.setText(FormatterUtils.getFormatRoundDown(2, valueD));
                         if (otcSelectFeeModel != null) {
                             double value;
-                            if (isBuy) {
-                                value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.buyFee);
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
-                            } else {
+                            if (!isBuy) {
                                 value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.sellFee);
                                 tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
                             }
@@ -186,10 +182,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
                         tv_trade_all_price.setText(FormatterUtils.getFormatRoundDown(2, valueD));
                         if (otcSelectFeeModel != null) {
                             double value;
-                            if (isBuy) {
-                                value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.buyFee);
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
-                            } else {
+                            if (!isBuy) {
                                 value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.sellFee);
                                 tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
                             }
@@ -205,8 +198,9 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
             }
         });
 
-        if (!spUtil.getPwdVisibility()) {
-            et_pwd.setVisibility(View.GONE);
+        if (isBuy) {
+            rl_deal_fee.setVisibility(View.GONE);
+            rl_purchase_deposit.setVisibility(View.GONE);
         }
     }
 
@@ -296,8 +290,6 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
         String num = edit_trade_num.getText().toString();
         String min = edit_min_limit.getText().toString();
         String max = edit_max_limit.getText().toString();
-        String explain = edit_ask.getText().toString();
-        String pwd = et_pwd.getText().toString();
 
         if (TextUtils.isEmpty(price)) {
             showToastError(getResources().getString(R.string.please_input_trade_single_price));
@@ -305,10 +297,6 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
         }
         if (TextUtils.isEmpty(num)) {
             showToastError(getResources().getString(R.string.please_input_trade_num));
-            return;
-        }
-        if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwd)) {
-            showToastError(getResources().getString(R.string.hint_assets_take_coin_enter_pwd));
             return;
         }
         if (!cb_xieyi.isChecked()) {
@@ -320,8 +308,6 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
         param.amount = tv_trade_all_price.getText().toString();
         param.lowLimit = min;
         param.highLimit = max;
-        param.explain = explain;
-        param.fdPassword = spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase() : null;
         mPresenter.order(param);
     }
 
@@ -334,11 +320,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     public void selectFee(OtcSelectFeeModel model) {
         this.otcSelectFeeModel = model;
         if (model != null) {
-            if (isBuy) {
-                if (model.buyType != null && model.buyFee != null) {
-                    tv_deal_fee.setText((model.buyType == 2 ? BigDecimal.valueOf(model.buyFee * 100).toPlainString() + "%" : BigDecimal.valueOf(model.buyFee).toPlainString()));
-                }
-            } else {
+            if (!isBuy) {
                 if (model.sellType != null && model.sellFee != null) {
                     tv_deal_fee.setText((model.sellType == 2 ? BigDecimal.valueOf(model.sellFee * 100).toPlainString() + "%" : BigDecimal.valueOf(model.sellFee).toPlainString()));
                 }
@@ -392,7 +374,9 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
 
     private void upload() {
         if (isVisibleToUser) {
-            mPresenter.selectFee(isFirst, param.currencyId);
+            if (!isBuy) {
+                mPresenter.selectFee(isFirst, param.currencyId);
+            }
             mPresenter.BondAccount(isFirst, param.currencyId);
             mPresenter.OtcAccount(isFirst, param.currencyId);
             if (isFirst) {

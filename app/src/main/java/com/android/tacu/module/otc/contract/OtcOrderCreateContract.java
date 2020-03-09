@@ -21,6 +21,6 @@ public class OtcOrderCreateContract {
 
         void selectBank();
 
-        void otcTrade(String orderId, String fdPassword, Integer payType, String num, String amount);
+        void otcTrade(String orderId, Integer payType, String num, String amount);
     }
 }

@@ -73,8 +73,8 @@ public class OtcMarketFragment extends BaseFragment{
 
     @Override
     protected void initData(View view) {
-        tabTitle.add(getResources().getString(R.string.buy));
-        tabTitle.add(getResources().getString(R.string.sell));
+        tabTitle.add(getResources().getString(R.string.goumai));
+        tabTitle.add(getResources().getString(R.string.chushou));
 
         fragmentList.add(OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, true));
         fragmentList.add(OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, false));

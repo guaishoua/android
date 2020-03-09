@@ -396,39 +396,6 @@
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout>
 
             <LinearLayout
-                android:id="@+id/lin_trade_pwd"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
-                android:layout_marginTop="@dimen/dp_1"
-                android:background="@color/content_bg_color"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/dp_8">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/trade_password"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14" />
-
-                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
-                    android:id="@+id/edit_trade_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/dp_22"
-                    android:background="@null"
-                    android:hint="@string/please_input_trade_password"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:paddingRight="@dimen/dp_5"
-                    android:textColor="@color/text_color"
-                    android:textColorHint="@color/text_grey"
-                    android:textSize="@dimen/text_size_sp_14" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_15"
@@ -439,7 +406,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dp_40"
                     android:layout_weight="1"
-                    android:text="@string/confirm_order"
+                    android:text="@string/confirm_buy"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_14"
                     app:qmui_backgroundColor="@color/color_default"

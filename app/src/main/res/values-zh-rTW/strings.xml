@@ -726,7 +726,7 @@
     <string name="please_input_min_limit">請輸入最小限額</string>
     <string name="max_limit">最大限額</string>
     <string name="please_input_max_limit">請輸入最大限額</string>
-    <string name="deal_fee">成交手續費</string>
+    <string name="deal_fee">保證金手續費</string>
     <string name="purchase_deposit">交易保證金</string>
     <string name="margin_balance">保證金余額</string>
     <string name="please_input_ask">請輸入問候語.....</string>

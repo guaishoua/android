@@ -1102,7 +1102,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                 }
             }
 
-            //计算sell深度
+            /*//计算sell深度
             if (sellRecordModelList != null && sellRecordModelList.size() > 0) {
                 for (int i = 0; i < sellRecordModelList.size(); i++) {
                     sellRecordModelList.get(i).sellEntrustScale = BigDecimal.valueOf(sellRecordModelList.get(i).current).doubleValue() * BigDecimal.valueOf(sellRecordModelList.get(i).number).doubleValue() / recordModel.entrustScale;
@@ -1113,7 +1113,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                 for (int i = 0; i < buyRecordModelList.size(); i++) {
                     buyRecordModelList.get(i).buyEntrustScale = BigDecimal.valueOf(buyRecordModelList.get(i).current).doubleValue() * BigDecimal.valueOf(buyRecordModelList.get(i).number).doubleValue() / recordModel.entrustScale;
                 }
-            }
+            }*/
 
             if (sellRecordModelList.size() >= DEPTHNUMBER) {
                 List<RecordModel.SellBean> tempList = sellRecordModelList.subList(0, DEPTHNUMBER);
@@ -1280,9 +1280,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
             helper.setText(R.id.tv_current, depthPointPrice < pointPrice ? getFormatDoubleUp(item.current) : getFormatDoubleDown(item.current));
             helper.setTextColor(R.id.tv_current, ContextCompat.getColor(getContext(), R.color.color_risedown));
             helper.setText(R.id.tv_number, BigDecimal.valueOf(item.sellEntrustNumber).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString());
-            ProgressBar view = helper.getView(R.id.progressBar);
-            view.setProgressDrawable(getResources().getDrawable(R.drawable.progress_sell_color_right));
-            helper.setProgress(R.id.progressBar, BigDecimal.valueOf(item.sellEntrustScale).intValue());
+            //ProgressBar view = helper.getView(R.id.progressBar);
+            //view.setProgressDrawable(getResources().getDrawable(R.drawable.progress_sell_color_right));
+            //helper.setProgress(R.id.progressBar, BigDecimal.valueOf(item.sellEntrustScale).intValue());
             helper.itemView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.selector_sell_item));
             helper.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1310,9 +1310,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
             helper.setText(R.id.tv_current, getFormatDoubleDown(item.current));
             helper.setTextColor(R.id.tv_current, ContextCompat.getColor(getContext(), R.color.color_riseup));
             helper.setText(R.id.tv_number, BigDecimal.valueOf(item.buyEntrustNumber).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString());
-            ProgressBar view = helper.getView(R.id.progressBar);
-            view.setProgressDrawable(getResources().getDrawable(R.drawable.progress_buy_color));
-            helper.setProgress(R.id.progressBar, BigDecimal.valueOf(item.buyEntrustScale).intValue());
+            //ProgressBar view = helper.getView(R.id.progressBar);
+            //view.setProgressDrawable(getResources().getDrawable(R.drawable.progress_buy_color));
+            //helper.setProgress(R.id.progressBar, BigDecimal.valueOf(item.buyEntrustScale).intValue());
             helper.itemView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.selector_buy_item));
             helper.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

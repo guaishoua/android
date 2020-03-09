@@ -977,11 +977,9 @@ public interface Api {
             @Field("amount") String amount,//金额
             @Field("lowLimit") String lowLimit,//最细限额
             @Field("highLimit") String highLimit,//最高限额
-            @Field("explain") String explain,//问候
             @Field("payByCard") Integer payByCard,//银行卡支付 1支持0 不支持
             @Field("payWechat") Integer payWechat,//微信支付 1支持0 不支持
-            @Field("payAlipay") Integer payAlipay,//支付 1支持0 不支持
-            @Field("fdPassword") String fdPassword
+            @Field("payAlipay") Integer payAlipay//支付 1支持0 不支持
     );
 
     /**
@@ -1014,7 +1012,6 @@ public interface Api {
     @POST("otcTrade")
     Observable<BaseModel> otcTrade(
             @Field("orderId") String orderId,//广告id
-            @Field("fdPassword") String fdPassword,
             @Field("payType") Integer payType,//支付类型 1银行卡 2微信 3支付宝
             @Field("num") String num,
             @Field("amount") String amount
