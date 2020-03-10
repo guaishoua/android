@@ -5,10 +5,6 @@
     android:background="@color/content_bg_color"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/title"
-        layout="@layout/common_titlebar" />
-
     <com.shizhefei.view.indicator.ScrollIndicatorView
         android:id="@+id/title_IndicatorView"
         android:layout_width="match_parent"
