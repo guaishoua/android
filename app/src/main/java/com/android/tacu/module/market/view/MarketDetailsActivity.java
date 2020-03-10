@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -50,6 +51,7 @@ import com.android.tacu.widget.tab.TabPopup;
 import com.github.tifezh.kchartlib.chart.KChartView;
 import com.github.tifezh.kchartlib.chart.adapter.KChartAdapter;
 import com.github.tifezh.kchartlib.chart.entity.KLineEntity;
+import com.github.tifezh.kchartlib.chart.interfaces.OnChartEventListener;
 import com.github.tifezh.kchartlib.utils.DataHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -74,6 +76,8 @@ import static com.android.tacu.api.Constant.SELFCOIN_LIST;
 
 public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> implements MarketDetailsContract.IView, ISocketEvent, Observer {
 
+    @BindView(R.id.scrollView)
+    CoordinatorLayout scrollView;
     @BindView(R.id.layout_kline)
     RelativeLayout layout_kline;
     @BindView(R.id.rl_coin)
@@ -289,6 +293,13 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         mKChartView.setAdapter(kAdapter);
         mKChartView.setGridRows(3);
         mKChartView.setGridColumns(3);
+        mKChartView.setOnChartEventListener(new OnChartEventListener() {
+            @Override
+            public void onChartTouchListener(boolean boo) {
+                //不允许ScrollView截断点击事件，点击事件由子View处理
+                scrollView.requestDisallowInterceptTouchEvent(boo);
+            }
+        });
         setKLineWidhtAndHeight(1);
 
         magicIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.color_kline));

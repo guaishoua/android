@@ -434,7 +434,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                                 holder.setText(R.id.btn_right, getResources().getString(R.string.pay1));
                                 break;
                             case 2:
-                                holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_payget));
+                                //holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_payget));
                                 holder.setText(R.id.btn_right, getResources().getString(R.string.look_detail));
                                 break;
                         }
@@ -450,7 +450,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                     case 3:
                         switch (buyorsell) {
                             case 1:
-                                holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coinget));
+                                //holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coinget));
                                 break;
                             case 2:
                                 holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coined));
@@ -474,7 +474,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                     case 9:
                         switch (buyorsell) {
                             case 1:
-                                holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coinget));
+                                //holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coinget));
                                 break;
                             case 2:
                                 holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coined));

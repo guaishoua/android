@@ -415,6 +415,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
     @Override
     public void vedioAuth() {
+        spUtil.setIsAuthVideo(2);
         isOwnCenterFlag = true;
         mPresenter.ownCenter();
     }

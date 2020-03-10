@@ -569,14 +569,6 @@
     <string name="dan">單</string>
     <string name="click_look">點擊查看</string>
     <string name="order_center">訂單中心</string>
-    <string name="otc_order_all">全部</string>
-    <string name="otc_order_finished">已完成</string>
-    <string name="otc_order_confirmed">待確認</string>
-    <string name="otc_order_payed">待付款</string>
-    <string name="otc_order_payget">待收款</string>
-    <string name="otc_order_coined">待放幣</string>
-    <string name="otc_order_coinget">待收幣</string>
-    <string name="otc_order_arbitration">仲裁中</string>
     <string name="otc_refuse_order">拒絕訂單</string>
     <string name="timeouted">已超時</string>
     <string name="pay_timeout">支付超時</string>

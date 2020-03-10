@@ -584,14 +584,6 @@
     <string name="dan">单</string>
     <string name="click_look">点击查看</string>
     <string name="order_center">订单中心</string>
-    <string name="otc_order_all">全部</string>
-    <string name="otc_order_finished">已完成</string>
-    <string name="otc_order_confirmed">待确认</string>
-    <string name="otc_order_payed">待付款</string>
-    <string name="otc_order_payget">待收款</string>
-    <string name="otc_order_coined">待放币</string>
-    <string name="otc_order_coinget">待收币</string>
-    <string name="otc_order_arbitration">仲裁中</string>
     <string name="otc_refuse_order">拒绝订单</string>
     <string name="timeouted">已超时</string>
     <string name="pay_timeout">支付超时</string>
@@ -944,7 +936,7 @@
     <string name="trade_amount">交易额</string>
     <string name="all_amount">总资产</string>
     <string name="rank_num">第%1$s名</string>
-    
+
     <!--实人认证-->
     <string name="friendly_tip">温馨提示</string>
     <string name="please_go_shirenrenzheng">很抱歉，您目前未在平台上进行实人验证请完成验证后操作</string>
@@ -978,4 +970,19 @@
     <string name="recharge_deposit_text4">保证金提取至OTC账户</string>
     <string name="order_cancel_success">撤销成功！</string>
     <string name="yhk_tip">特别提示：为了保证您的付款可以第一时间正常到达收款方账户，请您务必不要填写任何备注信息，包括比特币、BTC、数字货币等一切字样信息，以免造成被银行误解并且冻结，影响您个人资产安全，感谢理解！</string>
+
+    <string name="otc_order_all">全部</string>
+    <string name="otc_order_confirmed">待确认</string>
+    <string name="otc_order_finished">交易完成</string>
+    <string name="otc_order_payed">订单支付</string>
+    <string name="otc_order_coined">订单放币</string>
+    <string name="otc_order_cancel">取消放币</string>
+    <string name="otc_order_timeout">超时订单</string>
+    <string name="otc_order_arbitration">仲裁订单</string>
+    <string name="otc_order_adjude">裁决订单</string>
+    <string name="buy_order">买单</string>
+    <string name="sell_order">卖单</string>
+    <string name="online">在线</string>
+    <string name="offline">离线</string>
+    <string name="order_time">订单时间</string>
 </resources>

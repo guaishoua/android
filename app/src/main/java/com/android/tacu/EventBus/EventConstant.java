@@ -27,4 +27,6 @@ public class EventConstant {
     public static final int MainBanner = 1010;
     //OtcMarketListFragment 发送当前的isVisibleToUser
     public static final int OTCListVisibleCode = 1011;
+    //OtcOrderListFragment 发送当前的isVisibleToUser
+    public static final int OTCOrderVisibleCode = 1012;
 }

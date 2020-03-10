@@ -9,7 +9,7 @@ import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabAdapter;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
-import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 import java.util.ArrayList;
@@ -38,17 +38,14 @@ public class OtcOrderListActivity extends BaseActivity {
     protected void initView() {
         mTopBar.setTitle(getResources().getString(R.string.order_center));
 
-        tabTitle = new String[]{getResources().getString(R.string.otc_order_all), getResources().getString(R.string.otc_order_finished), getResources().getString(R.string.otc_order_confirmed), getResources().getString(R.string.otc_order_payed), getResources().getString(R.string.otc_order_coined), getResources().getString(R.string.otc_order_arbitration)};
-        fragmentList.add(OtcOrderFragment.newInstance(0));
-        fragmentList.add(OtcOrderFragment.newInstance(14));
-        fragmentList.add(OtcOrderFragment.newInstance(1));
-        fragmentList.add(OtcOrderFragment.newInstance(2));
-        fragmentList.add(OtcOrderFragment.newInstance(15));
-        fragmentList.add(OtcOrderFragment.newInstance(4));
+        tabTitle = new String[]{getResources().getString(R.string.all), getResources().getString(R.string.buy_order), getResources().getString(R.string.sell_order)};
+        fragmentList.add(OtcOrderListFragment.newInstance(0));
+        fragmentList.add(OtcOrderListFragment.newInstance(1));
+        fragmentList.add(OtcOrderListFragment.newInstance(2));
 
         titleIndicatorView.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
         titleIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.tab_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
-        titleIndicatorView.setScrollBar(new ColorBar(this, ContextCompat.getColor(this, R.color.tab_default), 4));
+        titleIndicatorView.setScrollBar(new TextWidthColorBar(this, titleIndicatorView, ContextCompat.getColor(this, R.color.tab_default), 4));
         titleIndicatorView.setSplitAuto(true);
 
         viewpager.setOffscreenPageLimit(tabTitle.length - 1);

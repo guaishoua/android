@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.OTCOrderVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcOrderContract;
@@ -39,14 +42,18 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     RecyclerView recyclerView;
 
     private int orderStatus = 0;
+    //0=全部 1=买 2=卖
+    private int buyOrSell;
     private OtcOrderAdapter orderAdapter;
 
-    private boolean isFirst = true;
     private int start = 1;
+    private boolean isFirst = true;
+    private boolean isVisibleToUserParent = false;
     private List<OtcTradeAllModel> tradeModelList = new ArrayList<>();
 
-    public static OtcOrderFragment newInstance(int orderStatus) {
+    public static OtcOrderFragment newInstance(int buyOrSell, int orderStatus) {
         Bundle bundle = new Bundle();
+        bundle.putInt("buyOrSell", buyOrSell);
         bundle.putInt("orderStatus", orderStatus);
         OtcOrderFragment fragment = new OtcOrderFragment();
         fragment.setArguments(bundle);
@@ -96,7 +103,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
 
         orderAdapter = new OtcOrderAdapter();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.item_recyclerview_divider));
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.item_recyclerview_divider_dp10));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(orderAdapter);
@@ -110,9 +117,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     @Override
     public void onResume() {
         super.onResume();
-        if (isVisibleToUser) {
-            upload(isFirst, true);
-        }
+        upload(isFirst, true);
     }
 
     @Override
@@ -121,6 +126,20 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         if (refreshManage != null && (refreshManage.isRefreshing() || refreshManage.isLoading())) {
             refreshManage.finishRefresh();
             refreshManage.finishLoadmore();
+        }
+    }
+
+    @Override
+    protected void receiveEvent(BaseEvent event) {
+        super.receiveEvent(event);
+        if (event != null) {
+            switch (event.getCode()) {
+                case EventConstant.OTCOrderVisibleCode:
+                    OTCOrderVisibleHintEvent otcOrderVisibleHintEvent = (OTCOrderVisibleHintEvent) event.getData();
+                    isVisibleToUserParent = otcOrderVisibleHintEvent.isVisibleToUser();
+                    upload(isFirst, true);
+                    break;
+            }
         }
     }
 
@@ -180,6 +199,9 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     }
 
     private void upload(boolean isShowView, boolean isTop) {
+        if (!isVisibleToUserParent || !isVisibleToUser) {
+            return;
+        }
         if (isFirst) {
             isFirst = false;
         }

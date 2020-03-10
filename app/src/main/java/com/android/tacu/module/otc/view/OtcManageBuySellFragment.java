@@ -482,26 +482,12 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
             data.add(getResources().getString(R.string.min_15));
             data.add(getResources().getString(R.string.min_30));
             data.add(getResources().getString(R.string.hour_1));
-            data.add(getResources().getString(R.string.hour_1_5));
-            data.add(getResources().getString(R.string.hour_2));
-            data.add(getResources().getString(R.string.hour_4));
-            data.add(getResources().getString(R.string.hour_6));
-            data.add(getResources().getString(R.string.hour_8));
-            data.add(getResources().getString(R.string.hour_12));
-            data.add(getResources().getString(R.string.hour_24));
             dataId.add(15);
             dataId.add(30);
-            dataId.add(1 * 60);
-            dataId.add(90);
-            dataId.add(2 * 60);
-            dataId.add(4 * 60);
-            dataId.add(6 * 60);
-            dataId.add(8 * 60);
-            dataId.add(12 * 60);
-            dataId.add(24 * 60);
+            dataId.add(60);
             ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.simple_list_item, data);
             timeLimitPopup = new ListPopWindow(getContext(), adapter);
-            timeLimitPopup.create(UIUtils.dp2px(120), UIUtils.dp2px(409), new AdapterView.OnItemClickListener() {
+            timeLimitPopup.create(UIUtils.dp2px(120), UIUtils.dp2px(122), new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     tv_order_operation_time_limit.setText(data.get(position));
