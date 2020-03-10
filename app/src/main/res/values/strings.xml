@@ -953,4 +953,28 @@
     <!--OTC2-->
     <string name="confirm_buy">确认购买</string>
     <string name="confirm_sell">确认出售</string>
+    <string name="total_margin_balance">保证金余额总量</string>
+    <string name="margin_account_record">保证金账户记录</string>
+    <string name="shop_margin">商户保证金</string>
+    <string name="buiness_freeze">业务冻结</string>
+    <string name="operational_balance">可操作余额</string>
+    <string name="total_account_balance">账户总余额</string>
+    <string name="available_balance1">可用余额</string>
+    <string name="recharge_deposit_tag1">将从币币账户中充入保证金数量</string>
+    <string name="recharge_deposit_tag2">将从OTC账户中充入保证金数量</string>
+    <string name="recharge_deposit_tag3">申请保证金提取至币币账户</string>
+    <string name="recharge_deposit_tag4">申请保证金提取至OTC账户</string>
+    <string name="please_input_deposit_amount">请输入保证金提取数量</string>
+    <string name="please_choose_deposit_amount">请选择保证金充值金额</string>
+    <string name="confirm_recharge">确认充值</string>
+    <string name="submit_apply">提交申请</string>
+    <string name="all_take">全部提取</string>
+    <string name="deposit_take_amount">保证金可提取金额</string>
+    <string name="deposit_recharge">保证金充值</string>
+    <string name="deposit_take">保证金提取</string>
+    <string name="recharge_deposit_text1">币币账户充入保证金</string>
+    <string name="recharge_deposit_text2">OTC账户充入保证金</string>
+    <string name="recharge_deposit_text3">保证金提取至币币账户</string>
+    <string name="recharge_deposit_text4">保证金提取至OTC账户</string>
+    <string name="order_cancel_success">撤销成功！</string>
 </resources>

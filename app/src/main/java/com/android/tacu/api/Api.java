@@ -45,6 +45,7 @@ import com.android.tacu.module.auctionplus.modal.AuctionPlusListModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusPayInfoModel;
 import com.android.tacu.module.auctionplus.modal.AuctionPlusWinLisyModel;
 import com.android.tacu.module.vip.model.BondRecordModel;
+import com.android.tacu.module.vip.model.SelectBondModel;
 import com.android.tacu.module.vip.model.VipDetailModel;
 import com.android.tacu.module.vip.model.VipDetailRankModel;
 
@@ -921,6 +922,28 @@ public interface Api {
     );
 
     /**
+     * OTC划转到保证金
+     */
+    @FormUrlEncoded
+    @POST("otcToBond")
+    Observable<BaseModel> otcToBond(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId,
+            @Field("fdPassword") String fdPassword//交易密码
+    );
+
+    /**
+     * 保证金划转到OTC
+     */
+    @FormUrlEncoded
+    @POST("bondToOtc")
+    Observable<BaseModel> bondToOtc(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId,
+            @Field("fdPassword") String fdPassword//交易密码
+    );
+
+    /**
      * 查看保证金账户划转记录
      */
     @FormUrlEncoded
@@ -1180,4 +1203,19 @@ public interface Api {
      */
     @POST("vedioAuth")
     Observable<BaseModel> vedioAuth();
+
+    /**
+     * 保证金可充值下拉列表
+     */
+    @POST("selectBond")
+    Observable<BaseModel<List<SelectBondModel>>> selectBond();
+
+    /**
+     * 撤销划转
+     */
+    @FormUrlEncoded
+    @POST("cancelBondRecord")
+    Observable<BaseModel> cancelBondRecord(
+            @Field("id") String id
+    );
 }

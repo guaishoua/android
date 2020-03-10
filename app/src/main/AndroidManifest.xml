@@ -162,6 +162,7 @@
         <activity android:name="com.android.tacu.module.my.view.EditPersonalDataActivity" />
         <activity android:name="com.android.tacu.module.auth.view.AuthMerchantActivity" />
         <activity android:name="com.android.tacu.module.vip.view.RechargeDepositActivity" />
+        <activity android:name="com.android.tacu.module.vip.view.DepositRecordActivity" />
         <activity android:name="com.android.tacu.module.vip.view.BuyVipActivity" />
     </application>
 </manifest>

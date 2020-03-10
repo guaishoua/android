@@ -27,7 +27,7 @@ public class ListPopWindow extends ListPopupWindow {
     public void create(int width, int maxHeight, AdapterView.OnItemClickListener onItemClickListener) {
         setWidth(width);
         setHeight(maxHeight);
-        setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(mContext, R.color.content_bg_color)));
+        setBackgroundDrawable(null);
 
         setAdapter(mAdapter);
         setModal(true);

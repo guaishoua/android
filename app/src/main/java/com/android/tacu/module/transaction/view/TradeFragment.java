@@ -343,38 +343,42 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                 buyOrSellStatus(false);
                 break;
             case R.id.btn_ok:
-                if (spUtil.getLogin()) {
-                    Animation shake = AnimationUtils.loadAnimation(getHostActivity(), R.anim.anim_shake);
-                    String price = editPrice.getText().toString().trim();
-                    String number = editNumber.getText().toString().trim();
-                    //type =2 行情价 type=1 限价
-                    if (limitPriceType == 1) {
-                        if (TextUtils.isEmpty(price)) {
-                            editPrice.startAnimation(shake);
+                try {
+                    if (spUtil.getLogin()) {
+                        Animation shake = AnimationUtils.loadAnimation(getHostActivity(), R.anim.anim_shake);
+                        String price = editPrice.getText().toString().trim();
+                        String number = editNumber.getText().toString().trim();
+                        //type =2 行情价 type=1 限价
+                        if (limitPriceType == 1) {
+                            if (TextUtils.isEmpty(price) || Double.parseDouble(price) == 0) {
+                                editPrice.startAnimation(shake);
+                                return;
+                            }
+                        }
+                        if (TextUtils.isEmpty(number) || Double.parseDouble(number) == 0) {
+                            editNumber.startAnimation(shake);
                             return;
                         }
-                    }
-                    if (TextUtils.isEmpty(number)) {
-                        editNumber.startAnimation(shake);
-                        return;
-                    }
-                    String pwd = editPwd.getText().toString().trim();
-                    if (spUtil.getPwdVisibility()) {
-                        if (TextUtils.isEmpty(pwd)) {
-                            editPwd.startAnimation(shake);
-                            return;
+                        String pwd = editPwd.getText().toString().trim();
+                        if (spUtil.getPwdVisibility()) {
+                            if (TextUtils.isEmpty(pwd)) {
+                                editPwd.startAnimation(shake);
+                                return;
+                            }
                         }
-                    }
 
-                    if (limitPriceType == 1 && currentTradeCoinModel != null) {
-                        if (Double.parseDouble(number) < currentTradeCoinModel.currentTradeCoin.amountLowLimit || Double.parseDouble(number) > currentTradeCoinModel.currentTradeCoin.amountHighLimit) {
-                            showToastError(String.format(getResources().getString(R.string.currentCoin_limit_high_low), FormatterUtils.getFormatValue(currentTradeCoinModel.currentTradeCoin.amountLowLimit), FormatterUtils.getFormatValue(currentTradeCoinModel.currentTradeCoin.amountHighLimit)));
-                            return;
+                        if (limitPriceType == 1 && currentTradeCoinModel != null) {
+                            if (Double.parseDouble(number) < currentTradeCoinModel.currentTradeCoin.amountLowLimit || Double.parseDouble(number) > currentTradeCoinModel.currentTradeCoin.amountHighLimit) {
+                                showToastError(String.format(getResources().getString(R.string.currentCoin_limit_high_low), FormatterUtils.getFormatValue(currentTradeCoinModel.currentTradeCoin.amountLowLimit), FormatterUtils.getFormatValue(currentTradeCoinModel.currentTradeCoin.amountHighLimit)));
+                                return;
+                            }
                         }
+                        mPresenter.order(isBuy ? 1 : 2, currencyId, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase() : "", (isBuy && limitPriceType == 2) ? "0" : number, (!isBuy && limitPriceType == 2) ? "0" : ((isBuy && limitPriceType == 2) ? number : price), limitPriceType, baseCurrencyId);
+                    } else {
+                        jumpTo(LoginActivity.class);
                     }
-                    mPresenter.order(isBuy ? 1 : 2, currencyId, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase() : "", (isBuy && limitPriceType == 2) ? "0" : number, (!isBuy && limitPriceType == 2) ? "0" : ((isBuy && limitPriceType == 2) ? number : price), limitPriceType, baseCurrencyId);
-                } else {
-                    jumpTo(LoginActivity.class);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
             case R.id.cb_pwd:
@@ -1102,7 +1106,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                 }
             }
 
-            /*//计算sell深度
+            //计算sell深度
             if (sellRecordModelList != null && sellRecordModelList.size() > 0) {
                 for (int i = 0; i < sellRecordModelList.size(); i++) {
                     sellRecordModelList.get(i).sellEntrustScale = BigDecimal.valueOf(sellRecordModelList.get(i).current).doubleValue() * BigDecimal.valueOf(sellRecordModelList.get(i).number).doubleValue() / recordModel.entrustScale;
@@ -1113,7 +1117,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                 for (int i = 0; i < buyRecordModelList.size(); i++) {
                     buyRecordModelList.get(i).buyEntrustScale = BigDecimal.valueOf(buyRecordModelList.get(i).current).doubleValue() * BigDecimal.valueOf(buyRecordModelList.get(i).number).doubleValue() / recordModel.entrustScale;
                 }
-            }*/
+            }
 
             if (sellRecordModelList.size() >= DEPTHNUMBER) {
                 List<RecordModel.SellBean> tempList = sellRecordModelList.subList(0, DEPTHNUMBER);
@@ -1280,9 +1284,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
             helper.setText(R.id.tv_current, depthPointPrice < pointPrice ? getFormatDoubleUp(item.current) : getFormatDoubleDown(item.current));
             helper.setTextColor(R.id.tv_current, ContextCompat.getColor(getContext(), R.color.color_risedown));
             helper.setText(R.id.tv_number, BigDecimal.valueOf(item.sellEntrustNumber).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString());
-            //ProgressBar view = helper.getView(R.id.progressBar);
-            //view.setProgressDrawable(getResources().getDrawable(R.drawable.progress_sell_color_right));
-            //helper.setProgress(R.id.progressBar, BigDecimal.valueOf(item.sellEntrustScale).intValue());
+            ProgressBar view = helper.getView(R.id.progressBar);
+            view.setProgressDrawable(getResources().getDrawable(R.drawable.progress_sell_color_right));
+            helper.setProgress(R.id.progressBar, BigDecimal.valueOf(item.sellEntrustScale).intValue());
             helper.itemView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.selector_sell_item));
             helper.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1310,9 +1314,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
             helper.setText(R.id.tv_current, getFormatDoubleDown(item.current));
             helper.setTextColor(R.id.tv_current, ContextCompat.getColor(getContext(), R.color.color_riseup));
             helper.setText(R.id.tv_number, BigDecimal.valueOf(item.buyEntrustNumber).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString());
-            //ProgressBar view = helper.getView(R.id.progressBar);
-            //view.setProgressDrawable(getResources().getDrawable(R.drawable.progress_buy_color));
-            //helper.setProgress(R.id.progressBar, BigDecimal.valueOf(item.buyEntrustScale).intValue());
+            ProgressBar view = helper.getView(R.id.progressBar);
+            view.setProgressDrawable(getResources().getDrawable(R.drawable.progress_buy_color));
+            helper.setProgress(R.id.progressBar, BigDecimal.valueOf(item.buyEntrustScale).intValue());
             helper.itemView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.selector_buy_item));
             helper.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
