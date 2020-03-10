@@ -115,8 +115,8 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
     }
 
     @Override
-    public void finishOrder(String orderId) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).finishOrder(orderId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+    public void finishOrder(String orderId, String fdPassword) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).finishOrder(orderId, fdPassword), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel model) {
                 OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();

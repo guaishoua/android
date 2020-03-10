@@ -14,6 +14,8 @@ public class OtcOrderCreateContract {
         void selectBank(List<PayInfoModel> list);
 
         void otcTradeSuccess();
+
+        void disclaimerSuccess();
     }
 
     public interface IPresenter {
@@ -22,5 +24,7 @@ public class OtcOrderCreateContract {
         void selectBank();
 
         void otcTrade(String orderId, Integer payType, String num, String amount);
+
+        void disclaimer();
     }
 }

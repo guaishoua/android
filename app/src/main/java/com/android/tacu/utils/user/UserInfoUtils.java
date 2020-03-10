@@ -645,4 +645,19 @@ public class UserInfoUtils {
     public int getApplyAuthMerchantStatus() {
         return sp.getInt("applyAuthMerchantStatus", 0);
     }
+
+    /**
+     * 是否点击过免责声明 disclaimer  0未点击 1已点击
+     */
+    public void setDisclaimer(Integer disclaimer) {
+        if (disclaimer == null) {
+            disclaimer = 0;
+        }
+        editor.putInt("disclaimer", disclaimer);
+        editor.commit();
+    }
+
+    public int getDisclaimer() {
+        return sp.getInt("disclaimer", 0);
+    }
 }

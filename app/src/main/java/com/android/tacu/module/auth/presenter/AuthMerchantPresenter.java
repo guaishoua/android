@@ -105,4 +105,15 @@ public class AuthMerchantPresenter extends BaseMvpPresenter implements AuthMerch
             }
         });
     }
+
+    @Override
+    public void disclaimer() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).disclaimer(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView(), false, false) {
+            @Override
+            public void onNext(BaseModel o) {
+                AuthMerchantContract.IOrdinarView view = (AuthMerchantContract.IOrdinarView) getView();
+                view.disclaimerSuccess();
+            }
+        });
+    }
 }

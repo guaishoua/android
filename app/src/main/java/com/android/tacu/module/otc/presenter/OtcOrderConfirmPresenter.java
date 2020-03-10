@@ -90,4 +90,15 @@ public class OtcOrderConfirmPresenter extends BaseMvpPresenter implements OtcOrd
             }
         });
     }
+
+    @Override
+    public void disclaimer() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).disclaimer(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView(), false, false) {
+            @Override
+            public void onNext(BaseModel o) {
+                OtcOrderConfirmContract.IView view = (OtcOrderConfirmContract.IView) getView();
+                view.disclaimerSuccess();
+            }
+        });
+    }
 }

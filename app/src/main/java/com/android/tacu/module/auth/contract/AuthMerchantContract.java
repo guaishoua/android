@@ -27,6 +27,8 @@ public class AuthMerchantContract {
         void getOssSetting(AuthOssModel model);
 
         void applyMerchantSuccess();
+
+        void disclaimerSuccess();
     }
 
     public interface IAuthView extends IBaseMvpView {
@@ -49,5 +51,7 @@ public class AuthMerchantContract {
         void selectOtcSection();
 
         void selectC2cSection();
+
+        void disclaimer();
     }
 }

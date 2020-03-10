@@ -22,6 +22,8 @@ public class OtcOrderConfirmContract {
         void OtcAccount(OtcAmountModel model);
 
         void orderListOne(OtcMarketOrderAllModel model);
+
+        void disclaimerSuccess();
     }
 
     public interface IPresenter {
@@ -38,5 +40,7 @@ public class OtcOrderConfirmContract {
         void OtcAccount(Integer currencyId);
 
         void orderListOne(String orderId);
+
+        void disclaimer();
     }
 }

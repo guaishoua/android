@@ -1,5 +1,7 @@
 package com.android.tacu.module.otc.view;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -202,6 +204,10 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
             rl_deal_fee.setVisibility(View.GONE);
             rl_purchase_deposit.setVisibility(View.GONE);
         }
+
+        if (spUtil.getDisclaimer() == 1) {
+            cb_xieyi.setChecked(true);
+        }
     }
 
     @Override
@@ -230,6 +236,15 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
             timeLimitPopup.dismiss();
             timeLimitPopup = null;
         }
+    }
+
+    @OnClick(R.id.tv_xieyi)
+    void xieyiClick() {
+        Intent intent = new Intent();
+        Uri content_url = Uri.parse(Constant.TRADE_RULES_SYSTEM);
+        intent.setAction("android.intent.action.VIEW");
+        intent.setData(content_url);
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_trade_type)
@@ -308,6 +323,9 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
         param.amount = tv_trade_all_price.getText().toString();
         param.lowLimit = min;
         param.highLimit = max;
+        if (spUtil.getDisclaimer() == 0) {
+            mPresenter.disclaimer();
+        }
         mPresenter.order(param);
     }
 
@@ -350,6 +368,11 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     public void orderSuccess() {
         showToastSuccess(getResources().getString(R.string.success));
         getHostActivity().finish();
+    }
+
+    @Override
+    public void disclaimerSuccess() {
+        spUtil.setDisclaimer(1);
     }
 
     public void setPayList(List<PayInfoModel> list) {

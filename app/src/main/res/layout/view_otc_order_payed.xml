@@ -283,6 +283,15 @@
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_16" />
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_10"
+            android:layout_marginVertical="@dimen/dp_5"
+            android:text="@string/yhk_tip"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14" />
     </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout

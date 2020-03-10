@@ -97,6 +97,7 @@ public class UserManageUtils {
             spUtil.setHeadImg(model.headImg);
             spUtil.setKYCName(model.name);
             spUtil.setVip(model.vip);
+            spUtil.setDisclaimer(model.disclaimer);
             spUtil.setApplyMerchantStatus(model.applyMerchantStatus);
             spUtil.setApplyAuthMerchantStatus(model.applyAuthMerchantStatus);
         }
@@ -117,6 +118,7 @@ public class UserManageUtils {
         spUtil.setVip(0);
         spUtil.setAuth(0);
         spUtil.setUserUid(0);
+        spUtil.setDisclaimer(0);
         spUtil.setIsAuthSenior(0);
         spUtil.setApplyMerchantStatus(0);
         spUtil.setApplyAuthMerchantStatus(0);

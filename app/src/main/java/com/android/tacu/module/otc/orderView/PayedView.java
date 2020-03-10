@@ -148,11 +148,11 @@ public class PayedView implements View.OnClickListener {
                 break;
             case R.id.btn_pay:
                 if (uploadFile == null) {
-                    activity.showToastError(activity.getResources().getString(R.string.please_upload_your_payimg));
-                    return;
+                    mPresenter.payOrder(tradeModel.id, null);
+                }else{
+                    activity.showLoadingView();
+                    mPresenter.getOssSetting();
                 }
-                activity.showLoadingView();
-                mPresenter.getOssSetting();
                 break;
             case R.id.btn_giveup:
                 if (tradeModel != null) {

@@ -977,4 +977,5 @@
     <string name="recharge_deposit_text3">保证金提取至币币账户</string>
     <string name="recharge_deposit_text4">保证金提取至OTC账户</string>
     <string name="order_cancel_success">撤销成功！</string>
+    <string name="yhk_tip">特别提示：为了保证您的付款可以第一时间正常到达收款方账户，请您务必不要填写任何备注信息，包括比特币、BTC、数字货币等一切字样信息，以免造成被银行误解并且冻结，影响您个人资产安全，感谢理解！</string>
 </resources>

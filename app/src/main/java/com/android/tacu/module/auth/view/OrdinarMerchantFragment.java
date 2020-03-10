@@ -1,6 +1,7 @@
 package com.android.tacu.module.auth.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -194,6 +195,15 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
         }
     }
 
+    @OnClick(R.id.tv_xieyi)
+    void xieyiClick() {
+        Intent intent = new Intent();
+        Uri content_url = Uri.parse(Constant.SERVICE_APPLY_SYSTEM);
+        intent.setAction("android.intent.action.VIEW");
+        intent.setData(content_url);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.tv_membership_right)
     void buyVip() {
         jumpTo(BuyVipActivity.class);
@@ -249,6 +259,9 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
             showToastError(getResources().getString(R.string.please_check_xieyi));
             return;
         }
+        if (spUtil.getDisclaimer() == 0) {
+            mPresenter.disclaimer();
+        }
         mPresenter.applyMerchant(uploadVideoName);
     }
 
@@ -283,6 +296,11 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
         getHostActivity().finish();
     }
 
+    @Override
+    public void disclaimerSuccess() {
+        spUtil.setDisclaimer(1);
+    }
+
     private void upload() {
         mPresenter.countTrade();
     }
@@ -298,6 +316,9 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
     }
 
     private void dealValue() {
+        if (spUtil.getDisclaimer() == 1) {
+            cb_xieyi.setChecked(true);
+        }
         if (spUtil.getVip() != 0) {
             isMembership = true;
             img_membership.setImageResource(R.drawable.icon_auth_success);
@@ -375,7 +396,7 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
             }
             img_video.setImageResource(R.drawable.icon_auth_success);
             btn_upload_video.setVisibility(View.GONE);
-        }else{
+        } else {
             btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
             btn_upload_video.setVisibility(View.VISIBLE);
         }

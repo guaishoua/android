@@ -84,6 +84,8 @@ public class OwnCenterModel implements Serializable {
     public String keytowAdoptTime;
     @SerializedName("applyVideoAuth")
     public String applyVideoAuth;//视频认证地址
+    @SerializedName("disclaimer")
+    public Integer disclaimer;//0未点击 1已点击
 
     public boolean getIsValidatePass() {
         if (isValidatePass == 1) {

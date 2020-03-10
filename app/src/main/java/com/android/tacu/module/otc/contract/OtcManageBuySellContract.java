@@ -22,6 +22,8 @@ public class OtcManageBuySellContract {
         void OtcAccount(OtcAmountModel model);
 
         void orderSuccess();
+
+        void disclaimerSuccess();
     }
 
     public interface IPresenter {
@@ -34,5 +36,7 @@ public class OtcManageBuySellContract {
         void OtcAccount(boolean isShowView, int currencyId);
 
         void order(OtcPublishParam param);
+
+        void disclaimer();
     }
 }

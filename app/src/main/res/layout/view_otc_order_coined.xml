@@ -166,6 +166,23 @@
             app:layout_constraintTop_toBottomOf="@id/img_voucher"
             tools:text="@string/please_confirm_wx_get_money" />
 
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
+            android:id="@+id/et_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginVertical="@dimen/dp_10"
+            android:background="@null"
+            android:hint="@string/hint_assets_take_coin_enter_pwd"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_5"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/color_grey"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintTop_toBottomOf="@id/tv_get_money_tip"
+            app:qmui_borderColor="@color/text_grey"
+            app:qmui_borderWidth="@dimen/dp_1" />
+
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/btn_coined"
             android:layout_width="@dimen/dp_0"
@@ -175,7 +192,7 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_14"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_get_money_tip"
+            app:layout_constraintTop_toBottomOf="@id/et_pwd"
             app:layout_constraintWidth_percent="0.48"
             app:qmui_backgroundColor="@color/color_default"
             app:qmui_radius="@dimen/dp_3" />

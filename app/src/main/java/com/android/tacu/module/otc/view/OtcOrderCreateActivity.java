@@ -2,6 +2,7 @@ package com.android.tacu.module.otc.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.view.BindingPayInfoActivity;
 import com.android.tacu.module.otc.contract.OtcOrderCreateContract;
@@ -83,6 +85,9 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
 
         tv_xieyi.setText(Html.fromHtml(getResources().getString(R.string.otc_xieyi) + "<font color=" + ContextCompat.getColor(this, R.color.color_otc_unhappy) + ">" + getResources().getString(R.string.otc_xieyi_name) + "</font>"));
 
+        if (spUtil.getDisclaimer() == 1) {
+            cb_xieyi.setChecked(true);
+        }
         setBuyPayInfoString(allModel, amount);
         setSellPayInfoString(allModel, num);
     }
@@ -122,6 +127,15 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
         }
     }
 
+    @OnClick(R.id.tv_xieyi)
+    void xieyiClick() {
+        Intent intent = new Intent();
+        Uri content_url = Uri.parse(Constant.TRADE_RULES_SYSTEM);
+        intent.setAction("android.intent.action.VIEW");
+        intent.setData(content_url);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.tv_pay_method)
     void payMethodClick() {
         if (TextUtils.equals(tv_pay_method.getText().toString(), getResources().getString(R.string.go_binding))) {
@@ -140,6 +154,9 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
         if (!cb_xieyi.isChecked()) {
             showToastError(getResources().getString(R.string.please_check_xieyi));
             return;
+        }
+        if (spUtil.getDisclaimer() == 0) {
+            mPresenter.disclaimer();
         }
         mPresenter.otcTrade(allModel.orderModel.id, payType, num, amount);
     }
@@ -204,6 +221,11 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
         finish();
         ActivityStack.getInstance().finishActivity(OtcBuyOrSellActivity.class);
         jumpTo(OtcOrderListActivity.class);
+    }
+
+    @Override
+    public void disclaimerSuccess() {
+        spUtil.setDisclaimer(1);
     }
 
     private void showAllMannerType() {

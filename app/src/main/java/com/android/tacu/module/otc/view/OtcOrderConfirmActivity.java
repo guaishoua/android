@@ -2,6 +2,7 @@ package com.android.tacu.module.otc.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
@@ -69,6 +70,9 @@ public class OtcOrderConfirmActivity extends BaseOtcHalfOrderActvity<OtcOrderCon
 
         mTopBar.setTitle(getResources().getString(R.string.otc_order_confirm));
 
+        if (spUtil.getDisclaimer() == 1) {
+            cb_xieyi.setChecked(true);
+        }
         tv_xieyi.setText(Html.fromHtml(getResources().getString(R.string.otc_xieyi) + "<font color=" + ContextCompat.getColor(this, R.color.color_otc_unhappy) + ">" + getResources().getString(R.string.otc_xieyi_name) + "</font>"));
     }
 
@@ -93,6 +97,15 @@ public class OtcOrderConfirmActivity extends BaseOtcHalfOrderActvity<OtcOrderCon
         }
     }
 
+    @OnClick(R.id.tv_xieyi)
+    void xieyiClick() {
+        Intent intent = new Intent();
+        Uri content_url = Uri.parse(Constant.TRADE_RULES_SYSTEM);
+        intent.setAction("android.intent.action.VIEW");
+        intent.setData(content_url);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.tv_look_advertising_info)
     void infoClick() {
         if (tradeModel != null) {
@@ -113,6 +126,9 @@ public class OtcOrderConfirmActivity extends BaseOtcHalfOrderActvity<OtcOrderCon
         if (!cb_xieyi.isChecked()) {
             showToastError(getResources().getString(R.string.please_check_xieyi));
             return;
+        }
+        if (spUtil.getDisclaimer() == 0) {
+            mPresenter.disclaimer();
         }
         mPresenter.confirmOrder(orderId);
     }
@@ -198,6 +214,11 @@ public class OtcOrderConfirmActivity extends BaseOtcHalfOrderActvity<OtcOrderCon
     public void orderListOne(OtcMarketOrderAllModel model) {
         this.model = model;
         dealValueNum();
+    }
+
+    @Override
+    public void disclaimerSuccess() {
+        spUtil.setDisclaimer(1);
     }
 
     private void dealTime() {

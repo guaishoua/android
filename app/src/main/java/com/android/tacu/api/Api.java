@@ -1103,7 +1103,8 @@ public interface Api {
     @FormUrlEncoded
     @POST("finishOrder")
     Observable<BaseModel> finishOrder(
-            @Field("orderId") String orderId
+            @Field("orderId") String orderId,
+            @Field("fdPassword") String fdPassword//交易密码
     );
 
     /**
@@ -1218,4 +1219,10 @@ public interface Api {
     Observable<BaseModel> cancelBondRecord(
             @Field("id") String id
     );
+
+    /**
+     * 免责声明确认点击
+     */
+    @POST("disclaimer")
+    Observable<BaseModel> disclaimer();
 }

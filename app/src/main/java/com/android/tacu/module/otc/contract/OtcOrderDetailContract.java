@@ -55,7 +55,7 @@ public class OtcOrderDetailContract {
 
         void payCancelOrder(String orderId);
 
-        void finishOrder(String orderId);
+        void finishOrder(String orderId, String fdPassword);
 
         void arbitrationOrder(String id, String arbitrateExp, String arbitrateImg);
 

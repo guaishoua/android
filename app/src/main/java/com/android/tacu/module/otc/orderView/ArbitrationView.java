@@ -2,6 +2,7 @@ package com.android.tacu.module.otc.orderView;
 
 import android.os.Environment;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,12 +21,16 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.ZoomImageViewActivity;
+import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
+import com.android.tacu.utils.Md5Utils;
+import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.permission.PermissionUtils;
+import com.android.tacu.utils.user.UserInfoUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
@@ -67,6 +72,10 @@ public class ArbitrationView implements View.OnClickListener {
     private TextView tv_add;
     private ImageView img_url;
 
+    private ConstraintLayout lin_coin;
+    private QMUIRoundEditText et_pwd;
+    private QMUIRoundButton btn_coined;
+
     private QMUIRoundButton btn_submit_arbitration;
     private QMUIRoundButton btn_return;
 
@@ -76,6 +85,8 @@ public class ArbitrationView implements View.OnClickListener {
     private String imageUrlBeAritrotion;
     private File uploadFile;
     private String uploadImageName;
+
+    private UserInfoUtils spUtil;
 
     private List<OSSAsyncTask> ossAsynTaskList = new ArrayList<>();
 
@@ -115,6 +126,9 @@ public class ArbitrationView implements View.OnClickListener {
         tv_add = view.findViewById(R.id.tv_add);
         img_url = view.findViewById(R.id.img_url);
 
+        lin_coin = view.findViewById(R.id.lin_coin);
+        et_pwd = view.findViewById(R.id.et_pwd);
+        btn_coined = view.findViewById(R.id.btn_coined);
         btn_submit_arbitration = view.findViewById(R.id.btn_submit_arbitration);
         btn_return = view.findViewById(R.id.btn_return);
 
@@ -122,18 +136,28 @@ public class ArbitrationView implements View.OnClickListener {
             edit_submit_arbitration.setVisibility(View.GONE);
             lin_upload.setVisibility(View.GONE);
             btn_submit_arbitration.setVisibility(View.GONE);
+            lin_coin.setVisibility(View.VISIBLE);
         } else if (status == OtcOrderDetailActivity.ORDER_ARBITRATION_SELL) {
             edit_submit_arbitration.setVisibility(View.VISIBLE);
             lin_upload.setVisibility(View.VISIBLE);
             btn_submit_arbitration.setVisibility(View.VISIBLE);
+            lin_coin.setVisibility(View.GONE);
         }
 
         img_voucher.setOnClickListener(this);
         img_arbitration_reason.setOnClickListener(this);
         img_appeal_reason.setOnClickListener(this);
         lin_upload.setOnClickListener(this);
+        btn_coined.setOnClickListener(this);
         btn_submit_arbitration.setOnClickListener(this);
         btn_return.setOnClickListener(this);
+
+        spUtil = UserInfoUtils.getInstance();
+        if (spUtil.getPwdVisibility()) {
+            et_pwd.setVisibility(View.VISIBLE);
+        } else {
+            et_pwd.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -168,6 +192,18 @@ public class ArbitrationView implements View.OnClickListener {
                     public void onPermissionFailed() {
                     }
                 }, Permission.Group.STORAGE, Permission.Group.CAMERA);
+                break;
+            case R.id.btn_coined:
+                if (!OtcTradeDialogUtils.isDialogShow(activity)) {
+                    String pwdString = et_pwd.getText().toString().trim();
+                    if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
+                        ShowToast.error(activity.getResources().getString(R.string.please_input_trade_password));
+                        return;
+                    }
+                    if (tradeModel != null) {
+                        mPresenter.finishOrder(tradeModel.id, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+                    }
+                }
                 break;
             case R.id.btn_submit_arbitration:
                 if (uploadFile != null) {
