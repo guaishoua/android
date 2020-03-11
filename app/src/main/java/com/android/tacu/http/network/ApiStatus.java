@@ -16,8 +16,6 @@ public class ApiStatus {
     public static final int ERROR_SSL = 1004;
     //超时错误
     public static final int ERROR_TIMEOUT = 1005;
-    //服务器返回的错误
-    public static final int ERROR_TOAST = 1006;
     //多账号登录被顶了
     public static final int ERROR_TOKEN = 9999;
 }

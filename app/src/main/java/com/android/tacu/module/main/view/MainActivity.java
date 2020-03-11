@@ -377,14 +377,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                     LogUtils.i("jiazhen", "audit=" + audit + " code=" + code);
                     if (audit == RPSDK.AUDIT.AUDIT_PASS) {
                         //认证通过。建议接入方调用实人认证服务端接口DescribeVerifyResult来获取最终的认证状态，并以此为准进行业务上的判断和处理
-                        goVideoAuthDialog.dismiss();
                         mPresenter.vedioAuth();
                     } else if (audit == RPSDK.AUDIT.AUDIT_FAIL) {
-                        showALAuthFailure();
+                        showALAuthFailure(true);
                         isOwnCenterFlag = true;
                         //认证不通过。建议接入方调用实人认证服务端接口DescribeVerifyResult来获取最终的认证状态，并以此为准进行业务上的判断和处理
                     } else if (audit == RPSDK.AUDIT.AUDIT_NOT) {
-                        showALAuthFailure();
+                        showALAuthFailure(true);
                         isOwnCenterFlag = true;
                         //未认证，具体原因可通过code来区分（code取值参见下方表格），通常是用户主动退出或者姓名身份证号实名校验不匹配等原因，导致未完成认证流程
                         /**
@@ -408,13 +407,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
     @Override
     public void getVerifyTokenError(int status) {
+        LogUtils.i("jiazhen", "status=" + status);
         if (status == -1000) {
-            showALAuthFailure();
+            showALAuthFailure(false);
         }
     }
 
     @Override
     public void vedioAuth() {
+        if (goVideoAuthDialog != null && goVideoAuthDialog.isShowing()) {
+            goVideoAuthDialog.dismiss();
+        }
+        if (videoAuthFailureDialog != null && videoAuthFailureDialog.isShowing()) {
+            videoAuthFailureDialog.dismiss();
+        }
         spUtil.setIsAuthVideo(2);
         isOwnCenterFlag = true;
         mPresenter.ownCenter();
@@ -609,7 +615,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 .show();
     }
 
-    private void showALAuthFailure() {
+    private void showALAuthFailure(boolean isShowGoAuth) {
         if (goVideoAuthDialog != null && goVideoAuthDialog.isShowing()) {
             goVideoAuthDialog.dismiss();
         }
@@ -617,11 +623,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             return;
         }
         View view = View.inflate(this, R.layout.view_video_failure, null);
-        videoAuthFailureDialog = new DroidDialog.Builder(MainActivity.this)
-                .title(getResources().getString(R.string.authentication_failed))
-                .viewCustomLayout(view)
-                .cancelable(false, false)
-                .show();
+        if (isShowGoAuth) {
+            videoAuthFailureDialog = new DroidDialog.Builder(MainActivity.this)
+                    .title(getResources().getString(R.string.authentication_failed))
+                    .viewCustomLayout(view)
+                    .positiveButton(getResources().getString(R.string.go_auth), new DroidDialog.onPositiveListener() {
+                        @Override
+                        public void onPositive(Dialog droidDialog) {
+                            mPresenter.getVerifyToken();
+                        }
+                    })
+                    .cancelable(false, false)
+                    .show();
+        } else {
+            videoAuthFailureDialog = new DroidDialog.Builder(MainActivity.this)
+                    .title(getResources().getString(R.string.authentication_failed))
+                    .viewCustomLayout(view)
+                    .cancelable(false, false)
+                    .show();
+        }
     }
 
     /**

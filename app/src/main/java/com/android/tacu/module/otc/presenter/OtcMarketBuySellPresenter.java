@@ -21,4 +21,9 @@ public class OtcMarketBuySellPresenter extends BaseMvpPresenter implements OtcMa
             }
         });
     }
+
+    @Override
+    public void selectStatus() {
+
+    }
 }

@@ -34,6 +34,7 @@ import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
 import com.android.tacu.module.otc.model.OtcSelectFeeModel;
 import com.android.tacu.module.otc.model.OtcTradeListModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
+import com.android.tacu.module.otc.model.SelectStatusModel;
 import com.android.tacu.module.splash.model.TradeWinListModel;
 import com.android.tacu.module.transaction.model.DealDetailsModel;
 import com.android.tacu.module.transaction.model.ShowOrderListModel;
@@ -1225,4 +1226,25 @@ public interface Api {
      */
     @POST("disclaimer")
     Observable<BaseModel> disclaimer();
+
+    /**
+     * 商家下线
+     */
+    @POST("merchantoff")
+    Observable<BaseModel> merchantoff();
+
+    /**
+     * 商家上线
+     */
+    @POST("merchanton")
+    Observable<BaseModel> merchanton();
+
+    /**
+     * 查看商家是否上线
+     */
+    @FormUrlEncoded
+    @POST("selectStatus")
+    Observable<BaseModel<SelectStatusModel>> selectStatus(
+            @Field("merchantId") String merchantId
+    );
 }

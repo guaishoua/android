@@ -34,12 +34,12 @@ public class ResponseExceptionHandler {
              * 判断token是否失效,失效强制退出登录
              */
             if (((ServerException) throwable).status == ApiStatus.ERROR_TOKEN) {
-                responseException = new ResponseException(throwable, ApiStatus.ERROR_TOKEN);
+                responseException = new ResponseException(throwable, 1, ApiStatus.ERROR_TOKEN);
                 /**
                  * 状态码不是200 状态提示
                  */
             } else if (((ServerException) throwable).status != ApiStatus.SUCCESS_HTTPS) {
-                responseException = new ResponseException(throwable, ApiStatus.ERROR_TOAST);
+                responseException = new ResponseException(throwable, 1, ((ServerException) throwable).status);
                 String message = ((ServerException) throwable).message;
                 responseException.message = message;
             }

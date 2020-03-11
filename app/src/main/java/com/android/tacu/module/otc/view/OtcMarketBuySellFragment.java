@@ -27,6 +27,7 @@ import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
+import com.android.tacu.module.otc.model.SelectStatusModel;
 import com.android.tacu.module.otc.presenter.OtcMarketBuySellPresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
@@ -281,6 +282,11 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
             mAdapter.setNewData(null);
             refreshlayout.setEnableLoadmore(false);
         }
+    }
+
+    @Override
+    public void selectStatus(SelectStatusModel model) {
+
     }
 
     private void upload(boolean isShowViewing, boolean isTop) {

@@ -44,10 +44,12 @@ public abstract class NetDisposableObserver<T> extends DisposableObserver<T> {
             this.mBaseMvpView.hideRefreshView();
             if (throwable instanceof ResponseException) {
                 ResponseException responseException = (ResponseException) throwable;
-                if (responseException.status == ApiStatus.ERROR_TOKEN) {
-                    this.mBaseMvpView.tokenInvalid();
-                } else if (responseException.status == ApiStatus.ERROR_TOAST && this.isToast) {
-                    this.mBaseMvpView.showToastError(responseException.message);
+                if (responseException.type == 1) {
+                    if (responseException.status == ApiStatus.ERROR_TOKEN) {
+                        this.mBaseMvpView.tokenInvalid();
+                    } else if (this.isToast) {
+                        this.mBaseMvpView.showToastError(responseException.message);
+                    }
                 }
             }
         }
