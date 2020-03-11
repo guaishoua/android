@@ -309,17 +309,9 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 showDoing();
                 return;
             }
-            if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
-                jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
-            } else {
-                jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
-            }
+            jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
         } else {
-            if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
-                jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
-            } else {
-                jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
-            }
+            jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
         }
     }
 
@@ -510,7 +502,11 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 @Override
                 public void onClick(View v) {
                     if (!OtcDialogUtils.isDialogShow(getContext())) {
-                        mPresenter.selectStatus(item, String.valueOf(item.orderModel.uid), item.orderModel.id);
+                        if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
+                            jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
+                        } else {
+                            mPresenter.selectStatus(item, String.valueOf(item.orderModel.uid), item.orderModel.id);
+                        }
                     }
                 }
             });

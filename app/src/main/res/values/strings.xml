@@ -993,6 +993,9 @@
     <string name="unsubmit">未提交</string>
     <string name="arbitration_result1">仲裁结果</string>
     <string name="arbitrationed">已裁定</string>
+    <string name="look_order">查看订单</string>
+    <string name="go_pay1">去支付</string>
+    <string name="confirm_coined">确认放币</string>
 
     <string name="system_tip">系统提示</string>
     <string name="shoper_offline">该商户已下线，请您返回OTC下单中心重新选择其他商户为您服务，感谢您的理解！</string>

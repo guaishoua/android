@@ -9,9 +9,11 @@ import java.io.Serializable;
 public class OTCOrderVisibleHintEvent implements Serializable {
 
     private boolean isVisibleToUser;
+    private int buyOrSell;
 
-    public OTCOrderVisibleHintEvent(boolean isVisibleToUser) {
+    public OTCOrderVisibleHintEvent(boolean isVisibleToUser, int buyOrSell) {
         this.isVisibleToUser = isVisibleToUser;
+        this.buyOrSell = buyOrSell;
     }
 
     public boolean isVisibleToUser() {
@@ -21,4 +23,13 @@ public class OTCOrderVisibleHintEvent implements Serializable {
     public void setVisibleToUser(boolean visibleToUser) {
         isVisibleToUser = visibleToUser;
     }
+
+    public int getBuyOrSell() {
+        return buyOrSell;
+    }
+
+    public void setBuyOrSell(int buyOrSell) {
+        this.buyOrSell = buyOrSell;
+    }
+
 }

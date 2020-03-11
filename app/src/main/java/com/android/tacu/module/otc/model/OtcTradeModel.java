@@ -39,14 +39,14 @@ public class OtcTradeModel implements Serializable {
      * <p>
      * private Date createTime;         //创建时间
      * private Date updateTime;         //修改时间
-     *
+     * <p>
      * private Long arbitrateUid;  //仲裁uid
-     *     private String arbitrateExp;  //仲裁说明
-     *     private String arbitrateImg;  //仲裁图片
-     *     private Long beArbitrateUid;  //申诉人uid
-     *     private String beArbitrateExp;  //申诉说明
-     *     private String beArbitrateImg;  //申诉图片
-     *     private String arbitrateResults; //仲裁结果说明
+     * private String arbitrateExp;  //仲裁说明
+     * private String arbitrateImg;  //仲裁图片
+     * private Long beArbitrateUid;  //申诉人uid
+     * private String beArbitrateExp;  //申诉说明
+     * private String beArbitrateImg;  //申诉图片
+     * private String arbitrateResults; //仲裁结果说明
      */
 
     @SerializedName("id")
@@ -95,6 +95,8 @@ public class OtcTradeModel implements Serializable {
     public String payEndTime;
     @SerializedName("transCoinEndTime")
     public String transCoinEndTime;
+    @SerializedName("arbitrationEndTime")
+    public String arbitrationEndTime;
     @SerializedName("confirmTime")
     public String confirmTime;
     @SerializedName("payTime")
@@ -122,6 +124,8 @@ public class OtcTradeModel implements Serializable {
     @SerializedName("arbitrateResults")
     public String arbitrateResults;
 
-
-
+    @SerializedName("buyreadstatus")
+    public Integer buyreadstatus;// 0 未读 1已读
+    @SerializedName("sellreadstatus")
+    public Integer sellreadstatus;// 0 未读 1已读
 }

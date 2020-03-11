@@ -48,9 +48,7 @@ public class OtcOrderListFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (spUtil != null) {
-            EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCOrderVisibleCode, new OTCOrderVisibleHintEvent(isVisibleToUser)));
-        }
+        EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCOrderVisibleCode, new OTCOrderVisibleHintEvent(isVisibleToUser, buyOrSell)));
     }
 
     @Override
