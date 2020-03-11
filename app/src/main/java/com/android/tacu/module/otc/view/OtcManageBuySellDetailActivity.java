@@ -425,16 +425,15 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                         }
                         break;
                     case 2:
+                        holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_payed));
                         switch (buyorsell) {
                             case 1:
-                                holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_payed));
                                 ((QMUIRoundButtonDrawable) holder.getView(R.id.btn_right).getBackground()).setBgData(ContextCompat.getColorStateList(mContext, R.color.color_default));
                                 ((QMUIRoundButtonDrawable) holder.getView(R.id.btn_right).getBackground()).setStrokeData(UIUtils.dp2px(1), ContextCompat.getColorStateList(mContext, R.color.color_transparent));
                                 holder.setTextColor(R.id.btn_right, ContextCompat.getColor(mContext, R.color.text_white));
                                 holder.setText(R.id.btn_right, getResources().getString(R.string.pay1));
                                 break;
                             case 2:
-                                //holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_payget));
                                 holder.setText(R.id.btn_right, getResources().getString(R.string.look_detail));
                                 break;
                         }
@@ -448,14 +447,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                         }
                         break;
                     case 3:
-                        switch (buyorsell) {
-                            case 1:
-                                //holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coinget));
-                                break;
-                            case 2:
-                                holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coined));
-                                break;
-                        }
+                        holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coined));
                         holder.setText(R.id.btn_right, getResources().getString(R.string.look_detail));
                         if (currentTime != null) {
                             if (!TextUtils.isEmpty(item.tradeModel.transCoinEndTime)) {
@@ -472,14 +464,7 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
                         holder.setText(R.id.tv_operation_countdown, getResources().getString(R.string.pay_timeout));
                         break;
                     case 9:
-                        switch (buyorsell) {
-                            case 1:
-                                //holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coinget));
-                                break;
-                            case 2:
-                                holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coined));
-                                break;
-                        }
+                        holder.setText(R.id.tv_order_status, getResources().getString(R.string.otc_order_coined));
                         holder.setText(R.id.btn_right, getResources().getString(R.string.look_detail));
                         holder.setText(R.id.tv_operation_countdown, getResources().getString(R.string.pay_timeout));
                         break;

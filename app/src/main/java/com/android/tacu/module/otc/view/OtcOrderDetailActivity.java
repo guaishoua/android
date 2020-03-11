@@ -41,6 +41,10 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
 
     private int current = -1;
     private Integer status = -1;
+
+    // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
+    // 12裁决完成 13裁决完成
+
     private static final int ORDER_CONFIRMED = 1;//待确认
     private static final int ORDER_PAYED = 2;//待付款
     private static final int ORDER_PAYGET = 3;//待收款
@@ -48,7 +52,11 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     private static final int ORDER_COINGET = 5;//待收币
     private static final int ORDER_FINISHED = 6;//已完成
     public static final int ORDER_ARBITRATION_BUY = 7;//买方仲裁中
-    public static final int ORDER_ARBITRATION_SELL = 8;//买方仲裁中
+    public static final int ORDER_ARBITRATION_SELL = 8;//卖方仲裁中
+    private static final int ORDER_CANCEL = 9;//取消
+    private static final int ORDER_TIMEOUT = 10;//超时
+    private static final int ORDER_ARBITRATION_SUCCESS = 11;//裁决成功
+
     //接口30s轮训一次
     private static final int KREFRESH_TIME = 1000 * 30;
 
@@ -183,7 +191,8 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
             setBuyPayInfoString(model);
             setSellPayInfoString(model);
 
-            // 1待确认  2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成  12仲裁成功 13仲裁失败
+            // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
+            // 12裁决完成 13裁决完成
             if (model.status != null) {
                 switch (model.status) {
                     case 1:
@@ -212,10 +221,14 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         }
                         break;
                     case 5:
-                    case 6:
                     case 7:
+                        current = ORDER_CANCEL;
+                        break;
+                    case 6:
                     case 8:
+                        break;
                     case 10:
+                        break;
                     case 12:
                     case 13:
                         current = ORDER_FINISHED;
@@ -231,26 +244,19 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
             if (isFirst) {
                 switch (current) {
                     case ORDER_CONFIRMED:
+                    case ORDER_PAYGET:
                         mPresenter.currentTime();
                         break;
                     case ORDER_PAYED:
                         mPresenter.currentTime();
                         mPresenter.selectPayInfoById(model.payId);
                         break;
-                    case ORDER_PAYGET:
-                        mPresenter.currentTime();
-                        break;
                     case ORDER_COINED:
-                        mPresenter.currentTime();
-                        mPresenter.uselectUserInfo(model.payInfo);
-                        break;
                     case ORDER_COINGET:
                         mPresenter.currentTime();
                         mPresenter.uselectUserInfo(model.payInfo);
                         break;
                     case ORDER_FINISHED:
-                        mPresenter.uselectUserInfo(model.payInfo);
-                        break;
                     case ORDER_ARBITRATION_BUY:
                     case ORDER_ARBITRATION_SELL:
                         mPresenter.uselectUserInfo(model.payInfo);
