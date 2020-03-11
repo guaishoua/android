@@ -18,7 +18,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.tacu.module.assets.model.OtcAmountModel;
+import com.android.tacu.module.vip.view.RechargeDepositActivity;
 import com.android.tacu.utils.FormatterUtils;
+import com.android.tacu.utils.MathHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.EventBus.EventConstant;
@@ -47,6 +50,7 @@ import com.google.gson.reflect.TypeToken;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -74,13 +78,28 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     RecyclerView recyclerView;
 
     //头布局
-    private TextView tv_btc_total;
-    private TextView tv_ycn_total;
+    private TextView tv_margin_account;
+    private TextView tv_all_amount_title;
+    private TextView tv_all_amount;
+    private TextView tv_otc_account_title;
+    private TextView tv_otc_account;
+    private TextView tv_coin_account_title;
+    private TextView tv_coin_account;
+
+    private QMUIRoundButton btn_take;
+    private QMUIRoundButton btn_recharge;
+
     private CheckBox cb_search;
     private EditText et_search;
 
-    private String btc_total_string;
-    private String ycn_total_string;
+    //保证金账号
+    private String bond_string = "0";
+    //otc账号
+    private String otc_string = "0";
+    //币币账号
+    private String btc_total_string = "0";
+    //总资产
+    private String all_total_string = "0";
 
     private String searchStr;
     //true：已有资产  false：全部资产
@@ -110,7 +129,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     protected void initLazy() {
         super.initLazy();
         if (spUtil.getLogin()) {
-            myAssets();
             upLoad(assetDetailsModel != null ? false : true);
         }
     }
@@ -231,6 +249,10 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                 et_search.findFocus();//获取焦点
                 inputMethod.showSoftInput(et_search, InputMethodManager.SHOW_FORCED);//显示输入法
                 break;
+            case R.id.btn_take:
+            case R.id.btn_recharge:
+                jumpTo(RechargeDepositActivity.class);
+                break;
         }
     }
 
@@ -243,8 +265,10 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     }
 
     private void invalidateDataAllDataSet() {
-        tv_btc_total.setText(defaultEyeStatus ? btc_total_string : "*****");
-        tv_ycn_total.setText(defaultEyeStatus ? ycn_total_string : "*****");
+        tv_margin_account.setText(defaultEyeStatus ? bond_string + Constant.ACU_CURRENCY_NAME : "*****");
+        tv_all_amount.setText(defaultEyeStatus ? all_total_string + Constant.ACU_CURRENCY_NAME : "*****");
+        tv_otc_account.setText(defaultEyeStatus ? otc_string + Constant.ACU_CURRENCY_NAME : "*****");
+        tv_coin_account.setText(defaultEyeStatus ? btc_total_string + Constant.ACU_CURRENCY_NAME : "*****");
         adapter.notifyDataSetChanged();
         currentPrivacyView.setImageResource(defaultEyeStatus ? R.mipmap.icon_watch : R.mipmap.icon_watch_disable);
     }
@@ -321,6 +345,27 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         }
     }
 
+    @Override
+    public void BondAccount(OtcAmountModel model) {
+        if (model != null) {
+            bond_string = model.amount;
+        } else {
+            bond_string = "0";
+        }
+        tv_margin_account.setText(defaultEyeStatus ? bond_string + Constant.ACU_CURRENCY_NAME : "*****");
+    }
+
+    @Override
+    public void otcAmount(OtcAmountModel model) {
+        if (model != null) {
+            otc_string = model.amount;
+        } else {
+            otc_string = "0";
+        }
+        tv_otc_account.setText(defaultEyeStatus ? otc_string + Constant.ACU_CURRENCY_NAME : "*****");
+        dealValue();
+    }
+
     private void initReyclerView() {
         adapter = new AssetAdapter();
         adapter.setHeaderFooterEmpty(true, false);
@@ -331,11 +376,26 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
 
     private void initAssetHeader() {
         assetHeaderView = View.inflate(getHostActivity(), R.layout.header_asset_details, null);
-        tv_btc_total = assetHeaderView.findViewById(R.id.tv_btc_total);
-        tv_ycn_total = assetHeaderView.findViewById(R.id.tv_ycn_total);
+
+        tv_margin_account = assetHeaderView.findViewById(R.id.tv_margin_account);
+        tv_all_amount_title = assetHeaderView.findViewById(R.id.tv_all_amount_title);
+        tv_all_amount = assetHeaderView.findViewById(R.id.tv_all_amount);
+        tv_otc_account_title = assetHeaderView.findViewById(R.id.tv_otc_account_title);
+        tv_otc_account = assetHeaderView.findViewById(R.id.tv_otc_account);
+        tv_coin_account_title = assetHeaderView.findViewById(R.id.tv_coin_account_title);
+        tv_coin_account = assetHeaderView.findViewById(R.id.tv_coin_account);
+
+        tv_all_amount_title.setText(getResources().getString(R.string.all_amount) + "(" + Constant.ACU_CURRENCY_NAME + ")");
+        tv_otc_account_title.setText(getResources().getString(R.string.otc_account) + "(" + Constant.ACU_CURRENCY_NAME + ")");
+        tv_coin_account_title.setText(getResources().getString(R.string.coin_account) + "(" + Constant.ACU_CURRENCY_NAME + ")");
+
+        btn_take = assetHeaderView.findViewById(R.id.btn_take);
+        btn_recharge = assetHeaderView.findViewById(R.id.btn_recharge);
         cb_search = assetHeaderView.findViewById(R.id.cb_search);
         et_search = assetHeaderView.findViewById(R.id.et_search);
 
+        btn_take.setOnClickListener(this);
+        btn_recharge.setOnClickListener(this);
         et_search.setOnClickListener(this);
         adapter.addHeaderView(assetHeaderView);
 
@@ -362,6 +422,20 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
 
     private void upLoad(boolean isShowLoadingView) {
         mPresenter.getAssetDetails(isShowLoadingView);
+        mPresenter.BondAccount(isShowLoadingView, Constant.ACU_CURRENCY_ID);
+        mPresenter.otcAmount(isShowLoadingView, Constant.ACU_CURRENCY_ID);
+    }
+
+    private void dealValue() {
+        if (TextUtils.isEmpty(btc_total_string)) {
+            btc_total_string = "0";
+        }
+        if (TextUtils.isEmpty(otc_string)) {
+            otc_string = "0";
+        }
+        all_total_string = FormatterUtils.getFormatRoundHalfUp(2, MathHelper.add(Double.parseDouble(btc_total_string), Double.parseDouble(otc_string)));
+
+        tv_all_amount.setText(defaultEyeStatus ? all_total_string + Constant.ACU_CURRENCY_NAME : "*****");
     }
 
     //单一类型adapter
@@ -488,7 +562,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     }
 
     public void setConvertModel() {
-        myAssets();
+        //myAssets();
     }
 
     private void myAssets() {
@@ -526,10 +600,10 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             }
             double allAcu = acuxAmount + btcxAmount * btcx_acuxPrice + Double.parseDouble(assetDetailsModel.allMoney);
 
-            ycn_total_string = "≈" + getMcM(Constant.ACU_CURRENCY_ID, allAcu);
-            btc_total_string = FormatterUtils.getFormatRoundUp(2, allAcu) + Constant.ACU_CURRENCY_NAME;
-            tv_ycn_total.setText(defaultEyeStatus ? ycn_total_string : "*****");
-            tv_btc_total.setText(defaultEyeStatus ? btc_total_string : "*****");
+            btc_total_string = FormatterUtils.getFormatRoundUp(2, allAcu);
+            tv_coin_account.setText(defaultEyeStatus ? btc_total_string + Constant.ACU_CURRENCY_NAME : "*****");
+
+            dealValue();
         }
     }
 

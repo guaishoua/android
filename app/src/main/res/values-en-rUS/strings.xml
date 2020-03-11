@@ -922,5 +922,80 @@
     <string name="friendly_tip">Kind reminder</string>
     <string name="please_go_shirenrenzheng">Sorry, but your verification is not completed. Please complete verification before operating.</string>
     <string name="video_auth_failure">Sorry, your real-name verification failed. Please contact customer service.</string>
+
+    <!--OTC2-->
+    <string name="confirm_buy">Confirm purchase</string>
+    <string name="confirm_sell">Confirm sale</string>
+    <string name="total_margin_balance">Total Margin Balance</string>
+    <string name="margin_account_record">Margin Account Record</string>
+    <string name="shop_margin">Merchant Margin</string>
+    <string name="buiness_freeze">Business freeze</string>
+    <string name="operational_balance">Operable balance</string>
+    <string name="total_account_balance">Total account balance</string>
+    <string name="available_balance1">Available balance</string>
+    <string name="recharge_deposit_tag1">The margin amount will be charged from the coin account</string>
+    <string name="recharge_deposit_tag2">The margin amount will be charged from the OTC account</string>
+    <string name="recharge_deposit_tag3">Application for margin withdrawal to a coin account</string>
+    <string name="recharge_deposit_tag4">Application for margin withdrawal to OTC account</string>
+    <string name="please_input_deposit_amount">Please enter the amount of margin withdrawal</string>
+    <string name="please_choose_deposit_amount">Please select the margin deposit amount</string>
+    <string name="confirm_recharge">Confirm recharge</string>
+    <string name="submit_apply">Submit an application</string>
+    <string name="all_take">Extract All</string>
+    <string name="deposit_take_amount">Margin Withdrawable Amount</string>
+    <string name="deposit_recharge">Margin Deposit</string>
+    <string name="deposit_take">Margin withdrawal</string>
+    <string name="recharge_deposit_text1">Coin account deposit margin</string>
+    <string name="recharge_deposit_text2">Deposit deposit for OTC account</string>
+    <string name="recharge_deposit_text3">Margin withdrawal to Coin account</string>
+    <string name="recharge_deposit_text4">Margin withdrawal to OTC account</string>
+    <string name="order_cancel_success">Undo successfully!</string>
+    <string name="yhk_tip">Special reminder: In order to ensure that your payment can reach the payee\'s account normally, please do not fill in any remark information, including all the words such as Bitcoin, BTC, digital currency, etc. It will be misunderstood and frozen by the bank, affecting the safety of your personal assets. Thank you for understanding!</string>
+
+    <string name="otc_order_all">All</string>
+    <string name="otc_order_confirmed">To be confirmed</string>
+    <string name="otc_order_finished">Transaction completed</string>
+    <string name="otc_order_payed">Order payment</string>
+    <string name="otc_order_coined">Order money</string>
+    <string name="otc_order_cancel">Cancel order</string>
+    <string name="otc_order_timeout">Timeout order</string>
+    <string name="otc_order_arbitration">Arbitration Order</string>
+    <string name="otc_order_adjude">Order order</string>
+    <string name="buy_order">Buy order</string>
+    <string name="sell_order">Sell order</string>
+    <string name="online">online</string>
+    <string name="offline">offline</string>
+    <string name="order_time">Order time</string>
+    <string name="mobile">Contact information</string>
+    <string name="trade_price">Transaction Amount</string>
+    <string name="duifang_shensu">The other party appeals</string>
+    <string name="tijiao_shensu">Submit an appeal</string>
+    <string name="submited">Submitted</string>
+    <string name="unsubmit">Not submitted</string>
+    <string name="arbitration_result1">Arbitration Results</string>
+    <string name="arbitrationed">Ruled</string>
+    <string name="look_order">View order</string>
+    <string name="go_pay1">Go to pay</string>
+    <string name="confirm_coined">Confirm the deposit</string>
+
+    <string name="sell_thing">Sale</string>
+    <string name="order_number">Order volume</string>
+    <string name="order_surplus">Order balance</string>
+    <string name="all_price">Total price</string>
+    <string name="frezon_deposit">Freeze margin</string>
+    <string name="wait_operation">pending operation</string>
+    <string name="look">View</string>
+    <string name="hangup">Pending</string>
+    <string name="recovery">Recover</string>
+    <string name="cancel_advertisement">Cancel this ad</string>
+    <string name="finished">finished</string>
+    <string name="going">In progress</string>
+        
+    <string name="system_tip">System Tip</string>
+    <string name="shoper_offline">The merchant is offline, please return to the OTC Order Center to re-select another merchant to serve you, thank you for your understanding!</string>
+    <string name="shoper_doing">The merchant is taking orders, please return to the OTC Order Center to reselect other merchants to serve you, thank you for your understanding!</string>
+
+        
+    <string name="margin_account_acu">Margin Account (ACU)</string>
 </resources>
 

@@ -11,6 +11,7 @@ import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.contract.AssetsContract;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.CoinListModel;
+import com.android.tacu.module.assets.model.OtcAmountModel;
 
 /**
  * set
@@ -45,5 +46,27 @@ public class AssetsPresenter extends BaseMvpPresenter implements AssetsContract.
                 view.currencyView(coinsList.attachment);
             }
         }, ModelTransformerFactory.getNonStandardModelTransformer());
+    }
+
+    @Override
+    public void BondAccount(boolean isShowLoadingView, int currencyId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).BondAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView(), isShowLoadingView) {
+            @Override
+            public void onNext(BaseModel<OtcAmountModel> o) {
+                AssetsContract.IAssetsView view = (AssetsContract.IAssetsView) getView();
+                view.BondAccount(o.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void otcAmount(boolean isShowLoadingView, int currencyId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).OtcAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView(), isShowLoadingView) {
+            @Override
+            public void onNext(BaseModel<OtcAmountModel> o) {
+                AssetsContract.IAssetsView view = (AssetsContract.IAssetsView) getView();
+                view.otcAmount(o.attachment);
+            }
+        });
     }
 }

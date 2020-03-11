@@ -922,4 +922,78 @@
     <string name="trade_amount">交易额</string>
     <string name="all_amount">总资产</string>
     <string name="rank_num">第%1$s名</string>
+
+    <!--OTC2-->
+    <string name="confirm_buy">确认购买</string>
+    <string name="confirm_sell">确认出售</string>
+    <string name="total_margin_balance">保证金余额总量</string>
+    <string name="margin_account_record">保证金账户记录</string>
+    <string name="shop_margin">商户保证金</string>
+    <string name="buiness_freeze">业务冻结</string>
+    <string name="operational_balance">可操作余额</string>
+    <string name="total_account_balance">账户总余额</string>
+    <string name="available_balance1">可用余额</string>
+    <string name="recharge_deposit_tag1">将从币币账户中充入保证金数量</string>
+    <string name="recharge_deposit_tag2">将从OTC账户中充入保证金数量</string>
+    <string name="recharge_deposit_tag3">申请保证金提取至币币账户</string>
+    <string name="recharge_deposit_tag4">申请保证金提取至OTC账户</string>
+    <string name="please_input_deposit_amount">请输入保证金提取数量</string>
+    <string name="please_choose_deposit_amount">请选择保证金充值金额</string>
+    <string name="confirm_recharge">确认充值</string>
+    <string name="submit_apply">提交申请</string>
+    <string name="all_take">全部提取</string>
+    <string name="deposit_take_amount">保证金可提取金额</string>
+    <string name="deposit_recharge">保证金充值</string>
+    <string name="deposit_take">保证金提取</string>
+    <string name="recharge_deposit_text1">币币账户充入保证金</string>
+    <string name="recharge_deposit_text2">OTC账户充入保证金</string>
+    <string name="recharge_deposit_text3">保证金提取至币币账户</string>
+    <string name="recharge_deposit_text4">保证金提取至OTC账户</string>
+    <string name="order_cancel_success">撤销成功！</string>
+    <string name="yhk_tip">特别提示：为了保证您的付款可以第一时间正常到达收款方账户，请您务必不要填写任何备注信息，包括比特币、BTC、数字货币等一切字样信息，以免造成被银行误解并且冻结，影响您个人资产安全，感谢理解！</string>
+
+    <string name="otc_order_all">全部</string>
+    <string name="otc_order_confirmed">待确认</string>
+    <string name="otc_order_finished">交易完成</string>
+    <string name="otc_order_payed">订单支付</string>
+    <string name="otc_order_coined">订单放币</string>
+    <string name="otc_order_cancel">取消订单</string>
+    <string name="otc_order_timeout">超时订单</string>
+    <string name="otc_order_arbitration">仲裁订单</string>
+    <string name="otc_order_adjude">裁决订单</string>
+    <string name="buy_order">买单</string>
+    <string name="sell_order">卖单</string>
+    <string name="online">在线</string>
+    <string name="offline">离线</string>
+    <string name="order_time">订单时间</string>
+    <string name="mobile">联系方式</string>
+    <string name="trade_price">交易金额</string>
+    <string name="duifang_shensu">对方申诉</string>
+    <string name="tijiao_shensu">提交申诉</string>
+    <string name="submited">已提交</string>
+    <string name="unsubmit">未提交</string>
+    <string name="arbitration_result1">仲裁结果</string>
+    <string name="arbitrationed">已裁定</string>
+    <string name="look_order">查看订单</string>
+    <string name="go_pay1">去支付</string>
+    <string name="confirm_coined">确认放币</string>
+
+    <string name="sell_thing">出售物</string>
+    <string name="order_number">订单量</string>
+    <string name="order_surplus">订单余额</string>
+    <string name="all_price">总价</string>
+    <string name="frezon_deposit">冻结保证金</string>
+    <string name="wait_operation">待操作</string>
+    <string name="look">查看</string>
+    <string name="hangup">挂起</string>
+    <string name="recovery">恢复</string>
+    <string name="cancel_advertisement">撤销该广告</string>
+    <string name="finished">已完成</string>
+    <string name="going">进行中</string>
+
+    <string name="system_tip">系统提示</string>
+    <string name="shoper_offline">该商户已下线，请您返回OTC下单中心重新选择其他商户为您服务，感谢您的理解！</string>
+    <string name="shoper_doing">该商户正在接单，请您返回OTC下单中心重新选择其他商户为您服务，感谢您的理解！</string>
+
+    <string name="margin_account_acu">保证金账户(ACU)</string>
 </resources>

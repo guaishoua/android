@@ -1013,4 +1013,6 @@
     <string name="system_tip">系统提示</string>
     <string name="shoper_offline">该商户已下线，请您返回OTC下单中心重新选择其他商户为您服务，感谢您的理解！</string>
     <string name="shoper_doing">该商户正在接单，请您返回OTC下单中心重新选择其他商户为您服务，感谢您的理解！</string>
+
+    <string name="margin_account_acu">保证金账户(ACU)</string>
 </resources>
