@@ -72,6 +72,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
+            buyOrSell = bundle.getInt("buyOrSell");
             orderStatus = bundle.getInt("orderStatus");
         }
         super.onCreate(savedInstanceState);
@@ -211,18 +212,187 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         if (start == 1 && tradeModelList != null && tradeModelList.size() > 0) {
             tradeModelList.clear();
         }
-        mPresenter.tradeList(isShowView, null, null, start, 10, null, orderStatus);
+        mPresenter.tradeList(isShowView, null, null, start, 10, buyOrSell, orderStatus);
     }
 
     public class OtcOrderAdapter extends BaseQuickAdapter<OtcTradeAllModel, BaseViewHolder> {
 
         public OtcOrderAdapter() {
-            super(R.layout.item_otc_order);
+            super(R.layout.item_otc_order1);
         }
 
         @Override
         protected void convert(BaseViewHolder holder, final OtcTradeAllModel item) {
             if (item.infoModel != null) {
+                holder.setText(R.id.tv_nickname, item.infoModel.nickname + "(" + CommonUtils.nameXing(item.infoModel.secondName) + ")");
+                if (item.infoModel.merchantStatus == 0) {
+                    holder.setText(R.id.tv_offline, getResources().getString(R.string.offline));
+                    holder.setTextColor(R.id.tv_offline, ContextCompat.getColor(getContext(), R.color.text_grey));
+                } else {
+                    holder.setText(R.id.tv_offline, getResources().getString(R.string.online));
+                    holder.setTextColor(R.id.tv_offline, ContextCompat.getColor(getContext(), R.color.text_default));
+                }
+            }
+            if (item.tradeModel != null) {
+                holder.setText(R.id.tv_name, item.tradeModel.currencyName);
+                if (item.tradeModel.buyuid == spUtil.getUserUid()) {
+                    holder.setText(R.id.tv_buy_status, getResources().getString(R.string.buy));
+                    holder.setTextColor(R.id.tv_buy_status, ContextCompat.getColor(getContext(), R.color.color_otc_buy));
+                } else if (item.tradeModel.selluid == spUtil.getUserUid()) {
+                    holder.setText(R.id.tv_buy_status, getResources().getString(R.string.sell));
+                    holder.setTextColor(R.id.tv_buy_status, ContextCompat.getColor(getContext(), R.color.color_otc_sell));
+                }
+
+                if (item.tradeModel.payType != null) {
+                    //支付类型 1 银行 2微信3支付宝
+                    switch (item.tradeModel.payType) {
+                        case 1:
+                            holder.setImageResource(R.id.img_pay, R.mipmap.img_yhk);
+                            break;
+                        case 2:
+                            holder.setImageResource(R.id.img_pay, R.mipmap.img_wx);
+                            break;
+                        case 3:
+                            holder.setImageResource(R.id.img_pay, R.mipmap.img_zfb);
+                            break;
+                    }
+                }
+
+                holder.setGone(R.id.view_four, false);
+                holder.setGone(R.id.view_three, false);
+                holder.setGone(R.id.img_leftbottom, false);
+                holder.setGone(R.id.img_rightbottom, false);
+                holder.setGone(R.id.img_leftbottom1, false);
+                holder.setGone(R.id.img_rightbottom1, false);
+                holder.setTextColor(R.id.tv_lefttop, ContextCompat.getColor(mContext, R.color.text_color));
+                holder.setTextColor(R.id.tv_righttop, ContextCompat.getColor(mContext, R.color.text_color));
+                holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.text_color));
+                holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.text_color));
+
+                if (item.tradeModel.status != null) {
+                    // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
+                    // 12裁决完成 13裁决完成
+
+                    holder.setText(R.id.tv_leftbottom_title, getResources().getString(R.string.trade_num) + "(" + item.tradeModel.currencyName + ")");
+                    holder.setText(R.id.tv_rightbottom_title, getResources().getString(R.string.trade_price) + "(CNY)");
+                    holder.setText(R.id.tv_leftbottom, item.tradeModel.num);
+                    holder.setText(R.id.tv_rightbottom, item.tradeModel.amount);
+
+                    switch (item.tradeModel.status) {
+                        case 1:
+                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_confirmed));
+                            holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.text_color));
+                            holder.setGone(R.id.view_four, true);
+                            holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
+                            holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.mobile));
+                            holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
+                            holder.setText(R.id.tv_righttop, item.infoModel != null ? item.infoModel.mobile : "");
+                            break;
+                        case 2:
+                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_payed));
+                            holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.text_default));
+                            holder.setGone(R.id.view_four, true);
+                            holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
+                            holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.mobile));
+                            holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
+                            holder.setText(R.id.tv_righttop, item.infoModel != null ? item.infoModel.mobile : "");
+                            holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+                            break;
+                        case 3:
+                        case 9:
+                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_coined));
+                            holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.color_coined));
+                            holder.setGone(R.id.view_four, true);
+                            holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
+                            holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.mobile));
+                            holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
+                            holder.setText(R.id.tv_righttop, item.infoModel != null ? item.infoModel.mobile : "");
+                            holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_sell));
+                            holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+                            holder.setGone(R.id.img_leftbottom, true);
+                            holder.setGone(R.id.img_rightbottom, true);
+                            holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
+                            holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_success);
+                            break;
+                        case 4:
+                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_arbitration));
+                            holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.color_arbitration));
+                            holder.setGone(R.id.view_four, true);
+                            holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
+                            holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.duifang_shensu));
+                            holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
+                            if (item.tradeModel.buyuid == spUtil.getUserUid()) {
+                                holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.duifang_shensu));
+                            } else if (item.tradeModel.selluid == spUtil.getUserUid()) {
+                                holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.tijiao_shensu));
+                            }
+                            if (item.tradeModel.beArbitrateUid != null && item.tradeModel.beArbitrateUid != 0) {
+                                holder.setText(R.id.tv_righttop, getResources().getString(R.string.submited));
+                            }else{
+                                holder.setText(R.id.tv_righttop, getResources().getString(R.string.unsubmit));
+                            }
+                            holder.setTextColor(R.id.tv_righttop, ContextCompat.getColor(mContext, R.color.color_otc_sell));
+                            holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_sell));
+                            holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+                            holder.setGone(R.id.img_leftbottom, true);
+                            holder.setGone(R.id.img_rightbottom, true);
+                            holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
+                            holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_success);
+                            break;
+                        case 5:
+                        case 7:
+                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_timeout));
+                            holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.color_arbitration));
+                            holder.setGone(R.id.view_three, true);
+                            holder.setText(R.id.tv_top_title, getResources().getString(R.string.order_id));
+                            holder.setText(R.id.tv_top, item.tradeModel.orderNo);
+                            holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+                            break;
+                        case 6:
+                        case 8:
+                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_cancel));
+                            holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.text_grey));
+                            holder.setGone(R.id.view_three, true);
+                            holder.setText(R.id.tv_top_title, getResources().getString(R.string.order_id));
+                            holder.setText(R.id.tv_top, item.tradeModel.orderNo);
+                            holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+                            break;
+                        case 10:
+                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_finished));
+                            holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.color_finish));
+                            holder.setGone(R.id.view_three, true);
+                            holder.setText(R.id.tv_top_title, getResources().getString(R.string.order_id));
+                            holder.setText(R.id.tv_top, item.tradeModel.orderNo);
+                            holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+                            holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+                            holder.setGone(R.id.img_leftbottom1, true);
+                            holder.setGone(R.id.img_rightbottom1, true);
+                            break;
+                        case 12:
+                        case 13:
+                            holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_adjude));
+                            holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.color_arbitration_finish));
+                            holder.setGone(R.id.view_four, true);
+                            holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
+                            holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.arbitration_result1));
+                            holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
+                            holder.setText(R.id.tv_righttop, getResources().getString(R.string.arbitrationed));
+                            holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_sell));
+                            holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+                            holder.setTextColor(R.id.tv_righttop, ContextCompat.getColor(mContext, R.color.color_arbitration_finish));
+                            holder.setGone(R.id.img_leftbottom, true);
+                            holder.setGone(R.id.img_rightbottom, true);
+                            holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
+                            holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_success);
+                            break;
+
+                    }
+                } else {
+                    holder.setText(R.id.tv_status, "");
+                }
+            }
+
+            /*if (item.infoModel != null) {
                 holder.setText(R.id.tv_nickname, item.infoModel.nickname + "(" + CommonUtils.nameXing(item.infoModel.secondName) + ")");
             }
             if (item.tradeModel != null) {
@@ -316,7 +486,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                         }
                     }
                 }
-            });
+            });*/
         }
     }
 }

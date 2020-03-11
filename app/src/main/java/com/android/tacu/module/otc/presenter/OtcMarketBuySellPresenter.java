@@ -8,7 +8,9 @@ import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.otc.contract.OtcMarketBuySellContract;
+import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
+import com.android.tacu.module.otc.model.SelectStatusModel;
 
 public class OtcMarketBuySellPresenter extends BaseMvpPresenter implements OtcMarketBuySellContract.IPresenter {
     @Override
@@ -23,7 +25,13 @@ public class OtcMarketBuySellPresenter extends BaseMvpPresenter implements OtcMa
     }
 
     @Override
-    public void selectStatus() {
-
+    public void selectStatus(final OtcMarketOrderAllModel marketModel, String merchantId, String orderId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectStatus(merchantId, orderId), new NetDisposableObserver<BaseModel<SelectStatusModel>>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel<SelectStatusModel> model) {
+                OtcMarketBuySellContract.IView view = (OtcMarketBuySellContract.IView) getView();
+                view.selectStatus(marketModel, model.attachment);
+            }
+        });
     }
 }

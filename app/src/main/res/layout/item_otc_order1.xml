@@ -57,6 +57,17 @@
             tools:text="BTC" />
 
         <TextView
+            android:id="@+id/tv_buy_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:textColor="@color/color_otc_buy"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintBottom_toBottomOf="@id/tv_name"
+            app:layout_constraintLeft_toRightOf="@id/tv_name"
+            tools:text="@string/buy" />
+
+        <TextView
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,10 +90,12 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/view_four"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/dp_15"
-        android:paddingVertical="@dimen/dp_10">
+        android:paddingVertical="@dimen/dp_10"
+        android:visibility="gone">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/view_lefttop"
@@ -102,7 +115,6 @@
                 android:textSize="@dimen/text_size_sp_13"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.5"
                 tools:text="@string/order_time" />
 
             <TextView
@@ -115,7 +127,6 @@
                 android:textSize="@dimen/text_size_sp_15"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_lefttop_title"
-                app:layout_constraintWidth_percent="0.5"
                 tools:text="20:20:29" />
         </android.support.constraint.ConstraintLayout>
 
@@ -137,7 +148,6 @@
                 android:textSize="@dimen/text_size_sp_13"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.5"
                 tools:text="@string/order_time" />
 
             <TextView
@@ -150,7 +160,6 @@
                 android:textSize="@dimen/text_size_sp_15"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_righttop_title"
-                app:layout_constraintWidth_percent="0.5"
                 tools:text="20:20:29" />
         </android.support.constraint.ConstraintLayout>
 
@@ -173,7 +182,6 @@
                 android:textSize="@dimen/text_size_sp_13"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.5"
                 tools:text="@string/order_time" />
 
             <TextView
@@ -186,7 +194,6 @@
                 android:textSize="@dimen/text_size_sp_15"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_leftbottom_title"
-                app:layout_constraintWidth_percent="0.5"
                 tools:text="20:20:29" />
 
             <ImageView
@@ -219,7 +226,6 @@
                 android:textSize="@dimen/text_size_sp_13"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.5"
                 tools:text="@string/order_time" />
 
             <TextView
@@ -232,7 +238,6 @@
                 android:textSize="@dimen/text_size_sp_15"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_rightbottom_title"
-                app:layout_constraintWidth_percent="0.5"
                 tools:text="20:20:29" />
 
             <ImageView
@@ -243,6 +248,135 @@
                 app:layout_constraintBottom_toBottomOf="@id/tv_rightbottom"
                 app:layout_constraintLeft_toRightOf="@id/tv_rightbottom"
                 app:layout_constraintTop_toTopOf="@id/tv_rightbottom"
+                tools:srcCompat="@drawable/icon_auth_failure" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/view_three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dp_15"
+        android:paddingVertical="@dimen/dp_10"
+        android:visibility="gone">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/view_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/dp_5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.5">
+
+            <TextView
+                android:id="@+id/tv_top_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/order_time" />
+
+            <TextView
+                android:id="@+id/tv_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_15"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_top_title"
+                tools:text="20:20:29" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/view_leftbottom1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_top"
+            app:layout_constraintWidth_percent="0.5">
+
+            <TextView
+                android:id="@+id/tv_leftbottom_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/order_time" />
+
+            <TextView
+                android:id="@+id/tv_leftbottom1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_15"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_leftbottom_title1"
+                tools:text="20:20:29" />
+
+            <ImageView
+                android:id="@+id/img_leftbottom1"
+                android:layout_width="@dimen/dp_15"
+                android:layout_height="@dimen/dp_15"
+                android:layout_marginLeft="@dimen/dp_5"
+                app:layout_constraintBottom_toBottomOf="@id/tv_leftbottom1"
+                app:layout_constraintLeft_toRightOf="@id/tv_leftbottom1"
+                app:layout_constraintTop_toTopOf="@id/tv_leftbottom1"
+                tools:srcCompat="@drawable/icon_auth_success" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/view_rightbottom1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_5"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_top"
+            app:layout_constraintWidth_percent="0.5">
+
+            <TextView
+                android:id="@+id/tv_rightbottom_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/order_time" />
+
+            <TextView
+                android:id="@+id/tv_rightbottom1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_15"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_rightbottom_title1"
+                tools:text="20:20:29" />
+
+            <ImageView
+                android:id="@+id/img_rightbottom1"
+                android:layout_width="@dimen/dp_15"
+                android:layout_height="@dimen/dp_15"
+                android:layout_marginLeft="@dimen/dp_5"
+                app:layout_constraintBottom_toBottomOf="@id/tv_rightbottom1"
+                app:layout_constraintLeft_toRightOf="@id/tv_rightbottom1"
+                app:layout_constraintTop_toTopOf="@id/tv_rightbottom1"
                 tools:srcCompat="@drawable/icon_auth_failure" />
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>

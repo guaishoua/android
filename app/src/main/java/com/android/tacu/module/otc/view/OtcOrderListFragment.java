@@ -81,14 +81,14 @@ public class OtcOrderListFragment extends BaseFragment {
                 getResources().getString(R.string.otc_order_adjude)
         };
         fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 0));
-        fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 14));
         fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 1));
+        fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 10));
         fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 2));
-        fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 15));
+        fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 3));
+        fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 17));
+        fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 18));
         fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 4));
-        fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 2));
-        fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 15));
-        fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 4));
+        fragmentList.add(OtcOrderFragment.newInstance(buyOrSell, 12));
 
         titleIndicatorView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.content_bg_color_grey));
         titleIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.tab_default), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(14, 14));

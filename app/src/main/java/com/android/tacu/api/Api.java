@@ -1119,7 +1119,9 @@ public interface Api {
             @Field("start") Integer start,
             @Field("size") Integer size,
             @Field("buyorsell") Integer buyorsell,//1买2卖
-            @Field("status") Integer status // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成  11 (1,2,3)12仲裁成功 13仲裁失败  14 (5,6,7,8,10,12,13) 15(3,9) 16（1,2,3,4,9)
+            // 1 待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成  12 裁决完成 13仲裁失败  14 (5,6,7,8,10,12,13) 15(3,9) 16（1,2,3,4,9)
+            // 17（6 拒绝订单 8放弃支付） 18（5 未确认超时取消 7 付款超时取消）
+            @Field("status") Integer status
     );
 
     /**
@@ -1245,6 +1247,7 @@ public interface Api {
     @FormUrlEncoded
     @POST("selectStatus")
     Observable<BaseModel<SelectStatusModel>> selectStatus(
-            @Field("merchantId") String merchantId
+            @Field("merchantId") String merchantId,
+            @Field("orderId") String orderId
     );
 }

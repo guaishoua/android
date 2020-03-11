@@ -976,7 +976,7 @@
     <string name="otc_order_finished">交易完成</string>
     <string name="otc_order_payed">订单支付</string>
     <string name="otc_order_coined">订单放币</string>
-    <string name="otc_order_cancel">取消放币</string>
+    <string name="otc_order_cancel">取消订单</string>
     <string name="otc_order_timeout">超时订单</string>
     <string name="otc_order_arbitration">仲裁订单</string>
     <string name="otc_order_adjude">裁决订单</string>
@@ -985,4 +985,16 @@
     <string name="online">在线</string>
     <string name="offline">离线</string>
     <string name="order_time">订单时间</string>
+    <string name="mobile">联系方式</string>
+    <string name="trade_price">交易金额</string>
+    <string name="duifang_shensu">对方申诉</string>
+    <string name="tijiao_shensu">提交申诉</string>
+    <string name="submited">已提交</string>
+    <string name="unsubmit">未提交</string>
+    <string name="arbitration_result1">仲裁结果</string>
+    <string name="arbitrationed">已裁定</string>
+
+    <string name="system_tip">系统提示</string>
+    <string name="shoper_offline">该商户已下线，请您返回OTC下单中心重新选择其他商户为您服务，感谢您的理解！</string>
+    <string name="shoper_doing">该商户正在接单，请您返回OTC下单中心重新选择其他商户为您服务，感谢您的理解！</string>
 </resources>

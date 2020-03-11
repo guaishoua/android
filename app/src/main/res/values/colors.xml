@@ -106,4 +106,9 @@
     <!--交易赛-->
     <color name="color_match">#7653CF</color>
     <color name="color_match2">#2D0889</color>
+
+    <color name="color_coined">#7CD499</color>
+    <color name="color_arbitration">#DE5252</color>
+    <color name="color_finish">#FFA11C</color>
+    <color name="color_arbitration_finish">#1887C0</color>
 </resources>

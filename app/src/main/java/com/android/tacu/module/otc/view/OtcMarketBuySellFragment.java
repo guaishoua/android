@@ -1,5 +1,6 @@
 package com.android.tacu.module.otc.view;
 
+import android.app.Dialog;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.android.tacu.module.otc.presenter.OtcMarketBuySellPresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.UIUtils;
+import com.android.tacu.widget.dialog.DroidDialog;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -80,6 +82,9 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     private List<OtcMarketOrderAllModel> allList = new ArrayList<>();
     private boolean isVisibleToUserParent = false;
     private boolean isFirst = true;
+
+    private DroidDialog offlineDialog;
+    private DroidDialog doingDialog;
 
     public static OtcMarketBuySellFragment newInstance(int currencyId, String currencyNameEn, boolean isBuy) {
         Bundle bundle = new Bundle();
@@ -165,6 +170,12 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         super.onDestroy();
         if (listPopup != null) {
             listPopup.dismiss();
+        }
+        if (offlineDialog != null && offlineDialog.isShowing()) {
+            offlineDialog.dismiss();
+        }
+        if (doingDialog != null && doingDialog.isShowing()) {
+            doingDialog.dismiss();
         }
     }
 
@@ -285,8 +296,31 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     }
 
     @Override
-    public void selectStatus(SelectStatusModel model) {
-
+    public void selectStatus(OtcMarketOrderAllModel item, SelectStatusModel model) {
+        if (model != null) {
+            if (model.merchantStatus == 0) {
+                showOffline();
+                return;
+            }
+            if (isBuy && model.orderNum != null && model.orderNum >= 5) {
+                showDoing();
+                return;
+            } else if (!isBuy && model.orderNum != null && model.orderNum >= 10) {
+                showDoing();
+                return;
+            }
+            if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
+                jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
+            } else {
+                jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
+            }
+        } else {
+            if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
+                jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
+            } else {
+                jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
+            }
+        }
     }
 
     private void upload(boolean isShowViewing, boolean isTop) {
@@ -385,6 +419,36 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         listPopup.show();
     }
 
+    private void showOffline() {
+        offlineDialog = new DroidDialog.Builder(getContext())
+                .title(getResources().getString(R.string.system_tip))
+                .content(getResources().getString(R.string.shoper_offline))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        droidDialog.dismiss();
+                    }
+                })
+                .cancelable(true, false)
+                .show();
+    }
+
+    private void showDoing() {
+        doingDialog = new DroidDialog.Builder(getContext())
+                .title(getResources().getString(R.string.system_tip))
+                .content(getResources().getString(R.string.shoper_doing))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        droidDialog.dismiss();
+                    }
+                })
+                .cancelable(true, false)
+                .show();
+    }
+
     public class OtcMarketBuySellAdapter extends BaseQuickAdapter<OtcMarketOrderAllModel, BaseViewHolder> {
 
         public OtcMarketBuySellAdapter() {
@@ -434,11 +498,11 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
 
             if (isBuy) {
                 holder.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_riseup));
-                holder.setText(R.id.btn,getResources().getString(R.string.goumai));
+                holder.setText(R.id.btn, getResources().getString(R.string.goumai));
                 ((QMUIRoundButtonDrawable) holder.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_riseup));
             } else {
                 holder.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_risedown));
-                holder.setText(R.id.btn,getResources().getString(R.string.chushou));
+                holder.setText(R.id.btn, getResources().getString(R.string.chushou));
                 ((QMUIRoundButtonDrawable) holder.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_risedown));
             }
 
@@ -446,11 +510,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 @Override
                 public void onClick(View v) {
                     if (!OtcDialogUtils.isDialogShow(getContext())) {
-                        if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
-                            jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
-                        } else {
-                            jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
-                        }
+                        mPresenter.selectStatus(item, String.valueOf(item.orderModel.uid), item.orderModel.id);
                     }
                 }
             });

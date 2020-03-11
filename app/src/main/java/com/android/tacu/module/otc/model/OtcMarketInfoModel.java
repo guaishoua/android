@@ -85,6 +85,9 @@ public class OtcMarketInfoModel implements Serializable {
     @SerializedName("applyMerchantStatus")
     public Integer applyMerchantStatus;
 
+    @SerializedName("mobile")
+    public String mobile;//联系方式
+
     @SerializedName("applyAuthMerchantStatus")
     public Integer applyAuthMerchantStatus;//申请认证商户状态 0未申请(默认) 1待审核 2审核成功 3审核失败
     @SerializedName("vip")
@@ -114,4 +117,6 @@ public class OtcMarketInfoModel implements Serializable {
     public String winDispute;
     @SerializedName("allTime")
     public String allTime;
+    @SerializedName("merchantStatus")
+    public Integer merchantStatus; //0=下线 1=上线
 }
