@@ -33,4 +33,59 @@ public class OtcManagePresenter extends BaseMvpPresenter implements OtcManageCon
             }
         });
     }
+
+    @Override
+    public void cancelOrder(String orderId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).cancelOrder(orderId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcManageContract.IChildView view = (OtcManageContract.IChildView) getView();
+                view.cancelOrderSuccess();
+            }
+        });
+    }
+
+    @Override
+    public void merchantoff() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).merchantoff(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcManageContract.IView view = (OtcManageContract.IView) getView();
+                view.merchantoff();
+            }
+        });
+    }
+
+    @Override
+    public void merchanton() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).merchanton(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcManageContract.IView view = (OtcManageContract.IView) getView();
+                view.merchanton();
+            }
+        });
+    }
+
+    @Override
+    public void unshow(String orderId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).unshow(orderId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcManageContract.IChildView view = (OtcManageContract.IChildView) getView();
+                view.unshow();
+            }
+        });
+    }
+
+    @Override
+    public void show(String orderId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).show(orderId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcManageContract.IChildView view = (OtcManageContract.IChildView) getView();
+                view.show();
+            }
+        });
+    }
 }

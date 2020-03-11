@@ -128,9 +128,11 @@ public class OtcMarketOrderModel implements Serializable {
     @SerializedName("aliPay")
     public String aliPay;
     @SerializedName("status")
-    public String status;
+    public Integer status;
     @SerializedName("createTime")
     public String createTime;
     @SerializedName("updateTime")
     public String updateTime;
+    @SerializedName("isshow")
+    public Integer isshow; //1=显示 0=挂起
 }

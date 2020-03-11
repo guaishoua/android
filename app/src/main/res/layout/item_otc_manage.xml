@@ -1,291 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/content_bg_color"
-    android:paddingVertical="@dimen/dp_10">
+    android:orientation="vertical">
 
-    <!-- <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-         android:id="@+id/img_coin"
-         android:layout_width="@dimen/dp_30"
-         android:layout_height="@dimen/dp_30"
-         android:layout_marginLeft="@dimen/dp_10"
-         app:layout_constraintLeft_toLeftOf="parent"
-         app:layout_constraintTop_toTopOf="parent"
-         app:qmui_border_width="0dp"
-         app:qmui_is_circle="true" />-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:paddingHorizontal="@dimen/dp_15">
 
-    <TextView
-        android:id="@+id/tv_coin_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_14"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="BTC" />
+        <TextView
+            android:id="@+id/tv_coin_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="BTC" />
 
-    <TextView
-        android:id="@+id/tv_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:textColor="@color/color_otc_buy"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintBottom_toBottomOf="@id/tv_coin_name"
-        app:layout_constraintLeft_toRightOf="@id/tv_coin_name"
-        tools:text="@string/buy" />
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textColor="@color/color_otc_buy"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_coin_name"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/buy" />
 
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:textColor="@color/text_grey"
-        android:textSize="@dimen/text_size_sp_12"
-        app:layout_constraintBottom_toBottomOf="@id/tv_status"
-        app:layout_constraintLeft_toRightOf="@id/tv_status"
-        tools:text="2019-10-19" />
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textColor="@color/color_otc_buy"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="进行中" />
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/content_bg_color_grey" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/dp_15"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/tv_coin_name"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_coin_name">
+        android:paddingHorizontal="@dimen/dp_15"
+        android:paddingVertical="@dimen/dp_12">
 
-        <ImageView
-            android:id="@+id/img_wx"
-            android:layout_width="@dimen/dp_16"
-            android:layout_height="@dimen/dp_16"
-            android:src="@mipmap/img_wx" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/img_zfb"
-            android:layout_width="@dimen/dp_16"
-            android:layout_height="@dimen/dp_16"
-            android:layout_marginLeft="@dimen/dp_3"
-            android:src="@mipmap/img_zfb" />
+            <TextView
+                android:id="@+id/tv_sell_thing_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/sell_thing"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
 
-        <ImageView
-            android:id="@+id/img_yhk"
-            android:layout_width="@dimen/dp_16"
-            android:layout_height="@dimen/dp_16"
-            android:layout_marginLeft="@dimen/dp_3"
-            android:src="@mipmap/img_yhk" />
+            <TextView
+                android:id="@+id/tv_sell_thing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+
+            <TextView
+                android:id="@+id/tv_price_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:includeFontPadding="false"
+                android:text="@string/single_price_acu_cny"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+
+            <TextView
+                android:id="@+id/tv_surplus_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:includeFontPadding="false"
+                android:text="@string/order_surplus"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
+
+            <TextView
+                android:id="@+id/tv_surplus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_order_number_tile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/order_number"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
+
+            <TextView
+                android:id="@+id/tv_order_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+
+            <TextView
+                android:id="@+id/tv_allamount_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:includeFontPadding="false"
+                android:text="@string/all_price"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
+
+            <TextView
+                android:id="@+id/tv_allamount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+
+            <TextView
+                android:id="@+id/tv_deposit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:includeFontPadding="false"
+                android:text="@string/frezon_deposit"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
+
+            <TextView
+                android:id="@+id/tv_deposit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+        </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:id="@+id/view_line"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:layout_marginTop="@dimen/dp_8"
-        android:background="@color/content_bg_color_grey"
-        app:layout_constraintTop_toBottomOf="@id/tv_coin_name" />
+        android:layout_height="@dimen/dp_45"
+        android:paddingHorizontal="@dimen/dp_15">
 
-    <TextView
-        android:id="@+id/tv_dealed_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:text="@string/dealed_status"
-        android:textColor="@color/text_grey"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_line"
-        app:layout_constraintWidth_percent="0.4" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_finish_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/finish_order"
-        android:textColor="@color/text_grey"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintBottom_toBottomOf="@id/tv_dealed_title"
-        app:layout_constraintLeft_toRightOf="@id/tv_dealed_title"
-        app:layout_constraintRight_toLeftOf="@+id/tv_wait_deal_title" />
+            <ImageView
+                android:id="@+id/img_wx"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
+                android:layout_marginRight="@dimen/dp_3"
+                android:src="@mipmap/img_wx" />
 
-    <TextView
-        android:id="@+id/tv_wait_deal_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/dp_15"
-        android:gravity="right"
-        android:text="@string/wait_deal_order"
-        android:textColor="@color/text_grey"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintBottom_toBottomOf="@id/tv_dealed_title"
-        app:layout_constraintLeft_toRightOf="@id/tv_finish_title"
-        app:layout_constraintRight_toRightOf="parent" />
+            <ImageView
+                android:id="@+id/img_zfb"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
+                android:layout_marginRight="@dimen/dp_3"
+                android:src="@mipmap/img_zfb" />
 
-    <TextView
-        android:id="@+id/tv_dealed"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_dealed_title"
-        app:layout_constraintWidth_percent="0.4"
-        tools:text="111" />
+            <ImageView
+                android:id="@+id/img_yhk"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
+                android:src="@mipmap/img_yhk" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_finish"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintBottom_toBottomOf="@id/tv_dealed"
-        app:layout_constraintLeft_toRightOf="@id/tv_dealed"
-        app:layout_constraintRight_toLeftOf="@+id/tv_wait_deal"
-        tools:text="111" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_wait_deal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/dp_15"
-        android:gravity="right"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintBottom_toBottomOf="@id/tv_dealed"
-        app:layout_constraintLeft_toRightOf="@id/tv_finish"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:text="111" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:text="@string/wait_operation"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
 
-    <View
-        android:id="@+id/view_line2"
+            <TextView
+                android:id="@+id/tv_wait_operation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_default"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@color/content_bg_color_grey"
-        app:layout_constraintTop_toBottomOf="@id/tv_dealed" />
+        android:layout_height="@dimen/dp_45"
+        android:gravity="right|center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_15">
 
-    <TextView
-        android:id="@+id/tv_num_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:text="@string/biao_num"
-        android:textColor="@color/text_grey"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_line2"
-        app:layout_constraintWidth_percent="0.4" />
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_look"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_26"
+            android:layout_marginRight="@dimen/dp_10"
+            android:paddingHorizontal="@dimen/dp_25"
+            android:text="@string/look"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_sp_12"
+            app:qmui_backgroundColor="@color/color_default"
+            app:qmui_radius="@dimen/dp_2" />
 
-    <TextView
-        android:id="@+id/tv_single_price_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/single_price_acu_cny"
-        android:textColor="@color/text_grey"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintBottom_toBottomOf="@id/tv_num_title"
-        app:layout_constraintLeft_toRightOf="@id/tv_num_title"
-        app:layout_constraintRight_toLeftOf="@+id/tv_surplus_amount_title" />
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_show"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_26"
+            android:layout_marginRight="@dimen/dp_10"
+            android:paddingHorizontal="@dimen/dp_25"
+            android:text="@string/hangup"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_size_sp_12"
+            app:qmui_borderColor="@color/text_default"
+            app:qmui_borderWidth="@dimen/dp_1"
+            app:qmui_radius="@dimen/dp_2" />
 
-    <TextView
-        android:id="@+id/tv_surplus_amount_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/dp_15"
-        android:gravity="right"
-        android:text="@string/biao_surplus_num"
-        android:textColor="@color/text_grey"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintBottom_toBottomOf="@id/tv_num_title"
-        app:layout_constraintLeft_toRightOf="@id/tv_single_price_title"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_num"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_num_title"
-        app:layout_constraintWidth_percent="0.4"
-        tools:text="111" />
-
-    <TextView
-        android:id="@+id/tv_single_price"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintBottom_toBottomOf="@id/tv_num"
-        app:layout_constraintLeft_toRightOf="@id/tv_num"
-        app:layout_constraintRight_toLeftOf="@+id/tv_surplus_amount"
-        tools:text="111" />
-
-    <TextView
-        android:id="@+id/tv_surplus_amount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/dp_15"
-        android:gravity="right"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintBottom_toBottomOf="@id/tv_num"
-        app:layout_constraintLeft_toRightOf="@id/tv_single_price"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:text="111" />
-
-    <TextView
-        android:id="@+id/tv_total_value_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:text="@string/total_value"
-        android:textColor="@color/text_grey"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_num"
-        app:layout_constraintWidth_percent="0.4" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/trading_limit"
-        android:textColor="@color/text_grey"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_total_value_title"
-        app:layout_constraintLeft_toRightOf="@+id/tv_total_value_title" />
-
-    <TextView
-        android:id="@+id/tv_total_value"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_total_value_title"
-        app:layout_constraintWidth_percent="0.4"
-        tools:text="123" />
-
-    <TextView
-        android:id="@+id/tv_trade_limit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_13"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_total_value"
-        app:layout_constraintLeft_toRightOf="@+id/tv_total_value"
-        tools:text="123" />
-</android.support.constraint.ConstraintLayout>
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_26"
+            android:paddingHorizontal="@dimen/dp_10"
+            android:text="@string/cancel_advertisement"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_sp_12"
+            app:qmui_backgroundColor="@color/color_grey"
+            app:qmui_radius="@dimen/dp_2" />
+    </LinearLayout>
+</LinearLayout>

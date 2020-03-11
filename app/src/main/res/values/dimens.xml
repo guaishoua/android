@@ -86,6 +86,7 @@
     <dimen name="dp_167">167dp</dimen>
     <dimen name="dp_200">200dp</dimen>
     <dimen name="dp_210">210dp</dimen>
+    <dimen name="dp_230">230dp</dimen>
     <dimen name="dp_240">240dp</dimen>
     <dimen name="dp_250">250dp</dimen>
     <dimen name="dp_280">280dp</dimen>

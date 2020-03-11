@@ -1230,6 +1230,15 @@ public interface Api {
     Observable<BaseModel> disclaimer();
 
     /**
+     * 下架广搞
+     */
+    @FormUrlEncoded
+    @POST("cancelOrder")
+    Observable<BaseModel> cancelOrder(
+            @Field("orderId") String orderId
+    );
+
+    /**
      * 商家下线
      */
     @POST("merchantoff")
@@ -1240,6 +1249,24 @@ public interface Api {
      */
     @POST("merchanton")
     Observable<BaseModel> merchanton();
+
+    /**
+     * 挂起订单
+     */
+    @FormUrlEncoded
+    @POST("unshow")
+    Observable<BaseModel> unshow(
+            @Field("orderId") String orderId
+    );
+
+    /**
+     * 取消挂起订单
+     */
+    @FormUrlEncoded
+    @POST("show")
+    Observable<BaseModel> show(
+            @Field("orderId") String orderId
+    );
 
     /**
      * 查看商家是否上线

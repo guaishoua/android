@@ -997,6 +997,19 @@
     <string name="go_pay1">去支付</string>
     <string name="confirm_coined">确认放币</string>
 
+    <string name="sell_thing">出售物</string>
+    <string name="order_number">订单量</string>
+    <string name="order_surplus">订单余额</string>
+    <string name="all_price">总价</string>
+    <string name="frezon_deposit">冻结保证金</string>
+    <string name="wait_operation">待操作</string>
+    <string name="look">查看</string>
+    <string name="hangup">挂起</string>
+    <string name="recovery">恢复</string>
+    <string name="cancel_advertisement">撤销该广告</string>
+    <string name="finished">已完成</string>
+    <string name="going">进行中</string>
+
     <string name="system_tip">系统提示</string>
     <string name="shoper_offline">该商户已下线，请您返回OTC下单中心重新选择其他商户为您服务，感谢您的理解！</string>
     <string name="shoper_doing">该商户正在接单，请您返回OTC下单中心重新选择其他商户为您服务，感谢您的理解！</string>

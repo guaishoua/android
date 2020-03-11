@@ -87,6 +87,9 @@ public class OwnCenterModel implements Serializable {
     @SerializedName("disclaimer")
     public Integer disclaimer;//0未点击 1已点击
 
+    @SerializedName("merchantStatus")
+    public Integer merchantStatus; //0=下线 1=上线
+
     public boolean getIsValidatePass() {
         if (isValidatePass == 1) {
             return true;

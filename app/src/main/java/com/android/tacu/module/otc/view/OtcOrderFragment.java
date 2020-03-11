@@ -143,7 +143,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(orderAdapter);
 
-        if (buyOrSell == 0 && orderStatus == 0) {
+        if (buyOrSell == 0) {
             isVisibleToUserParent = true;
         }
     }
@@ -413,6 +413,8 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                                     valueTime = DateUtils.string2Millis(item.tradeModel.confirmEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
                                     if (valueTime > 0) {
                                         timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_time)));
+                                    } else {
+                                        holder.setText(R.id.tv_time, getResources().getString(R.string.timeouted));
                                     }
                                 }
                             }
@@ -438,6 +440,8 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                                     valueTime = DateUtils.string2Millis(item.tradeModel.payEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
                                     if (valueTime > 0) {
                                         timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_time)));
+                                    } else {
+                                        holder.setText(R.id.tv_time, getResources().getString(R.string.timeouted));
                                     }
                                 }
                             }
@@ -469,6 +473,8 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                                         valueTime = DateUtils.string2Millis(item.tradeModel.transCoinEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
                                         if (valueTime > 0) {
                                             timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_time)));
+                                        } else {
+                                            holder.setText(R.id.tv_time, getResources().getString(R.string.timeouted));
                                         }
                                     }
                                 }
@@ -499,13 +505,15 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setGone(R.id.img_leftbottom, true);
                             holder.setGone(R.id.img_rightbottom, true);
                             holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
-                            holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_success);
+                            holder.setImageResource(R.id.img_rightbottom, R.drawable.icon_auth_success);
 
                             if (currentTime != null) {
                                 if (!TextUtils.isEmpty(item.tradeModel.arbitrationEndTime)) {
                                     valueTime = DateUtils.string2Millis(item.tradeModel.arbitrationEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
                                     if (valueTime > 0) {
                                         timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_time)));
+                                    } else {
+                                        holder.setText(R.id.tv_time, getResources().getString(R.string.timeouted));
                                     }
                                 }
                             }
@@ -545,6 +553,9 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setGone(R.id.img_leftbottom1, true);
                             holder.setGone(R.id.img_rightbottom1, true);
 
+                            holder.setImageResource(R.id.img_leftbottom1, R.drawable.icon_auth_success);
+                            holder.setImageResource(R.id.img_rightbottom1, R.drawable.icon_auth_success);
+
                             holder.setGone(R.id.tv_time_title, false);
                             holder.setGone(R.id.tv_time, false);
                             break;
@@ -563,7 +574,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setGone(R.id.img_leftbottom, true);
                             holder.setGone(R.id.img_rightbottom, true);
                             holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
-                            holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_success);
+                            holder.setImageResource(R.id.img_rightbottom, R.drawable.icon_auth_success);
 
                             holder.setGone(R.id.tv_time_title, false);
                             holder.setGone(R.id.tv_time, false);

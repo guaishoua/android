@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.android.tacu.R;
-import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcManageContract;
 import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
@@ -151,6 +150,21 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
         }
     }
 
+    @Override
+    public void cancelOrderSuccess() {
+        upload(true, true);
+    }
+
+    @Override
+    public void unshow() {
+        upload(true, true);
+    }
+
+    @Override
+    public void show() {
+        upload(true, true);
+    }
+
     private void upload(boolean isShowView, boolean isTop) {
         if (isFirst) {
             isFirst = false;
@@ -180,7 +194,39 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
                 holder.setText(R.id.tv_status, getResources().getString(R.string.sell));
                 holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.color_otc_sell));
             }
-            holder.setText(R.id.tv_time, item.createTime);
+
+            holder.setGone(R.id.btn_look, true);
+            holder.setGone(R.id.btn_show, true);
+            holder.setGone(R.id.btn_cancel, true);
+            holder.setText(R.id.btn_show, getResources().getString(R.string.hangup));
+
+            if (item.status != null && item.status == 2) {
+                holder.setText(R.id.tv_type, getResources().getString(R.string.finished));
+                holder.setTextColor(R.id.tv_type, ContextCompat.getColor(mContext, R.color.text_color));
+                holder.setGone(R.id.btn_show, false);
+                holder.setGone(R.id.btn_cancel, false);
+            } else if (item.isshow != null && item.isshow == 0) {
+                holder.setText(R.id.tv_type, getResources().getString(R.string.hangup));
+                holder.setTextColor(R.id.tv_type, ContextCompat.getColor(mContext, R.color.text_default));
+                holder.setText(R.id.btn_show, getResources().getString(R.string.recovery));
+            } else {
+                holder.setText(R.id.tv_type, getResources().getString(R.string.going));
+                holder.setTextColor(R.id.tv_type, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+            }
+
+            holder.setText(R.id.tv_sell_thing_title, getResources().getString(R.string.sell_thing) + "(" + item.currencyName + ")");
+            holder.setText(R.id.tv_allamount_title, getResources().getString(R.string.all_price) + "(" + item.currencyName + ")");
+            holder.setText(R.id.tv_surplus_title, getResources().getString(R.string.order_surplus) + "(" + item.currencyName + ")");
+            holder.setText(R.id.tv_deposit_title, getResources().getString(R.string.frezon_deposit) + "(" + item.currencyName + ")");
+
+            holder.setText(R.id.tv_sell_thing, item.num);
+            holder.setText(R.id.tv_price, item.price);
+            holder.setText(R.id.tv_surplus, item.remainAmount);
+            holder.setText(R.id.tv_order_number, item.finishNum);
+            holder.setText(R.id.tv_allamount, item.amount);
+            holder.setText(R.id.tv_deposit, item.bondFreezeAmount);
+            holder.setText(R.id.tv_wait_operation, item.waitNum);
+
             if (item.payByCard != null && item.payByCard == 1) {
                 holder.setGone(R.id.img_yhk, true);
             } else {
@@ -197,29 +243,29 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
                 holder.setGone(R.id.img_zfb, false);
             }
 
-            holder.setText(R.id.tv_dealed_title, getResources().getString(R.string.dealed_status) + "(" + item.currencyName + ")");
-            holder.setText(R.id.tv_dealed, item.tradeAmount);
-            holder.setText(R.id.tv_finish, item.finishNum);
-            holder.setText(R.id.tv_wait_deal, item.waitNum);
-
-            holder.setText(R.id.tv_num_title, getResources().getString(R.string.biao_num) + "(" + item.currencyName + ")");
-            holder.setText(R.id.tv_num, item.num);
-            holder.setText(R.id.tv_single_price, item.price);
-            holder.setText(R.id.tv_surplus_amount_title, getResources().getString(R.string.biao_surplus_num) + "(" + item.currencyName + ")");
-            holder.setText(R.id.tv_surplus_amount, item.remainAmount);
-
-            String valueWei = " " + Constant.CNY;
-            if (item.money == 1) {
-                valueWei = " " + Constant.CNY;
-            }
-            holder.setText(R.id.tv_total_value_title, getResources().getString(R.string.total_value) + "(" + valueWei + ")");
-            holder.setText(R.id.tv_total_value, item.amount);
-            holder.setText(R.id.tv_trade_limit, item.lowLimit + "~" + item.highLimit);
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.setOnClickListener(R.id.btn_look, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.id));
+                }
+            });
+
+            holder.setOnClickListener(R.id.btn_show, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //1=显示 0=挂起
+                    if (item.isshow != null && item.isshow == 0) {
+                        mPresenter.show(item.id);
+                    } else if (item.isshow != null && item.isshow == 1) {
+                        mPresenter.unshow(item.id);
+                    }
+                }
+            });
+
+            holder.setOnClickListener(R.id.btn_cancel, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPresenter.cancelOrder(item.id);
                 }
             });
         }
