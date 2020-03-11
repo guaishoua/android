@@ -153,16 +153,6 @@ public class FinishView implements View.OnClickListener {
                 tv_order_finish.setVisibility(View.VISIBLE);
                 tv_order_finish_status.setVisibility(View.VISIBLE);
                 tv_order_finish.setText(tradeModel.updateTime);
-
-                if (status != null) {
-                    switch (status) {
-                        case 12:
-                        case 13:
-                            tv_order_finish_status.setText(activity.getResources().getString(R.string.not_coined));
-                            tv_order_finish_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_sell));
-                            break;
-                    }
-                }
             } else {
                 tv_order_finish.setVisibility(View.GONE);
                 tv_order_finish_status.setVisibility(View.GONE);
@@ -180,11 +170,6 @@ public class FinishView implements View.OnClickListener {
                 case 10:
                     img_trade_get.setImageResource(R.drawable.icon_auth_success);
                     img_trade_coin.setImageResource(R.drawable.icon_auth_success);
-                    break;
-                case 11:
-                case 12:
-                    img_trade_get.setImageResource(R.drawable.icon_auth_success);
-                    img_trade_coin.setImageResource(R.drawable.icon_auth_failure);
                     break;
             }
         }

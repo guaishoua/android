@@ -142,6 +142,11 @@ public class ArbitrationView implements View.OnClickListener {
             lin_upload.setVisibility(View.VISIBLE);
             btn_submit_arbitration.setVisibility(View.VISIBLE);
             lin_coin.setVisibility(View.GONE);
+        }else if (status == OtcOrderDetailActivity.ORDER_ARBITRATION_SUCCESS){
+            edit_submit_arbitration.setVisibility(View.GONE);
+            lin_upload.setVisibility(View.GONE);
+            btn_submit_arbitration.setVisibility(View.GONE);
+            lin_coin.setVisibility(View.GONE);
         }
 
         img_voucher.setOnClickListener(this);

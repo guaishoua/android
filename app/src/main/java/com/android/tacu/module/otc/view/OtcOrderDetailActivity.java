@@ -55,7 +55,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     public static final int ORDER_ARBITRATION_SELL = 8;//卖方仲裁中
     private static final int ORDER_CANCEL = 9;//取消
     private static final int ORDER_TIMEOUT = 10;//超时
-    private static final int ORDER_ARBITRATION_SUCCESS = 11;//裁决成功
+    public static final int ORDER_ARBITRATION_SUCCESS = 11;//裁决成功
 
     //接口30s轮训一次
     private static final int KREFRESH_TIME = 1000 * 30;
@@ -169,6 +169,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         break;
                     case ORDER_ARBITRATION_BUY:
                     case ORDER_ARBITRATION_SELL:
+                    case ORDER_ARBITRATION_SUCCESS:
                         if (arbitrationView != null) {
                             arbitrationView.getPic(fileOrgin);
                         }
@@ -222,16 +223,18 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         break;
                     case 5:
                     case 7:
-                        current = ORDER_CANCEL;
+                        current = ORDER_TIMEOUT;
                         break;
                     case 6:
                     case 8:
+                        current = ORDER_CANCEL;
                         break;
                     case 10:
+                        current = ORDER_FINISHED;
                         break;
                     case 12:
                     case 13:
-                        current = ORDER_FINISHED;
+                        current = ORDER_ARBITRATION_SUCCESS;
                         break;
                 }
                 if (!status.equals(model.status)) {
@@ -256,9 +259,12 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         mPresenter.currentTime();
                         mPresenter.uselectUserInfo(model.payInfo);
                         break;
+                    case ORDER_CANCEL:
+                    case ORDER_TIMEOUT:
                     case ORDER_FINISHED:
                     case ORDER_ARBITRATION_BUY:
                     case ORDER_ARBITRATION_SELL:
+                    case ORDER_ARBITRATION_SUCCESS:
                         mPresenter.uselectUserInfo(model.payInfo);
                         break;
                 }
@@ -290,6 +296,8 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                         coinGetView.selectTradeOne(model);
                     }
                     break;
+                case ORDER_CANCEL:
+                case ORDER_TIMEOUT:
                 case ORDER_FINISHED:
                     if (finishView != null) {
                         finishView.selectTradeOne(model);
@@ -297,6 +305,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     break;
                 case ORDER_ARBITRATION_BUY:
                 case ORDER_ARBITRATION_SELL:
+                case ORDER_ARBITRATION_SUCCESS:
                     if (arbitrationView != null) {
                         arbitrationView.selectTradeOne(model);
                     }
@@ -385,6 +394,8 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     coinGetView.uselectUserInfo(imageUrl);
                 }
                 break;
+            case ORDER_CANCEL:
+            case ORDER_TIMEOUT:
             case ORDER_FINISHED:
                 if (finishView != null) {
                     finishView.uselectUserInfo(imageUrl);
@@ -392,6 +403,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 break;
             case ORDER_ARBITRATION_BUY:
             case ORDER_ARBITRATION_SELL:
+            case ORDER_ARBITRATION_SUCCESS:
                 if (arbitrationView != null) {
                     arbitrationView.uselectUserInfo(imageUrl);
                 }
@@ -404,6 +416,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
         switch (current) {
             case ORDER_ARBITRATION_BUY:
             case ORDER_ARBITRATION_SELL:
+            case ORDER_ARBITRATION_SUCCESS:
                 if (arbitrationView != null) {
                     arbitrationView.uselectUserInfoArbitration(type, imageUrl);
                 }
@@ -438,6 +451,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     break;
                 case ORDER_ARBITRATION_BUY:
                 case ORDER_ARBITRATION_SELL:
+                case ORDER_ARBITRATION_SUCCESS:
                     if (arbitrationView != null) {
                         arbitrationView.uploadImgs(mOss, bucketName);
                     }
@@ -516,15 +530,27 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 statusView = coinGetView.create(this, mPresenter, status);
                 nodeProgress.setCurentNode(2);
                 break;
+            case ORDER_CANCEL:
+            case ORDER_TIMEOUT:
             case ORDER_FINISHED://已完成
-                mTopBar.setTitle(getResources().getString(R.string.otc_order_finished));
+                if (current == ORDER_CANCEL) {
+                    mTopBar.setTitle(getResources().getString(R.string.otc_order_cancel));
+                } else if (current == ORDER_TIMEOUT) {
+                    mTopBar.setTitle(getResources().getString(R.string.otc_order_timeout));
+                } else if (current == ORDER_FINISHED) {
+                    mTopBar.setTitle(getResources().getString(R.string.otc_order_finished));
+                }
                 finishView = new FinishView();
                 statusView = finishView.create(this, status);
                 nodeProgress.setCurentNode(4);
                 break;
             case ORDER_ARBITRATION_BUY://仲裁中
             case ORDER_ARBITRATION_SELL:
+            case ORDER_ARBITRATION_SUCCESS:
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_arbitration));
+                if (current == ORDER_ARBITRATION_SUCCESS) {
+                    mTopBar.setTitle(getResources().getString(R.string.otc_order_adjude));
+                }
                 arbitrationView = new ArbitrationView();
                 statusView = arbitrationView.create(this, mPresenter, current);
                 nodeProgress.setCurentNode(4);
