@@ -7,7 +7,10 @@ import com.android.tacu.base.BaseModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.login.model.LoginModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
+import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.SPUtils;
+import com.qiyukf.unicorn.api.Unicorn;
+import com.qiyukf.unicorn.api.YSFUserInfo;
 
 import java.util.List;
 
@@ -45,6 +48,15 @@ public class UserManageUtils {
         }
     }
 
+    public static void loginUnicorn(OwnCenterModel model) {
+        YSFUserInfo userInfo = new YSFUserInfo();
+        if (model != null) {
+            userInfo.userId = String.valueOf(model.uid);
+            userInfo.data = CommonUtils.userInfoData(model.nickname, model.phone, model.email, CommonUtils.getHead(model.headImg)).toJSONString();
+            Unicorn.setUserInfo(userInfo);
+        }
+    }
+
     /**
      * 退出登录
      */
@@ -53,6 +65,7 @@ public class UserManageUtils {
         if ((curHappenTime - lastHappenTime) >= MIN_HAPPEN_DELAY_TIME) {
             lastHappenTime = curHappenTime;
             clearUserInfo();
+            //Unicorn.logout();
         }
     }
 

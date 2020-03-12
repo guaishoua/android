@@ -519,3 +519,7 @@ public static java.lang.String TABLENAME;
 -keep class com.alibaba.sdk.android.**{*;}
 -keep class com.alibaba.security.biometrics.**{*;}
 -keep class android.taobao.windvane.**{*;}
+
+# 网易七鱼
+-dontwarn com.qiyukf.**
+-keep class com.qiyukf.** {*;}

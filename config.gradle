@@ -125,6 +125,8 @@ ext {
             ZzHorizontalProgressBar      : "me.zhouzhuo.zzhorizontalprogressbar:zz-horizontal-progressbar:1.1.0",
             //银行卡扫描
             CardIo                       : "io.card:android-sdk:5.5.1",
+            //网易七鱼
+            unicorn                      : "com.qiyukf.unicorn:unicorn:5.7.3"
     ]
 
     //Support库

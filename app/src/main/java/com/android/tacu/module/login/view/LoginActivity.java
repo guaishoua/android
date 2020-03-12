@@ -183,7 +183,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void ownCenterSuccess(OwnCenterModel model) {
         if (model != null) {
             UserManageUtils.setPersonInfo(model);
-
+           // UserManageUtils.loginUnicorn(model);
             getMustNeed();
         }
     }

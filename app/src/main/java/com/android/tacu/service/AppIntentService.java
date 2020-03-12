@@ -7,7 +7,11 @@ import android.support.annotation.Nullable;
 
 import com.alibaba.security.rp.RPSDK;
 import com.android.tacu.BuildConfig;
+import com.android.tacu.view.GlideImageLoader;
 import com.mob.MobSDK;
+import com.qiyukf.unicorn.api.StatusBarNotificationConfig;
+import com.qiyukf.unicorn.api.Unicorn;
+import com.qiyukf.unicorn.api.YSFOptions;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.sdk.QbSdk;
 import com.zendesk.logger.Logger;
@@ -45,6 +49,8 @@ public class AppIntentService extends IntentService {
             zendeskSetting();
             //阿里实人认证
             aliAuthSetting();
+            //网易七鱼
+            unicornSetting();
 
             //内存检测
             //leakcanarySetting();
@@ -101,8 +107,21 @@ public class AppIntentService extends IntentService {
     /**
      * 阿里实人认证
      */
-    private void aliAuthSetting(){
+    private void aliAuthSetting() {
         RPSDK.initialize(this);
+    }
+
+    /**
+     * 网易七鱼
+     */
+    private void unicornSetting() {
+        Unicorn.init(this, "eedf7e8f29b1b8c6d7b4248b40cac399", options(), new GlideImageLoader(this));
+    }
+
+    private YSFOptions options() {
+        YSFOptions options = new YSFOptions();
+        options.statusBarNotificationConfig = new StatusBarNotificationConfig();
+        return options;
     }
 
     /**

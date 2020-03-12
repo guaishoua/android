@@ -14,6 +14,8 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.MyApplication;
@@ -284,5 +286,31 @@ public class CommonUtils {
         return myName;
     }
 
+    public static JSONArray userInfoData(String nickname, String mobile, String email, String avatar) {
+        JSONArray array = new JSONArray();
+        array.add(userInfoDataItem("real_name", nickname, false, -1, null, null)); // 昵称
+        array.add(userInfoDataItem("mobile_phone", mobile, false, -1, null, null)); // 手机号
+        array.add(userInfoDataItem("email", email, false, -1, null, null)); // 邮箱
+        array.add(userInfoDataItem("avatar", avatar, false, -1, null, null)); // 头像
+        return array;
+    }
 
+    private static JSONObject userInfoDataItem(String key, Object value, boolean hidden, int index, String label, String href) {
+        JSONObject item = new JSONObject();
+        item.put("key", key);
+        item.put("value", value);
+        if (hidden) {
+            item.put("hidden", true);
+        }
+        if (index >= 0) {
+            item.put("index", index);
+        }
+        if (!TextUtils.isEmpty(label)) {
+            item.put("label", label);
+        }
+        if (!TextUtils.isEmpty(href)) {
+            item.put("href", href);
+        }
+        return item;
+    }
 }

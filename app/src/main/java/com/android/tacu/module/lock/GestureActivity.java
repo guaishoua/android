@@ -134,7 +134,7 @@ public class GestureActivity extends BaseActivity<LoginPresenter> implements Log
     public void ownCenterSuccess(OwnCenterModel model) {
         if (model != null) {
             UserManageUtils.setPersonInfo(model);
-
+            //UserManageUtils.loginUnicorn(model);
             getMustNeed();
         }
     }
