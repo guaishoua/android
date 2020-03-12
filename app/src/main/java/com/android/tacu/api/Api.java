@@ -1009,11 +1009,8 @@ public interface Api {
     /**
      * otc交易手续费
      */
-    @FormUrlEncoded
-    @POST("selectFee")
-    Observable<BaseModel<OtcSelectFeeModel>> selectFee(
-            @Field("currencyId") Integer currencyId
-    );
+    @POST("selectBondFreerate")
+    Observable<BaseModel<OtcSelectFeeModel>> selectBondFreerate();
 
     /**
      * 交易市场

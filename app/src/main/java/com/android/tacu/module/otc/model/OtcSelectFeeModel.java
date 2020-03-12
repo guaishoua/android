@@ -6,20 +6,12 @@ import java.io.Serializable;
 
 public class OtcSelectFeeModel implements Serializable {
 
+    @SerializedName("id")
+    public Integer id;
     @SerializedName("marketCurrencyId")
-    public Integer marketCurrencyId;
-    @SerializedName("otcUserType")
-    public Integer otcUserType;
-    @SerializedName("buyFee")
-    public Double buyFee;
-    @SerializedName("buyType")
-    public Integer buyType;
-    @SerializedName("sellFee")
-    public Double sellFee;
-    @SerializedName("sellType")
-    public Integer sellType;
-    @SerializedName("createTime")
-    public String createTime;
-    @SerializedName("updateTime")
-    public String updateTime;
+    public Integer marketCurrencyId;  //市场币种id
+    @SerializedName("marketCurrencyName")
+    public String marketCurrencyName; //市场币种名称
+    @SerializedName("bondRate")
+    public Double bondRate;      //保证金比例
 }

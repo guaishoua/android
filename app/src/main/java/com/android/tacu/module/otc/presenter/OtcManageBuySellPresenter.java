@@ -28,12 +28,12 @@ public class OtcManageBuySellPresenter extends BaseMvpPresenter implements OtcMa
     }
 
     @Override
-    public void selectFee(boolean isShowView, Integer currencyId) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectFee(currencyId), new NetDisposableObserver<BaseModel<OtcSelectFeeModel>>((IBaseMvpView) getView(), isShowView) {
+    public void selectBondFreerate(boolean isShowView) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBondFreerate(), new NetDisposableObserver<BaseModel<OtcSelectFeeModel>>((IBaseMvpView) getView(), isShowView) {
             @Override
             public void onNext(BaseModel<OtcSelectFeeModel> model) {
                 OtcManageBuySellContract.IChildView view = (OtcManageBuySellContract.IChildView) getView();
-                view.selectFee(model.attachment);
+                view.selectBondFreerate(model.attachment);
             }
         });
     }

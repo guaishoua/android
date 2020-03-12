@@ -15,7 +15,7 @@ public class OtcManageBuySellContract {
     }
 
     public interface IChildView extends IBaseMvpView {
-        void selectFee(OtcSelectFeeModel model);
+        void selectBondFreerate(OtcSelectFeeModel model);
 
         void BondAccount(OtcAmountModel model);
 
@@ -29,7 +29,7 @@ public class OtcManageBuySellContract {
     public interface IPresenter {
         void selectBank();
 
-        void selectFee(boolean isShowView, Integer currencyId);
+        void selectBondFreerate(boolean isShowView);
 
         void BondAccount(boolean isShowView, int currencyId);
 

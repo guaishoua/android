@@ -157,7 +157,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
                         if (otcSelectFeeModel != null) {
                             double value;
                             if (!isBuy) {
-                                value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.sellFee);
+                                value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.bondRate);
                                 tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
                             }
                         }
@@ -185,7 +185,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
                         if (otcSelectFeeModel != null) {
                             double value;
                             if (!isBuy) {
-                                value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.sellFee);
+                                value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.bondRate);
                                 tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
                             }
                         }
@@ -335,13 +335,11 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     }
 
     @Override
-    public void selectFee(OtcSelectFeeModel model) {
+    public void selectBondFreerate(OtcSelectFeeModel model) {
         this.otcSelectFeeModel = model;
         if (model != null) {
             if (!isBuy) {
-                if (model.sellType != null && model.sellFee != null) {
-                    tv_deal_fee.setText((model.sellType == 2 ? BigDecimal.valueOf(model.sellFee * 100).toPlainString() + "%" : BigDecimal.valueOf(model.sellFee).toPlainString()));
-                }
+                tv_deal_fee.setText(BigDecimal.valueOf(model.bondRate * 100).toPlainString() + "%");
             }
         }
     }
@@ -398,7 +396,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     private void upload() {
         if (isVisibleToUser) {
             if (!isBuy) {
-                mPresenter.selectFee(isFirst, param.currencyId);
+                mPresenter.selectBondFreerate(isFirst);
             }
             mPresenter.BondAccount(isFirst, param.currencyId);
             mPresenter.OtcAccount(isFirst, param.currencyId);
