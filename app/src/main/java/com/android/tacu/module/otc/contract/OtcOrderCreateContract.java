@@ -9,7 +9,7 @@ import java.util.List;
 public class OtcOrderCreateContract {
 
     public interface IView extends IBaseMvpView {
-        void userBaseInfo(boolean isBuy, OtcMarketInfoModel model);
+        void userBaseInfo(boolean isBuy, OtcMarketInfoModel model, Integer queryUid);
 
         void selectBank(List<PayInfoModel> list);
 

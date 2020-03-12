@@ -1027,4 +1027,6 @@
     <string name="asset_history">资产流水</string>
     <string name="to">向</string>
     <string name="margin_account">保证金账户</string>
+    <string name="hide">隐藏</string>
+    <string name="show">展开</string>
 </resources>

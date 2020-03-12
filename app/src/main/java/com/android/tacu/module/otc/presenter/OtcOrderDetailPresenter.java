@@ -27,12 +27,12 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
     }
 
     @Override
-    public void userBaseInfo(final Integer buyOrSell, Integer queryUid) {
+    public void userBaseInfo(final Integer buyOrSell, final Integer queryUid) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).userBaseInfo(queryUid), new NetDisposableObserver<BaseModel<OtcMarketInfoModel>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<OtcMarketInfoModel> model) {
                 OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
-                view.userBaseInfo(buyOrSell, model.attachment);
+                view.userBaseInfo(buyOrSell, model.attachment, queryUid);
             }
         });
     }

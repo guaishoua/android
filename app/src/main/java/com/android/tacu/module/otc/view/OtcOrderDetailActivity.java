@@ -315,12 +315,12 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     }
 
     @Override
-    public void userBaseInfo(Integer buyOrSell, OtcMarketInfoModel model) {
+    public void userBaseInfo(Integer buyOrSell, OtcMarketInfoModel model, Integer queryUid) {
         if (model != null) {
             if (buyOrSell != null && buyOrSell == 1) {//买
-                setBuyValue(model);
+                setBuyValue(model, queryUid);
             } else if (buyOrSell != null && buyOrSell == 2) {
-                setSellValue(model);
+                setSellValue(model, queryUid);
             }
             if (buyOrSell == null) {
                 switch (current) {

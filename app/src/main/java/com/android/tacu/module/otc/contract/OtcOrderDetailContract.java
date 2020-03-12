@@ -11,7 +11,7 @@ public class OtcOrderDetailContract {
     public interface IView extends IBaseMvpView {
         void selectTradeOne(boolean isFirst, OtcTradeModel model);
 
-        void userBaseInfo(Integer buyOrSell, OtcMarketInfoModel model);
+        void userBaseInfo(Integer buyOrSell, OtcMarketInfoModel model, Integer queryUid);
 
         void currentTime(Long time);
 

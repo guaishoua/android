@@ -16,12 +16,12 @@ import java.util.List;
 public class OtcOrderCreatePresenter extends BaseMvpPresenter implements OtcOrderCreateContract.IPresenter {
 
     @Override
-    public void userBaseInfo(final boolean isBuy, Integer queryUid) {
+    public void userBaseInfo(final boolean isBuy, final Integer queryUid) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).userBaseInfo(queryUid), new NetDisposableObserver<BaseModel<OtcMarketInfoModel>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<OtcMarketInfoModel> model) {
                 OtcOrderCreateContract.IView view = (OtcOrderCreateContract.IView) getView();
-                view.userBaseInfo(isBuy, model.attachment);
+                view.userBaseInfo(isBuy, model.attachment, queryUid);
             }
         });
     }

@@ -4,6 +4,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,11 +19,30 @@ import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.MathHelper;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extends BaseActivity<P> {
+
+    @BindView(R.id.view_top)
+    QMUIRoundConstraintLayout view_top;
+    @BindView(R.id.view_center)
+    QMUIRoundConstraintLayout view_center;
+    @BindView(R.id.view_bottom)
+    QMUIRoundLinearLayout view_bottom;
+
+    @BindView(R.id.img_people_top)
+    ImageView img_people_top;
+    @BindView(R.id.tv_people_nickname_top)
+    TextView tv_people_nickname_top;
+    @BindView(R.id.img_people_vip_top)
+    ImageView img_people_vip_top;
+    @BindView(R.id.rl_people_bg_top)
+    QMUIRoundRelativeLayout rl_people_bg_top;
 
     @BindView(R.id.img_people)
     ImageView img_people;
@@ -79,6 +99,20 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
     @BindView(R.id.rl_people_bg)
     QMUIRoundRelativeLayout rl_people_bg;
 
+    @OnClick(R.id.tv_open)
+    void openClick() {
+        view_top.setVisibility(View.GONE);
+        view_center.setVisibility(View.VISIBLE);
+        view_bottom.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.tv_hide)
+    void hideClick() {
+        view_top.setVisibility(View.VISIBLE);
+        view_center.setVisibility(View.GONE);
+        view_bottom.setVisibility(View.GONE);
+    }
+
     /**
      * @param notOwnBuyOrSell //1买 2卖  确认对方是买还是卖
      */
@@ -86,6 +120,7 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
         if (notOwnBuyOrSell == 1) {
             tv_people_pay_title.setText(getResources().getString(R.string.buy_pay));
             ((QMUIRoundButtonDrawable) rl_people_bg.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_buy_bg));
+            ((QMUIRoundButtonDrawable) rl_people_bg_top.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_buy_bg));
             tv_people_pay.setTextColor(ContextCompat.getColorStateList(this, R.color.color_otc_buy_bg));
             if (model != null) {
                 tv_people_pay.setText(model.amount + "CNY");
@@ -93,6 +128,7 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
         } else if (notOwnBuyOrSell == 2) {
             tv_people_pay_title.setText(getResources().getString(R.string.sell_pay));
             ((QMUIRoundButtonDrawable) rl_people_bg.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_sell_bg));
+            ((QMUIRoundButtonDrawable) rl_people_bg_top.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_sell_bg));
             tv_people_pay.setTextColor(ContextCompat.getColorStateList(this, R.color.color_otc_sell_bg));
             if (model != null) {
                 tv_people_pay.setText(model.num + " " + model.currencyName);
@@ -110,6 +146,16 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
                 img_people_vip.setImageResource(R.drawable.icon_vip_grey);
             } else if (infoModel.vip != null && infoModel.vip != 0) {
                 img_people_vip.setImageResource(R.mipmap.img_vip_green);
+            }
+
+            GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_people_top);
+            tv_people_nickname_top.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+            if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
+                img_people_vip_top.setImageResource(R.drawable.icon_vip);
+            } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
+                img_people_vip_top.setImageResource(R.drawable.icon_vip_grey);
+            } else if (infoModel.vip != null && infoModel.vip != 0) {
+                img_people_vip_top.setImageResource(R.mipmap.img_vip_green);
             }
 
             if (infoModel.isValidatePhone != null && infoModel.isValidatePhone == 1) {

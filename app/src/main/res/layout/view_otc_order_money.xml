@@ -9,9 +9,73 @@
     app:qmui_backgroundColor="@color/content_bg_color"
     app:qmui_radius="@dimen/dp_3">
 
-    <android.support.constraint.ConstraintLayout
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout
+        android:id="@+id/view_top"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_100">
+        android:layout_height="@dimen/dp_45"
+        app:qmui_backgroundColor="@color/content_bg_color"
+        app:qmui_radius="@dimen/dp_3">
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/img_people_top"
+            android:layout_width="@dimen/dp_28"
+            android:layout_height="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_border_width="@dimen/dp_0"
+            app:qmui_is_circle="true" />
+
+        <TextView
+            android:id="@+id/tv_people_nickname_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_15"
+            app:layout_constraintBottom_toBottomOf="@id/img_people_top"
+            app:layout_constraintLeft_toRightOf="@id/img_people_top"
+            app:layout_constraintTop_toTopOf="@id/img_people_top"
+            tools:text="加隆" />
+
+        <ImageView
+            android:id="@+id/img_people_vip_top"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:layout_marginLeft="@dimen/dp_10"
+            app:layout_constraintBottom_toBottomOf="@id/tv_people_nickname_top"
+            app:layout_constraintLeft_toRightOf="@id/tv_people_nickname_top"
+            app:layout_constraintTop_toTopOf="@id/tv_people_nickname_top"
+            tools:srcCompat="@drawable/icon_vip" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
+            android:id="@+id/rl_people_bg_top"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="match_parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:qmui_radiusBottomRight="@dimen/dp_3"
+            app:qmui_radiusTopRight="@dimen/dp_3" />
+
+        <TextView
+            android:id="@+id/tv_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:drawableRight="@drawable/icon_arrow_down_white"
+            android:drawablePadding="@dimen/dp_5"
+            android:text="@string/show"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/rl_people_bg_top"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/view_center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:visibility="gone">
 
         <com.qmuiteam.qmui.widget.QMUIRadiusImageView
             android:id="@+id/img_seller"
@@ -44,6 +108,19 @@
             app:layout_constraintLeft_toRightOf="@id/tv_seller_nickname"
             app:layout_constraintTop_toTopOf="@id/tv_seller_nickname"
             tools:srcCompat="@drawable/icon_vip" />
+
+        <TextView
+            android:id="@+id/tv_hide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:drawableRight="@drawable/icon_arrow_up_white"
+            android:drawablePadding="@dimen/dp_5"
+            android:text="@string/hide"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14"
+            app:layout_constraintBottom_toBottomOf="@id/img_seller"
+            app:layout_constraintRight_toLeftOf="@+id/rl_seller_bg" />
 
         <ImageView
             android:id="@+id/img_seller_phone_auth"
@@ -169,13 +246,17 @@
     </android.support.constraint.ConstraintLayout>
 
     <View
+        android:id="@+id/view_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/content_bg_color_grey" />
+        android:background="@color/content_bg_color_grey"
+        android:visibility="gone" />
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/view_bottom"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_100">
+        android:layout_height="@dimen/dp_100"
+        android:visibility="gone">
 
         <com.qmuiteam.qmui.widget.QMUIRadiusImageView
             android:id="@+id/img_buyer"
