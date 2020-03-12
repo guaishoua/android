@@ -123,10 +123,10 @@ public interface Api {
     @FormUrlEncoded
     @POST("resetPwdV2")
     Observable<BaseModel> resetPwd(
-            @Field("phoneCode") String phoneCode,
-            @Field("email") String email,
-            @Field("newPwd") String newPwd,
-            @Field("vercode") String vercode);
+            @Field("phoneCode") String phoneCode,//手机区号，如果是邮箱则这里穿空
+            @Field("email") String email,//手机号  邮箱
+            @Field("newPwd") String newPwd,//新密码
+            @Field("vercode") String vercode);//验证码
 
     /**
      * 注册前发送邮箱

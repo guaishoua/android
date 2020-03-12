@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -352,6 +353,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         } else {
             bond_string = "0";
         }
+        bond_string = FormatterUtils.getFormatRoundUp(2, bond_string);
         tv_margin_account.setText(defaultEyeStatus ? bond_string + Constant.ACU_CURRENCY_NAME : "*****");
     }
 
@@ -362,15 +364,19 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         } else {
             otc_string = "0";
         }
+        otc_string = FormatterUtils.getFormatRoundUp(2, otc_string);
         tv_otc_account.setText(defaultEyeStatus ? otc_string + Constant.ACU_CURRENCY_NAME : "*****");
         dealValue();
     }
 
     private void initReyclerView() {
         adapter = new AssetAdapter();
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.item_recyclerview_divider_dp10));
         adapter.setHeaderFooterEmpty(true, false);
         //添加分割线
         recyclerView.setLayoutManager(new LinearLayoutManager(getHostActivity()));
+        recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
     }
 
@@ -423,7 +429,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     private void upLoad(boolean isShowLoadingView) {
         mPresenter.getAssetDetails(isShowLoadingView);
         mPresenter.BondAccount(isShowLoadingView, Constant.ACU_CURRENCY_ID);
-        mPresenter.otcAmount(isShowLoadingView, Constant.ACU_CURRENCY_ID);
+        mPresenter.otcAmount(0, isShowLoadingView, Constant.ACU_CURRENCY_ID);
     }
 
     private void dealValue() {
@@ -443,35 +449,44 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         private List<String> otcList;
 
         public AssetAdapter() {
-            super(R.layout.item_asset_details_global);
+            super(R.layout.item_asset_details);
             otcList = Arrays.asList(Constant.OTCList);
         }
 
         @Override
         protected void convert(BaseViewHolder holder, final AssetDetailsModel.CoinListBean data) {
-            GlideUtils.disPlay(getContext(), Constant.SMALL_ICON_URL + data.icoUrl, (ImageView) holder.getView(R.id.iv_asset_item_icon));
-            holder.setText(R.id.iv_asset_item_coin_simple, data.currencyNameEn);
-            holder.setText(R.id.iv_asset_item_coin_full, String.format("(%s)", data.currencyName));
-            holder.setText(R.id.tv_asset_item_own_count, defaultEyeStatus ? BigDecimal.valueOf(data.amount).toPlainString() : "*****");
-            holder.setText(R.id.tv_asset_item_own_available, defaultEyeStatus ? BigDecimal.valueOf(data.cashAmount).toPlainString() : "*****");
-            holder.setText(R.id.tv_asset_item_freeze_count, defaultEyeStatus ? BigDecimal.valueOf(data.freezeAmount).toPlainString() : "*****");
-            String ycn = getMcM(data.currencyId, data.amount);
-            holder.setText(R.id.tv_assets_item_cny_value, defaultEyeStatus ? (TextUtils.isEmpty(ycn) ? "" : "≈" + ycn) : "*****");
-
+            GlideUtils.disPlay(getContext(), Constant.SMALL_ICON_URL + data.icoUrl, (ImageView) holder.getView(R.id.img_icon));
+            holder.setText(R.id.tv_icon_name, data.currencyNameEn);
+            holder.setText(R.id.tv_icon_name_full, String.format("(%s)", data.currencyName));
             if (otcList.contains(data.currencyNameEn)) {
-                holder.setGone(R.id.btn_transfer, true);
+                holder.setGone(R.id.img_info, true);
             } else {
-                holder.setGone(R.id.btn_transfer, false);
+                holder.setGone(R.id.img_info, false);
             }
 
-            holder.itemView.findViewById(R.id.tv_asset_item_recharge).setOnClickListener(new View.OnClickListener() {
+            holder.setText(R.id.tv_total_holdings_title, getResources().getString(R.string.total_holdings) + "(" + data.currencyNameEn + ")");
+            holder.setText(R.id.tv_available_title, getResources().getString(R.string.available_num) + "(" + data.currencyNameEn + ")");
+            holder.setText(R.id.tv_frozen_title, getResources().getString(R.string.frozen_num) + "(" + data.currencyNameEn + ")");
+
+            holder.setText(R.id.tv_total_holdings, defaultEyeStatus ? BigDecimal.valueOf(data.amount).toPlainString() : "*****");
+            String ycn = getMcM(data.currencyId, data.amount);
+            holder.setText(R.id.tv_total_holdings_rnb, defaultEyeStatus ? (TextUtils.isEmpty(ycn) ? "" : "≈" + ycn) : "*****");
+            holder.setText(R.id.tv_available, defaultEyeStatus ? BigDecimal.valueOf(data.cashAmount).toPlainString() : "*****");
+            holder.setText(R.id.tv_frozen, defaultEyeStatus ? BigDecimal.valueOf(data.freezeAmount).toPlainString() : "*****");
+
+            holder.setOnClickListener(R.id.img_info, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    jumpTo(AssetsInfoActivity.createActivity(mContext, data));
+                }
+            });
+            holder.setOnClickListener(R.id.btn_withdraw, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     jumpTo(AssetsActivity.createActivity(getHostActivity(), data.currencyNameEn, data.currencyId, 0, true));
                 }
             });
-
-            holder.itemView.findViewById(R.id.tv_asset_item_withdraw).setOnClickListener(new View.OnClickListener() {
+            holder.setOnClickListener(R.id.btn_platform_transfer, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!isKeyc()) {
@@ -480,8 +495,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                     jumpTo(AssetsActivity.createActivity(getHostActivity(), data.currencyNameEn, data.currencyId, 1, true));
                 }
             });
-
-            holder.itemView.findViewById(R.id.tv_asset_item_history).setOnClickListener(new View.OnClickListener() {
+            holder.setOnClickListener(R.id.btn_history, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     MoneyFlowEvent event = new MoneyFlowEvent(
@@ -495,12 +509,9 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
 
                     event.setType("0");
                     jumpTo(MoneyFlowActivity.createActivity(getHostActivity(), event));
-
-
                 }
             });
-
-            holder.itemView.findViewById(R.id.tv_asset_item_trade).setOnClickListener(new View.OnClickListener() {
+            holder.setOnClickListener(R.id.btn_go_trade, new View.OnClickListener() {
 
                 void sendEvent(MarketNewModel.TradeCoinsBean bean) {
                     EventManage.sendEvent(new BaseEvent<>(EventConstant.JumpTradeIsBuyCode, new JumpTradeCodeIsBuyEvent(bean.currencyId, bean.baseCurrencyId, bean.currencyNameEn, bean.baseCurrencyNameEn, true)));
@@ -546,16 +557,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                     } else {
                         showToastError(getResources().getString(R.string.msg_coin_picker_not_found, data.currencyNameEn));
                     }
-                }
-            });
-
-            holder.setOnClickListener(R.id.btn_transfer, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!isKeyc2()) {
-                        return;
-                    }
-                    jumpTo(AssetsActivity.createActivity(getHostActivity(), data.currencyNameEn, data.currencyId, 2, true));
                 }
             });
         }
@@ -629,14 +630,5 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                 break;
         }
         return boo;
-    }
-
-    private boolean isKeyc2() {
-        int flag = spUtil.getIsAuthSenior();
-        if (flag <= 1) {
-            showToastError(getString(R.string.please_get_the_level_of_KYC));
-            return false;
-        }
-        return true;
     }
 }

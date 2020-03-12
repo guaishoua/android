@@ -164,5 +164,6 @@
         <activity android:name="com.android.tacu.module.vip.view.RechargeDepositActivity" />
         <activity android:name="com.android.tacu.module.vip.view.DepositRecordActivity" />
         <activity android:name="com.android.tacu.module.vip.view.BuyVipActivity" />
+        <activity android:name="com.android.tacu.module.assets.view.AssetsInfoActivity" />
     </application>
 </manifest>
