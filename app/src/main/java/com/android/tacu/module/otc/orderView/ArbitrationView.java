@@ -1,9 +1,12 @@
 package com.android.tacu.module.otc.orderView;
 
+import android.app.Dialog;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +34,7 @@ import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.utils.user.UserInfoUtils;
+import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
@@ -46,7 +50,7 @@ public class ArbitrationView implements View.OnClickListener {
 
     private OtcOrderDetailActivity activity;
     private OtcOrderDetailPresenter mPresenter;
-    private int status;
+    private int current;
 
     private TextView tv_order_id;
     private TextView tv_pay_method;
@@ -79,6 +83,8 @@ public class ArbitrationView implements View.OnClickListener {
     private QMUIRoundButton btn_submit_arbitration;
     private QMUIRoundButton btn_return;
 
+    private ImageView img_trade_coin;
+
     private OtcTradeModel tradeModel;
     private String imageUrl;
     private String imageUrlAritrotion;
@@ -89,13 +95,14 @@ public class ArbitrationView implements View.OnClickListener {
     private UserInfoUtils spUtil;
 
     private List<OSSAsyncTask> ossAsynTaskList = new ArrayList<>();
+    private DroidDialog droidDialog;
 
     private Handler mHandler = new Handler();
 
-    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter, int status) {
+    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter, int current) {
         this.activity = activity;
         this.mPresenter = mPresenter;
-        this.status = status;
+        this.current = current;
         View statusView = View.inflate(activity, R.layout.view_otc_order_arbitration, null);
         initArbitrationView(statusView);
         return statusView;
@@ -132,17 +139,19 @@ public class ArbitrationView implements View.OnClickListener {
         btn_submit_arbitration = view.findViewById(R.id.btn_submit_arbitration);
         btn_return = view.findViewById(R.id.btn_return);
 
-        if (status == OtcOrderDetailActivity.ORDER_ARBITRATION_BUY) {
+        img_trade_coin = view.findViewById(R.id.img_trade_coin);
+
+        if (current == OtcOrderDetailActivity.ORDER_ARBITRATION_BUY) {
             edit_submit_arbitration.setVisibility(View.GONE);
             lin_upload.setVisibility(View.GONE);
             btn_submit_arbitration.setVisibility(View.GONE);
             lin_coin.setVisibility(View.VISIBLE);
-        } else if (status == OtcOrderDetailActivity.ORDER_ARBITRATION_SELL) {
+        } else if (current == OtcOrderDetailActivity.ORDER_ARBITRATION_SELL) {
             edit_submit_arbitration.setVisibility(View.VISIBLE);
             lin_upload.setVisibility(View.VISIBLE);
             btn_submit_arbitration.setVisibility(View.VISIBLE);
             lin_coin.setVisibility(View.GONE);
-        } else if (status == OtcOrderDetailActivity.ORDER_ARBITRATION_SUCCESS){
+        } else if (current == OtcOrderDetailActivity.ORDER_ARBITRATION_SUCCESS) {
             edit_submit_arbitration.setVisibility(View.GONE);
             lin_upload.setVisibility(View.GONE);
             btn_submit_arbitration.setVisibility(View.GONE);
@@ -205,9 +214,7 @@ public class ArbitrationView implements View.OnClickListener {
                         ShowToast.error(activity.getResources().getString(R.string.please_input_trade_password));
                         return;
                     }
-                    if (tradeModel != null) {
-                        mPresenter.finishOrder(tradeModel.id, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
-                    }
+                    showSure(pwdString);
                 }
                 break;
             case R.id.btn_submit_arbitration:
@@ -307,6 +314,19 @@ public class ArbitrationView implements View.OnClickListener {
 
     private void dealArbitration() {
         if (tradeModel != null) {
+            if (tradeModel.status != null) {
+                //12 买家成功 13 卖家成功
+                if (tradeModel.status == 12) {
+                    img_trade_coin.setImageResource(R.drawable.icon_auth_success);
+                    tv_order_finish_status.setText(activity.getResources().getString(R.string.order_finish));
+                    tv_order_finish_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_buy));
+                } else if (tradeModel.status == 13) {
+                    img_trade_coin.setImageResource(R.drawable.icon_auth_failure);
+                    tv_order_finish_status.setText(activity.getResources().getString(R.string.not_coined));
+                    tv_order_finish_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_sell));
+                }
+            }
+
             if (tradeModel.beArbitrateUid != null && tradeModel.beArbitrateUid != 0) {
                 edit_submit_arbitration.setVisibility(View.GONE);
                 lin_upload.setVisibility(View.GONE);
@@ -371,9 +391,30 @@ public class ArbitrationView implements View.OnClickListener {
         });
     }
 
+    private void showSure(final String pwdString) {
+        droidDialog = new DroidDialog.Builder(activity)
+                .title(activity.getResources().getString(R.string.sure_again))
+                .content(activity.getResources().getString(R.string.please_sure_again_coined))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(activity.getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        if (tradeModel != null) {
+                            mPresenter.finishOrder(tradeModel.id, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+                        }
+                    }
+                })
+                .negativeButton(activity.getResources().getString(R.string.cancel), null)
+                .cancelable(false, false)
+                .show();
+    }
+
     public void destory() {
         activity = null;
         mPresenter = null;
+        if (droidDialog != null && droidDialog.isShowing()) {
+            droidDialog.dismiss();
+        }
         if (ossAsynTaskList != null && ossAsynTaskList.size() > 0) {
             for (OSSAsyncTask ossAsyncTask : ossAsynTaskList) {
                 ossAsyncTask.cancel();

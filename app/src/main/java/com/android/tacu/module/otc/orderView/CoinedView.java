@@ -1,7 +1,9 @@
 package com.android.tacu.module.otc.orderView;
 
+import android.app.Dialog;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.user.UserInfoUtils;
+import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
@@ -47,6 +50,8 @@ public class CoinedView implements View.OnClickListener {
     private String imageUrl;
 
     private UserInfoUtils spUtil;
+
+    private DroidDialog droidDialog;
 
     //1待确认  2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成  12仲裁成功 13仲裁失败
     public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter, Integer status) {
@@ -99,9 +104,7 @@ public class CoinedView implements View.OnClickListener {
                         ShowToast.error(activity.getResources().getString(R.string.please_input_trade_password));
                         return;
                     }
-                    if (tradeModel != null) {
-                        mPresenter.finishOrder(tradeModel.id, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
-                    }
+                    showSure(pwdString);
                 }
                 break;
             case R.id.btn_return:
@@ -191,9 +194,30 @@ public class CoinedView implements View.OnClickListener {
         time.start();
     }
 
+    private void showSure(final String pwdString) {
+        droidDialog = new DroidDialog.Builder(activity)
+                .title(activity.getResources().getString(R.string.sure_again))
+                .content(activity.getResources().getString(R.string.please_sure_again_coined))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(activity.getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        if (tradeModel != null) {
+                            mPresenter.finishOrder(tradeModel.id, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+                        }
+                    }
+                })
+                .negativeButton(activity.getResources().getString(R.string.cancel), null)
+                .cancelable(false, false)
+                .show();
+    }
+
     public void destory() {
         activity = null;
         mPresenter = null;
+        if (droidDialog != null && droidDialog.isShowing()) {
+            droidDialog.dismiss();
+        }
         if (time != null) {
             time.cancel();
             time = null;

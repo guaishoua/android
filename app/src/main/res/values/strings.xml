@@ -962,8 +962,8 @@
     <string name="submit_apply">提交申请</string>
     <string name="all_take">全部提取</string>
     <string name="deposit_take_amount">保证金可提取金额</string>
-    <string name="deposit_recharge">保证金充值</string>
-    <string name="deposit_take">保证金提取</string>
+    <string name="deposit_recharge">充值</string>
+    <string name="deposit_take">提取</string>
     <string name="recharge_deposit_text1">币币账户充入保证金</string>
     <string name="recharge_deposit_text2">OTC账户充入保证金</string>
     <string name="recharge_deposit_text3">保证金提取至币币账户</string>
@@ -1015,4 +1015,8 @@
     <string name="shoper_doing">该商户正在接单，请您返回OTC下单中心重新选择其他商户为您服务，感谢您的理解！</string>
 
     <string name="margin_account_acu">保证金账户(ACU)</string>
+
+    <!--OTC3-->
+    <string name="sure_again">再次确认</string>
+    <string name="please_sure_again_coined">请再次确认是否放币！</string>
 </resources>

@@ -943,8 +943,8 @@
     <string name="submit_apply">Submit an application</string>
     <string name="all_take">Extract All</string>
     <string name="deposit_take_amount">Margin Withdrawable Amount</string>
-    <string name="deposit_recharge">Margin Deposit</string>
-    <string name="deposit_take">Margin withdrawal</string>
+    <string name="deposit_recharge">Deposit</string>
+    <string name="deposit_take">Withdrawal</string>
     <string name="recharge_deposit_text1">Coin account deposit margin</string>
     <string name="recharge_deposit_text2">Deposit deposit for OTC account</string>
     <string name="recharge_deposit_text3">Margin withdrawal to Coin account</string>

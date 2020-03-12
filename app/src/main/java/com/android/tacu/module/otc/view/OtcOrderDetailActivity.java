@@ -43,7 +43,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     private Integer status = -1;
 
     // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
-    // 12裁决完成 13裁决完成
+    // 12 买家成功 13 卖家成功
 
     private static final int ORDER_CONFIRMED = 1;//待确认
     private static final int ORDER_PAYED = 2;//待付款
@@ -193,7 +193,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
             setSellPayInfoString(model);
 
             // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
-            // 12裁决完成 13裁决完成
+            // 12 买家成功 13 卖家成功
             if (model.status != null) {
                 switch (model.status) {
                     case 1:

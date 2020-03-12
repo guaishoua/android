@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -68,6 +69,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     private List<OtcTradeAllModel> tradeModelList = new ArrayList<>();
 
     private DroidDialog droidDialog;
+    private DroidDialog sureDialog;
 
     private Long currentTime;//当前服务器时间戳
     private long valueTime;
@@ -179,6 +181,9 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         cancelTime();
         if (droidDialog != null && droidDialog.isShowing()) {
             droidDialog.dismiss();
+        }
+        if (sureDialog != null && sureDialog.isShowing()) {
+            sureDialog.dismiss();
         }
     }
 
@@ -568,12 +573,18 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.arbitration_result1));
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
                             holder.setText(R.id.tv_righttop, getResources().getString(R.string.arbitrationed));
-                            holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_sell));
                             holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
                             holder.setTextColor(R.id.tv_righttop, ContextCompat.getColor(mContext, R.color.color_arbitration_finish));
                             holder.setGone(R.id.img_leftbottom, true);
                             holder.setGone(R.id.img_rightbottom, true);
-                            holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
+
+                            if (item.tradeModel.status == 12) {
+                                holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_success);
+                                holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+                            } else if (item.tradeModel.status == 13) {
+                                holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
+                                holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_sell));
+                            }
                             holder.setImageResource(R.id.img_rightbottom, R.drawable.icon_auth_success);
 
                             holder.setGone(R.id.tv_time_title, false);
@@ -650,9 +661,25 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             showToastError(getResources().getString(R.string.please_input_trade_password));
                             return;
                         }
-                        mPresenter.finishOrder(orderId, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase() : null);
+                        showSure(orderId, pwd);
                     }
                 })
+                .cancelable(false, false)
+                .show();
+    }
+
+    private void showSure(final String orderId, final String pwdString) {
+        sureDialog = new DroidDialog.Builder(getContext())
+                .title(getResources().getString(R.string.sure_again))
+                .content(getResources().getString(R.string.please_sure_again_coined))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        mPresenter.finishOrder(orderId, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+                    }
+                })
+                .negativeButton(getResources().getString(R.string.cancel), null)
                 .cancelable(false, false)
                 .show();
     }
