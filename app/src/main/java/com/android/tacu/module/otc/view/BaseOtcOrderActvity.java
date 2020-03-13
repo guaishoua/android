@@ -1,6 +1,7 @@
 package com.android.tacu.module.otc.view;
 
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout;
 
@@ -130,6 +132,7 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
                 } else if (infoModel.vip != null && infoModel.vip != 0) {
                     img_people_vip_top.setImageResource(R.mipmap.img_vip_green);
                 }
+                ((QMUIRoundButtonDrawable) rl_people_bg_top.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_sell_bg));
             }
 
             if (infoModel.isValidatePhone != null && infoModel.isValidatePhone == 1) {
@@ -177,6 +180,7 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
                 } else if (infoModel.vip != null && infoModel.vip != 0) {
                     img_people_vip_top.setImageResource(R.mipmap.img_vip_green);
                 }
+                ((QMUIRoundButtonDrawable) rl_people_bg_top.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_buy_bg));
             }
 
             if (infoModel.isValidatePhone != null && infoModel.isValidatePhone == 1) {

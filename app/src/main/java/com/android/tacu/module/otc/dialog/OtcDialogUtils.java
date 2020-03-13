@@ -1,5 +1,6 @@
 package com.android.tacu.module.otc.dialog;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -142,6 +143,12 @@ public class OtcDialogUtils {
             droidDialog = new DroidDialog.Builder(mContext)
                     .title(mContext.getResources().getString(R.string.go_prefect))
                     .viewCustomLayout(view)
+                    .positiveButton(mContext.getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                        @Override
+                        public void onPositive(Dialog droidDialog) {
+                            droidDialog.dismiss();
+                        }
+                    })
                     .cancelable(false, false)
                     .show();
         }

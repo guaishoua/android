@@ -27,11 +27,8 @@ import butterknife.OnClick;
 public class RealNameActivity extends BaseActivity<RealNamePresenter> implements RealNameContract.IRealView, View.OnClickListener {
 
     //姓氏
-    @BindView(R.id.et_surname)
-    EditText et_surname;
-    //名字
-    @BindView(R.id.et_name)
-    EditText et_name;
+    @BindView(R.id.et_realname)
+    EditText et_realname;
     //性別
     @BindView(R.id.rbtn_gril)
     CheckBox rbtn_gril;
@@ -121,9 +118,8 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
      */
     @OnClick(R.id.btn_next)
     void next() {
-        String surname;
         String country = null;
-        String name;
+        String allName;
         String birthday;
         String idNumber;
         String startTime;
@@ -131,19 +127,14 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
         String genders;
         int isAllTime;
 
-        surname = et_surname.getText().toString().trim();
-        name = et_name.getText().toString().trim();
+        allName = et_realname.getText().toString();
         idNumber = et_id_number.getText().toString().trim();
         birthday = tv_birthday.getText().toString().trim();
         startTime = tv_id_start_time.getText().toString().trim();
         endTime = tv_id_end_time.getText().toString().trim();
 
-        if (TextUtils.isEmpty(surname)) {
-            showToastError(getString(R.string.surname));
-            return;
-        }
-        if (TextUtils.isEmpty(name)) {
-            showToastError(getString(R.string.name));
+        if (TextUtils.isEmpty(allName)) {
+            showToastError(getString(R.string.realname));
             return;
         }
 
@@ -202,6 +193,36 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
             userInfoModel.isChina = isChina;
         }
 
+        String surname = "";
+        String name = "";
+        //1:中国大陆   0：其他国家地区
+        if (TextUtils.equals(isChina, "1")) {
+            surname = allName.substring(0, 1);
+            name = allName.substring(1);
+        } else if (TextUtils.equals(isChina, "0")) {
+            try {
+                String[] strings = allName.split(" ");
+                if (strings != null && strings.length > 1) {
+                    surname = strings[0] + " ";
+                    for (int i = 0; i < strings.length; i++) {
+                        if (i > 0) {
+                            if (i == strings.length - 1) {
+                                name += strings[i];
+                            } else {
+                                name += strings[i] + " ";
+                            }
+                        }
+                    }
+                } else {
+                    surname = allName.substring(0, 1);
+                    name = allName.substring(1);
+                }
+            } catch (Exception e) {
+                surname = allName.substring(0, 1);
+                name = allName.substring(1);
+            }
+        }
+
         // 添加证件类型
         mPresenter.authNew(country, surname, name, idNumber, birthday, genders, isChina, 1, startTime, endTime, isAllTime);
     }
@@ -210,8 +231,7 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
     public void authinfoNew(UserInfoModel userInfoModel) {
         if (userInfoModel != null) {
             this.userInfoModel = userInfoModel;
-            et_surname.setText(userInfoModel.firstName);
-            et_name.setText(userInfoModel.secondName);
+            et_realname.setText(userInfoModel.firstName + userInfoModel.secondName);
             et_id_number.setText(userInfoModel.idNumber);
             tv_birthday.setText(userInfoModel.birthday);
 

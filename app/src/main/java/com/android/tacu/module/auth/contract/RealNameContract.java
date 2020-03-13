@@ -4,6 +4,7 @@ import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.auth.model.UserInfoModel;
+import com.android.tacu.module.main.model.AliModel;
 
 /**
  * Created by xiaohong on 2018/9/18.
@@ -24,6 +25,12 @@ public class RealNameContract {
         void getOssSetting(AuthOssModel model);
 
         void onError();
+
+        void getVerifyToken(AliModel model);
+
+        void getVerifyTokenError(int status);
+
+        void vedioAuth();
     }
 
     public interface IRealNamePresenter {
@@ -38,6 +45,10 @@ public class RealNameContract {
         void authnewOpposite(String authnewOpposite, String ischina, int step);
 
         void authnewHand(String authnewHand, String ischina, int step);
+
+        void getVerifyToken();
+
+        void vedioAuth();
 
     }
 }

@@ -34,6 +34,7 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 import java.util.ArrayList;
@@ -155,7 +156,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
 
         payIndicatorView.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
         payIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
-        payIndicatorView.setScrollBar(new ColorBar(this, ContextCompat.getColor(this, R.color.text_default), 4));
+        payIndicatorView.setScrollBar(new TextWidthColorBar(this, payIndicatorView, ContextCompat.getColor(this, R.color.text_default), 4));
         payIndicatorView.setSplitAuto(true);
         payIndicatorView.setAdapter(new TabIndicatorAdapter(this, tabTitle));
         payIndicatorView.setOnItemSelectListener(new Indicator.OnItemSelectedListener() {
@@ -352,7 +353,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     public void orderListOne(OtcMarketOrderAllModel model) {
         this.allModel = model;
         if (allModel != null && allModel.infoModel != null) {
-            setInfoValue(allModel.infoModel);
+            setInfoValue(isBuy, allModel.infoModel);
         }
         setOrderInfo();
     }

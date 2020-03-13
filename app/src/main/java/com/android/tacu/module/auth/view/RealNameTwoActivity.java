@@ -1,6 +1,7 @@
 package com.android.tacu.module.auth.view;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.alibaba.security.rp.RPSDK;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
@@ -34,9 +36,12 @@ import com.android.tacu.module.auth.contract.RealNameContract;
 import com.android.tacu.module.auth.model.MultipartImageModel;
 import com.android.tacu.module.auth.model.UserInfoModel;
 import com.android.tacu.module.auth.presenter.RealNamePresenter;
+import com.android.tacu.module.main.model.AliModel;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.IdentityAuthUtils;
+import com.android.tacu.utils.LogUtils;
+import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 
 import java.io.File;
@@ -84,11 +89,14 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
     private OSS mOss = null;
     private String bucketName;
 
+    //1:中国大陆   0：其他国家地区
     private String isChina;
     private UserInfoModel userInfoModel;
     private MultipartImageModel positiveImage;
 
     private List<OSSAsyncTask> ossAsynTaskList = new ArrayList<>();
+
+    private DroidDialog videoAuthFailureDialog;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -131,6 +139,18 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
     }
 
     @Override
+    protected RealNamePresenter createPresenter(RealNamePresenter mPresenter) {
+        return new RealNamePresenter();
+    }
+
+    @Override
+    protected void onPresenterCreated(RealNamePresenter presenter) {
+        super.onPresenterCreated(presenter);
+        //当前所在地是否中国大陆 0.不是 1.是
+        mPresenter.getOssSetting();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (ossAsynTaskList != null && ossAsynTaskList.size() > 0) {
@@ -145,46 +165,9 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }
-    }
-
-    @OnClick(R.id.btn_next)
-    void next() {
-        if (positiveImage == null && getUrl()) {
-            if (current == 3) {
-                mPresenter.authnewHand(null, isChina, 4);
-                return;
-            } else {
-                startActivity();
-                return;
-            }
+        if (videoAuthFailureDialog != null && videoAuthFailureDialog.isShowing()) {
+            videoAuthFailureDialog.dismiss();
         }
-
-        //没有选择照片不能跳转下一步
-        if (positiveImage == null && !getUrl()) {
-            showToastError(getResources().getString(R.string.real_toast_hint));
-            return;
-        }
-
-        showLoadingView();
-
-        uploadImgs(positiveImage);
-    }
-
-    @OnClick(R.id.rl_picture)
-    void picture() {
-        IdentityAuthUtils.setImage(this, POSITIVE_CODE);
-    }
-
-    @Override
-    protected RealNamePresenter createPresenter(RealNamePresenter mPresenter) {
-        return new RealNamePresenter();
-    }
-
-    @Override
-    protected void onPresenterCreated(RealNamePresenter presenter) {
-        super.onPresenterCreated(presenter);
-        //当前所在地是否中国大陆 0.不是 1.是
-        mPresenter.getOssSetting();
     }
 
     /**
@@ -217,6 +200,128 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
         }
     }
 
+    @OnClick(R.id.btn_next)
+    void next() {
+        if (positiveImage == null && getUrl()) {
+            if (current == 3) {
+                mPresenter.authnewHand(null, isChina, 4);
+                return;
+            } else {
+                //1:中国大陆   0：其他国家地区
+                if (TextUtils.equals(isChina, "0")) {
+                    startActivity();
+                } else if (TextUtils.equals(isChina, "1")) {
+                    mPresenter.getVerifyToken();
+                }
+                return;
+            }
+        }
+
+        //没有选择照片不能跳转下一步
+        if (positiveImage == null && !getUrl()) {
+            showToastError(getResources().getString(R.string.real_toast_hint));
+            return;
+        }
+
+        showLoadingView();
+
+        uploadImgs(positiveImage);
+    }
+
+    @OnClick(R.id.rl_picture)
+    void picture() {
+        IdentityAuthUtils.setImage(this, POSITIVE_CODE);
+    }
+
+    @Override
+    public void authThredSuccess(BaseModel baseModel) {
+        this.baseModel = baseModel;
+        hideLoadingView();
+        dialogView();
+    }
+
+    @Override
+    public void authNewSuccess() {
+        hideLoadingView();
+        if (TextUtils.equals(isChina, "1") && current == 2) {
+            mPresenter.getVerifyToken();
+        } else {
+            startActivity();
+        }
+    }
+
+    @Override
+    public void getOssSetting(AuthOssModel model) {
+        if (model != null) {
+            OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(model.AccessKeyId, model.AccessKeySecret, model.SecurityToken);
+            ClientConfiguration conf = new ClientConfiguration();
+            conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
+            conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
+            conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
+            conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
+            OSSLog.enableLog();
+            mOss = new OSSClient(getApplicationContext(), Constant.OSS_ENDPOINT, credentialProvider);
+            bucketName = model.bucket;
+        }
+    }
+
+    @Override
+    public void onError() {
+        hideLoadingView();
+    }
+
+    @Override
+    public void getVerifyToken(AliModel model) {
+        if (model != null && !TextUtils.isEmpty(model.token)) {
+            RPSDK.start(model.token, this, new RPSDK.RPCompletedListener() {
+                @Override
+                public void onAuditResult(RPSDK.AUDIT audit, String code) {
+                    LogUtils.i("jiazhen", "audit=" + audit + " code=" + code);
+                    if (audit == RPSDK.AUDIT.AUDIT_PASS) {
+                        //认证通过。建议接入方调用实人认证服务端接口DescribeVerifyResult来获取最终的认证状态，并以此为准进行业务上的判断和处理
+                        mPresenter.vedioAuth();
+                    } else if (audit == RPSDK.AUDIT.AUDIT_FAIL) {
+                        showALAuthFailure(true);
+                        //认证不通过。建议接入方调用实人认证服务端接口DescribeVerifyResult来获取最终的认证状态，并以此为准进行业务上的判断和处理
+                    } else if (audit == RPSDK.AUDIT.AUDIT_NOT) {
+                        showALAuthFailure(true);
+                        //未认证，具体原因可通过code来区分（code取值参见下方表格），通常是用户主动退出或者姓名身份证号实名校验不匹配等原因，导致未完成认证流程
+                        /**
+                         * 1=认证通过
+                         * 2-12 表示认证不通过，具体的不通过原因可以查看服务端的查询认证结果（DescribeVerifyResult）接口文档中认证状态的表格说明。
+                         * -1=未完成认证，原因：用户在认证过程中，主动退出。
+                         * 3001=未完成认证，原因：认证token无效或已过期。
+                         * 3101=未完成认证，原因：用户姓名身份证实名校验不匹配。
+                         * 3102=未完成认证，原因：实名校验身份证号不存在。
+                         * 3103=未完成认证，原因：实名校验身份证号不合法。
+                         * 3104=未完成认证，原因：认证已通过，重复提交。
+                         * 3204=未完成认证，原因：非本人操作。
+                         * 3206=未完成认证，原因：非本人操作。
+                         * 3208=未完成认证，原因：公安网无底照。
+                         */
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void getVerifyTokenError(int status) {
+        if (status == -1000) {
+            showALAuthFailure(false);
+        } else {
+            showALAuthFailure(true);
+        }
+    }
+
+    @Override
+    public void vedioAuth() {
+        if (videoAuthFailureDialog != null && videoAuthFailureDialog.isShowing()) {
+            videoAuthFailureDialog.dismiss();
+        }
+        spUtil.setIsAuthVideo(2);
+        dialogView();
+    }
 
     /**
      * 图片名字
@@ -301,34 +406,6 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
         }
     }
 
-    @Override
-    public void authThredSuccess(BaseModel baseModel) {
-        this.baseModel = baseModel;
-        hideLoadingView();
-        dialogView();
-    }
-
-    @Override
-    public void authNewSuccess() {
-        hideLoadingView();
-        startActivity();
-    }
-
-    @Override
-    public void getOssSetting(AuthOssModel model) {
-        if (model != null) {
-            OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(model.AccessKeyId, model.AccessKeySecret, model.SecurityToken);
-            ClientConfiguration conf = new ClientConfiguration();
-            conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
-            conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
-            conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
-            conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
-            OSSLog.enableLog();
-            mOss = new OSSClient(getApplicationContext(), Constant.OSS_ENDPOINT, credentialProvider);
-            bucketName = model.bucket;
-        }
-    }
-
     /**
      * 当前是否有地址
      *
@@ -351,13 +428,36 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
         return false;
     }
 
-    @Override
-    public void onError() {
-        hideLoadingView();
-    }
-
     private void startActivity() {
         jumpTo(RealNameTwoActivity.crestActivity(RealNameTwoActivity.this, userInfoModel, current + 1, isChina));
+    }
+
+    private void showALAuthFailure(boolean isShowGoAuth) {
+        if (videoAuthFailureDialog != null && videoAuthFailureDialog.isShowing()) {
+            videoAuthFailureDialog.dismiss();
+        }
+        View view = View.inflate(this, R.layout.view_video_failure, null);
+        TextView tv_uid = view.findViewById(R.id.tv_uid);
+        tv_uid.setText(spUtil.getUserUid());
+        if (isShowGoAuth) {
+            videoAuthFailureDialog = new DroidDialog.Builder(this)
+                    .title(getResources().getString(R.string.authentication_failed))
+                    .viewCustomLayout(view)
+                    .positiveButton(getResources().getString(R.string.go_auth), new DroidDialog.onPositiveListener() {
+                        @Override
+                        public void onPositive(Dialog droidDialog) {
+                            mPresenter.getVerifyToken();
+                        }
+                    })
+                    .cancelable(false, false)
+                    .show();
+        } else {
+            videoAuthFailureDialog = new DroidDialog.Builder(this)
+                    .title(getResources().getString(R.string.authentication_failed))
+                    .viewCustomLayout(view)
+                    .cancelable(false, false)
+                    .show();
+        }
     }
 
     private void dialogView() {

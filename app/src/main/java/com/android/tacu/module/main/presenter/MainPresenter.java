@@ -101,7 +101,7 @@ public class MainPresenter extends BaseMvpPresenter implements MainContract.IPre
 
     @Override
     public void getVerifyToken() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ALI, Api.class).aliToken(), new NetDisposableObserver<BaseModel<AliModel>>((IBaseMvpView) getView(), false, false) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ALI, Api.class).aliToken(), new NetDisposableObserver<BaseModel<AliModel>>((IBaseMvpView) getView(), true, false) {
             @Override
             public void onNext(BaseModel<AliModel> model) {
                 MainContract.IView view = (MainContract.IView) getView();

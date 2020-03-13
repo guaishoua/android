@@ -136,6 +136,15 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
         }
     }
 
+    protected void setInfoValue(boolean isBuy, OtcMarketInfoModel infoModel) {
+        if (isBuy) {
+            ((QMUIRoundButtonDrawable) rl_people_bg_top.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_buy_bg));
+        } else  {
+            ((QMUIRoundButtonDrawable) rl_people_bg_top.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_sell_bg));
+        }
+        setInfoValue(infoModel);
+    }
+
     protected void setInfoValue(OtcMarketInfoModel infoModel) {
         if (infoModel != null) {
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_people);

@@ -27,7 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
-import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 import java.util.ArrayList;
@@ -118,8 +118,8 @@ public class SelectedCoinsActivity extends BaseActivity<SelectedCoinsPresenter> 
 
         baseIndicatorView.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
         baseIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
-        baseIndicatorView.setScrollBar(new ColorBar(this, ContextCompat.getColor(this, R.color.text_default), 4));
-        baseIndicatorView.setSplitAuto(true);
+        baseIndicatorView.setScrollBar(new TextWidthColorBar(this, baseIndicatorView, ContextCompat.getColor(this, R.color.text_default), 4));
+        baseIndicatorView.setSplitAuto(false);
         baseIndicatorView.setOnItemSelectListener(new Indicator.OnItemSelectedListener() {
             @Override
             public void onItemSelected(View selectItemView, int select, int preSelect) {

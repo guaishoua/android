@@ -27,7 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
-import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 import java.math.BigDecimal;
@@ -79,7 +79,7 @@ public class CoinPopWindow extends PopupWindow {
 
         baseIndicatorView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.content_bg_color_grey));
         baseIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(mContext, R.color.text_default), ContextCompat.getColor(mContext, R.color.text_grey_2)).setSize(14, 14));
-        baseIndicatorView.setScrollBar(new ColorBar(mContext, ContextCompat.getColor(mContext, R.color.text_default), 4));
+        baseIndicatorView.setScrollBar(new TextWidthColorBar(mContext, baseIndicatorView, ContextCompat.getColor(mContext, R.color.text_default), 4));
         baseIndicatorView.setSplitAuto(true);
         baseIndicatorView.setOnItemSelectListener(new Indicator.OnItemSelectedListener() {
             @Override

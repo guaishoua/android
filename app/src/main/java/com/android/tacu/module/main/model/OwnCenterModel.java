@@ -86,9 +86,10 @@ public class OwnCenterModel implements Serializable {
     public String applyVideoAuth;//视频认证地址
     @SerializedName("disclaimer")
     public Integer disclaimer;//0未点击 1已点击
-
     @SerializedName("merchantStatus")
     public Integer merchantStatus; //0=下线 1=上线
+    @SerializedName("isChina")
+    public Integer isChina; //0=外国 1=中国
 
     public boolean getIsValidatePass() {
         if (isValidatePass == 1) {

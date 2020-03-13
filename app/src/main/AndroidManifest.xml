@@ -63,7 +63,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.tacu.module.splash.view.TradeMatchActivity"
+            android:name="com.android.tacu.module.splash.TradeMatchActivity"
+            android:screenOrientation="portrait"
             android:hardwareAccelerated="false" />
         <activity
             android:name="com.android.tacu.module.main.view.MainActivity"

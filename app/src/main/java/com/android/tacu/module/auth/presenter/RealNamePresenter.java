@@ -5,11 +5,13 @@ import com.android.tacu.api.ApiHost;
 import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
+import com.android.tacu.http.exceptions.ResponseException;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.auth.contract.RealNameContract;
 import com.android.tacu.module.auth.model.UserInfoModel;
+import com.android.tacu.module.main.model.AliModel;
 
 /**
  * Created by xiaohong on 2018/9/18.
@@ -89,6 +91,38 @@ public class RealNamePresenter extends BaseMvpPresenter implements RealNameContr
                 super.onError(throwable);
                 RealNameContract.IRealTwoView view = (RealNameContract.IRealTwoView) getView();
                 view.onError();
+            }
+        });
+    }
+
+    @Override
+    public void getVerifyToken() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ALI, Api.class).aliToken(), new NetDisposableObserver<BaseModel<AliModel>>((IBaseMvpView) getView(), true, false) {
+            @Override
+            public void onNext(BaseModel<AliModel> model) {
+                RealNameContract.IRealTwoView view = (RealNameContract.IRealTwoView) getView();
+                view.getVerifyToken(model.attachment);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                super.onError(throwable);
+                if (throwable instanceof ResponseException) {
+                    ResponseException responseException = (ResponseException) throwable;
+                    RealNameContract.IRealTwoView view = (RealNameContract.IRealTwoView) getView();
+                    view.getVerifyTokenError(responseException.status);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void vedioAuth() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ALI, Api.class).vedioAuth(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView(), false, false) {
+            @Override
+            public void onNext(BaseModel model) {
+                RealNameContract.IRealTwoView view = (RealNameContract.IRealTwoView) getView();
+                view.vedioAuth();
             }
         });
     }

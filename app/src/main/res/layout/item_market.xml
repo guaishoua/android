@@ -14,13 +14,14 @@
         android:layout_height="wrap_content"
         android:background="@color/content_bg_color">
 
-        <ImageView
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
             android:id="@+id/img_coins_icon"
             android:layout_width="@dimen/dp_38"
             android:layout_height="@dimen/dp_38"
-            android:layout_gravity="center_vertical"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_border_width="0dp"
+            app:qmui_is_circle="true" />
 
         <LinearLayout
             android:id="@+id/lin_coin_name"

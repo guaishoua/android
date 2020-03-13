@@ -32,10 +32,10 @@
 
                 <ImageView
                     android:id="@+id/img_logo"
-                    android:layout_width="@dimen/dp_75"
-                    android:layout_height="@dimen/dp_120"
+                    android:layout_width="@dimen/dp_140"
+                    android:layout_height="@dimen/dp_70"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dp_80"
+                    android:layout_marginTop="@dimen/dp_120"
                     android:src="@mipmap/img_logo_big" />
 
                 <LinearLayout

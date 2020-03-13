@@ -340,7 +340,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         UserManageUtils.setPersonInfo(model);
         //必须登录并且KYC2通过
         if (spUtil.getIsAuthSenior() == 2 && spUtil.getIsAuthVideo() != 2) {
-            //showALAuth();
+            if (model.isChina != null && model.isChina == 1) {
+                //showALAuth();
+            }
         }
     }
 
@@ -415,6 +417,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         LogUtils.i("jiazhen", "status=" + status);
         if (status == -1000) {
             showALAuthFailure(false);
+        } else {
+            showALAuthFailure(true);
         }
     }
 
@@ -646,6 +650,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             return;
         }
         View view = View.inflate(this, R.layout.view_video_failure, null);
+        TextView tv_uid = view.findViewById(R.id.tv_uid);
+        tv_uid.setText(spUtil.getUserUid());
         if (isShowGoAuth) {
             videoAuthFailureDialog = new DroidDialog.Builder(MainActivity.this)
                     .title(getResources().getString(R.string.authentication_failed))
