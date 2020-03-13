@@ -441,7 +441,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
                         dealSubmit(Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
                     }
                 })
-                .cancelable(false, false)
+                .cancelable(true, true)
                 .show();
     }
 }

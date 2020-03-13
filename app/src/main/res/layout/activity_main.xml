@@ -25,7 +25,6 @@
             android:layout_weight="1" />
 
         <LinearLayout
-            android:id="@+id/lin_bottom"
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_tab_height"
             android:background="@color/main_tab_bg_color"

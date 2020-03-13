@@ -104,8 +104,6 @@
     <color name="color_otc_giveup">#333E47</color>
     <color name="color_otc_unhappy">#80E2BF1C</color>
     <!--交易赛-->
-    <color name="color_match">#7653CF</color>
-    <color name="color_match2">#2D0889</color>
 
     <color name="color_coined">#7CD499</color>
     <color name="color_arbitration">#DE5252</color>

@@ -208,10 +208,10 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
                 return;
             } else {
                 //1:中国大陆   0：其他国家地区
-                if (TextUtils.equals(isChina, "0")) {
-                    startActivity();
-                } else if (TextUtils.equals(isChina, "1")) {
+                if (TextUtils.equals(isChina, "1") && current == 2) {
                     mPresenter.getVerifyToken();
+                } else {
+                    startActivity();
                 }
                 return;
             }
@@ -438,7 +438,7 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
         }
         View view = View.inflate(this, R.layout.view_video_failure, null);
         TextView tv_uid = view.findViewById(R.id.tv_uid);
-        tv_uid.setText(spUtil.getUserUid());
+        tv_uid.setText(String.valueOf(spUtil.getUserUid()));
         if (isShowGoAuth) {
             videoAuthFailureDialog = new DroidDialog.Builder(this)
                     .title(getResources().getString(R.string.authentication_failed))
@@ -449,13 +449,13 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
                             mPresenter.getVerifyToken();
                         }
                     })
-                    .cancelable(false, false)
+                    .cancelable(true, true)
                     .show();
         } else {
             videoAuthFailureDialog = new DroidDialog.Builder(this)
                     .title(getResources().getString(R.string.authentication_failed))
                     .viewCustomLayout(view)
-                    .cancelable(false, false)
+                    .cancelable(true, true)
                     .show();
         }
     }

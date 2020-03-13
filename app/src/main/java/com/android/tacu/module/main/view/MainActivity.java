@@ -651,7 +651,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         }
         View view = View.inflate(this, R.layout.view_video_failure, null);
         TextView tv_uid = view.findViewById(R.id.tv_uid);
-        tv_uid.setText(spUtil.getUserUid());
+        tv_uid.setText(String.valueOf(spUtil.getUserUid()));
         if (isShowGoAuth) {
             videoAuthFailureDialog = new DroidDialog.Builder(MainActivity.this)
                     .title(getResources().getString(R.string.authentication_failed))

@@ -13,6 +13,7 @@ import com.android.tacu.module.auth.contract.RealNameContract;
 import com.android.tacu.module.auth.model.UserInfoModel;
 import com.android.tacu.module.auth.presenter.RealNamePresenter;
 import com.android.tacu.utils.IdentityAuthUtils;
+import com.android.tacu.utils.LogUtils;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 
 import butterknife.BindView;
@@ -222,6 +223,7 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
                 name = allName.substring(1);
             }
         }
+        LogUtils.i("jiazhen", "surname=" + surname + " name=" + name);
 
         // 添加证件类型
         mPresenter.authNew(country, surname, name, idNumber, birthday, genders, isChina, 1, startTime, endTime, isAllTime);
@@ -231,7 +233,15 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
     public void authinfoNew(UserInfoModel userInfoModel) {
         if (userInfoModel != null) {
             this.userInfoModel = userInfoModel;
-            et_realname.setText(userInfoModel.firstName + userInfoModel.secondName);
+            String firstString = "";
+            String secondString = "";
+            if (!TextUtils.isEmpty(userInfoModel.firstName)) {
+                firstString = userInfoModel.firstName;
+            }
+            if (!TextUtils.isEmpty(userInfoModel.secondName)) {
+                secondString = userInfoModel.secondName;
+            }
+            et_realname.setText(firstString + secondString);
             et_id_number.setText(userInfoModel.idNumber);
             tv_birthday.setText(userInfoModel.birthday);
 

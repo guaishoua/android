@@ -54,7 +54,7 @@ public class AuctionPlusPayDialogUtils {
         return new DroidDialog.Builder(mContext)
                 .title(mContext.getResources().getString(R.string.auction_pay_title))
                 .viewCustomLayout(view)
-                .cancelable(false, false)
+                .cancelable(true, true)
                 .show();
     }
 
@@ -89,7 +89,7 @@ public class AuctionPlusPayDialogUtils {
         return new DroidDialog.Builder(mContext)
                 .title(mContext.getResources().getString(R.string.auction_pay_title))
                 .viewCustomLayout(view)
-                .cancelable(false, false)
+                .cancelable(true, true)
                 .show();
     }
 }

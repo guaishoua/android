@@ -664,7 +664,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                         showSure(orderId, pwd);
                     }
                 })
-                .cancelable(false, false)
+                .cancelable(true, true)
                 .show();
     }
 

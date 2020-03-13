@@ -89,7 +89,6 @@
     <string name="save_image">Save the QR code</string>
     <string name="fee">Fee</string>
     <string name="coins_text">It is forbidden to recharge assets other than %1$s to %2$s address, any non %3$s assetsrecharged into %4$s address will not be retrieved.Recharge using %5$s address requires %6$s network confirmations to arrive.Transfer and deposit with smart contract and block reward（Coinbase）are not available and the assets won’t arrive to your account. We apologize to any inconvenience caused！</string>
-    <string name="asset_hint">Total assets conversion</string>
     <string name="asset_search">Existing assets</string>
     <string name="fee2">Transaction Fee：</string>
 
@@ -100,8 +99,6 @@
     <string name="add_success">Add account success</string>
 
     <!--提幣-->
-    <string name="deposit_history">Deposit record</string>
-    <string name="take_history">Mention money record</string>
     <string name="history">History</string>
     <string name="please_select_address">Choose a coin address</string>
     <string name="min_extract">Minimum amount</string>
@@ -217,8 +214,6 @@
     <string name="update_hint">Is the latest version</string>
 
     <!--實名認證  第一步-->
-    <string name="surname">Last name</string>
-    <string name="name">First name</string>
     <string name="gender">Gender</string>
     <string name="no_bind">Unbound</string>
     <string name="birthday">Date of birth</string>
@@ -451,9 +446,6 @@
     <string name="hint_common_add_new_address">input or long press paste address</string>
     <string name="hint_common_add_new_address_note">Please enter wallet note</string>
 
-    <string name="label_assets_item_own_count">number of holdings</string>
-    <string name="label_assets_item_own_available">available number</string>
-    <string name="label_assets_item_freeze_count">number of freezes</string>
     <string name="title_assets_import_address">Import the following address:</string>
     <string name="brief_assets_obtain_address">sweep code to get the replenishment address</string>
 
@@ -564,7 +556,6 @@
     <string name="single_price">Price</string>
     <string name="single_price_acu_cny">Price(ACU/CNY)</string>
     <string name="dan">Unit</string>
-    <string name="click_look">View</string>
     <string name="order_center">Order Center</string>
     <string name="otc_refuse_order">Order rejected</string>
     <string name="timeouted">Timed out</string>
@@ -683,15 +674,6 @@
     <string name="certified">Verified</string>
     <string name="shoper">Merchant</string>
     <string name="certified_shoper">Verified Merchant</string>
-    <string name="all_otc_order">All ads</string>
-    <string name="look_buy_order">View Buy Orders</string>
-    <string name="look_sell_order">View Sell Order</string>
-    <string name="finish_order">Complete order (order)</string>
-    <string name="wait_deal_order">Order pending</string>
-    <string name="biao_num">Number of objects</string>
-    <string name="biao_surplus_num">Subject matter balance</string>
-    <string name="total_value">Total value</string>
-    <string name="trading_limit">Transaction Limit</string>
     <string name="goumai">Purchase</string>
     <string name="chushou">Sale</string>
     <string name="trade_coin_type">Coin type</string>
@@ -699,13 +681,6 @@
     <string name="current_market_value">Current market value: 1CNY/ACU</string>
     <string name="order_operation_time_limit">Order time limit</string>
     <string name="minute_15">15 min</string>
-    <string name="hour_1_5">1.5 hr</string>
-    <string name="hour_2">2 hr</string>
-    <string name="hour_4">4 hr</string>
-    <string name="hour_6">6 hr</string>
-    <string name="hour_8">8 hr</string>
-    <string name="hour_12">12 hr</string>
-    <string name="hour_24">24 hr</string>
     <string name="trade_single_price">Order price</string>
     <string name="please_input_trade_single_price">Enter order price</string>
     <string name="trade_num">Order amount</string>
@@ -719,7 +694,6 @@
     <string name="purchase_deposit">Transaction margin</string>
     <string name="margin_balance">Margin balance</string>
     <string name="OTC_balance">Account balance</string>
-    <string name="please_input_ask">Enter greeting .....</string>
     <string name="confirm_publish">Publish</string>
     <string name="give_up">Cancel</string>
     <string name="buy_order_detail">Buy details</string>
@@ -774,7 +748,6 @@
     <string name="please_upload_wx_shoukuanma">Upload WeChat payment code</string>
     <string name="upload_zfb_shoukuanma">Alipay payment code</string>
     <string name="please_upload_zfb_shoukuanma">Upload Alipay payment code</string>
-    <string name="please_upload_your_payimg">Upload your payment voucher</string>
     <string name="no_pay_tip">Binding failed. Please enter valid information and try again.</string>
 
     <!--修改个人资料-->
@@ -855,11 +828,6 @@
 
     <!--充值保证金-->
     <string name="recharge_deposit">Add warranty deposit</string>
-    <string name="available_balance">Available balance</string>
-    <string name="frozen_balance">Frozen balance</string>
-    <string name="please_input_recharge_amount">Enter deposit amount</string>
-    <string name="order_record">Order record</string>
-    <string name="extract">Extract</string>
     <string name="failure">Failed</string>
     <string name="success_get_account">Deposit succeed</string>
     <string name="auditing">Pending</string>
@@ -900,24 +868,7 @@
     <string name="transfer">Transfer</string>
 
     <!--交易赛-->
-    <string name="match_title1">All members enjoy the new system beta</string>
-    <string name="match_title2">Win at zero risk</string>
-    <string name="match_title3">28888ACU Award</string>
-    <string name="match_tag1">Contest intro</string>
-    <string name="match_tag1_text1">Dear user,</string>
-    <string name="match_tag1_text2">Beta Trading Competition</string>
-    <string name="match_tag1_text3">Successfully ended</string>
-    <string name="match_tag2">Statistics</string>
-    <string name="match_tag2_text1">The result is being calculated ...</string>
-    <string name="matchresult_tag1_text2">Thanks for your trust and love, TACU platform has successfully completed the development and testing of v3.0 internal beta. In order to allow users to experience the new system, learn its functions, and reduce the operational risk after the official launch, we invite you to participate in the development of the TACU platform. We provide you with a zero-risk, zero-input and generous reward simulation trading contest.</string>
-    <string name="matchresult_tag2">Winning users</string>
-    <string name="matchreslut_tag3">Experience Award</string>
-    <string name="matchreslut_tag3_text1">Account/UID</string>
-    <string name="matchreslut_tag3_text2">Reward</string>
-    <string name="rank">Ranking</string>
-    <string name="trade_amount">Trade Amount</string>
     <string name="all_amount">Total assets</string>
-    <string name="rank_num">No.%1$s</string>
     <!--实人认证-->
     <string name="friendly_tip">Kind reminder</string>
     <string name="please_go_shirenrenzheng">Sorry, but your verification is not completed. Please complete verification before operating.</string>
@@ -994,8 +945,22 @@
     <string name="system_tip">System Tip</string>
     <string name="shoper_offline">The merchant is offline, please return to the OTC Order Center to re-select another merchant to serve you, thank you for your understanding!</string>
     <string name="shoper_doing">The merchant is taking orders, please return to the OTC Order Center to reselect other merchants to serve you, thank you for your understanding!</string>
-
         
     <string name="margin_account_acu">Margin Account (ACU)</string>
+
+    <!--OTC3-->
+    <string name="sure_again">Again</string>
+    <string name="please_sure_again_coined">Please double check if you want to deposit money!</string>
+    <string name="total_holdings">Total holdings</string>
+    <string name="coin_account_recharge">Coin Account Recharge</string>
+    <string name="available_num">Available number</string>
+    <string name="frozen_num">Frozen quantity</string>
+    <string name="platform_transfer">Platform transfer</string>
+    <string name="asset_history">Asset Flow</string>
+    <string name="to">to</string>
+    <string name="margin_account">Margin Account</string>
+    <string name="hide">Hide</string>
+    <string name="show">Expand</string>
+    <string name="realname">name</string>
 </resources>
 

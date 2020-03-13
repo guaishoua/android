@@ -422,7 +422,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                         droidDialog.dismiss();
                     }
                 })
-                .cancelable(true, false)
+                .cancelable(false, false)
                 .show();
     }
 
@@ -437,7 +437,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                         droidDialog.dismiss();
                     }
                 })
-                .cancelable(true, false)
+                .cancelable(false, false)
                 .show();
     }
 

@@ -91,7 +91,6 @@
     <string name="save_image">保存二维码</string>
     <string name="fee">手续费</string>
     <string name="coins_text">禁止向非 %1$s 地址充值，除%2$s之外的资产，任何充入%3$s地址的非%4$s资产将不可找回。使用%5$s地址充值需要%6$s个网络确认才能到账。目前不支持使用智能合约或区块奖励（Coinbase）的转账充值，智能合约或区块奖励的转账将不会上账，请您谅解。</string>
-    <string name="asset_hint">总资产折合</string>
     <string name="asset_search">已有资产</string>
     <string name="fee2">手续费：</string>
 
@@ -102,8 +101,6 @@
     <string name="add_success">添加账号成功</string>
 
     <!--提币-->
-    <string name="deposit_history">充值记录</string>
-    <string name="take_history">提币记录</string>
     <string name="history">流水</string>
     <string name="please_select_address">选择提币地址</string>
     <string name="min_extract">最小提币数量</string>
@@ -219,8 +216,6 @@
     <string name="update_hint">当前已是最新版本啦</string>
 
     <!--实名认证 第一步-->
-    <string name="surname">姓氏</string>
-    <string name="name">名称</string>
     <string name="gender">性别</string>
     <string name="birthday">出生日期</string>
     <string name="no_bind">未绑定</string>
@@ -460,9 +455,6 @@
     <string name="hint_common_add_new_address">输入或长按粘贴地址</string>
     <string name="hint_common_add_new_address_note">请输入钱包备注</string>
 
-    <string name="label_assets_item_own_count">持有数量</string>
-    <string name="label_assets_item_own_available">可用数量</string>
-    <string name="label_assets_item_freeze_count">冻结数量</string>
     <string name="title_assets_import_address">汇入如下地址：</string>
     <string name="brief_assets_obtain_address">扫码获取充值地址</string>
 
@@ -499,7 +491,6 @@
     <string name="label_coin_trans_history_price">金额</string>
 
     <string name="hint_coin_filter_search">搜索币种</string>
-    <string name="label_assets_operation_type">操作类型</string>
     <string name="msg_coin_picker_not_found">目前 %1$s 沒有相關交易對</string>
     <string name="usdt_tip">请选择基于ERC20的USDT进行充值</string>
 
@@ -582,7 +573,6 @@
     <string name="single_price">单价</string>
     <string name="single_price_acu_cny">单价(ACU/CNY)</string>
     <string name="dan">单</string>
-    <string name="click_look">点击查看</string>
     <string name="order_center">订单中心</string>
     <string name="otc_refuse_order">拒绝订单</string>
     <string name="timeouted">已超时</string>
@@ -701,15 +691,6 @@
     <string name="certified">认证</string>
     <string name="shoper">商户</string>
     <string name="certified_shoper">认证商户</string>
-    <string name="all_otc_order">全部广告</string>
-    <string name="look_buy_order">查看买单</string>
-    <string name="look_sell_order">查看卖单</string>
-    <string name="finish_order">完成订单(单)</string>
-    <string name="wait_deal_order">待处理订单</string>
-    <string name="biao_num">标的物数量</string>
-    <string name="biao_surplus_num">标的物余量</string>
-    <string name="total_value">价值总量</string>
-    <string name="trading_limit">交易限额</string>
     <string name="goumai">购买</string>
     <string name="chushou">出售</string>
     <string name="trade_coin_type">交易币种</string>
@@ -717,13 +698,6 @@
     <string name="current_market_value">当前市值：1CNY/ACU</string>
     <string name="order_operation_time_limit">订单操作时限</string>
     <string name="minute_15">15分钟</string>
-    <string name="hour_1_5">1.5小时</string>
-    <string name="hour_2">2小时</string>
-    <string name="hour_4">4小时</string>
-    <string name="hour_6">6小时</string>
-    <string name="hour_8">8小时</string>
-    <string name="hour_12">12小时</string>
-    <string name="hour_24">24小时</string>
     <string name="trade_single_price">交易单价</string>
     <string name="please_input_trade_single_price">请输入交易单价</string>
     <string name="trade_num">交易数量</string>
@@ -737,7 +711,6 @@
     <string name="purchase_deposit">交易保证金</string>
     <string name="margin_balance">保证金余额</string>
     <string name="OTC_balance">OTC账户余额</string>
-    <string name="please_input_ask">请输入问候语.....</string>
     <string name="confirm_publish">确认发布</string>
     <string name="give_up">放弃</string>
     <string name="buy_order_detail">买单详情页</string>
@@ -792,7 +765,6 @@
     <string name="please_upload_wx_shoukuanma">请上传微信收款码</string>
     <string name="upload_zfb_shoukuanma">上传支付宝收款码</string>
     <string name="please_upload_zfb_shoukuanma">请上传支付宝收款码</string>
-    <string name="please_upload_your_payimg">请上传您的付款凭证</string>
     <string name="no_pay_tip">您未绑定该种支付方式，请绑定后再次确认。</string>
 
     <!--修改个人资料-->
@@ -873,11 +845,6 @@
 
     <!--充值保证金-->
     <string name="recharge_deposit">充值保证金</string>
-    <string name="available_balance">可操作余额</string>
-    <string name="frozen_balance">冻结中余额</string>
-    <string name="please_input_recharge_amount">请填写您要充值的数量</string>
-    <string name="order_record">订单记录</string>
-    <string name="extract">提取</string>
     <string name="failure">失败</string>
     <string name="success_get_account">成功到账</string>
     <string name="auditing">审核中</string>
@@ -918,24 +885,7 @@
     <string name="transfer">划转</string>
 
     <!--交易赛-->
-    <string name="match_title1">全员尊享新系统内测</string>
-    <string name="match_title2">零风险参赛赢取</string>
-    <string name="match_title3">28888ACU大奖</string>
-    <string name="match_tag1">大赛介绍</string>
-    <string name="match_tag1_text1">尊敬的用户：</string>
-    <string name="match_tag1_text2">内测交易大赛</string>
-    <string name="match_tag1_text3">已经圆满结束</string>
-    <string name="match_tag2">统计结果</string>
-    <string name="match_tag2_text1">比赛结果正在计算中……</string>
-    <string name="matchresult_tag1_text2">承蒙各位的信任和厚爱，TACU平台已顺利完成v3.0版本的开发和测试，为了让广大用户提前体验新系统，尽快学会新系统的使用，降低新系统正式上线后的操作风险现为您提供3.0内测版本系统，诚邀您参与共建TACU平台，我们为您提供了零风险零投入以及丰厚奖励的模拟交易大赛。</string>
-    <string name="matchresult_tag2">获奖用户</string>
-    <string name="matchreslut_tag3">体验奖</string>
-    <string name="matchreslut_tag3_text1">账号/UID</string>
-    <string name="matchreslut_tag3_text2">奖励</string>
-    <string name="rank">战绩排名</string>
-    <string name="trade_amount">交易额</string>
     <string name="all_amount">总资产</string>
-    <string name="rank_num">第%1$s名</string>
 
     <!--实人认证-->
     <string name="friendly_tip">温馨提示</string>
