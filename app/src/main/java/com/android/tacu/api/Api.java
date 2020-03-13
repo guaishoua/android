@@ -1,7 +1,6 @@
 package com.android.tacu.api;
 
 import com.android.tacu.base.BaseModel;
-import com.android.tacu.module.assets.model.AmountModel;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.ChargeModel;
@@ -35,7 +34,6 @@ import com.android.tacu.module.otc.model.OtcSelectFeeModel;
 import com.android.tacu.module.otc.model.OtcTradeListModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.model.SelectStatusModel;
-import com.android.tacu.module.splash.model.TradeWinListModel;
 import com.android.tacu.module.transaction.model.DealDetailsModel;
 import com.android.tacu.module.transaction.model.ShowOrderListModel;
 import com.android.tacu.module.transaction.model.ShowTradeListModel;
@@ -1186,12 +1184,6 @@ public interface Api {
             @Field("start") Integer start,
             @Field("size") Integer size
     );
-
-    /**
-     * 交易大赛获奖
-     */
-    @POST("tradeWinList")
-    Observable<BaseModel<TradeWinListModel>> tradeWinList();
 
     /**
      * 实人认证获取verifyToken

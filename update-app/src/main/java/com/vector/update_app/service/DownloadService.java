@@ -249,7 +249,7 @@ public class DownloadService extends Service {
         @Override
         public void onProgress(float progress, long total) {
             //做一下判断，防止自回调过于频繁，造成更新通知栏进度过于频繁，而出现卡顿的问题。
-            int rate = Math.round(progress * 100);
+            int rate = Math.round(progress);
             if (oldRate != rate) {
                 if (mCallBack != null) {
                     mCallBack.setMax(total);

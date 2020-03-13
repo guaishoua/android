@@ -10,7 +10,6 @@ import android.view.WindowManager;
 
 import com.android.tacu.R;
 import com.android.tacu.module.main.view.MainActivity;
-import com.android.tacu.module.splash.view.TradeMatchActivity;
 import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.LanguageUtils;
@@ -106,14 +105,9 @@ public class SplashActivity extends AppCompatActivity {
      * 跳转MainActivity
      */
     private void goMainActivity() {
-        if (TradeMatchActivity.isGoMain()) {
-            //退出全屏 防止切换非全屏卡顿
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(this, TradeMatchActivity.class);
-            startActivity(intent);
-        }
+        //退出全屏 防止切换非全屏卡顿
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

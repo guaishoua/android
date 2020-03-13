@@ -1,171 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/content_bg_color">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
+    <include
+        android:id="@+id/title"
+        layout="@layout/common_titlebar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@color/content_bg_color"
-        android:orientation="vertical"
-        app:elevation="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
 
-        <android.support.constraint.ConstraintLayout
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll">
+            android:background="@color/content_bg_color"
+            android:orientation="vertical"
+            app:elevation="0dp">
 
-            <TextView
-                android:id="@+id/tv_money"
-                android:layout_width="wrap_content"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_20"
-                android:drawableRight="@drawable/icon_expand_more"
-                android:drawablePadding="@dimen/dp_5"
-                android:gravity="center_vertical"
-                android:text="@string/renminbi"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_14"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_scrollFlags="scroll">
 
-            <TextView
-                android:id="@+id/tv_real_price_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
-                android:text="@string/real_time_price"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_14"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:drawableRight="@drawable/icon_expand_more"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:gravity="center_vertical"
+                    android:text="@string/renminbi"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_real_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_5"
-                android:text="1 CNY/ACU"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_14"
-                app:layout_constraintRight_toRightOf="@id/tv_real_price_title"
-                app:layout_constraintTop_toBottomOf="@id/tv_real_price_title" />
+                <TextView
+                    android:id="@+id/tv_real_price_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:text="@string/real_time_price"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_real_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:text="1 CNY/ACU"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintRight_toRightOf="@id/tv_real_price_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_real_price_title" />
+
+                <View
+                    android:id="@+id/view_line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@color/content_bg_color_grey"
+                    app:layout_constraintTop_toBottomOf="@id/tv_real_price" />
+            </android.support.constraint.ConstraintLayout>
+
+            <com.shizhefei.view.indicator.ScrollIndicatorView
+                android:id="@+id/magic_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_indicator_height"
+                app:layout_constraintTop_toBottomOf="@id/view_line2" />
 
             <View
-                android:id="@+id/view_line1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
-                android:layout_marginTop="@dimen/dp_10"
                 android:background="@color/content_bg_color_grey"
-                app:layout_constraintTop_toBottomOf="@id/tv_real_price" />
+                app:layout_constraintTop_toBottomOf="@id/magic_indicator" />
+        </android.support.design.widget.AppBarLayout>
 
-            <!-- <TextView
-                 android:id="@+id/tv_24h_range_title"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginLeft="@dimen/dp_10"
-                 android:layout_marginTop="@dimen/dp_10"
-                 android:text="@string/range_24h"
-                 android:textColor="@color/text_grey"
-                 android:textSize="@dimen/text_size_sp_13"
-                 app:layout_constraintLeft_toLeftOf="parent"
-                 app:layout_constraintTop_toBottomOf="@id/view_line1" />
-
-             <TextView
-                 android:id="@+id/tv_24h_maxprice_title"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/maxprice_24h"
-                 android:textColor="@color/text_grey"
-                 android:textSize="@dimen/text_size_sp_13"
-                 app:layout_constraintBottom_toBottomOf="@id/tv_24h_range_title"
-                 app:layout_constraintLeft_toLeftOf="parent"
-                 app:layout_constraintRight_toRightOf="parent" />
-
-             <TextView
-                 android:id="@+id/tv_24h_minprice_title"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginRight="@dimen/dp_10"
-                 android:text="@string/minprice_24h"
-                 android:textColor="@color/text_grey"
-                 android:textSize="@dimen/text_size_sp_13"
-                 app:layout_constraintBottom_toBottomOf="@id/tv_24h_range_title"
-                 app:layout_constraintRight_toRightOf="parent" />
-
-             <TextView
-                 android:id="@+id/tv_24h_range"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginLeft="@dimen/dp_10"
-                 android:layout_marginTop="@dimen/dp_10"
-                 android:textColor="@color/color_otc_buy"
-                 android:textSize="@dimen/text_size_sp_14"
-                 app:layout_constraintLeft_toLeftOf="parent"
-                 app:layout_constraintTop_toBottomOf="@id/tv_24h_range_title"
-                 tools:text="7.00%" />
-
-             <ImageView
-                 android:id="@+id/img_24h_range"
-                 android:layout_width="@dimen/dp_15"
-                 android:layout_height="@dimen/dp_15"
-                 android:layout_marginLeft="@dimen/dp_5"
-                 app:layout_constraintBottom_toBottomOf="@id/tv_24h_range"
-                 app:layout_constraintLeft_toRightOf="@id/tv_24h_range"
-                 app:layout_constraintTop_toTopOf="@id/tv_24h_range"
-                 app:srcCompat="@drawable/icon_riseup" />
-
-             <TextView
-                 android:id="@+id/tv_24h_maxprice"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:textColor="@color/text_color"
-                 android:textSize="@dimen/text_size_sp_14"
-                 app:layout_constraintBottom_toBottomOf="@id/tv_24h_range"
-                 app:layout_constraintLeft_toLeftOf="parent"
-                 app:layout_constraintRight_toRightOf="parent"
-                 tools:text="100" />
-
-             <TextView
-                 android:id="@+id/tv_24h_minprice"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginRight="@dimen/dp_10"
-                 android:textColor="@color/text_color"
-                 android:textSize="@dimen/text_size_sp_14"
-                 app:layout_constraintBottom_toBottomOf="@id/tv_24h_range"
-                 app:layout_constraintRight_toRightOf="parent"
-                 tools:text="3.33" />
-
-             <View
-                 android:id="@+id/view_line2"
-                 android:layout_width="match_parent"
-                 android:layout_height="@dimen/dp_1"
-                 android:layout_marginTop="@dimen/dp_10"
-                 android:background="@color/content_bg_color_grey"
-                 app:layout_constraintTop_toBottomOf="@id/tv_24h_range" />-->
-        </android.support.constraint.ConstraintLayout>
-
-        <com.shizhefei.view.indicator.ScrollIndicatorView
-            android:id="@+id/magic_indicator"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/main_indicator_height"
-            app:layout_constraintTop_toBottomOf="@id/view_line2" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </android.support.design.widget.CoordinatorLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:background="@color/content_bg_color_grey"
-            app:layout_constraintTop_toBottomOf="@id/magic_indicator" />
-    </android.support.design.widget.AppBarLayout>
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+        android:id="@+id/lin_guanggao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_150"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/dp_15"
+        android:paddingVertical="@dimen/dp_5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:qmui_backgroundColor="@color/transparent_80"
+        app:qmui_borderColor="@color/color_default"
+        app:qmui_borderWidth="@dimen/dp_0.5"
+        app:qmui_radiusBottomLeft="@dimen/dp_3"
+        app:qmui_radiusTopLeft="@dimen/dp_3">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-</android.support.design.widget.CoordinatorLayout>
+        <TextView
+            android:id="@+id/tv_guanggao1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/publish"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14" />
+
+        <TextView
+            android:id="@+id/tv_guanggao2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/guanggao"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14" />
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_guanggao2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_150"
+        android:paddingLeft="@dimen/dp_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/dp_3"
+            android:paddingVertical="@dimen/dp_5"
+            app:qmui_backgroundColor="@color/transparent_80"
+            app:qmui_borderColor="@color/color_default"
+            app:qmui_borderWidth="@dimen/dp_0.5"
+            app:qmui_radiusBottomLeft="@dimen/dp_3"
+            app:qmui_radiusTopLeft="@dimen/dp_3" />
+    </LinearLayout>
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+        android:id="@+id/lin_auth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_80"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/dp_15"
+        android:paddingVertical="@dimen/dp_5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:qmui_backgroundColor="@color/transparent_80"
+        app:qmui_borderColor="@color/color_default"
+        app:qmui_borderWidth="@dimen/dp_0.5"
+        app:qmui_radiusBottomLeft="@dimen/dp_3"
+        app:qmui_radiusTopLeft="@dimen/dp_3">
+
+        <TextView
+            android:id="@+id/tv_auth1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/certified"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14" />
+
+        <TextView
+            android:id="@+id/tv_auth2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shoper"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14" />
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_auth2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_80"
+        android:paddingLeft="@dimen/dp_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:paddingHorizontal="@dimen/dp_3"
+            android:paddingVertical="@dimen/dp_5"
+            app:qmui_backgroundColor="@color/transparent_80"
+            app:qmui_borderColor="@color/color_default"
+            app:qmui_borderWidth="@dimen/dp_0.5"
+            app:qmui_radiusBottomLeft="@dimen/dp_3"
+            app:qmui_radiusTopLeft="@dimen/dp_3" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

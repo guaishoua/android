@@ -39,7 +39,7 @@ import com.android.tacu.module.main.model.UploadModel;
 import com.android.tacu.module.main.presenter.MainPresenter;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.SelfModel;
-import com.android.tacu.module.otc.view.OtcMarketListFragment;
+import com.android.tacu.module.otc.view.OtcMarketFragment;
 import com.android.tacu.module.splash.SplashActivity;
 import com.android.tacu.module.transaction.view.TradeFragment;
 import com.android.tacu.EventBus.model.MainSwitchEvent;
@@ -105,7 +105,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private Fragment[] fragments;
     private HomeFragment homeFragment;
     private TradeFragment tradeFragment;
-    private OtcMarketListFragment otcHomeFragment;
+    private OtcMarketFragment otcHomeFragment;
     private AssetsFragment assetsFragment;
 
     private HomeModel homeModel;
@@ -523,7 +523,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private void initFragments() {
         homeFragment = HomeFragment.newInstance();
         tradeFragment = TradeFragment.newInstance();
-        otcHomeFragment = OtcMarketListFragment.newInstance();
+        otcHomeFragment = OtcMarketFragment.newInstance();
         assetsFragment = AssetsFragment.newInstance();
 
         fragments = new Fragment[]{homeFragment, tradeFragment, otcHomeFragment, assetsFragment};
