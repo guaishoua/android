@@ -48,11 +48,13 @@ import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.LogUtils;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.StatusBarUtils;
+import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.downloadfile.AppUpdateUtils;
 import com.android.tacu.utils.PackageUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.NoSlideViewPager;
+import com.android.tacu.widget.SonnyJackDragView;
 import com.android.tacu.widget.dialog.DroidDialog;
 import com.facebook.rebound.SimpleSpringListener;
 import com.facebook.rebound.Spring;
@@ -66,7 +68,6 @@ import com.yanzhenjie.permission.Permission;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements View.OnClickListener, MainContract.IView, TradeDataBridge {
 
@@ -179,6 +180,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         reboundAnim(ll_tab_assets);
 
         initFragments();
+        initDragview();
         initCache();
         setTabSelection(Constant.MAIN_HOME);
     }
@@ -309,46 +311,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 setTabSelection(Constant.MAIN_ASSETS);
                 break;
         }
-    }
-
-    @OnClick(R.id.img_customer)
-    void customerClick() {
-        String title = "";
-        /**
-         * 设置访客来源，标识访客是从哪个页面发起咨询的，用于客服了解用户是从什么页面进入。
-         * 三个参数分别为：来源页面的url，来源页面标题，来源页面额外信息（保留字段，暂时无用）。
-         * 设置来源后，在客服会话界面的"用户资料"栏的页面项，可以看到这里设置的值。
-         */
-        String sourceUrl = null;
-        String sourceTitle = null;
-        switch (lastShowFragment){
-            case Constant.MAIN_HOME:
-                sourceUrl = "HomeFragment";
-                sourceTitle = "行情首页";
-                break;
-            case Constant.MAIN_TRADE:
-                sourceUrl = "TradeFragment";
-                sourceTitle = "交易页面";
-                break;
-            case Constant.MAIN_OTC:
-                sourceUrl = "OtcMarketListFragment";
-                sourceTitle = "OTC页面";
-                break;
-            case Constant.MAIN_ASSETS:
-                sourceUrl = "AssetsFragment";
-                sourceTitle = "资产页面";
-                break;
-        }
-        ConsultSource source = new ConsultSource(sourceUrl, sourceTitle, "custom information string");
-        /**
-         * 请注意： 调用该接口前，应先检查Unicorn.isServiceAvailable()，
-         * 如果返回为false，该接口不会有任何动作
-         *
-         * @param context 上下文
-         * @param title   聊天窗口的标题
-         * @param source  咨询的发起来源，包括发起咨询的url，title，描述信息等
-         */
-        Unicorn.openServiceActivity(this, title, source);
     }
 
     @Override
@@ -524,19 +486,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         }
     }
 
+    @Override
+    public List<MarketNewModel.TradeCoinsBean> getTradeList() {
+        if (homeFragment != null)
+            return homeFragment.getTotalTradeList();
+        return null;
+    }
+
     private void logoutSuccess() {
         if (viewpager.getCurrentItem() != 0 && viewpager.getCurrentItem() != 1) {
             setTabSelection(Constant.MAIN_HOME);
         }
         mPresenter.logout();
         showToastSuccess(getResources().getString(R.string.logout_success));
-    }
-
-    @Override
-    public List<MarketNewModel.TradeCoinsBean> getTradeList() {
-        if (homeFragment != null)
-            return homeFragment.getTotalTradeList();
-        return null;
     }
 
     private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
@@ -628,6 +590,24 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         }
     }
 
+    private void initDragview() {
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.mipmap.img_customer);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customerClick();
+            }
+        });
+        new SonnyJackDragView.Builder()
+                .setActivity(this)//当前Activity，不可为空
+                .setDefaultRight(UIUtils.dp2px(30))//初始位置右边距
+                .setDefaultBottom(UIUtils.dp2px(200))//初始位置底部边距
+                .setSize(UIUtils.dp2px(50))//DragView大小
+                .setView(imageView)//设置自定义的DragView，切记不可为空
+                .build();
+    }
+
     private void showALAuth() {
         if (videoAuthFailureDialog != null && videoAuthFailureDialog.isShowing()) {
             return;
@@ -685,6 +665,45 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                     .cancelable(false, false)
                     .show();
         }
+    }
+
+    private void customerClick() {
+        String title = "";
+        /**
+         * 设置访客来源，标识访客是从哪个页面发起咨询的，用于客服了解用户是从什么页面进入。
+         * 三个参数分别为：来源页面的url，来源页面标题，来源页面额外信息（保留字段，暂时无用）。
+         * 设置来源后，在客服会话界面的"用户资料"栏的页面项，可以看到这里设置的值。
+         */
+        String sourceUrl = null;
+        String sourceTitle = null;
+        switch (lastShowFragment) {
+            case Constant.MAIN_HOME:
+                sourceUrl = "HomeFragment";
+                sourceTitle = "行情首页";
+                break;
+            case Constant.MAIN_TRADE:
+                sourceUrl = "TradeFragment";
+                sourceTitle = "交易页面";
+                break;
+            case Constant.MAIN_OTC:
+                sourceUrl = "OtcMarketListFragment";
+                sourceTitle = "OTC页面";
+                break;
+            case Constant.MAIN_ASSETS:
+                sourceUrl = "AssetsFragment";
+                sourceTitle = "资产页面";
+                break;
+        }
+        ConsultSource source = new ConsultSource(sourceUrl, sourceTitle, "custom information string");
+        /**
+         * 请注意： 调用该接口前，应先检查Unicorn.isServiceAvailable()，
+         * 如果返回为false，该接口不会有任何动作
+         *
+         * @param context 上下文
+         * @param title   聊天窗口的标题
+         * @param source  咨询的发起来源，包括发起咨询的url，title，描述信息等
+         */
+        Unicorn.openServiceActivity(this, title, source);
     }
 
     /**

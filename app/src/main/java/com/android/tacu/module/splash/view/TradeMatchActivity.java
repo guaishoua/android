@@ -24,6 +24,7 @@ import com.android.tacu.module.splash.model.TradeWinModel;
 import com.android.tacu.module.splash.presenter.TradeMatchPresenter;
 import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.DateUtils;
+import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.PackageUtils;
 import com.android.tacu.utils.downloadfile.AppUpdateUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -244,9 +245,15 @@ public class TradeMatchActivity extends BaseActivity<TradeMatchPresenter> implem
         protected void convert(BaseViewHolder holder, TradeWinModel item) {
             holder.setText(R.id.tv_rank, String.format(getResources().getString(R.string.rank_num), item.id));
             holder.setText(R.id.tv_uid, item.name + "(" + item.uid + ")");
-            holder.setText(R.id.tv_tradeAmount, item.tradeAmount + Constant.ACU_CURRENCY_NAME);
-            holder.setText(R.id.tv_all, item.amount + Constant.ACU_CURRENCY_NAME);
-            holder.setText(R.id.tv_reward, item.reward + Constant.ACU_CURRENCY_NAME);
+            if (!TextUtils.isEmpty(item.tradeAmount)) {
+                holder.setText(R.id.tv_tradeAmount, FormatterUtils.getFormatRoundDown(2, item.tradeAmount) + Constant.ACU_CURRENCY_NAME);
+            }
+            if (!TextUtils.isEmpty(item.amount)) {
+                holder.setText(R.id.tv_all, FormatterUtils.getFormatRoundDown(2, item.amount) + Constant.ACU_CURRENCY_NAME);
+            }
+            if (!TextUtils.isEmpty(item.reward)) {
+                holder.setText(R.id.tv_reward, FormatterUtils.getFormatRoundDown(2, item.reward) + Constant.ACU_CURRENCY_NAME);
+            }
         }
     }
 
@@ -259,7 +266,9 @@ public class TradeMatchActivity extends BaseActivity<TradeMatchPresenter> implem
         @Override
         protected void convert(BaseViewHolder holder, TradeWinModel item) {
             holder.setText(R.id.tv_uid, item.name + "(" + item.uid + ")");
-            holder.setText(R.id.tv_reward, item.reward + Constant.ACU_CURRENCY_NAME);
+            if (!TextUtils.isEmpty(item.reward)) {
+                holder.setText(R.id.tv_reward, FormatterUtils.getFormatRoundDown(2, item.reward) + Constant.ACU_CURRENCY_NAME);
+            }
             holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_transparent));
             ((TextView) holder.getView(R.id.tv_uid)).setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
             ((TextView) holder.getView(R.id.tv_reward)).setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);

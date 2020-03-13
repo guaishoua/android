@@ -8,14 +8,21 @@
     android:background="@color/content_bg_color_grey"
     android:fitsSystemWindows="true">
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <include
             android:id="@+id/title"
             layout="@layout/common_titlebar"
             android:visibility="gone" />
+
+        <com.android.tacu.widget.NoSlideViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:id="@+id/lin_bottom"
@@ -24,8 +31,7 @@
             android:background="@color/main_tab_bg_color"
             android:elevation="@dimen/dp_10"
             android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/ll_tab_home"
@@ -134,29 +140,12 @@
             </LinearLayout>
         </LinearLayout>
 
-        <com.android.tacu.widget.NoSlideViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/lin_bottom"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/img_customer"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginRight="@dimen/dp_30"
-            android:layout_marginBottom="@dimen/dp_50"
-            android:src="@mipmap/img_customer"
-            app:layout_constraintBottom_toTopOf="@+id/lin_bottom"
-            app:layout_constraintRight_toRightOf="parent" />
-
         <View
             android:id="@+id/view_base_line"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             app:layout_constraintBottom_toBottomOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
     <include
         android:id="@+id/view_drawer"

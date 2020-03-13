@@ -1,16 +1,16 @@
 package com.android.tacu.widget;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.v4.view.ViewCompat;
+import android.graphics.Rect;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+
+import java.lang.reflect.Field;
 
 /**
  * 可拖动的悬浮按钮
@@ -18,238 +18,170 @@ import android.widget.RelativeLayout;
  */
 
 public class SonnyJackDragView implements View.OnTouchListener {
+    private Builder mBuilder;
 
-    private static final int TOP_STATUS_BAR_HEIGHT = 25;
-    private static final int MAX_ELEVATION = 64;
-    private Params params;
+    private int mStatusBarHeight, mScreenWidth, mScreenHeight;
 
-    private Context context;
-    private View ball;
-    private int maxMarginLeft;
-    private int maxMarginTop;
-    private int downX;
-    private int downY;
-    private int xDelta;
-    private int yDelta;
-    private DisplayMetrics dm;
+    //手指按下位置
+    private int mStartX, mStartY, mLastX, mLastY;
+    private boolean mTouchResult = false;
 
-    public SonnyJackDragView(Params params) {
-        this.params = params;
-        this.context = params.context;
-        init();
+    private SonnyJackDragView(SonnyJackDragView.Builder builder) {
+        mBuilder = builder;
+        initDragView();
     }
 
-    public View getBall() {
-        return ball;
+    public View getDragView() {
+        return mBuilder.view;
     }
 
-    public void setVisibility(int visibility) {
-        if (ball != null) {
-            ball.setVisibility(visibility);
-        }
+    public Activity getActivity() {
+        return mBuilder.activity;
     }
 
-    private void init() {
-        if (params.ball == null) {
-            ball = new View(context);
-        } else {
-            ball = params.ball;
+    private void initDragView() {
+        if (null == getActivity()) {
+            throw new NullPointerException("the activity is null");
+        }
+        if (null == mBuilder.view) {
+            throw new NullPointerException("the dragView is null");
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && mBuilder.activity.isDestroyed()) {
+            return;
         }
 
-        params.rootView.addView(ball);
-
-        if (params.resId != 0) {
-            ((ImageView) ball).setImageResource(params.resId);
+        //屏幕宽高
+        WindowManager windowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        if (null != windowManager) {
+            DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+            mScreenWidth = displayMetrics.widthPixels;
+            mScreenHeight = displayMetrics.heightPixels;
         }
 
-        ball.setOnTouchListener(this);
-        ViewCompat.setElevation(ball, MAX_ELEVATION);
-
-        ViewGroup.MarginLayoutParams layoutParams;
-
-        if (params.rootView instanceof FrameLayout) {
-            layoutParams = new FrameLayout.LayoutParams(params.width, params.height);
-        } else if (params.rootView instanceof RelativeLayout) {
-            layoutParams = new RelativeLayout.LayoutParams(params.width, params.height);
-        } else {
-            layoutParams = new ViewGroup.MarginLayoutParams(params.width, params.height);
+        //状态栏高度
+        Rect frame = new Rect();
+        getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+        mStatusBarHeight = frame.top;
+        if (mStatusBarHeight <= 0) {
+            try {
+                Class<?> c = Class.forName("com.android.internal.R$dimen");
+                Object obj = c.newInstance();
+                Field field = c.getField("status_bar_height");
+                int x = Integer.parseInt(field.get(obj).toString());
+                mStatusBarHeight = getActivity().getResources().getDimensionPixelSize(x);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
 
-        dm = context.getResources().getDisplayMetrics();
-        int screenWidth = dm.widthPixels;
-        int screenHeight = dm.heightPixels;
+        FrameLayout rootLayout = (FrameLayout) getActivity().getWindow().getDecorView();
+        int left = mScreenWidth - mBuilder.defaultRight - mBuilder.size;
+        FrameLayout.LayoutParams layoutParams = createLayoutParams(left, mScreenHeight - mBuilder.defaultBottom, 0, 0);
+        rootLayout.addView(getDragView(), layoutParams);
+        getDragView().setOnTouchListener(this);
+    }
 
-        maxMarginLeft = screenWidth - params.width;
-        layoutParams.width = params.width;
-        layoutParams.height = params.height;
-        layoutParams.leftMargin = maxMarginLeft - params.rightMargin;
-        maxMarginTop = screenHeight - params.height - params.bottomMargin - (int) (context.getResources().getDisplayMetrics().density * TOP_STATUS_BAR_HEIGHT);
-        layoutParams.topMargin = maxMarginTop - params.bottomMargin;
-        layoutParams.bottomMargin = 0;
-        layoutParams.rightMargin = 0;
-
-        ball.setLayoutParams(layoutParams);
+    private static SonnyJackDragView createDragView(SonnyJackDragView.Builder builder) {
+        if (null == builder) {
+            throw new NullPointerException("the param builder is null when execute method createDragView");
+        }
+        if (null == builder.activity) {
+            throw new NullPointerException("the activity is null");
+        }
+        if (null == builder.view) {
+            throw new NullPointerException("the view is null");
+        }
+        SonnyJackDragView sonnyJackDragView = new SonnyJackDragView(builder);
+        return sonnyJackDragView;
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        final int touchX = (int) event.getRawX();
-        final int touchY = (int) event.getRawY();
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                downX = touchX;
-                downY = touchY;
-                ViewGroup.MarginLayoutParams lParams = (ViewGroup.MarginLayoutParams) ball.getLayoutParams();
-                xDelta = touchX - lParams.leftMargin;
-                yDelta = touchY - lParams.topMargin;
-                break;
-            case MotionEvent.ACTION_UP:
-                if (downX == touchX && downY == touchY) {
-                    if (params.onClickListener != null) {
-                        params.onClickListener.onClick(ball);
-                    }
-                } else {
-                    Animation animation = new Animation() {
-                        @Override
-                        protected void applyTransformation(float interpolatedTime, Transformation t) {
-                            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) ball.getLayoutParams();
-
-                            int curLeftMargin = layoutParams.leftMargin;
-
-                            if (touchX < dm.widthPixels / 2) {
-                                layoutParams.leftMargin = (int) (curLeftMargin - curLeftMargin * interpolatedTime);
-                            } else {
-                                layoutParams.leftMargin = (int) (curLeftMargin + (maxMarginLeft - curLeftMargin) * interpolatedTime);
-                            }
-
-                            ball.setLayoutParams(layoutParams);
-                        }
-                    };
-                    animation.setDuration(params.duration);
-                    ball.startAnimation(animation);
-                }
-
-                break;
-            case MotionEvent.ACTION_POINTER_DOWN:
-                break;
-            case MotionEvent.ACTION_POINTER_UP:
+                mTouchResult = false;
+                mStartX = mLastX = (int) event.getRawX();
+                mStartY = mLastY = (int) event.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                ViewGroup.MarginLayoutParams layoutParams;
-
-                if (params.rootView instanceof FrameLayout) {
-                    layoutParams = (FrameLayout.LayoutParams) ball.getLayoutParams();
-                } else if (params.rootView instanceof RelativeLayout) {
-                    layoutParams = (RelativeLayout.LayoutParams) ball.getLayoutParams();
-                } else {
-                    layoutParams = (ViewGroup.MarginLayoutParams) ball.getLayoutParams();
+                int left, top, right, bottom;
+                int dx = (int) event.getRawX() - mLastX;
+                int dy = (int) event.getRawY() - mLastY;
+                left = v.getLeft() + dx;
+                if (left < mScreenWidth - mBuilder.defaultRight - v.getWidth()) {
+                    left = mScreenWidth - mBuilder.defaultRight - v.getWidth();
+                }
+                right = left + v.getWidth();
+                if (right > mScreenWidth - mBuilder.defaultRight) {
+                    right = mScreenWidth - mBuilder.defaultRight;
+                    left = right - v.getWidth();
+                }
+                top = v.getTop() + dy;
+                if (top < mStatusBarHeight) {
+                    top = mStatusBarHeight;
+                }
+                bottom = top + v.getHeight();
+                if (bottom > mScreenHeight) {
+                    bottom = mScreenHeight;
+                    top = bottom - v.getHeight();
                 }
 
-                int leftMargin;
-
-                if (touchX - xDelta <= 0) {
-                    leftMargin = 0;
-                } else if (touchX - xDelta < maxMarginLeft) {
-                    leftMargin = touchX - xDelta;
-                } else {
-                    leftMargin = maxMarginLeft;
+                v.setLayoutParams(createLayoutParams(left, top, right, bottom));
+                mLastX = (int) event.getRawX();
+                mLastY = (int) event.getRawY();
+                break;
+            case MotionEvent.ACTION_UP:
+                float endX = event.getRawX();
+                float endY = event.getRawY();
+                if (Math.abs(endX - mStartX) > 15 || Math.abs(endY - mStartY) > 15) {
+                    //防止点击的时候稍微有点移动点击事件被拦截了
+                    mTouchResult = true;
                 }
-
-                layoutParams.leftMargin = leftMargin;
-
-                int topMargin;
-
-                if (touchY - yDelta <= 0) {
-                    topMargin = 0;
-                } else if (touchY - yDelta < maxMarginTop) {
-                    topMargin = touchY - yDelta;
-                } else {
-                    topMargin = maxMarginTop;
-                }
-
-                layoutParams.topMargin = topMargin;
-                layoutParams.rightMargin = 0;
-                layoutParams.bottomMargin = 0;
-                ball.setLayoutParams(layoutParams);
                 break;
         }
+        return mTouchResult;
+    }
 
-        ball.getRootView().invalidate();
-
-        return true;
+    private FrameLayout.LayoutParams createLayoutParams(int left, int top, int right, int bottom) {
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(mBuilder.size, mBuilder.size);
+        layoutParams.setMargins(left, top, right, bottom);
+        return layoutParams;
     }
 
     public static class Builder {
-        private Params P;
+        private Activity activity;
+        private int size = FrameLayout.LayoutParams.WRAP_CONTENT;
+        private int defaultRight = 0;
+        private int defaultBottom = 0;
+        private View view;
 
-        public Builder(Context context, ViewGroup rootView) {
-            P = new Params(context);
-            P.rootView = rootView;
-        }
-
-        public Builder setRightMargin(int rightMargin) {
-            P.rightMargin = rightMargin;
+        public Builder setActivity(Activity activity) {
+            this.activity = activity;
             return this;
         }
 
-        public Builder setBottomMargin(int bottomMargin) {
-            P.bottomMargin = bottomMargin;
+        public Builder setSize(int size) {
+            this.size = size;
             return this;
         }
 
-        public Builder setWidth(int width) {
-            P.width = width;
+        public Builder setDefaultRight(int right) {
+            this.defaultRight = right;
             return this;
         }
 
-        public Builder setHeight(int height) {
-            P.height = height;
+        public Builder setDefaultBottom(int bottom) {
+            this.defaultBottom = bottom;
             return this;
         }
 
-        public Builder setRes(int resId) {
-            P.resId = resId;
-            return this;
-        }
-
-        public Builder setBall(View view) {
-            P.ball = view;
-            return this;
-        }
-
-        public Builder setDuration(int duration) {
-            P.duration = duration;
-            return this;
-        }
-
-        public Builder setOnClickListener(View.OnClickListener onClickListener) {
-            P.onClickListener = onClickListener;
+        public Builder setView(View view) {
+            this.view = view;
             return this;
         }
 
         public SonnyJackDragView build() {
-            SonnyJackDragView SonnyJackDragView = new SonnyJackDragView(P);
-            return SonnyJackDragView;
-        }
-    }
-
-    private static class Params {
-        public static final int DEFAULT_BALL_WIDTH = 180;
-        public static final int DEFAULT_BALL_HEIGHT = 180;
-        public static final int DEFAULT_DURATION = 500;
-        private int duration = DEFAULT_DURATION;
-        private Context context;
-        private int rightMargin;
-        private int bottomMargin;
-        private int resId;
-        private int width = DEFAULT_BALL_WIDTH;
-        private int height = DEFAULT_BALL_HEIGHT;
-        private ViewGroup rootView;
-        private View.OnClickListener onClickListener;
-        private View ball;
-
-        public Params(Context context) {
-            this.context = context;
+            return createDragView(this);
         }
     }
 }
