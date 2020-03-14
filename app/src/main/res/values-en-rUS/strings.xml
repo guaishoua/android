@@ -827,7 +827,7 @@
     <string name="apply_success1">Application succeed</string>
 
     <!--充值保证金-->
-    <string name="recharge_deposit">Add warranty deposit</string>
+    <string name="recharge_deposit">Margin management</string>
     <string name="failure">Failed</string>
     <string name="success_get_account">Deposit succeed</string>
     <string name="auditing">Pending</string>

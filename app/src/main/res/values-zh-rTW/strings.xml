@@ -12,7 +12,7 @@
     <!--Main-->
     <string name="market">市場</string>
     <string name="trade">交易</string>
-    <string name="assets">資產</string>
+    <string name="assets">資產中心</string>
     <string name="app_update">升级</string>
     <string name="app_update_title">发现新版本：</string>
 
@@ -828,7 +828,7 @@
     <string name="apply_success1">申請成功</string>
 
     <!--充值保證金-->
-    <string name="recharge_deposit">充值保證金</string>
+    <string name="recharge_deposit">保證金管理</string>
     <string name="failure">失敗</string>
     <string name="success_get_account">成功到賬</string>
     <string name="auditing">審核中</string>
