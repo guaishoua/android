@@ -249,7 +249,7 @@
                     android:text="@string/invite_posters"
                     android:textColor="@color/text_white"
                     android:textSize="@dimen/text_size_sp_16"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:qmui_backgroundColor="@color/color_default"
                     app:qmui_radius="@dimen/dp_5" />
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
