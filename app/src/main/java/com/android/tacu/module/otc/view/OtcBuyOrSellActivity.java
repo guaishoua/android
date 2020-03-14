@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.tacu.R;
@@ -25,15 +24,12 @@ import com.android.tacu.module.otc.presenter.OtcBuyOrSellPresenter;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.MathHelper;
-import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
-import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
@@ -106,6 +102,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     //防止EditText和EditText死循环
     private boolean isInputNum = true;
     private boolean isInputAmount = true;
+    private boolean isInputAll = true;
 
     private String imageUrl;
 
@@ -184,7 +181,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (isInputAmount && !TextUtils.isEmpty(s.toString().trim()) && allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price)) {
+                if (isInputAmount && isInputAll && !TextUtils.isEmpty(s.toString().trim()) && allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price)) {
                     try {
                         double value = MathHelper.mul(Double.parseDouble(s.toString()), Double.parseDouble(allModel.orderModel.price));
                         edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, value));
@@ -207,7 +204,7 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (isInputNum && !TextUtils.isEmpty(s.toString().trim()) && allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price)) {
+                if (isInputNum && isInputAll && !TextUtils.isEmpty(s.toString().trim()) && allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price)) {
                     try {
                         double value = MathHelper.div(Double.parseDouble(s.toString()), Double.parseDouble(allModel.orderModel.price));
                         edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, value));
@@ -248,24 +245,38 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     @OnClick(R.id.btn_all_number)
     void btnAllNumber() {
         if (allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price) && !TextUtils.isEmpty(allModel.orderModel.remainAmount) && !TextUtils.isEmpty(allModel.orderModel.remainAmount)) {
-            double highLimitNum = MathHelper.div(Double.parseDouble(allModel.orderModel.highLimit), Double.parseDouble(allModel.orderModel.price));
-            if (highLimitNum <= Double.parseDouble(allModel.orderModel.remainAmount)) {
-                edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, highLimitNum));
+            isInputAll = false;
+            double remainAmountValue = MathHelper.mul(Double.parseDouble(allModel.orderModel.remainAmount), Double.parseDouble(allModel.orderModel.price));
+            double value;
+            if (remainAmountValue <= Double.parseDouble(allModel.orderModel.highLimit)) {
+                edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, remainAmountValue));
+                value = MathHelper.div(remainAmountValue, Double.parseDouble(allModel.orderModel.price));
+                edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, value));
             } else {
-                edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, allModel.orderModel.remainAmount));
+                edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, allModel.orderModel.highLimit));
+                value = MathHelper.div(Double.parseDouble(allModel.orderModel.highLimit), Double.parseDouble(allModel.orderModel.price));
+                edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, value));
             }
+            isInputAll = true;
         }
     }
 
     @OnClick(R.id.btn_allmoney)
     void btnAllmoney() {
         if (allModel != null && allModel.orderModel != null && !TextUtils.isEmpty(allModel.orderModel.price) && !TextUtils.isEmpty(allModel.orderModel.remainAmount) && !TextUtils.isEmpty(allModel.orderModel.remainAmount)) {
-            double reminALL = MathHelper.mul(Double.parseDouble(allModel.orderModel.remainAmount), Double.parseDouble(allModel.orderModel.price));
-            if (reminALL <= Double.parseDouble(allModel.orderModel.highLimit)) {
-                edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, reminALL));
+            isInputAll = false;
+            double remainAmountValue = MathHelper.mul(Double.parseDouble(allModel.orderModel.remainAmount), Double.parseDouble(allModel.orderModel.price));
+            double value;
+            if (remainAmountValue <= Double.parseDouble(allModel.orderModel.highLimit)) {
+                edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, remainAmountValue));
+                value = MathHelper.div(remainAmountValue, Double.parseDouble(allModel.orderModel.price));
+                edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, value));
             } else {
                 edit_sell_allmoney.setText(FormatterUtils.getFormatRoundDown(2, allModel.orderModel.highLimit));
+                value = MathHelper.div(Double.parseDouble(allModel.orderModel.highLimit), Double.parseDouble(allModel.orderModel.price));
+                edit_sell_number.setText(FormatterUtils.getFormatRoundDown(2, value));
             }
+            isInputAll = true;
         }
     }
 

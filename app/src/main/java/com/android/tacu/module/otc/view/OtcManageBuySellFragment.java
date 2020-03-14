@@ -153,12 +153,12 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
                 try {
                     if (!TextUtils.isEmpty(s.toString()) && !TextUtils.isEmpty(edit_trade_num.getText().toString())) {
                         double valueD = MathHelper.mul(Double.valueOf(s.toString()), Double.valueOf(edit_trade_num.getText().toString()));
-                        tv_trade_all_price.setText(FormatterUtils.getFormatRoundDown(2, valueD));
+                        tv_trade_all_price.setText(FormatterUtils.getFormatValue(valueD));
                         if (otcSelectFeeModel != null) {
                             double value;
                             if (!isBuy) {
                                 value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.bondRate);
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
+                                tv_purchase_deposit.setText(value + " " + coinName);
                             }
                         }
                     }
@@ -181,12 +181,12 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
                 try {
                     if (!TextUtils.isEmpty(s.toString()) && !TextUtils.isEmpty(edit_trade_single_price.getText().toString())) {
                         double valueD = MathHelper.mul(Double.valueOf(s.toString()), Double.valueOf(edit_trade_single_price.getText().toString()));
-                        tv_trade_all_price.setText(FormatterUtils.getFormatRoundDown(2, valueD));
+                        tv_trade_all_price.setText(FormatterUtils.getFormatValue(valueD));
                         if (otcSelectFeeModel != null) {
                             double value;
                             if (!isBuy) {
                                 value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.bondRate);
-                                tv_purchase_deposit.setText(FormatterUtils.getFormatRoundDown(2, value) + " " + coinName);
+                                tv_purchase_deposit.setText(value + " " + coinName);
                             }
                         }
                     }

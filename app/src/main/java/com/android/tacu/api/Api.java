@@ -1001,7 +1001,8 @@ public interface Api {
             @Field("highLimit") String highLimit,//最高限额
             @Field("payByCard") Integer payByCard,//银行卡支付 1支持0 不支持
             @Field("payWechat") Integer payWechat,//微信支付 1支持0 不支持
-            @Field("payAlipay") Integer payAlipay//支付 1支持0 不支持
+            @Field("payAlipay") Integer payAlipay,//支付 1支持0 不支持
+            @Field("explain") String explain
     );
 
     /**
