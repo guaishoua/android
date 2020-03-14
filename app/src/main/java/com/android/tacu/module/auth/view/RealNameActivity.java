@@ -1,5 +1,7 @@
 package com.android.tacu.module.auth.view;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -58,6 +60,8 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
     private UserInfoModel userInfoModel;
     private QMUIBottomSheet mBottomSheet;
 
+    private final int requestCodeValue = 1001;
+
     @Override
     protected void setView() {
         setContentView(R.layout.activity_real);
@@ -89,9 +93,9 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        mPresenter.authinfoNew();
+    protected void onPresenterCreated(RealNamePresenter presenter) {
+        super.onPresenterCreated(presenter);
+        upLoad();
     }
 
     @Override
@@ -99,6 +103,14 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
         super.onDestroy();
         if (mBottomSheet != null) {
             mBottomSheet.dismiss();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == requestCodeValue && resultCode == RESULT_OK) {
+            upLoad();
         }
     }
 
@@ -272,7 +284,7 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
 
     @Override
     public void authNewSuccess() {
-        jumpTo(RealNameTwoActivity.crestActivity(RealNameActivity.this, userInfoModel, 1, isChina));
+        jumpTo(RealNameTwoActivity.crestActivity(RealNameActivity.this, userInfoModel, 1, isChina), requestCodeValue);
     }
 
     @Override
@@ -311,5 +323,9 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
                 IdentityAuthUtils.setBirthday(this, tv_id_end_time, 100, 100);
                 break;
         }
+    }
+
+    private void upLoad() {
+        mPresenter.authinfoNew();
     }
 }

@@ -17,8 +17,8 @@ import com.android.tacu.module.auth.model.SelectAuthLevelModel;
 public class AuthPresenter extends BaseMvpPresenter implements AuthContract.IAuthPresenter {
 
     @Override
-    public void selectAuthLevel() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).selectAuthLevel(), new NetDisposableObserver<BaseModel<SelectAuthLevelModel>>((IBaseMvpView) getView()) {
+    public void selectAuthLevel(boolean isShowView) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).selectAuthLevel(), new NetDisposableObserver<BaseModel<SelectAuthLevelModel>>((IBaseMvpView) getView(), isShowView) {
             @Override
             public void onNext(BaseModel<SelectAuthLevelModel> model) {
                 AuthContract.IAuthView view = (AuthContract.IAuthView) getView();

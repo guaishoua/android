@@ -13,6 +13,6 @@ public class AuthContract {
     }
 
     public interface IAuthPresenter {
-        void selectAuthLevel();
+        void selectAuthLevel(boolean isShowView);
     }
 }

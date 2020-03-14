@@ -63,7 +63,7 @@ public class Constant {
     public static final String DINGXINAG_APPID = "bc6773614c088f0618f41616dab302ed";//图形滑动验证id
 
     //app的H5下载链接
-    public static final String ANDROID_APP_DOWNLOAD = "https://www.cdcbk.com/download/app.html";
+    public static final String ANDROID_APP_DOWNLOAD = SOCKET_IP + "/download/app.html";
 
     //zendesk
     public static final String ZENDESK_WENTI = "https://tacu.zendesk.com/hc/zh-tw/categories/360001893293";

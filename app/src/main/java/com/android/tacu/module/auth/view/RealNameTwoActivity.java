@@ -200,6 +200,13 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
     @OnClick(R.id.btn_next)
     void next() {
         if (positiveImage == null && getUrl()) {
@@ -209,7 +216,7 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
             } else {
                 //1:中国大陆   0：其他国家地区
                 if (TextUtils.equals(isChina, "1") && current == 2) {
-                    mPresenter.getVerifyToken();
+                    mPresenter.authnewOpposite(null, isChina, 3);
                 } else {
                     startActivity();
                 }

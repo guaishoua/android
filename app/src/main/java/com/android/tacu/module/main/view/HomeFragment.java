@@ -21,7 +21,6 @@ import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.EventManage;
 import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.HomeNotifyEvent;
-import com.android.tacu.EventBus.model.MainBannerEvent;
 import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
@@ -166,7 +165,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         refreshHome.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                EventManage.sendEvent(new BaseEvent<>(EventConstant.MainBanner, new MainBannerEvent(true)));
+                mPresenter.getHome(false);
                 mPresenter.getNoticeInfo();
             }
         });
@@ -189,6 +188,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     public void onResume() {
         super.onResume();
+        mPresenter.getHome(homeModel == null);
         mPresenter.getNoticeInfo();
     }
 
@@ -274,6 +274,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
+    public void home(HomeModel model) {
+        this.homeModel = model;
+        if (model != null) {
+            SPUtils.getInstance().put(Constant.HOME_CACHE, gson.toJson(model));
+        }
+        setBannerValue();
+    }
+
+    @Override
     public void showNoticeList(List<NoticeModel> list) {
         this.noticeList = list;
         if (list != null && list.size() > 0) {
@@ -312,13 +321,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 }
             }
         });
-    }
-
-    public void setHome(HomeModel model, boolean isCache) {
-        this.homeModel = model;
-        if (!isCache){
-            setBannerValue();
-        }
     }
 
     private void sendValue(final List<MarketNewModel> marketModelList) {
@@ -527,6 +529,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
      * 加载本地缓存
      */
     private void initCache() {
+        String homeCacheString = SPUtils.getInstance().getString(Constant.HOME_CACHE);
+        homeModel = gson.fromJson(homeCacheString, HomeModel.class);
+
         String noticeCacheString = SPUtils.getInstance().getString(Constant.HOME_NOTICE_CACHE);
         noticeCloseCacheString = SPUtils.getInstance().getString(Constant.HOME_NOTICE_CLOSE_CACHE);
         if (TextUtils.equals(noticeCacheString, noticeCloseCacheString)) {

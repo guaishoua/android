@@ -6,7 +6,7 @@ ext {
             Api_Debug        : "\"https://www.cdcbk.com/unique\"",
             Ip_Debug         : "\"debug\"",
             //正式环境
-            Api_Release      : "\"https://test.cdcbk.com/unique\"",
+            Api_Release      : "\"https://t.tacu.com/unique\"",
             Ip_Release       : "\"www.cdcbk.com\"",
 
             //登录密码加密的盐值

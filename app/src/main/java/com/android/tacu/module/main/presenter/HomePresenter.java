@@ -10,6 +10,7 @@ import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.main.contract.HomeContract;
+import com.android.tacu.module.main.model.HomeModel;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.NoticeModel;
 
@@ -29,6 +30,17 @@ public class HomePresenter extends BaseMvpPresenter implements HomeContract.IPre
             public void onNext(BaseModel<List<NoticeModel>> model) {
                 HomeContract.IView view = (HomeContract.IView) getView();
                 view.showNoticeList(model.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void getHome(boolean isShowLoadingView) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).getHome(), new NetDisposableObserver<BaseModel<HomeModel>>((IBaseMvpView) getView(), isShowLoadingView, false) {
+            @Override
+            public void onNext(BaseModel<HomeModel> model) {
+                HomeContract.IView view = (HomeContract.IView) getView();
+                view.home(model.attachment);
             }
         });
     }

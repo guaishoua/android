@@ -12,7 +12,6 @@ import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.main.contract.MainContract;
 import com.android.tacu.module.main.model.AliModel;
 import com.android.tacu.module.main.model.ConvertModel;
-import com.android.tacu.module.main.model.HomeModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.main.model.UploadModel;
 import com.android.tacu.module.market.model.SelfModel;
@@ -31,17 +30,6 @@ public class MainPresenter extends BaseMvpPresenter implements MainContract.IPre
             public void onNext(BaseModel<UploadModel> model) {
                 MainContract.IView view = (MainContract.IView) getView();
                 view.upload(model.attachment, isTip);
-            }
-        });
-    }
-
-    @Override
-    public void getHome(boolean isShowLoadingView) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).getHome(), new NetDisposableObserver<BaseModel<HomeModel>>((IBaseMvpView) getView(), isShowLoadingView, false) {
-            @Override
-            public void onNext(BaseModel<HomeModel> model) {
-                MainContract.IView view = (MainContract.IView) getView();
-                view.home(model.attachment);
             }
         });
     }

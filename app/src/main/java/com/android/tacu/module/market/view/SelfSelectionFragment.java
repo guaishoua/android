@@ -287,11 +287,9 @@ public class SelfSelectionFragment extends BaseFragment<MarketPresenter> impleme
 
     private void setEditLis() {
         if (tradeCoinList != null && tradeCoinList.size() > 0) {
-            //EventManage.sendEvent(new BaseEvent<>(EventConstant.EditStatusCode, new EditStatusEvent(Constant.BTN_STATUS_EDIT)));
             selfAdapter.setFooterView(viewFooter);
         } else {
             //没有数据就通知MarketListFragment按钮不显示
-            //EventManage.sendEvent(new BaseEvent<>(EventConstant.EditStatusCode, new EditStatusEvent(Constant.BTN_STATUS_NO)));
             selfAdapter.removeAllFooterView();
         }
     }

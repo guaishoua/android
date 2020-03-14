@@ -21,7 +21,6 @@ import com.alibaba.security.rp.RPSDK;
 import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.EventManage;
 import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.MainBannerEvent;
 import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
@@ -33,7 +32,6 @@ import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.MainContract;
 import com.android.tacu.module.main.model.AliModel;
 import com.android.tacu.module.main.model.ConvertModel;
-import com.android.tacu.module.main.model.HomeModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.main.model.UploadModel;
 import com.android.tacu.module.main.presenter.MainPresenter;
@@ -108,7 +106,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private OtcMarketFragment otcHomeFragment;
     private AssetsFragment assetsFragment;
 
-    private HomeModel homeModel;
     private MainDrawerLayoutHelper mainDrawerLayoutHelper;
 
     private int lastShowFragment = 0;
@@ -181,7 +178,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
         initFragments();
         initDragview();
-        initCache();
         setTabSelection(Constant.MAIN_HOME);
     }
 
@@ -248,7 +244,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             mPresenter.getSelfList();
             mPresenter.selectBank();
         }
-        mPresenter.getHome(homeModel == null);
         mPresenter.getConvertModel();
         if (mainDrawerLayoutHelper != null) {
             mainDrawerLayoutHelper.setLogin(spUtil.getLogin());
@@ -321,17 +316,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             } else if (isTip) {
                 showToast(getResources().getString(R.string.update_hint));
             }
-        }
-    }
-
-    @Override
-    public void home(HomeModel model) {
-        this.homeModel = model;
-        if (model != null) {
-            SPUtils.getInstance().put(Constant.HOME_CACHE, gson.toJson(model));
-        }
-        if (homeFragment != null) {
-            homeFragment.setHome(homeModel, false);
         }
     }
 
@@ -480,12 +464,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                         }
                     }
                     break;
-                case EventConstant.MainBanner:
-                    MainBannerEvent bannerEvent = (MainBannerEvent) event.getData();
-                    if (bannerEvent != null && bannerEvent.isNotifyBanner()) {
-                        mPresenter.getHome(false);
-                    }
-                    break;
             }
         }
     }
@@ -584,14 +562,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         tv_trade.setTextColor(ContextCompat.getColor(this, R.color.main_tab_text_color));
         tv_assets.setTextColor(ContextCompat.getColor(this, R.color.main_tab_text_color));
         tv_otc.setTextColor(ContextCompat.getColor(this, R.color.main_tab_text_color));
-    }
-
-    private void initCache() {
-        String homeCacheString = SPUtils.getInstance().getString(Constant.HOME_CACHE);
-        homeModel = gson.fromJson(homeCacheString, HomeModel.class);
-        if (homeFragment != null) {
-            homeFragment.setHome(homeModel, true);
-        }
     }
 
     private void initDragview() {

@@ -29,7 +29,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
     TextView tv_error_des;
 
     private SelectAuthLevelModel model;
-    private int kycFlag = 0;
+    private boolean isFirst = true;
 
     /**
      * @param context
@@ -65,9 +65,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
     @Override
     protected void onResume() {
         super.onResume();
-        if (kycFlag != 3) {
-            mPresenter.selectAuthLevel();
-        }
+        upload();
     }
 
     @OnClick(R.id.layout_kyc2)
@@ -76,7 +74,6 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         switch (model.isAuthSenior) {
             case -1:
             case 0:
-                kycFlag = 2;
                 jumpTo(RealNameActivity.class);
                 break;
             case 1:
@@ -122,6 +119,13 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
                     tv_error_des.setVisibility(View.GONE);
                     break;
             }
+        }
+    }
+
+    private void upload() {
+        mPresenter.selectAuthLevel(isFirst);
+        if (isFirst) {
+            isFirst = false;
         }
     }
 }

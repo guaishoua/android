@@ -23,12 +23,10 @@ public class EventConstant {
     public static final int PayInfoCode = 1008;
     //购买vip，子fragment通知父Activity刷新
     public static final int VipBuyCode = 1009;
-    //通知MainActivity刷新banner
-    public static final int MainBanner = 1010;
     //OtcMarketListFragment 发送当前的isVisibleToUser
-    public static final int OTCListVisibleCode = 1011;
+    public static final int OTCListVisibleCode = 1010;
     //OtcOrderListFragment 发送当前的isVisibleToUser
-    public static final int OTCOrderVisibleCode = 1012;
+    public static final int OTCOrderVisibleCode = 1011;
     //TradeFragment 发送当前的isVisibleToUser
-    public static final int TradeVisibleCode = 1013;
+    public static final int TradeVisibleCode = 1012;
 }
