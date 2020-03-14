@@ -45,11 +45,11 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private int flags;
     //标记当前功能(查看记录使用)
     private int current = 0;
-    private int currencyId = 1;
     private String recharge;
     private String take;
     private String otcTransfer;
-    private String currencyNameEn = "BTC";
+    private int currencyId = Constant.TAC_CURRENCY_ID;
+    private String currencyNameEn = Constant.TAC_CURRENCY_NAME;
     private FragmentAdapter fragmentAdapter;
 
     private RechargeFragment rechargeFragment;
@@ -117,7 +117,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
 
                     event.setType("0");
                     jumpTo(MoneyFlowActivity.createActivity(AssetsActivity.this, event));
-                }else{
+                } else {
                     RecordEvent event = new RecordEvent(currencyId, currencyNameEn, "", "");
                     jumpTo(RecordActivity.createActivity(AssetsActivity.this, current, event));
                 }

@@ -9,6 +9,9 @@ import java.math.BigDecimal;
  */
 public class FormatterUtils {
 
+    private static int[] values = {1000, 1000000, 1000000000};
+    private static String[] units = {"K", "M", "B"};
+
     /**
      * 科学计数法转string
      *
@@ -108,6 +111,101 @@ public class FormatterUtils {
             return BigDecimal.valueOf(Double.parseDouble(value)).setScale(newScale, BigDecimal.ROUND_HALF_UP).toPlainString();
         } catch (Exception e) {
             return value;
+        }
+    }
+
+    /**
+     * 大额的数字进行优化
+     */
+    public static String getBigValueFormatter(int newScale, double value) {
+        try {
+            String unit = "";
+            int i = values.length - 1;
+            while (i >= 0) {
+                if (value > values[i]) {
+                    value /= values[i];
+                    unit = units[i];
+                    break;
+                }
+                i--;
+            }
+            if (TextUtils.isEmpty(unit)) {
+                return getFormatRoundDown(newScale, value);
+            }
+            return String.format("%.2f", value) + unit;
+        } catch (Exception e) {
+            return getFormatRoundDown(newScale, value);
+        }
+    }
+
+    public static String getBigValueFormatter(int newScale, String value) {
+        if (TextUtils.isEmpty(value)) {
+            return value;
+        }
+        try {
+            String unit = "";
+            double valueD = Double.parseDouble(value);
+            int i = values.length - 1;
+            while (i >= 0) {
+                if (valueD > values[i]) {
+                    valueD /= values[i];
+                    unit = units[i];
+                    break;
+                }
+                i--;
+            }
+            if (TextUtils.isEmpty(unit)) {
+                return getFormatRoundDown(newScale, value);
+            }
+            return String.format("%.2f", valueD) + unit;
+        } catch (Exception e) {
+            return value;
+        }
+    }
+
+    public static String getBigValueFormatter(double value) {
+        try {
+            String unit = "";
+            int i = values.length - 1;
+            while (i >= 0) {
+                if (value > values[i]) {
+                    value /= values[i];
+                    unit = units[i];
+                    break;
+                }
+                i--;
+            }
+            if (TextUtils.isEmpty(unit)) {
+                return getFormatValue(value);
+            }
+            return String.format("%.2f", value) + unit;
+        } catch (Exception e) {
+            return getFormatValue(value);
+        }
+    }
+
+    public static String getBigValueFormatter(String value) {
+        if (TextUtils.isEmpty(value)) {
+            return value;
+        }
+        try {
+            String unit = "";
+            double valueD = Double.parseDouble(value);
+            int i = values.length - 1;
+            while (i >= 0) {
+                if (valueD > values[i]) {
+                    valueD /= values[i];
+                    unit = units[i];
+                    break;
+                }
+                i--;
+            }
+            if (TextUtils.isEmpty(unit)) {
+                return getFormatValue(value);
+            }
+            return String.format("%.2f", valueD) + unit;
+        } catch (Exception e) {
+            return getFormatValue(value);
         }
     }
 }

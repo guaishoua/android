@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.android.tacu.R;
 import com.android.tacu.module.market.model.PriceModal;
+import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.UIUtils;
 
 import java.math.BigDecimal;
@@ -224,7 +225,7 @@ public class BuySellChartView extends View {
         for (int i = 0; i < 4; i++) {
             // 防止最右边的线不显示
             if (i == 3) {
-                marginRight = 10;
+                marginRight = 2;
             } else {
                 marginRight = 0;
             }
@@ -244,11 +245,11 @@ public class BuySellChartView extends View {
             canvas.drawText(buyPriceRight, mWidth / 3 - buyPriceRightLength / 2, yOriginDown + mTextSize, mTextPaint);
 
             // 左边的文案
-            canvas.drawText(BigDecimal.valueOf(buyList.get(0).getAll()).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString() + "(" + baseCurrencyNameEn + ")", 0, yOriginTop + mTextSize, mTextPaint);
-            canvas.drawText(BigDecimal.valueOf(buyList.get(buyList.size() / 4).getAll()).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString(), 0, yOriginTop + rowSpace, mTextPaint);
-            canvas.drawText(BigDecimal.valueOf(buyList.get(buyList.size() * 2 / 4).getAll()).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString(), 0, yOriginTop + rowSpace * 2, mTextPaint);
-            canvas.drawText(BigDecimal.valueOf(buyList.get(buyList.size() * 3 / 4).getAll()).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString(), 0, yOriginTop + rowSpace * 3, mTextPaint);
-            canvas.drawText(BigDecimal.valueOf(buyList.get(buyList.size() - 1).getAll()).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString(), 0, yOriginDown, mTextPaint);
+            canvas.drawText(FormatterUtils.getBigValueFormatter(pointNum, buyList.get(0).getAll()) + "(" + baseCurrencyNameEn + ")", 0, yOriginTop + mTextSize, mTextPaint);
+            canvas.drawText(FormatterUtils.getBigValueFormatter(pointNum, buyList.get(buyList.size() / 4).getAll()), 0, yOriginTop + rowSpace, mTextPaint);
+            canvas.drawText(FormatterUtils.getBigValueFormatter(pointNum, buyList.get(buyList.size() * 2 / 4).getAll()), 0, yOriginTop + rowSpace * 2, mTextPaint);
+            canvas.drawText(FormatterUtils.getBigValueFormatter(pointNum, buyList.get(buyList.size() * 3 / 4).getAll()), 0, yOriginTop + rowSpace * 3, mTextPaint);
+            canvas.drawText(FormatterUtils.getBigValueFormatter(pointNum, buyList.get(buyList.size() - 1).getAll()), 0, yOriginDown, mTextPaint);
         }
         if (sellList != null && sellList.size() > 0) {
             // 底部的文案
@@ -261,15 +262,15 @@ public class BuySellChartView extends View {
             canvas.drawText(sellPriceRight, mWidth - sellPriceRightLength, yOriginDown + mTextSize, mTextPaint);
 
             // 右边的文案
-            String str1 = BigDecimal.valueOf(sellList.get(0).getAll()).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString();
+            String str1 = FormatterUtils.getBigValueFormatter(pointNum, sellList.get(0).getAll());
             canvas.drawText(str1, xOriginRight - mTextPaint.measureText(str1), yOriginDown, mTextPaint);
-            String str2 = BigDecimal.valueOf(sellList.get(sellList.size() / 4).getAll()).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString();
+            String str2 = FormatterUtils.getBigValueFormatter(pointNum, sellList.get(sellList.size() / 4).getAll());
             canvas.drawText(str2, xOriginRight - mTextPaint.measureText(str2), yOriginDown - rowSpace, mTextPaint);
-            String str3 = BigDecimal.valueOf(sellList.get(sellList.size() * 2 / 4).getAll()).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString();
+            String str3 = FormatterUtils.getBigValueFormatter(pointNum, sellList.get(sellList.size() * 2 / 4).getAll());
             canvas.drawText(str3, xOriginRight - mTextPaint.measureText(str3), yOriginDown - rowSpace * 2, mTextPaint);
-            String str4 = BigDecimal.valueOf(sellList.get(sellList.size() * 3 / 4).getAll()).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString();
+            String str4 = FormatterUtils.getBigValueFormatter(pointNum, sellList.get(sellList.size() * 3 / 4).getAll());
             canvas.drawText(str4, xOriginRight - mTextPaint.measureText(str4), yOriginDown - rowSpace * 3, mTextPaint);
-            String str5 = BigDecimal.valueOf(sellList.get(sellList.size() - 1).getAll()).setScale(pointNum, BigDecimal.ROUND_DOWN).toPlainString() + "(" + currencyNameEn + ")";
+            String str5 = FormatterUtils.getBigValueFormatter(pointNum, sellList.get(sellList.size() - 1).getAll()) + "(" + currencyNameEn + ")";
             canvas.drawText(str5, xOriginRight - mTextPaint.measureText(str5), yOriginTop + mTextSize, mTextPaint);
         }
     }

@@ -113,11 +113,11 @@ public class TakeCoinFragment extends BaseFragment<CoinsPresenter> implements Co
     TextView tvAtLeastMount;
 
     private int type = 1;
-    private int currencyId;
 
     private String tempAddressString;
     private String tempNoteString;
-    private String currencyNameEn = "BTC";
+    private int currencyId;
+    private String currencyNameEn;
     private boolean isFlag = false;
 
     private Animation shake;
@@ -500,7 +500,7 @@ public class TakeCoinFragment extends BaseFragment<CoinsPresenter> implements Co
                 } else if (attachment.detail.feeType == 2) {
                     value = BigDecimal.valueOf(MathHelper.sub(Double.valueOf(s.toString()), MathHelper.mul(Double.valueOf(s.toString()), attachment.resp.fee))).toPlainString();
                 }
-                value += " "+currencyNameEn;
+                value += " " + currencyNameEn;
                 tvActual.setText(value);
             }
         } catch (Exception e) {

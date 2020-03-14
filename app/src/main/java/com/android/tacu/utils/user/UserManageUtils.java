@@ -85,19 +85,22 @@ public class UserManageUtils {
             }
 
             //个人信息
-            if (!TextUtils.isEmpty(model.email)) {
-                spUtil.setEmailStatus(true);
-                spUtil.setAccount(model.email);
-            } else {
-                spUtil.setEmailStatus(false);
-                spUtil.setAccount("");
-            }
             if (!TextUtils.isEmpty(model.phone)) {
                 spUtil.setPhoneStatus(true);
-                spUtil.setAccount(model.phone);
             } else {
                 spUtil.setPhoneStatus(false);
-                spUtil.setAccount("");
+            }
+            if (!TextUtils.isEmpty(model.email)) {
+                spUtil.setEmailStatus(true);
+            } else {
+                spUtil.setEmailStatus(false);
+            }
+            if (!TextUtils.isEmpty(model.phone) || !TextUtils.isEmpty(model.email)) {
+                if (!TextUtils.isEmpty(model.phone)) {
+                    spUtil.setAccount(model.phone);
+                } else if (!TextUtils.isEmpty(model.email)) {
+                    spUtil.setAccount(model.email);
+                }
             }
 
             spUtil.setPhone(model.phone);

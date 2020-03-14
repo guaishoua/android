@@ -200,7 +200,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     protected void initView() {
         setSocketEvent(MarketDetailsActivity.this, MarketDetailsActivity.this, SocketConstant.LOGINAFTERCHANGETRADECOIN);
 
-        currencyId = getIntent().getIntExtra("currencyId", Constant.BTC_CURRENCY_ID);
+        currencyId = getIntent().getIntExtra("currencyId", Constant.TAC_CURRENCY_ID);
         baseCurrencyId = getIntent().getIntExtra("baseCurrencyId", Constant.ACU_CURRENCY_ID);
         currencyNameEn = getIntent().getStringExtra("currencyNameEn");
         baseCurrencyNameEn = getIntent().getStringExtra("baseCurrencyNameEn");

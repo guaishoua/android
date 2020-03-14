@@ -84,14 +84,10 @@ public class Constant {
 
     //几个币种的ID
     public static final int ACU_CURRENCY_ID = 237;
-    public static final int USDT_CURRENCY_ID = 63;
-    public static final int BTC_CURRENCY_ID = 1;
     public static final int TAC_CURRENCY_ID = 238;
 
     //OTC开放的币种
     public static final String[] OTCList = new String[]{"ACU"};
     public static final String ACU_CURRENCY_NAME = "ACU";
-    public static final String UADT_CURRENCY_NAME = "USDT";
-    public static final String BTC_CURRENCY_NAME = "BTC";
     public static final String TAC_CURRENCY_NAME = "TAC";
 }

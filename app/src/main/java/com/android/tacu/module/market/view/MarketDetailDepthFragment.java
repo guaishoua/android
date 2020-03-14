@@ -308,33 +308,33 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
         protected void convert(BaseViewHolder helper, MarketDepthModel item) {
             if (currentTradeCoinModel != null) {
                 if (item.getBuyNumber() != 0) {
-                    helper.setText(R.id.tv_buyamount, BigDecimal.valueOf(item.getBuyNumber()).setScale(currentTradeCoinModel.currentTradeCoin.pointNum, RoundingMode.DOWN).toPlainString());
+                    helper.setText(R.id.tv_buyamount, FormatterUtils.getBigValueFormatter(currentTradeCoinModel.currentTradeCoin.pointNum, item.getBuyNumber()));
                 } else {
                     helper.setText(R.id.tv_buyamount, "--");
                 }
                 if (item.getSellNumber() != 0) {
-                    helper.setText(R.id.tv_sellamount, BigDecimal.valueOf(item.getSellNumber()).setScale(currentTradeCoinModel.currentTradeCoin.pointNum, RoundingMode.DOWN).toPlainString());
+                    helper.setText(R.id.tv_sellamount, FormatterUtils.getBigValueFormatter(currentTradeCoinModel.currentTradeCoin.pointNum, item.getSellNumber()));
                 } else {
                     helper.setText(R.id.tv_sellamount, "--");
                 }
                 if (item.getBuyCurrent() != 0) {
-                    helper.setText(R.id.tv_buyprice, BigDecimal.valueOf(item.getBuyCurrent()).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString());
+                    helper.setText(R.id.tv_buyprice, FormatterUtils.getFormatRoundDown(currentTradeCoinModel.currentTradeCoin.pointPrice, item.getBuyCurrent()));
                 } else {
                     helper.setText(R.id.tv_buyprice, "--");
                 }
                 if (item.getSellCurrent() != 0) {
-                    helper.setText(R.id.tv_sellprice, BigDecimal.valueOf(item.getSellCurrent()).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString());
+                    helper.setText(R.id.tv_sellprice, FormatterUtils.getFormatRoundDown(currentTradeCoinModel.currentTradeCoin.pointPrice, item.getSellCurrent()));
                 } else {
                     helper.setText(R.id.tv_sellprice, "--");
                 }
             } else {
                 if (item.getBuyNumber() != 0) {
-                    helper.setText(R.id.tv_buyamount, FormatterUtils.getFormatValue(item.getBuyNumber()));
+                    helper.setText(R.id.tv_buyamount, FormatterUtils.getBigValueFormatter(item.getBuyNumber()));
                 } else {
                     helper.setText(R.id.tv_buyamount, "--");
                 }
                 if (item.getSellNumber() != 0) {
-                    helper.setText(R.id.tv_sellamount, FormatterUtils.getFormatValue(item.getSellNumber()));
+                    helper.setText(R.id.tv_sellamount, FormatterUtils.getBigValueFormatter(item.getSellNumber()));
                 } else {
                     helper.setText(R.id.tv_sellamount, "--");
                 }

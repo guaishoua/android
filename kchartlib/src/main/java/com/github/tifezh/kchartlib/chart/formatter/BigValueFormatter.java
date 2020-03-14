@@ -2,8 +2,6 @@ package com.github.tifezh.kchartlib.chart.formatter;
 
 import com.github.tifezh.kchartlib.chart.base.IValueFormatter;
 
-import java.util.Locale;
-
 /**
  * 对较大数据进行格式化
  * Created by tifezh on 2017/12/13.
@@ -12,8 +10,8 @@ import java.util.Locale;
 public class BigValueFormatter implements IValueFormatter {
 
     //必须是排好序的
-    private int[] values = {1000, 1000000};
-    private String[] units = {"K", "M"};
+    private int[] values = {1000, 1000000, 1000000000};
+    private String[] units = {"K", "M", "B"};
 
     @Override
     public String format(float value) {
@@ -27,6 +25,6 @@ public class BigValueFormatter implements IValueFormatter {
             }
             i--;
         }
-        return String.format(Locale.getDefault(), "%.2f", value) + unit;
+        return String.format("%.2f", value) + unit;
     }
 }
