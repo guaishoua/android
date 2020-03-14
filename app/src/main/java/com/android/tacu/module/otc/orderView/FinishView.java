@@ -129,33 +129,57 @@ public class FinishView implements View.OnClickListener {
                 tv_order_make.setVisibility(View.GONE);
                 tv_order_make_status.setVisibility(View.GONE);
             }
-            if (!TextUtils.isEmpty(tradeModel.payTime)) {
-                tv_order_pay.setVisibility(View.VISIBLE);
-                tv_order_pay_status.setVisibility(View.VISIBLE);
-                tv_order_pay.setText(tradeModel.payTime);
 
-                if (status != null) {
-                    switch (status) {
-                        case 5:
-                        case 6:
-                        case 7:
-                        case 8:
+            if (status != null) {
+                switch (status) {
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                        if (!TextUtils.isEmpty(tradeModel.payEndTime)) {
+                            tv_order_pay.setVisibility(View.VISIBLE);
+                            tv_order_pay_status.setVisibility(View.VISIBLE);
+                            tv_order_pay.setText(tradeModel.payEndTime);
                             tv_order_pay_status.setText(activity.getResources().getString(R.string.not_pay));
                             tv_order_pay_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_sell));
-                            break;
-                    }
+                        } else {
+                            tv_order_pay.setVisibility(View.GONE);
+                            tv_order_pay_status.setVisibility(View.GONE);
+                        }
+                        if (!TextUtils.isEmpty(tradeModel.updateTime)) {
+                            tv_order_finish.setVisibility(View.VISIBLE);
+                            tv_order_finish_status.setVisibility(View.VISIBLE);
+                            tv_order_finish.setText(tradeModel.updateTime);
+                            tv_order_finish_status.setText(activity.getResources().getString(R.string.not_coined));
+                            tv_order_finish_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_sell));
+                        } else {
+                            tv_order_finish.setVisibility(View.GONE);
+                            tv_order_finish_status.setVisibility(View.GONE);
+                        }
+                        break;
+                    case 10:
+                        if (!TextUtils.isEmpty(tradeModel.payTime)) {
+                            tv_order_pay.setVisibility(View.VISIBLE);
+                            tv_order_pay_status.setVisibility(View.VISIBLE);
+                            tv_order_pay.setText(tradeModel.payTime);
+                            tv_order_pay_status.setText(activity.getResources().getString(R.string.order_pay));
+                            tv_order_pay_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_buy));
+                        } else {
+                            tv_order_pay.setVisibility(View.GONE);
+                            tv_order_pay_status.setVisibility(View.GONE);
+                        }
+                        if (!TextUtils.isEmpty(tradeModel.updateTime)) {
+                            tv_order_finish.setVisibility(View.VISIBLE);
+                            tv_order_finish_status.setVisibility(View.VISIBLE);
+                            tv_order_finish.setText(tradeModel.updateTime);
+                            tv_order_finish_status.setText(activity.getResources().getString(R.string.order_finish));
+                            tv_order_finish_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_buy));
+                        } else {
+                            tv_order_finish.setVisibility(View.GONE);
+                            tv_order_finish_status.setVisibility(View.GONE);
+                        }
+                        break;
                 }
-            } else {
-                tv_order_pay.setVisibility(View.GONE);
-                tv_order_pay_status.setVisibility(View.GONE);
-            }
-            if (!TextUtils.isEmpty(tradeModel.updateTime)) {
-                tv_order_finish.setVisibility(View.VISIBLE);
-                tv_order_finish_status.setVisibility(View.VISIBLE);
-                tv_order_finish.setText(tradeModel.updateTime);
-            } else {
-                tv_order_finish.setVisibility(View.GONE);
-                tv_order_finish_status.setVisibility(View.GONE);
             }
         }
         if (status != null) {
