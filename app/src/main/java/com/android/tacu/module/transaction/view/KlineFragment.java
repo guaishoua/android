@@ -7,6 +7,9 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
 import com.github.tifezh.kchartlib.chart.KChartView;
 import com.github.tifezh.kchartlib.chart.adapter.KChartAdapter;
 import com.github.tifezh.kchartlib.chart.entity.KLineEntity;
@@ -72,6 +75,8 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     private TabPopup timePopUp;
 
     private boolean isAnim = true;
+    private boolean isVisibleToUserTrade = false;
+    private boolean isVisibleToUserQuotation = false;
 
     //时间
     private List<String> tabTitle = new ArrayList<>();
@@ -204,6 +209,20 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     }
 
     @Override
+    protected void receiveEvent(BaseEvent event) {
+        super.receiveEvent(event);
+        if (event != null) {
+            switch (event.getCode()) {
+                case EventConstant.TradeVisibleCode:
+                    TradeVisibleHintEvent tradeVisibleHintEvent = (TradeVisibleHintEvent) event.getData();
+                    isVisibleToUserTrade = tradeVisibleHintEvent.isVisibleToUser();
+                    upLoad();
+                    break;
+            }
+        }
+    }
+
+    @Override
     public void update(final Observable observable, final Object object) {
         getHostActivity().runOnUiThread(new Runnable() {
             @Override
@@ -265,10 +284,18 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         upLoad();
     }
 
+    public void setQuotationVisible(boolean isVisibleToUserQuotation){
+        this.isVisibleToUserQuotation = isVisibleToUserQuotation;
+        upLoad();
+    }
+
     /**
      * 请求K线数据
      */
     private void upLoad() {
+        if (!isVisibleToUserTrade || !isVisibleToUserQuotation || !isVisibleToUser) {
+            return;
+        }
         if (isAnim) {
             kAdapter.clearDataAndNotify();
             mKChartView.resetLoadMoreEnd();

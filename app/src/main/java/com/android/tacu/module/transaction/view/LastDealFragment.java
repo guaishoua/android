@@ -53,6 +53,14 @@ public class LastDealFragment extends BaseFragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (spUtil != null && myDealFragment != null) {
+            myDealFragment.setLastDealVisible(isVisibleToUser);
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -103,8 +111,8 @@ public class LastDealFragment extends BaseFragment {
         viewPager.setCurrentItem(0, false);
     }
 
-    public void notiy(){
-        if (myDealFragment!=null){
+    public void notiy() {
+        if (myDealFragment != null) {
             myDealFragment.notiy();
         }
     }

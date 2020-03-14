@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.R;
@@ -42,6 +45,9 @@ public class MyDealFragment extends BaseFragment<MyDealPresenter> implements MyD
 
     private View emptyView;
     private ShowTradeListModel showTradeListModel;
+
+    private boolean isVisibleToUserTrade = false;
+    private boolean isVisibleToUserLastDeal = false;
 
     public static MyDealFragment newInstance(int currencyId, int baseCurrencyId) {
         Bundle bundle = new Bundle();
@@ -115,6 +121,20 @@ public class MyDealFragment extends BaseFragment<MyDealPresenter> implements MyD
     }
 
     @Override
+    protected void receiveEvent(BaseEvent event) {
+        super.receiveEvent(event);
+        if (event != null) {
+            switch (event.getCode()) {
+                case EventConstant.TradeVisibleCode:
+                    TradeVisibleHintEvent tradeVisibleHintEvent = (TradeVisibleHintEvent) event.getData();
+                    isVisibleToUserTrade = tradeVisibleHintEvent.isVisibleToUser();
+                    getDealList();
+                    break;
+            }
+        }
+    }
+
+    @Override
     public void showTradeList(ShowTradeListModel model) {
         if (showTradeListModel != null && showTradeListModel.list != null && showTradeListModel.list.size() > 0) {
             if (model == null || model.list == null || model.list.size() <= 0) {
@@ -152,6 +172,11 @@ public class MyDealFragment extends BaseFragment<MyDealPresenter> implements MyD
         getDealList();
     }
 
+    public void setLastDealVisible(boolean isVisibleToUserLastDeal){
+        this.isVisibleToUserLastDeal = isVisibleToUserLastDeal;
+        getDealList();
+    }
+
     public void setValue(int currencyId, int baseCurrencyId) {
         this.currencyId = currencyId;
         this.baseCurrencyId = baseCurrencyId;
@@ -160,7 +185,10 @@ public class MyDealFragment extends BaseFragment<MyDealPresenter> implements MyD
     }
 
     private void getDealList() {
-        if (spUtil!=null && spUtil.getLogin()) {
+        if (!isVisibleToUserTrade || !isVisibleToUserLastDeal || !isVisibleToUser) {
+            return;
+        }
+        if (spUtil != null && spUtil.getLogin()) {
             mPresenter.showTradeList(start, size, 0, currencyId, baseCurrencyId);
         }
     }

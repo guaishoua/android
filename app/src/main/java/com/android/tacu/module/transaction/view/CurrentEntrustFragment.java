@@ -57,6 +57,7 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
 
     // true=仅仅显示当前市场
     private boolean isCheckbox = false;
+    private boolean isVisibleToUserTrade = false;
 
     private CurrentAdapter currentAdapter;
 
@@ -241,7 +242,15 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
         getEntrustList();
     }
 
+    public void setTradeVisible(boolean isVisibleToUserTrade) {
+        this.isVisibleToUserTrade = isVisibleToUserTrade;
+        getEntrustList();
+    }
+
     private void getEntrustList() {
+        if (!isVisibleToUserTrade || !isVisibleToUser) {
+            return;
+        }
         if (spUtil != null && spUtil.getLogin()) {
             if (isCheckbox) {
                 currencyIdValue = currencyId;

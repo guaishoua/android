@@ -31,6 +31,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.EventBus.EventConstant;
@@ -249,6 +250,15 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         TradeFragment fragment = new TradeFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (spUtil != null) {
+            EventManage.sendEvent(new BaseEvent<>(EventConstant.TradeVisibleCode, new TradeVisibleHintEvent(isVisibleToUser)));
+            currentEntrustFragment.setTradeVisible(isVisibleToUser);
+        }
     }
 
     @Override
