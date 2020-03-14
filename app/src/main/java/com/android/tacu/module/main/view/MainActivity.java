@@ -604,6 +604,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
 
                             @Override
                             public void onPermissionFailed() {
+                                if (!goVideoAuthDialog.isShowing()) {
+                                    goVideoAuthDialog.show();
+                                }
                             }
                         }, Permission.Group.CAMERA, new String[]{Permission.READ_PHONE_STATE}, Permission.Group.STORAGE);
                     }
