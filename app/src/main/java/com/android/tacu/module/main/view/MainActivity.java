@@ -25,7 +25,6 @@ import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
-import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.view.AssetsFragment;
 import com.android.tacu.module.login.view.LoginActivity;
@@ -49,7 +48,6 @@ import com.android.tacu.utils.StatusBarUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.downloadfile.AppUpdateUtils;
 import com.android.tacu.utils.PackageUtils;
-import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.NoSlideViewPager;
 import com.android.tacu.widget.SonnyJackDragView;
@@ -61,7 +59,6 @@ import com.facebook.rebound.SpringSystem;
 import com.google.gson.Gson;
 import com.qiyukf.unicorn.api.ConsultSource;
 import com.qiyukf.unicorn.api.Unicorn;
-import com.yanzhenjie.permission.Permission;
 
 import java.util.List;
 
@@ -327,6 +324,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
             if (model.isChina != null && model.isChina == 1) {
                 showALAuth();
             }
+        } else if (spUtil.getIsAuthSenior() == 2 && spUtil.getIsAuthVideo() == 2) {
+            if (goVideoAuthDialog != null && goVideoAuthDialog.isShowing()) {
+                goVideoAuthDialog.dismiss();
+            }
+            if (videoAuthFailureDialog != null && videoAuthFailureDialog.isShowing()) {
+                videoAuthFailureDialog.dismiss();
+            }
         }
     }
 
@@ -399,8 +403,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     @Override
     public void getVerifyTokenError(int status) {
         LogUtils.i("jiazhen", "status=" + status);
-        if (status == -1000) {
+        if (status == -1000) {//超过三次机会
             showALAuthFailure(false);
+        } else if (status == -1002) {//已经认证成功的
+            if (goVideoAuthDialog != null && goVideoAuthDialog.isShowing()) {
+                goVideoAuthDialog.dismiss();
+            }
+            if (videoAuthFailureDialog != null && videoAuthFailureDialog.isShowing()) {
+                videoAuthFailureDialog.dismiss();
+            }
         } else {
             showALAuthFailure(true);
         }
@@ -596,19 +607,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 .positiveButton(getResources().getString(R.string.go_auth), new DroidDialog.onPositiveListener() {
                     @Override
                     public void onPositive(Dialog droidDialog) {
-                        PermissionUtils.requestPermissions(MainActivity.this, new OnPermissionListener() {
-                            @Override
-                            public void onPermissionSucceed() {
-                                mPresenter.getVerifyToken();
-                            }
-
-                            @Override
-                            public void onPermissionFailed() {
-                                if (!goVideoAuthDialog.isShowing()) {
-                                    goVideoAuthDialog.show();
-                                }
-                            }
-                        }, Permission.Group.CAMERA, new String[]{Permission.READ_PHONE_STATE}, Permission.Group.STORAGE);
+                        mPresenter.getVerifyToken();
                     }
                 })
                 .cancelable(false, false)

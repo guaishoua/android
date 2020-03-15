@@ -118,7 +118,7 @@ public class RealNamePresenter extends BaseMvpPresenter implements RealNameContr
 
     @Override
     public void vedioAuth() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ALI, Api.class).vedioAuth(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView(), false, false) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ALI, Api.class).vedioAuth(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView(), true, false) {
             @Override
             public void onNext(BaseModel model) {
                 RealNameContract.IRealTwoView view = (RealNameContract.IRealTwoView) getView();

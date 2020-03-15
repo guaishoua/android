@@ -316,6 +316,11 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
     public void getVerifyTokenError(int status) {
         if (status == -1000) {
             showALAuthFailure(false);
+        } else if (status == -1002) {
+            if (videoAuthFailureDialog != null && videoAuthFailureDialog.isShowing()) {
+                videoAuthFailureDialog.dismiss();
+            }
+            dialogView();
         } else {
             showALAuthFailure(true);
         }
