@@ -227,7 +227,11 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             rl_unlogin.setVisibility(View.GONE);
             rl_login.setVisibility(View.VISIBLE);
 
-            tvUser.setText("Hi," + spUtil.getAccount());
+            if (!TextUtils.isEmpty(spUtil.getNickName())){
+                tvUser.setText("Hi," + spUtil.getNickName());
+            }else if (!TextUtils.isEmpty(spUtil.getAccount())){
+                tvUser.setText("Hi," + spUtil.getAccount());
+            }
             tvUid.setText("UID " + spUtil.getUserUid());
             if (!TextUtils.isEmpty(spUtil.getHeadImg())) {
                 GlideUtils.disPlay(mActivity, CommonUtils.getHead(spUtil.getHeadImg()), img_login);
@@ -245,6 +249,9 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         } else {
             rl_unlogin.setVisibility(View.VISIBLE);
             rl_login.setVisibility(View.GONE);
+
+            tvUser.setText("");
+            tvUid.setText("");
 
             itemRealName.setVisibility(View.GONE);
             itemMoney.setVisibility(View.GONE);

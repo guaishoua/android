@@ -478,7 +478,7 @@
     <string name="label_coin_trans_history_price">金额</string>
 
     <string name="hint_coin_filter_search">搜索币种</string>
-    <string name="msg_coin_picker_not_found">目前 %1$s 沒有相關交易對</string>
+    <string name="msg_coin_picker_not_found">目前 %1$s 沒有相关交易对</string>
     <string name="usdt_tip">请选择基于ERC20的USDT进行充值</string>
 
     <!--Auction-->

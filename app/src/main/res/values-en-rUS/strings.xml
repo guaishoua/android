@@ -460,11 +460,9 @@
     <string name="hint_assets_take_coin_enter_google_code">Please enter Google Verification Code</string>
     <string name="title_assets_take_coin_choose_verify_option">Please select authentication mode</string>
 
-
     <string name="label_assets_take_coin_verify_by_phone">mobile phone verification</string>
     <string name="label_assets_take_coin_verify_by_email">mailbox validation</string>
     <string name="btn_assets_take_coin_obtain_pass_code">get verification code</string>
-
 
     <string name="label_assets_cash_amount">available balance:</string>
     <string name="label_assets_actual_amount">Actual arrival:</string>
@@ -473,8 +471,18 @@
     <string name="btn_assets_take_coin_confirm">Application for withdrawal of currency to address</string>
     <string name="btn_common_add_new_address">Add a new address</string>
     <string name="msg_wrong_qrcode_is_empty">Return empty</string>
-
     <string name="msg_wrong_qrcode_unknown_wrong_happen">An unknown error occurred</string>
+
+    <string name="label_coin_trans_history_type">type</string>
+    <string name="label_coin_trans_history_op_type">type of operation</string>
+
+    <string name="label_coin_trans_history_fee">Fee:</string>
+    <string name="label_coin_trans_history_address">Address:</string>
+    <string name="label_coin_trans_history_txid">TxID:</string>
+    <string name="label_coin_trans_history_price">amount</string>
+
+    <string name="hint_coin_filter_search">Search currency</string>
+    <string name="msg_coin_picker_not_found">Currently %1$s has no related trading pairs</string>
     <string name="usdt_tip">Please select USDT based on ERC20 to recharge</string>
 
     <!--Auction-->

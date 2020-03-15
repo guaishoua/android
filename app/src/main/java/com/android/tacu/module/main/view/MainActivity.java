@@ -325,7 +325,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         //必须登录并且KYC2通过
         if (spUtil.getIsAuthSenior() == 2 && spUtil.getIsAuthVideo() != 2) {
             if (model.isChina != null && model.isChina == 1) {
-                //showALAuth();
+                showALAuth();
             }
         }
     }
