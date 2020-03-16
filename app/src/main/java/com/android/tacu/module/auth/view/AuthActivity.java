@@ -70,18 +70,21 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
 
     @OnClick(R.id.layout_kyc2)
     void kyc2Click() {
-        if (model == null) return;
-        switch (model.isAuthSenior) {
-            case -1:
-            case 0:
-                jumpTo(RealNameActivity.class);
-                break;
-            case 1:
-                showToastError(getResources().getString(R.string.authenticating));
-                break;
-            case 2:
-                showToastSuccess(getResources().getString(R.string.authentication));
-                break;
+        if (model != null) {
+            switch (model.isAuthSenior) {
+                case -1:
+                case 0:
+                    jumpTo(RealNameActivity.class);
+                    break;
+                case 1:
+                    showToastError(getResources().getString(R.string.authenticating));
+                    break;
+                case 2:
+                    showToastSuccess(getResources().getString(R.string.authentication));
+                    break;
+            }
+        } else {
+            jumpTo(RealNameActivity.class);
         }
     }
 
@@ -119,6 +122,10 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
                     tv_error_des.setVisibility(View.GONE);
                     break;
             }
+        } else {
+            tvKyc2.setText(getResources().getString(R.string.unverified));
+            tvKyc2.setTextColor(ContextCompat.getColor(this, R.color.color_default));
+            tv_error_des.setVisibility(View.GONE);
         }
     }
 

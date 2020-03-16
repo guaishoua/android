@@ -314,6 +314,8 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
 
     public class OtcOrderAdapter extends BaseQuickAdapter<OtcTradeAllModel, BaseViewHolder> {
 
+        private String otcPhone;
+
         public OtcOrderAdapter() {
             super(R.layout.item_otc_order);
         }
@@ -406,7 +408,15 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
                             holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.mobile));
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
-                            holder.setText(R.id.tv_righttop, item.infoModel != null ? item.infoModel.mobile : "");
+
+                            otcPhone = "";
+                            if (item.tradeModel != null && !TextUtils.isEmpty(item.tradeModel.explaininfo)) {
+                                otcPhone = item.tradeModel.explaininfo;
+                            } else if (item.infoModel != null && !TextUtils.isEmpty(item.infoModel.mobile)) {
+                                otcPhone = item.infoModel.mobile;
+                            }
+
+                            holder.setText(R.id.tv_righttop, otcPhone);
 
                             if (item.tradeModel.merchantId == spUtil.getUserUid()) {
                                 holder.setGone(R.id.btn_left, true);
@@ -431,7 +441,15 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
                             holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.mobile));
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
-                            holder.setText(R.id.tv_righttop, item.infoModel != null ? item.infoModel.mobile : "");
+
+                            otcPhone = "";
+                            if (item.tradeModel != null && !TextUtils.isEmpty(item.tradeModel.explaininfo)) {
+                                otcPhone = item.tradeModel.explaininfo;
+                            } else if (item.infoModel != null && !TextUtils.isEmpty(item.infoModel.mobile)) {
+                                otcPhone = item.infoModel.mobile;
+                            }
+                            holder.setText(R.id.tv_righttop, otcPhone);
+
                             holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
 
                             if (item.tradeModel.buyuid == spUtil.getUserUid()) {
@@ -459,7 +477,15 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
                             holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.mobile));
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
-                            holder.setText(R.id.tv_righttop, item.infoModel != null ? item.infoModel.mobile : "");
+
+                            otcPhone = "";
+                            if (item.tradeModel != null && !TextUtils.isEmpty(item.tradeModel.explaininfo)) {
+                                otcPhone = item.tradeModel.explaininfo;
+                            } else if (item.infoModel != null && !TextUtils.isEmpty(item.infoModel.mobile)) {
+                                otcPhone = item.infoModel.mobile;
+                            }
+                            holder.setText(R.id.tv_righttop, otcPhone);
+
                             holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_sell));
                             holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
                             holder.setGone(R.id.img_leftbottom, true);

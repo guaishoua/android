@@ -26,4 +26,5 @@ public class OtcPublishParam implements Serializable {
     public Integer payByCard;//银行卡支付 1支持0 不支持
     public Integer payWechat;//微信支付 1支持0 不支持
     public Integer payAlipay;//支付 1支持0 不支持
+    public String explain;//OTC订单手机号
 }

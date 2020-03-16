@@ -79,6 +79,8 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     RecyclerView recyclerView;
 
     //头布局
+    private View view_bond;
+    private View view_line_bond;
     private TextView tv_margin_account;
     private TextView tv_all_amount_title;
     private TextView tv_all_amount;
@@ -130,6 +132,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     protected void initLazy() {
         super.initLazy();
         if (spUtil.getLogin()) {
+            dealBondValue();
             upLoad(assetDetailsModel != null ? false : true);
         }
     }
@@ -201,6 +204,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         initReyclerView();
         initAssetHeader();
         editViewSearch();
+        dealBondValue();
     }
 
     @Override
@@ -383,6 +387,9 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     private void initAssetHeader() {
         assetHeaderView = View.inflate(getHostActivity(), R.layout.header_asset_details, null);
 
+        view_bond = assetHeaderView.findViewById(R.id.view_bond);
+        view_line_bond = assetHeaderView.findViewById(R.id.view_line_bond);
+
         tv_margin_account = assetHeaderView.findViewById(R.id.tv_margin_account);
         tv_all_amount_title = assetHeaderView.findViewById(R.id.tv_all_amount_title);
         tv_all_amount = assetHeaderView.findViewById(R.id.tv_all_amount);
@@ -444,6 +451,16 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         tv_all_amount.setText(defaultEyeStatus ? all_total_string + Constant.ACU_CURRENCY_NAME : "*****");
     }
 
+    private void dealBondValue() {
+        if (spUtil.getApplyMerchantStatus() == 2 || spUtil.getApplyAuthMerchantStatus() == 2) {
+            view_bond.setVisibility(View.VISIBLE);
+            view_line_bond.setVisibility(View.VISIBLE);
+        } else {
+            view_bond.setVisibility(View.GONE);
+            view_line_bond.setVisibility(View.GONE);
+        }
+    }
+
     //单一类型adapter
     class AssetAdapter extends BaseQuickAdapter<AssetDetailsModel.CoinListBean, BaseViewHolder> {
         private List<String> otcList;
@@ -459,9 +476,9 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             holder.setText(R.id.tv_icon_name, data.currencyNameEn);
             holder.setText(R.id.tv_icon_name_full, String.format("(%s)", data.currencyName));
             if (otcList.contains(data.currencyNameEn)) {
-                holder.setGone(R.id.img_info, true);
+                holder.setGone(R.id.btn_info, true);
             } else {
-                holder.setGone(R.id.img_info, false);
+                holder.setGone(R.id.btn_info, false);
             }
 
             holder.setText(R.id.tv_total_holdings_title, getResources().getString(R.string.total_holdings) + "(" + data.currencyNameEn + ")");
@@ -474,7 +491,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             holder.setText(R.id.tv_available, defaultEyeStatus ? BigDecimal.valueOf(data.cashAmount).toPlainString() : "*****");
             holder.setText(R.id.tv_frozen, defaultEyeStatus ? BigDecimal.valueOf(data.freezeAmount).toPlainString() : "*****");
 
-            holder.setOnClickListener(R.id.img_info, new View.OnClickListener() {
+            holder.setOnClickListener(R.id.btn_info, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     jumpTo(AssetsInfoActivity.createActivity(mContext, data));

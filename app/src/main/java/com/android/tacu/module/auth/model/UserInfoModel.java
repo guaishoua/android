@@ -59,7 +59,7 @@ public class UserInfoModel implements Serializable {
     @SerializedName("reload")
     public int reload;//是否需要重新上传 1.需要 0.不需要
     @SerializedName("currentLocation")
-    public Integer currentLocation;//当前所在地是否中国大陆 0.不是 1.是
+    public Integer currentLocation;//1身份证  2 护照
 
     public boolean isChina(String isChina) {
         if (TextUtils.equals(isChina, "0")) {

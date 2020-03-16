@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
@@ -20,6 +22,7 @@ import com.android.tacu.module.login.model.LoginModel;
 import com.android.tacu.module.login.presenter.LoginPresenter;
 import com.android.tacu.module.dingxiang.presenter.SwitchPresenter;
 import com.android.tacu.module.market.model.SelfModel;
+import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.StatusBarUtils;
@@ -37,6 +40,18 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.IView, ISwitchView {
+
+    //邮箱
+    @BindView(R.id.tv_regiser_one)
+    TextView tv_regiser_one;
+    @BindView(R.id.tv_regiser_two)
+    QMUIAlphaButton tv_regiser_two;
+
+    @BindView(R.id.tv_phone_code)
+    TextView tv_phone_code;
+
+    @BindView(R.id.img_email)
+    ImageView img_email;
 
     @BindView(R.id.qmuiTopbar)
     QMUITopBar qmuiTopbar;
@@ -56,6 +71,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private boolean isClearTop = false;
     private boolean isLoginView = false;
     private SwitchPresenter switchPresenter;
+
+    //登录方式  true：手机号  false：邮箱
+    private boolean loginType = true;
+
+    private int countryCode;
+    private static final int REQUESTCODE = 1001;
 
     /**
      * @param context
@@ -114,6 +135,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 finish();
             }
         });
+
+        phoneCodeShow();
+        setCountryCode();
     }
 
     @Override
@@ -134,6 +158,32 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             switchPresenter.destroy();
             switchPresenter = null;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            if (requestCode == REQUESTCODE && resultCode == RESULT_OK) {
+                countryCode = data.getIntExtra("code", 0);
+                tv_phone_code.setText("+" + countryCode);
+            }
+        }
+    }
+
+    @OnClick(R.id.tv_regiser_two)
+    void registerTwo() {
+        if (TextUtils.equals(tv_regiser_two.getText().toString().trim(), getResources().getString(R.string.email_login))) {
+            loginType = false;
+        } else {
+            loginType = true;
+        }
+        phoneCodeShow();
+    }
+
+    @OnClick(R.id.tv_phone_code)
+    void phoneCode() {
+        jumpTo(CityListActivity.class, REQUESTCODE);
     }
 
     @OnClick(R.id.find_pwd)
@@ -183,7 +233,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void ownCenterSuccess(OwnCenterModel model) {
         if (model != null) {
             UserManageUtils.setPersonInfo(model);
-           // UserManageUtils.loginUnicorn(model);
+            // UserManageUtils.loginUnicorn(model);
             getMustNeed();
         }
     }
@@ -224,7 +274,40 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void switchSuccess(String token) {
         String psd = etPwd.getText().toString().trim();
-        mPresenter.login(etEmail.getText().toString().trim(), Md5Utils.encryptPwd(psd).toLowerCase(), token);
+        if (loginType) {
+            String value = "";
+            if (countryCode != 86) {
+                value = String.valueOf(countryCode);
+            }
+            mPresenter.login(value + etEmail.getText().toString().trim(), Md5Utils.encryptPwd(psd).toLowerCase(), token);
+        } else {
+            mPresenter.login(etEmail.getText().toString().trim(), Md5Utils.encryptPwd(psd).toLowerCase(), token);
+        }
+    }
+
+    private void phoneCodeShow() {
+        etEmail.setText("");
+        etPwd.setText("");
+        if (loginType) {
+            etEmail.setHint(getResources().getString(R.string.mobile_phone));
+            tv_phone_code.setVisibility(View.VISIBLE);
+            img_email.setVisibility(View.GONE);
+
+            tv_regiser_one.setText(getResources().getString(R.string.phone_login));
+            tv_regiser_two.setText(getResources().getString(R.string.email_login));
+        } else {
+            etEmail.setHint(getResources().getString(R.string.email1));
+            tv_phone_code.setVisibility(View.GONE);
+            img_email.setVisibility(View.VISIBLE);
+
+            tv_regiser_one.setText(getResources().getString(R.string.email_login));
+            tv_regiser_two.setText(getResources().getString(R.string.phone_login));
+        }
+    }
+
+    private void setCountryCode() {
+        countryCode = CommonUtils.getContryCode();
+        tv_phone_code.setText("+" + countryCode);
     }
 
     /**

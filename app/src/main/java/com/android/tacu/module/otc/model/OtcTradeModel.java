@@ -128,4 +128,7 @@ public class OtcTradeModel implements Serializable {
     public Integer buyreadstatus;// 0 未读 1已读
     @SerializedName("sellreadstatus")
     public Integer sellreadstatus;// 0 未读 1已读
+
+    @SerializedName("explaininfo")
+    public String explaininfo;
 }

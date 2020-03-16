@@ -573,7 +573,8 @@ public interface Api {
             @Field("step") int step,
             @Field("singnTime") String singnTime,
             @Field("outofTime") String outofTime,
-            @Field("isAllTime") int isAllTime
+            @Field("isAllTime") int isAllTime,
+            @Field("currentLocation") Integer currentLocation
     );
 
     /**

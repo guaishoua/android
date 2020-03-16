@@ -214,12 +214,7 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
                 mPresenter.authnewHand(null, isChina, 4);
                 return;
             } else {
-                //1:中国大陆   0：其他国家地区
-                if (TextUtils.equals(isChina, "1") && current == 2) {
-                    mPresenter.authnewOpposite(null, isChina, 3);
-                } else {
-                    startActivity();
-                }
+                startActivity();
                 return;
             }
         }
@@ -244,17 +239,18 @@ public class RealNameTwoActivity extends BaseActivity<RealNamePresenter> impleme
     public void authThredSuccess(BaseModel baseModel) {
         this.baseModel = baseModel;
         hideLoadingView();
-        dialogView();
+        //1:中国大陆   0：其他国家地区
+        if (TextUtils.equals(isChina, "1")) {
+            mPresenter.getVerifyToken();
+        }else{
+            dialogView();
+        }
     }
 
     @Override
     public void authNewSuccess() {
         hideLoadingView();
-        if (TextUtils.equals(isChina, "1") && current == 2) {
-            mPresenter.getVerifyToken();
-        } else {
-            startActivity();
-        }
+        startActivity();
     }
 
     @Override

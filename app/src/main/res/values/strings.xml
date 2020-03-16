@@ -980,4 +980,12 @@
     <string name="hide">隐藏</string>
     <string name="show">展开</string>
     <string name="realname">姓名</string>
+
+    <!--OTC4-->
+    <string name="please_otc_phone">请输入OTC手机号</string>
+    <string name="phone_login">手机登录</string>
+    <string name="email_login">邮箱登录</string>
+    <string name="email1">邮箱</string>
+    <string name="china">中国大陆地区</string>
+    <string name="other_country">其他国家及地区</string>
 </resources>

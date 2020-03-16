@@ -298,17 +298,17 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     @Override
     public void selectStatus(OtcMarketOrderAllModel item, SelectStatusModel model) {
         if (model != null) {
-            if (model.merchantStatus == 0) {
+            if (model.merchantStatus != null && model.merchantStatus == 0) {
                 showOffline();
                 return;
             }
-            if (isBuy && model.orderNum != null && model.orderNum >= 5) {
+            /*if (isBuy && model.orderNum != null && model.orderNum >= 5) {
                 showDoing();
                 return;
             } else if (!isBuy && model.orderNum != null && model.orderNum >= 10) {
                 showDoing();
                 return;
-            }
+            }*/
             jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));
         } else {
             jumpTo(OtcBuyOrSellActivity.createActivity(getContext(), isBuy, item.orderModel.id));

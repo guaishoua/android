@@ -92,6 +92,9 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     @BindView(R.id.tv_otc_balance)
     TextView tv_otc_balance;
 
+    @BindView(R.id.edit_otc_phone)
+    TextView edit_otc_phone;
+
     @BindView(R.id.cb_xieyi)
     CheckBox cb_xieyi;
     @BindView(R.id.tv_xieyi)
@@ -305,6 +308,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
         String num = edit_trade_num.getText().toString();
         String min = edit_min_limit.getText().toString();
         String max = edit_max_limit.getText().toString();
+        String otcPhone = edit_otc_phone.getText().toString();
 
         if (TextUtils.isEmpty(price)) {
             showToastError(getResources().getString(R.string.please_input_trade_single_price));
@@ -318,11 +322,16 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
             showToastError(getResources().getString(R.string.please_check_xieyi));
             return;
         }
+        if (TextUtils.isEmpty(otcPhone)) {
+            showToastError(getResources().getString(R.string.please_otc_phone));
+            return;
+        }
         param.price = price;
         param.num = num;
         param.amount = tv_trade_all_price.getText().toString();
         param.lowLimit = min;
         param.highLimit = max;
+        param.explain = otcPhone;
         if (spUtil.getDisclaimer() == 0) {
             mPresenter.disclaimer();
         }

@@ -2,6 +2,7 @@ package com.android.tacu.module.auth.view;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -11,12 +12,20 @@ import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
+import com.android.tacu.common.TabIndicatorAdapter;
 import com.android.tacu.module.auth.contract.RealNameContract;
 import com.android.tacu.module.auth.model.UserInfoModel;
 import com.android.tacu.module.auth.presenter.RealNamePresenter;
 import com.android.tacu.utils.IdentityAuthUtils;
 import com.android.tacu.utils.LogUtils;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.shizhefei.view.indicator.Indicator;
+import com.shizhefei.view.indicator.ScrollIndicatorView;
+import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
+import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,6 +38,8 @@ import butterknife.OnClick;
 
 public class RealNameActivity extends BaseActivity<RealNamePresenter> implements RealNameContract.IRealView, View.OnClickListener {
 
+    @BindView(R.id.indicator)
+    ScrollIndicatorView indicator;
     //姓氏
     @BindView(R.id.et_realname)
     EditText et_realname;
@@ -56,11 +67,14 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
     CheckBox cb_time;
 
     //1:中国大陆   0：其他国家地区
-    private String isChina = "";
+    private String isChina = "1";
+    //1身份证  2 护照
+    private Integer currentLocation = 0;
     private UserInfoModel userInfoModel;
     private QMUIBottomSheet mBottomSheet;
 
     private final int requestCodeValue = 1001;
+    private List<String> tabTitle = new ArrayList<>();
 
     @Override
     protected void setView() {
@@ -75,6 +89,33 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
         tv_birthday.setOnClickListener(this);
         tv_id_start_time.setOnClickListener(this);
         tv_id_end_time.setOnClickListener(this);
+
+        tabTitle.add(getResources().getString(R.string.china));
+        tabTitle.add(getResources().getString(R.string.other_country));
+
+        indicator.setBackgroundColor(ContextCompat.getColor(this, R.color.content_bg_color_grey));
+        indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
+        indicator.setScrollBar(new TextWidthColorBar(this, indicator, ContextCompat.getColor(this, R.color.text_default), 4));
+        indicator.setSplitAuto(true);
+        indicator.setAdapter(new TabIndicatorAdapter(this, tabTitle));
+        indicator.setOnItemSelectListener(new Indicator.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(View selectItemView, int select, int preSelect) {
+                if (select == 0) {
+                    isChina = "1";
+                } else {
+                    isChina = "0";
+                }
+                if (TextUtils.equals(isChina, "1") && currentLocation == 2) {
+                    currentLocation = 1;
+                }
+                if (currentLocation != null && currentLocation == 2) {
+                    tv_passport_type.setText(getResources().getString(R.string.huzhao));
+                } else {
+                    tv_passport_type.setText(getResources().getString(R.string.shenfenzheng));
+                }
+            }
+        });
 
         cb_time.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -151,7 +192,7 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
             return;
         }
 
-        if (TextUtils.isEmpty(isChina)) {
+        if (currentLocation == 0) {
             showToastError(getResources().getString(R.string.passport_type));
             return;
         }
@@ -181,18 +222,18 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
             isAllTime = 0;
         }
 
-        if (TextUtils.isEmpty(startTime)) {
+       /* if (TextUtils.isEmpty(startTime)) {
             showToastError(getString(R.string.startTime));
             return;
         }
         if (!cb_time.isChecked() && TextUtils.isEmpty(endTime)) {
             showToastError(getString(R.string.endTime));
             return;
-        }
+        }*/
 
-        if (cb_time.isChecked()) {
+       /* if (cb_time.isChecked()) {
             endTime = null;
-        }
+        }*/
         if (userInfoModel != null) {
             //判断是否修改身份证号，出生日期，如果没有修改将不传该字段（因后台返回的身份证是加密之后的）
             if (TextUtils.equals(userInfoModel.idNumber, idNumber)) {
@@ -237,8 +278,12 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
         }
         LogUtils.i("jiazhen", "surname=" + surname + " name=" + name);
 
+        if (TextUtils.equals(isChina, "1") && currentLocation == 2) {
+            currentLocation = 1;
+        }
+
         // 添加证件类型
-        mPresenter.authNew(country, surname, name, idNumber, birthday, genders, isChina, 1, startTime, endTime, isAllTime);
+        mPresenter.authNew(country, surname, name, idNumber, birthday, genders, isChina, 1, "", "", isAllTime, currentLocation);
     }
 
     @Override
@@ -258,10 +303,20 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
             tv_birthday.setText(userInfoModel.birthday);
 
             isChina = userInfoModel.isChina;
+            if (TextUtils.isEmpty(isChina)) {
+                isChina = "1";
+            }
             if (TextUtils.equals(userInfoModel.isChina, "1")) {
-                tv_passport_type.setText(getResources().getString(R.string.shenfenzheng));
+                indicator.setCurrentItem(0);
             } else if (TextUtils.equals(userInfoModel.isChina, "0")) {
+                indicator.setCurrentItem(1);
+            }
+            if (userInfoModel.currentLocation != null && userInfoModel.currentLocation == 2) {
+                currentLocation = 2;
                 tv_passport_type.setText(getResources().getString(R.string.huzhao));
+            } else {
+                currentLocation = 1;
+                tv_passport_type.setText(getResources().getString(R.string.shenfenzheng));
             }
             if (TextUtils.equals(userInfoModel.gender, "1")) {
                 rbtn_boy.setChecked(true);
@@ -292,25 +347,28 @@ public class RealNameActivity extends BaseActivity<RealNamePresenter> implements
         IdentityAuthUtils.closeKeyBoard(this);
         switch (v.getId()) {
             case R.id.tv_passport_type:
-                if (mBottomSheet == null) {
-                    mBottomSheet = new QMUIBottomSheet.BottomListSheetBuilder(this)
-                            .addItem(getResources().getString(R.string.shenfenzheng))
-                            .addItem(getResources().getString(R.string.huzhao))
-                            .setOnSheetItemClickListener(new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
-                                @Override
-                                public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
-                                    if (position == 0) {
-                                        isChina = "1";
-                                        tv_passport_type.setText(getResources().getString(R.string.shenfenzheng));
-                                    } else if (position == 1) {
-                                        isChina = "0";
-                                        tv_passport_type.setText(getResources().getString(R.string.huzhao));
-                                    }
-                                    dialog.dismiss();
+                QMUIBottomSheet.BottomListSheetBuilder builder = new QMUIBottomSheet.BottomListSheetBuilder(this)
+                        .setOnSheetItemClickListener(new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
+                            @Override
+                            public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
+                                if (position == 0) {
+                                    currentLocation = 1;
+                                    tv_passport_type.setText(getResources().getString(R.string.shenfenzheng));
+                                } else if (position == 1) {
+                                    currentLocation = 2;
+                                    tv_passport_type.setText(getResources().getString(R.string.huzhao));
                                 }
-                            })
-                            .build();
+                                dialog.dismiss();
+                            }
+                        });
+                //1:中国大陆   0：其他国家地区
+                if (TextUtils.equals(isChina, "1")) {
+                    builder.addItem(getResources().getString(R.string.shenfenzheng));
+                } else if (TextUtils.equals(isChina, "0")) {
+                    builder.addItem(getResources().getString(R.string.shenfenzheng))
+                            .addItem(getResources().getString(R.string.huzhao));
                 }
+                mBottomSheet = builder.build();
                 mBottomSheet.show();
                 break;
             case R.id.tv_birthday:
