@@ -42,7 +42,7 @@ public class FinishView implements View.OnClickListener {
     private OtcTradeModel tradeModel;
     private String imageUrl;
 
-    //5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付   10放币完成  12仲裁成功 13仲裁失败
+    //5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付   10放币完成
     public View create(OtcOrderDetailActivity activity, Integer status) {
         this.activity = activity;
         this.status = status;
@@ -129,13 +129,17 @@ public class FinishView implements View.OnClickListener {
                 tv_order_make.setVisibility(View.GONE);
                 tv_order_make_status.setVisibility(View.GONE);
             }
-
+            // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
+            // 12 买家成功 13 卖家成功
             if (status != null) {
                 switch (status) {
                     case 5:
                     case 6:
                     case 7:
                     case 8:
+                        if (status == 7) {
+                            img_voucher.setVisibility(View.GONE);
+                        }
                         if (!TextUtils.isEmpty(tradeModel.payEndTime)) {
                             tv_order_pay.setVisibility(View.VISIBLE);
                             tv_order_pay_status.setVisibility(View.VISIBLE);

@@ -410,18 +410,15 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
 
                             otcPhone = "";
-                            if (item.tradeModel != null && !TextUtils.isEmpty(item.tradeModel.explaininfo)) {
-                                otcPhone = item.tradeModel.explaininfo;
-                            } else if (item.infoModel != null && !TextUtils.isEmpty(item.infoModel.mobile)) {
-                                otcPhone = item.infoModel.mobile;
-                            }
-
-                            holder.setText(R.id.tv_righttop, otcPhone);
-
                             if (item.tradeModel.merchantId == spUtil.getUserUid()) {
+                                otcPhone = item.infoModel.mobile;
+
                                 holder.setGone(R.id.btn_left, true);
                                 holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_order));
+                            } else {
+                                otcPhone = item.tradeModel.explaininfo;
                             }
+                            holder.setText(R.id.tv_righttop, otcPhone);
 
                             if (currentTime != null) {
                                 if (!TextUtils.isEmpty(item.tradeModel.confirmEndTime)) {
@@ -443,10 +440,13 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
 
                             otcPhone = "";
-                            if (item.tradeModel != null && !TextUtils.isEmpty(item.tradeModel.explaininfo)) {
-                                otcPhone = item.tradeModel.explaininfo;
-                            } else if (item.infoModel != null && !TextUtils.isEmpty(item.infoModel.mobile)) {
+                            if (item.tradeModel.merchantId == spUtil.getUserUid()) {
                                 otcPhone = item.infoModel.mobile;
+
+                                holder.setGone(R.id.btn_left, true);
+                                holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_order));
+                            } else {
+                                otcPhone = item.tradeModel.explaininfo;
                             }
                             holder.setText(R.id.tv_righttop, otcPhone);
 
@@ -479,10 +479,13 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
 
                             otcPhone = "";
-                            if (item.tradeModel != null && !TextUtils.isEmpty(item.tradeModel.explaininfo)) {
-                                otcPhone = item.tradeModel.explaininfo;
-                            } else if (item.infoModel != null && !TextUtils.isEmpty(item.infoModel.mobile)) {
+                            if (item.tradeModel.merchantId == spUtil.getUserUid()) {
                                 otcPhone = item.infoModel.mobile;
+
+                                holder.setGone(R.id.btn_left, true);
+                                holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_order));
+                            } else {
+                                otcPhone = item.tradeModel.explaininfo;
                             }
                             holder.setText(R.id.tv_righttop, otcPhone);
 
