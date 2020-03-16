@@ -178,7 +178,7 @@
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
                 android:layout_marginHorizontal="@dimen/dp_20"
-                android:src="@drawable/icon_pwd" />
+                app:srcCompat="@drawable/icon_pwd" />
 
             <TextView
                 android:layout_width="wrap_content"

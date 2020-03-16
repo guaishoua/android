@@ -47,14 +47,14 @@
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
             android:layout_marginLeft="@dimen/dp_10"
-            android:src="@drawable/icon_wechat" />
+            app:srcCompat="@drawable/icon_wechat" />
 
         <ImageView
             android:id="@+id/iv_wechatmoment"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
             android:layout_marginLeft="@dimen/dp_30"
-            android:src="@drawable/icon_wechat_moment" />
+            app:srcCompat="@drawable/icon_wechat_moment" />
     </LinearLayout>
 
     <TextView
