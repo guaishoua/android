@@ -862,7 +862,7 @@
 
     <!--划转-->
     <string name="coin_account">币币账户</string>
-    <string name="otc_account">OTC账户</string>
+    <string name="otc_account">币币账户/OTC账户</string>
     <string name="coin_account_available">币币账户可用数量</string>
     <string name="otc_account_available">OTC账户可用数量</string>
     <string name="num">数量</string>

@@ -866,8 +866,8 @@
     <string name="vip_surplus_time">Remaining time:%1$s</string>
 
     <!--划转-->
-    <string name="coin_account">Exchange balance</string>
-    <string name="otc_account">OTC balance</string>
+    <string name="coin_account">Coin balance</string>
+    <string name="otc_account">Coin/OTC balance</string>
     <string name="coin_account_available">Available exchange balance</string>
     <string name="otc_account_available">Available OTC balance</string>
     <string name="num">number</string>

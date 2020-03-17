@@ -860,7 +860,7 @@
 
     <!--劃轉-->
     <string name="coin_account">幣幣賬戶</string>
-    <string name="otc_account">OTC賬戶</string>
+    <string name="otc_account">幣幣賬戶/OTC賬戶</string>
     <string name="coin_account_available">幣幣賬戶可用數量</string>
     <string name="otc_account_available">OTC賬戶可用數量</string>
     <string name="num">數量</string>
