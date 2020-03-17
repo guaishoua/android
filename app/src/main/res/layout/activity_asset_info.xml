@@ -329,7 +329,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/otc_account" />
+                        tools:text="@string/coin_otc_account" />
 
                     <ImageView
                         android:layout_width="@dimen/dp_16"

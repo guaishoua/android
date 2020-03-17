@@ -323,7 +323,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         @Override
         protected void convert(BaseViewHolder holder, final OtcTradeAllModel item) {
             if (item.infoModel != null) {
-                holder.setText(R.id.tv_nickname, item.infoModel.nickname + "(" + CommonUtils.nameXing(item.infoModel.secondName) + ")");
+                holder.setText(R.id.tv_nickname, item.infoModel.nickname + "(" + CommonUtils.nameXing(item.infoModel.firstName, item.infoModel.secondName) + ")");
                 if (item.infoModel.merchantStatus == 0) {
                     holder.setText(R.id.tv_offline, getResources().getString(R.string.offline));
                     holder.setTextColor(R.id.tv_offline, ContextCompat.getColor(getContext(), R.color.text_grey));
@@ -494,7 +494,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setGone(R.id.img_leftbottom, true);
                             holder.setGone(R.id.img_rightbottom, true);
                             holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
-                            holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_success);
+                            holder.setImageResource(R.id.img_rightbottom, R.drawable.icon_auth_success);
 
                             if (item.tradeModel.selluid == spUtil.getUserUid()) {
                                 holder.setGone(R.id.btn_left, true);

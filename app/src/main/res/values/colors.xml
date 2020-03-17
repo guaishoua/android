@@ -60,7 +60,7 @@
     <color name="text_auction_currentprice">#FF665E</color>
 
     <!--启动页的背景颜色-->
-    <color name="color_splash">#141C25</color>
+    <color name="color_splash">#0C2648</color>
     <!--默认进度条颜色-->
     <color name="color_default_progress">#CCE2BF1C</color>
     <!--app更新dialog的按钮-->

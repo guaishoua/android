@@ -139,16 +139,24 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
     protected void setInfoValue(boolean isBuy, OtcMarketInfoModel infoModel) {
         if (isBuy) {
             ((QMUIRoundButtonDrawable) rl_people_bg_top.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_buy_bg));
-        } else  {
+        } else {
             ((QMUIRoundButtonDrawable) rl_people_bg_top.getBackground()).setBgData(ContextCompat.getColorStateList(this, R.color.color_otc_sell_bg));
         }
-        setInfoValue(infoModel);
+        setInfoValue(infoModel, false);
     }
 
-    protected void setInfoValue(OtcMarketInfoModel infoModel) {
+    /**
+     * @param infoModel
+     * @param isShowName true=显示真实名字 false=不显示
+     */
+    protected void setInfoValue(OtcMarketInfoModel infoModel, boolean isShowName) {
         if (infoModel != null) {
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_people);
-            tv_people_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+            if (isShowName) {
+                tv_people_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.firstName, infoModel.secondName) + ")");
+            } else {
+                tv_people_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+            }
             if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
                 img_people_vip.setImageResource(R.drawable.icon_vip);
             } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
@@ -158,7 +166,11 @@ public abstract class BaseOtcHalfOrderActvity<P extends BaseMvpPresenter> extend
             }
 
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_people_top);
-            tv_people_nickname_top.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+            if (isShowName) {
+                tv_people_nickname_top.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.firstName, infoModel.secondName) + ")");
+            } else {
+                tv_people_nickname_top.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+            }
             if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
                 img_people_vip_top.setImageResource(R.drawable.icon_vip);
             } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {

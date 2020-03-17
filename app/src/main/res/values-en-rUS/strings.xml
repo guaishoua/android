@@ -867,7 +867,7 @@
 
     <!--划转-->
     <string name="coin_account">Coin balance</string>
-    <string name="otc_account">Coin/OTC balance</string>
+    <string name="otc_account">OTC balance</string>
     <string name="coin_account_available">Available exchange balance</string>
     <string name="otc_account_available">Available OTC balance</string>
     <string name="num">number</string>
@@ -970,5 +970,15 @@
     <string name="hide">Hide</string>
     <string name="show">Expand</string>
     <string name="realname">name</string>
+
+    <!--OTC4-->
+    <string name="please_otc_phone">Please enter the OTC phone number</string>
+    <string name="phone_login">Mobile login</string>
+    <string name="email_login">Email login</string>
+    <string name="email1">Mailbox</string>
+    <string name="china">Mainland China</string>
+    <string name="other_country">Other countries</string>
+    <string name="coin_otc_account">Coin/OTC account</string>
+    <string name="try_now">Try now</string>
 </resources>
 

@@ -188,6 +188,11 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
             Double value1 = (!TextUtils.isEmpty(otcAmountModel.freezeAmount)) ? Double.valueOf(otcAmountModel.freezeAmount) : 0;
             Double value2 = (!TextUtils.isEmpty(otcAmountModel.bondFreezeAmount)) ? Double.valueOf(otcAmountModel.bondFreezeAmount) : 0;
             tv_otc_frozen.setText(FormatterUtils.getFormatValue(MathHelper.add(value1, value2)));
+        } else {
+            tv_otc.setText("0.0");
+            tv_otc_rnb.setText("");
+            tv_otc_available.setText("0.0");
+            tv_otc_frozen.setText("0.0");
         }
     }
 
@@ -202,7 +207,7 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
 
     private void dealFlag() {
         if (flag == 0) {
-            tv_account.setText(getResources().getString(R.string.otc_account));
+            tv_account.setText(getResources().getString(R.string.coin_otc_account));
         } else if (flag == 1) {
             tv_account.setText(getResources().getString(R.string.margin_account));
         }
@@ -224,7 +229,7 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
         }
         if (listPopup == null) {
             final List<String> data = new ArrayList<>();
-            data.add(getResources().getString(R.string.otc_account));
+            data.add(getResources().getString(R.string.coin_otc_account));
             data.add(getResources().getString(R.string.margin_account));
             ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.simple_list_item, data);
             listPopup = new ListPopWindow(this, adapter);

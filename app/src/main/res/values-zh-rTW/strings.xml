@@ -860,7 +860,7 @@
 
     <!--劃轉-->
     <string name="coin_account">幣幣賬戶</string>
-    <string name="otc_account">幣幣賬戶/OTC賬戶</string>
+    <string name="otc_account">OTC賬戶</string>
     <string name="coin_account_available">幣幣賬戶可用數量</string>
     <string name="otc_account_available">OTC賬戶可用數量</string>
     <string name="num">數量</string>
@@ -959,4 +959,14 @@
     <string name="hide">隱藏</string>
     <string name="show">展開</string>
     <string name="realname">姓名</string>
+
+    <!--OTC4-->
+    <string name="please_otc_phone">請輸入OTC手機號</string>
+    <string name="phone_login">手機登錄</string>
+    <string name="email_login">郵箱登錄</string>
+    <string name="email1">郵箱</string>
+    <string name="china">中國大陸地區</string>
+    <string name="other_country">其他國家及地區</string>
+    <string name="coin_otc_account">幣幣賬戶/OTC賬戶</string>
+    <string name="try_now">立即體驗</string>
 </resources>

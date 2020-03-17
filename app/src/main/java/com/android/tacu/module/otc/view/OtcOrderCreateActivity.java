@@ -169,9 +169,9 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
     @Override
     public void userBaseInfo(boolean isBuy, OtcMarketInfoModel model, Integer queryUid) {
         if (isBuy) {
-            setBuyValue(model, queryUid);
+            setBuyValue(model, queryUid, false);
         } else {
-            setSellValue(model, queryUid);
+            setSellValue(model, queryUid, false);
         }
     }
 

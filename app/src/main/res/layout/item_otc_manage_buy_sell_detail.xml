@@ -40,13 +40,38 @@
         app:layout_constraintTop_toTopOf="@id/img_user"
         tools:src="@mipmap/img_wx" />
 
+    <TextView
+        android:id="@+id/tv_mobile_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:includeFontPadding="false"
+        android:text="@string/mobile"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_user" />
+
+    <TextView
+        android:id="@+id/tv_mobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_14"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_mobile_title"
+        app:layout_constraintLeft_toRightOf="@+id/tv_mobile_title"
+        tools:text="15093096219" />
+
     <View
         android:id="@+id/view_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
         android:layout_marginTop="@dimen/dp_8"
         android:background="@color/content_bg_color_grey"
-        app:layout_constraintTop_toBottomOf="@+id/img_user" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_mobile_title" />
 
     <TextView
         android:id="@+id/tv_sell_num_title"

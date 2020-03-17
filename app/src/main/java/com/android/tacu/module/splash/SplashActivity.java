@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.android.tacu.R;
@@ -13,6 +14,7 @@ import com.android.tacu.module.main.view.MainActivity;
 import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.LanguageUtils;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import java.util.Locale;
 
@@ -20,6 +22,7 @@ import static com.android.tacu.utils.ActivityStack.STATUS_NORMAL;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private QMUIRoundButton btn_go;
     private Handler timerHandler = new Handler();
 
     /**
@@ -62,6 +65,17 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        btn_go = findViewById(R.id.btn_go);
+        btn_go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (timerHandler != null) {
+                    timerHandler.removeCallbacksAndMessages(null);
+                }
+                goMainActivity();
+            }
+        });
+
         //语言
         Locale userLocale = LanguageUtils.getUserLocale(this);
         LanguageUtils.updateLocale(userLocale);

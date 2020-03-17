@@ -110,10 +110,14 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
         view_bottom.setVisibility(View.GONE);
     }
 
-    public void setSellValue(OtcMarketInfoModel infoModel, Integer queryUid) {
+    public void setSellValue(OtcMarketInfoModel infoModel, Integer queryUid, boolean isShowName) {
         if (infoModel != null) {
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_seller);
-            tv_seller_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+            if (isShowName) {
+                tv_seller_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.firstName, infoModel.secondName) + ")");
+            } else {
+                tv_seller_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+            }
             if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
                 img_seller_vip.setImageResource(R.drawable.icon_vip);
             } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
@@ -124,7 +128,11 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
 
             if (queryUid != null && queryUid != 0 && queryUid != spUtil.getUserUid()) {
                 GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_people_top);
-                tv_people_nickname_top.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+                if (isShowName) {
+                    tv_people_nickname_top.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.firstName, infoModel.secondName) + ")");
+                } else {
+                    tv_people_nickname_top.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+                }
                 if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
                     img_people_vip_top.setImageResource(R.drawable.icon_vip);
                 } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
@@ -158,10 +166,14 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
         }
     }
 
-    public void setBuyValue(OtcMarketInfoModel infoModel, Integer queryUid) {
+    public void setBuyValue(OtcMarketInfoModel infoModel, Integer queryUid, boolean isShowName) {
         if (infoModel != null) {
             GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_buyer);
-            tv_buyer_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+            if (isShowName) {
+                tv_buyer_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.firstName, infoModel.secondName) + ")");
+            } else {
+                tv_buyer_nickname.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+            }
             if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
                 img_buyer_vip.setImageResource(R.drawable.icon_vip);
             } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {
@@ -172,7 +184,11 @@ public abstract class BaseOtcOrderActvity<P extends BaseMvpPresenter> extends Ba
 
             if (queryUid != null && queryUid != 0 && queryUid != spUtil.getUserUid()) {
                 GlideUtils.disPlay(this, CommonUtils.getHead(infoModel.headImg), img_people_top);
-                tv_people_nickname_top.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+                if (isShowName) {
+                    tv_people_nickname_top.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.firstName, infoModel.secondName) + ")");
+                } else {
+                    tv_people_nickname_top.setText(infoModel.nickname + "(" + CommonUtils.nameXing(infoModel.secondName) + ")");
+                }
                 if (infoModel.applyAuthMerchantStatus != null && infoModel.applyAuthMerchantStatus == 2) {
                     img_people_vip_top.setImageResource(R.drawable.icon_vip);
                 } else if (infoModel.applyMerchantStatus != null && infoModel.applyMerchantStatus == 2) {

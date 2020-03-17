@@ -194,7 +194,7 @@ public class OtcOrderConfirmActivity extends BaseOtcHalfOrderActvity<OtcOrderCon
 
     @Override
     public void userBaseInfo(OtcMarketInfoModel model) {
-        setInfoValue(model);
+        setInfoValue(model, true);
     }
 
     @Override

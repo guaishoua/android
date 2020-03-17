@@ -876,7 +876,7 @@
 
     <!--划转-->
     <string name="coin_account">币币账户</string>
-    <string name="otc_account">币币账户/OTC账户</string>
+    <string name="otc_account">OTC账户</string>
     <string name="coin_account_available">币币账户可用数量</string>
     <string name="otc_account_available">OTC账户可用数量</string>
     <string name="num">数量</string>
@@ -988,4 +988,6 @@
     <string name="email1">邮箱</string>
     <string name="china">中国大陆地区</string>
     <string name="other_country">其他国家及地区</string>
+    <string name="coin_otc_account">币币账户/OTC账户</string>
+    <string name="try_now">立即体验</string>
 </resources>

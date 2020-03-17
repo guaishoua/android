@@ -373,7 +373,8 @@ public class OtcManageBuySellDetailActivity extends BaseActivity<OtcManageBuySel
         protected void convert(BaseViewHolder holder, final OtcTradeAllModel item) {
             if (item.infoModel != null) {
                 GlideUtils.disPlay(OtcManageBuySellDetailActivity.this, CommonUtils.getHead(item.infoModel.headImg), (ImageView) holder.getView(R.id.img_user));
-                holder.setText(R.id.tv_user_name, item.infoModel.nickname + "(" + CommonUtils.nameXing(item.infoModel.secondName) + ")");
+                holder.setText(R.id.tv_user_name, item.infoModel.nickname + "(" + CommonUtils.nameXing(item.infoModel.firstName, item.infoModel.secondName) + ")");
+                holder.setText(R.id.tv_mobile, item.infoModel.mobile);
             }
             if (item.tradeModel != null) {
                 if (item.tradeModel.payType != null) {

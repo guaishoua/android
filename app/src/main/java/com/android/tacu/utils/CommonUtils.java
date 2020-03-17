@@ -261,11 +261,21 @@ public class CommonUtils {
         return "";
     }
 
-    public static String nameXing(String name) {
-        if (name == null || name.isEmpty()) {
-            return "";
+    public static String nameXing(String secondName) {
+        if (TextUtils.isEmpty(secondName)) {
+            secondName = "";
         }
-        return "*" + name;
+        return "*" + secondName;
+    }
+
+    public static String nameXing(String firstName, String secondName) {
+        if (TextUtils.isEmpty(firstName)) {
+           firstName = "";
+        }
+        if (TextUtils.isEmpty(secondName)) {
+            secondName = "";
+        }
+        return firstName + secondName;
     }
 
     public static String nameDesensitization(String name) {

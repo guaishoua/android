@@ -318,9 +318,9 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     public void userBaseInfo(Integer buyOrSell, OtcMarketInfoModel model, Integer queryUid) {
         if (model != null) {
             if (buyOrSell != null && buyOrSell == 1) {//买
-                setBuyValue(model, queryUid);
+                setBuyValue(model, queryUid, true);
             } else if (buyOrSell != null && buyOrSell == 2) {
-                setSellValue(model, queryUid);
+                setSellValue(model, queryUid, true);
             }
             if (buyOrSell == null) {
                 switch (current) {
