@@ -26,6 +26,8 @@ import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 public class DroidDialog {
 
     private Dialog dialog = null;
+    private QMUIAlphaButton btnPositive;
+    private QMUIAlphaButton btnNegative;
 
     public DroidDialog(final Builder builder) {
 
@@ -49,8 +51,8 @@ public class DroidDialog {
         TextView txtTitle = view.findViewById(R.id.txtTitle);
         TextView txtContent = view.findViewById(R.id.txtContent);
 
-        QMUIAlphaButton btnPositive = view.findViewById(R.id.btnPositive);
-        QMUIAlphaButton btnNegative = view.findViewById(R.id.btnNegative);
+        btnPositive = view.findViewById(R.id.btnPositive);
+        btnNegative = view.findViewById(R.id.btnNegative);
         QMUIAlphaButton btnNeutral = view.findViewById(R.id.btnNeutral);
 
         NestedScrollView scrollview = view.findViewById(R.id.scrollview);
@@ -179,6 +181,18 @@ public class DroidDialog {
             return dialog.isShowing();
         } else {
             return false;
+        }
+    }
+
+    public void setBtnPositive(int visibility) {
+        if (dialog != null && btnPositive != null) {
+            btnPositive.setVisibility(visibility);
+        }
+    }
+
+    public void setBtnNegative(int visibility) {
+        if (dialog != null && btnNegative != null) {
+            btnNegative.setVisibility(visibility);
         }
     }
 

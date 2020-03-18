@@ -48,20 +48,23 @@ public class AppUpdateUtils {
                     if (btnOk != null) {//简单的更新的时候用不到这个控件
                         btnOk.setVisibility(View.GONE);
                     }
+                    if (droidDialog != null) {
+                        droidDialog.setBtnPositive(View.GONE);
+                        droidDialog.setBtnNegative(View.GONE);
+                    }
                     progressBar.setVisibility(View.VISIBLE);
                     break;
                 case APPPROGRESS:
                     progressBar.setProgress(msg.arg1);
                     break;
                 case APPFINISH:
-                    if (btnOk != null) {
-                        btnOk.setVisibility(View.VISIBLE);
-                    }
-                    progressBar.setVisibility(View.GONE);
-                    break;
                 case APPERROR:
                     if (btnOk != null) {
                         btnOk.setVisibility(View.VISIBLE);
+                    }
+                    if (droidDialog != null) {
+                        droidDialog.setBtnPositive(View.VISIBLE);
+                        droidDialog.setBtnNegative(View.VISIBLE);
                     }
                     progressBar.setVisibility(View.GONE);
                     break;
@@ -149,6 +152,9 @@ public class AppUpdateUtils {
     public static void cancel() {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
+        }
+        if (droidDialog != null && droidDialog.isShowing()) {
+            droidDialog.dismiss();
         }
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
