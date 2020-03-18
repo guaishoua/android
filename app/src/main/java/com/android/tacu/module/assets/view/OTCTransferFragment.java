@@ -148,6 +148,8 @@ public class OTCTransferFragment extends BaseFragment<OTCTransferPresenter> impl
         this.otcAmountModel = model;
         if (model != null) {
             tv_coin_account_available.setText(FormatterUtils.getFormatValue(model.cashAmount));
+        } else {
+            tv_coin_account_available.setText("0");
         }
     }
 
