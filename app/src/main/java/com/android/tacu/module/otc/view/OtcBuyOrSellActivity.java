@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
-import com.android.tacu.common.TabIndicatorAdapter;
-import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcBuyOrSellContract;
@@ -22,16 +20,9 @@ import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderModel;
 import com.android.tacu.module.otc.presenter.OtcBuyOrSellPresenter;
 import com.android.tacu.utils.FormatterUtils;
-import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.MathHelper;
-import com.android.tacu.utils.user.UserManageUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
-import com.shizhefei.view.indicator.Indicator;
-import com.shizhefei.view.indicator.ScrollIndicatorView;
-import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
-import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +31,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPresenter> implements OtcBuyOrSellContract.IView {
-
-    @BindView(R.id.base_scrollIndicatorView)
-    ScrollIndicatorView payIndicatorView;
 
     @BindView(R.id.tv_plan_buy_amount_title)
     TextView tv_plan_buy_amount_title;
@@ -73,10 +61,6 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     @BindView(R.id.img_yhk)
     ImageView img_yhk;
 
-    @BindView(R.id.tv_receiving_account)
-    TextView tv_receiving_account;
-    @BindView(R.id.img_pay)
-    QMUIRoundImageView img_pay;
     @BindView(R.id.tv_account_balance)
     TextView tv_account_balance;
     @BindView(R.id.tv_sell_number_title)
@@ -91,20 +75,15 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     @BindView(R.id.btn_confirm)
     QMUIRoundButton btn_confirm;
 
-    private int selectPayInfo = 0;//0=支付宝 1=微信 2=银行卡
     private boolean isBuy = true;
     private String orderId;
     private List<String> tabTitle = new ArrayList<>();
 
     private OtcMarketOrderAllModel allModel;
-    private PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
-    private String wxImage = null, zfbImage = null;
     //防止EditText和EditText死循环
     private boolean isInputNum = true;
     private boolean isInputAmount = true;
     private boolean isInputAll = true;
-
-    private String imageUrl;
 
     public static Intent createActivity(Context context, boolean isBuy, String orderId) {
         Intent intent = new Intent(context, OtcBuyOrSellActivity.class);
@@ -150,28 +129,6 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
         tabTitle.add(getResources().getString(R.string.zhifubao));
         tabTitle.add(getResources().getString(R.string.weixin));
         tabTitle.add(getResources().getString(R.string.yinhanngka));
-
-        payIndicatorView.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
-        payIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
-        payIndicatorView.setScrollBar(new TextWidthColorBar(this, payIndicatorView, ContextCompat.getColor(this, R.color.text_default), 4));
-        payIndicatorView.setSplitAuto(true);
-        payIndicatorView.setAdapter(new TabIndicatorAdapter(this, tabTitle));
-        payIndicatorView.setOnItemSelectListener(new Indicator.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(View selectItemView, int select, int preSelect) {
-                selectPayInfo = select;
-                if (select == 0) {
-                    if (zfbModel != null && TextUtils.isEmpty(zfbImage)) {
-                        mPresenter.uselectUserInfo(0, zfbModel.aliPayImg);
-                    }
-                } else if (select == 1) {
-                    if (wxModel != null && TextUtils.isEmpty(wxImage)) {
-                        mPresenter.uselectUserInfo(1, wxModel.weChatImg);
-                    }
-                }
-                dealPayInfo();
-            }
-        });
 
         edit_sell_number.addTextChangedListener(new TextWatcher() {
             @Override
@@ -230,16 +187,8 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     protected void onPresenterCreated(OtcBuyOrSellPresenter presenter) {
         super.onPresenterCreated(presenter);
 
-        mPresenter.selectBank();
         mPresenter.otcAmount(Constant.ACU_CURRENCY_ID);
         mPresenter.orderListOne(orderId);
-    }
-
-    @OnClick(R.id.img_pay)
-    void imagePayClick() {
-        if (!TextUtils.isEmpty(imageUrl)) {
-            jumpTo(ZoomImageViewActivity.createActivity(this, imageUrl));
-        }
     }
 
     @OnClick(R.id.btn_all_number)
@@ -315,45 +264,6 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
     }
 
     @Override
-    public void selectBank(List<PayInfoModel> list) {
-        UserManageUtils.setPeoplePayInfo(list);
-        if (list != null && list.size() > 0) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).type != null && list.get(i).type == 1) {
-                    yhkModel = list.get(i);
-                }
-                if (list.get(i).type != null && list.get(i).type == 2) {
-                    wxModel = list.get(i);
-                }
-                if (list.get(i).type != null && list.get(i).type == 3) {
-                    zfbModel = list.get(i);
-                }
-            }
-        } else {
-            yhkModel = null;
-            wxModel = null;
-            zfbModel = null;
-        }
-        if (zfbModel != null && TextUtils.isEmpty(zfbImage)) {
-            mPresenter.uselectUserInfo(0, zfbModel.aliPayImg);
-        }
-        dealPayInfo();
-    }
-
-    @Override
-    public void uselectUserInfo(Integer type, String imageUrl) {
-        switch (type) {
-            case 1://微信
-                wxImage = imageUrl;
-                break;
-            case 0://支付宝
-                zfbImage = imageUrl;
-                break;
-        }
-        dealPayInfo();
-    }
-
-    @Override
     public void otcAmount(OtcAmountModel model) {
         if (model != null) {
             tv_account_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + Constant.ACU_CURRENCY_NAME);
@@ -402,54 +312,6 @@ public class OtcBuyOrSellActivity extends BaseOtcHalfOrderActvity<OtcBuyOrSellPr
                 img_zfb.setVisibility(View.GONE);
             }
             tv_seller_coined_time_limit.setText(orderModel.timeOut + " min");
-        }
-    }
-
-    private void dealPayInfo() {
-        //0=支付宝 1=微信 2=银行卡
-        imageUrl = "";
-        switch (selectPayInfo) {
-            case 0:
-                if (zfbModel != null) {
-                    tv_receiving_account.setText(zfbModel.aliPayNo);
-                    img_pay.setImageResource(0);
-                    if (!TextUtils.isEmpty(zfbImage)) {
-                        imageUrl = zfbImage;
-                        img_pay.setVisibility(View.VISIBLE);
-                        GlideUtils.disPlay(this, zfbImage, img_pay);
-                    } else {
-                        img_pay.setVisibility(View.GONE);
-                    }
-                } else {
-                    tv_receiving_account.setText("");
-                    img_pay.setVisibility(View.GONE);
-                }
-                break;
-            case 1:
-                if (wxModel != null) {
-                    tv_receiving_account.setText(wxModel.weChatNo);
-                    img_pay.setImageResource(0);
-                    if (!TextUtils.isEmpty(wxImage)) {
-                        imageUrl = wxImage;
-                        img_pay.setVisibility(View.VISIBLE);
-                        GlideUtils.disPlay(this, wxImage, img_pay);
-                    } else {
-                        img_pay.setVisibility(View.GONE);
-                    }
-                    GlideUtils.disPlay(this, wxImage, img_pay);
-                } else {
-                    tv_receiving_account.setText("");
-                    img_pay.setVisibility(View.GONE);
-                }
-                break;
-            case 2:
-                img_pay.setVisibility(View.GONE);
-                if (yhkModel != null) {
-                    tv_receiving_account.setText(yhkModel.bankCard);
-                } else {
-                    tv_receiving_account.setText("");
-                }
-                break;
         }
     }
 }

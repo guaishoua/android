@@ -152,6 +152,7 @@ public class OTCTransferFragment extends BaseFragment<OTCTransferPresenter> impl
     }
 
     private void exchangeFlag() {
+        tv_coin_account_available.setText("");
         if (type == 1) {
             tv_asset_one.setText(getResources().getString(R.string.coin_account));
             tv_asset_two.setText(getResources().getString(R.string.otc_account));
