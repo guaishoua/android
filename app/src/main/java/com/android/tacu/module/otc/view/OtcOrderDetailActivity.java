@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -84,6 +85,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
 
     private String orderNo;
     private boolean isFirst = true;
+    private boolean isNeedChange = false;
 
     private Handler kHandler = new Handler();
     private Runnable kRunnable = new Runnable() {
@@ -191,6 +193,7 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
 
             setBuyPayInfoString(model);
             setSellPayInfoString(model);
+            isNeedChange = false;
 
             // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
             // 12 买家成功 13 卖家成功
@@ -239,12 +242,16 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                 }
                 if (!status.equals(model.status)) {
                     status = model.status;
+                    isNeedChange = true;
                     destoryAllView();
                     switchView(model.status);
                 }
             }
 
-            if (isFirst) {
+            if (isFirst || isNeedChange) {
+                if (isNeedChange) {
+                    isNeedChange = false;
+                }
                 switch (current) {
                     case ORDER_CONFIRMED:
                     case ORDER_PAYGET:
@@ -257,7 +264,9 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     case ORDER_COINED:
                     case ORDER_COINGET:
                         mPresenter.currentTime();
-                        mPresenter.uselectUserInfo(model.payInfo);
+                        if (!TextUtils.isEmpty(model.payInfo)) {
+                            mPresenter.uselectUserInfo(model.payInfo);
+                        }
                         break;
                     case ORDER_CANCEL:
                     case ORDER_TIMEOUT:
@@ -265,7 +274,9 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
                     case ORDER_ARBITRATION_BUY:
                     case ORDER_ARBITRATION_SELL:
                     case ORDER_ARBITRATION_SUCCESS:
-                        mPresenter.uselectUserInfo(model.payInfo);
+                        if (!TextUtils.isEmpty(model.payInfo)) {
+                            mPresenter.uselectUserInfo(model.payInfo);
+                        }
                         break;
                 }
             }

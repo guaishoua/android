@@ -15,6 +15,7 @@ import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.LanguageUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.Locale;
 
@@ -98,6 +99,13 @@ public class SplashActivity extends AppCompatActivity {
                 goMainActivity();
             }
         }, 3000);
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override

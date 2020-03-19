@@ -155,6 +155,12 @@ public class CoinedView implements View.OnClickListener {
                         break;
                 }
             }
+
+            if (!TextUtils.isEmpty(tradeModel.payInfo)) {
+                img_voucher.setVisibility(View.VISIBLE);
+            } else {
+                img_voucher.setVisibility(View.GONE);
+            }
         }
     }
 

@@ -459,16 +459,16 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 } else if (item.infoModel.vip != null && item.infoModel.vip != 0) {
                     holder.setImageResource(R.id.img_vip, R.mipmap.img_vip_green);
                 }
-                holder.setText(R.id.tv_history_deal, getResources().getString(R.string.history_deal) + "：" + item.infoModel.total + getResources().getString(R.string.dan));
+                holder.setText(R.id.tv_history_deal, item.infoModel.total);
             }
             if (item.orderModel != null) {
-                holder.setText(R.id.tv_surplus, item.orderModel.remainAmount + "/" + item.orderModel.num + " " + currencyNameEn);
+                holder.setText(R.id.tv_surplus, item.orderModel.remainAmount + " " + currencyNameEn);
 
                 String moneyWei = " " + Constant.CNY;
                 if (item.orderModel.money != null && item.orderModel.money == 1) {
                     moneyWei = " " + Constant.CNY;
                 }
-                holder.setText(R.id.tv_single_quota, item.orderModel.lowLimit + "~" + item.orderModel.highLimit + " " + moneyWei);
+                holder.setText(R.id.tv_single_quota, Constant.CNY_SIGN + item.orderModel.lowLimit + "~" + Constant.CNY_SIGN + item.orderModel.highLimit);
                 holder.setText(R.id.tv_single_price, item.orderModel.price + " " + moneyWei);
 
                 if (item.orderModel.payByCard != null && item.orderModel.payByCard == 1) {

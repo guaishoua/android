@@ -11,6 +11,7 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.SPUtils;
 import com.qiyukf.unicorn.api.Unicorn;
 import com.qiyukf.unicorn.api.YSFUserInfo;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class UserManageUtils {
         if (model != null && model.attachment != null) {
             spUtil.setUserUid(model.attachment.uid);
             spUtil.setToken(model.attachment.token);
+            MobclickAgent.onProfileSignIn(String.valueOf(spUtil.getUserUid()));
         }
     }
 
@@ -45,6 +47,7 @@ public class UserManageUtils {
             spUtil.setUserUid(model.attachment.uid);
             spUtil.setToken(model.attachment.token);
             spUtil.setAccountString(accountString);
+            MobclickAgent.onProfileSignIn(String.valueOf(spUtil.getUserUid()));
         }
     }
 

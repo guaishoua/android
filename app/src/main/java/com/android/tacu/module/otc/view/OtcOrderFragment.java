@@ -442,9 +442,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             otcPhone = "";
                             if (item.tradeModel.merchantId == spUtil.getUserUid()) {
                                 otcPhone = item.infoModel.mobile;
-
-                                holder.setGone(R.id.btn_left, true);
-                                holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_order));
                             } else {
                                 otcPhone = item.tradeModel.explaininfo;
                             }
@@ -481,9 +478,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             otcPhone = "";
                             if (item.tradeModel.merchantId == spUtil.getUserUid()) {
                                 otcPhone = item.infoModel.mobile;
-
-                                holder.setGone(R.id.btn_left, true);
-                                holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_order));
                             } else {
                                 otcPhone = item.tradeModel.explaininfo;
                             }

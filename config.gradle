@@ -73,8 +73,8 @@ ext {
     ]
 
     umengDeps = [
-            common   : "com.umeng.sdk:common:1.5.3",
-            analytics: "com.umeng.sdk:analytics:7.5.3"
+            common   : "com.umeng.umsdk:common:2.0.0",
+            analytics: "com.umeng.umsdk:analytics:8.0.0"
     ]
 
     otherDeps = [

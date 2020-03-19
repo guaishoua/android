@@ -560,7 +560,7 @@
     <string name="zhifubao">Alipay</string>
     <string name="weixin">WeChat</string>
     <string name="surplus_all_amount">Remaining/Total</string>
-    <string name="single_quota">Amount</string>
+    <string name="quota">Amount</string>
     <string name="single_price">Price</string>
     <string name="single_price_acu_cny">Price(ACU/CNY)</string>
     <string name="dan">Unit</string>

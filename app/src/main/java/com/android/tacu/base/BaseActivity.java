@@ -31,6 +31,7 @@ import com.android.tacu.utils.user.UserInfoUtils;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.LoadingAnim;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -138,6 +139,7 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         super.onResume();
         isVisibleActivity = true;
         onEmit();
+        MobclickAgent.onResume(this);
     }
 
     @Override
@@ -145,6 +147,7 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         super.onPause();
         isVisibleActivity = false;
         disconnectEmit();
+        MobclickAgent.onPause(this);
     }
 
     @Override
@@ -237,6 +240,8 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     @Override
     public void tokenInvalid() {
         UserManageUtils.logout();
+        //友盟退出
+        MobclickAgent.onProfileSignOff();
         jumpTo(LoginActivity.class);
     }
 

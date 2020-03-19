@@ -121,6 +121,13 @@ public class FinishView implements View.OnClickListener {
                         break;
                 }
             }
+
+            if (!TextUtils.isEmpty(tradeModel.payInfo)) {
+                img_voucher.setVisibility(View.VISIBLE);
+            } else {
+                img_voucher.setVisibility(View.GONE);
+            }
+
             if (!TextUtils.isEmpty(tradeModel.createTime)) {
                 tv_order_make.setVisibility(View.VISIBLE);
                 tv_order_make_status.setVisibility(View.VISIBLE);

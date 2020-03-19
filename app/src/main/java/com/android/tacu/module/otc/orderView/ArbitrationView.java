@@ -327,6 +327,12 @@ public class ArbitrationView implements View.OnClickListener {
                 }
             }
 
+            if (!TextUtils.isEmpty(tradeModel.payInfo)) {
+                img_voucher.setVisibility(View.VISIBLE);
+            } else {
+                img_voucher.setVisibility(View.GONE);
+            }
+
             if (tradeModel.beArbitrateUid != null && tradeModel.beArbitrateUid != 0) {
                 edit_submit_arbitration.setVisibility(View.GONE);
                 lin_upload.setVisibility(View.GONE);

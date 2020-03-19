@@ -229,6 +229,12 @@ public class CoinGetView implements View.OnClickListener {
                 }
             }
 
+            if (!TextUtils.isEmpty(tradeModel.payInfo)) {
+                img_voucher.setVisibility(View.VISIBLE);
+            } else {
+                img_voucher.setVisibility(View.GONE);
+            }
+
             if (status != null && status != 9) {
                 btn_submit_arbitration.setEnabled(true);
                 ((QMUIRoundButtonDrawable) btn_submit_arbitration.getBackground()).setBgData(ContextCompat.getColorStateList(activity, R.color.color_default));

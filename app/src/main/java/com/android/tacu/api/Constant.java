@@ -47,6 +47,10 @@ public class Constant {
     public static final String USD = "USD";//美元
     public static final String EUR = "EUR";//欧元
 
+    public static final String CNY_SIGN = "¥";//人民币
+    public static final String USD_SIGN = "$";//美元
+    public static final String EUR_SIGN = "€";//欧元
+
     //阿里云图片
     //这里需要注意/a-Heads-image/修改了，对应的 CommonUtils.getHeadImg也要修改
     public static final String HEAD_IMG_URL = "https://ta-public.oss-accelerate.aliyuncs.com/a-Heads-image/";

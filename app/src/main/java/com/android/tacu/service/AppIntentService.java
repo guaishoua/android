@@ -14,6 +14,8 @@ import com.qiyukf.unicorn.api.Unicorn;
 import com.qiyukf.unicorn.api.YSFOptions;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.sdk.QbSdk;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 import com.zendesk.logger.Logger;
 import com.zendesk.sdk.network.impl.ZendeskConfig;
 
@@ -43,6 +45,8 @@ public class AppIntentService extends IntentService {
             MobSDK.init(getApplication());
             //bugly错误统计
             buglySetting();
+            //友盟统计
+            umengSetting();
             //腾讯webview内核
             tencentWebViewSetting();
             //ZenDesk初始化
@@ -69,6 +73,22 @@ public class AppIntentService extends IntentService {
             CrashReport.initCrashReport(getApplicationContext(), "6f53f71f62", true, strategy);
         } else {
             CrashReport.initCrashReport(getApplicationContext(), "6f53f71f62", false, strategy);
+        }
+    }
+
+    /**
+     * 友盟统计
+     */
+    private void umengSetting() {
+        UMConfigure.init(this, "5e71c522167edd0543000015", null, UMConfigure.DEVICE_TYPE_PHONE, null);
+        //友盟统计session时间
+        MobclickAgent.setSessionContinueMillis(60 * 1000);
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+        //友盟设置是否对日志信息进行加密, 默认false(不加密). 打包上线时建议改成true加密
+        if (BuildConfig.DEBUG) {
+            MobclickAgent.enableEncrypt(false);//6.0.0版本及以后
+        } else {
+            MobclickAgent.enableEncrypt(true);//6.0.0版本及以后
         }
     }
 

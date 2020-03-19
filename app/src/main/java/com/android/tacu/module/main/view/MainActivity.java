@@ -59,6 +59,7 @@ import com.facebook.rebound.SpringSystem;
 import com.google.gson.Gson;
 import com.qiyukf.unicorn.api.ConsultSource;
 import com.qiyukf.unicorn.api.Unicorn;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -181,8 +182,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     @Override
     protected void initLazy() {
         super.initLazy();
-        //延时2秒加载侧边栏
-        getWindow().getDecorView().postDelayed(new Runnable() {
+        //加载侧边栏
+        getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
                 mainDrawerLayoutHelper = new MainDrawerLayoutHelper(MainActivity.this, viewDrawer);
@@ -214,16 +215,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 });
                 mainDrawerLayoutHelper.setLogin(spUtil.getLogin());
             }
-        }, 2000);
+        });
 
-        //版本更新延时4秒加载 因为权限的弹窗影响控件的加载数据
-        getWindow().getDecorView().postDelayed(new Runnable() {
+        //版本更新
+        getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
                 //版本更新
                 mPresenter.upload(PackageUtils.getVersion(), PackageUtils.getMetaValue(MainActivity.this, PackageUtils.META_NAME), false);
             }
-        }, 4000);
+        });
     }
 
     @Override
@@ -283,6 +284,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         } else {
             ActivityStack.getInstance().finishActivity(SplashActivity.class);
             finish();
+            MobclickAgent.onKillProcess(getApplicationContext());
             System.exit(0);
         }
     }

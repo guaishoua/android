@@ -554,7 +554,7 @@
     <string name="zhifubao">支付寶</string>
     <string name="weixin">微信</string>
     <string name="surplus_all_amount">剩余量/總量</string>
-    <string name="single_quota">單筆限額</string>
+    <string name="quota">限額</string>
     <string name="single_price">單價</string>
     <string name="single_price_acu_cny">單價(ACU/CNY)</string>
     <string name="dan">單</string>

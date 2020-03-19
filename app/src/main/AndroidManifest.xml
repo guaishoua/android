@@ -44,6 +44,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <!--友盟-->
+        <meta-data
+            android:name="5e71c522167edd0543000015"
+            android:value="UMENG_APPKEY" />
+
         <!-- 配置bugly的APP ID -->
         <meta-data
             android:name="BUGLY_APPID"
