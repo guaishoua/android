@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_370"
+    android:layout_height="@dimen/dp_440"
+    android:paddingHorizontal="@dimen/dp_5"
     android:background="@color/content_bg_color"
     android:orientation="vertical">
 
@@ -41,42 +42,30 @@
             app:qmui_radius="@dimen/dp_3" />
     </LinearLayout>
 
-    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
-        android:id="@+id/rl_select_price"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_35"
-        android:layout_marginTop="@dimen/dp_10"
-        android:paddingHorizontal="@dimen/dp_10"
+    <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+        android:id="@+id/btn_select_price"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_25"
+        android:layout_marginTop="@dimen/dp_8"
+        android:minWidth="@dimen/dp_0"
+        android:background="@null"
+        android:drawableRight="@drawable/icon_arrow_drop_down_white"
+        android:paddingRight="@dimen/dp_10"
+        android:text="@string/limit_price"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_14"
         app:qmui_borderColor="@color/color_grey_2"
         app:qmui_borderWidth="@dimen/dp_1"
-        app:qmui_radius="@dimen/dp_3">
-
-        <TextView
-            android:id="@+id/tv_select_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/dp_10"
-            android:text="@string/limit_price"
-            android:textColor="@color/text_grey"
-            android:textSize="@dimen/text_size_sp_14" />
-
-        <ImageView
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="@dimen/dp_20"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/icon_pulldown_grey" />
-    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
+        app:qmui_radius="@dimen/dp_3" />
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
         android:id="@+id/lin_price"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_35"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_height="@dimen/dp_38"
+        android:layout_marginTop="@dimen/dp_8"
         android:orientation="horizontal"
         app:qmui_borderColor="@color/color_grey_3"
-        app:qmui_borderWidth="@dimen/dp_1"
+        app:qmui_borderWidth="@dimen/dp_0.5"
         app:qmui_radius="@dimen/dp_3">
 
         <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
@@ -90,7 +79,7 @@
             app:srcCompat="@drawable/icon_sub_default" />
 
         <View
-            android:layout_width="@dimen/dp_1"
+            android:layout_width="@dimen/dp_0.5"
             android:layout_height="match_parent"
             android:background="@color/color_grey_3" />
 
@@ -106,10 +95,10 @@
             android:inputType="number"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_grey_3"
-            android:textSize="@dimen/text_size_sp_12" />
+            android:textSize="@dimen/text_size_sp_14" />
 
         <View
-            android:layout_width="@dimen/dp_1"
+            android:layout_width="@dimen/dp_0.5"
             android:layout_height="match_parent"
             android:background="@color/color_grey_3" />
 
@@ -128,18 +117,18 @@
         android:id="@+id/tv_valuation_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_10"
         android:text="≈￥0.0"
-        android:textColor="@color/text_grey_3"
-        android:textSize="@dimen/text_size_sp_12" />
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_13" />
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_35"
+        android:layout_height="@dimen/dp_38"
         android:layout_marginTop="@dimen/dp_10"
         android:orientation="horizontal"
         app:qmui_borderColor="@color/color_grey_3"
-        app:qmui_borderWidth="@dimen/dp_1"
+        app:qmui_borderWidth="@dimen/dp_0.5"
         app:qmui_radius="@dimen/dp_3">
 
         <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
@@ -153,7 +142,7 @@
             app:srcCompat="@drawable/icon_sub_default" />
 
         <View
-            android:layout_width="@dimen/dp_1"
+            android:layout_width="@dimen/dp_0.5"
             android:layout_height="match_parent"
             android:background="@color/color_grey_3" />
 
@@ -169,10 +158,10 @@
             android:inputType="number"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_grey_3"
-            android:textSize="@dimen/text_size_sp_12" />
+            android:textSize="@dimen/text_size_sp_14" />
 
         <View
-            android:layout_width="@dimen/dp_1"
+            android:layout_width="@dimen/dp_0.5"
             android:layout_height="match_parent"
             android:background="@color/color_grey_3" />
 
@@ -191,15 +180,15 @@
         android:id="@+id/tv_available_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_10"
         android:text="@string/available_number"
-        android:textColor="@color/text_grey_3"
-        android:textSize="@dimen/text_size_sp_12" />
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_13" />
 
     <com.android.tacu.widget.seekbar.SignSeekBar
         android:id="@+id/seekbar_sign"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_30"
+        android:layout_height="@dimen/dp_40"
         android:layout_marginTop="@dimen/dp_10"
         app:ssb_max="1"
         app:ssb_min="0"
@@ -218,12 +207,12 @@
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
         android:id="@+id/rl_pwd"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_35"
+        android:layout_height="@dimen/dp_38"
         android:layout_marginTop="@dimen/dp_10"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_5"
         app:qmui_borderColor="@color/color_grey_3"
-        app:qmui_borderWidth="@dimen/dp_1"
+        app:qmui_borderWidth="@dimen/dp_0.5"
         app:qmui_radius="@dimen/dp_3">
 
         <CheckBox
@@ -245,7 +234,7 @@
             android:inputType="textPassword"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_grey_3"
-            android:textSize="@dimen/text_size_sp_12" />
+            android:textSize="@dimen/text_size_sp_14" />
     </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
 
     <TextView
@@ -256,7 +245,7 @@
         android:layout_marginTop="@dimen/dp_10"
         android:text="@string/fee"
         android:textColor="@color/text_grey_3"
-        android:textSize="@dimen/text_size_sp_12" />
+        android:textSize="@dimen/text_size_sp_14" />
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
         android:id="@+id/btn_ok"

@@ -24,8 +24,8 @@
     <color name="color_riseup">#12AB69</color>
     <color name="color_risedown">#DE5252</color>
     <!--币种深度-->
-    <color name="coin_depth_blue">#3B19A144</color><!--透明值80%-->
-    <color name="coin_depth_red">#3BEB311F</color><!--透明值80%-->
+    <color name="coin_depth_blue">#1919A144</color><!--透明值85%-->
+    <color name="coin_depth_red">#19EB311F</color><!--透明值85%-->
     <!--状态栏颜色-->
     <color name="statusbar_color">#141C25</color>
     <!--页面背景色-->

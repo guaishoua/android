@@ -71,6 +71,7 @@ import com.android.tacu.widget.popupwindow.CoinPopWindow;
 import com.android.tacu.widget.popupwindow.TradePopWindow;
 import com.android.tacu.widget.seekbar.SignSeekBar;
 import com.google.gson.Gson;
+import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
@@ -135,12 +136,14 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     private QMUIAlphaImageButton btnPriceAdd;
     private QMUIAlphaImageButton btnNumberSub;
     private QMUIAlphaImageButton btnNumberAdd;
-    private TextView tvSelectPrice;
+    private QMUIAlphaButton btnSelectPrice;
     private TextView tvDepthDecimal;
     //交易对部分
     private RecyclerView rySell;
     private RecyclerView ryBuy;
     private TextView tvNewsPrice;
+    private TextView tvNewsPriceRnb;
+    private TextView tvNewsPriceRate;
 
     private QMUIAlphaImageButton btnCollect;
     //市价和限价
@@ -338,7 +341,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         jumpTo(MarketDetailsActivity.createActivity(getContext(), currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn));
     }
 
-    @OnClick(R.id.rl_select_price)
+    @OnClick(R.id.btn_select_price)
     void selectPriceClick() {
         initListPricePopup();
     }
@@ -668,11 +671,13 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         btnPriceAdd = view.findViewById(R.id.btn_price_add);
         btnNumberSub = view.findViewById(R.id.btn_number_sub);
         btnNumberAdd = view.findViewById(R.id.btn_number_add);
-        tvSelectPrice = view.findViewById(R.id.tv_select_price);
+        btnSelectPrice = view.findViewById(R.id.btn_select_price);
         tvDepthDecimal = view.findViewById(R.id.tv_depth_decimal);
         rySell = view.findViewById(R.id.recyclerView_sell);
         ryBuy = view.findViewById(R.id.recyclerView_buy);
         tvNewsPrice = view.findViewById(R.id.tv_news_price);
+        tvNewsPriceRnb = view.findViewById(R.id.tv_news_price_rnb);
+        tvNewsPriceRate = view.findViewById(R.id.tv_news_price_rate);
 
         limitEditLength();
 
@@ -890,6 +895,8 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
 
         tv_name.setText(currencyNameEn + "/" + baseCurrencyNameEn);
         tvNewsPrice.setText("--");
+        tvNewsPriceRnb.setText("--");
+        tvNewsPriceRate.setText("--");
         tvDepthDecimal.setText("");
         tvAvailableNumber.setText(getResources().getString(R.string.available_number) + " --" + baseCurrencyNameEn);
         sellAdapter.setNewData(null);
@@ -936,15 +943,16 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                     }
                 }
             }
-            if (baseCurrencyId == 22) {
-                tvNewsPrice.setText("￥" + BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
-            } else {
-                tvNewsPrice.setText(BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString() + "≈" + getMcM(baseCurrencyId, currentTradeCoinModel.currentTradeCoin.currentAmount));
-            }
+            tvNewsPrice.setText(BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
+            tvNewsPriceRnb.setText("≈" + getMcM(baseCurrencyId, currentTradeCoinModel.currentTradeCoin.currentAmount));
             if (currentTradeCoinModel.currentTradeCoin.changeRate >= 0) {
                 tvNewsPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.color_riseup));
+                tvNewsPriceRate.setText("+" + FormatterUtils.getFormatValue(currentTradeCoinModel.currentTradeCoin.changeRate) + "%");
+                tvNewsPriceRate.setTextColor(ContextCompat.getColor(getContext(), R.color.color_riseup));
             } else {
                 tvNewsPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.color_risedown));
+                tvNewsPriceRate.setText(FormatterUtils.getFormatValue(currentTradeCoinModel.currentTradeCoin.changeRate) + "%");
+                tvNewsPriceRate.setTextColor(ContextCompat.getColor(getContext(), R.color.color_risedown));
             }
         }
     }
@@ -1290,7 +1298,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
 
         @Override
         protected void convert(BaseViewHolder helper, final RecordModel.SellBean item) {
-            helper.setText(R.id.tv_index, String.valueOf(sellAdapter.getData().size() - helper.getLayoutPosition()));
             helper.setText(R.id.tv_current, depthPointPrice < pointPrice ? getFormatDoubleUp(item.current) : getFormatDoubleDown(item.current));
             helper.setTextColor(R.id.tv_current, ContextCompat.getColor(getContext(), R.color.color_risedown));
             helper.setText(R.id.tv_number, FormatterUtils.getBigValueFormatter(pointNum, item.sellEntrustNumber));
@@ -1320,7 +1327,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
 
         @Override
         protected void convert(BaseViewHolder helper, final RecordModel.BuyBean item) {
-            helper.setText(R.id.tv_index, String.valueOf(helper.getLayoutPosition() + 1));
             helper.setText(R.id.tv_current, getFormatDoubleDown(item.current));
             helper.setTextColor(R.id.tv_current, ContextCompat.getColor(getContext(), R.color.color_riseup));
             helper.setText(R.id.tv_number, FormatterUtils.getBigValueFormatter(pointNum, item.buyEntrustNumber));
@@ -1360,7 +1366,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                                 editNumber.setText("");
                             }
                             marketPriceShow();
-                            tvSelectPrice.setText(tag);
+                            btnSelectPrice.setText(tag);
                             dialog.dismiss();
                         }
                     })
