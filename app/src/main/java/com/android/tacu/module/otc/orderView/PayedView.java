@@ -68,7 +68,6 @@ public class PayedView implements View.OnClickListener {
     private ImageView img_url;
 
     private QMUIRoundButton btn_pay;
-    private QMUIRoundButton btn_giveup;
 
     private OtcTradeModel tradeModel;
     private Long currentTime;
@@ -115,12 +114,10 @@ public class PayedView implements View.OnClickListener {
         img_url = view.findViewById(R.id.img_url);
 
         btn_pay = view.findViewById(R.id.btn_pay);
-        btn_giveup = view.findViewById(R.id.btn_giveup);
 
         img_payment_code.setOnClickListener(this);
         lin_upload.setOnClickListener(this);
         btn_pay.setOnClickListener(this);
-        btn_giveup.setOnClickListener(this);
     }
 
     @Override
@@ -152,11 +149,6 @@ public class PayedView implements View.OnClickListener {
                 }else{
                     activity.showLoadingView();
                     mPresenter.getOssSetting();
-                }
-                break;
-            case R.id.btn_giveup:
-                if (tradeModel != null) {
-                    mPresenter.payCancelOrder(tradeModel.id);
                 }
                 break;
         }

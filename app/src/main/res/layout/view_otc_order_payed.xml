@@ -342,29 +342,16 @@
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/btn_pay"
-            android:layout_width="@dimen/dp_0"
+            android:layout_width="@dimen/dp_300"
             android:layout_height="@dimen/dp_40"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_20"
             android:text="@string/confirm_and_pay"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_14"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lin_upload"
-            app:layout_constraintWidth_percent="0.48"
-            app:qmui_backgroundColor="@color/color_default"
-            app:qmui_radius="@dimen/dp_3" />
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/btn_giveup"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_40"
-            android:text="@string/giveup_pay"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14"
-            app:layout_constraintBottom_toBottomOf="@id/btn_pay"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintWidth_percent="0.48"
-            app:qmui_backgroundColor="@color/color_otc_giveup"
+            app:layout_constraintTop_toBottomOf="@id/lin_upload"
+            app:qmui_backgroundColor="@color/color_default"
             app:qmui_radius="@dimen/dp_3" />
     </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundConstraintLayout>
 </LinearLayout>

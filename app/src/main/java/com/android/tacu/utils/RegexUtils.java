@@ -103,13 +103,13 @@ public class RegexUtils {
     }
 
     /**
-     * 验证交易密码（6-16位数字、字母组成）
+     * 验证交易密码（6-16位字符）
      *
      * @param password
      * @return
      */
     public static boolean checkTradePassword(String password) {
-        String regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$";
+        String regex = "^.{6,16}$";
         return password.matches(regex);
     }
 
