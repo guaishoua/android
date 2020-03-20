@@ -584,6 +584,7 @@
         \n6.交易過程中如發生異議，買賣雙方可隨時聯繫或提交仲裁進行各自維權，具體請查看  《OTC場外交易規則》。
     </string>
     <string name="payed_time_countdown">付款期限倒計時</string>
+    <string name="coined_time_countdown">放幣期限倒計時</string>
     <string name="order_id">訂單編號</string>
     <string name="pay_method">支付方式</string>
     <string name="current_trade_should_get">本次交易應收</string>

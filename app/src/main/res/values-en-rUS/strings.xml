@@ -590,6 +590,7 @@
         \n6. If there is a discord during the transaction, buyers and sellers can submit arbitration at any time to defend their rights. For details, please refer to the OTC Rules.
     </string>
     <string name="payed_time_countdown">Payment time</string>
+    <string name="coined_time_countdown">Coin time</string>
     <string name="order_id">Order number</string>
     <string name="pay_method">Payment method</string>
     <string name="current_trade_should_get">To be received</string>
