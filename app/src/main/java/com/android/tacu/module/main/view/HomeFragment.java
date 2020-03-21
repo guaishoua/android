@@ -60,7 +60,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
-import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.entity.CustomViewsInfo;
@@ -174,7 +174,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
         magicIndicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tab_bg_color));
         magicIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.tab_default), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(16, 16));
-        magicIndicator.setScrollBar(new ColorBar(getContext(), ContextCompat.getColor(getContext(), R.color.tab_default), 4));
+        magicIndicator.setScrollBar(new TextWidthColorBar(getContext(), magicIndicator, ContextCompat.getColor(getContext(), R.color.tab_default), 4));
         magicIndicator.setSplitAuto(false);
 
         initCache();

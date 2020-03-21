@@ -8,8 +8,4 @@
     <include
         android:id="@+id/view_home"
         layout="@layout/drawerlayout_home_menu" />
-
-    <include
-        layout="@layout/drawerlayout_trade_coinlist"
-        android:visibility="gone" />
 </android.support.constraint.ConstraintLayout>

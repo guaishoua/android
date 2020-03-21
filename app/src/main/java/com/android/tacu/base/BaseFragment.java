@@ -24,7 +24,6 @@ import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.MainSocketManager;
 import com.android.tacu.utils.ConvertMoneyUtils;
-import com.android.tacu.utils.NetworkUtils;
 import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.user.UserInfoUtils;
 import com.android.tacu.utils.user.UserManageUtils;
@@ -372,17 +371,6 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
      */
     public void jumpTo(Intent intent) {
         startActivity(intent);
-    }
-
-    /**
-     * 判断网络是否连接
-     */
-    public boolean isAvailable() {
-        if (!NetworkUtils.isConnected(getContext())) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     /**

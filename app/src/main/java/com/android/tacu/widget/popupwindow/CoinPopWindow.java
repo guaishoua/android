@@ -80,7 +80,7 @@ public class CoinPopWindow extends PopupWindow {
         baseIndicatorView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.content_bg_color_grey));
         baseIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(mContext, R.color.text_default), ContextCompat.getColor(mContext, R.color.text_grey_2)).setSize(14, 14));
         baseIndicatorView.setScrollBar(new TextWidthColorBar(mContext, baseIndicatorView, ContextCompat.getColor(mContext, R.color.text_default), 4));
-        baseIndicatorView.setSplitAuto(true);
+        baseIndicatorView.setSplitAuto(false);
         baseIndicatorView.setOnItemSelectListener(new Indicator.OnItemSelectedListener() {
             @Override
             public void onItemSelected(View selectItemView, int select, int preSelect) {

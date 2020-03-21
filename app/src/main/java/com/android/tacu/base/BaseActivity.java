@@ -24,7 +24,6 @@ import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.MainSocketManager;
 import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.ConvertMoneyUtils;
-import com.android.tacu.utils.NetworkUtils;
 import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.StatusBarUtils;
 import com.android.tacu.utils.user.UserInfoUtils;
@@ -97,8 +96,7 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         //沉浸栏
         StatusBarUtils.setColorNoTranslucent(this, ContextCompat.getColor(this, R.color.statusbar_color));
 
-        //禁止app横竖屏切换
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        settingActivityScreenDir();
 
         if (ActivityStack.getInstance().getAppStatus() == STATUS_KILLED) {
             protectApp();
@@ -234,7 +232,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
 
     @Override
     public void hideRefreshView() {
-
     }
 
     @Override
@@ -266,18 +263,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         }
     }
 
-    /**
-     * 接收到分发到事件
-     */
-    protected void receiveEvent(BaseEvent event) {
-    }
-
-    /**
-     * 接受到分发的粘性事件
-     */
-    protected void receiveStickyEvent(BaseEvent event) {
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(BaseEvent event) {
         if (event != null) {
@@ -290,6 +275,18 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         if (event != null) {
             receiveStickyEvent(event);
         }
+    }
+
+    /**
+     * 接收到分发到事件
+     */
+    protected void receiveEvent(BaseEvent event) {
+    }
+
+    /**
+     * 接受到分发的粘性事件
+     */
+    protected void receiveStickyEvent(BaseEvent event) {
     }
 
     /**
@@ -327,19 +324,19 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     }
 
     /**
-     * 判断网络是否连接
+     * 防止activity被系统回收所导致的异常
      */
-    public boolean isAvailable() {
-        if (!NetworkUtils.isConnected(this)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     protected void protectApp() {
         jumpTo(SplashActivity.createActivity(this, true));
         finish();
+    }
+
+    /**
+     * 限制屏幕方向
+     */
+    protected void settingActivityScreenDir() {
+        //当前限制是竖屏
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     /**
@@ -369,5 +366,4 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
             baseSocketManager.disconnectEmitterListener();
         }
     }
-
 }

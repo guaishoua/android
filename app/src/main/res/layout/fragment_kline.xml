@@ -81,7 +81,6 @@
             android:layout_marginTop="@dimen/dp_10" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
-            android:id="@+id/rl_kview"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_300"
             android:layout_marginLeft="@dimen/dp_10"

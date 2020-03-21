@@ -267,11 +267,7 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
         refreshlayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                if (isAvailable()) {
-                    initData(false, false);
-                } else {
-                    showToastError(getResources().getString(R.string.net_unavailable));
-                }
+                initData(false, false);
             }
 
             @Override

@@ -2,11 +2,7 @@ package com.android.tacu.module.market.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.os.Handler;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,8 +13,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.tacu.EventBus.EventConstant;
@@ -41,9 +35,7 @@ import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
 import com.android.tacu.utils.DateUtils;
-import com.android.tacu.utils.KShareUtils;
 import com.android.tacu.utils.SPUtils;
-import com.android.tacu.utils.ScreenShareHelper;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.CoinPopWindow;
 import com.android.tacu.widget.tab.TabLayoutView;
@@ -55,9 +47,6 @@ import com.github.tifezh.kchartlib.chart.interfaces.OnChartEventListener;
 import com.github.tifezh.kchartlib.utils.DataHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -78,18 +67,8 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     @BindView(R.id.scrollView)
     CoordinatorLayout scrollView;
-    @BindView(R.id.layout_kline)
-    RelativeLayout layout_kline;
-    @BindView(R.id.rl_coin)
-    RelativeLayout rlCoinDetail;
-    @BindView(R.id.appbar_layout)
-    AppBarLayout appbar_layout;
     @BindView(R.id.lin_indicator)
     TabLayoutView linIndicator;
-    @BindView(R.id.rl_kview)
-    QMUIRoundRelativeLayout rlKView;
-    @BindView(R.id.rl_bottom)
-    LinearLayout rlBottom;
     @BindView(R.id.tv_news_price)
     TextView tvNewsPrice;
     @BindView(R.id.tv_rmb_scale)
@@ -104,10 +83,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     TextView tvLowPrice;
     @BindView(R.id.kchart_view)
     KChartView mKChartView;
-    @BindView(R.id.btn_buy)
-    QMUIRoundButton btnBuy;
-    @BindView(R.id.btn_sell)
-    QMUIRoundButton btnSell;
     @BindView(R.id.img_collect)
     ImageView imgCollect;
     @BindView(R.id.magic_indicator)
@@ -116,8 +91,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     ViewPager viewpager;
 
     private TextView tvCenterTitle;
-    private QMUIAlphaImageButton btnRight;
-
     //深度
     private MarketDetailDepthFragment marketDetailDepthFragment;
     //成交记录
@@ -147,28 +120,20 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     private TabPopup targetPopUp;
     private TabPopup timePopUp;
+    private CoinPopWindow coinPopWindow;
 
     private CurrentTradeCoinModel currentTradeCoinModel;
     private IndicatorViewPager indicatorViewPager;
 
-    private KShareUtils shareUtil;
-    private CoinPopWindow coinPopWindow;
-
     //是否添加到自选
     private boolean isCollect = false;
     private SelfModel selfModel;
-
-    private Bitmap bitmapZxing;
-    private Bitmap bitmapPart;
-    private Bitmap bitmapScreenShoot;
 
     private List<String> tabDownTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
 
     //防止socket刷新频繁
     private int pointPriceTemp;
-
-    private ScreenShareHelper screenShareHelper;
 
     private Handler kHandler = new Handler();
     private Runnable kRunnable = new Runnable() {
@@ -216,25 +181,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MarketDetailsActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    setScreenHorizontalCancle();
-                } else {
-                    finish();
-                }
-            }
-        });
-        btnRight = mTopBar.addRightImageButton(0, R.id.qmui_topbar_item_right, 22, 22);
-        btnRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (MarketDetailsActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    setScreenHorizontalCancle();
-                } else {
-                    if (screenShareHelper == null) {
-                        screenShareHelper = new ScreenShareHelper(MarketDetailsActivity.this);
-                    }
-                    screenShareHelper.invoke(layout_kline);
-                }
+                finish();
             }
         });
 
@@ -257,12 +204,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         linIndicator.setOnLargeSelectListener(new TabLayoutView.EnLargeSelectListener() {
             @Override
             public void onLargeSelected() {
-                boolean isVertical = (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
-                if (isVertical) {
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                } else {
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                }
             }
         });
         tabTitle.add(getResources().getString(R.string.min_1));
@@ -300,7 +241,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 scrollView.requestDisallowInterceptTouchEvent(boo);
             }
         });
-        setKLineWidhtAndHeight(1);
 
         magicIndicator.setBackgroundColor(ContextCompat.getColor(this, R.color.color_kline));
         magicIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.tab_default), ContextCompat.getColor(this, R.color.text_white)).setSize(14, 14));
@@ -351,22 +291,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         if (kHandler != null && kRunnable != null) {
             kHandler.removeCallbacks(kRunnable);
         }
-        if (bitmapZxing != null && !bitmapZxing.isRecycled()) {
-            bitmapZxing.recycle();
-            bitmapZxing = null;
-        }
-        if (bitmapPart != null && !bitmapPart.isRecycled()) {
-            bitmapPart.recycle();
-            bitmapPart = null;
-        }
-        if (bitmapScreenShoot != null && !bitmapScreenShoot.isRecycled()) {
-            bitmapScreenShoot.recycle();
-            bitmapScreenShoot = null;
-        }
-        if (shareUtil != null) {
-            shareUtil.clearBitmap();
-            shareUtil = null;
-        }
         if (targetPopUp != null && targetPopUp.isShowing()) {
             targetPopUp.dismiss();
             targetPopUp = null;
@@ -376,42 +300,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             timePopUp = null;
         }
         System.gc();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        View mAppBarChildAt = appbar_layout.getChildAt(0);
-        AppBarLayout.LayoutParams mAppBarParams = (AppBarLayout.LayoutParams) mAppBarChildAt.getLayoutParams();
-
-        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {//横屏
-            rlCoinDetail.setVisibility(View.GONE);
-            rlBottom.setVisibility(View.GONE);
-            btnRight.setImageResource(R.drawable.icon_close_default);
-            magicIndicator.setVisibility(View.GONE);
-            viewpager.setVisibility(View.GONE);
-            setKLineWidhtAndHeight(2);
-
-            mAppBarParams.setScrollFlags(0);
-
-            mKChartView.setGridRows(3);
-            mKChartView.setGridColumns(6);
-        } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {//竖屏
-            rlCoinDetail.setVisibility(View.VISIBLE);
-            rlBottom.setVisibility(View.VISIBLE);
-            //btnRight.setImageResource(R.drawable.icon_share_white);
-            btnRight.setImageResource(0);
-            magicIndicator.setVisibility(View.VISIBLE);
-            viewpager.setVisibility(View.VISIBLE);
-            setKLineWidhtAndHeight(1);
-
-            mAppBarParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL);
-            mAppBarChildAt.setLayoutParams(mAppBarParams);
-
-            mKChartView.setGridRows(4);
-            mKChartView.setGridColumns(3);
-        }
     }
 
     @OnClick(R.id.btn_buy)
@@ -655,13 +543,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         }
     }
 
-    /**
-     * 取消横屏
-     */
-    private void setScreenHorizontalCancle() {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-    }
-
     private void initTargetPopUp(View view) {
         if (targetPopUp != null && targetPopUp.isShowing()) {
             targetPopUp.dismiss();
@@ -710,22 +591,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         }
         timePopUp.setWidthAndHeight(UIUtils.getScreenWidth(), UIUtils.dp2px(40));
         timePopUp.showAsDropDown(view, UIUtils.dp2px(0), 0);
-    }
-
-    /**
-     * 设置K线的宽高
-     * flag : 1代表竖屏  2代表横屏
-     */
-    private void setKLineWidhtAndHeight(int flag) {
-        int screenHeight = UIUtils.getScreenHeight();
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rlKView.getLayoutParams();
-        layoutParams.width = UIUtils.getScreenWidth() - UIUtils.dp2px(20);
-        if (flag == 1) {
-            layoutParams.height = (screenHeight - UIUtils.dp2px(120)) * 2 / 3;
-        } else if (flag == 2) {
-            layoutParams.height = screenHeight - UIUtils.dp2px(120);
-        }
-        rlKView.setLayoutParams(layoutParams);
     }
 
     /**
