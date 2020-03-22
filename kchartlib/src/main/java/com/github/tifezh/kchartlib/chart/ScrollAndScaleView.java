@@ -30,9 +30,9 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
 
     protected float mScaleX = 1;
 
-    protected float mScaleXMax = 2f;//设置缩放值的最大值
+    protected float mScaleXMax = 2f;
 
-    protected float mScaleXMin = 0.1f;//设置缩放值的最小值
+    protected float mScaleXMin = 0.5f;
 
     private boolean mMultipleTouch = false;
 
@@ -97,7 +97,10 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         if (!isTouch() && isScrollEnable()) {
-            mScroller.fling(mScrollX, 0, Math.round(velocityX / mScaleX), 0, Integer.MIN_VALUE, Integer.MAX_VALUE, 0, 0);
+            mScroller.fling(mScrollX, 0
+                    , Math.round(velocityX / mScaleX), 0,
+                    Integer.MIN_VALUE, Integer.MAX_VALUE,
+                    0, 0);
         }
         return true;
     }
@@ -173,38 +176,49 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
 
     }
 
+    float x;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        // 按压手指超过1个
+        if (event.getPointerCount() > 1) {
+            isLongPress = false;
+        }
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 touch = true;
+                x = event.getX();
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (event.getPointerCount() == 1) {
-                    //长按之后移动
-                    if (isLongPress) {
-                        onLongPress(event);
-                    }
+                //长按之后移动
+                if (isLongPress) {
+                    onLongPress(event);
                 }
                 break;
             case MotionEvent.ACTION_POINTER_UP:
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                isLongPress = false;
-                touch = false;
-                if (listener != null) {
-                    listener.onChartTouchListener(false);
+                if (x == event.getX()) {
+                    if (isLongPress) {
+                        isLongPress = false;
+                        if (listener != null) {
+                            listener.onChartTouchListener(false);
+                        }
+                    }
                 }
+                touch = false;
                 invalidate();
                 break;
             case MotionEvent.ACTION_CANCEL:
                 isLongPress = false;
-                touch = false;
                 if (listener != null) {
                     listener.onChartTouchListener(false);
                 }
+                touch = false;
                 invalidate();
+                break;
+            default:
                 break;
         }
         mMultipleTouch = event.getPointerCount() > 1;

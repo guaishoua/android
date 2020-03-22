@@ -10,7 +10,7 @@ import com.github.tifezh.kchartlib.chart.base.IValueFormatter;
 public class BigValueFormatter implements IValueFormatter {
 
     //必须是排好序的
-    private int[] values = {1000, 1000000, 1000000000};
+    private int[] values = {10000, 1000000, 100000000};
     private String[] units = {"K", "M", "B"};
 
     @Override

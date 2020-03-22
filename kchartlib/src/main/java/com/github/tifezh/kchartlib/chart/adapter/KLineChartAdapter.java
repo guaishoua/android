@@ -1,25 +1,17 @@
 package com.github.tifezh.kchartlib.chart.adapter;
 
-import com.github.tifezh.kchartlib.chart.BaseKChartAdapter;
 import com.github.tifezh.kchartlib.chart.entity.KLineEntity;
-import com.github.tifezh.kchartlib.utils.DateUtil;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * 数据适配器
  * Created by tifezh on 2016/6/18.
  */
-
-public class KChartAdapter extends BaseKChartAdapter {
+public class KLineChartAdapter extends BaseKLineChartAdapter {
 
     private List<KLineEntity> datas = new ArrayList<>();
-
-    public KChartAdapter() {
-
-    }
 
     @Override
     public int getCount() {
@@ -32,21 +24,8 @@ public class KChartAdapter extends BaseKChartAdapter {
     }
 
     @Override
-    public Date getDate(int position) {
-        try {
-            String dateSring = datas.get(position).Date;
-            return DateUtil.stringToDate(dateSring);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public boolean hasData() {
-        if (datas != null && !datas.isEmpty()) {
-            return true;
-        }
-        return false;
+    public String getDate(int position) {
+        return datas.get(position).Date;
     }
 
     /**
@@ -70,7 +49,17 @@ public class KChartAdapter extends BaseKChartAdapter {
     }
 
     /**
-     * 清除数据
+     * 改变某个点的值
+     *
+     * @param position 索引值
+     */
+    public void changeItem(int position, KLineEntity data) {
+        datas.set(position, data);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 数据清除
      */
     public void clearData() {
         if (datas != null && !datas.isEmpty()) {
@@ -86,15 +75,5 @@ public class KChartAdapter extends BaseKChartAdapter {
             datas.clear();
             notifyDataSetChanged();
         }
-    }
-
-    /**
-     * 改变某个点的值
-     *
-     * @param position 索引值
-     */
-    public void changeItem(int position, KLineEntity data) {
-        datas.set(position, data);
-        notifyDataSetChanged();
     }
 }

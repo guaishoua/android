@@ -5,10 +5,10 @@ import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.github.tifezh.kchartlib.chart.BaseKChartView;
-import com.github.tifezh.kchartlib.chart.entity.IKDJ;
+import com.github.tifezh.kchartlib.chart.BaseKLineChartView;
 import com.github.tifezh.kchartlib.chart.base.IChartDraw;
 import com.github.tifezh.kchartlib.chart.base.IValueFormatter;
+import com.github.tifezh.kchartlib.chart.entity.IKDJ;
 import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
 
 /**
@@ -22,46 +22,40 @@ public class KDJDraw implements IChartDraw<IKDJ> {
     private Paint mDPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mJPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    public KDJDraw(BaseKChartView view) {
+    public KDJDraw(BaseKLineChartView view) {
     }
 
     @Override
-    public void drawTranslated(@Nullable IKDJ lastPoint, @NonNull IKDJ curPoint, float lastX, float curX, @NonNull Canvas canvas, @NonNull BaseKChartView view, int position) {
-        view.drawChildLine(canvas, mKPaint, lastX, lastPoint.getK(), curX, curPoint.getK());
-        view.drawChildLine(canvas, mDPaint, lastX, lastPoint.getD(), curX, curPoint.getD());
-        view.drawChildLine(canvas, mJPaint, lastX, lastPoint.getJ(), curX, curPoint.getJ());
+    public void drawTranslated(@Nullable IKDJ lastPoint, @NonNull IKDJ curPoint, float lastX, float curX, @NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position) {
+        if (lastPoint.getK() != 0) {
+            view.drawChildLine(canvas, mKPaint, lastX, lastPoint.getK(), curX, curPoint.getK());
+        }
+        if (lastPoint.getD() != 0) {
+            view.drawChildLine(canvas, mDPaint, lastX, lastPoint.getD(), curX, curPoint.getD());
+        }
+        if (lastPoint.getJ() != 0) {
+            view.drawChildLine(canvas, mJPaint, lastX, lastPoint.getJ(), curX, curPoint.getJ());
+        }
     }
 
     @Override
-    public void drawText(@NonNull Canvas canvas, @NonNull BaseKChartView view, int position, float x, float y) {
+    public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IKDJ point = (IKDJ) view.getItem(position);
-       /* String text = "KDJ(9,3,3)  ";
-        canvas.drawText(text, x, y, view.getTextPaint());
-        x += view.getTextPaint().measureText(text);
-        text = "K:" + view.formatValue(point.getK()) + "  ";
-        canvas.drawText(text, x, y, mKPaint);
-        x += mKPaint.measureText(text);
-        text = "D:" + view.formatValue(point.getD()) + "  ";
-        canvas.drawText(text, x, y, mDPaint);
-        x += mDPaint.measureText(text);
-        text = "J:" + view.formatValue(point.getJ()) + "  ";
-        canvas.drawText(text, x, y, mJPaint);*/
-
-        String text = "J:" + view.formatValue(point.getJ()) + "  ";
-        x -= mJPaint.measureText(text);
-        canvas.drawText(text, x, y, mJPaint);
-
-        text = "D:" + view.formatValue(point.getD()) + "  ";
-        x -= mDPaint.measureText(text);
-        canvas.drawText(text, x, y, mDPaint);
-
-        text = "K:" + view.formatValue(point.getK()) + "  ";
-        x -= mKPaint.measureText(text);
-        canvas.drawText(text, x, y, mKPaint);
-
-        text = "KDJ(9,3,3)  ";
-        x -= view.getTextPaint().measureText(text);
-        canvas.drawText(text, x, y, view.getTextPaint());
+        if (point.getK() != 0) {
+            String text = "KDJ(14,1,3)  ";
+            canvas.drawText(text, x, y, view.getTextPaint());
+            x += view.getTextPaint().measureText(text);
+            text = "K:" + view.formatValue(point.getK()) + " ";
+            canvas.drawText(text, x, y, mKPaint);
+            x += mKPaint.measureText(text);
+            if (point.getD() != 0) {
+                text = "D:" + view.formatValue(point.getD()) + " ";
+                canvas.drawText(text, x, y, mDPaint);
+                x += mDPaint.measureText(text);
+                text = "J:" + view.formatValue(point.getJ()) + " ";
+                canvas.drawText(text, x, y, mJPaint);
+            }
+        }
     }
 
     @Override

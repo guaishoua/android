@@ -5,74 +5,53 @@ import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.github.tifezh.kchartlib.chart.BaseKChartView;
-import com.github.tifezh.kchartlib.chart.entity.IRSI;
+import com.github.tifezh.kchartlib.chart.BaseKLineChartView;
 import com.github.tifezh.kchartlib.chart.base.IChartDraw;
 import com.github.tifezh.kchartlib.chart.base.IValueFormatter;
+import com.github.tifezh.kchartlib.chart.entity.IRSI;
 import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
 
 /**
  * RSI实现类
  * Created by tifezh on 2016/6/19.
  */
-
 public class RSIDraw implements IChartDraw<IRSI> {
 
     private Paint mRSI1Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mRSI2Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mRSI3Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    public RSIDraw(BaseKChartView view) {
+    public RSIDraw(BaseKLineChartView view) {
 
     }
 
     @Override
-    public void drawTranslated(@Nullable IRSI lastPoint, @NonNull IRSI curPoint, float lastX, float curX, @NonNull Canvas canvas, @NonNull BaseKChartView view, int position) {
-        view.drawChildLine(canvas, mRSI1Paint, lastX, lastPoint.getRsi1(), curX, curPoint.getRsi1());
-        view.drawChildLine(canvas, mRSI2Paint, lastX, lastPoint.getRsi2(), curX, curPoint.getRsi2());
-        view.drawChildLine(canvas, mRSI3Paint, lastX, lastPoint.getRsi3(), curX, curPoint.getRsi3());
+    public void drawTranslated(@Nullable IRSI lastPoint, @NonNull IRSI curPoint, float lastX, float curX, @NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position) {
+        if (lastPoint.getRsi() != 0) {
+            view.drawChildLine(canvas, mRSI1Paint, lastX, lastPoint.getRsi(), curX, curPoint.getRsi());
+        }
     }
 
     @Override
-    public void drawText(@NonNull Canvas canvas, @NonNull BaseKChartView view, int position, float x, float y) {
+    public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IRSI point = (IRSI) view.getItem(position);
-        /*String text = "RSI(6,12,24)  ";
-        canvas.drawText(text, x, y, view.getTextPaint());
-        x += view.getTextPaint().measureText(text);
-        text = "RSI1:" + view.formatValue(point.getRsi1()) + "  ";
-        canvas.drawText(text, x, y, mRSI1Paint);
-        x += mRSI1Paint.measureText(text);
-        text = "RSI2:" + view.formatValue(point.getRsi2()) + "  ";
-        canvas.drawText(text, x, y, mRSI2Paint);
-        x += mRSI2Paint.measureText(text);
-        text = "RSI3:" + view.formatValue(point.getRsi3()) + "  ";
-        canvas.drawText(text, x, y, mRSI3Paint);*/
-
-        String  text = "RSI3:" + view.formatValue(point.getRsi3()) + "  ";
-        x -= mRSI3Paint.measureText(text);
-        canvas.drawText(text, x, y, mRSI3Paint);
-
-        text = "RSI2:" + view.formatValue(point.getRsi2()) + "  ";
-        x -= mRSI2Paint.measureText(text);
-        canvas.drawText(text, x, y, mRSI2Paint);
-
-        text = "RSI1:" + view.formatValue(point.getRsi1()) + "  ";
-        x -= mRSI1Paint.measureText(text);
-        canvas.drawText(text, x, y, mRSI1Paint);
-
-        text = "RSI(6,12,24)  ";
-        x -= view.getTextPaint().measureText(text);
-        canvas.drawText(text, x, y, view.getTextPaint());
+        if (point.getRsi() != 0) {
+            String text = "RSI(14)  ";
+            canvas.drawText(text, x, y, view.getTextPaint());
+            x += view.getTextPaint().measureText(text);
+            text = view.formatValue(point.getRsi());
+            canvas.drawText(text, x, y, mRSI1Paint);
+        }
     }
 
     @Override
     public float getMaxValue(IRSI point) {
-        return Math.max(point.getRsi1(), Math.max(point.getRsi2(), point.getRsi3()));
+        return point.getRsi();
     }
 
     @Override
     public float getMinValue(IRSI point) {
-        return Math.min(point.getRsi1(), Math.min(point.getRsi2(), point.getRsi3()));
+        return point.getRsi();
     }
 
     @Override

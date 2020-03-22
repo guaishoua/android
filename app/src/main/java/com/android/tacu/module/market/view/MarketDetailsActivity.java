@@ -40,11 +40,11 @@ import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.CoinPopWindow;
 import com.android.tacu.widget.tab.TabLayoutView;
 import com.android.tacu.widget.tab.TabPopup;
-import com.github.tifezh.kchartlib.chart.KChartView;
-import com.github.tifezh.kchartlib.chart.adapter.KChartAdapter;
+import com.github.tifezh.kchartlib.chart.KLineChartView;
+import com.github.tifezh.kchartlib.chart.adapter.KLineChartAdapter;
 import com.github.tifezh.kchartlib.chart.entity.KLineEntity;
 import com.github.tifezh.kchartlib.chart.interfaces.OnChartEventListener;
-import com.github.tifezh.kchartlib.utils.DataHelper;
+import com.github.tifezh.kchartlib.chart.utils.DataHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shizhefei.view.indicator.FixedIndicatorView;
@@ -82,7 +82,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     @BindView(R.id.tv_lowprice)
     TextView tvLowPrice;
     @BindView(R.id.kchart_view)
-    KChartView mKChartView;
+    KLineChartView mKChartView;
     @BindView(R.id.img_collect)
     ImageView imgCollect;
     @BindView(R.id.magic_indicator)
@@ -101,7 +101,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     //k线是否加载动画和网络请求动画
     private boolean isAnim = true;
-    private KChartAdapter kAdapter;
+    private KLineChartAdapter kAdapter;
 
     //时间
     private List<String> tabTitle = new ArrayList<>();
@@ -118,7 +118,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     private String baseCurrencyNameEn;
     private Gson gson = new Gson();
 
-    private TabPopup targetPopUp;
     private TabPopup timePopUp;
     private CoinPopWindow coinPopWindow;
 
@@ -195,7 +194,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             public void onTabSelected(int position) {
                 //因为先添加了一个子控件（横竖屏切换的）所以tabview从1开始
                 if (position == 1) {
-                    initTargetPopUp(linIndicator);
                 } else if (position == 2) {
                     initTimePopUp(linIndicator);
                 }
@@ -230,10 +228,8 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             }
         }
 
-        kAdapter = new KChartAdapter();
+        kAdapter = new KLineChartAdapter();
         mKChartView.setAdapter(kAdapter);
-        mKChartView.setGridRows(3);
-        mKChartView.setGridColumns(3);
         mKChartView.setOnChartEventListener(new OnChartEventListener() {
             @Override
             public void onChartTouchListener(boolean boo) {
@@ -290,10 +286,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         super.onDestroy();
         if (kHandler != null && kRunnable != null) {
             kHandler.removeCallbacks(kRunnable);
-        }
-        if (targetPopUp != null && targetPopUp.isShowing()) {
-            targetPopUp.dismiss();
-            targetPopUp = null;
         }
         if (timePopUp != null && timePopUp.isShowing()) {
             timePopUp.dismiss();
@@ -352,7 +344,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 if (isAnim) {
                     isAnim = false;
                 }
-                KChartView.decimalsCount = pointPrice;
+                KLineChartView.decimalsCount = pointPrice;
                 DataHelper.calculate(data);
                 kAdapter.clearData();
                 kAdapter.addFooterData(data);
@@ -470,7 +462,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             pointPrice = model.currentTradeCoin.pointPrice;
 
             if (kAdapter != null && pointPrice != pointPriceTemp) {
-                KChartView.decimalsCount = pointPrice;
+                KLineChartView.decimalsCount = pointPrice;
                 pointPriceTemp = pointPrice;
                 kAdapter.notifyDataSetChanged();
             }
@@ -543,35 +535,10 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         }
     }
 
-    private void initTargetPopUp(View view) {
-        if (targetPopUp != null && targetPopUp.isShowing()) {
-            targetPopUp.dismiss();
-            return;
-        }
-        if (timePopUp != null && timePopUp.isShowing()) {
-            timePopUp.dismiss();
-        }
-        if (targetPopUp == null) {
-            targetPopUp = new TabPopup(this, 0);
-            targetPopUp.create(ContextCompat.getColor(this, R.color.text_color), ContextCompat.getColor(this, R.color.content_bg_color), UIUtils.getScreenWidth(), UIUtils.dp2px(40), 6, mKChartView.getmChildName(), new TabPopup.TabItemSelect() {
-                @Override
-                public void onTabItemSelectListener(int position) {
-                    mKChartView.setChildDraw(position);
-                    targetPopUp.dismiss();
-                }
-            });
-        }
-        targetPopUp.setWidthAndHeight(UIUtils.getScreenWidth(), UIUtils.dp2px(40));
-        targetPopUp.showAsDropDown(view, 0, 0);
-    }
-
     private void initTimePopUp(View view) {
         if (timePopUp != null && timePopUp.isShowing()) {
             timePopUp.dismiss();
             return;
-        }
-        if (targetPopUp != null && targetPopUp.isShowing()) {
-            targetPopUp.dismiss();
         }
         if (timePopUp == null) {
             timePopUp = new TabPopup(this, chartIndex);

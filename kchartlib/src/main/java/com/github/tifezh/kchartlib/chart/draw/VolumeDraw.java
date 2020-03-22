@@ -8,80 +8,71 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import com.github.tifezh.kchartlib.R;
-import com.github.tifezh.kchartlib.chart.BaseKChartView;
-import com.github.tifezh.kchartlib.chart.entity.IVolume;
+import com.github.tifezh.kchartlib.chart.BaseKLineChartView;
 import com.github.tifezh.kchartlib.chart.base.IChartDraw;
 import com.github.tifezh.kchartlib.chart.base.IValueFormatter;
+import com.github.tifezh.kchartlib.chart.entity.IVolume;
 import com.github.tifezh.kchartlib.chart.formatter.BigValueFormatter;
-import com.github.tifezh.kchartlib.utils.ViewUtil;
+import com.github.tifezh.kchartlib.chart.utils.ViewUtil;
 
 /**
  * Created by hjm on 2017/11/14 17:49.
  */
-
 public class VolumeDraw implements IChartDraw<IVolume> {
 
-    private Paint mRedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Paint mGreenPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mSellPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mBuyPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint ma5Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint ma10Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private int pillarWidth = 0;
 
-    public VolumeDraw(BaseKChartView view) {
+    public VolumeDraw(BaseKLineChartView view) {
         Context context = view.getContext();
-        mRedPaint.setColor(ContextCompat.getColor(context, R.color.chart_red));
-        mGreenPaint.setColor(ContextCompat.getColor(context, R.color.chart_blue));
+        mSellPaint.setColor(ContextCompat.getColor(context, R.color.chart_sell));
+        mBuyPaint.setColor(ContextCompat.getColor(context, R.color.chart_buy));
         pillarWidth = ViewUtil.Dp2Px(context, 4);
     }
 
     @Override
-    public void drawTranslated(@Nullable IVolume lastPoint, @NonNull IVolume curPoint, float lastX, float curX, @NonNull Canvas canvas, @NonNull BaseKChartView view, int position) {
+    public void drawTranslated(
+            @Nullable IVolume lastPoint, @NonNull IVolume curPoint, float lastX, float curX,
+            @NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position) {
+
         drawHistogram(canvas, curPoint, lastPoint, curX, view, position);
-        view.drawVolLine(canvas, ma5Paint, lastX, lastPoint.getMA5Volume(), curX, curPoint.getMA5Volume());
-        view.drawVolLine(canvas, ma10Paint, lastX, lastPoint.getMA10Volume(), curX, curPoint.getMA10Volume());
+        if (lastPoint.getMA5Volume() != 0f) {
+            view.drawVolLine(canvas, ma5Paint, lastX, lastPoint.getMA5Volume(), curX, curPoint.getMA5Volume());
+        }
+        if (lastPoint.getMA10Volume() != 0f) {
+            view.drawVolLine(canvas, ma10Paint, lastX, lastPoint.getMA10Volume(), curX, curPoint.getMA10Volume());
+        }
     }
 
-    private void drawHistogram(Canvas canvas, IVolume curPoint, IVolume lastPoint, float curX, BaseKChartView view, int position) {
+    private void drawHistogram(
+            Canvas canvas, IVolume curPoint, IVolume lastPoint, float curX,
+            BaseKLineChartView view, int position) {
+
         float r = pillarWidth / 2;
         float top = view.getVolY(curPoint.getVolume());
         int bottom = view.getVolRect().bottom;
         if (curPoint.getClosePrice() >= curPoint.getOpenPrice()) {//涨
-            canvas.drawRect(curX - r, top, curX + r, bottom, mGreenPaint);
+            canvas.drawRect(curX - r, top, curX + r, bottom, mBuyPaint);
         } else {
-            canvas.drawRect(curX - r, top, curX + r, bottom, mRedPaint);
+            canvas.drawRect(curX - r, top, curX + r, bottom, mSellPaint);
         }
     }
 
     @Override
-    public void drawText(@NonNull Canvas canvas, @NonNull BaseKChartView view, int position, float x, float y) {
+    public void drawText(
+            @NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IVolume point = (IVolume) view.getItem(position);
-        /*String text = "VOL(5,10)  ";
-        canvas.drawText(text, x, y, view.getTextPaint());
-        x += view.getTextPaint().measureText(text);
-        text = "VOL:" + getValueFormatter().format(point.getVolume()) + "  ";
+        String text = "VOL:" + getValueFormatter().format(point.getVolume()) + "  ";
         canvas.drawText(text, x, y, view.getTextPaint());
         x += view.getTextPaint().measureText(text);
         text = "MA5:" + getValueFormatter().format(point.getMA5Volume()) + "  ";
         canvas.drawText(text, x, y, ma5Paint);
         x += ma5Paint.measureText(text);
-        text = "MA10:" + getValueFormatter().format(point.getMA10Volume()) + "  ";
-        canvas.drawText(text, x, y, ma10Paint);*/
-
-        String  text = "MA10:" + getValueFormatter().format(point.getMA10Volume()) + "  ";
-        x -= ma10Paint.measureText(text);
+        text = "MA10:" + getValueFormatter().format(point.getMA10Volume());
         canvas.drawText(text, x, y, ma10Paint);
-
-        text = "MA5:" + getValueFormatter().format(point.getMA5Volume()) + "  ";
-        x -= ma5Paint.measureText(text);
-        canvas.drawText(text, x, y, ma5Paint);
-
-        text = "VOL:" + getValueFormatter().format(point.getVolume()) + "  ";
-        x -= view.getTextPaint().measureText(text);
-        canvas.drawText(text, x, y, view.getTextPaint());
-
-        text = "VOL(5,10)  ";
-        x -= view.getTextPaint().measureText(text);
-        canvas.drawText(text, x, y, view.getTextPaint());
     }
 
     @Override

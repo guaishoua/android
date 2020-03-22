@@ -10,11 +10,11 @@ import android.widget.TextView;
 import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
-import com.github.tifezh.kchartlib.chart.KChartView;
-import com.github.tifezh.kchartlib.chart.adapter.KChartAdapter;
+import com.github.tifezh.kchartlib.chart.KLineChartView;
+import com.github.tifezh.kchartlib.chart.adapter.KLineChartAdapter;
 import com.github.tifezh.kchartlib.chart.entity.KLineEntity;
 import com.github.tifezh.kchartlib.chart.interfaces.OnChartEventListener;
-import com.github.tifezh.kchartlib.utils.DataHelper;
+import com.github.tifezh.kchartlib.chart.utils.DataHelper;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.interfaces.ISocketEvent;
@@ -53,7 +53,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     @BindView(R.id.lin_indicator)
     TabLayoutView linIndicator;
     @BindView(R.id.kchart_view)
-    KChartView mKChartView;
+    KLineChartView mKChartView;
 
     private int currencyId;
     private int baseCurrencyId;
@@ -62,7 +62,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
 
     private ItemTouch itemTouch;
 
-    private KChartAdapter kAdapter;
+    private KLineChartAdapter kAdapter;
     private int pointPrice;
     //防止socket刷新频繁
     private int pointPriceTemp;
@@ -71,7 +71,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     private static final int KREFRESH_TIME = 1000 * 30;
     private long chartTime = CHART_TIME;
 
-    private TabPopup targetPopUp;
     private TabPopup timePopUp;
 
     private boolean isAnim = true;
@@ -136,7 +135,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
             public void onTabSelected(int position) {
                 //因为先添加了一个子控件（横竖屏切换的）所以tabview从1开始
                 if (position == 1) {
-                    initTargetPopUp(linIndicator);
                 } else if (position == 2) {
                     initTimePopUp(linIndicator);
                 }
@@ -157,10 +155,8 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         timeTitle.add(3600000L);
         timeTitle.add(86400000L);
 
-        kAdapter = new KChartAdapter();
+        kAdapter = new KLineChartAdapter();
         mKChartView.setAdapter(kAdapter);
-        mKChartView.setGridRows(3);
-        mKChartView.setGridColumns(3);
         mKChartView.setOnChartEventListener(new OnChartEventListener() {
             @Override
             public void onChartTouchListener(boolean boo) {
@@ -265,7 +261,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                 if (isAnim) {
                     isAnim = false;
                 }
-                KChartView.decimalsCount = pointPrice;
+                KLineChartView.decimalsCount = pointPrice;
                 DataHelper.calculate(data);
                 kAdapter.clearData();
                 kAdapter.addFooterData(data);
@@ -309,7 +305,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
             pointPrice = model.currentTradeCoin.pointPrice;
 
             if (kAdapter != null && pointPrice != pointPriceTemp) {
-                KChartView.decimalsCount = pointPrice;
+                KLineChartView.decimalsCount = pointPrice;
                 pointPriceTemp = pointPrice;
                 kAdapter.notifyDataSetChanged();
             }
@@ -329,35 +325,10 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         }
     }
 
-    private void initTargetPopUp(View view) {
-        if (targetPopUp != null && targetPopUp.isShowing()) {
-            targetPopUp.dismiss();
-            return;
-        }
-        if (timePopUp != null && timePopUp.isShowing()) {
-            timePopUp.dismiss();
-        }
-        if (targetPopUp == null) {
-            targetPopUp = new TabPopup(getContext(), 0);
-            targetPopUp.create(ContextCompat.getColor(getContext(), R.color.text_color), ContextCompat.getColor(getContext(), R.color.content_bg_color), UIUtils.getScreenWidth() - UIUtils.dp2px(20), UIUtils.dp2px(40), 6, mKChartView.getmChildName(), new TabPopup.TabItemSelect() {
-                @Override
-                public void onTabItemSelectListener(int position) {
-                    mKChartView.setChildDraw(position);
-                    targetPopUp.dismiss();
-                }
-            });
-        }
-        targetPopUp.setWidthAndHeight(UIUtils.getScreenWidth() - UIUtils.dp2px(20), UIUtils.dp2px(40));
-        targetPopUp.showAsDropDown(view, UIUtils.dp2px(10), 0);
-    }
-
     private void initTimePopUp(View view) {
         if (timePopUp != null && timePopUp.isShowing()) {
             timePopUp.dismiss();
             return;
-        }
-        if (targetPopUp != null && targetPopUp.isShowing()) {
-            targetPopUp.dismiss();
         }
         if (timePopUp == null) {
             timePopUp = new TabPopup(getContext(), 0);

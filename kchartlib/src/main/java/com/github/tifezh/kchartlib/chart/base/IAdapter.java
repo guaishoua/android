@@ -2,9 +2,6 @@ package com.github.tifezh.kchartlib.chart.base;
 
 import android.database.DataSetObserver;
 
-import java.util.Date;
-
-
 /**
  * 数据适配器
  * Created by tifezh on 2016/6/14.
@@ -32,7 +29,7 @@ public interface IAdapter {
      * @param position
      * @return
      */
-    Date getDate(int position);
+    String getDate(int position);
 
     /**
      * 注册一个数据观察者

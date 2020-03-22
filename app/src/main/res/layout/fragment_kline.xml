@@ -86,44 +86,10 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_10">
 
-            <com.github.tifezh.kchartlib.chart.KChartView
+            <com.github.tifezh.kchartlib.chart.KLineChartView
                 android:id="@+id/kchart_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:kc_background_color="@color/content_bg_color"
-                app:kc_candle_line_width="@dimen/dp_1"
-                app:kc_candle_solid="true"
-                app:kc_candle_width="@dimen/dp_4"
-                app:kc_d_color="@color/chart_ma10"
-                app:kc_dea_color="@color/chart_ma10"
-                app:kc_dif_color="@color/chart_ma5"
-                app:kc_dn_color="@color/chart_ma20"
-                app:kc_grid_line_color="@color/chart_line"
-                app:kc_grid_line_width="@dimen/dp_0.5"
-                app:kc_j_color="@color/chart_ma20"
-                app:kc_k_color="@color/chart_ma5"
-                app:kc_line_width="@dimen/chart_line_width"
-                app:kc_ma10_color="@color/chart_ma10"
-                app:kc_ma20_color="@color/chart_ma20"
-                app:kc_ma30_color="@color/chart_ma20"
-                app:kc_ma5_color="@color/chart_ma5"
-                app:kc_ma7_color="@color/chart_ma5"
-                app:kc_macd_color="@color/chart_ma20"
-                app:kc_macd_width="@dimen/dp_4"
-                app:kc_maxandmin_text_color="@color/text_white"
-                app:kc_maxandmin_text_size="@dimen/text_size_sp_10"
-                app:kc_mb_color="@color/chart_ma10"
-                app:kc_point_width="@dimen/dp_6"
-                app:kc_rsi1_color="@color/chart_ma5"
-                app:kc_rsi2_color="@color/chart_ma10"
-                app:kc_rsi3_color="@color/chart_ma20"
-                app:kc_selected_line_color="@color/chart_line"
-                app:kc_selected_line_width="@dimen/dp_1"
-                app:kc_selector_background_color="@color/chart_line"
-                app:kc_selector_text_size="@dimen/chart_selector_text_size"
-                app:kc_text_color="@color/text_grey_2"
-                app:kc_text_size="@dimen/text_size_sp_10"
-                app:kc_up_color="@color/chart_ma5" />
+                android:layout_height="match_parent" />
         </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

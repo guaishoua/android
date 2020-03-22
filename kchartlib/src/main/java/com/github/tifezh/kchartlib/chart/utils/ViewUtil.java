@@ -1,4 +1,4 @@
-package com.github.tifezh.kchartlib.utils;
+package com.github.tifezh.kchartlib.chart.utils;
 
 import android.content.Context;
 

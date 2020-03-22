@@ -1,4 +1,4 @@
-package com.github.tifezh.kchartlib.chart;
+package com.github.tifezh.kchartlib.chart.adapter;
 
 import android.database.DataSetObservable;
 import android.database.DataSetObserver;
@@ -10,10 +10,11 @@ import com.github.tifezh.kchartlib.chart.base.IAdapter;
  * Created by tifezh on 2016/6/9.
  */
 
-public abstract class BaseKChartAdapter implements IAdapter {
+public abstract class BaseKLineChartAdapter implements IAdapter {
 
     private final DataSetObservable mDataSetObservable = new DataSetObservable();
 
+    @Override
     public void notifyDataSetChanged() {
         if (getCount() > 0) {
             mDataSetObservable.notifyChanged();

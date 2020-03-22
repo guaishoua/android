@@ -4,7 +4,6 @@ package com.github.tifezh.kchartlib.chart.entity;
  * 蜡烛图实体接口
  * Created by tifezh on 2016/6/9.
  */
-
 public interface ICandle {
 
     /**
@@ -27,33 +26,46 @@ public interface ICandle {
      */
     float getClosePrice();
 
-    /**
-     * 成交量
-     */
-    float getVolume();
 
+    // 以下为MA数据
     /**
      * 五(月，日，时，分，5分等)均价
      */
     float getMA5Price();
 
     /**
-     * 七(月，日，时，分，7分等)均价
-     */
-    float getMA7Price();
-
-    /**
-     * 十(月，日，时，分，10分等)均价
+     * 十(月，日，时，分，5分等)均价
      */
     float getMA10Price();
 
     /**
-     * 二十(月，日，时，分，20分等)均价
+     * 二十(月，日，时，分，5分等)均价
      */
     float getMA20Price();
 
     /**
-     * 三十(月，日，时，分，30分等)均价
+     * 三十(月，日，时，分，5分等)均价
      */
     float getMA30Price();
+
+    /**
+     * 六十(月，日，时，分，5分等)均价
+     */
+    float getMA60Price();
+
+    // 以下为BOLL数据
+    /**
+     * 上轨线
+     */
+    float getUp();
+
+    /**
+     * 中轨线
+     */
+    float getMb();
+
+    /**
+     * 下轨线
+     */
+    float getDn();
 }

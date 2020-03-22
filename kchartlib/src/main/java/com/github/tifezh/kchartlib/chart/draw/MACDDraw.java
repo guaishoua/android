@@ -8,11 +8,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import com.github.tifezh.kchartlib.R;
-import com.github.tifezh.kchartlib.chart.BaseKChartView;
-import com.github.tifezh.kchartlib.chart.entity.IMACD;
+import com.github.tifezh.kchartlib.chart.BaseKLineChartView;
 import com.github.tifezh.kchartlib.chart.base.IChartDraw;
 import com.github.tifezh.kchartlib.chart.base.IValueFormatter;
+import com.github.tifezh.kchartlib.chart.entity.IMACD;
 import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
+
 
 /**
  * macd实现类
@@ -21,8 +22,8 @@ import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
 
 public class MACDDraw implements IChartDraw<IMACD> {
 
-    private Paint mRedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Paint mGreenPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mSellPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mBuyPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mDIFPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mDEAPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mMACDPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -31,49 +32,33 @@ public class MACDDraw implements IChartDraw<IMACD> {
      */
     private float mMACDWidth = 0;
 
-    public MACDDraw(BaseKChartView view) {
+    public MACDDraw(BaseKLineChartView view) {
         Context context = view.getContext();
-        mRedPaint.setColor(ContextCompat.getColor(context, R.color.chart_red));
-        mGreenPaint.setColor(ContextCompat.getColor(context, R.color.chart_blue));
+        mSellPaint.setColor(ContextCompat.getColor(context, R.color.chart_sell));
+        mBuyPaint.setColor(ContextCompat.getColor(context, R.color.chart_buy));
     }
 
     @Override
-    public void drawTranslated(@Nullable IMACD lastPoint, @NonNull IMACD curPoint, float lastX, float curX, @NonNull Canvas canvas, @NonNull BaseKChartView view, int position) {
+    public void drawTranslated(@Nullable IMACD lastPoint, @NonNull IMACD curPoint, float lastX, float curX, @NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position) {
         drawMACD(canvas, view, curX, curPoint.getMacd());
         view.drawChildLine(canvas, mDIFPaint, lastX, lastPoint.getDea(), curX, curPoint.getDea());
         view.drawChildLine(canvas, mDEAPaint, lastX, lastPoint.getDif(), curX, curPoint.getDif());
     }
 
     @Override
-    public void drawText(@NonNull Canvas canvas, @NonNull BaseKChartView view, int position, float x, float y) {
+    public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IMACD point = (IMACD) view.getItem(position);
-       /* String text = "MACD(12,26,9)  ";
+        String text = "MACD(12,26,9)  ";
         canvas.drawText(text, x, y, view.getTextPaint());
         x += view.getTextPaint().measureText(text);
+        text = "MACD:" + view.formatValue(point.getMacd()) + "  ";
+        canvas.drawText(text, x, y, mMACDPaint);
+        x += mMACDPaint.measureText(text);
         text = "DIF:" + view.formatValue(point.getDif()) + "  ";
         canvas.drawText(text, x, y, mDEAPaint);
         x += mDIFPaint.measureText(text);
-        text = "DEA:" + view.formatValue(point.getDea()) + "  ";
+        text = "DEA:" + view.formatValue(point.getDea());
         canvas.drawText(text, x, y, mDIFPaint);
-        x += mDEAPaint.measureText(text);
-        text = "MACD:" + view.formatValue(point.getMacd()) + "  ";
-        canvas.drawText(text, x, y, mMACDPaint);*/
-
-        String text = "MACD:" + view.formatValue(point.getMacd()) + "  ";
-        x -= mMACDPaint.measureText(text);
-        canvas.drawText(text, x, y, mMACDPaint);
-
-        text = "DEA:" + view.formatValue(point.getDea()) + "  ";
-        x -= mDEAPaint.measureText(text);
-        canvas.drawText(text, x, y, mDEAPaint);
-
-        text = "DIF:" + view.formatValue(point.getDif()) + "  ";
-        x -= mDIFPaint.measureText(text);
-        canvas.drawText(text, x, y, mDIFPaint);
-
-        text = "MACD(12,26,9)  ";
-        x -= view.getTextPaint().measureText(text);
-        canvas.drawText(text, x, y, view.getTextPaint());
     }
 
     @Override
@@ -98,15 +83,15 @@ public class MACDDraw implements IChartDraw<IMACD> {
      * @param x
      * @param macd
      */
-    private void drawMACD(Canvas canvas, BaseKChartView view, float x, float macd) {
+    private void drawMACD(Canvas canvas, BaseKLineChartView view, float x, float macd) {
         float macdy = view.getChildY(macd);
         float r = mMACDWidth / 2;
         float zeroy = view.getChildY(0);
         if (macd > 0) {
             //               left   top   right  bottom
-            canvas.drawRect(x - r, macdy, x + r, zeroy, mGreenPaint);
+            canvas.drawRect(x - r, macdy, x + r, zeroy, mBuyPaint);
         } else {
-            canvas.drawRect(x - r, zeroy, x + r, macdy, mRedPaint);
+            canvas.drawRect(x - r, zeroy, x + r, macdy, mSellPaint);
         }
     }
 

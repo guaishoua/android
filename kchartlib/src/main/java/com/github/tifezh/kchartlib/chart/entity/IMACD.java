@@ -8,7 +8,6 @@ package com.github.tifezh.kchartlib.chart.entity;
 
 public interface IMACD {
 
-
     /**
      * DEA值
      */
@@ -23,5 +22,4 @@ public interface IMACD {
      * MACD值
      */
     float getMacd();
-
 }

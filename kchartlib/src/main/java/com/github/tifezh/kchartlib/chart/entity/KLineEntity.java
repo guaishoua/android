@@ -1,63 +1,12 @@
 package com.github.tifezh.kchartlib.chart.entity;
 
-
 /**
  * K线实体
  * Created by tifezh on 2016/5/16.
  */
-
 public class KLineEntity implements IKLine {
 
-    public String Date;
-    public float Open;
-    public float High;
-    public float Low;
-    public float Close;
-    public float Volume;
-
-    public float MA5Price;
-
-    public float MA7Price;
-
-    public float MA10Price;
-
-    public float MA20Price;
-
-    public float MA30Price;
-
-    public float dea;
-
-    public float dif;
-
-    public float macd;
-
-    public float k;
-
-    public float d;
-
-    public float j;
-
-    public float rsi1;
-
-    public float rsi2;
-
-    public float rsi3;
-
-    public float up;
-
-    public float mb;
-
-    public float dn;
-
-    public float MA5Volume;
-
-    public float MA10Volume;
-
-    public float WR1;
-
-    public float WR2;
-
-    public String getDatetime() {
+    public String getDate() {
         return Date;
     }
 
@@ -87,11 +36,6 @@ public class KLineEntity implements IKLine {
     }
 
     @Override
-    public float getMA7Price() {
-        return MA7Price;
-    }
-
-    @Override
     public float getMA10Price() {
         return MA10Price;
     }
@@ -104,6 +48,11 @@ public class KLineEntity implements IKLine {
     @Override
     public float getMA30Price() {
         return MA30Price;
+    }
+
+    @Override
+    public float getMA60Price() {
+        return MA60Price;
     }
 
     @Override
@@ -137,18 +86,13 @@ public class KLineEntity implements IKLine {
     }
 
     @Override
-    public float getRsi1() {
-        return rsi1;
+    public float getR() {
+        return r;
     }
 
     @Override
-    public float getRsi2() {
-        return rsi2;
-    }
-
-    @Override
-    public float getRsi3() {
-        return rsi3;
+    public float getRsi() {
+        return rsi;
     }
 
     @Override
@@ -181,13 +125,28 @@ public class KLineEntity implements IKLine {
         return MA10Volume;
     }
 
-    @Override
-    public float getWR1() {
-        return WR1;
-    }
-
-    @Override
-    public float getWR2() {
-        return WR2;
-    }
+    public String Date;
+    public float Open;
+    public float High;
+    public float Low;
+    public float Close;
+    public float Volume;
+    public float MA5Price;
+    public float MA10Price;
+    public float MA20Price;
+    public float MA30Price;
+    public float MA60Price;
+    public float dea;
+    public float dif;
+    public float macd;
+    public float k;
+    public float d;
+    public float j;
+    public float r;
+    public float rsi;
+    public float up;
+    public float mb;
+    public float dn;
+    public float MA5Volume;
+    public float MA10Volume;
 }
