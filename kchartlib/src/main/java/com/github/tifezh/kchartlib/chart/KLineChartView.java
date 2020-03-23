@@ -88,7 +88,7 @@ public class KLineChartView extends BaseKLineChartView {
 
             //最大值最小值颜色
             setMTextSize(getDimension(R.dimen.chart_text_size));
-            setMTextColor(getColor(R.color.chart_text));
+            setMTextColor(getColor(R.color.chart_candle_text));
 
             //折线的宽度
             setLineWidth(getDimension(R.dimen.chart_line_width));

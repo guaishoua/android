@@ -40,6 +40,8 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     private int mTopPadding;
     private int mChildPadding;
     private int mBottomPadding;
+    private int mValueVerticalPadding;
+    private int mValueHorizontalPadding;
     private float mMainScaleY = 1;
     private float mVolScaleY = 1;
     private float mChildScaleY = 1;
@@ -57,7 +59,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     private int mStartIndex = 0;
     private int mStopIndex = 0;
     private float mPointWidth = 6;
-    private int mGridRows = 5;
+    private int mGridRows = 3;
     private int mGridColumns = 5;
     private Paint mGridPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -76,7 +78,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     private IAdapter mAdapter;
 
     private Boolean isWR = false;
-    private Boolean isShowChild = false;
+    private Boolean isShowChild = true;
 
     private DataSetObserver mDataSetObserver = new DataSetObserver() {
         @Override
@@ -133,8 +135,10 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         mDetector = new GestureDetectorCompat(getContext(), this);
         mScaleDetector = new ScaleGestureDetector(getContext(), this);
         mTopPadding = (int) getResources().getDimension(R.dimen.chart_top_padding);
-        mChildPadding = (int) getResources().getDimension(R.dimen.child_top_padding);
+        mChildPadding = (int) getResources().getDimension(R.dimen.chart_child_padding);
         mBottomPadding = (int) getResources().getDimension(R.dimen.chart_bottom_padding);
+        mValueVerticalPadding = (int) getResources().getDimension(R.dimen.value_vertical_padding);
+        mValueHorizontalPadding = (int) getResources().getDimension(R.dimen.value_horizontal_padding);
 
         mAnimator = ValueAnimator.ofFloat(0f, 1f);
         mAnimator.setDuration(mAnimationDuration);
@@ -331,23 +335,23 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         float baseLine = (textHeight - fm.bottom - fm.top) / 2;
         //--------------画上方k线图的值-------------
         if (mMainDraw != null) {
-            canvas.drawText(formatValue(mMainMaxValue), mWidth - calculateWidth(formatValue(mMainMaxValue)), baseLine + mMainRect.top, mTextPaint);
-            canvas.drawText(formatValue(mMainMinValue), mWidth - calculateWidth(formatValue(mMainMinValue)), mMainRect.bottom - textHeight + baseLine, mTextPaint);
+            canvas.drawText(formatValue(mMainMaxValue), mWidth - calculateWidth(formatValue(mMainMaxValue)) - mValueHorizontalPadding, baseLine + mMainRect.top - textHeight - mValueVerticalPadding, mTextPaint);
+            canvas.drawText(formatValue(mMainMinValue), mWidth - calculateWidth(formatValue(mMainMinValue)) - mValueHorizontalPadding, baseLine + mMainRect.bottom - textHeight - mValueVerticalPadding, mTextPaint);
             float rowValue = (mMainMaxValue - mMainMinValue) / mGridRows;
             float rowSpace = mMainRect.height() / mGridRows;
             for (int i = 1; i < mGridRows; i++) {
                 String text = formatValue(rowValue * (mGridRows - i) + mMainMinValue);
-                canvas.drawText(text, mWidth - calculateWidth(text), fixTextY(rowSpace * i + mMainRect.top), mTextPaint);
+                canvas.drawText(text, mWidth - calculateWidth(text) - mValueHorizontalPadding, fixTextY(rowSpace * i + mMainRect.top - textHeight - mValueVerticalPadding), mTextPaint);
             }
         }
         //--------------画中间子图的值-------------
         if (mVolDraw != null) {
-            canvas.drawText(mVolDraw.getValueFormatter().format(mVolMaxValue), mWidth - calculateWidth(formatValue(mVolMaxValue)), mMainRect.bottom + baseLine, mTextPaint);
+            canvas.drawText(mVolDraw.getValueFormatter().format(mVolMaxValue), mWidth - calculateWidth(mVolDraw.getValueFormatter().format(mVolMaxValue)) - mValueHorizontalPadding, mMainRect.bottom + baseLine + mValueVerticalPadding, mTextPaint);
         }
         //--------------画下方子图的值-------------
-        if (mChildDraw != null) {
+        /*if (mChildDraw != null) {
             canvas.drawText(mChildDraw.getValueFormatter().format(mChildMaxValue), mWidth - calculateWidth(formatValue(mChildMaxValue)), mVolRect.bottom + baseLine, mTextPaint);
-        }
+        }*/
         //--------------画时间---------------------
         float columnSpace = mWidth / mGridColumns;
         float y;
@@ -445,14 +449,10 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
      */
     private void drawMaxAndMin(Canvas canvas) {
         if (!mainDraw.isLine()) {
-            IKLine maxEntry = null, minEntry = null;
-            boolean firstInit = true;
-
-
             //绘制最大值和最小值
             float x = translateXtoX(getX(mMainMinIndex));
             float y = getMainY(mMainLowMinValue);
-            String LowString = "── " + Float.toString(mMainLowMinValue);
+            String LowString = "── " + mMainLowMinValue;
             //计算显示位置
             //计算文本宽度
             int lowStringWidth = calculateMaxMin(LowString).width();
@@ -462,14 +462,14 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
                 canvas.drawText(LowString, x, y + lowStringHeight / 2, mMaxMinPaint);
             } else {
                 //画左边
-                LowString = Float.toString(mMainLowMinValue) + " ──";
+                LowString = mMainLowMinValue + " ──";
                 canvas.drawText(LowString, x - lowStringWidth, y + lowStringHeight / 2, mMaxMinPaint);
             }
 
             x = translateXtoX(getX(mMainMaxIndex));
             y = getMainY(mMainHighMaxValue);
 
-            String highString = "── " + Float.toString(mMainHighMaxValue);
+            String highString = "── " + mMainHighMaxValue;
             int highStringWidth = calculateMaxMin(highString).width();
             int highStringHeight = calculateMaxMin(highString).height();
             if (x < getWidth() / 2) {
@@ -477,7 +477,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
                 canvas.drawText(highString, x, y + highStringHeight / 2, mMaxMinPaint);
             } else {
                 //画左边
-                highString = Float.toString(mMainHighMaxValue) + " ──";
+                highString = mMainHighMaxValue + " ──";
                 canvas.drawText(highString, x - highStringWidth, y + highStringHeight / 2, mMaxMinPaint);
             }
 
@@ -496,16 +496,16 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         float baseLine = (textHeight - fm.bottom - fm.top) / 2;
         if (position >= 0 && position < mItemCount) {
             if (mMainDraw != null) {
-                float y = mMainRect.top + baseLine - textHeight;
-                mMainDraw.drawText(canvas, this, position, 0, y);
+                float y = mMainRect.top + baseLine - textHeight - ((mTopPadding - textHeight) / 2);
+                mMainDraw.drawText(canvas, this, position, mValueHorizontalPadding, y);
             }
             if (mVolDraw != null) {
                 float y = mMainRect.bottom + baseLine;
-                mVolDraw.drawText(canvas, this, position, 0, y);
+                mVolDraw.drawText(canvas, this, position, mValueHorizontalPadding, y);
             }
             if (mChildDraw != null) {
                 float y = mVolRect.bottom + baseLine;
-                mChildDraw.drawText(canvas, this, position, 0, y);
+                mChildDraw.drawText(canvas, this, position, mValueHorizontalPadding, y);
             }
         }
     }
@@ -654,9 +654,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             mVolMaxValue = 15.00f;
         }
 
-        if (Math.abs(mChildMaxValue) < 0.01 && Math.abs(mChildMinValue) < 0.01) {
-            mChildMaxValue = 1f;
-        } else if (mChildMaxValue.equals(mChildMinValue)) {
+        if (mChildMaxValue.equals(mChildMinValue)) {
             //当最大值和最小值都相等的时候 分别增大最大值和 减小最小值
             mChildMaxValue += Math.abs(mChildMaxValue * 0.05f);
             mChildMinValue -= Math.abs(mChildMinValue * 0.05f);

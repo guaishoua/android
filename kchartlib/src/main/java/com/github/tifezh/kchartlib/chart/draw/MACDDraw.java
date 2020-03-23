@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.github.tifezh.kchartlib.R;
 import com.github.tifezh.kchartlib.chart.BaseKLineChartView;
@@ -87,6 +88,7 @@ public class MACDDraw implements IChartDraw<IMACD> {
         float macdy = view.getChildY(macd);
         float r = mMACDWidth / 2;
         float zeroy = view.getChildY(0);
+
         if (macd > 0) {
             //               left   top   right  bottom
             canvas.drawRect(x - r, macdy, x + r, zeroy, mBuyPaint);

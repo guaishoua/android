@@ -13,11 +13,17 @@
     <dimen name="chart_grid_line_width">1dp</dimen>
     <!--选择器的纵线-->
     <dimen name="chart_point_width">6dp</dimen>
-    <dimen name="chart_top_padding">15dp</dimen>
-    <dimen name="chart_bottom_padding">15dp</dimen>
+
+    <!--设置值与附近边线的距离-->
+    <dimen name="value_vertical_padding">3dp</dimen>
+    <dimen name="value_horizontal_padding">8dp</dimen>
+
+    <dimen name="chart_top_padding">30dp</dimen>
+    <dimen name="chart_child_padding">20dp</dimen>
+    <dimen name="chart_bottom_padding">20dp</dimen>
+
     <dimen name="chart_top_text_padding">11dp</dimen>
     <dimen name="chart_right_padding">60dp</dimen>
-    <dimen name="child_top_padding">10dp</dimen>
     <!--选中的point显示收盘价和时间的背景边线-->
     <dimen name="chart_select_frame_width">0.6dp</dimen>
 </resources>

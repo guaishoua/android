@@ -30,6 +30,7 @@ public class MainDraw implements IChartDraw<ICandle> {
 
     private float mCandleWidth = 0;
     private float mCandleLineWidth = 0;
+    private int mValueHorizontalPadding;
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mBuyPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -52,6 +53,7 @@ public class MainDraw implements IChartDraw<ICandle> {
         Context context = view.getContext();
         kChartView = (KLineChartView) view;
         mContext = context;
+        mValueHorizontalPadding = (int) mContext.getResources().getDimension(R.dimen.value_horizontal_padding);
         mBuyPaint.setColor(ContextCompat.getColor(context, R.color.chart_buy));
         mSellPaint.setColor(ContextCompat.getColor(context, R.color.chart_sell));
         mLinePaint.setColor(ContextCompat.getColor(context, R.color.chart_line));
@@ -116,7 +118,6 @@ public class MainDraw implements IChartDraw<ICandle> {
     @Override
     public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         ICandle point = (IKLine) view.getItem(position);
-        y = y - 5;
         if (isLine) {
             if (status == Status.MA) {
                 if (point.getMA60Price() != 0) {

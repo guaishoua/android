@@ -28,7 +28,7 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
 
     protected boolean touch = false;
 
-    protected float mScaleX = 1;
+    protected float mScaleX = 1.2f;
 
     protected float mScaleXMax = 2f;
 
