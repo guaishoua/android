@@ -100,7 +100,7 @@ public class KLineChartView extends BaseKLineChartView {
             setSelectedXLineWidth(getDimension(R.dimen.chart_line_width));
 
             //选择器的纵线
-            setSelectedYLineColor(Color.WHITE);
+            //setSelectedYLineColor(Color.WHITE);
             setSelectedYLineWidth(getDimension(R.dimen.chart_point_width));
 
             //表格线的粗细

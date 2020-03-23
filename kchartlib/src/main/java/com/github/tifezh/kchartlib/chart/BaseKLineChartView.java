@@ -287,14 +287,15 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             IKLine point = (IKLine) getItem(mSelectedIndex);
             float x = getX(mSelectedIndex);
             float y = getMainY(point.getClosePrice());
-            // k线图竖线
-            canvas.drawLine(x, mMainRect.top, x, mMainRect.bottom, mSelectedYLinePaint);
             // k线图横线
             canvas.drawLine(-mTranslateX, y, -mTranslateX + mWidth / mScaleX, y, mSelectedXLinePaint);
+
+            // 柱状图竖线
+            canvas.drawLine(x, mMainRect.top, x, mMainRect.bottom, mSelectedYLinePaint);
             // 柱状图竖线
             canvas.drawLine(x, mMainRect.bottom, x, mVolRect.bottom, mSelectedYLinePaint);
             if (mChildDraw != null) {
-                // 子线图竖线
+                // 柱状图竖线
                 canvas.drawLine(x, mVolRect.bottom, x, mChildRect.bottom, mSelectedYLinePaint);
             }
         }
@@ -1167,9 +1168,9 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     /**
      * 设置选择器竖线颜色
      */
-    public void setSelectedYLineColor(int color) {
+    /*public void setSelectedYLineColor(int color) {
         mSelectedYLinePaint.setColor(color);
-    }
+    }*/
 
     /**
      * 设置文字颜色

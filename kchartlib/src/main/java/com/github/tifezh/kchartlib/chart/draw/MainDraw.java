@@ -41,6 +41,8 @@ public class MainDraw implements IChartDraw<ICandle> {
     private Paint ma30Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private Paint mSelectorTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mBuySelectorTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mSellSelectorTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectorBackgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectorBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Context mContext;
@@ -56,7 +58,9 @@ public class MainDraw implements IChartDraw<ICandle> {
         kChartView = (KLineChartView) view;
         mContext = context;
         mBuyPaint.setColor(ContextCompat.getColor(context, R.color.chart_buy));
+        mBuySelectorTextPaint.setColor(ContextCompat.getColor(context, R.color.chart_buy));
         mSellPaint.setColor(ContextCompat.getColor(context, R.color.chart_sell));
+        mSellSelectorTextPaint.setColor(ContextCompat.getColor(context, R.color.chart_sell));
         mLinePaint.setColor(ContextCompat.getColor(context, R.color.chart_line));
         paint.setColor(ContextCompat.getColor(context, R.color.chart_line_background));
         mSelectorBorderPaint.setColor(ContextCompat.getColor(context, R.color.chart_text));
@@ -290,9 +294,17 @@ public class MainDraw implements IChartDraw<ICandle> {
         strings.add(getValueFormatter().format(point.getLowPrice()));
         strings.add(getValueFormatter().format(point.getClosePrice()));
         double change = MathUtils.sub(point.getClosePrice(), point.getOpenPrice());
-        strings.add(MathUtils.getFormatValue(change));
+        if (change > 0) {
+            strings.add("+" + MathUtils.getFormatValue(change));
+        } else {
+            strings.add(MathUtils.getFormatValue(change));
+        }
         try {
-            strings.add(MathUtils.div(change, point.getOpenPrice()));
+            if (change > 0) {
+                strings.add("+" + MathUtils.div(change, point.getOpenPrice()));
+            } else {
+                strings.add(MathUtils.div(change, point.getOpenPrice()));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -316,18 +328,16 @@ public class MainDraw implements IChartDraw<ICandle> {
         float y = top + padding + (textHeight - metrics.bottom - metrics.top) / 2;
 
         for (int i = 0; i < stringTexts.size(); i++) {
+            canvas.drawText(stringTexts.get(i), left + padding, y, mSelectorTextPaint);
             if (i == 5 || i == 6) {
                 if (change < 0) {
-                    canvas.drawText(stringTexts.get(i), left + padding, y, mSellPaint);
-                    canvas.drawText(strings.get(i), left + width - padding - mSellPaint.measureText(strings.get(i)), y, mSellPaint);
+                    canvas.drawText(strings.get(i), left + width - padding - mSellSelectorTextPaint.measureText(strings.get(i)), y, mSellSelectorTextPaint);
                     y += textHeight + padding;
                 } else {
-                    canvas.drawText(stringTexts.get(i), left + padding, y, mBuyPaint);
-                    canvas.drawText(strings.get(i), left + width - padding - mBuyPaint.measureText(strings.get(i)), y, mBuyPaint);
+                    canvas.drawText(strings.get(i), left + width - padding - mBuySelectorTextPaint.measureText(strings.get(i)), y, mBuySelectorTextPaint);
                     y += textHeight + padding;
                 }
             } else {
-                canvas.drawText(stringTexts.get(i), left + padding, y, mSelectorTextPaint);
                 canvas.drawText(strings.get(i), left + width - padding - mSelectorTextPaint.measureText(strings.get(i)), y, mSelectorTextPaint);
                 y += textHeight + padding;
             }
@@ -395,6 +405,8 @@ public class MainDraw implements IChartDraw<ICandle> {
      */
     public void setSelectorTextSize(float textSize) {
         mSelectorTextPaint.setTextSize(textSize);
+        mBuySelectorTextPaint.setTextSize(textSize);
+        mSellSelectorTextPaint.setTextSize(textSize);
     }
 
     /**
