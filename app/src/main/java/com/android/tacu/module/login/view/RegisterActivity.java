@@ -3,7 +3,9 @@ package com.android.tacu.module.login.view;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -58,6 +60,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     QMUIRoundButton btnCode;
     @BindView(R.id.ll_email)
     LinearLayout ll_email;
+    @BindView(R.id.et_invited_code)
+    EditText etInvitedCode;
 
     //手机哈
     @BindView(R.id.tv_phone_code)
@@ -74,8 +78,15 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     QMUIAlphaButton btn_code_phone;
     @BindView(R.id.ll_phone)
     LinearLayout ll_phone;
+    @BindView(R.id.et_phone_invited_code)
+    EditText et_phone_invited_code;
+
     @BindView(R.id.cb_xieyi)
     CheckBox cb_xieyi;
+    @BindView(R.id.lin_introduce)
+    LinearLayout lin_introduce;
+    @BindView(R.id.cb_introduce)
+    CheckBox cb_introduce;
 
     private Animation shake;
     //注册方式  true：邮箱注册  false：手机号注册
@@ -108,6 +119,44 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         setCountryCode();
 
         shake = AnimationUtils.loadAnimation(this, R.anim.anim_shake);
+
+        etInvitedCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!TextUtils.isEmpty(s.toString())) {
+                    lin_introduce.setVisibility(View.GONE);
+                } else {
+                    lin_introduce.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        et_phone_invited_code.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!TextUtils.isEmpty(s.toString())) {
+                    lin_introduce.setVisibility(View.GONE);
+                } else {
+                    lin_introduce.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     private void setCountryCode() {
@@ -212,6 +261,19 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             showToastError(getResources().getString(R.string.yonghu_xieyi));
             return;
         }
+
+        if (registerType) {
+            if (TextUtils.isEmpty(etInvitedCode.getText().toString()) && !cb_introduce.isChecked()) {
+                showToastError(getResources().getString(R.string.choose_no_people_introduce));
+                return;
+            }
+        } else {
+            if (TextUtils.isEmpty(et_phone_invited_code.getText().toString()) && !cb_introduce.isChecked()) {
+                showToastError(getResources().getString(R.string.choose_no_people_introduce));
+                return;
+            }
+        }
+
         if (registerType) {
             mPresenter.register(null, email, confirmPwd, emailCode);
         } else {
@@ -280,11 +342,23 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             ll_email.setVisibility(View.VISIBLE);
             ll_phone.setVisibility(View.GONE);
 
+            if (!TextUtils.isEmpty(etInvitedCode.getText().toString())) {
+                lin_introduce.setVisibility(View.GONE);
+            } else {
+                lin_introduce.setVisibility(View.VISIBLE);
+            }
+
             tv_regiser_one.setText(getResources().getString(R.string.mobile_email_register));
             tv_regiser_two.setText(getResources().getString(R.string.mobile_phone_register));
         } else {
             ll_email.setVisibility(View.GONE);
             ll_phone.setVisibility(View.VISIBLE);
+
+            if (!TextUtils.isEmpty(et_phone_invited_code.getText().toString())) {
+                lin_introduce.setVisibility(View.GONE);
+            } else {
+                lin_introduce.setVisibility(View.VISIBLE);
+            }
 
             tv_regiser_two.setText(getResources().getString(R.string.mobile_email_register));
             tv_regiser_one.setText(getResources().getString(R.string.mobile_phone_register));

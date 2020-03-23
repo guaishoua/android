@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
+import com.android.tacu.module.webview.model.WebInterface;
 import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
@@ -215,6 +216,7 @@ public class WebviewActivity extends BaseActivity {
         webView.setHorizontalScrollBarEnabled(false);//水平不显示
         webView.setVerticalScrollBarEnabled(false); //垂直不显示
         webView.requestFocus();
+        webView.addJavascriptInterface(new WebInterface(this), "android");
     }
 
     /**

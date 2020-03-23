@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_440"
-    android:paddingHorizontal="@dimen/dp_5"
     android:background="@color/content_bg_color"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/dp_5">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,9 +48,9 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_25"
         android:layout_marginTop="@dimen/dp_8"
-        android:minWidth="@dimen/dp_0"
         android:background="@null"
         android:drawableRight="@drawable/icon_arrow_drop_down_white"
+        android:minWidth="@dimen/dp_0"
         android:paddingRight="@dimen/dp_10"
         android:text="@string/limit_price"
         android:textColor="@color/text_color"
@@ -244,8 +245,17 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="@dimen/dp_10"
         android:text="@string/fee"
-        android:textColor="@color/text_grey_3"
+        android:textColor="@color/text_grey"
         android:textSize="@dimen/text_size_sp_14" />
+
+    <TextView
+        android:id="@+id/tv_trade_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_14"
+        tools:text="111" />
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
         android:id="@+id/btn_ok"

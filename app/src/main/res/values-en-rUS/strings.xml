@@ -974,5 +974,12 @@
     <string name="other_country">Other countries</string>
     <string name="coin_otc_account">Coin/OTC account</string>
     <string name="try_now">Try now</string>
+
+    <!--交易页面-->
+    <string name="trade_amount">Amount</string>
+    <!--注册页面-->
+    <string name="no_people_introduce">No invitation code</string>
+    <string name = "choose_no_people_introduce">Please check "No invitation code"</string>
+    <string name="Invitation_code">Invitation code</string>
 </resources>
 

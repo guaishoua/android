@@ -159,6 +159,21 @@
                     </RelativeLayout>
 
                     <View style="@style/line_white" />
+
+                    <EditText
+                        android:id="@+id/et_invited_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_42"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@null"
+                        android:hint="@string/Invitation_code"
+                        android:maxLength="15"
+                        android:textColor="@color/text_white"
+                        android:textColorHint="@color/text_white"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="@dimen/text_size_sp_16" />
+
+                    <View style="@style/line_white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -273,6 +288,21 @@
                     </RelativeLayout>
 
                     <View style="@style/line_white" />
+
+                    <EditText
+                        android:id="@+id/et_phone_invited_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_42"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@null"
+                        android:hint="@string/Invitation_code"
+                        android:maxLength="15"
+                        android:textColor="@color/text_white"
+                        android:textColorHint="@color/text_white"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="@dimen/text_size_sp_16" />
+
+                    <View style="@style/line_white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -296,6 +326,32 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:text="@string/xieyi"
+                        android:textColor="@color/text_white"
+                        android:textSize="@dimen/text_size_sp_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lin_introduce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cb_introduce"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:background="@drawable/checkbox_rect_default"
+                        android:button="@null"
+                        android:checked="false" />
+
+                    <TextView
+                        android:id="@+id/tv_introduce"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:text="@string/no_people_introduce"
                         android:textColor="@color/text_white"
                         android:textSize="@dimen/text_size_sp_12" />
                 </LinearLayout>

@@ -123,6 +123,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     private QMUIRoundButton btnSell;
     private QMUIRoundButton btnOk;
     private TextView tvFee;
+    private TextView tvTradeAmount;
     private TextView tvAvailableNumber;
     private EditText editNumber;
     private SignSeekBar seekBar;
@@ -658,6 +659,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         btnSell = view.findViewById(R.id.btn_sell);
         btnOk = view.findViewById(R.id.btn_ok);
         tvFee = view.findViewById(R.id.tv_fee);
+        tvTradeAmount = view.findViewById(R.id.tv_trade_amount);
         tvAvailableNumber = view.findViewById(R.id.tv_available_number);
         editNumber = view.findViewById(R.id.edit_number);
         seekBar = view.findViewById(R.id.seekbar_sign);
@@ -707,16 +709,13 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
                     if (!TextUtils.isEmpty(s.toString())) {
-                        if (baseCurrencyId == 22) {
-                            tvValuationPrice.setText("￥" + BigDecimal.valueOf(Double.parseDouble(s.toString())).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
-                        } else {
-                            if (currentTradeCoinModel != null) {
-                                tvValuationPrice.setText("≈" + getMcM(baseCurrencyId, Double.valueOf(s.toString().trim())));
-                            }
+                        if (currentTradeCoinModel != null) {
+                            tvValuationPrice.setText("≈" + getMcM(baseCurrencyId, Double.valueOf(s.toString().trim())));
                         }
                     } else {
                         tvValuationPrice.setText("");
                     }
+                    setTradeAmounnt();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -762,6 +761,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                             seekBar.setProgress(0);
                         }
                     }
+                    setTradeAmounnt();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -987,26 +987,26 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                 buyFee = null;
                 switch (authLevel) {
                     case 1:
-                        buyFee = new SpannableString(getResources().getString(R.string.fee) + ":" + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1).toPlainString()));
+                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1).toPlainString()));
                         break;
                     case 2:
-                        buyFee = new SpannableString(getResources().getString(R.string.fee) + ":" + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2).toPlainString()));
+                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2).toPlainString()));
                         break;
                     case 3:
-                        buyFee = new SpannableString(getResources().getString(R.string.fee) + ":" + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3).toPlainString()));
+                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3).toPlainString()));
                         break;
                 }
             } else {
                 sellFee = null;
                 switch (authLevel) {
                     case 1:
-                        sellFee = new SpannableString(getResources().getString(R.string.fee) + ":" + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1).toPlainString()));
+                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1).toPlainString()));
                         break;
                     case 2:
-                        sellFee = new SpannableString(getResources().getString(R.string.fee) + ":" + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2).toPlainString()));
+                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2).toPlainString()));
                         break;
                     case 3:
-                        sellFee = new SpannableString(getResources().getString(R.string.fee) + ":" + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3).toPlainString()));
+                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3).toPlainString()));
                         break;
                 }
             }
@@ -1430,6 +1430,20 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                 })
                 .build();
         mDepthSheet.show();
+    }
+
+    private void setTradeAmounnt() {
+        try {
+            String price = editPrice.getText().toString().trim();
+            String num = editNumber.getText().toString().trim();
+            if (!TextUtils.isEmpty(price) && !TextUtils.isEmpty(num)) {
+                tvTradeAmount.setText(getResources().getString(R.string.trade_amount) + " " + FormatterUtils.getFormatRoundDown(pointPrice, MathHelper.mul(Double.parseDouble(price), Double.parseDouble(num))));
+            } else {
+                tvTradeAmount.setText(getResources().getString(R.string.trade_amount) + " " + "--");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
