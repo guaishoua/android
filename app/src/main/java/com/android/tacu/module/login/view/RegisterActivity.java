@@ -240,14 +240,17 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         String email;
         String confirmPwd;
         String emailCode;
+        String invitedCode;
         if (registerType) {
             email = etEmail.getText().toString().trim();
             confirmPwd = etConfirmPwd.getText().toString().trim();
             emailCode = etEmailCode.getText().toString().trim();
+            invitedCode = etInvitedCode.getText().toString().trim();
         } else {
             email = et_phone.getText().toString().trim();
             confirmPwd = et_phone_confirm_pwd.getText().toString().trim();
             emailCode = et_phone_code.getText().toString().trim();
+            invitedCode = et_phone_invited_code.getText().toString().trim();
         }
         if (isEmail()) {
             return;
@@ -262,25 +265,17 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             return;
         }
 
-        if (registerType) {
-            if (TextUtils.isEmpty(etInvitedCode.getText().toString()) && !cb_introduce.isChecked()) {
-                showToastError(getResources().getString(R.string.choose_no_people_introduce));
-                return;
-            }
-        } else {
-            if (TextUtils.isEmpty(et_phone_invited_code.getText().toString()) && !cb_introduce.isChecked()) {
-                showToastError(getResources().getString(R.string.choose_no_people_introduce));
-                return;
-            }
+        if (TextUtils.isEmpty(invitedCode) && !cb_introduce.isChecked()) {
+            showToastError(getResources().getString(R.string.choose_no_people_introduce));
+            return;
         }
 
         if (registerType) {
-            mPresenter.register(null, email, confirmPwd, emailCode);
+            mPresenter.register(null, email, confirmPwd, emailCode, invitedCode);
         } else {
-            mPresenter.register(String.valueOf(countryCode), email, confirmPwd, emailCode);
+            mPresenter.register(String.valueOf(countryCode), email, confirmPwd, emailCode, invitedCode);
         }
     }
-
 
     private boolean isEmail() {
         String email;

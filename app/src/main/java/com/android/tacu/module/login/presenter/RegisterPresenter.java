@@ -26,8 +26,8 @@ public class RegisterPresenter extends BaseMvpPresenter implements RegisterContr
     }
 
     @Override
-    public void register(String phoneCode, String email, String pwd, String vercode) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).register(phoneCode, email, pwd, vercode), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+    public void register(String phoneCode, String email, String pwd, String vercode, String inviteId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).register(phoneCode, email, pwd, vercode, inviteId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel model) {
                 RegisterContract.IView view = (RegisterContract.IView) getView();
