@@ -11,7 +11,7 @@
     <color name="chart_ma30">#E7A520</color>
 
     <!--k线的背景色-->
-    <color name="chart_background">#141C25</color>
+    <color name="chart_background">#0A121B</color>
     <!--选中的point的详情的背景色-->
     <color name="chart_select_point_color">#141C25</color>
 

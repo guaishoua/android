@@ -57,8 +57,8 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     private int mStartIndex = 0;
     private int mStopIndex = 0;
     private float mPointWidth = 6;
-    private int mGridRows = 4;
-    private int mGridColumns = 4;
+    private int mGridRows = 5;
+    private int mGridColumns = 5;
     private Paint mGridPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mMaxMinPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -146,20 +146,10 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         });
     }
 
-    private float mColumnSpace;
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         this.mWidth = w;
-
-        //列宽度
-        mColumnSpace = mWidth / mGridColumns;
-        //右边移动最大设置一个列宽度
-        setOverScrollRange(mColumnSpace);
-        //初始化默认滚动设置一个列宽度
-        setScrollX((int) -mOverScrollRange);
-
         displayHeight = h - mTopPadding - mBottomPadding;
         initRect();
         setTranslateXFromScrollX(mScrollX);
@@ -1292,5 +1282,19 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
 
     public int getDisplayHeight() {
         return displayHeight + mTopPadding + mBottomPadding;
+    }
+
+    /**
+     * 默认向左移动一个格
+     */
+    private float mColumnSpace;
+
+    public void setScrollColumnSpace() {
+        //列宽度
+        mColumnSpace = mWidth / mGridColumns;
+        //右边移动最大设置一个列宽度
+        setOverScrollRange(mColumnSpace);
+        //初始化默认滚动设置一个列宽度
+        setScrollX((int) -mOverScrollRange);
     }
 }

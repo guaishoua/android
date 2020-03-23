@@ -15,18 +15,23 @@ import com.android.tacu.module.market.model.KLineModel;
  */
 public class MarketDetailsPresenter extends BaseMvpPresenter implements MarketDetailsContract.IPresenter {
 
-    // type=1 k线详情页 type=2 交易
+    /**
+     * @param symbol
+     * @param range
+     * @param type    k线详情页 type=2 交易
+     * @param isClear true=表示重新选择了时间类型
+     */
     @Override
-    public void getBestexKline(String symbol, long range, final int type) {
+    public void getBestexKline(String symbol, final long range, final int type, final boolean isClear) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.KLINE, Api.class).getKline(symbol, range), new NetDisposableObserver<BaseModel<KLineModel>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<KLineModel> model) {
                 if (type == 1) {
                     MarketDetailsContract.IView view = (MarketDetailsContract.IView) getView();
-                    view.success(model.attachment);
+                    view.success(model.attachment, range, isClear);
                 } else {
                     MarketDetailsContract.IKlineView view = (MarketDetailsContract.IKlineView) getView();
-                    view.success(model.attachment);
+                    view.success(model.attachment, range, isClear);
                 }
             }
         });

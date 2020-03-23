@@ -135,14 +135,11 @@
                 <com.android.tacu.widget.tab.TabLayoutView
                     android:id="@+id/lin_indicator"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_40"
-                    android:layout_marginHorizontal="@dimen/dp_10" />
+                    android:layout_height="@dimen/dp_40" />
 
                 <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_300"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10">
+                    android:layout_height="@dimen/dp_350">
 
                     <com.github.tifezh.kchartlib.chart.KLineChartView
                         android:id="@+id/kchart_view"

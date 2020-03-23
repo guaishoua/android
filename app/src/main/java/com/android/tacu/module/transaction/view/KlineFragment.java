@@ -55,6 +55,13 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     @BindView(R.id.kchart_view)
     KLineChartView mKChartView;
 
+    private static long MIN_1 = 60000L;
+    private static long MIN_5 = 300000L;
+    private static long MIN_15 = 900000L;
+    private static long MIN_30 = 1800000L;
+    private static long HOUR_1 = 3600000L;
+    private static long DAY_1 = 86400000L;
+
     private int currencyId;
     private int baseCurrencyId;
     private String currencyNameEn;
@@ -67,13 +74,14 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     //防止socket刷新频繁
     private int pointPriceTemp;
 
-    private final long CHART_TIME = 3600000;
+    private final long CHART_TIME = HOUR_1;
     private static final int KREFRESH_TIME = 1000 * 30;
     private long chartTime = CHART_TIME;
 
     private TabPopup timePopUp;
 
     private boolean isAnim = true;
+    private boolean isFirst = true;
     private boolean isVisibleToUserTrade = false;
     private boolean isVisibleToUserQuotation = false;
 
@@ -85,7 +93,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     private Runnable kRunnable = new Runnable() {
         @Override
         public void run() {
-            upLoad();
+            upLoad(isFirst);
             //每隔2分钟循环执行run方法
             if (kHandler != null) {
                 kHandler.postDelayed(this, KREFRESH_TIME);
@@ -148,12 +156,12 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         tabTitle.add(getResources().getString(R.string.hour_1));
         tabTitle.add(getResources().getString(R.string.day_1));
 
-        timeTitle.add(60000L);
-        timeTitle.add(300000L);
-        timeTitle.add(900000L);
-        timeTitle.add(1800000L);
-        timeTitle.add(3600000L);
-        timeTitle.add(86400000L);
+        timeTitle.add(MIN_1);
+        timeTitle.add(MIN_5);
+        timeTitle.add(MIN_15);
+        timeTitle.add(MIN_30);
+        timeTitle.add(HOUR_1);
+        timeTitle.add(DAY_1);
 
         kAdapter = new KLineChartAdapter();
         mKChartView.setAdapter(kAdapter);
@@ -212,7 +220,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                 case EventConstant.TradeVisibleCode:
                     TradeVisibleHintEvent tradeVisibleHintEvent = (TradeVisibleHintEvent) event.getData();
                     isVisibleToUserTrade = tradeVisibleHintEvent.isVisibleToUser();
-                    upLoad();
+                    upLoad(true);
                     break;
             }
         }
@@ -239,7 +247,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     }
 
     @Override
-    public void success(KLineModel model) {
+    public void success(KLineModel model, long range, boolean isClear) {
         if (model != null && model.data != null && model.data.lines != null) {
             List<KLineEntity> data = new ArrayList<>();
             int count = model.data.lines.size();
@@ -248,7 +256,11 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
             for (int i = 0; i < count; i++) {
                 dataModel = model.data;
                 kLineEntity = new KLineEntity();
-                kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.DEFAULT_PATTERN);
+                if (range >= DAY_1) {
+                    kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_YMD);
+                } else {
+                    kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_HMS);
+                }
                 kLineEntity.Open = dataModel.lines.get(i).get(1);
                 kLineEntity.High = dataModel.lines.get(i).get(2);
                 kLineEntity.Low = dataModel.lines.get(i).get(3);
@@ -266,6 +278,13 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                 kAdapter.clearData();
                 kAdapter.addFooterData(data);
                 mKChartView.refreshEnd();
+                if (isClear) {
+                    if (!mKChartView.isFullScreen()) {
+                        mKChartView.setScrollX(0);
+                    } else {
+                        mKChartView.setScrollColumnSpace();
+                    }
+                }
             }
         }
     }
@@ -277,18 +296,18 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         this.baseCurrencyNameEn = baseCurrencyNameEn;
 
         socketConnectEventAgain();
-        upLoad();
+        upLoad(true);
     }
 
-    public void setQuotationVisible(boolean isVisibleToUserQuotation){
+    public void setQuotationVisible(boolean isVisibleToUserQuotation) {
         this.isVisibleToUserQuotation = isVisibleToUserQuotation;
-        upLoad();
+        upLoad(true);
     }
 
     /**
      * 请求K线数据
      */
-    private void upLoad() {
+    private void upLoad(boolean isClear) {
         if (!isVisibleToUserTrade || !isVisibleToUserQuotation || !isVisibleToUser) {
             return;
         }
@@ -297,7 +316,10 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
             mKChartView.resetLoadMoreEnd();
             mKChartView.showLoading();
         }
-        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), chartTime, 2);
+        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), chartTime, 2, isClear);
+        if (isFirst) {
+            isFirst = false;
+        }
     }
 
     private void coinInfo(CurrentTradeCoinModel model) {
@@ -338,7 +360,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                     chartTime = timeTitle.get(position);
                     linIndicator.setTabText(2, tabTitle.get(position));
                     isAnim = true;
-                    upLoad();
+                    upLoad(true);
                     timePopUp.dismiss();
                 }
             });

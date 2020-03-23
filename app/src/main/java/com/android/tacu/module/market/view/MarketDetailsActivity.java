@@ -90,6 +90,13 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     @BindView(R.id.viewpager)
     ViewPager viewpager;
 
+    private static long MIN_1 = 60000L;
+    private static long MIN_5 = 300000L;
+    private static long MIN_15 = 900000L;
+    private static long MIN_30 = 1800000L;
+    private static long HOUR_1 = 3600000L;
+    private static long DAY_1 = 86400000L;
+
     private TextView tvCenterTitle;
     //深度
     private MarketDetailDepthFragment marketDetailDepthFragment;
@@ -101,13 +108,14 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     //k线是否加载动画和网络请求动画
     private boolean isAnim = true;
+    private boolean isFirst = true;
     private KLineChartAdapter kAdapter;
 
     //时间
     private List<String> tabTitle = new ArrayList<>();
     private List<Long> timeTitle = new ArrayList<>();
     //默认1小时
-    private final long CHART_TIME = 3600000;
+    private final long CHART_TIME = HOUR_1;
     private long chartTime = CHART_TIME;
     private int chartIndex = 4;
 
@@ -138,7 +146,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     private Runnable kRunnable = new Runnable() {
         @Override
         public void run() {
-            upLoad();
+            upLoad(isFirst);
             //每隔2分钟循环执行run方法
             if (kHandler != null) {
                 kHandler.postDelayed(this, KREFRESH_TIME);
@@ -176,7 +184,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 initCoinPopUp(mTopBar);
             }
         });
-        mTopBar.setBackgroundDividerEnabled(false);
+        mTopBar.setBackgroundDividerEnabled(true);
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,12 +219,12 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         tabTitle.add(getResources().getString(R.string.hour_1));
         tabTitle.add(getResources().getString(R.string.day_1));
 
-        timeTitle.add(60000L);
-        timeTitle.add(300000L);
-        timeTitle.add(900000L);
-        timeTitle.add(1800000L);
-        timeTitle.add(3600000L);
-        timeTitle.add(86400000L);
+        timeTitle.add(MIN_1);
+        timeTitle.add(MIN_5);
+        timeTitle.add(MIN_15);
+        timeTitle.add(MIN_30);
+        timeTitle.add(HOUR_1);
+        timeTitle.add(DAY_1);
 
         //获取之前选择的时间段
         chartTime = SPUtils.getInstance().getLong(Constant.MARKET_DETAIL_TIME, CHART_TIME);
@@ -322,7 +330,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     }
 
     @Override
-    public void success(KLineModel model) {
+    public void success(KLineModel model, long range, boolean isClear) {
         if (model != null && model.data != null && model.data.lines != null) {
             List<KLineEntity> data = new ArrayList<>();
             int count = model.data.lines.size();
@@ -331,7 +339,11 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             for (int i = 0; i < count; i++) {
                 dataModel = model.data;
                 kLineEntity = new KLineEntity();
-                kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.DEFAULT_PATTERN);
+                if (range >= DAY_1) {
+                    kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_YMD);
+                } else {
+                    kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_HMS);
+                }
                 kLineEntity.Open = dataModel.lines.get(i).get(1);
                 kLineEntity.High = dataModel.lines.get(i).get(2);
                 kLineEntity.Low = dataModel.lines.get(i).get(3);
@@ -349,6 +361,13 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 kAdapter.clearData();
                 kAdapter.addFooterData(data);
                 mKChartView.refreshEnd();
+                if (isClear) {
+                    if (!mKChartView.isFullScreen()) {
+                        mKChartView.setScrollX(0);
+                    } else {
+                        mKChartView.setScrollColumnSpace();
+                    }
+                }
             }
         }
     }
@@ -551,7 +570,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
                     linIndicator.setTabText(2, tabTitle.get(position));
                     isAnim = true;
-                    upLoad();
+                    upLoad(true);
                     timePopUp.dismiss();
                 }
             });
@@ -563,13 +582,16 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     /**
      * 请求K线数据
      */
-    private void upLoad() {
+    private void upLoad(boolean isClear) {
         if (isAnim) {
             kAdapter.clearDataAndNotify();
             mKChartView.resetLoadMoreEnd();
             mKChartView.showLoading();
         }
-        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), chartTime, 1);
+        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), chartTime, 1, isClear);
+        if (isFirst) {
+            isFirst = false;
+        }
     }
 
     private class TabAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
@@ -637,7 +659,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         isAnim = true;
         tvCenterTitle.setText(currencyNameEn + "/" + baseCurrencyNameEn);
 
-        upLoad();
+        upLoad(true);
         socketConnectEventAgain();
         setCacheCoinInfo();
 
