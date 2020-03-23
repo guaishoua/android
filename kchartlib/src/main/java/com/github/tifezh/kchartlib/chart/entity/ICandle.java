@@ -26,6 +26,10 @@ public interface ICandle {
      */
     float getClosePrice();
 
+    /**
+     * 成交量
+     */
+    float getVolume();
 
     // 以下为MA数据
     /**

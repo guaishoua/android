@@ -1,9 +1,10 @@
 <resources>
+    <string name="date">Date</string>
+    <string name="open">Open</string>
     <string name="high">High</string>
     <string name="low">Low</string>
-    <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="volume">Volume</string>
-    <string name="vol_price">Transaction Price</string>
-    <string name="ave_price">Average Price</string>
+    <string name="up_down_value">Change</string>
+    <string name="up_down_rate">Change%</string>
+    <string name="volume">Amount</string>
 </resources>

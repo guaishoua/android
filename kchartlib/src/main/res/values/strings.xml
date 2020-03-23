@@ -1,10 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">TACU</string>
+
+    <string name="date">时间</string>
+    <string name="open">开</string>
     <string name="high">高</string>
     <string name="low">低</string>
-    <string name="open">開</string>
     <string name="close">收</string>
+    <string name="up_down_value">涨跌额</string>
+    <string name="up_down_rate">涨跌幅</string>
     <string name="volume">成交量</string>
-    <string name="vol_price">成交价</string>
-    <string name="ave_price">均价</string>
 </resources>

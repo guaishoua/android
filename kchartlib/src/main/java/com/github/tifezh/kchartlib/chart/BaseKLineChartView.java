@@ -452,7 +452,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             //绘制最大值和最小值
             float x = translateXtoX(getX(mMainMinIndex));
             float y = getMainY(mMainLowMinValue);
-            String LowString = "── " + mMainLowMinValue;
+            String LowString = "── " + formatValue(mMainLowMinValue);
             //计算显示位置
             //计算文本宽度
             int lowStringWidth = calculateMaxMin(LowString).width();
@@ -462,14 +462,14 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
                 canvas.drawText(LowString, x, y + lowStringHeight / 2, mMaxMinPaint);
             } else {
                 //画左边
-                LowString = mMainLowMinValue + " ──";
+                LowString = formatValue(mMainLowMinValue) + " ──";
                 canvas.drawText(LowString, x - lowStringWidth, y + lowStringHeight / 2, mMaxMinPaint);
             }
 
             x = translateXtoX(getX(mMainMaxIndex));
             y = getMainY(mMainHighMaxValue);
 
-            String highString = "── " + mMainHighMaxValue;
+            String highString = "── " + formatValue(mMainHighMaxValue);
             int highStringWidth = calculateMaxMin(highString).width();
             int highStringHeight = calculateMaxMin(highString).height();
             if (x < getWidth() / 2) {
@@ -477,7 +477,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
                 canvas.drawText(highString, x, y + highStringHeight / 2, mMaxMinPaint);
             } else {
                 //画左边
-                highString = mMainHighMaxValue + " ──";
+                highString = formatValue(mMainHighMaxValue) + " ──";
                 canvas.drawText(highString, x - highStringWidth, y + highStringHeight / 2, mMaxMinPaint);
             }
 

@@ -20,10 +20,10 @@
     <!--表格线的颜色-->
     <color name="chart_grid_line">#353941</color>
     <color name="chart_text">#B1B2B6</color>
-    <color name="chart_selector">#c830343C</color>
+    <color name="chart_selector">#141C25</color>
 
     <!--蜡烛图上面最大最小值的字体颜色-->
-    <color name="chart_candle_text">#FFF</color>
+    <color name="chart_candle_text">#FFFFFF</color>
 
     <color name="chart_line">#19F0F0F0</color>
     <color name="chart_line_background">#1aC9933E</color>

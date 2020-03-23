@@ -16,7 +16,9 @@ import com.github.tifezh.kchartlib.chart.base.IValueFormatter;
 import com.github.tifezh.kchartlib.chart.base.Status;
 import com.github.tifezh.kchartlib.chart.entity.ICandle;
 import com.github.tifezh.kchartlib.chart.entity.IKLine;
+import com.github.tifezh.kchartlib.chart.formatter.BigValueFormatter;
 import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
+import com.github.tifezh.kchartlib.chart.utils.MathUtils;
 import com.github.tifezh.kchartlib.chart.utils.ViewUtil;
 
 import java.util.ArrayList;
@@ -30,7 +32,6 @@ public class MainDraw implements IChartDraw<ICandle> {
 
     private float mCandleWidth = 0;
     private float mCandleLineWidth = 0;
-    private int mValueHorizontalPadding;
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mBuyPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -41,6 +42,7 @@ public class MainDraw implements IChartDraw<ICandle> {
 
     private Paint mSelectorTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectorBackgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mSelectorBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Context mContext;
 
     private boolean mCandleSolid = true;
@@ -53,11 +55,13 @@ public class MainDraw implements IChartDraw<ICandle> {
         Context context = view.getContext();
         kChartView = (KLineChartView) view;
         mContext = context;
-        mValueHorizontalPadding = (int) mContext.getResources().getDimension(R.dimen.value_horizontal_padding);
         mBuyPaint.setColor(ContextCompat.getColor(context, R.color.chart_buy));
         mSellPaint.setColor(ContextCompat.getColor(context, R.color.chart_sell));
         mLinePaint.setColor(ContextCompat.getColor(context, R.color.chart_line));
         paint.setColor(ContextCompat.getColor(context, R.color.chart_line_background));
+        mSelectorBorderPaint.setColor(ContextCompat.getColor(context, R.color.chart_text));
+        mSelectorBorderPaint.setStrokeWidth(1f);
+        mSelectorBorderPaint.setStyle(Paint.Style.STROKE);
     }
 
     public void setStatus(Status status) {
@@ -264,20 +268,40 @@ public class MainDraw implements IChartDraw<ICandle> {
         float width = 0;
         float left;
         float top = margin + view.getTopPadding();
-        float height = padding * 8 + textHeight * 5;
+        float height = padding * 9 + textHeight * 8;
+        float centerMargin = ViewUtil.Dp2Px(mContext, 15);
 
         ICandle point = (ICandle) view.getItem(index);
+        List<String> stringTexts = new ArrayList<>();
         List<String> strings = new ArrayList<>();
-        strings.add(view.getAdapter().getDate(index));
-        strings.add("高:" + point.getHighPrice());
-        strings.add("低:" + point.getLowPrice());
-        strings.add("开:" + point.getOpenPrice());
-        strings.add("收:" + point.getClosePrice());
 
-        for (String s : strings) {
-            width = Math.max(width, mSelectorTextPaint.measureText(s));
+        stringTexts.add(mContext.getResources().getString(R.string.date));
+        stringTexts.add(mContext.getResources().getString(R.string.open));
+        stringTexts.add(mContext.getResources().getString(R.string.high));
+        stringTexts.add(mContext.getResources().getString(R.string.low));
+        stringTexts.add(mContext.getResources().getString(R.string.close));
+        stringTexts.add(mContext.getResources().getString(R.string.up_down_value));
+        stringTexts.add(mContext.getResources().getString(R.string.up_down_rate));
+        stringTexts.add(mContext.getResources().getString(R.string.volume));
+
+        strings.add(view.getAdapter().getDate(index));
+        strings.add(getValueFormatter().format(point.getOpenPrice()));
+        strings.add(getValueFormatter().format(point.getHighPrice()));
+        strings.add(getValueFormatter().format(point.getLowPrice()));
+        strings.add(getValueFormatter().format(point.getClosePrice()));
+        double change = MathUtils.sub(point.getClosePrice(), point.getOpenPrice());
+        strings.add(MathUtils.getFormatValue(change));
+        try {
+            strings.add(MathUtils.div(change, point.getOpenPrice()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        width += padding * 2;
+        strings.add(getBigValueFormatter().format(point.getVolume()));
+
+        for (int i = 0; i < stringTexts.size(); i++) {
+            width = Math.max(width, mSelectorTextPaint.measureText(stringTexts.get(i) + strings.get(i)));
+        }
+        width += padding * 3 + centerMargin;
 
         float x = view.translateXtoX(view.getX(index));
         if (x > view.getChartWidth() / 2) {
@@ -288,11 +312,25 @@ public class MainDraw implements IChartDraw<ICandle> {
 
         RectF r = new RectF(left, top, left + width, top + height);
         canvas.drawRoundRect(r, padding, padding, mSelectorBackgroundPaint);
-        float y = top + padding * 2 + (textHeight - metrics.bottom - metrics.top) / 2;
+        canvas.drawRoundRect(r, padding, padding, mSelectorBorderPaint);
+        float y = top + padding + (textHeight - metrics.bottom - metrics.top) / 2;
 
-        for (String s : strings) {
-            canvas.drawText(s, left + padding, y, mSelectorTextPaint);
-            y += textHeight + padding;
+        for (int i = 0; i < stringTexts.size(); i++) {
+            if (i == 5 || i == 6) {
+                if (change < 0) {
+                    canvas.drawText(stringTexts.get(i), left + padding, y, mSellPaint);
+                    canvas.drawText(strings.get(i), left + width - padding - mSellPaint.measureText(strings.get(i)), y, mSellPaint);
+                    y += textHeight + padding;
+                } else {
+                    canvas.drawText(stringTexts.get(i), left + padding, y, mBuyPaint);
+                    canvas.drawText(strings.get(i), left + width - padding - mBuyPaint.measureText(strings.get(i)), y, mBuyPaint);
+                    y += textHeight + padding;
+                }
+            } else {
+                canvas.drawText(stringTexts.get(i), left + padding, y, mSelectorTextPaint);
+                canvas.drawText(strings.get(i), left + width - padding - mSelectorTextPaint.measureText(strings.get(i)), y, mSelectorTextPaint);
+                y += textHeight + padding;
+            }
         }
     }
 
@@ -407,5 +445,9 @@ public class MainDraw implements IChartDraw<ICandle> {
 
     public boolean isLine() {
         return isLine;
+    }
+
+    public BigValueFormatter getBigValueFormatter() {
+        return new BigValueFormatter();
     }
 }

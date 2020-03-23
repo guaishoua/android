@@ -40,7 +40,7 @@ public class KLineChartView extends BaseKLineChartView {
     private VolumeDraw mVolumeDraw;
 
     //用于ValueFormatter的位数的显示
-    public static int decimalsCount = -1;
+    public static int decimalsCount = 2;
 
     public KLineChartView(Context context) {
         this(context, null);
