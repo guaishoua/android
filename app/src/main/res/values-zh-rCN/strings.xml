@@ -972,4 +972,7 @@
     <string name="other_country">其他国家及地区</string>
     <string name="coin_otc_account">币币账户/OTC账户</string>
     <string name="try_now">立即体验</string>
+
+    <!--交易页面-->
+    <string name="trade_amount">交易额</string>
 </resources>

@@ -970,4 +970,7 @@
     <string name="other_country">其他國家及地區</string>
     <string name="coin_otc_account">幣幣賬戶/OTC賬戶</string>
     <string name="try_now">立即體驗</string>
+
+    <!--交易页面-->
+    <string name="trade_amount">交易額</string>
 </resources>

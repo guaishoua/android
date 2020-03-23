@@ -981,5 +981,8 @@
     <string name="other_country">Other countries</string>
     <string name="coin_otc_account">Coin/OTC account</string>
     <string name="try_now">Try now</string>
+
+    <!--交易页面-->
+    <string name="trade_amount">Amount</string>
 </resources>
 
