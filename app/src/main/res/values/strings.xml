@@ -994,4 +994,8 @@
 
     <!--交易页面-->
     <string name="trade_amount">交易额</string>
+    <!--注册页面-->
+    <string name="no_people_introduce">没有人邀请我</string>
+    <string name="choose_no_people_introduce">请勾选"没有人邀请我"</string>
+    <string name="Invitation_code">邀请码</string>
 </resources>
