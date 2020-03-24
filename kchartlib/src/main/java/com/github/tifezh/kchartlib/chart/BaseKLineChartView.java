@@ -8,6 +8,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Shader;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
@@ -70,10 +71,15 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     private Paint mBackgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectedXLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectedYLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mSelectedYCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mSelectedYBigCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectPointPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectorFramePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private LinearGradient linearGradient;
     private int mSelectedIndex;
+
+    private int circleRadius = 0;
+    private int bigCircleRadius = 0;
 
     private IChartDraw mMainDraw;
     private MainDraw mainDraw;
@@ -143,6 +149,11 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         mBottomPadding = (int) getResources().getDimension(R.dimen.chart_bottom_padding);
         mValueVerticalPadding = (int) getResources().getDimension(R.dimen.value_vertical_padding);
         mValueHorizontalPadding = (int) getResources().getDimension(R.dimen.value_horizontal_padding);
+        circleRadius = (int) getResources().getDimension(R.dimen.selector_circle_radius);
+        bigCircleRadius = (int) getResources().getDimension(R.dimen.selector_big_circle_radius);
+
+        mSelectedYCirclePaint.setColor(ContextCompat.getColor(getContext(), R.color.selector_circle_color));
+        mSelectedYBigCirclePaint.setColor(ContextCompat.getColor(getContext(), R.color.selector_big_circle_color));
 
         mAnimator = ValueAnimator.ofFloat(0f, 1f);
         mAnimator.setDuration(mAnimationDuration);
@@ -295,9 +306,28 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             canvas.drawLine(-mTranslateX, y, -mTranslateX + mWidth / mScaleX, y, mSelectedXLinePaint);
 
             //y轴上部分
-            linearGradient = new LinearGradient(x, mMainRect.top, x, y, ContextCompat.getColor(getContext(), R.color.selector_white_90), ContextCompat.getColor(getContext(), R.color.selector_white_50), Shader.TileMode.MIRROR);
+            linearGradient = new LinearGradient(x, mMainRect.top, x, y, ContextCompat.getColor(getContext(), R.color.selector_start_color), ContextCompat.getColor(getContext(), R.color.selector_end_color), Shader.TileMode.MIRROR);
             mSelectedYLinePaint.setShader(linearGradient);
             canvas.drawLine(x, mMainRect.top, x, y, mSelectedYLinePaint);
+
+            //y轴下部分
+            if (mChildDraw != null) {
+                linearGradient = new LinearGradient(x, y, x, mChildRect.bottom, ContextCompat.getColor(getContext(), R.color.selector_end_color), ContextCompat.getColor(getContext(), R.color.selector_start_color), Shader.TileMode.MIRROR);
+                mSelectedYLinePaint.setShader(linearGradient);
+                canvas.drawLine(x, y, x, mChildRect.bottom, mSelectedYLinePaint);
+            } else {
+                linearGradient = new LinearGradient(x, y, x, mVolRect.bottom, ContextCompat.getColor(getContext(), R.color.selector_end_color), ContextCompat.getColor(getContext(), R.color.selector_start_color), Shader.TileMode.MIRROR);
+                mSelectedYLinePaint.setShader(linearGradient);
+                canvas.drawLine(x, y, x, mVolRect.bottom, mSelectedYLinePaint);
+            }
+
+            //收盘价的圆点
+            float scaleValue = mScaleX;
+            if (scaleValue <= 0) {
+                scaleValue = 1;
+            }
+            canvas.drawOval(new RectF((x - circleRadius), y - circleRadius, (x + circleRadius), y + circleRadius), mSelectedYCirclePaint);
+            canvas.drawOval(new RectF((x - bigCircleRadius) / scaleValue, y - bigCircleRadius, (x + bigCircleRadius) / scaleValue, y + bigCircleRadius), mSelectedYBigCirclePaint);
 
             /*// 柱状图竖线
             canvas.drawLine(x, mMainRect.top, x, mMainRect.bottom, mSelectedYLinePaint);
@@ -308,7 +338,6 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
                 canvas.drawLine(x, mVolRect.bottom, x, mChildRect.bottom, mSelectedYLinePaint);
             }*/
         }
-        //还原 平移缩放
         canvas.restore();
     }
 

@@ -1,8 +1,8 @@
 <resources>
     <!--字体的大小-->
-    <dimen name="chart_text_size">10sp</dimen>
+    <dimen name="chart_text_size">9sp</dimen>
     <!--长按的显示的详情的字体大小-->
-    <dimen name="chart_selector_text_size">12sp</dimen>
+    <dimen name="chart_selector_text_size">9sp</dimen>
     <!--上下影线的宽度 -->
     <dimen name="chart_candle_line_width">1dp</dimen>
     <!--蜡烛线宽度 -->
@@ -26,4 +26,8 @@
     <dimen name="chart_right_padding">60dp</dimen>
     <!--选中的point显示收盘价和时间的背景边线-->
     <dimen name="chart_select_frame_width">0.6dp</dimen>
+
+    <!--选择器收盘价的圆点半径-->
+    <dimen name="selector_circle_radius">3dp</dimen>
+    <dimen name="selector_big_circle_radius">10dp</dimen>
 </resources>

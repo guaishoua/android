@@ -267,13 +267,13 @@ public class MainDraw implements IChartDraw<ICandle> {
         float textHeight = metrics.descent - metrics.ascent;
 
         int index = view.getSelectedIndex();
-        float padding = ViewUtil.Dp2Px(mContext, 5);
-        float margin = ViewUtil.Dp2Px(mContext, 5);
+        float padding = ViewUtil.Dp2Px(mContext, 2);
+        float margin = ViewUtil.Dp2Px(mContext, 3);
         float width = 0;
         float left;
         float top = margin + view.getTopPadding();
         float height = padding * 9 + textHeight * 8;
-        float centerMargin = ViewUtil.Dp2Px(mContext, 15);
+        float centerMargin = ViewUtil.Dp2Px(mContext, 5);
 
         ICandle point = (ICandle) view.getItem(index);
         List<String> stringTexts = new ArrayList<>();
