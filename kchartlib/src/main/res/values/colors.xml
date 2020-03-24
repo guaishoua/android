@@ -27,4 +27,8 @@
 
     <color name="chart_line">#19F0F0F0</color>
     <color name="chart_line_background">#1aC9933E</color>
+
+    <!--选择器渐变色-->
+    <color name="selector_white_90">#19FFFFFF</color>
+    <color name="selector_white_50">#71FFFFFF</color>
 </resources>

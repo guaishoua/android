@@ -4,9 +4,12 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.graphics.Shader;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -69,6 +72,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     private Paint mSelectedYLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectPointPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectorFramePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private LinearGradient linearGradient;
     private int mSelectedIndex;
 
     private IChartDraw mMainDraw;
@@ -290,14 +294,19 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             // k线图横线
             canvas.drawLine(-mTranslateX, y, -mTranslateX + mWidth / mScaleX, y, mSelectedXLinePaint);
 
-            // 柱状图竖线
+            //y轴上部分
+            linearGradient = new LinearGradient(x, mMainRect.top, x, y, ContextCompat.getColor(getContext(), R.color.selector_white_90), ContextCompat.getColor(getContext(), R.color.selector_white_50), Shader.TileMode.MIRROR);
+            mSelectedYLinePaint.setShader(linearGradient);
+            canvas.drawLine(x, mMainRect.top, x, y, mSelectedYLinePaint);
+
+            /*// 柱状图竖线
             canvas.drawLine(x, mMainRect.top, x, mMainRect.bottom, mSelectedYLinePaint);
             // 柱状图竖线
             canvas.drawLine(x, mMainRect.bottom, x, mVolRect.bottom, mSelectedYLinePaint);
             if (mChildDraw != null) {
                 // 柱状图竖线
                 canvas.drawLine(x, mVolRect.bottom, x, mChildRect.bottom, mSelectedYLinePaint);
-            }
+            }*/
         }
         //还原 平移缩放
         canvas.restore();
