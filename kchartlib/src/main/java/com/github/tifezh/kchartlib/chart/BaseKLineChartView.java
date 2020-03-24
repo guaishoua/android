@@ -13,6 +13,7 @@ import android.graphics.Shader;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
@@ -67,6 +68,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     private int mGridColumns = 5;
     private Paint mGridPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mPointTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mMaxMinPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mBackgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectedXLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -152,6 +154,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         circleRadius = (int) getResources().getDimension(R.dimen.selector_circle_radius);
         bigCircleRadius = (int) getResources().getDimension(R.dimen.selector_big_circle_radius);
 
+        mSelectPointPaint.setStyle(Paint.Style.STROKE);
         mSelectedYCirclePaint.setColor(ContextCompat.getColor(getContext(), R.color.selector_circle_color));
         mSelectedYBigCirclePaint.setColor(ContextCompat.getColor(getContext(), R.color.selector_big_circle_color));
 
@@ -326,8 +329,8 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             if (scaleValue <= 0) {
                 scaleValue = 1;
             }
-            canvas.drawOval(new RectF((x - circleRadius), y - circleRadius, (x + circleRadius), y + circleRadius), mSelectedYCirclePaint);
-            canvas.drawOval(new RectF((x - bigCircleRadius) / scaleValue, y - bigCircleRadius, (x + bigCircleRadius) / scaleValue, y + bigCircleRadius), mSelectedYBigCirclePaint);
+            canvas.drawOval(new RectF(x - circleRadius / scaleValue, y - circleRadius, x + circleRadius / scaleValue, y + circleRadius), mSelectedYCirclePaint);
+            canvas.drawOval(new RectF(x - bigCircleRadius / scaleValue, y - bigCircleRadius, x + bigCircleRadius / scaleValue, y + bigCircleRadius), mSelectedYBigCirclePaint);
 
             /*// 柱状图竖线
             canvas.drawLine(x, mMainRect.top, x, mMainRect.bottom, mSelectedYLinePaint);
@@ -431,36 +434,36 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             y = getMainY(point.getClosePrice());
             float x;
             String text = formatValue(point.getClosePrice());
-            float textWidth = mTextPaint.measureText(text);
+            float textWidth = mPointTextPaint.measureText(text);
             if (translateXtoX(getX(mSelectedIndex)) < getChartWidth() / 2) {
                 x = 1;
                 Path path = new Path();
                 path.moveTo(x, y - r);
                 path.lineTo(x, y + r);
                 path.lineTo(textWidth + 2 * w1, y + r);
-                path.lineTo(textWidth + 2 * w1 + w2, y);
+                path.lineTo(textWidth + 2 * w1 + 2 * w2, y);
                 path.lineTo(textWidth + 2 * w1, y - r);
                 path.close();
                 canvas.drawPath(path, mSelectPointPaint);
                 canvas.drawPath(path, mSelectorFramePaint);
-                canvas.drawText(text, x + w1, fixTextY1(y), mTextPaint);
+                canvas.drawText(text, x + w1, fixTextY1(y), mPointTextPaint);
             } else {
-                x = mWidth - textWidth - 1 - 2 * w1 - w2;
+                x = mWidth - textWidth - 1 - 2 * w1 - 2 * w2;
                 Path path = new Path();
                 path.moveTo(x, y);
-                path.lineTo(x + w2, y + r);
+                path.lineTo(x + 2 * w2, y + r);
                 path.lineTo(mWidth - 2, y + r);
                 path.lineTo(mWidth - 2, y - r);
-                path.lineTo(x + w2, y - r);
+                path.lineTo(x + 2 * w2, y - r);
                 path.close();
                 canvas.drawPath(path, mSelectPointPaint);
                 canvas.drawPath(path, mSelectorFramePaint);
-                canvas.drawText(text, x + w1 + w2, fixTextY1(y), mTextPaint);
+                canvas.drawText(text, x + w1 + w2, fixTextY1(y), mPointTextPaint);
             }
 
             // 画X值
             String date = mAdapter.getDate(mSelectedIndex);
-            textWidth = mTextPaint.measureText(date);
+            textWidth = mPointTextPaint.measureText(date);
             r = textHeight / 2;
             x = translateXtoX(getX(mSelectedIndex));
             if (isShowChild) {
@@ -477,7 +480,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
 
             canvas.drawRect(x - textWidth / 2 - w1, y, x + textWidth / 2 + w1, y + baseLine + r, mSelectPointPaint);
             canvas.drawRect(x - textWidth / 2 - w1, y, x + textWidth / 2 + w1, y + baseLine + r, mSelectorFramePaint);
-            canvas.drawText(date, x - textWidth / 2, y + baseLine + 5, mTextPaint);
+            canvas.drawText(date, x - textWidth / 2, y + baseLine + 5, mPointTextPaint);
         }
     }
 
@@ -1217,11 +1220,19 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         mTextPaint.setColor(color);
     }
 
+    public void setPointTextPaintColor(int color) {
+        mPointTextPaint.setColor(color);
+    }
+
     /**
      * 设置文字大小
      */
     public void setTextSize(float textSize) {
         mTextPaint.setTextSize(textSize);
+    }
+
+    public void setSelectorPaintTextSize(float textSize) {
+        mPointTextPaint.setTextSize(textSize);
     }
 
     /**
@@ -1248,7 +1259,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     /**
      * 设置选中point的收盘价和时间的背景色
      */
-    public void setSelectPointColor(int color) {
+    public void setSelectorPointColor(int color) {
         mSelectPointPaint.setColor(color);
     }
 
@@ -1301,8 +1312,8 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         mPointWidth = pointWidth;
     }
 
-    public void setSelectorFramePaintWidth(float pointWidth) {
-        mSelectorFramePaint.setStrokeWidth(pointWidth);
+    public void setSelectorPaintWidth(float pointWidth) {
+        mSelectPointPaint.setStrokeWidth(pointWidth);
     }
 
     public Paint getGridPaint() {

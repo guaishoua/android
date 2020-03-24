@@ -139,11 +139,13 @@ public class KLineChartView extends BaseKLineChartView {
             //蜡烛图是否实心
             setCandleSolid(true);
 
-            //选中的point显示收盘价和时间的背景色
-            setSelectPointColor(getColor(R.color.chart_select_point_color));
             //选中的point显示收盘价和时间的背景边线
-            setSelectorFramePaint(Color.WHITE);
-            setSelectorFramePaintWidth(getDimension(R.dimen.chart_select_frame_width));
+            setSelectorPointColor(Color.WHITE);
+            setPointTextPaintColor(getColor(R.color.chart_point_text));
+            setSelectorPaintWidth(getDimension(R.dimen.chart_select_frame_width));
+            setSelectorPaintTextSize(getDimension(R.dimen.chart_point_text_size));
+            //选中的point显示收盘价和时间的背景色
+            setSelectorFramePaint(getColor(R.color.chart_select_point_color));
 
             //长按的显示的详情的背景色
             setSelectorBackgroundColor(getColor(R.color.chart_selector));
