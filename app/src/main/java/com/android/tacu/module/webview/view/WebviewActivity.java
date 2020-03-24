@@ -34,6 +34,7 @@ public class WebviewActivity extends BaseActivity {
     private String url;
 
     private WebView webView;
+    private WebInterface webInterface;
     private ValueCallback<Uri> uploadFile;
     private ValueCallback<Uri[]> uploadFiles;
 
@@ -131,7 +132,7 @@ public class WebviewActivity extends BaseActivity {
         });
 
         if (TextUtils.equals(url, Constant.MEMBERSHIP)) {
-            url += "?chaoex_uid=" + Md5Utils.AESEncrypt(String.valueOf(spUtil.getUserUid())) + "&chaoex_token=" + Md5Utils.AESEncrypt(spUtil.getToken());
+            url += "?chaoex_uid=" + Md5Utils.AESEncrypt(String.valueOf(spUtil.getUserUid())) + "&chaoex_token=" + Md5Utils.AESEncrypt(spUtil.getToken()) + "&chaoex_htmlLang=" + spUtil.getLanguage();
         }
         webView.loadUrl(url);
     }
@@ -155,6 +156,10 @@ public class WebviewActivity extends BaseActivity {
             llWeb.removeAllViews();
             llWeb = null;
         }
+        if (webInterface != null) {
+            webInterface.clearData();
+        }
+        System.gc();
     }
 
     @Override
@@ -222,7 +227,8 @@ public class WebviewActivity extends BaseActivity {
         webView.setHorizontalScrollBarEnabled(false);//水平不显示
         webView.setVerticalScrollBarEnabled(false); //垂直不显示
         webView.requestFocus();
-        webView.addJavascriptInterface(new WebInterface(this), "android");
+        webInterface = new WebInterface(this);
+        webView.addJavascriptInterface(webInterface, "android");
     }
 
     /**
