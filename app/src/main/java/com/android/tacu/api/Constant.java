@@ -74,6 +74,10 @@ public class Constant {
     //zendesk帮助中心
     public static final String ZENDESK_HELP = "https://tacu.zendesk.com/hc/zh-tw";
 
+    //会员权益
+    public static final String MEMBERSHIP = SOCKET_IP + "/MemberShip";
+    //public static final String MEMBERSHIP = "http://192.168.20.60:3002/MemberShip";
+
     //注册协议
     public static final String REGISTER_XIEYI = "";
     //商家申请条件及保证金制度
