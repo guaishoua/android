@@ -30,7 +30,9 @@ public class ImgUtils {
     //保存文件到指定路径
     public static boolean saveImageToGallery(Context context, Bitmap bmp) {
         // 首先保存图片
-        String storePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "coins_address";
+        String storePath = Environment.getExternalStorageDirectory()
+                + File.separator + Environment.DIRECTORY_DCIM
+                + File.separator + "Camera" + File.separator;
         File appDir = new File(storePath);
         if (!appDir.exists()) {
             appDir.mkdir();
@@ -60,6 +62,7 @@ public class ImgUtils {
 
     /**
      * 将bitmap处理成椭圆形
+     *
      * @param bitmap
      * @return
      */

@@ -145,7 +145,8 @@ public interface Api {
             @Field("phoneCode") String phoneCode,
             @Field("email") String email,
             @Field("pwd") String pwd,
-            @Field("vercode") String vercode
+            @Field("vercode") String vercode,
+            @Field("inviteId") String inviteId
     );
 
     /**

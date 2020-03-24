@@ -970,4 +970,5 @@
     <string name="no_people_introduce">沒有人邀請我</string>
     <string name="choose_no_people_introduce">請勾選"沒有人邀請我"</string>
     <string name="Invitation_code">邀請碼</string>
+    <string name="save_success">保存成功</string>
 </resources>

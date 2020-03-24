@@ -42,8 +42,8 @@ import com.android.tacu.module.auth.presenter.AuthMerchantPresenter;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.main.view.MainActivity;
 import com.android.tacu.module.my.view.SecurityCenterActivity;
-import com.android.tacu.module.vip.view.BuyVipActivity;
 import com.android.tacu.module.vip.view.RechargeDepositActivity;
+import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
@@ -206,7 +206,9 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
 
     @OnClick(R.id.tv_membership_right)
     void buyVip() {
-        jumpTo(BuyVipActivity.class);
+        if (isKeyc()) {
+            jumpTo(WebviewActivity.createActivity(getContext(), Constant.MEMBERSHIP));
+        }
     }
 
     @OnClick(R.id.tv_binding_right)
@@ -442,5 +444,14 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
             uploadVideoName = null;
             mHandler.sendEmptyMessage(1);
         }
+    }
+
+    private boolean isKeyc() {
+        boolean boo = true;
+        if (spUtil.getIsAuthSenior() < 2) {
+            showToastError(getString(R.string.please_get_the_level_of_KYC));
+            boo = false;
+        }
+        return boo;
     }
 }

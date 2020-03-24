@@ -133,7 +133,7 @@ public class RechargeFragment extends BaseFragment<RechargePresenter> implements
 
         if (TextUtils.equals(currencyNameEn, "USDT")) {
             tv_usdt_tip.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             tv_usdt_tip.setVisibility(View.INVISIBLE);
         }
         tv_coin_address.setTextIsSelectable(true);
@@ -271,7 +271,7 @@ public class RechargeFragment extends BaseFragment<RechargePresenter> implements
         }
         if (TextUtils.equals(currencyNameEn, "USDT")) {
             tv_usdt_tip.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             tv_usdt_tip.setVisibility(View.INVISIBLE);
         }
         setGrinAddress();
