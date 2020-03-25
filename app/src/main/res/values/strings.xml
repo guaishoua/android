@@ -1030,4 +1030,8 @@
         &#160;&#160;&#160;&#160;(1)、用户应严格遵循平台对用户身份及账户的实名认证管理要求，确保在平台上显示的相关账号均系本人合法注册、使用的；
         \n&#160;&#160;&#160;&#160;(2)、用户在触发平台的反洗钱风控预警时，应积极配合平台的进一步反洗钱核实工作，并积极协助提供相关的风控举证材料（具体措施以届时平台风控审核要求为准）。
     </string>
+    <string name="seller_info">卖家信息</string>
+    <string name="buyer_info">买家信息</string>
+    <string name="choose_getmoney_type">选择收款方式</string>
+    <string name="choose_paymoney_type">选择付款方式</string>
 </resources>

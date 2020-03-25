@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -50,9 +51,11 @@ public class DroidDialog {
         RelativeLayout rlTitle = view.findViewById(R.id.rl_title);
         TextView txtTitle = view.findViewById(R.id.txtTitle);
         TextView txtContent = view.findViewById(R.id.txtContent);
+        ImageView imgClose = view.findViewById(R.id.img_close);
 
         btnPositive = view.findViewById(R.id.btnPositive);
         btnNegative = view.findViewById(R.id.btnNegative);
+        View view_space = view.findViewById(R.id.view_space);
 
         NestedScrollView scrollview = view.findViewById(R.id.scrollview);
         LinearLayout lin_view = view.findViewById(R.id.lin_view);
@@ -68,6 +71,12 @@ public class DroidDialog {
         } else {
             rlTitle.setVisibility(View.VISIBLE);
             txtTitle.setText(builder.title);
+        }
+
+        if (builder.isImgClose) {
+            imgClose.setVisibility(View.VISIBLE);
+        } else {
+            imgClose.setVisibility(View.GONE);
         }
 
         if (builder.titleGravity != -1) {
@@ -100,6 +109,7 @@ public class DroidDialog {
 
         if (TextUtils.isEmpty(builder.positiveText)) {
             btnPositive.setVisibility(View.GONE);
+            view_space.setVisibility(View.GONE);
         } else {
             btnPositive.setVisibility(View.VISIBLE);
             btnPositive.setText(builder.positiveText);
@@ -118,6 +128,7 @@ public class DroidDialog {
 
         if (TextUtils.isEmpty(builder.negativeText)) {
             btnNegative.setVisibility(View.GONE);
+            view_space.setVisibility(View.GONE);
         } else {
             btnNegative.setVisibility(View.VISIBLE);
             btnNegative.setText(builder.negativeText);
@@ -131,6 +142,16 @@ public class DroidDialog {
                 }
             });
         }
+
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (builder.onNegativeListener != null) {
+                    builder.onNegativeListener.onNegative(dialog);
+                }
+                dismiss();
+            }
+        });
 
         if (!TextUtils.isEmpty(builder.typeface)) {
             Typeface ttf = Typeface.createFromAsset(builder.context.getAssets(), "fonts/" + builder.typeface);
@@ -184,6 +205,7 @@ public class DroidDialog {
         private String title = "";
         private String content = "";
         private View lin_view_layout;
+        private boolean isImgClose = false;
 
         private int titleGravity = -1;
         private int contentGravity = -1;
@@ -223,6 +245,11 @@ public class DroidDialog {
          **/
         public Builder title(String title) {
             this.title = title;
+            return this;
+        }
+
+        public Builder setShowImgClose(boolean isImgClose) {
+            this.isImgClose = isImgClose;
             return this;
         }
 

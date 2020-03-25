@@ -174,6 +174,7 @@ public class OtcDialogUtils {
                     }
                 })
                 .negativeButton(mContext.getResources().getString(R.string.cancel), null)
+                .cancelable(false, false)
                 .show();
     }
 }
