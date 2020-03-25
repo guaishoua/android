@@ -462,13 +462,14 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
         droidDialog = new DroidDialog.Builder(this)
                 .title(titleString)
                 .viewCustomLayout(view)
-                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                .positiveButton(getResources().getString(R.string.sure), false, new DroidDialog.onPositiveListener() {
                     @Override
                     public void onPositive(Dialog droidDialog) {
                         if (payType == null || payType == 0) {
                             showToastError(getResources().getString(R.string.please_choose_get_pay));
                             return;
                         }
+                        droidDialog.dismiss();
                         mPresenter.otcTrade(allModel.orderModel.id, payType, num, amount);
                     }
                 })
