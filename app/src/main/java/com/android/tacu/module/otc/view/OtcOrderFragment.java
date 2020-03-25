@@ -99,7 +99,9 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     @Override
     protected void initLazy() {
         super.initLazy();
-            upload(isFirst, true);
+        if (isFirst) {
+            upload(true, true);
+        }
     }
 
     @Override
