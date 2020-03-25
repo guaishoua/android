@@ -20,6 +20,7 @@ import com.android.tacu.EventBus.model.OTCOrderVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcOrderContract;
+import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeAllModel;
@@ -28,7 +29,6 @@ import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcOrderPresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
-import com.android.tacu.utils.LogUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
@@ -36,7 +36,6 @@ import com.android.tacu.widget.dialog.DroidDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
@@ -669,24 +668,12 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     }
 
     private void showDialog(final String orderId) {
-        View view = View.inflate(getContext(), R.layout.view_dialog_trade_pwd, null);
-        final QMUIRoundEditText edit_trade_pwd = view.findViewById(R.id.edit_trade_pwd);
-        droidDialog = new DroidDialog.Builder(getContext())
-                .title(getResources().getString(R.string.trade_password))
-                .viewCustomLayout(view)
-                .positiveButton(getResources().getString(R.string.confirm_new_pwd), new DroidDialog.onPositiveListener() {
-                    @Override
-                    public void onPositive(Dialog droidDialog) {
-                        String pwd = edit_trade_pwd.getText().toString().trim();
-                        if (TextUtils.isEmpty(pwd)) {
-                            showToastError(getResources().getString(R.string.please_input_trade_password));
-                            return;
-                        }
-                        showSure(orderId, pwd);
-                    }
-                })
-                .cancelable(true, true)
-                .show();
+        OtcPwdDialogUtils.showPwdDiaglog(getContext(), getResources().getString(R.string.please_input_trade_password), new OtcPwdDialogUtils.OnPassListener() {
+            @Override
+            public void onPass(String pwd) {
+                showSure(orderId, pwd);
+            }
+        });
     }
 
     private void showSure(final String orderId, final String pwdString) {

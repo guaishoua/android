@@ -26,8 +26,8 @@ public class BindingPayInfoPresenter extends BaseMvpPresenter implements Binding
     }
 
     @Override
-    public void insertBank(final Integer type, String bankName, String openBankName, String openBankAdress, String bankCard, String weChatNo, String weChatImg, String aliPayNo, String aliPayImg, String fdPassword) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).insertBank(type, bankName, openBankName, openBankAdress, bankCard, weChatNo, weChatImg, aliPayNo, aliPayImg, fdPassword), new NetDisposableObserver<BaseModel<PayInfoModel>>((IBaseMvpView) getView()) {
+    public void insertBank(final Integer type, String bankName, String openBankName, String bankCard, String weChatNo, String weChatImg, String aliPayNo, String aliPayImg, String fdPassword) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).insertBank(type, bankName, openBankName, bankCard, weChatNo, weChatImg, aliPayNo, aliPayImg, fdPassword), new NetDisposableObserver<BaseModel<PayInfoModel>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<PayInfoModel> o) {
                 if (type != null) {

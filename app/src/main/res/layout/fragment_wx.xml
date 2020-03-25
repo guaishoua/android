@@ -20,7 +20,7 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_78"
+                android:layout_height="@dimen/dp_55"
                 android:background="@color/content_bg_color"
                 android:paddingHorizontal="@dimen/dp_15">
 
@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
-                    android:text="@string/account_owner"
+                    android:text="@string/cardholder_name"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_14"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -39,23 +39,13 @@
                     android:id="@+id/tv_account_owner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_22"
+                    android:layout_marginLeft="@dimen/dp_36"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_17"
                     app:layout_constraintBottom_toBottomOf="@id/tv_account_owner_title"
                     app:layout_constraintLeft_toRightOf="@id/tv_account_owner_title"
                     app:layout_constraintTop_toTopOf="@id/tv_account_owner_title"
                     tools:text="加隆" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="@string/account_owner_wx_tip"
-                    android:textColor="@color/text_grey"
-                    android:textSize="@dimen/text_size_sp_12"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_account_owner_title" />
             </android.support.constraint.ConstraintLayout>
 
             <LinearLayout
@@ -88,39 +78,6 @@
                     android:textSize="@dimen/text_size_sp_16" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/lin_trade_pwd"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_55"
-                android:layout_marginTop="@dimen/dp_1"
-                android:background="@color/content_bg_color"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/dp_15">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/trade_password"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14" />
-
-                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
-                    android:id="@+id/edit_trade_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/dp_22"
-                    android:background="@null"
-                    android:hint="@string/please_input_trade_password"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:paddingRight="@dimen/dp_5"
-                    android:textColor="@color/text_color"
-                    android:textColorHint="@color/text_grey"
-                    android:textSize="@dimen/text_size_sp_16" />
-            </LinearLayout>
-
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_250"
@@ -144,7 +101,7 @@
                     android:id="@+id/img_wx_shoukuan"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/dp_3"
+                    android:layout_marginTop="@dimen/dp_5"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_wx_shoukuan"
@@ -201,18 +158,6 @@
                     android:textSize="@dimen/text_size_sp_14"
                     app:qmui_backgroundColor="@color/color_default"
                     app:qmui_radius="@dimen/dp_3" />
-
-                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                    android:id="@+id/btn_cancel"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/dp_40"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    android:layout_weight="1"
-                    android:text="@string/cancel"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/text_size_sp_14"
-                    app:qmui_backgroundColor="@color/color_grey"
-                    app:qmui_radius="@dimen/dp_3" />
             </LinearLayout>
         </LinearLayout>
 
@@ -225,7 +170,7 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_50"
+                android:layout_height="@dimen/dp_30"
                 android:background="@color/content_bg_color"
                 android:paddingHorizontal="@dimen/dp_15">
 
@@ -235,7 +180,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_5"
                     android:text="@string/cardholder_name"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/text_grey"
                     android:textSize="@dimen/text_size_sp_14"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -244,23 +189,13 @@
                     android:id="@+id/tv_account_owner1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_22"
+                    android:layout_marginLeft="@dimen/dp_36"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_17"
                     app:layout_constraintBottom_toBottomOf="@id/tv_account_owner_title1"
                     app:layout_constraintLeft_toRightOf="@id/tv_account_owner_title1"
                     app:layout_constraintTop_toTopOf="@id/tv_account_owner_title1"
                     tools:text="加隆" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:text="@string/account_owner_wx_tip"
-                    android:textColor="@color/text_grey"
-                    android:textSize="@dimen/text_size_sp_12"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_account_owner_title1" />
             </android.support.constraint.ConstraintLayout>
 
             <LinearLayout
@@ -277,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/wx_account"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/text_grey"
                     android:textSize="@dimen/text_size_sp_14" />
 
                 <TextView
@@ -314,7 +249,7 @@
                     android:id="@+id/img_wx_shoukuan1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/dp_3"
+                    android:layout_marginTop="@dimen/dp_5"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_wx_shoukuan1"
@@ -327,12 +262,12 @@
                 android:id="@+id/btn_delete"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
-                android:layout_marginHorizontal="@dimen/dp_50"
+                android:layout_marginHorizontal="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="@string/btn_delete"
+                android:text="@string/unbind"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14"
-                app:qmui_backgroundColor="@color/color_default"
+                app:qmui_backgroundColor="@color/color_negative"
                 app:qmui_radius="@dimen/dp_3" />
         </LinearLayout>
     </LinearLayout>

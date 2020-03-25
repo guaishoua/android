@@ -53,7 +53,6 @@ public class DroidDialog {
 
         btnPositive = view.findViewById(R.id.btnPositive);
         btnNegative = view.findViewById(R.id.btnNegative);
-        QMUIAlphaButton btnNeutral = view.findViewById(R.id.btnNeutral);
 
         NestedScrollView scrollview = view.findViewById(R.id.scrollview);
         LinearLayout lin_view = view.findViewById(R.id.lin_view);
@@ -63,7 +62,6 @@ public class DroidDialog {
          **/
         btnPositive.setTextColor(builder.buttonTextColor);
         btnNegative.setTextColor(builder.buttonTextColor);
-        btnNeutral.setTextColor(builder.buttonTextColor);
 
         if (TextUtils.isEmpty(builder.title)) {
             rlTitle.setVisibility(View.GONE);
@@ -134,29 +132,12 @@ public class DroidDialog {
             });
         }
 
-        if (TextUtils.isEmpty(builder.neutralText)) {
-            btnNeutral.setVisibility(View.GONE);
-        } else {
-            btnNeutral.setVisibility(View.VISIBLE);
-            btnNeutral.setText(builder.neutralText);
-            btnNeutral.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (builder.onNeutralListener != null) {
-                        builder.onNeutralListener.onNeutral(dialog);
-                    }
-                    dismiss();
-                }
-            });
-        }
-
         if (!TextUtils.isEmpty(builder.typeface)) {
             Typeface ttf = Typeface.createFromAsset(builder.context.getAssets(), "fonts/" + builder.typeface);
             txtTitle.setTypeface(ttf);
             txtContent.setTypeface(ttf);
             btnPositive.setTypeface(ttf, Typeface.BOLD);
             btnNegative.setTypeface(ttf, Typeface.BOLD);
-            btnNeutral.setTypeface(ttf, Typeface.BOLD);
         }
 
         dialog.setCancelable(builder.isCancelable);
@@ -222,13 +203,6 @@ public class DroidDialog {
         private onNegativeListener onNegativeListener = new onNegativeListener() {
             @Override
             public void onNegative(Dialog droidDialog) {
-            }
-        };
-
-        private String neutralText = "";
-        private onNeutralListener onNeutralListener = new onNeutralListener() {
-            @Override
-            public void onNeutral(Dialog droidDialog) {
             }
         };
 
@@ -314,15 +288,6 @@ public class DroidDialog {
 
         public Builder negativeButton(onNegativeListener onNegativeListener) {
             this.onNegativeListener = onNegativeListener;
-            return this;
-        }
-
-        /**
-         * dialog neutral button and click event handler
-         **/
-        public Builder neutralButton(String neutralText, onNeutralListener onNeutralListener) {
-            this.neutralText = neutralText;
-            this.onNeutralListener = onNeutralListener;
             return this;
         }
 

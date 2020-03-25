@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/content_bg_color"
+    android:background="@color/color_dialog"
     android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView

@@ -1,6 +1,5 @@
 package com.android.tacu.module.vip.view;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -19,6 +18,7 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabIndicatorAdapter;
 import com.android.tacu.module.assets.model.OtcAmountModel;
+import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.module.vip.contract.RechargeDepositContract;
 import com.android.tacu.module.vip.model.SelectBondModel;
@@ -30,7 +30,6 @@ import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.dialog.DroidDialog;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundTextView;
 import com.shizhefei.view.indicator.Indicator;
@@ -425,23 +424,11 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
 
 
     private void showDialog() {
-        View view = View.inflate(this, R.layout.view_dialog_trade_pwd, null);
-        final QMUIRoundEditText edit_trade_pwd = view.findViewById(R.id.edit_trade_pwd);
-        droidDialog = new DroidDialog.Builder(this)
-                .title(getResources().getString(R.string.trade_password))
-                .viewCustomLayout(view)
-                .positiveButton(getResources().getString(R.string.confirm_new_pwd), new DroidDialog.onPositiveListener() {
-                    @Override
-                    public void onPositive(Dialog droidDialog) {
-                        String pwd = edit_trade_pwd.getText().toString().trim();
-                        if (TextUtils.isEmpty(pwd)) {
-                            showToastError(getResources().getString(R.string.please_input_trade_password));
-                            return;
-                        }
-                        dealSubmit(Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
-                    }
-                })
-                .cancelable(true, true)
-                .show();
+        OtcPwdDialogUtils.showPwdDiaglog(this, getResources().getString(R.string.trade_password), new OtcPwdDialogUtils.OnPassListener() {
+            @Override
+            public void onPass(String pwd) {
+                dealSubmit(Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
+            }
+        });
     }
 }

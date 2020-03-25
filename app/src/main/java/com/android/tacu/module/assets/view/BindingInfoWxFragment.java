@@ -38,6 +38,7 @@ import com.android.tacu.module.assets.contract.BindingPayInfoContract;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
+import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
@@ -63,10 +64,6 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     TextView tv_account_owner;
     @BindView(R.id.edit_wx_name)
     EditText edit_wx_name;
-    @BindView(R.id.lin_trade_pwd)
-    LinearLayout lin_trade_pwd;
-    @BindView(R.id.edit_trade_password)
-    EditText edit_trade_password;
     @BindView(R.id.img_wx_shoukuan)
     QMUIRoundImageView img_wx_shoukuan;
     @BindView(R.id.rl_upload)
@@ -129,11 +126,6 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
 
     @Override
     protected void initData(View view) {
-        if (spUtil.getPwdVisibility()) {
-            lin_trade_pwd.setVisibility(View.VISIBLE);
-        } else {
-            lin_trade_pwd.setVisibility(View.GONE);
-        }
         tv_account_owner.setText(spUtil.getKYCName());
         tv_account_owner1.setText(spUtil.getKYCName());
     }
@@ -204,27 +196,28 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     void bindingClick() {
         if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
             weChatNo = edit_wx_name.getText().toString().trim();
-            pwdString = edit_trade_password.getText().toString().trim();
             if (TextUtils.isEmpty(weChatNo)) {
                 showToastError(getResources().getString(R.string.please_input_wx_account));
-                return;
-            }
-            if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
-                showToastError(getResources().getString(R.string.please_input_trade_password));
                 return;
             }
             if (uploadFile == null) {
                 showToastError(getResources().getString(R.string.please_upload_wx_shoukuanma));
                 return;
             }
+            if (spUtil.getPwdVisibility()) {
+                OtcPwdDialogUtils.showPwdDiaglog(getContext(), getResources().getString(R.string.please_input_trade_password), new OtcPwdDialogUtils.OnPassListener() {
+                    @Override
+                    public void onPass(String pwd) {
+                        pwdString = pwd;
+                        showLoadingView();
+                        mPresenter.getOssSetting(2, uploadFile.getPath());
+                    }
+                });
+                return;
+            }
             showLoadingView();
             mPresenter.getOssSetting(2, uploadFile.getPath());
         }
-    }
-
-    @OnClick(R.id.btn_cancel)
-    void cancelClick() {
-        getHostActivity().finish();
     }
 
     @OnClick(R.id.btn_delete)
@@ -288,7 +281,6 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
 
     private void clearValue() {
         edit_wx_name.setText("");
-        edit_trade_password.setText("");
         img_wx_shoukuan.setImageResource(0);
         rl_upload.setVisibility(View.VISIBLE);
         tv_upload_tip.setVisibility(View.VISIBLE);
@@ -329,7 +321,7 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     private void dealValue(int flag) {
         if (flag == 1) {
             mHandler.sendEmptyMessage(0);
-            mPresenter.insertBank(2, null, null, null, null, weChatNo, uploadImageName, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+            mPresenter.insertBank(2, null, null, null, weChatNo, uploadImageName, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
         } else {
             mHandler.sendEmptyMessage(1);
         }

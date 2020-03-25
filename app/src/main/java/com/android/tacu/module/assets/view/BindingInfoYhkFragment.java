@@ -18,6 +18,7 @@ import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.assets.contract.BindingPayInfoContract;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
+import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.permission.PermissionUtils;
@@ -38,14 +39,8 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
     EditText edit_bank_name;
     @BindView(R.id.edit_open_bank_name)
     EditText edit_open_bank_name;
-    @BindView(R.id.edit_open_bank_address)
-    EditText edit_open_bank_address;
     @BindView(R.id.edit_bank_id)
     EditText edit_bank_id;
-    @BindView(R.id.lin_trade_pwd)
-    LinearLayout lin_trade_pwd;
-    @BindView(R.id.edit_trade_password)
-    EditText edit_trade_password;
 
     @BindView(R.id.lin_list)
     LinearLayout lin_list;
@@ -55,8 +50,6 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
     TextView tv_bank_name;
     @BindView(R.id.tv_open_bank_name)
     TextView tv_open_bank_name;
-    @BindView(R.id.tv_open_bank_address)
-    TextView tv_open_bank_address;
     @BindView(R.id.tv_bank_id)
     TextView tv_bank_id;
 
@@ -77,11 +70,6 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
 
     @Override
     protected void initData(View view) {
-        if (spUtil.getPwdVisibility()) {
-            lin_trade_pwd.setVisibility(View.VISIBLE);
-        } else {
-            lin_trade_pwd.setVisibility(View.GONE);
-        }
         tv_cardholder_name.setText(spUtil.getKYCName());
         tv_cardholder_name1.setText(spUtil.getKYCName());
     }
@@ -114,11 +102,9 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
     @OnClick(R.id.btn_bindinng)
     void bindingClick() {
         if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
-            String bankName = edit_bank_name.getText().toString().trim();
-            String openBankName = edit_open_bank_name.getText().toString().trim();
-            String openBankAdress = edit_open_bank_address.getText().toString().trim();
-            String bankCard = edit_bank_id.getText().toString().trim();
-            String pwdString = edit_trade_password.getText().toString().trim();
+            final String bankName = edit_bank_name.getText().toString().trim();
+            final String openBankName = edit_open_bank_name.getText().toString().trim();
+            final String bankCard = edit_bank_id.getText().toString().trim();
             if (TextUtils.isEmpty(bankName)) {
                 showToastError(getResources().getString(R.string.please_input_bank_name));
                 return;
@@ -127,25 +113,22 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
                 showToastError(getResources().getString(R.string.please_input_open_bank_name));
                 return;
             }
-            if (TextUtils.isEmpty(openBankAdress)) {
-                showToastError(getResources().getString(R.string.please_input_open_bank_address));
-                return;
-            }
             if (TextUtils.isEmpty(bankCard)) {
                 showToastError(getResources().getString(R.string.please_input_bank_id));
                 return;
             }
-            if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
-                showToastError(getResources().getString(R.string.please_input_trade_password));
+
+            if (spUtil.getPwdVisibility()) {
+                OtcPwdDialogUtils.showPwdDiaglog(getContext(), getResources().getString(R.string.please_input_trade_password), new OtcPwdDialogUtils.OnPassListener() {
+                    @Override
+                    public void onPass(String pwd) {
+                        mPresenter.insertBank(1, bankName, openBankName, bankCard, null, null, null, null, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
+                    }
+                });
                 return;
             }
-            mPresenter.insertBank(1, bankName, openBankName, openBankAdress, bankCard, null, null, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+            mPresenter.insertBank(1, bankName, openBankName, bankCard, null, null, null, null, null);
         }
-    }
-
-    @OnClick(R.id.btn_cancel)
-    void cancelClick() {
-        getHostActivity().finish();
     }
 
     @OnClick(R.id.btn_delete)
@@ -187,7 +170,6 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
 
             tv_bank_name.setText(model.bankName);
             tv_open_bank_name.setText(model.openBankName);
-            tv_open_bank_address.setText(model.openBankAdress);
             tv_bank_id.setText(model.bankCard);
         } else {
             lin_edit.setVisibility(View.VISIBLE);
@@ -198,12 +180,9 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
     private void clearValue() {
         edit_bank_name.setText("");
         edit_open_bank_name.setText("");
-        edit_open_bank_address.setText("");
         edit_bank_id.setText("");
-        edit_trade_password.setText("");
         tv_bank_name.setText("");
         tv_open_bank_name.setText("");
-        tv_open_bank_address.setText("");
         tv_bank_id.setText("");
     }
 }

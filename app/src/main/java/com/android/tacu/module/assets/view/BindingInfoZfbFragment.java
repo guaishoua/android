@@ -38,12 +38,12 @@ import com.android.tacu.module.assets.contract.BindingPayInfoContract;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
+import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.permission.PermissionUtils;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout;
 import com.yanzhenjie.permission.Permission;
@@ -64,10 +64,6 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     TextView tv_account_owner;
     @BindView(R.id.edit_zfb_name)
     EditText edit_zfb_name;
-    @BindView(R.id.lin_trade_pwd)
-    LinearLayout lin_trade_pwd;
-    @BindView(R.id.edit_trade_password)
-    EditText edit_trade_password;
     @BindView(R.id.img_zfb_shoukuan)
     QMUIRoundImageView img_zfb_shoukuan;
     @BindView(R.id.rl_upload)
@@ -130,11 +126,6 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
 
     @Override
     protected void initData(View view) {
-        if (spUtil.getPwdVisibility()) {
-            lin_trade_pwd.setVisibility(View.VISIBLE);
-        } else {
-            lin_trade_pwd.setVisibility(View.GONE);
-        }
         tv_account_owner.setText(spUtil.getKYCName());
         tv_account_owner1.setText(spUtil.getKYCName());
     }
@@ -205,27 +196,28 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     void bindingClick() {
         if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
             zfbChatNo = edit_zfb_name.getText().toString().trim();
-            pwdString = edit_trade_password.getText().toString().trim();
             if (TextUtils.isEmpty(zfbChatNo)) {
                 showToastError(getResources().getString(R.string.please_input_zfb_account));
-                return;
-            }
-            if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
-                showToastError(getResources().getString(R.string.please_input_trade_password));
                 return;
             }
             if (uploadFile == null) {
                 showToastError(getResources().getString(R.string.please_upload_zfb_shoukuanma));
                 return;
             }
+            if (spUtil.getPwdVisibility()) {
+                OtcPwdDialogUtils.showPwdDiaglog(getContext(), getResources().getString(R.string.please_input_trade_password), new OtcPwdDialogUtils.OnPassListener() {
+                    @Override
+                    public void onPass(String pwd) {
+                        pwdString = pwd;
+                        showLoadingView();
+                        mPresenter.getOssSetting(3, uploadFile.getPath());
+                    }
+                });
+                return;
+            }
             showLoadingView();
             mPresenter.getOssSetting(3, uploadFile.getPath());
         }
-    }
-
-    @OnClick(R.id.btn_cancel)
-    void cancelClick() {
-        getHostActivity().finish();
     }
 
     @OnClick(R.id.btn_delete)
@@ -289,7 +281,6 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
 
     private void clearValue() {
         edit_zfb_name.setText("");
-        edit_trade_password.setText("");
         img_zfb_shoukuan.setImageResource(0);
         rl_upload.setVisibility(View.VISIBLE);
         tv_upload_tip.setVisibility(View.VISIBLE);
@@ -330,7 +321,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
     private void dealValue(int flag) {
         if (flag == 1) {
             mHandler.sendEmptyMessage(0);
-            mPresenter.insertBank(3, null, null, null, null, null, null, zfbChatNo, uploadImageName, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+            mPresenter.insertBank(3, null, null, null, null, null, zfbChatNo, uploadImageName, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
         } else {
             mHandler.sendEmptyMessage(1);
         }

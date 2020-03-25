@@ -727,25 +727,25 @@
 
     <!--綁定支付-->
     <string name="binding_pay_info">綁定支付信息</string>
-    <string name="cardholder_name">持卡人姓名</string>
+    <string name="cardholder_name">姓名</string>
     <string name="cardholder_name_tip">為了保證您的正常交易，請綁定與您KYC真實姓名壹致的銀行</string>
-    <string name="bank_name">銀行名稱</string>
-    <string name="please_input_bank_name">請輸入您綁定銀行卡的銀行名稱</string>
-    <string name="open_bank_name">開戶行名稱</string>
-    <string name="please_input_open_bank_name">請輸入開戶行名稱</string>
+    <string name="bank_name">開戶銀行</string>
+    <string name="please_input_bank_name">請輸入開戶銀行</string>
+    <string name="open_bank_name">開戶支行</string>
+    <string name="please_input_open_bank_name">請輸入開戶支行</string>
     <string name="open_bank_address">開戶行地址</string>
     <string name="please_input_open_bank_address">請輸入開戶行地址</string>
     <string name="bank_id">銀行賬號</string>
-    <string name="please_input_bank_id">請輸入您的銀行卡賬號</string>
-    <string name="please_input_trade_password">請輸入您平臺的交易密碼</string>
+    <string name="please_input_bank_id">請輸入銀行卡號</string>
+    <string name="please_input_trade_password">請輸入您的交易密碼</string>
     <string name="confirm_binding">確認綁定</string>
     <string name="account_owner">賬號所有人</string>
     <string name="account_owner_wx_tip">為了保證您的正常交易，請綁定與您KYC真實姓名壹致的微信</string>
     <string name="account_owner_zfb_tip">為了保證您的正常交易，請綁定與您KYC真實姓名壹致的支付寶</string>
-    <string name="wx_account">微信賬號</string>
-    <string name="zfb_account">支付寶賬號</string>
-    <string name="please_input_wx_account">請輸入您綁定微信的賬號</string>
-    <string name="please_input_zfb_account">請輸入您綁定支付寶的賬號</string>
+    <string name="wx_account">微信號</string>
+    <string name="zfb_account">支付寶</string>
+    <string name="please_input_wx_account">請輸入微信號</string>
+    <string name="please_input_zfb_account">請輸入支付寶賬號</string>
     <string name="upload_wx_shoukuanma">上傳微信收款碼</string>
     <string name="please_upload_wx_shoukuanma">請上傳微信收款碼</string>
     <string name="upload_zfb_shoukuanma">上傳支付寶收款碼</string>
