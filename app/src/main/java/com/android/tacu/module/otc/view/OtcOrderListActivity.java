@@ -149,7 +149,7 @@ public class OtcOrderListActivity extends BaseActivity {
         if (listPopup == null) {
             ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.simple_list_item, data);
             listPopup = new ListPopWindow(this, adapter);
-            listPopup.create(UIUtils.dp2px(100), UIUtils.dp2px(368), new AdapterView.OnItemClickListener() {
+            listPopup.create(UIUtils.dp2px(100), UIUtils.dp2px(360), new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     if (buyOrSell == 1) {
@@ -172,6 +172,7 @@ public class OtcOrderListActivity extends BaseActivity {
             listPopup.setDropDownGravity(Gravity.CENTER_HORIZONTAL);
         }
         listPopup.setAnchorView(con_status);
+        listPopup.setHorizontalOffset(UIUtils.dp2px(10));
         listPopup.show();
     }
 }

@@ -233,7 +233,7 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
             data.add(getResources().getString(R.string.margin_account));
             ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.simple_list_item, data);
             listPopup = new ListPopWindow(this, adapter);
-            listPopup.create(UIUtils.dp2px(200), UIUtils.dp2px(81), new AdapterView.OnItemClickListener() {
+            listPopup.create(UIUtils.dp2px(200), UIUtils.dp2px(80), new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     flag = position;

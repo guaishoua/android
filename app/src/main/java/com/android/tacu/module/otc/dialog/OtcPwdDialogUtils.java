@@ -33,7 +33,7 @@ public class OtcPwdDialogUtils {
                     }
                 })
                 .negativeButton(mContext.getResources().getString(R.string.cancel), null)
-                .cancelable(true, true)
+                .cancelable(false, false)
                 .show();
     }
 

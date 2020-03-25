@@ -2,6 +2,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_40"
+    android:background="@color/color_listpop"
     android:gravity="center"
-    android:textColor="@color/text_black"
+    android:textColor="@color/text_color"
     android:textSize="@dimen/text_size_sp_14" />

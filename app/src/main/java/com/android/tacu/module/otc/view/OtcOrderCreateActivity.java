@@ -244,11 +244,7 @@ public class OtcOrderCreateActivity extends BaseOtcOrderActvity<OtcOrderCreatePr
                 height = itemHeight;
             } else {
                 for (int i = 0; i < data.size(); i++) {
-                    if (i == 0) {
-                        height += itemHeight;
-                    } else {
-                        height += itemHeight + 1;
-                    }
+                    height += itemHeight;
                 }
             }
 

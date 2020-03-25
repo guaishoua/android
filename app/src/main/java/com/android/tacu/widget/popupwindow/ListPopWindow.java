@@ -34,4 +34,10 @@ public class ListPopWindow extends ListPopupWindow {
 
         setOnItemClickListener(onItemClickListener);
     }
+
+    @Override
+    public void show() {
+        super.show();
+        getListView().setDividerHeight(0);
+    }
 }

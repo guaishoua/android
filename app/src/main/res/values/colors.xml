@@ -63,6 +63,7 @@
     <color name="color_dialog">#1D252F</color>
     <color name="color_negative">#333E47</color>
     <color name="color_positive">#E2BF1C</color>
+    <color name="color_listpop">#1D252F</color>
     <!--启动页的背景颜色-->
     <color name="color_splash">#0C2648</color>
     <!--默认进度条颜色-->
