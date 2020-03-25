@@ -502,6 +502,11 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 @Override
                 public void onClick(View v) {
                     if (!OtcDialogUtils.isDialogShow(getContext())) {
+                        if (spUtil.getDisclaimer() == 0) {
+                            OtcDialogUtils.setShowOtcXieyi(getContext());
+                            return;
+                        }
+
                         if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
                             jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
                         } else {

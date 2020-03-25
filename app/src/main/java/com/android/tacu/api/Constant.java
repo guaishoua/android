@@ -76,7 +76,6 @@ public class Constant {
 
     //会员权益
     public static final String MEMBERSHIP = SOCKET_IP + "/MemberShip";
-    //public static final String MEMBERSHIP = "http://192.168.20.60:3002/MemberShip";
 
     //注册协议
     public static final String REGISTER_XIEYI = "";

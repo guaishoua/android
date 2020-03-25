@@ -14,9 +14,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.OTCOrderVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcOrderContract;
@@ -64,10 +61,8 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
 
     private int start = 1;
     private boolean isFirst = true;
-    private boolean isVisibleToUserParent = false;
     private List<OtcTradeAllModel> tradeModelList = new ArrayList<>();
 
-    private DroidDialog droidDialog;
     private DroidDialog sureDialog;
 
     private Long currentTime;//当前服务器时间戳
@@ -143,10 +138,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(orderAdapter);
-
-        if (buyOrSell == 0) {
-            isVisibleToUserParent = true;
-        }
     }
 
     @Override
@@ -178,9 +169,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
             timeHandler.removeCallbacks(timeRunnable);
         }
         cancelTime();
-        if (droidDialog != null && droidDialog.isShowing()) {
-            droidDialog.dismiss();
-        }
         if (sureDialog != null && sureDialog.isShowing()) {
             sureDialog.dismiss();
         }
@@ -192,23 +180,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         if (refreshManage != null && (refreshManage.isRefreshing() || refreshManage.isLoading())) {
             refreshManage.finishRefresh();
             refreshManage.finishLoadmore();
-        }
-    }
-
-    @Override
-    protected void receiveEvent(BaseEvent event) {
-        super.receiveEvent(event);
-        if (event != null) {
-            switch (event.getCode()) {
-                case EventConstant.OTCOrderVisibleCode:
-                    OTCOrderVisibleHintEvent otcOrderVisibleHintEvent = (OTCOrderVisibleHintEvent) event.getData();
-                    isVisibleToUserParent = otcOrderVisibleHintEvent.isVisibleToUser();
-                    int buyOrSell1 = otcOrderVisibleHintEvent.getBuyOrSell();
-                    if (buyOrSell1 == buyOrSell) {
-                        upload(isFirst, true);
-                    }
-                    break;
-            }
         }
     }
 
@@ -291,8 +262,13 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         orderAdapter.notifyDataSetChanged();
     }
 
+    public void setValue(int orderStatus) {
+        this.orderStatus = orderStatus;
+        upload(true, true);
+    }
+
     private void upload(boolean isShowView, boolean isTop) {
-        if (!isVisibleToUserParent || !isVisibleToUser) {
+        if (!isVisibleToUser) {
             return;
         }
         if (isFirst) {
@@ -403,19 +379,9 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.text_color));
                             holder.setGone(R.id.view_four, true);
                             holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
-                            holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.mobile));
+                            holder.setText(R.id.tv_righttop_title, "");
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
-
-                            otcPhone = "";
-                            if (item.tradeModel.merchantId == spUtil.getUserUid()) {
-                                otcPhone = item.infoModel.mobile;
-
-                                holder.setGone(R.id.btn_left, true);
-                                holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_order));
-                            } else {
-                                otcPhone = item.tradeModel.explaininfo;
-                            }
-                            holder.setText(R.id.tv_righttop, otcPhone);
+                            holder.setText(R.id.tv_righttop, "");
 
                             if (currentTime != null) {
                                 if (!TextUtils.isEmpty(item.tradeModel.confirmEndTime)) {

@@ -25,8 +25,6 @@ public class EventConstant {
     public static final int VipBuyCode = 1009;
     //OtcMarketListFragment 发送当前的isVisibleToUser
     public static final int OTCListVisibleCode = 1010;
-    //OtcOrderListFragment 发送当前的isVisibleToUser
-    public static final int OTCOrderVisibleCode = 1011;
     //TradeFragment 发送当前的isVisibleToUser
-    public static final int TradeVisibleCode = 1012;
+    public static final int TradeVisibleCode = 1011;
 }

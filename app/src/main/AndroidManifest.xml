@@ -168,5 +168,6 @@
         <activity android:name="com.android.tacu.module.vip.view.DepositRecordActivity" />
         <activity android:name="com.android.tacu.module.vip.view.BuyVipActivity" />
         <activity android:name="com.android.tacu.module.assets.view.AssetsInfoActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcTradeRulesActivity" />
     </application>
 </manifest>

@@ -36,6 +36,7 @@ import com.android.tacu.module.main.model.UploadModel;
 import com.android.tacu.module.main.presenter.MainPresenter;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.SelfModel;
+import com.android.tacu.module.otc.dialog.OtcDialogUtils;
 import com.android.tacu.module.otc.view.OtcMarketFragment;
 import com.android.tacu.module.splash.SplashActivity;
 import com.android.tacu.module.transaction.view.TradeFragment;
@@ -544,6 +545,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 lastShowFragment = Constant.MAIN_OTC;
                 img_otc.setImageResource(R.mipmap.img_main_otc_selected);
                 tv_otc.setTextColor(ContextCompat.getColor(this, R.color.main_tab_black_color));
+
+                boolean isShowXieyi = true;
+                if (spUtil.getLogin()) {
+                    isShowXieyi = spUtil.getDisclaimer() == 0 ? true : false;
+                }
+                if (isShowXieyi) {
+                    OtcDialogUtils.setShowOtcXieyi(this);
+                }
                 break;
             case Constant.MAIN_ASSETS:
                 if (spUtil.getLogin()) {
