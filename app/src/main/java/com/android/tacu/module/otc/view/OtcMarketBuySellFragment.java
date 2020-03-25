@@ -99,9 +99,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     @Override
     protected void initLazy() {
         super.initLazy();
-        if (isFirst) {
-            upload(true, true);
-        }
+        upload(isFirst, true);
     }
 
     @Override

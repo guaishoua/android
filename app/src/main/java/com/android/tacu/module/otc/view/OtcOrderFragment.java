@@ -99,9 +99,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     @Override
     protected void initLazy() {
         super.initLazy();
-        if (isFirst) {
-            upload(true, true);
-        }
+            upload(isFirst, true);
     }
 
     @Override
@@ -208,8 +206,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                     if (buyOrSell1 == buyOrSell) {
                         upload(isFirst, true);
                     }
-
-                    LogUtils.i("jiazhen", "isVisibleToUserParent=" + isVisibleToUserParent + " buyOrSell1=" + buyOrSell1);
                     break;
             }
         }

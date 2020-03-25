@@ -54,9 +54,7 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
     @Override
     protected void initLazy() {
         super.initLazy();
-        if (isFirst) {
-            upload(true, true);
-        }
+        upload(isFirst, true);
     }
 
     @Override

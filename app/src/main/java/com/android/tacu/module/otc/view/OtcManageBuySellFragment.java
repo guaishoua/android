@@ -122,9 +122,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     @Override
     protected void initLazy() {
         super.initLazy();
-        if (isFirst) {
-            upload();
-        }
+        upload();
     }
 
     @Override
