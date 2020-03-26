@@ -31,7 +31,6 @@
 
     <!--登录注册-->
     <string name="pwd_login">密碼登錄</string>
-    <string name="login_email_or_phone">郵箱/手機</string>
     <string name="password">密碼</string>
     <string name="login">登錄</string>
     <string name="forgot_password">忘記密碼</string>
@@ -219,8 +218,6 @@
     <string name="no_bind">未綁定</string>
     <string name="idNumber">證件號碼</string>
     <string name="passport_type">證件類型</string>
-    <string name="startTime">ID簽發日期</string>
-    <string name="endTime">ID有效期至</string>
     <string name="next">下壹步</string>
     <string name="Inviting_friends">邀請好友</string>
     <string name="woman">女</string>
@@ -344,7 +341,6 @@
     <string name="confirm_orderlist_delete">您正在批量撤銷%1$s個委托單，是否確定撤銷？</string>
     <string name="currentCoin_limit_high_low">当前币限制最小数量%1$s个和最大数量%2$s个</string>
     <string name="trade_detail">交易明細</string>
-    <string name="trade_trend">盤口</string>
     <string name="good_price">最優價交易</string>
     <string name="amount_price">金額</string>
 
@@ -553,7 +549,6 @@
     <string name="yinhanngka">銀行卡</string>
     <string name="zhifubao">支付寶</string>
     <string name="weixin">微信</string>
-    <string name="surplus_all_amount">剩余量/總量</string>
     <string name="quota">限額</string>
     <string name="single_price">單價</string>
     <string name="single_price_acu_cny">單價(ACU/CNY)</string>
@@ -600,7 +595,6 @@
         \n圖片請圖片控制在20MB大小
         \n支持JPG\PNG\BMP格式</string>
     <string name="confirm_and_pay">確認並支付</string>
-    <string name="giveup_pay">放棄支付</string>
     <string name="please_scan_with_wx">請使用微信掃描該付款碼</string>
     <string name="please_scan_with_zfb">請使用支付寶掃描該付款碼</string>
     <string name="picture">圖片</string>
@@ -629,17 +623,17 @@
     <string name="otc_order_confirm">訂單確認頁</string>
     <string name="order_confirm">訂單已確認</string>
     <string name="cancel_success">取消成功</string>
-    <string name="bond">保證金：</string>
-    <string name="all_deal_amount">總成單量：</string>
-    <string name="buy_amount">買單量：</string>
-    <string name="sell_amount">賣單量：</string>
-    <string name="deal_rate">成單率：</string>
+    <string name="bond">保證金</string>
+    <string name="all_deal_amount">總成交量</string>
+    <string name="buy_amount">買單量</string>
+    <string name="sell_amount">賣單量</string>
+    <string name="deal_rate">成單率</string>
     <string name="dispute_amount">糾紛量：</string>
     <string name="be_arbitrated_amount">被仲裁量：</string>
     <string name="arbitration_amount">仲裁量：</string>
     <string name="appeal_amount">申訴量：</string>
     <string name="win_lawsuit_amount">勝訴量：</string>
-    <string name="average_payment_time">平均付款時間：</string>
+    <string name="average_payment_time">平均付款時間</string>
     <string name="current_trade_amount">本次交易數量：</string>
     <string name="current_trade_price">本次交易金額：</string>
     <string name="current_pay_method">本次付款方式：</string>
@@ -649,16 +643,10 @@
     <string name="look_advertising_info">查看廣告信息</string>
     <string name="otc_buy_page">買入頁面</string>
     <string name="otc_sell_page">賣出頁面</string>
-    <string name="plan_buy_amount">計劃購入總量：</string>
-    <string name="remaining_unsold">剩余未購入量：</string>
-    <string name="remaining_unsold_all">剩余購入總價：</string>
     <string name="all_num">總量</string>
     <string name="remind_num">剩余量</string>
     <string name="remind_all">剩余總價</string>
-    <string name="single_min_limit">單筆最小限額：</string>
-    <string name="single_max_limit">單筆最大限額：</string>
-    <string name="seller_coined_time_limit">賣家放幣時限：</string>
-    <string name="receiving_account">收款賬號</string>
+    <string name="seller_coined_time_limit">賣家放幣時限</string>
     <string name="account_balance1">賬戶余額</string>
     <string name="sell_number">出售數量</string>
     <string name="input_sell_number">輸入出售數量</string>
@@ -728,20 +716,15 @@
     <!--綁定支付-->
     <string name="binding_pay_info">綁定支付信息</string>
     <string name="cardholder_name">姓名</string>
-    <string name="cardholder_name_tip">為了保證您的正常交易，請綁定與您KYC真實姓名壹致的銀行</string>
     <string name="bank_name">開戶銀行</string>
     <string name="please_input_bank_name">請輸入開戶銀行</string>
     <string name="open_bank_name">開戶支行</string>
     <string name="please_input_open_bank_name">請輸入開戶支行</string>
     <string name="open_bank_address">開戶行地址</string>
-    <string name="please_input_open_bank_address">請輸入開戶行地址</string>
     <string name="bank_id">銀行賬號</string>
     <string name="please_input_bank_id">請輸入銀行卡號</string>
     <string name="please_input_trade_password">請輸入您的交易密碼</string>
     <string name="confirm_binding">確認綁定</string>
-    <string name="account_owner">賬號所有人</string>
-    <string name="account_owner_wx_tip">為了保證您的正常交易，請綁定與您KYC真實姓名壹致的微信</string>
-    <string name="account_owner_zfb_tip">為了保證您的正常交易，請綁定與您KYC真實姓名壹致的支付寶</string>
     <string name="wx_account">微信號</string>
     <string name="zfb_account">支付寶</string>
     <string name="please_input_wx_account">請輸入微信號</string>

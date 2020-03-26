@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/color_dialog"
     android:orientation="vertical">
 
     <android.support.constraint.ConstraintLayout
@@ -51,7 +52,6 @@
             android:background="@drawable/checkbox_rect_default"
             android:button="@null"
             android:checked="false"
-            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -117,7 +117,6 @@
             android:background="@drawable/checkbox_rect_default"
             android:button="@null"
             android:checked="false"
-            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -183,7 +182,6 @@
             android:background="@drawable/checkbox_rect_default"
             android:button="@null"
             android:checked="false"
-            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

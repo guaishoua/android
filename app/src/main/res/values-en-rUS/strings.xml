@@ -32,7 +32,6 @@
 
     <!--登录注册-->
     <string name="pwd_login">Password login</string>
-    <string name="login_email_or_phone">Your Email or Mobile phone</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="forgot_password">Forgot Password</string>
@@ -218,8 +217,6 @@
     <string name="no_bind">Unbound</string>
     <string name="birthday">Date of birth</string>
     <string name="passport_type">ID type</string>
-    <string name="startTime">issuing date of ID card</string>
-    <string name="endTime">valid period of ID card</string>
     <string name="next">Next</string>
     <string name="woman">woman</string>
     <string name="man">man</string>
@@ -344,7 +341,6 @@
     <string name="confirm_orderlist_delete">You are canceling %1$s orders in batches, are you sure to cancel them?</string>
     <string name="currentCoin_limit_high_low">Limited minimum quantity %1$s and Limited Maximum quantity %2$s</string>
     <string name="trade_detail">Transaction History</string>
-    <string name="trade_trend">Trend</string>
     <string name="good_price">Optimal price</string>
     <string name="amount_price">Amount</string>
 
@@ -559,7 +555,6 @@
     <string name="yinhanngka">Bank card</string>
     <string name="zhifubao">Alipay</string>
     <string name="weixin">WeChat</string>
-    <string name="surplus_all_amount">Remaining/Total</string>
     <string name="quota">Amount</string>
     <string name="single_price">Price</string>
     <string name="single_price_acu_cny">Price(ACU/CNY)</string>
@@ -606,7 +601,6 @@
         \nPicture should be up to 20MB
         \nSupport JPG\PNG\BMP</string>
     <string name="confirm_and_pay">Confirm and pay</string>
-    <string name="giveup_pay">Cancel payment</string>
     <string name="please_scan_with_wx">Use WeChat to scan</string>
     <string name="please_scan_with_zfb">Use Alipay to scan</string>
     <string name="picture">picture</string>
@@ -635,17 +629,17 @@
     <string name="otc_order_confirm">Order confirmation page</string>
     <string name="order_confirm">Order confirmed</string>
     <string name="cancel_success">Order cancelled</string>
-    <string name="bond">Margin:</string>
-    <string name="all_deal_amount">Total orders:</string>
-    <string name="buy_amount">Buy orders:</string>
-    <string name="sell_amount">Sell orders:</string>
-    <string name="deal_rate">Success rate:</string>
+    <string name="bond">Margin</string>
+    <string name="all_deal_amount">Total orders</string>
+    <string name="buy_amount">Buy orders</string>
+    <string name="sell_amount">Sell orders</string>
+    <string name="deal_rate">Success rate</string>
     <string name="dispute_amount">Disputes:</string>
     <string name="be_arbitrated_amount">Arbitrated:</string>
     <string name="arbitration_amount">Arbitration:</string>
     <string name="appeal_amount">Appeal:</string>
     <string name="win_lawsuit_amount">Wins:</string>
-    <string name="average_payment_time">Average pay time:</string>
+    <string name="average_payment_time">Average pay time</string>
     <string name="current_trade_amount">Current trades:</string>
     <string name="current_trade_price">Current trading volume:</string>
     <string name="current_pay_method">Payment method:</string>
@@ -655,16 +649,10 @@
     <string name="look_advertising_info">View ad info</string>
     <string name="otc_buy_page">Buy page</string>
     <string name="otc_sell_page">Sell page</string>
-    <string name="plan_buy_amount">Plan purchase:</string>
-    <string name="remaining_unsold">Remaining unpurchased:</string>
-    <string name="remaining_unsold_all">Remaining purchase price:</string>
     <string name="all_num">Total</string>
     <string name="remind_num">Remaining amount</string>
     <string name="remind_all">Remaining price</string>
-    <string name="single_min_limit">Min limit:</string>
-    <string name="single_max_limit">Max limit:</string>
-    <string name="seller_coined_time_limit">Seller release coins in:</string>
-    <string name="receiving_account">Receiving account number</string>
+    <string name="seller_coined_time_limit">Seller release coins in</string>
     <string name="account_balance1">Account balance</string>
     <string name="sell_number">Sell amount</string>
     <string name="input_sell_number">Enter sell amount</string>
@@ -735,20 +723,15 @@
     <!--绑定支付-->
     <string name="binding_pay_info">Bind payment info</string>
     <string name="cardholder_name">Name</string>
-    <string name="cardholder_name_tip">To ensure normal trading, please bind your bank card.</string>
     <string name="bank_name">Bank name</string>
     <string name="please_input_bank_name">Enter your card bank name</string>
     <string name="open_bank_name">Bank\'s branch name</string>
     <string name="please_input_open_bank_name">Enter your bank\'s branch name</string>
     <string name="open_bank_address">Bank address</string>
-    <string name="please_input_open_bank_address">Enter the bank address</string>
     <string name="bank_id">Card number</string>
     <string name="please_input_bank_id">Enter your bank card number</string>
     <string name="please_input_trade_password">Enter your password</string>
     <string name="confirm_binding">Confirm binding</string>
-    <string name="account_owner">Account Owner</string>
-    <string name="account_owner_wx_tip">To ensure normal trading, please bind WeChat</string>
-    <string name="account_owner_zfb_tip">To ensure normal trading, please bind Alipay</string>
     <string name="wx_account">WeChat account</string>
     <string name="zfb_account">Alipay account</string>
     <string name="please_input_wx_account">Enter your WeChat account</string>

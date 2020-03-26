@@ -31,7 +31,6 @@
 
     <!--登录注册-->
     <string name="pwd_login">密码登录</string>
-    <string name="login_email_or_phone">邮箱/手机</string>
     <string name="password">密码</string>
     <string name="login">登录</string>
     <string name="forgot_password">忘记密码</string>
@@ -219,8 +218,6 @@
     <string name="no_bind">未绑定</string>
     <string name="idNumber">证件号码</string>
     <string name="passport_type">证件类型</string>
-    <string name="startTime">ID签发日期</string>
-    <string name="endTime">ID有效期至</string>
     <string name="next">下一步</string>
     <string name="Inviting_friends">邀请好友</string>
     <string name="woman">女</string>
@@ -344,7 +341,6 @@
     <string name="confirm_orderlist_delete">您正在批量撤销%1$s个委托单，是否确定撤销？</string>
     <string name="currentCoin_limit_high_low">当前币限制最小数量%1$s个和最大数量%2$s个</string>
     <string name="trade_detail">交易明细</string>
-    <string name="trade_trend">盘口</string>
     <string name="good_price">最优价交易</string>
     <string name="amount_price">金额</string>
 
@@ -555,7 +551,6 @@
     <string name="yinhanngka">银行卡</string>
     <string name="zhifubao">支付宝</string>
     <string name="weixin">微信</string>
-    <string name="surplus_all_amount">剩余量/总量</string>
     <string name="quota">限额</string>
     <string name="single_price">单价</string>
     <string name="single_price_acu_cny">单价(ACU/CNY)</string>
@@ -602,7 +597,6 @@
         \n图片请图片控制在20MB大小
         \n支持JPG\PNG\BMP格式</string>
     <string name="confirm_and_pay">确认并支付</string>
-    <string name="giveup_pay">放弃支付</string>
     <string name="please_scan_with_wx">请使用微信扫描该付款码</string>
     <string name="please_scan_with_zfb">请使用支付宝扫描该付款码</string>
     <string name="picture">图片</string>
@@ -631,17 +625,17 @@
     <string name="otc_order_confirm">订单确认页</string>
     <string name="order_confirm">订单已确认</string>
     <string name="cancel_success">取消成功</string>
-    <string name="bond">保证金：</string>
-    <string name="all_deal_amount">总成单量：</string>
-    <string name="buy_amount">买单量：</string>
-    <string name="sell_amount">卖单量：</string>
-    <string name="deal_rate">成单率：</string>
+    <string name="bond">保证金</string>
+    <string name="all_deal_amount">总成交量</string>
+    <string name="buy_amount">买单量</string>
+    <string name="sell_amount">卖单量</string>
+    <string name="deal_rate">成单率</string>
     <string name="dispute_amount">纠纷量：</string>
     <string name="be_arbitrated_amount">被仲裁量：</string>
     <string name="arbitration_amount">仲裁量：</string>
     <string name="appeal_amount">申诉量：</string>
     <string name="win_lawsuit_amount">胜诉量：</string>
-    <string name="average_payment_time">平均付款时间：</string>
+    <string name="average_payment_time">平均付款时间</string>
     <string name="current_trade_amount">本次交易数量：</string>
     <string name="current_trade_price">本次交易金额：</string>
     <string name="current_pay_method">本次付款方式：</string>
@@ -651,16 +645,10 @@
     <string name="look_advertising_info">查看广告信息</string>
     <string name="otc_buy_page">买入页面</string>
     <string name="otc_sell_page">卖出页面</string>
-    <string name="plan_buy_amount">计划购入总量：</string>
-    <string name="remaining_unsold">剩余未购入量：</string>
-    <string name="remaining_unsold_all">剩余购入总价：</string>
     <string name="all_num">总量</string>
     <string name="remind_num">剩余量</string>
     <string name="remind_all">剩余总价</string>
-    <string name="single_min_limit">单笔最小限额：</string>
-    <string name="single_max_limit">单笔最大限额：</string>
-    <string name="seller_coined_time_limit">卖家放币时限：</string>
-    <string name="receiving_account">收款账号</string>
+    <string name="seller_coined_time_limit">卖家放币时限</string>
     <string name="account_balance1">账户余额</string>
     <string name="sell_number">出售数量</string>
     <string name="input_sell_number">输入出售数量</string>
@@ -730,20 +718,15 @@
     <!--绑定支付-->
     <string name="binding_pay_info">绑定支付信息</string>
     <string name="cardholder_name">姓名</string>
-    <string name="cardholder_name_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的银行</string>
     <string name="bank_name">开户银行</string>
     <string name="please_input_bank_name">请输入开户银行</string>
     <string name="open_bank_name">开户支行</string>
     <string name="please_input_open_bank_name">请输入开户支行</string>
     <string name="open_bank_address">开户行地址</string>
-    <string name="please_input_open_bank_address">请输入开户行地址</string>
     <string name="bank_id">银行账号</string>
     <string name="please_input_bank_id">请输入银行卡号</string>
     <string name="please_input_trade_password">请输入您的交易密码</string>
     <string name="confirm_binding">确认绑定</string>
-    <string name="account_owner">账号所有人</string>
-    <string name="account_owner_wx_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的微信</string>
-    <string name="account_owner_zfb_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的支付宝</string>
     <string name="wx_account">微信号</string>
     <string name="zfb_account">支付宝</string>
     <string name="please_input_wx_account">请输入微信号</string>

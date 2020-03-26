@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,7 +42,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> implements OtcBuyOrSellContract.IView, View.OnClickListener {
+public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> implements OtcBuyOrSellContract.IView, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     @BindView(R.id.img_people)
     QMUIRadiusImageView img_people;
@@ -100,7 +101,7 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
 
     @Override
     protected void setView() {
-        setContentView(R.layout.activity_otc_buy_sell1);
+        setContentView(R.layout.activity_otc_buy_sell);
     }
 
     @Override
@@ -197,26 +198,7 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
 
     @Override
     public void onClick(View v) {
-        //支付类型 1银行卡 2微信 3支付宝
         switch (v.getId()) {
-            case R.id.cb_wx:
-                payType = 2;
-                cb_wx.setChecked(true);
-                cb_zfb.setChecked(false);
-                cb_yhk.setChecked(false);
-                break;
-            case R.id.cb_zfb:
-                payType = 3;
-                cb_wx.setChecked(false);
-                cb_zfb.setChecked(true);
-                cb_yhk.setChecked(false);
-                break;
-            case R.id.cb_yhk:
-                payType = 1;
-                cb_wx.setChecked(false);
-                cb_zfb.setChecked(false);
-                cb_yhk.setChecked(true);
-                break;
             case R.id.btn_go_wx:
             case R.id.btn_go_zfb:
             case R.id.btn_go_yhk:
@@ -226,8 +208,33 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
         }
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            //支付类型 1银行卡 2微信 3支付宝
+            switch (buttonView.getId()) {
+                case R.id.cb_wx:
+                    payType = 2;
+                    cb_zfb.setChecked(false);
+                    cb_yhk.setChecked(false);
+                    break;
+                case R.id.cb_zfb:
+                    payType = 3;
+                    cb_wx.setChecked(false);
+                    cb_yhk.setChecked(false);
+                    break;
+                case R.id.cb_yhk:
+                    payType = 1;
+                    cb_wx.setChecked(false);
+                    cb_zfb.setChecked(false);
+                    break;
+            }
+        }
+    }
+
     @OnClick(R.id.btn_shop_info)
     void goShopInfoClick() {
+        jumpTo(OtcShopInfoActivity.createActivity(this, isBuy, allModel));
     }
 
     @OnClick(R.id.btn_num_all)
@@ -393,9 +400,9 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
         TextView tv_wx_account = view.findViewById(R.id.tv_wx_account);
         TextView tv_zfb_account = view.findViewById(R.id.tv_zfb_account);
         TextView tv_yhk_account = view.findViewById(R.id.tv_yhk_account);
-        CheckBox cb_wx = view.findViewById(R.id.cb_wx);
-        CheckBox cb_zfb = view.findViewById(R.id.cb_zfb);
-        CheckBox cb_yhk = view.findViewById(R.id.cb_yhk);
+        cb_wx = view.findViewById(R.id.cb_wx);
+        cb_zfb = view.findViewById(R.id.cb_zfb);
+        cb_yhk = view.findViewById(R.id.cb_yhk);
         QMUIAlphaButton btn_go_wx = view.findViewById(R.id.btn_go_wx);
         QMUIAlphaButton btn_go_zfb = view.findViewById(R.id.btn_go_zfb);
         QMUIAlphaButton btn_go_yhk = view.findViewById(R.id.btn_go_yhk);
@@ -404,9 +411,10 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
         view_zfb.setVisibility(View.GONE);
         view_yhk.setVisibility(View.GONE);
 
-        cb_wx.setOnClickListener(this);
-        cb_zfb.setOnClickListener(this);
-        cb_yhk.setOnClickListener(this);
+        cb_wx.setOnCheckedChangeListener(this);
+        cb_zfb.setOnCheckedChangeListener(this);
+        cb_yhk.setOnCheckedChangeListener(this);
+
         btn_go_wx.setOnClickListener(this);
         btn_go_zfb.setOnClickListener(this);
         btn_go_yhk.setOnClickListener(this);
@@ -419,7 +427,7 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
                     if (yhkModel != null) {
                         cb_yhk.setVisibility(View.VISIBLE);
                         btn_go_yhk.setVisibility(View.GONE);
-                        tv_yhk_account.setText(yhkModel.bankCard);
+                        tv_yhk_account.setText(CommonUtils.hideCardNo(yhkModel.bankCard));
                     } else {
                         cb_yhk.setVisibility(View.GONE);
                         btn_go_yhk.setVisibility(View.VISIBLE);
@@ -431,7 +439,7 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
                     if (wxModel != null) {
                         cb_wx.setVisibility(View.VISIBLE);
                         btn_go_wx.setVisibility(View.GONE);
-                        tv_wx_account.setText(wxModel.weChatNo);
+                        tv_wx_account.setText(CommonUtils.hidePhoneNo(wxModel.weChatNo));
                     } else {
                         cb_wx.setVisibility(View.GONE);
                         btn_go_wx.setVisibility(View.VISIBLE);
@@ -443,7 +451,7 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
                     if (zfbModel != null) {
                         cb_zfb.setVisibility(View.VISIBLE);
                         btn_go_zfb.setVisibility(View.GONE);
-                        tv_zfb_account.setText(zfbModel.aliPayNo);
+                        tv_zfb_account.setText(CommonUtils.hidePhoneNo(zfbModel.aliPayNo));
                     } else {
                         cb_zfb.setVisibility(View.GONE);
                         btn_go_zfb.setVisibility(View.VISIBLE);
@@ -453,6 +461,7 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
             }
         }
 
+        payType = null;
         String titleString = "";
         if (isBuy) {
             titleString = getResources().getString(R.string.choose_paymoney_type);

@@ -270,7 +270,7 @@ public class CommonUtils {
 
     public static String nameXing(String firstName, String secondName) {
         if (TextUtils.isEmpty(firstName)) {
-           firstName = "";
+            firstName = "";
         }
         if (TextUtils.isEmpty(secondName)) {
             secondName = "";
@@ -322,5 +322,55 @@ public class CommonUtils {
             item.put("href", href);
         }
         return item;
+    }
+
+    /**
+     * 银行卡隐藏中间数字
+     */
+    public static String hideCardNo(String cardNo) {
+        if (TextUtils.isEmpty(cardNo) || cardNo.length() <= 8) {
+            return cardNo;
+        }
+
+        int length = cardNo.length();
+        int beforeLength = 4;
+        int afterLength = 4;
+        //替换字符串，当前使用“*”
+        String replaceSymbol = "*";
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            if (i < beforeLength || i >= (length - afterLength)) {
+                sb.append(cardNo.charAt(i));
+            } else {
+                sb.append(replaceSymbol);
+            }
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * 隐藏支付宝微信号
+     */
+    public static String hidePhoneNo(String phoneNo) {
+        if (TextUtils.isEmpty(phoneNo) || phoneNo.length() <= 6) {
+            return phoneNo;
+        }
+
+        int length = phoneNo.length();
+        int beforeLength = 4;
+        int afterLength = 2;
+        //替换字符串，当前使用“*”
+        String replaceSymbol = "*";
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            if (i < beforeLength || i >= (length - afterLength)) {
+                sb.append(phoneNo.charAt(i));
+            } else {
+                sb.append(replaceSymbol);
+            }
+        }
+
+        return sb.toString();
     }
 }

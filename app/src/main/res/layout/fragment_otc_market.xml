@@ -114,7 +114,6 @@
         app:qmui_radiusTopLeft="@dimen/dp_3">
 
         <TextView
-            android:id="@+id/tv_guanggao1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/publish"
@@ -122,7 +121,6 @@
             android:textSize="@dimen/text_size_sp_14" />
 
         <TextView
-            android:id="@+id/tv_guanggao2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/guanggao"
@@ -148,7 +146,6 @@
         app:qmui_radiusTopLeft="@dimen/dp_3">
 
         <TextView
-            android:id="@+id/tv_auth1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/certified"
@@ -156,7 +153,6 @@
             android:textSize="@dimen/text_size_sp_14" />
 
         <TextView
-            android:id="@+id/tv_auth2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/shoper"
