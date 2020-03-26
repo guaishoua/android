@@ -3,22 +3,14 @@ package com.android.tacu.module.otc.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.alibaba.sdk.android.oss.ClientConfiguration;
-import com.alibaba.sdk.android.oss.OSS;
-import com.alibaba.sdk.android.oss.OSSClient;
-import com.alibaba.sdk.android.oss.common.OSSLog;
-import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
-import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.OtcDetailNotifyEvent;
 import com.android.tacu.R;
-import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
-import com.android.tacu.base.MyApplication;
-import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcOrderDetailContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
@@ -33,11 +25,7 @@ import com.android.tacu.module.otc.orderView.PayGetView;
 import com.android.tacu.module.otc.orderView.PayedView;
 import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import butterknife.BindView;
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 
 public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter> implements OtcOrderDetailContract.IView {
 
@@ -47,8 +35,6 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
 
     //接口30s轮训一次
     private static final int KREFRESH_TIME = 1000 * 30;
-
-    public static final int TAKE_PIC = 1001;
 
     @BindView(R.id.lin_switch)
     LinearLayout linSwitch;
@@ -135,43 +121,16 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) {
-            return;
-        }
-        if (requestCode == TAKE_PIC) {
-            ArrayList<String> imageList = BGAPhotoPickerActivity.getSelectedImages(data);
-            for (int i = 0; i < imageList.size(); i++) {
-                String imageUri = imageList.get(i);
-                File fileOrgin = new File(imageUri);
-
-                // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
-                // 12 买家成功 13 卖家成功
-                switch (status) {
-                    case 2:
-                        if (model != null && model.buyuid == spUtil.getUserUid()) {
-                            if (payedView != null) {
-                                payedView.getPic(fileOrgin);
-                            }
-                        }
-                        break;
-                    case 3:
-                    case 9:
-                        if (model != null && model.buyuid == spUtil.getUserUid()) {
-                            if (coinGetView != null) {
-                                coinGetView.getPic(fileOrgin);
-                            }
-                        }
-                        break;
-                    case 4:
-                    case 12:
-                    case 13:
-                        if (arbitrationView != null) {
-                            arbitrationView.getPic(fileOrgin);
-                        }
-                        break;
-                }
+    protected void receiveEvent(BaseEvent event) {
+        super.receiveEvent(event);
+        if (event != null) {
+            switch (event.getCode()) {
+                case EventConstant.OTCDetailCode:
+                    OtcDetailNotifyEvent otcDetailNotifyEvent = (OtcDetailNotifyEvent) event.getData();
+                    if (otcDetailNotifyEvent.isNotify()) {
+                        upload(true);
+                    }
+                    break;
             }
         }
     }
@@ -188,9 +147,9 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
             }
             if (isBuy != null && isFirst) {
                 if (isBuy) {
-                    mPresenter.userBaseInfo(2, model.selluid);
+                    mPresenter.userBaseInfo(model.selluid);
                 } else {
-                    mPresenter.userBaseInfo(1, model.buyuid);
+                    mPresenter.userBaseInfo(model.buyuid);
                 }
             }
 
@@ -214,27 +173,11 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                         mPresenter.currentTime();
                         break;
                     case 2:
-                        if (model.buyuid == spUtil.getUserUid()) {
-                            mPresenter.currentTime();
-                            mPresenter.selectPayInfoById(model.payId);
-                        } else if (model.selluid == spUtil.getUserUid()) {
-                            mPresenter.currentTime();
-                        }
-                        break;
                     case 3:
                     case 9:
-                        mPresenter.currentTime();
-                        if (!TextUtils.isEmpty(model.payInfo)) {
-                            mPresenter.uselectUserInfo(model.payInfo);
-                        }
-                        break;
                     case 10:
-                    case 4:
-                    case 12:
-                    case 13:
-                        if (!TextUtils.isEmpty(model.payInfo)) {
-                            mPresenter.uselectUserInfo(model.payInfo);
-                        }
+                        mPresenter.currentTime();
+                        mPresenter.selectPayInfoById(model.payId);
                         break;
                 }
             }
@@ -295,45 +238,32 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
     }
 
     @Override
-    public void userBaseInfo(Integer buyOrSell, OtcMarketInfoModel marketInfoModel, Integer queryUid) {
+    public void userBaseInfo(OtcMarketInfoModel marketInfoModel) {
         if (marketInfoModel != null) {
-            if (buyOrSell != null) {
-                if (confirmView != null) {
-                    confirmView.setUserInfo(marketInfoModel);
-                }
-                if (payedView != null) {
-                    payedView.setUserInfo(marketInfoModel);
-                }
-                if (payGetView != null) {
-                    payGetView.setUserInfo(marketInfoModel);
-                }
-                if (coinedView != null) {
-                    coinedView.setUserInfo(marketInfoModel);
-                }
-                if (coinGetView != null) {
-                    coinGetView.setUserInfo(marketInfoModel);
-                }
-                if (finishView != null) {
-                    finishView.setUserInfo(marketInfoModel);
-                }
-                if (arbitrationView != null) {
-                    arbitrationView.setUserInfo(marketInfoModel);
-                }
-                if (cancelView != null) {
-                    cancelView.setUserInfo(marketInfoModel);
-                }
-            } else {
-                // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
-                // 12 买家成功 13 卖家成功
-                switch (status) {
-                    case 2:
-                        if (model != null && model.buyuid == spUtil.getUserUid()) {
-                            if (payedView != null) {
-                                payedView.userBaseInfo(marketInfoModel);
-                            }
-                        }
-                        break;
-                }
+            if (confirmView != null) {
+                confirmView.setUserInfo(marketInfoModel);
+            }
+            if (payedView != null) {
+                payedView.setUserInfo(marketInfoModel);
+                payedView.userBaseInfo(marketInfoModel);
+            }
+            if (payGetView != null) {
+                payGetView.setUserInfo(marketInfoModel);
+            }
+            if (coinedView != null) {
+                coinedView.setUserInfo(marketInfoModel);
+            }
+            if (coinGetView != null) {
+                coinGetView.setUserInfo(marketInfoModel);
+            }
+            if (finishView != null) {
+                finishView.setUserInfo(marketInfoModel);
+            }
+            if (arbitrationView != null) {
+                arbitrationView.setUserInfo(marketInfoModel);
+            }
+            if (cancelView != null) {
+                cancelView.setUserInfo(marketInfoModel);
             }
         }
     }
@@ -384,10 +314,23 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
         // 12 买家成功 13 卖家成功
         switch (status) {
             case 2:
-                if (model != null && model.buyuid == spUtil.getUserUid()) {
-                    if (payedView != null) {
-                        payedView.selectPayInfoById(payInfoModel);
-                    }
+            case 3:
+            case 9:
+            case 10:
+                if (payedView != null) {
+                    payedView.selectPayInfoById(payInfoModel);
+                }
+                if (payGetView != null) {
+                    payGetView.selectPayInfoById(payInfoModel);
+                }
+                if (coinedView != null) {
+                    coinedView.selectPayInfoById(payInfoModel);
+                }
+                if (coinGetView != null) {
+                    coinGetView.selectPayInfoById(payInfoModel);
+                }
+                if (finishView != null) {
+                    finishView.selectPayInfoById(payInfoModel);
                 }
                 break;
         }
@@ -401,32 +344,6 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                     if (payedView != null) {
                         payedView.uselectUserInfo(imageUrl);
                     }
-                }
-                break;
-            case 3:
-            case 9:
-                if (model != null) {
-                    if (model.buyuid == spUtil.getUserUid()) {
-                        if (coinGetView != null) {
-                            coinGetView.uselectUserInfo(imageUrl);
-                        }
-                    } else if (model.selluid == spUtil.getUserUid()) {
-                        if (coinedView != null) {
-                            coinedView.uselectUserInfo(imageUrl);
-                        }
-                    }
-                }
-                break;
-            case 10:
-                if (finishView != null) {
-                    finishView.uselectUserInfo(imageUrl);
-                }
-                break;
-            case 4:
-            case 12:
-            case 13:
-                if (arbitrationView != null) {
-                    arbitrationView.uselectUserInfo(imageUrl);
                 }
                 break;
         }
@@ -446,47 +363,6 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
     }
 
     @Override
-    public void getOssSetting(AuthOssModel authOssModel) {
-        if (authOssModel != null) {
-            OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(authOssModel.AccessKeyId, authOssModel.AccessKeySecret, authOssModel.SecurityToken);
-            ClientConfiguration conf = new ClientConfiguration();
-            conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
-            conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
-            conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
-            conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
-            OSSLog.enableLog();
-
-            OSS mOss = new OSSClient(MyApplication.getInstance(), Constant.OSS_ENDPOINT, credentialProvider);
-            String bucketName = authOssModel.bucket;
-
-            switch (status) {
-                case 2:
-                    if (model != null && model.buyuid == spUtil.getUserUid()) {
-                        if (payedView != null) {
-                            payedView.uploadImgs(mOss, bucketName);
-                        }
-                    }
-                    break;
-                case 3:
-                case 9:
-                    if (model != null && model.buyuid == spUtil.getUserUid()) {
-                        if (coinGetView != null) {
-                            coinGetView.uploadImgs(mOss, bucketName);
-                        }
-                    }
-                    break;
-                case 4:
-                case 12:
-                case 13:
-                    if (arbitrationView != null) {
-                        arbitrationView.uploadImgs(mOss, bucketName);
-                    }
-                    break;
-            }
-        }
-    }
-
-    @Override
     public void payOrderSuccess() {
         showToastSuccess(getResources().getString(R.string.submit_success));
         upload(true);
@@ -502,18 +378,6 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
     public void finishOrderSuccess() {
         showToastSuccess(getResources().getString(R.string.submit_success));
         upload(true);
-    }
-
-    @Override
-    public void arbitrationOrderSuccess() {
-        showToastSuccess(getResources().getString(R.string.submit_success));
-        upload(true);
-    }
-
-    @Override
-    public void beArbitrationOrderSuccess() {
-        showToastSuccess(getResources().getString(R.string.submit_success));
-        finish();
     }
 
     private void upload(boolean isShowView) {
@@ -552,7 +416,7 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
 
                 if (model.buyuid == spUtil.getUserUid()) {
                     coinGetView = new CoinGetView();
-                    statusView = coinGetView.create(this, mPresenter);
+                    statusView = coinGetView.create(this);
                 } else if (model.selluid == spUtil.getUserUid()) {
                     coinedView = new CoinedView();
                     statusView = coinedView.create(this, mPresenter);

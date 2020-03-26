@@ -5,6 +5,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.EventManage;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.OtcDetailNotifyEvent;
 import com.android.tacu.R;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
@@ -25,6 +29,7 @@ public class ConfirmView extends BaseOtcView {
     private Long currentTime;
     private CountDownTimer time;
     private String[] getCountDownTimes;
+    private boolean isLock = false;
 
     public View create(OtcOrderDetailActivity activity) {
         this.activity = activity;
@@ -73,15 +78,25 @@ public class ConfirmView extends BaseOtcView {
         if (time != null) {
             return;
         }
+        isLock = false;
         time = new CountDownTimer(valueTime, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 try {
-                    getCountDownTimes = DateUtils.getCountDownTime2(millisUntilFinished);
-                    if (getCountDownTimes != null && getCountDownTimes.length == 3) {
-                        tv_hour.setText(getCountDownTimes[0]);
-                        tv_minute.setText(getCountDownTimes[1]);
-                        tv_second.setText(getCountDownTimes[2]);
+                    if (isLock) {
+                        return;
+                    }
+                    if (millisUntilFinished >= 0) {
+                        getCountDownTimes = DateUtils.getCountDownTime2(millisUntilFinished);
+                        if (getCountDownTimes != null && getCountDownTimes.length == 3) {
+                            tv_hour.setText(getCountDownTimes[0]);
+                            tv_minute.setText(getCountDownTimes[1]);
+                            tv_second.setText(getCountDownTimes[2]);
+                        }
+                    } else {
+                        time.cancel();
+                        isLock = true;
+                        EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

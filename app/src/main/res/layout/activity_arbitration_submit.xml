@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color_grey"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/common_titlebar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/content_bg_color"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dp_15"
+                android:paddingVertical="@dimen/dp_15">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    app:srcCompat="@drawable/icon_error_outline" />
+
+                <TextView
+                    android:id="@+id/tv_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_14"
+                    tools:text="@string/arbitration_tip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/content_bg_color"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_15">
+
+                <TextView
+                    android:id="@+id/tv_content1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_14"
+                    tools:text="@string/arbitration_content" />
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
+                    android:id="@+id/edit_submit_arbitration"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_150"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@null"
+                    android:gravity="top|left"
+                    android:padding="@dimen/dp_8"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:layout_constraintDimensionRatio="W,1:2.3"
+                    app:layout_constraintTop_toBottomOf="@+id/img_voucher"
+                    app:qmui_borderColor="@color/color_grey"
+                    app:qmui_borderWidth="@dimen/dp_1"
+                    app:qmui_radius="@dimen/dp_3"
+                    tools:hint="@string/please_submit_arbitration_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/content_bg_color"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_15">
+
+                <TextView
+                    android:id="@+id/tv_content2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/upload_arbitration_img"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_14" />
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+                    android:id="@+id/lin_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_150"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_submit_arbitration"
+                    app:qmui_borderColor="@color/color_grey"
+                    app:qmui_borderWidth="@dimen/dp_1"
+                    app:qmui_radius="@dimen/dp_2">
+
+                    <ImageView
+                        android:id="@+id/img_add"
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_40"
+                        app:srcCompat="@drawable/icon_add_grey" />
+
+                    <ImageView
+                        android:id="@+id/img_url"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone" />
+                </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+            </LinearLayout>
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/btn_coined"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginHorizontal="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_20"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_14"
+                app:qmui_backgroundColor="@color/color_default"
+                app:qmui_radius="@dimen/dp_3"
+                tools:text="@string/submit_arbitration" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

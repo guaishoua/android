@@ -3,52 +3,55 @@ package com.android.tacu.module.otc.orderView;
 import android.app.Dialog;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.EventManage;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.OtcDetailNotifyEvent;
 import com.android.tacu.R;
-import com.android.tacu.api.Constant;
-import com.android.tacu.module.ZoomImageViewActivity;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
+import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
-import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.user.UserInfoUtils;
 import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 
 //待放币
-public class CoinedView implements View.OnClickListener {
+public class CoinedView extends BaseOtcView implements View.OnClickListener {
 
     private OtcOrderDetailActivity activity;
     private OtcOrderDetailPresenter mPresenter;
+    private UserInfoUtils spUtil;
 
-    private TextView tv_countdown;
-    private TextView tv_order_id;
-    private TextView tv_pay_method;
-    private TextView tv_trade_get;
-    private TextView tv_trade_coin;
+    private LinearLayout lin_countdown;
+    private TextView tv_timeout;
+    private TextView tv_hour;
+    private TextView tv_minute;
+    private TextView tv_second;
 
-    private QMUIRoundImageView img_voucher;
-    private TextView tv_get_money_tip;
+    private ImageView img_pay;
+    private TextView tv_pay;
+    private TextView tv_pay_account;
 
-    private QMUIRoundEditText et_pwd;
     private QMUIRoundButton btn_coined;
-    private QMUIRoundButton btn_return;
 
     private OtcTradeModel tradeModel;
     private Long currentTime;
     private CountDownTimer time;
-    private String imageUrl;
-
-    private UserInfoUtils spUtil;
+    private String[] getCountDownTimes;
+    private boolean isLock = false;
 
     private DroidDialog droidDialog;
 
@@ -62,51 +65,30 @@ public class CoinedView implements View.OnClickListener {
     }
 
     private void initCoinedView(View view) {
-        tv_countdown = view.findViewById(R.id.tv_countdown);
-        tv_order_id = view.findViewById(R.id.tv_order_id);
-        tv_pay_method = view.findViewById(R.id.tv_pay_method);
-        tv_trade_get = view.findViewById(R.id.tv_trade_get);
-        tv_trade_coin = view.findViewById(R.id.tv_trade_coin);
+        setBaseView(view, activity);
 
-        img_voucher = view.findViewById(R.id.img_voucher);
-        tv_get_money_tip = view.findViewById(R.id.tv_get_money_tip);
+        lin_countdown = view.findViewById(R.id.lin_countdown);
+        tv_timeout = view.findViewById(R.id.tv_timeout);
+        tv_hour = view.findViewById(R.id.tv_hour);
+        tv_minute = view.findViewById(R.id.tv_minute);
+        tv_second = view.findViewById(R.id.tv_second);
 
-        et_pwd = view.findViewById(R.id.et_pwd);
+        img_pay = view.findViewById(R.id.img_pay);
+        tv_pay = view.findViewById(R.id.tv_pay);
+        tv_pay_account = view.findViewById(R.id.tv_pay_account);
         btn_coined = view.findViewById(R.id.btn_coined);
-        btn_return = view.findViewById(R.id.btn_return);
-
-        img_voucher.setOnClickListener(this);
         btn_coined.setOnClickListener(this);
-        btn_return.setOnClickListener(this);
 
         spUtil = UserInfoUtils.getInstance();
-        if (spUtil.getPwdVisibility()) {
-            et_pwd.setVisibility(View.VISIBLE);
-        } else {
-            et_pwd.setVisibility(View.GONE);
-        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.img_voucher:
-                if (!TextUtils.isEmpty(imageUrl)) {
-                    activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrl));
-                }
-                break;
             case R.id.btn_coined:
                 if (!OtcTradeDialogUtils.isDialogShow(activity)) {
-                    String pwdString = et_pwd.getText().toString().trim();
-                    if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
-                        ShowToast.error(activity.getResources().getString(R.string.please_input_trade_password));
-                        return;
-                    }
-                    showSure(pwdString);
+                    showSure();
                 }
-                break;
-            case R.id.btn_return:
-                activity.finish();
                 break;
         }
     }
@@ -122,54 +104,48 @@ public class CoinedView implements View.OnClickListener {
         dealTime();
     }
 
-    public void uselectUserInfo(String imageUrl) {
-        this.imageUrl = imageUrl;
-        if (!TextUtils.isEmpty(imageUrl)) {
-            GlideUtils.disPlay(activity, imageUrl, img_voucher);
-            img_voucher.setVisibility(View.VISIBLE);
-        } else {
-            img_voucher.setVisibility(View.GONE);
+    public void selectPayInfoById(PayInfoModel model) {
+        if (model != null && model.type != null) {
+            switch (model.type) {
+                case 1:
+                    img_pay.setImageResource(R.mipmap.img_yhk);
+                    tv_pay.setText(activity.getResources().getString(R.string.yinhanngka));
+                    tv_pay_account.setText(CommonUtils.hideCardNo(model.bankCard));
+                    break;
+                case 2:
+                    img_pay.setImageResource(R.mipmap.img_wx);
+                    tv_pay.setText(activity.getResources().getString(R.string.weixin));
+                    tv_pay_account.setText(CommonUtils.hidePhoneNo(model.weChatNo));
+                    break;
+                case 3:
+                    img_pay.setImageResource(R.mipmap.img_zfb);
+                    tv_pay.setText(activity.getResources().getString(R.string.zhifubao));
+                    tv_pay_account.setText(CommonUtils.hidePhoneNo(model.aliPayNo));
+                    break;
+            }
         }
     }
 
     private void dealCoined() {
         if (tradeModel != null) {
-            tv_order_id.setText(tradeModel.orderNo);
-            tv_trade_get.setText(tradeModel.amount + " " + Constant.CNY);
-            tv_trade_coin.setText(tradeModel.num + " " + tradeModel.currencyName);
-            if (tradeModel.payType != null) {
-                switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
-                    case 1:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.yinhanngka));
-                        tv_get_money_tip.setText(activity.getResources().getString(R.string.please_confirm_yhk_get_money));
-                        break;
-                    case 2:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.weixin));
-                        tv_get_money_tip.setText(activity.getResources().getString(R.string.please_confirm_wx_get_money));
-                        break;
-                    case 3:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.zhifubao));
-                        tv_get_money_tip.setText(activity.getResources().getString(R.string.please_confirm_zfb_get_money));
-                        break;
-                }
-            }
-
-            if (!TextUtils.isEmpty(tradeModel.payInfo)) {
-                img_voucher.setVisibility(View.VISIBLE);
-            } else {
-                img_voucher.setVisibility(View.GONE);
-            }
+            setBaseValue(activity, tradeModel, spUtil);
         }
     }
 
     private void dealTime() {
         if (currentTime != null && tradeModel != null && !TextUtils.isEmpty(tradeModel.transCoinEndTime)) {
             if (tradeModel.status != null && tradeModel.status == 9) {
-                tv_countdown.setText(activity.getResources().getString(R.string.timeouted));
+                tv_timeout.setVisibility(View.VISIBLE);
+                lin_countdown.setVisibility(View.GONE);
             } else {
                 long transCoinEndTime = DateUtils.string2Millis(tradeModel.transCoinEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
                 if (transCoinEndTime > 0) {
+                    tv_timeout.setVisibility(View.GONE);
+                    lin_countdown.setVisibility(View.VISIBLE);
                     startCountDownTimer(transCoinEndTime);
+                } else {
+                    tv_timeout.setVisibility(View.VISIBLE);
+                    lin_countdown.setVisibility(View.GONE);
                 }
             }
         }
@@ -179,11 +155,26 @@ public class CoinedView implements View.OnClickListener {
         if (time != null) {
             return;
         }
+        isLock = false;
         time = new CountDownTimer(valueTime, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 try {
-                    tv_countdown.setText(DateUtils.getCountDownTime1(millisUntilFinished));
+                    if (isLock) {
+                        return;
+                    }
+                    if (millisUntilFinished >= 0) {
+                        getCountDownTimes = DateUtils.getCountDownTime2(millisUntilFinished);
+                        if (getCountDownTimes != null && getCountDownTimes.length == 3) {
+                            tv_hour.setText(getCountDownTimes[0]);
+                            tv_minute.setText(getCountDownTimes[1]);
+                            tv_second.setText(getCountDownTimes[2]);
+                        }
+                    } else {
+                        time.cancel();
+                        isLock = true;
+                        EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -198,15 +189,34 @@ public class CoinedView implements View.OnClickListener {
         time.start();
     }
 
-    private void showSure(final String pwdString) {
+    private void showSure() {
+        View view = View.inflate(activity, R.layout.dialog_coined_confirm, null);
+        final CheckBox cb_xieyi = view.findViewById(R.id.cb_xieyi);
+        final QMUIRoundEditText edit_trade_pwd = view.findViewById(R.id.edit_trade_pwd);
+
+        if (spUtil.getPwdVisibility()) {
+            edit_trade_pwd.setVisibility(View.VISIBLE);
+        } else {
+            edit_trade_pwd.setVisibility(View.GONE);
+        }
+
         droidDialog = new DroidDialog.Builder(activity)
-                .title(activity.getResources().getString(R.string.sure_again))
-                .content(activity.getResources().getString(R.string.please_sure_again_coined))
-                .contentGravity(Gravity.CENTER)
-                .positiveButton(activity.getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                .title(activity.getResources().getString(R.string.coined_confirm))
+                .positiveButton(activity.getResources().getString(R.string.sure), false, new DroidDialog.onPositiveListener() {
                     @Override
                     public void onPositive(Dialog droidDialog) {
+                        if (!cb_xieyi.isChecked()) {
+                            ShowToast.error(activity.getResources().getString(R.string.please_check_xieyi));
+                            return;
+                        }
+                        String pwdString = edit_trade_pwd.getText().toString();
+                        if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
+                            ShowToast.error(activity.getResources().getString(R.string.please_input_trade_password));
+                            return;
+                        }
+
                         if (tradeModel != null) {
+                            droidDialog.dismiss();
                             mPresenter.finishOrder(tradeModel.id, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
                         }
                     }

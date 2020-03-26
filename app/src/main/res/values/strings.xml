@@ -618,7 +618,7 @@
     <string name="please_confirm_wx_get_money">请确认您绑定的微信是否收到款项</string>
     <string name="confirm_getmoney_and_coined">确认收款并放币</string>
     <string name="please_submit_arbitration_content">请输入您要提交仲裁内容…………</string>
-    <string name="submit_arbitration">提交仲裁</string>
+    <string name="submit_arbitration">发起仲裁</string>
     <string name="order_make">订单生成</string>
     <string name="order_pay">订单支付</string>
     <string name="not_pay">未支付</string>
@@ -913,7 +913,7 @@
     <string name="otc_order_cancel">取消订单</string>
     <string name="otc_order_timeout">超时订单</string>
     <string name="otc_order_arbitration">仲裁订单</string>
-    <string name="otc_order_adjude">裁决订单</string>
+    <string name="otc_order_adjude">仲裁完成</string>
     <string name="buy_order">买单</string>
     <string name="sell_order">卖单</string>
     <string name="online">在线</string>
@@ -1024,12 +1024,14 @@
     <string name="buy_people">买家</string>
     <string name="sell_people">卖家</string>
     <string name="xiadan_time">下单时间</string>
+    <string name="coined_time">放币时间</string>
     <string name="wait_shop_confirm">等待商家确认</string>
     <string name="wait_buy_pay">等待买方付款</string>
     <string name="wait_sell_coined">等待卖方放币</string>
     <string name="confirm_counterdown">确认倒计时</string>
     <string name="pay_counterdown">付款倒计时</string>
     <string name="coined_counterdown">放币倒计时</string>
+    <string name="arbitration_countdown">仲裁倒计时</string>
     <string name="single_price_cny">单价(CNY)</string>
     <string name="num_acu">数量(ACU)</string>
     <string name="order_amount_cny">订单金额(CNY)</string>
@@ -1039,4 +1041,20 @@
     <string name="buy_giveup_pay">买方放弃支付</string>
     <string name="paid">已付款</string>
     <string name="shoukuanma">收款码</string>
+    <string name="cancel_order_tip">确保您未付款给对方，否则将造成你的资产丢失</string>
+    <string name="pay_type">付款方式</string>
+    <string name="coined_confirm">放币确认</string>
+    <string name="coined_confirm_tip">请确保您的收款账户已收到对方汇款方可放币，否则将造成您的资产损失。</string>
+    <string name="order_finished">订单已完成</string>
+    <string name="arbitration_tip">如果遇到交易问题，可发起仲裁，客服专员将会介入本次交易直至仲裁完成。</string>
+    <string name="arbitration_content">仲裁内容</string>
+    <string name="bearbitration_tip">如果遇到交易问题，可发起申诉，客服专员将会介入本次交易直至申诉完成。</string>
+    <string name="bearbitration_content">申诉内容</string>
+    <string name="upload_arbitration_img">上传支付凭证</string>
+    <string name="upload_bearbitration_img">上传申诉凭证</string>
+    <string name="please_submit_bearbitration_content">请输入您要提交申诉内容…………</string>
+    <string name="arbitration_wait">仲裁中，等待仲裁</string>
+    <string name="arbitration_explain">仲裁说明</string>
+    <string name="arbitration_explain1">卖家核实未放币确认属实，放币已完成。</string>
+    <string name="arbitration_explain2">卖家核实未放币不属实，放币已完成。</string>
 </resources>

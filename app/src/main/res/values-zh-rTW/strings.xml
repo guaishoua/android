@@ -603,7 +603,7 @@
     <string name="please_confirm_wx_get_money">請確認您綁定的微信是否收到款項</string>
     <string name="confirm_getmoney_and_coined">確認收款並放幣</string>
     <string name="please_submit_arbitration_content">請輸入您要提交仲裁內容…………</string>
-    <string name="submit_arbitration">提交仲裁</string>
+    <string name="submit_arbitration">发起仲裁</string>
     <string name="order_make">訂單生成</string>
     <string name="order_pay">訂單支付</string>
     <string name="not_pay">未支付</string>
@@ -892,7 +892,7 @@
     <string name="otc_order_cancel">取消訂單</string>
     <string name="otc_order_timeout">超時訂單</string>
     <string name="otc_order_arbitration">仲裁訂單</string>
-    <string name="otc_order_adjude">裁決訂單</string>
+    <string name="otc_order_adjude">裁決完成</string>
     <string name="buy_order">買單</string>
     <string name="sell_order">賣單</string>
     <string name="online">在線</string>

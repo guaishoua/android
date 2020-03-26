@@ -27,4 +27,6 @@ public class EventConstant {
     public static final int OTCListVisibleCode = 1010;
     //TradeFragment 发送当前的isVisibleToUser
     public static final int TradeVisibleCode = 1011;
+    //刷新订单详情
+    public static final int OTCDetailCode = 1012;
 }

@@ -11,7 +11,7 @@ public class OtcOrderDetailContract {
     public interface IView extends IBaseMvpView {
         void selectTradeOne(boolean isFirst, OtcTradeModel model);
 
-        void userBaseInfo(Integer buyOrSell, OtcMarketInfoModel model, Integer queryUid);
+        void userBaseInfo(OtcMarketInfoModel model);
 
         void currentTime(Long time);
 
@@ -21,13 +21,15 @@ public class OtcOrderDetailContract {
 
         void uselectUserInfoArbitration(int type, String imageUrl);
 
-        void getOssSetting(AuthOssModel model);
-
         void payOrderSuccess();
 
         void payCancelOrderSuccess();
 
         void finishOrderSuccess();
+    }
+
+    public interface IAView extends IBaseMvpView {
+        void getOssSetting(AuthOssModel model);
 
         void arbitrationOrderSuccess();
 
@@ -38,7 +40,7 @@ public class OtcOrderDetailContract {
         void selectTradeOne(boolean isShowView, boolean isFirst, String orderNo);
 
         // 1=买 2=卖
-        void userBaseInfo(Integer buyOrSell, Integer queryUid);
+        void userBaseInfo(Integer queryUid);
 
         void currentTime();
 

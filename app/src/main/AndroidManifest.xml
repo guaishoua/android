@@ -170,5 +170,6 @@
         <activity android:name="com.android.tacu.module.assets.view.AssetsInfoActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcTradeRulesActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcShopInfoActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.ArbitrationSubmitActivity" />
     </application>
 </manifest>

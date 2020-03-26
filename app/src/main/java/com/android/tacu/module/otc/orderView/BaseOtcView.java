@@ -3,6 +3,7 @@ package com.android.tacu.module.otc.orderView;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.tacu.R;
@@ -23,6 +24,8 @@ public class BaseOtcView {
     private TextView tv_num;
     private TextView tv_order_amount;
     private TextView tv_xiatime;
+    private TextView tv_coined_time;
+    private RelativeLayout rl_coined;
 
     public void setBaseView(View view, final Context context) {
         tv_people_title = view.findViewById(R.id.tv_people_title);
@@ -33,6 +36,8 @@ public class BaseOtcView {
         tv_num = view.findViewById(R.id.tv_num);
         tv_order_amount = view.findViewById(R.id.tv_order_amount);
         tv_xiatime = view.findViewById(R.id.tv_xiatime);
+        tv_coined_time = view.findViewById(R.id.tv_coined_time);
+        rl_coined = view.findViewById(R.id.rl_coined);
 
         tv_orderno.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +50,7 @@ public class BaseOtcView {
     }
 
     public void setBaseValue(Context context, OtcTradeModel model, UserInfoUtils spUtil) {
+        rl_coined.setVisibility(View.GONE);
         if (model != null) {
             Boolean isBuy = null;
             if (model.buyuid == spUtil.getUserUid()) {
@@ -65,6 +71,14 @@ public class BaseOtcView {
             tv_num.setText(FormatterUtils.getFormatValue(model.num));
             tv_order_amount.setText(FormatterUtils.getFormatValue(model.amount));
             tv_xiatime.setText(model.createTime);
+        }
+    }
+
+    public void setBaseValue1(Context context, OtcTradeModel model, UserInfoUtils spUtil) {
+        setBaseValue(context, model, spUtil);
+        rl_coined.setVisibility(View.VISIBLE);
+        if (model != null) {
+            tv_coined_time.setText(model.updateTime);
         }
     }
 
