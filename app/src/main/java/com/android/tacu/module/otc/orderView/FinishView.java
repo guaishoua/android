@@ -19,7 +19,6 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 public class FinishView implements View.OnClickListener {
 
     private OtcOrderDetailActivity activity;
-    private Integer status;
 
     private TextView tv_order_id;
     private TextView tv_pay_method;
@@ -43,9 +42,8 @@ public class FinishView implements View.OnClickListener {
     private String imageUrl;
 
     //5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付   10放币完成
-    public View create(OtcOrderDetailActivity activity, Integer status) {
+    public View create(OtcOrderDetailActivity activity) {
         this.activity = activity;
-        this.status = status;
         View statusView = View.inflate(activity, R.layout.view_otc_order_finished, null);
         initFinishedView(statusView);
         return statusView;
@@ -138,36 +136,8 @@ public class FinishView implements View.OnClickListener {
             }
             // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
             // 12 买家成功 13 卖家成功
-            if (status != null) {
-                switch (status) {
-                    case 5:
-                    case 6:
-                    case 7:
-                    case 8:
-                        if (status == 7) {
-                            img_voucher.setVisibility(View.GONE);
-                        }
-                        if (!TextUtils.isEmpty(tradeModel.payEndTime)) {
-                            tv_order_pay.setVisibility(View.VISIBLE);
-                            tv_order_pay_status.setVisibility(View.VISIBLE);
-                            tv_order_pay.setText(tradeModel.payEndTime);
-                            tv_order_pay_status.setText(activity.getResources().getString(R.string.not_pay));
-                            tv_order_pay_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_sell));
-                        } else {
-                            tv_order_pay.setVisibility(View.GONE);
-                            tv_order_pay_status.setVisibility(View.GONE);
-                        }
-                        if (!TextUtils.isEmpty(tradeModel.updateTime)) {
-                            tv_order_finish.setVisibility(View.VISIBLE);
-                            tv_order_finish_status.setVisibility(View.VISIBLE);
-                            tv_order_finish.setText(tradeModel.updateTime);
-                            tv_order_finish_status.setText(activity.getResources().getString(R.string.not_coined));
-                            tv_order_finish_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_sell));
-                        } else {
-                            tv_order_finish.setVisibility(View.GONE);
-                            tv_order_finish_status.setVisibility(View.GONE);
-                        }
-                        break;
+            if (tradeModel.status != null) {
+                switch (tradeModel.status) {
                     case 10:
                         if (!TextUtils.isEmpty(tradeModel.payTime)) {
                             tv_order_pay.setVisibility(View.VISIBLE);
@@ -189,23 +159,10 @@ public class FinishView implements View.OnClickListener {
                             tv_order_finish.setVisibility(View.GONE);
                             tv_order_finish_status.setVisibility(View.GONE);
                         }
+                        img_trade_get.setImageResource(R.drawable.icon_auth_success);
+                        img_trade_coin.setImageResource(R.drawable.icon_auth_success);
                         break;
                 }
-            }
-        }
-        if (status != null) {
-            switch (status) {
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                    img_trade_get.setImageResource(R.drawable.icon_auth_failure);
-                    img_trade_coin.setImageResource(R.drawable.icon_auth_failure);
-                    break;
-                case 10:
-                    img_trade_get.setImageResource(R.drawable.icon_auth_success);
-                    img_trade_coin.setImageResource(R.drawable.icon_auth_success);
-                    break;
             }
         }
     }

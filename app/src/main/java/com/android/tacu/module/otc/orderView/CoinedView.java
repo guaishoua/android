@@ -29,7 +29,6 @@ public class CoinedView implements View.OnClickListener {
 
     private OtcOrderDetailActivity activity;
     private OtcOrderDetailPresenter mPresenter;
-    private Integer status;
 
     private TextView tv_countdown;
     private TextView tv_order_id;
@@ -54,10 +53,9 @@ public class CoinedView implements View.OnClickListener {
     private DroidDialog droidDialog;
 
     //1待确认  2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成  12仲裁成功 13仲裁失败
-    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter, Integer status) {
+    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter) {
         this.activity = activity;
         this.mPresenter = mPresenter;
-        this.status = status;
         View statusView = View.inflate(activity, R.layout.view_otc_order_coined, null);
         initCoinedView(statusView);
         return statusView;
@@ -166,7 +164,7 @@ public class CoinedView implements View.OnClickListener {
 
     private void dealTime() {
         if (currentTime != null && tradeModel != null && !TextUtils.isEmpty(tradeModel.transCoinEndTime)) {
-            if (status != null && status == 9) {
+            if (tradeModel.status != null && tradeModel.status == 9) {
                 tv_countdown.setText(activity.getResources().getString(R.string.timeouted));
             } else {
                 long transCoinEndTime = DateUtils.string2Millis(tradeModel.transCoinEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;

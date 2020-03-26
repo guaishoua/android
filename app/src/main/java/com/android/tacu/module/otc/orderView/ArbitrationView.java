@@ -50,7 +50,6 @@ public class ArbitrationView implements View.OnClickListener {
 
     private OtcOrderDetailActivity activity;
     private OtcOrderDetailPresenter mPresenter;
-    private int current;
 
     private TextView tv_order_id;
     private TextView tv_pay_method;
@@ -99,10 +98,9 @@ public class ArbitrationView implements View.OnClickListener {
 
     private Handler mHandler = new Handler();
 
-    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter, int current) {
+    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter) {
         this.activity = activity;
         this.mPresenter = mPresenter;
-        this.current = current;
         View statusView = View.inflate(activity, R.layout.view_otc_order_arbitration, null);
         initArbitrationView(statusView);
         return statusView;
@@ -140,23 +138,6 @@ public class ArbitrationView implements View.OnClickListener {
         btn_return = view.findViewById(R.id.btn_return);
 
         img_trade_coin = view.findViewById(R.id.img_trade_coin);
-
-        if (current == OtcOrderDetailActivity.ORDER_ARBITRATION_BUY) {
-            edit_submit_arbitration.setVisibility(View.GONE);
-            lin_upload.setVisibility(View.GONE);
-            btn_submit_arbitration.setVisibility(View.GONE);
-            lin_coin.setVisibility(View.VISIBLE);
-        } else if (current == OtcOrderDetailActivity.ORDER_ARBITRATION_SELL) {
-            edit_submit_arbitration.setVisibility(View.VISIBLE);
-            lin_upload.setVisibility(View.VISIBLE);
-            btn_submit_arbitration.setVisibility(View.VISIBLE);
-            lin_coin.setVisibility(View.GONE);
-        } else if (current == OtcOrderDetailActivity.ORDER_ARBITRATION_SUCCESS) {
-            edit_submit_arbitration.setVisibility(View.GONE);
-            lin_upload.setVisibility(View.GONE);
-            btn_submit_arbitration.setVisibility(View.GONE);
-            lin_coin.setVisibility(View.GONE);
-        }
 
         img_voucher.setOnClickListener(this);
         img_arbitration_reason.setOnClickListener(this);
@@ -315,15 +296,40 @@ public class ArbitrationView implements View.OnClickListener {
     private void dealArbitration() {
         if (tradeModel != null) {
             if (tradeModel.status != null) {
-                //12 买家成功 13 卖家成功
-                if (tradeModel.status == 12) {
-                    img_trade_coin.setImageResource(R.drawable.icon_auth_success);
-                    tv_order_finish_status.setText(activity.getResources().getString(R.string.order_finish));
-                    tv_order_finish_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_buy));
-                } else if (tradeModel.status == 13) {
-                    img_trade_coin.setImageResource(R.drawable.icon_auth_failure);
-                    tv_order_finish_status.setText(activity.getResources().getString(R.string.not_coined));
-                    tv_order_finish_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_sell));
+                switch (tradeModel.status){
+                    case 4:
+                        if (tradeModel.buyuid == spUtil.getUserUid()) {
+                            edit_submit_arbitration.setVisibility(View.GONE);
+                            lin_upload.setVisibility(View.GONE);
+                            btn_submit_arbitration.setVisibility(View.GONE);
+                            lin_coin.setVisibility(View.VISIBLE);
+                        } else if (tradeModel.selluid == spUtil.getUserUid()) {
+                            edit_submit_arbitration.setVisibility(View.VISIBLE);
+                            lin_upload.setVisibility(View.VISIBLE);
+                            btn_submit_arbitration.setVisibility(View.VISIBLE);
+                            lin_coin.setVisibility(View.GONE);
+                        }
+                        break;
+                    case 12:
+                        img_trade_coin.setImageResource(R.drawable.icon_auth_success);
+                        tv_order_finish_status.setText(activity.getResources().getString(R.string.order_finish));
+                        tv_order_finish_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_buy));
+
+                        edit_submit_arbitration.setVisibility(View.GONE);
+                        lin_upload.setVisibility(View.GONE);
+                        btn_submit_arbitration.setVisibility(View.GONE);
+                        lin_coin.setVisibility(View.GONE);
+                        break;
+                    case 13:
+                        img_trade_coin.setImageResource(R.drawable.icon_auth_failure);
+                        tv_order_finish_status.setText(activity.getResources().getString(R.string.not_coined));
+                        tv_order_finish_status.setTextColor(ContextCompat.getColor(activity, R.color.color_otc_sell));
+
+                        edit_submit_arbitration.setVisibility(View.GONE);
+                        lin_upload.setVisibility(View.GONE);
+                        btn_submit_arbitration.setVisibility(View.GONE);
+                        lin_coin.setVisibility(View.GONE);
+                        break;
                 }
             }
 

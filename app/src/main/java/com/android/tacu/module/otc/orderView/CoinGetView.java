@@ -46,7 +46,6 @@ public class CoinGetView implements View.OnClickListener {
 
     private OtcOrderDetailActivity activity;
     private OtcOrderDetailPresenter mPresenter;
-    private Integer status;
 
     private TextView tv_countdown;
     private TextView tv_order_id;
@@ -76,10 +75,9 @@ public class CoinGetView implements View.OnClickListener {
 
     private Handler mHandler = new Handler();
 
-    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter, Integer status) {
+    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter) {
         this.activity = activity;
         this.mPresenter = mPresenter;
-        this.status = status;
         View statusView = View.inflate(activity, R.layout.view_otc_order_coinget, null);
         initCoinGetView(statusView);
         return statusView;
@@ -235,7 +233,7 @@ public class CoinGetView implements View.OnClickListener {
                 img_voucher.setVisibility(View.GONE);
             }
 
-            if (status != null && status != 9) {
+            if (tradeModel.status != null && tradeModel.status != 9) {
                 btn_submit_arbitration.setEnabled(true);
                 ((QMUIRoundButtonDrawable) btn_submit_arbitration.getBackground()).setBgData(ContextCompat.getColorStateList(activity, R.color.color_default));
             } else {
@@ -247,7 +245,7 @@ public class CoinGetView implements View.OnClickListener {
 
     private void dealTime() {
         if (currentTime != null && tradeModel != null && !TextUtils.isEmpty(tradeModel.transCoinEndTime)) {
-            if (status != null && status == 9) {
+            if (tradeModel.status != null && tradeModel.status == 9) {
                 tv_countdown.setText(activity.getResources().getString(R.string.timeouted));
             } else {
                 long transCoinEndTime = DateUtils.string2Millis(tradeModel.transCoinEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
