@@ -595,7 +595,7 @@
     </string>
     <string name="payed_time_countdown">付款期限倒计时</string>
     <string name="coined_time_countdown">放币期限倒计时</string>
-    <string name="order_id">订单编号</string>
+    <string name="order_id">订单号</string>
     <string name="pay_method">支付方式</string>
     <string name="current_trade_should_get">本次交易应收</string>
     <string name="current_trade_should_coin">本次交易放币</string>
@@ -1021,4 +1021,22 @@
     <string name="order_info">订单信息</string>
     <string name="current_paymoney_type">本次付款方式</string>
     <string name="current_getmoney_type">本次收款方式</string>
+    <string name="buy_people">买家</string>
+    <string name="sell_people">卖家</string>
+    <string name="xiadan_time">下单时间</string>
+    <string name="wait_shop_confirm">等待商家确认</string>
+    <string name="wait_buy_pay">等待买方付款</string>
+    <string name="wait_sell_coined">等待卖方放币</string>
+    <string name="confirm_counterdown">确认倒计时</string>
+    <string name="pay_counterdown">付款倒计时</string>
+    <string name="coined_counterdown">放币倒计时</string>
+    <string name="single_price_cny">单价(CNY)</string>
+    <string name="num_acu">数量(ACU)</string>
+    <string name="order_amount_cny">订单金额(CNY)</string>
+    <string name="shop_noconfirm_timeout">商家未确认超时取消</string>
+    <string name="shop_refuse_order">商家拒绝订单</string>
+    <string name="pay_timeout_cancel">付款超时取消</string>
+    <string name="buy_giveup_pay">买方放弃支付</string>
+    <string name="paid">已付款</string>
+    <string name="shoukuanma">收款码</string>
 </resources>

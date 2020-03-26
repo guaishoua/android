@@ -580,7 +580,7 @@
     </string>
     <string name="payed_time_countdown">付款期限倒計時</string>
     <string name="coined_time_countdown">放幣期限倒計時</string>
-    <string name="order_id">訂單編號</string>
+    <string name="order_id">訂單號</string>
     <string name="pay_method">支付方式</string>
     <string name="current_trade_should_get">本次交易應收</string>
     <string name="current_trade_should_coin">本次交易放幣</string>

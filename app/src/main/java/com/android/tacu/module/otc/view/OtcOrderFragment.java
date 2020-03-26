@@ -383,6 +383,11 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
                             holder.setText(R.id.tv_righttop, "");
 
+                            if (item.tradeModel.merchantId == spUtil.getUserUid()) {
+                                holder.setGone(R.id.btn_left, true);
+                                holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_order));
+                            }
+
                             if (currentTime != null) {
                                 if (!TextUtils.isEmpty(item.tradeModel.confirmEndTime)) {
                                     valueTime = DateUtils.string2Millis(item.tradeModel.confirmEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
@@ -498,6 +503,11 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
                             holder.setImageResource(R.id.img_rightbottom, R.drawable.icon_auth_success);
 
+                            if (item.tradeModel.selluid == spUtil.getUserUid()) {
+                                holder.setGone(R.id.btn_left, true);
+                                holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_coined));
+                            }
+
                             if (currentTime != null) {
                                 if (!TextUtils.isEmpty(item.tradeModel.arbitrationEndTime)) {
                                     valueTime = DateUtils.string2Millis(item.tradeModel.arbitrationEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
@@ -589,9 +599,12 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                     if (item.tradeModel.status != null) {
                         switch (item.tradeModel.status) {
                             case 1://确认订单
-                                mPresenter.confirmOrder(item.tradeModel.id);
+                                if (item.tradeModel.merchantId == spUtil.getUserUid()) {
+                                    mPresenter.confirmOrder(item.tradeModel.id);
+                                }
                                 break;
                             case 3://放币
+                            case 4:
                             case 9:
                                 if (!OtcTradeDialogUtils.isDialogShow(mContext)) {
                                     showDialog(item.tradeModel.id);

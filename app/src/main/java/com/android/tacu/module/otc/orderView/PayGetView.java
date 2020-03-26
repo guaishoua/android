@@ -6,27 +6,25 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.android.tacu.R;
-import com.android.tacu.api.Constant;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
 import com.android.tacu.utils.DateUtils;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.android.tacu.utils.user.UserInfoUtils;
 
 //待收款
-public class PayGetView implements View.OnClickListener {
+public class PayGetView extends BaseOtcView {
 
     private OtcOrderDetailActivity activity;
+    private UserInfoUtils spUtil;
 
-    private TextView tv_countdown;
-    private TextView tv_order_id;
-    private TextView tv_pay_method;
-    private TextView tv_trade_get;
-    private TextView tv_trade_coin;
-    private QMUIRoundButton btn_return;
+    private TextView tv_hour;
+    private TextView tv_minute;
+    private TextView tv_second;
 
     private OtcTradeModel tradeModel;
     private Long currentTime;
     private CountDownTimer time;
+    private String[] getCountDownTimes;
 
     public View create(OtcOrderDetailActivity activity) {
         this.activity = activity;
@@ -36,23 +34,13 @@ public class PayGetView implements View.OnClickListener {
     }
 
     private void initPayGetView(View view) {
-        tv_countdown = view.findViewById(R.id.tv_countdown);
-        tv_order_id = view.findViewById(R.id.tv_order_id);
-        tv_pay_method = view.findViewById(R.id.tv_pay_method);
-        tv_trade_get = view.findViewById(R.id.tv_trade_get);
-        tv_trade_coin = view.findViewById(R.id.tv_trade_coin);
-        btn_return = view.findViewById(R.id.btn_return);
+        setBaseView(view, activity);
 
-        btn_return.setOnClickListener(this);
-    }
+        tv_hour = view.findViewById(R.id.tv_hour);
+        tv_minute = view.findViewById(R.id.tv_minute);
+        tv_second = view.findViewById(R.id.tv_second);
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_return:
-                activity.finish();
-                break;
-        }
+        spUtil = UserInfoUtils.getInstance();
     }
 
     public void selectTradeOne(OtcTradeModel model) {
@@ -68,22 +56,7 @@ public class PayGetView implements View.OnClickListener {
 
     private void dealPayGet() {
         if (tradeModel != null) {
-            tv_order_id.setText(tradeModel.orderNo);
-            tv_trade_get.setText(tradeModel.amount + " " + Constant.CNY);
-            tv_trade_coin.setText(tradeModel.num + " " + tradeModel.currencyName);
-            if (tradeModel.payType != null) {
-                switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
-                    case 1:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.yinhanngka));
-                        break;
-                    case 2:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.weixin));
-                        break;
-                    case 3:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.zhifubao));
-                        break;
-                }
-            }
+            setBaseValue(activity, tradeModel, spUtil);
         }
     }
 
@@ -104,7 +77,12 @@ public class PayGetView implements View.OnClickListener {
             @Override
             public void onTick(long millisUntilFinished) {
                 try {
-                    tv_countdown.setText(DateUtils.getCountDownTime1(millisUntilFinished));
+                    getCountDownTimes = DateUtils.getCountDownTime2(millisUntilFinished);
+                    if (getCountDownTimes != null && getCountDownTimes.length == 3) {
+                        tv_hour.setText(getCountDownTimes[0]);
+                        tv_minute.setText(getCountDownTimes[1]);
+                        tv_second.setText(getCountDownTimes[2]);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

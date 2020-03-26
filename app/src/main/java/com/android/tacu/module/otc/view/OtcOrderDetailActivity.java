@@ -24,6 +24,7 @@ import com.android.tacu.module.otc.contract.OtcOrderDetailContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.orderView.ArbitrationView;
+import com.android.tacu.module.otc.orderView.CancelView;
 import com.android.tacu.module.otc.orderView.CoinGetView;
 import com.android.tacu.module.otc.orderView.CoinedView;
 import com.android.tacu.module.otc.orderView.ConfirmView;
@@ -66,6 +67,8 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
     private FinishView finishView;
     //仲裁中
     private ArbitrationView arbitrationView;
+    //取消
+    private CancelView cancelView;
 
     private String orderNo;
     private boolean isFirst = true;
@@ -177,11 +180,18 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
     public void selectTradeOne(boolean isFirst, OtcTradeModel model) {
         this.model = model;
         if (model != null) {
-            if (model.buyuid != null && isFirst) {
-                mPresenter.userBaseInfo(1, model.buyuid);
+            Boolean isBuy = null;
+            if (model.buyuid == spUtil.getUserUid()) {
+                isBuy = true;
+            } else if (model.selluid == spUtil.getUserUid()) {
+                isBuy = false;
             }
-            if (model.selluid != null && isFirst) {
-                mPresenter.userBaseInfo(2, model.selluid);
+            if (isBuy != null && isFirst) {
+                if (isBuy) {
+                    mPresenter.userBaseInfo(2, model.selluid);
+                } else {
+                    mPresenter.userBaseInfo(1, model.buyuid);
+                }
             }
 
             isNeedChange = false;
@@ -217,11 +227,6 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                         if (!TextUtils.isEmpty(model.payInfo)) {
                             mPresenter.uselectUserInfo(model.payInfo);
                         }
-                        break;
-                    case 5:
-                    case 6:
-                    case 7:
-                    case 8:
                         break;
                     case 10:
                     case 4:
@@ -269,6 +274,9 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                 case 6:
                 case 7:
                 case 8:
+                    if (cancelView != null) {
+                        cancelView.selectTradeOne(model);
+                    }
                     break;
                 case 10:
                     if (finishView != null) {
@@ -289,7 +297,32 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
     @Override
     public void userBaseInfo(Integer buyOrSell, OtcMarketInfoModel marketInfoModel, Integer queryUid) {
         if (marketInfoModel != null) {
-            if (buyOrSell == null) {
+            if (buyOrSell != null) {
+                if (confirmView != null) {
+                    confirmView.setUserInfo(marketInfoModel);
+                }
+                if (payedView != null) {
+                    payedView.setUserInfo(marketInfoModel);
+                }
+                if (payGetView != null) {
+                    payGetView.setUserInfo(marketInfoModel);
+                }
+                if (coinedView != null) {
+                    coinedView.setUserInfo(marketInfoModel);
+                }
+                if (coinGetView != null) {
+                    coinGetView.setUserInfo(marketInfoModel);
+                }
+                if (finishView != null) {
+                    finishView.setUserInfo(marketInfoModel);
+                }
+                if (arbitrationView != null) {
+                    arbitrationView.setUserInfo(marketInfoModel);
+                }
+                if (cancelView != null) {
+                    cancelView.setUserInfo(marketInfoModel);
+                }
+            } else {
                 // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
                 // 12 买家成功 13 卖家成功
                 switch (status) {
@@ -383,11 +416,6 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                         }
                     }
                 }
-                break;
-            case 5:
-            case 6:
-            case 7:
-            case 8:
                 break;
             case 10:
                 if (finishView != null) {
@@ -547,6 +575,9 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
             case 7:
             case 8:
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_cancel));
+
+                cancelView = new CancelView();
+                statusView = cancelView.create(this);
                 break;
             case 10:
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_finished));
@@ -589,6 +620,9 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
         if (arbitrationView != null) {
             arbitrationView.destory();
             arbitrationView = null;
+        }
+        if (cancelView != null) {
+            cancelView.destory();
         }
     }
 }
