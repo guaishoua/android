@@ -416,7 +416,7 @@
     <string name="lastest_deal">最新成交</string>
     <string name="lodge_amount">挂单量</string>
     <string name="volume_amount">成交量</string>
-    <string name="trade_no_tip1">您当前暂无交易记录</string>
+    <string name="trade_no_tip1">暂无记录</string>
     <string name="trade_no_tip2">快去交易吧</string>
     <string name="only_current_market">仅当前市场</string>
     <string name="history_entrust">历史委托</string>
@@ -627,10 +627,10 @@
     <string name="trade_coin_type">交易币种</string>
     <string name="trade_money">交易货币</string>
     <string name="current_market_value">当前市值：1CNY/ACU</string>
-    <string name="order_operation_time_limit">订单操作时限</string>
+    <string name="order_operation_time_limit">广告操作时限</string>
     <string name="minute_15">15分钟</string>
     <string name="trade_single_price">交易单价</string>
-    <string name="please_input_trade_single_price">请输入交易单价</string>
+    <string name="please_input_trade_single_price">请输入交易价格</string>
     <string name="trade_num">交易数量</string>
     <string name="please_input_trade_num">请输入交易数量</string>
     <string name="trade_all_price">交易总价</string>
@@ -896,7 +896,7 @@
     <string name="realname">姓名</string>
 
     <!--OTC4-->
-    <string name="please_otc_phone">请输入OTC手机号</string>
+    <string name="please_otc_phone">请输入OTC联系方式</string>
     <string name="phone_login">手机登录</string>
     <string name="email_login">邮箱登录</string>
     <string name="email1">邮箱</string>

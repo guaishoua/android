@@ -1,40 +1,41 @@
 package com.android.tacu.module.otc.view;
 
-import android.content.Intent;
-import android.net.Uri;
+import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcManageBuySellContract;
 import com.android.tacu.module.otc.model.OtcPublishParam;
 import com.android.tacu.module.otc.model.OtcSelectFeeModel;
 import com.android.tacu.module.otc.presenter.OtcManageBuySellPresenter;
-import com.android.tacu.module.vip.view.RechargeDepositActivity;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.MathHelper;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,30 +44,10 @@ import butterknife.OnClick;
 
 public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPresenter> implements OtcManageBuySellContract.IChildView {
 
-    @BindView(R.id.tv_trade_type)
-    TextView tv_trade_type;
-    @BindView(R.id.tv_trade_money)
-    TextView tv_trade_money;
     @BindView(R.id.tv_order_operation_time_limit)
     TextView tv_order_operation_time_limit;
-
-    @BindView(R.id.tv_trade_single_price_tag)
-    TextView tv_trade_single_price_tag;
-    @BindView(R.id.tv_trade_num_tag)
-    TextView tv_trade_num_tag;
-    @BindView(R.id.tv_trade_all_price_tag)
-    TextView tv_trade_all_price_tag;
-    @BindView(R.id.tv_min_limit_tag)
-    TextView tv_min_limit_tag;
-    @BindView(R.id.tv_max_limit_tag)
-    TextView tv_max_limit_tag;
-
-    @BindView(R.id.cb_zhifubao)
-    CheckBox cb_zhifubao;
-    @BindView(R.id.cb_weixin)
-    CheckBox cb_weixin;
-    @BindView(R.id.cb_yinhangka)
-    CheckBox cb_yinhangka;
+    @BindView(R.id.tv_currnet_bond)
+    TextView tv_currnet_bond;
 
     @BindView(R.id.edit_trade_single_price)
     EditText edit_trade_single_price;
@@ -78,31 +59,24 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     EditText edit_max_limit;
     @BindView(R.id.tv_trade_all_price)
     TextView tv_trade_all_price;
-
-    @BindView(R.id.rl_deal_fee)
-    RelativeLayout rl_deal_fee;
-    @BindView(R.id.tv_deal_fee)
-    TextView tv_deal_fee;
-    @BindView(R.id.rl_purchase_deposit)
-    RelativeLayout rl_purchase_deposit;
-    @BindView(R.id.tv_purchase_deposit)
-    TextView tv_purchase_deposit;
-    @BindView(R.id.tv_margin_balance)
-    TextView tv_margin_balance;
-    @BindView(R.id.tv_otc_balance)
-    TextView tv_otc_balance;
-
     @BindView(R.id.edit_otc_phone)
     TextView edit_otc_phone;
 
-    @BindView(R.id.cb_xieyi)
-    CheckBox cb_xieyi;
-    @BindView(R.id.tv_xieyi)
-    TextView tv_xieyi;
+    @BindView(R.id.cb_zhifubao)
+    CheckBox cb_zhifubao;
+    @BindView(R.id.cb_weixin)
+    CheckBox cb_weixin;
+    @BindView(R.id.cb_yinhangka)
+    CheckBox cb_yinhangka;
+    @BindView(R.id.tv_zhifubao)
+    TextView tv_zhifubao;
+    @BindView(R.id.tv_weixin)
+    TextView tv_weixin;
+    @BindView(R.id.tv_yinhangka)
+    TextView tv_yinhangka;
 
-    private ListPopWindow coinPopup;
-    private ListPopWindow moneyPopup;
     private ListPopWindow timeLimitPopup;
+    private Dialog dialog;
 
     private boolean isBuy = true; //默认true=买
     private OtcPublishParam param;
@@ -144,8 +118,6 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     @Override
     protected void initData(View view) {
         param = new OtcPublishParam(isBuy);
-        tv_xieyi.setText(Html.fromHtml(getResources().getString(R.string.otc_xieyi) + "<font color=" + ContextCompat.getColor(getContext(), R.color.color_otc_unhappy) + ">" + getResources().getString(R.string.otc_xieyi_name) + "</font>"));
-
         edit_trade_single_price.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -161,7 +133,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
                             double value;
                             if (!isBuy) {
                                 value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.bondRate);
-                                tv_purchase_deposit.setText(value + " " + coinName);
+                                tv_currnet_bond.setText(getResources().getString(R.string.currnet_bond) + value + " " + coinName);
                             }
                         }
                     }
@@ -189,7 +161,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
                             double value;
                             if (!isBuy) {
                                 value = MathHelper.mul(Double.valueOf(tv_trade_all_price.getText().toString()), otcSelectFeeModel.bondRate);
-                                tv_purchase_deposit.setText(value + " " + coinName);
+                                tv_currnet_bond.setText(getResources().getString(R.string.currnet_bond) + value + " " + coinName);
                             }
                         }
                     }
@@ -203,13 +175,39 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
             }
         });
 
-        if (isBuy) {
-            rl_deal_fee.setVisibility(View.GONE);
-            rl_purchase_deposit.setVisibility(View.GONE);
-        }
+        cb_zhifubao.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tv_zhifubao.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
+                } else {
+                    tv_zhifubao.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color));
+                }
+            }
+        });
+        cb_weixin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tv_weixin.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
+                } else {
+                    tv_weixin.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color));
+                }
+            }
+        });
+        cb_yinhangka.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tv_yinhangka.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
+                } else {
+                    tv_yinhangka.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color));
+                }
+            }
+        });
 
-        if (spUtil.getDisclaimer() == 1) {
-            cb_xieyi.setChecked(true);
+        if (isBuy) {
+            tv_currnet_bond.setVisibility(View.GONE);
         }
     }
 
@@ -227,47 +225,18 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (coinPopup != null && coinPopup.isShowing()) {
-            coinPopup.dismiss();
-            coinPopup = null;
-        }
-        if (moneyPopup != null && moneyPopup.isShowing()) {
-            moneyPopup.dismiss();
-            moneyPopup = null;
-        }
         if (timeLimitPopup != null && timeLimitPopup.isShowing()) {
             timeLimitPopup.dismiss();
             timeLimitPopup = null;
         }
-    }
-
-    @OnClick(R.id.tv_xieyi)
-    void xieyiClick() {
-        Intent intent = new Intent();
-        Uri content_url = Uri.parse(Constant.TRADE_RULES_SYSTEM);
-        intent.setAction("android.intent.action.VIEW");
-        intent.setData(content_url);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.tv_trade_type)
-    void tradeTypeClick() {
-        showCoinType();
-    }
-
-    @OnClick(R.id.tv_trade_money)
-    void tradeMoneyClick() {
-        showMoneyType();
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 
     @OnClick(R.id.tv_order_operation_time_limit)
     void timeLimitClick() {
         showTimeType();
-    }
-
-    @OnClick(R.id.btn_recharge)
-    void rechargeClick() {
-        jumpTo(RechargeDepositActivity.class);
     }
 
     @OnClick(R.id.btn_confirm)
@@ -318,8 +287,12 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
             showToastError(getResources().getString(R.string.please_input_trade_num));
             return;
         }
-        if (!cb_xieyi.isChecked()) {
-            showToastError(getResources().getString(R.string.please_check_xieyi));
+        if (TextUtils.isEmpty(min)) {
+            showToastError(getResources().getString(R.string.please_input_min_limit));
+            return;
+        }
+        if (TextUtils.isEmpty(max)) {
+            showToastError(getResources().getString(R.string.please_input_max_limit));
             return;
         }
         if (TextUtils.isEmpty(otcPhone)) {
@@ -332,54 +305,18 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
         param.lowLimit = min;
         param.highLimit = max;
         param.explain = otcPhone;
-        if (spUtil.getDisclaimer() == 0) {
-            mPresenter.disclaimer();
-        }
-        mPresenter.order(param);
-    }
-
-    @OnClick(R.id.btn_cancel)
-    void cancelClick() {
-        getHostActivity().finish();
+        showSure(param);
     }
 
     @Override
     public void selectBondFreerate(OtcSelectFeeModel model) {
         this.otcSelectFeeModel = model;
-        if (model != null) {
-            if (!isBuy) {
-                tv_deal_fee.setText(BigDecimal.valueOf(model.bondRate * 100).toPlainString() + "%");
-            }
-        }
-    }
-
-    @Override
-    public void BondAccount(OtcAmountModel model) {
-        if (model != null) {
-            if (!TextUtils.isEmpty(model.cashAmount)) {
-                tv_margin_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + " " + coinName);
-            } else {
-                tv_margin_balance.setText("0 " + coinName);
-            }
-        }
-    }
-
-    @Override
-    public void OtcAccount(OtcAmountModel model) {
-        if (model != null) {
-            tv_otc_balance.setText(FormatterUtils.getFormatValue(model.cashAmount) + Constant.ACU_CURRENCY_NAME);
-        }
     }
 
     @Override
     public void orderSuccess() {
         showToastSuccess(getResources().getString(R.string.success));
         getHostActivity().finish();
-    }
-
-    @Override
-    public void disclaimerSuccess() {
-        spUtil.setDisclaimer(1);
     }
 
     public void setPayList(List<PayInfoModel> list) {
@@ -407,75 +344,72 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
             if (!isBuy) {
                 mPresenter.selectBondFreerate(isFirst);
             }
-            mPresenter.BondAccount(isFirst, param.currencyId);
-            mPresenter.OtcAccount(isFirst, param.currencyId);
             if (isFirst) {
                 isFirst = false;
             }
         }
     }
 
-    private void showCoinType() {
-        if (coinPopup != null && coinPopup.isShowing()) {
-            coinPopup.dismiss();
-            return;
-        }
-        if (coinPopup == null) {
-            final List<String> data = new ArrayList<>();
-            final List<Integer> dataId = new ArrayList<>();
-            data.add(Constant.ACU_CURRENCY_NAME);
-            dataId.add(Constant.ACU_CURRENCY_ID);
-            ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.simple_list_item, data);
-            coinPopup = new ListPopWindow(getContext(), adapter);
-            coinPopup.create(UIUtils.dp2px(100), UIUtils.dp2px(40), new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    tv_trade_type.setText(data.get(position));
-                    tv_trade_num_tag.setText(data.get(position));
-                    param.currencyId = dataId.get(position);
-                    coinName = data.get(position);
-                    upload();
-                    coinPopup.dismiss();
-                }
-            });
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            coinPopup.setDropDownGravity(Gravity.END);
-        }
-        coinPopup.setAnchorView(tv_trade_type);
-        coinPopup.show();
-    }
+    private void showSure(final OtcPublishParam param) {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_publish, null);
+        TextView tv_publish = view.findViewById(R.id.tv_publish);
+        ImageView img_close = view.findViewById(R.id.img_close);
+        TextView tv_price = view.findViewById(R.id.tv_price);
+        TextView tv_num = view.findViewById(R.id.tv_num);
+        TextView tv_limit = view.findViewById(R.id.tv_limit);
+        TextView tv_time = view.findViewById(R.id.tv_time);
+        QMUIRoundButton btn_sure = view.findViewById(R.id.btn_sure);
 
-    private void showMoneyType() {
-        if (moneyPopup != null && moneyPopup.isShowing()) {
-            moneyPopup.dismiss();
-            return;
+        if (isBuy) {
+            tv_publish.setText(getResources().getString(R.string.publish_buy));
+        } else {
+            tv_publish.setText(getResources().getString(R.string.publish_sell));
         }
-        if (moneyPopup == null) {
-            final List<String> data = new ArrayList<>();
-            final List<Integer> dataId = new ArrayList<>();
-            data.add(getResources().getString(R.string.renminbi));
-            dataId.add(1);
-            ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.simple_list_item, data);
-            moneyPopup = new ListPopWindow(getContext(), adapter);
-            moneyPopup.create(UIUtils.dp2px(120), UIUtils.dp2px(40), new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    tv_trade_money.setText(data.get(position));
-                    tv_trade_single_price_tag.setText(data.get(position));
-                    tv_trade_all_price_tag.setText(data.get(position));
-                    tv_min_limit_tag.setText(data.get(position));
-                    tv_max_limit_tag.setText(data.get(position));
-                    param.money = 1;
-                    moneyPopup.dismiss();
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog != null) {
+                    dialog.dismiss();
                 }
-            });
+            }
+        });
+        tv_price.setText(param.price);
+        tv_num.setText(param.num);
+        tv_limit.setText(param.lowLimit + "-" + param.highLimit);
+        switch (param.timeOut) {
+            case 15:
+                tv_time.setText(getResources().getString(R.string.min_15));
+                break;
+            case 30:
+                tv_time.setText(getResources().getString(R.string.min_30));
+                break;
+            case 60:
+                tv_time.setText(getResources().getString(R.string.hour_1));
+                break;
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            moneyPopup.setDropDownGravity(Gravity.END);
-        }
-        moneyPopup.setAnchorView(tv_trade_money);
-        moneyPopup.show();
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.order(param);
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(view);
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+        params.copyFrom(dialog.getWindow().getAttributes());
+        params.width = UIUtils.getScreenWidth();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.gravity = Gravity.BOTTOM | Gravity.CENTER;
+        dialog.getWindow().setBackgroundDrawableResource(R.color.color_transparent);
+        dialog.getWindow().setAttributes(params);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
     private void showTimeType() {

@@ -419,7 +419,7 @@
     <string name="lastest_deal">latest transaction</string>
     <string name="lodge_amount">hanging list amount</string>
     <string name="volume_amount">turnover</string>
-    <string name="trade_no_tip1">You currently have no transaction record</string>
+    <string name="trade_no_tip1">no record</string>
     <string name="trade_no_tip2">go ahead and trade</string>
     <string name="only_current_market">Current market only</string>
     <string name="history_entrust">historical delegation</string>

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/content_bg_color"
+    android:background="@color/content_bg_color_grey"
     android:orientation="vertical">
 
     <TextView
@@ -10,19 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:drawableTop="@drawable/icon_empty_trade"
+        android:drawableTop="@mipmap/img_empty_trade"
         android:drawablePadding="@dimen/dp_16"
         android:gravity="center"
         android:text="@string/trade_no_tip1"
-        android:textColor="@color/text_color" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_tip1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_5"
-        android:gravity="center"
-        android:text="@string/trade_no_tip2"
         android:textColor="@color/text_color" />
 </RelativeLayout>
