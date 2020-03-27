@@ -15,7 +15,6 @@
         app:qmui_radius="@dimen/dp_3">
 
         <com.android.tacu.widget.NodeProgressView
-            android:id="@+id/node_progress"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_70"
             android:background="@color/content_bg_color"

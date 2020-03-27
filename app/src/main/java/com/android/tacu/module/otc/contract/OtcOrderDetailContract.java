@@ -21,6 +21,10 @@ public class OtcOrderDetailContract {
 
         void uselectUserInfoArbitration(int type, String imageUrl);
 
+        void confirmOrderSuccess();
+
+        void confirmCancelOrderSuccess();
+
         void payOrderSuccess();
 
         void payCancelOrderSuccess();
@@ -52,6 +56,10 @@ public class OtcOrderDetailContract {
         void uselectUserInfoArbitration(int type, String headImg);
 
         void getOssSetting();
+
+        void confirmOrder(String orderId);
+
+        void confirmCancelOrder(String orderId);
 
         void payOrder(String orderId, String payImg);
 

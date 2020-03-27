@@ -3,6 +3,7 @@ package com.android.tacu.module.otc.orderView;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.tacu.EventBus.EventConstant;
@@ -11,19 +12,26 @@ import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.OtcDetailNotifyEvent;
 import com.android.tacu.R;
 import com.android.tacu.module.otc.model.OtcTradeModel;
+import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.user.UserInfoUtils;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 //待确认
-public class ConfirmView extends BaseOtcView {
+public class ConfirmView extends BaseOtcView implements View.OnClickListener {
 
     private OtcOrderDetailActivity activity;
+    private OtcOrderDetailPresenter mPresenter;
     private UserInfoUtils spUtil;
 
     private TextView tv_hour;
     private TextView tv_minute;
     private TextView tv_second;
+
+    private LinearLayout lin_btn;
+    private QMUIRoundButton btn_cancel;
+    private QMUIRoundButton btn_confirm;
 
     private OtcTradeModel tradeModel;
     private Long currentTime;
@@ -31,8 +39,9 @@ public class ConfirmView extends BaseOtcView {
     private String[] getCountDownTimes;
     private boolean isLock = false;
 
-    public View create(OtcOrderDetailActivity activity) {
+    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter) {
         this.activity = activity;
+        this.mPresenter = mPresenter;
         View statusView = View.inflate(activity, R.layout.view_otc_order_confirmed, null);
         initConfirmedView(statusView);
         return statusView;
@@ -45,7 +54,30 @@ public class ConfirmView extends BaseOtcView {
         tv_minute = view.findViewById(R.id.tv_minute);
         tv_second = view.findViewById(R.id.tv_second);
 
+        lin_btn = view.findViewById(R.id.lin_btn);
+        btn_cancel = view.findViewById(R.id.btn_cancel);
+        btn_confirm = view.findViewById(R.id.btn_confirm);
+
+        btn_cancel.setOnClickListener(this);
+        btn_confirm.setOnClickListener(this);
+
         spUtil = UserInfoUtils.getInstance();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_cancel:
+                if (tradeModel != null) {
+                    mPresenter.confirmCancelOrder(tradeModel.id);
+                }
+                break;
+            case R.id.btn_confirm:
+                if (tradeModel != null) {
+                    mPresenter.confirmOrder(tradeModel.id);
+                }
+                break;
+        }
     }
 
     public void selectTradeOne(OtcTradeModel model) {
@@ -62,6 +94,11 @@ public class ConfirmView extends BaseOtcView {
     private void dealConfirmed() {
         if (tradeModel != null) {
             setBaseValue(activity, tradeModel, spUtil);
+            if (tradeModel.merchantId == spUtil.getUserUid()) {
+                lin_btn.setVisibility(View.VISIBLE);
+            } else {
+                lin_btn.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -94,7 +131,7 @@ public class ConfirmView extends BaseOtcView {
                             tv_second.setText(getCountDownTimes[2]);
                         }
                     } else {
-                        time.cancel();
+                        cancel();
                         isLock = true;
                         EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
                     }
@@ -106,7 +143,8 @@ public class ConfirmView extends BaseOtcView {
             @Override
             public void onFinish() {
                 cancel();
-                activity.finish();
+                isLock = true;
+                EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
             }
         };
         time.start();
@@ -114,6 +152,7 @@ public class ConfirmView extends BaseOtcView {
 
     public void destory() {
         activity = null;
+        mPresenter = null;
         if (time != null) {
             time.cancel();
             time = null;

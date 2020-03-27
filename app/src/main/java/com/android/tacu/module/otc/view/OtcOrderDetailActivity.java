@@ -3,6 +3,7 @@ package com.android.tacu.module.otc.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -145,13 +146,6 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
             } else if (model.selluid == spUtil.getUserUid()) {
                 isBuy = false;
             }
-            if (isBuy != null && isFirst) {
-                if (isBuy) {
-                    mPresenter.userBaseInfo(model.selluid);
-                } else {
-                    mPresenter.userBaseInfo(model.buyuid);
-                }
-            }
 
             isNeedChange = false;
 
@@ -166,11 +160,27 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                 if (isNeedChange) {
                     isNeedChange = false;
                 }
+                if (isBuy) {
+                    mPresenter.userBaseInfo(model.selluid);
+                } else {
+                    mPresenter.userBaseInfo(model.buyuid);
+                }
                 // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
                 // 12 买家成功 13 卖家成功
                 switch (status) {
                     case 1:
                         mPresenter.currentTime();
+                        break;
+                    case 4:
+                    case 12:
+                    case 13:
+                        mPresenter.currentTime();
+                        if (!TextUtils.isEmpty(model.arbitrateImg)) {
+                            mPresenter.uselectUserInfoArbitration(1, model.arbitrateImg);
+                        }
+                        if (!TextUtils.isEmpty(model.beArbitrateImg)) {
+                            mPresenter.uselectUserInfoArbitration(2, model.beArbitrateImg);
+                        }
                         break;
                     case 2:
                     case 3:
@@ -240,30 +250,62 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
     @Override
     public void userBaseInfo(OtcMarketInfoModel marketInfoModel) {
         if (marketInfoModel != null) {
-            if (confirmView != null) {
-                confirmView.setUserInfo(marketInfoModel);
-            }
-            if (payedView != null) {
-                payedView.setUserInfo(marketInfoModel);
-                payedView.userBaseInfo(marketInfoModel);
-            }
-            if (payGetView != null) {
-                payGetView.setUserInfo(marketInfoModel);
-            }
-            if (coinedView != null) {
-                coinedView.setUserInfo(marketInfoModel);
-            }
-            if (coinGetView != null) {
-                coinGetView.setUserInfo(marketInfoModel);
-            }
-            if (finishView != null) {
-                finishView.setUserInfo(marketInfoModel);
-            }
-            if (arbitrationView != null) {
-                arbitrationView.setUserInfo(marketInfoModel);
-            }
-            if (cancelView != null) {
-                cancelView.setUserInfo(marketInfoModel);
+            // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
+            // 12 买家成功 13 卖家成功
+            switch (status) {
+                case 1:
+                    if (confirmView != null) {
+                        confirmView.setUserInfo(marketInfoModel);
+                    }
+                    break;
+                case 2:
+                    if (model != null) {
+                        if (model.buyuid == spUtil.getUserUid()) {
+                            if (payedView != null) {
+                                payedView.setUserInfo(marketInfoModel);
+                                payedView.userBaseInfo(marketInfoModel);
+                            }
+                        } else if (model.selluid == spUtil.getUserUid()) {
+                            if (payGetView != null) {
+                                payGetView.setUserInfo(marketInfoModel);
+                            }
+                        }
+                    }
+                    break;
+                case 3:
+                case 9:
+                    if (model != null) {
+                        if (model.buyuid == spUtil.getUserUid()) {
+                            if (coinGetView != null) {
+                                coinGetView.setUserInfo(marketInfoModel);
+                            }
+                        } else if (model.selluid == spUtil.getUserUid()) {
+                            if (coinedView != null) {
+                                coinedView.setUserInfo(marketInfoModel);
+                            }
+                        }
+                    }
+                    break;
+                case 10:
+                    if (finishView != null) {
+                        finishView.setUserInfo(marketInfoModel);
+                    }
+                    break;
+                case 4:
+                case 12:
+                case 13:
+                    if (arbitrationView != null) {
+                        arbitrationView.setUserInfo(marketInfoModel);
+                    }
+                    break;
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                    if (cancelView != null) {
+                        cancelView.setUserInfo(marketInfoModel);
+                    }
+                    break;
             }
         }
     }
@@ -305,6 +347,13 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                     }
                 }
                 break;
+            case 4:
+            case 12:
+            case 13:
+                if (arbitrationView != null) {
+                    arbitrationView.currentTime(time);
+                }
+                break;
         }
     }
 
@@ -314,21 +363,33 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
         // 12 买家成功 13 卖家成功
         switch (status) {
             case 2:
+                if (model != null) {
+                    if (model.buyuid == spUtil.getUserUid()) {
+                        if (payedView != null) {
+                            payedView.selectPayInfoById(payInfoModel);
+                        }
+                    } else if (model.selluid == spUtil.getUserUid()) {
+                        if (payGetView != null) {
+                            payGetView.selectPayInfoById(payInfoModel);
+                        }
+                    }
+                }
+                break;
             case 3:
             case 9:
+                if (model != null) {
+                    if (model.buyuid == spUtil.getUserUid()) {
+                        if (coinGetView != null) {
+                            coinGetView.selectPayInfoById(payInfoModel);
+                        }
+                    } else if (model.selluid == spUtil.getUserUid()) {
+                        if (coinedView != null) {
+                            coinedView.selectPayInfoById(payInfoModel);
+                        }
+                    }
+                }
+                break;
             case 10:
-                if (payedView != null) {
-                    payedView.selectPayInfoById(payInfoModel);
-                }
-                if (payGetView != null) {
-                    payGetView.selectPayInfoById(payInfoModel);
-                }
-                if (coinedView != null) {
-                    coinedView.selectPayInfoById(payInfoModel);
-                }
-                if (coinGetView != null) {
-                    coinGetView.selectPayInfoById(payInfoModel);
-                }
                 if (finishView != null) {
                     finishView.selectPayInfoById(payInfoModel);
                 }
@@ -360,6 +421,18 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                 }
                 break;
         }
+    }
+
+    @Override
+    public void confirmOrderSuccess() {
+        showToastSuccess(getResources().getString(R.string.order_confirm));
+        upload(true);
+    }
+
+    @Override
+    public void confirmCancelOrderSuccess() {
+        showToastSuccess(getResources().getString(R.string.cancel_success));
+        upload(true);
     }
 
     @Override
@@ -397,7 +470,7 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_confirmed));
 
                 confirmView = new ConfirmView();
-                statusView = confirmView.create(this);
+                statusView = confirmView.create(this, mPresenter);
                 break;
             case 2:
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_payed));

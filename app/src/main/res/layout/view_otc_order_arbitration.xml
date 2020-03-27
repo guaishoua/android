@@ -146,9 +146,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/arbitration_content"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14"
-            tools:text="@string/arbitration_content" />
+            android:textSize="@dimen/text_size_sp_14" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundTextView
             android:id="@+id/tv_arbitration"
@@ -179,9 +179,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/upload_arbitration_img"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14"
-            tools:text="@string/upload_arbitration_img" />
+            android:textSize="@dimen/text_size_sp_14" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
             android:id="@+id/img_arbitration"
@@ -205,9 +205,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/bearbitration_content"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14"
-            tools:text="@string/bearbitration_content" />
+            android:textSize="@dimen/text_size_sp_14" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundTextView
             android:id="@+id/tv_bearbitration"
@@ -238,9 +238,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/upload_bearbitration_img"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14"
-            tools:text="@string/upload_bearbitration_img" />
+            android:textSize="@dimen/text_size_sp_14" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
             android:id="@+id/img_bearbitration"
@@ -272,6 +272,7 @@
         android:layout_height="@dimen/dp_40"
         android:layout_marginHorizontal="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_20"
         android:text="@string/confirm_getmoney_and_coined"
         android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_sp_14"

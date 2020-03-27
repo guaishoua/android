@@ -715,7 +715,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                     } else {
                         tvValuationPrice.setText("");
                     }
-                    setTradeAmounnt();
+                    if (limitPriceType == 1) {
+                        setTradeAmounnt();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -761,7 +763,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                             seekBar.setProgress(0);
                         }
                     }
-                    setTradeAmounnt();
+                    if (limitPriceType == 1) {
+                        setTradeAmounnt();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1360,10 +1364,12 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                                 limitPriceType = 1;
                                 editNumber.setText("");
                                 setDefaultPriceValue();
+                                tvTradeAmount.setVisibility(View.VISIBLE);
                             } else if (position == 1) {//市价
                                 limitPriceType = 2;
                                 editPrice.setText("");
                                 editNumber.setText("");
+                                tvTradeAmount.setVisibility(View.GONE);
                             }
                             marketPriceShow();
                             btnSelectPrice.setText(tag);

@@ -15,7 +15,6 @@
         app:qmui_radius="@dimen/dp_3">
 
         <com.android.tacu.widget.NodeProgressView
-            android:id="@+id/node_progress"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_70"
             android:background="@color/content_bg_color"
@@ -112,4 +111,36 @@
     </RelativeLayout>
 
     <include layout="@layout/view_otc_detail_base" />
+
+    <LinearLayout
+        android:id="@+id/lin_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_25"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_15">
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_cancel"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_40"
+            android:layout_weight="1"
+            android:text="@string/refuse_order"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14"
+            app:qmui_backgroundColor="@color/color_otc_giveup"
+            app:qmui_radius="@dimen/dp_3" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_confirm"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:text="@string/confirm_create_order"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14"
+            app:qmui_backgroundColor="@color/color_default"
+            app:qmui_radius="@dimen/dp_3" />
+    </LinearLayout>
 </LinearLayout>

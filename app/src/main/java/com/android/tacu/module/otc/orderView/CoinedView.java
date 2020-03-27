@@ -171,7 +171,7 @@ public class CoinedView extends BaseOtcView implements View.OnClickListener {
                             tv_second.setText(getCountDownTimes[2]);
                         }
                     } else {
-                        time.cancel();
+                        cancel();
                         isLock = true;
                         EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
                     }
@@ -183,7 +183,8 @@ public class CoinedView extends BaseOtcView implements View.OnClickListener {
             @Override
             public void onFinish() {
                 cancel();
-                activity.finish();
+                isLock = true;
+                EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
             }
         };
         time.start();
@@ -202,6 +203,7 @@ public class CoinedView extends BaseOtcView implements View.OnClickListener {
 
         droidDialog = new DroidDialog.Builder(activity)
                 .title(activity.getResources().getString(R.string.coined_confirm))
+                .viewCustomLayout(view)
                 .positiveButton(activity.getResources().getString(R.string.sure), false, new DroidDialog.onPositiveListener() {
                     @Override
                     public void onPositive(Dialog droidDialog) {

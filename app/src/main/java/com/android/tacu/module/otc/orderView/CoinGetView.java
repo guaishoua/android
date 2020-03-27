@@ -167,7 +167,7 @@ public class CoinGetView extends BaseOtcView implements View.OnClickListener {
                             tv_second.setText(getCountDownTimes[2]);
                         }
                     } else {
-                        time.cancel();
+                        cancel();
                         isLock = true;
                         EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
                     }
@@ -179,7 +179,8 @@ public class CoinGetView extends BaseOtcView implements View.OnClickListener {
             @Override
             public void onFinish() {
                 cancel();
-                activity.finish();
+                isLock = true;
+                EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
             }
         };
         time.start();

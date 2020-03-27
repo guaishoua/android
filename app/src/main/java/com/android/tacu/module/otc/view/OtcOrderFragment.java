@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.android.tacu.R;
@@ -27,12 +28,14 @@ import com.android.tacu.module.otc.presenter.OtcOrderPresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.Md5Utils;
+import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.android.tacu.widget.dialog.DroidDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
@@ -620,12 +623,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                     if (item.tradeModel.status != null) {
                         switch (item.tradeModel.status) {
                             case 1:
-                                if (item.tradeModel.merchantId == spUtil.getUserUid()) {
-                                    jumpTo(OtcOrderConfirmActivity.createActivity(getContext(), item.tradeModel.id, item.tradeModel.orderNo));
-                                } else {
-                                    jumpTo(OtcOrderDetailActivity.createActivity(getContext(), item.tradeModel.orderNo));
-                                }
-                                break;
                             case 2:
                             case 3:
                             case 4:
@@ -647,22 +644,39 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     }
 
     private void showDialog(final String orderId) {
-        OtcPwdDialogUtils.showPwdDiaglog(getContext(), getResources().getString(R.string.please_input_trade_password), new OtcPwdDialogUtils.OnPassListener() {
-            @Override
-            public void onPass(String pwd) {
-                showSure(orderId, pwd);
-            }
-        });
+        if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
+            showSure(orderId);
+        }
     }
 
-    private void showSure(final String orderId, final String pwdString) {
-        sureDialog = new DroidDialog.Builder(getContext())
-                .title(getResources().getString(R.string.sure_again))
-                .content(getResources().getString(R.string.please_sure_again_coined))
-                .contentGravity(Gravity.CENTER)
-                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+    private void showSure(final String orderId) {
+        View view = View.inflate(getContext(), R.layout.dialog_coined_confirm, null);
+        final CheckBox cb_xieyi = view.findViewById(R.id.cb_xieyi);
+        final QMUIRoundEditText edit_trade_pwd = view.findViewById(R.id.edit_trade_pwd);
+
+        if (spUtil.getPwdVisibility()) {
+            edit_trade_pwd.setVisibility(View.VISIBLE);
+        } else {
+            edit_trade_pwd.setVisibility(View.GONE);
+        }
+
+        new DroidDialog.Builder(getContext())
+                .title(getResources().getString(R.string.coined_confirm))
+                .viewCustomLayout(view)
+                .positiveButton(getResources().getString(R.string.sure), false, new DroidDialog.onPositiveListener() {
                     @Override
                     public void onPositive(Dialog droidDialog) {
+                        if (!cb_xieyi.isChecked()) {
+                            ShowToast.error(getResources().getString(R.string.please_check_xieyi));
+                            return;
+                        }
+                        String pwdString = edit_trade_pwd.getText().toString();
+                        if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
+                            ShowToast.error(getResources().getString(R.string.please_input_trade_password));
+                            return;
+                        }
+
+                        droidDialog.dismiss();
                         mPresenter.finishOrder(orderId, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
                     }
                 })

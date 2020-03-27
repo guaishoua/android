@@ -51,6 +51,7 @@ public class PayedView extends BaseOtcView implements View.OnClickListener {
     private TextView tv_zfb_name;
     private QMUIRoundImageView img_zfb_shoukuan;
 
+    private LinearLayout lin_yhk;
     private TextView tv_yhk_name;
     private TextView tv_bank_name;
     private TextView tv_open_bank_name;
@@ -98,6 +99,7 @@ public class PayedView extends BaseOtcView implements View.OnClickListener {
         tv_zfb_name = view.findViewById(R.id.tv_zfb_name);
         img_zfb_shoukuan = view.findViewById(R.id.img_zfb_shoukuan);
 
+        lin_yhk= view.findViewById(R.id.lin_yhk);
         tv_yhk_name = view.findViewById(R.id.tv_yhk_name);
         tv_bank_name = view.findViewById(R.id.tv_bank_name);
         tv_open_bank_name = view.findViewById(R.id.tv_open_bank_name);
@@ -188,17 +190,20 @@ public class PayedView extends BaseOtcView implements View.OnClickListener {
         if (model != null && model.type != null) {
             switch (model.type) {
                 case 1:
+                    lin_yhk.setVisibility(View.VISIBLE);
                     tv_paytype.setText(activity.getResources().getString(R.string.yinhanngka));
                     tv_bank_name.setText(model.bankName);
                     tv_open_bank_name.setText(model.openBankName);
                     tv_bank_id.setText(model.bankCard);
                     break;
                 case 2:
+                    lin_wx.setVisibility(View.VISIBLE);
                     tv_paytype.setText(activity.getResources().getString(R.string.weixin));
                     tv_wx_name.setText(model.weChatNo);
                     mPresenter.uselectUserInfo(model.weChatImg);
                     break;
                 case 3:
+                    lin_zfb.setVisibility(View.VISIBLE);
                     tv_paytype.setText(activity.getResources().getString(R.string.zhifubao));
                     tv_zfb_name.setText(model.aliPayNo);
                     mPresenter.uselectUserInfo(model.aliPayImg);
@@ -266,7 +271,7 @@ public class PayedView extends BaseOtcView implements View.OnClickListener {
                             tv_second.setText(getCountDownTimes[2]);
                         }
                     } else {
-                        time.cancel();
+                        cancel();
                         isLock = true;
                         EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
                     }
@@ -278,7 +283,8 @@ public class PayedView extends BaseOtcView implements View.OnClickListener {
             @Override
             public void onFinish() {
                 cancel();
-                activity.finish();
+                isLock = true;
+                EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
             }
         };
         time.start();

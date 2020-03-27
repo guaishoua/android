@@ -153,9 +153,7 @@
         <activity android:name="com.android.tacu.module.ZoomImageViewActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderListActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderDetailActivity" />
-        <activity android:name="com.android.tacu.module.otc.view.OtcOrderCreateActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcBuyOrSellActivity" />
-        <activity android:name="com.android.tacu.module.otc.view.OtcOrderConfirmActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcManageActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcPublishActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcManageBuySellDetailActivity" />

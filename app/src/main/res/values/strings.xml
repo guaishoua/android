@@ -580,11 +580,7 @@
     <string name="email_auth">邮箱认证</string>
     <string name="truename_auth">实名认证</string>
     <string name="video_auth">视频认证</string>
-    <string name="buy_pay">买方支付</string>
-    <string name="sell_pay">卖方支付</string>
     <string name="please_choose_get_pay">请选择收/付款方式：</string>
-    <string name="dui_fang_confirm_time">对方须在 %1$s 内确认本订单</string>
-    <string name="returnString">返回</string>
     <string name="otc_order_confirmed_tip">交易須知
         \n1.卖家发起交易请求后，该订单的数字资产将会锁定託管；
         \n2.买家需在付款有效期限内完成付款并进行确认支付完成操作，卖家才会放币。
@@ -593,49 +589,19 @@
         \n5.买家收到相应数字资产后，如未发生仲裁，该笔订单将成功完成。
         \n6.交易过程中如发生异议，买卖双方可随时联繫或提交仲裁进行各自维权，具体请查看  《OTC场外交易规则》。
     </string>
-    <string name="payed_time_countdown">付款期限倒计时</string>
-    <string name="coined_time_countdown">放币期限倒计时</string>
     <string name="order_id">订单号</string>
     <string name="pay_method">支付方式</string>
-    <string name="current_trade_should_get">本次交易应收</string>
-    <string name="current_trade_should_coin">本次交易放币</string>
-    <string name="current_trade_need_pay">本次交易需支付</string>
-    <string name="upload_img_tip">上传付款凭证
-        \n图片请图片控制在20MB大小
-        \n支持JPG\PNG\BMP格式</string>
-    <string name="upload_arbitration_tip">上传仲裁凭证
-        \n图片请图片控制在20MB大小
-        \n支持JPG\PNG\BMP格式</string>
-    <string name="upload_beArbitration_tip">上传申诉凭证
-        \n图片请图片控制在20MB大小
-        \n支持JPG\PNG\BMP格式</string>
-    <string name="confirm_and_pay">确认并支付</string>
-    <string name="please_scan_with_wx">请使用微信扫描该付款码</string>
-    <string name="please_scan_with_zfb">请使用支付宝扫描该付款码</string>
     <string name="picture">图片</string>
-    <string name="please_confirm_yhk_get_money">请确认您绑定的微信是否收到款项</string>
-    <string name="please_confirm_zfb_get_money">请确认您绑定的微信是否收到款项</string>
-    <string name="please_confirm_wx_get_money">请确认您绑定的微信是否收到款项</string>
     <string name="confirm_getmoney_and_coined">确认收款并放币</string>
     <string name="please_submit_arbitration_content">请输入您要提交仲裁内容…………</string>
     <string name="submit_arbitration">发起仲裁</string>
-    <string name="order_make">订单生成</string>
-    <string name="order_pay">订单支付</string>
-    <string name="not_pay">未支付</string>
-    <string name="not_coined">未放币</string>
-    <string name="arbitration_reason">仲裁理由：</string>
-    <string name="appeal_reason">申诉理由：</string>
-    <string name="arbitration_result">仲裁结果：</string>
-    <string name="please_submit_appeal_content">请输入您要提交申诉内容…………</string>
     <string name="submit_appeal">提交申诉</string>
-    <string name="otc_order_create">订单生成页</string>
     <string name="please_choose_pay_method">请选择支付方式</string>
     <string name="otc_xieyi">本人已认真阅读，同意且遵守平台关于OTC场外交易的安全提示以及</string>
     <string name="otc_xieyi_name">《TACU数字资产交易平台OTC场外交易规范及免责声明》</string>
     <string name="please_check_xieyi">请勾选协议！</string>
     <string name="confirm_create_order">确认生成订单</string>
     <string name="refuse_order">拒绝订单</string>
-    <string name="otc_order_confirm">订单确认页</string>
     <string name="order_confirm">订单已确认</string>
     <string name="cancel_success">取消成功</string>
     <string name="bond">保证金</string>
@@ -643,19 +609,7 @@
     <string name="buy_amount">买单量</string>
     <string name="sell_amount">卖单量</string>
     <string name="deal_rate">成单率</string>
-    <string name="dispute_amount">纠纷量：</string>
-    <string name="be_arbitrated_amount">被仲裁量：</string>
-    <string name="arbitration_amount">仲裁量：</string>
-    <string name="appeal_amount">申诉量：</string>
-    <string name="win_lawsuit_amount">胜诉量：</string>
     <string name="average_payment_time">平均付款时间</string>
-    <string name="current_trade_amount">本次交易数量：</string>
-    <string name="current_trade_price">本次交易金额：</string>
-    <string name="current_pay_method">本次付款方式：</string>
-    <string name="shoper_confirm_count_down">商家确认倒计时：</string>
-    <string name="account_balance">账户余额：</string>
-    <string name="completed_transaction_advertising_balance">完成交易广告余额：</string>
-    <string name="look_advertising_info">查看广告信息</string>
     <string name="otc_buy_page">买入页面</string>
     <string name="otc_sell_page">卖出页面</string>
     <string name="all_num">总量</string>
@@ -736,7 +690,6 @@
     <string name="please_input_bank_name">请输入开户银行</string>
     <string name="open_bank_name">开户支行</string>
     <string name="please_input_open_bank_name">请输入开户支行</string>
-    <string name="open_bank_address">开户行地址</string>
     <string name="bank_id">银行账号</string>
     <string name="please_input_bank_id">请输入银行卡号</string>
     <string name="please_input_trade_password">请输入您的交易密码</string>
@@ -903,7 +856,6 @@
     <string name="recharge_deposit_text3">保证金提取至币币账户</string>
     <string name="recharge_deposit_text4">保证金提取至OTC账户</string>
     <string name="order_cancel_success">撤销成功！</string>
-    <string name="yhk_tip">特别提示：为了保证您的付款可以第一时间正常到达收款方账户，请您务必不要填写任何备注信息，包括比特币、BTC、数字货币等一切字样信息，以免造成被银行误解并且冻结，影响您个人资产安全，感谢理解！</string>
 
     <string name="otc_order_all">全部</string>
     <string name="otc_order_confirmed">待确认</string>
@@ -951,8 +903,6 @@
     <string name="margin_account_acu">保证金账户(ACU)</string>
 
     <!--OTC3-->
-    <string name="sure_again">再次确认</string>
-    <string name="please_sure_again_coined">请再次确认是否放币！</string>
     <string name="total_holdings">持有总量</string>
     <string name="coin_account_recharge">币币账户充值</string>
     <string name="available_num">可用数量</string>
@@ -961,8 +911,6 @@
     <string name="asset_history">资产流水</string>
     <string name="to">向</string>
     <string name="margin_account">保证金账户</string>
-    <string name="hide">隐藏</string>
-    <string name="show">展开</string>
     <string name="realname">姓名</string>
 
     <!--OTC4-->
@@ -1055,6 +1003,4 @@
     <string name="please_submit_bearbitration_content">请输入您要提交申诉内容…………</string>
     <string name="arbitration_wait">仲裁中，等待仲裁</string>
     <string name="arbitration_explain">仲裁说明</string>
-    <string name="arbitration_explain1">卖家核实未放币确认属实，放币已完成。</string>
-    <string name="arbitration_explain2">卖家核实未放币不属实，放币已完成。</string>
 </resources>

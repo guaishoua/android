@@ -127,7 +127,7 @@ public class PayGetView extends BaseOtcView {
                             tv_second.setText(getCountDownTimes[2]);
                         }
                     } else {
-                        time.cancel();
+                        cancel();
                         isLock = true;
                         EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
                     }
@@ -139,7 +139,8 @@ public class PayGetView extends BaseOtcView {
             @Override
             public void onFinish() {
                 cancel();
-                activity.finish();
+                isLock = true;
+                EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
             }
         };
         time.start();

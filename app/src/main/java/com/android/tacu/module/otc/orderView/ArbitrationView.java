@@ -1,6 +1,7 @@
 package com.android.tacu.module.otc.orderView;
 
 import android.app.Dialog;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -8,6 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.EventManage;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.OtcDetailNotifyEvent;
 import com.android.tacu.R;
 import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
@@ -15,6 +20,7 @@ import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 import com.android.tacu.module.otc.view.ArbitrationSubmitActivity;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
+import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.ShowToast;
@@ -49,6 +55,11 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
     private QMUIRoundButton btn_coined;
 
     private OtcTradeModel tradeModel;
+    private Long currentTime;
+    private CountDownTimer time;
+    private String[] getCountDownTimes;
+    private boolean isLock = false;
+
     private String imageUrlAritrotion;
     private String imageUrlBeAritrotion;
 
@@ -108,7 +119,7 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                     showSure();
                 }
                 break;
-            case R.id.btn_submit_arbitration:
+            case R.id.btn_be:
                 activity.startActivity(ArbitrationSubmitActivity.createActivity(activity, false, tradeModel.id));
                 break;
         }
@@ -117,6 +128,16 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
     public void selectTradeOne(OtcTradeModel model) {
         this.tradeModel = model;
         dealArbitration();
+        if (tradeModel != null && tradeModel.status != null && tradeModel.status == 4) {
+            dealTime();
+        }
+    }
+
+    public void currentTime(Long currentTime) {
+        this.currentTime = currentTime;
+        if (tradeModel != null && tradeModel.status != null && tradeModel.status == 4) {
+            dealTime();
+        }
     }
 
     public void uselectUserInfoArbitration(int type, String imageUrl) {
@@ -138,6 +159,7 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
 
     private void dealArbitration() {
         if (tradeModel != null) {
+            setBaseValue(activity, tradeModel, spUtil);
             if (tradeModel.status != null) {
                 switch (tradeModel.status) {
                     case 4:
@@ -147,25 +169,21 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                             btn_be.setVisibility(View.GONE);
                             btn_coined.setVisibility(View.GONE);
                         } else if (tradeModel.selluid == spUtil.getUserUid()) {
-                            btn_be.setVisibility(View.VISIBLE);
+                            if (!TextUtils.isEmpty(tradeModel.beArbitrateExp)) {
+                                btn_be.setVisibility(View.GONE);
+                            } else {
+                                btn_be.setVisibility(View.VISIBLE);
+                            }
                             btn_coined.setVisibility(View.VISIBLE);
                         }
                         break;
                     case 12:
-                        rl_top.setVisibility(View.GONE);
-                        lin_top.setVisibility(View.VISIBLE);
-                        btn_be.setVisibility(View.GONE);
-                        btn_coined.setVisibility(View.GONE);
-
-                        tv_explain.setText(activity.getResources().getString(R.string.arbitration_explain1));
-                        break;
                     case 13:
                         rl_top.setVisibility(View.GONE);
                         lin_top.setVisibility(View.VISIBLE);
                         btn_be.setVisibility(View.GONE);
                         btn_coined.setVisibility(View.GONE);
-
-                        tv_explain.setText(activity.getResources().getString(R.string.arbitration_explain2));
+                        tv_explain.setText(tradeModel.arbitrateResults);
                         break;
                 }
             }
@@ -174,13 +192,11 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
             tv_bearbitration.setText(tradeModel.beArbitrateExp);
             if (!TextUtils.isEmpty(tradeModel.arbitrateImg)) {
                 img_arbitration.setVisibility(View.VISIBLE);
-                mPresenter.uselectUserInfoArbitration(1, tradeModel.arbitrateImg);
             } else {
                 img_arbitration.setVisibility(View.GONE);
             }
             if (!TextUtils.isEmpty(tradeModel.beArbitrateImg)) {
                 img_bearbitration.setVisibility(View.VISIBLE);
-                mPresenter.uselectUserInfoArbitration(2, tradeModel.beArbitrateImg);
             } else {
                 img_bearbitration.setVisibility(View.GONE);
             }
@@ -200,6 +216,7 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
 
         droidDialog = new DroidDialog.Builder(activity)
                 .title(activity.getResources().getString(R.string.coined_confirm))
+                .viewCustomLayout(view)
                 .positiveButton(activity.getResources().getString(R.string.sure), false, new DroidDialog.onPositiveListener() {
                     @Override
                     public void onPositive(Dialog droidDialog) {
@@ -224,11 +241,77 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                 .show();
     }
 
+    private void dealTime() {
+        if (currentTime != null && tradeModel != null && !TextUtils.isEmpty(tradeModel.arbitrationEndTime)) {
+            if (tradeModel.status != null && tradeModel.status == 4) {
+                long arbitrationEndTime = DateUtils.string2Millis(tradeModel.arbitrationEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
+                if (arbitrationEndTime > 0) {
+                    tv_timeout.setVisibility(View.GONE);
+                    lin_countdown.setVisibility(View.VISIBLE);
+                    if (tradeModel.selluid == spUtil.getUserUid()) {
+                        btn_be.setVisibility(View.VISIBLE);
+                    }
+                    startCountDownTimer(arbitrationEndTime);
+                } else {
+                    tv_timeout.setVisibility(View.VISIBLE);
+                    lin_countdown.setVisibility(View.GONE);
+                    btn_be.setVisibility(View.GONE);
+                }
+            } else {
+                tv_timeout.setVisibility(View.VISIBLE);
+                lin_countdown.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void startCountDownTimer(long valueTime) {
+        if (time != null) {
+            return;
+        }
+        isLock = false;
+        time = new CountDownTimer(valueTime, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                try {
+                    if (isLock) {
+                        return;
+                    }
+                    if (millisUntilFinished >= 0) {
+                        getCountDownTimes = DateUtils.getCountDownTime2(millisUntilFinished);
+                        if (getCountDownTimes != null && getCountDownTimes.length == 3) {
+                            tv_hour.setText(getCountDownTimes[0]);
+                            tv_minute.setText(getCountDownTimes[1]);
+                            tv_second.setText(getCountDownTimes[2]);
+                        }
+                    } else {
+                        cancel();
+                        isLock = true;
+                        EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                cancel();
+                isLock = true;
+                EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
+            }
+        };
+        time.start();
+    }
+
     public void destory() {
         activity = null;
         mPresenter = null;
         if (droidDialog != null && droidDialog.isShowing()) {
             droidDialog.dismiss();
+        }
+        if (time != null) {
+            time.cancel();
+            time = null;
         }
     }
 }
