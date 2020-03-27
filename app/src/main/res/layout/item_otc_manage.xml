@@ -12,14 +12,24 @@
         android:layout_height="@dimen/dp_45"
         android:paddingHorizontal="@dimen/dp_15">
 
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
+            android:id="@+id/img_coin"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_isRadiusAdjustBounds="true" />
+
         <TextView
             android:id="@+id/tv_coin_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_14"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/img_coin"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="BTC" />
 
@@ -46,163 +56,14 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="进行中" />
-    </android.support.constraint.ConstraintLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="@color/content_bg_color_grey" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/dp_15"
-        android:paddingVertical="@dimen/dp_12">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_sell_thing_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="@string/sell_thing"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_13" />
-
-            <TextView
-                android:id="@+id/tv_sell_thing"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:includeFontPadding="false"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_13"
-                tools:text="111" />
-
-            <TextView
-                android:id="@+id/tv_price_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_15"
-                android:includeFontPadding="false"
-                android:text="@string/single_price_acu_cny"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_13" />
-
-            <TextView
-                android:id="@+id/tv_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:includeFontPadding="false"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_13"
-                tools:text="111" />
-
-            <TextView
-                android:id="@+id/tv_surplus_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_15"
-                android:includeFontPadding="false"
-                android:text="@string/order_surplus"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_13" />
-
-            <TextView
-                android:id="@+id/tv_surplus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:includeFontPadding="false"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_13"
-                tools:text="111" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="@string/order_number"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_13" />
-
-            <TextView
-                android:id="@+id/tv_order_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:includeFontPadding="false"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_13"
-                tools:text="111" />
-
-            <TextView
-                android:id="@+id/tv_allamount_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_15"
-                android:includeFontPadding="false"
-                android:text="@string/all_price"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_13" />
-
-            <TextView
-                android:id="@+id/tv_allamount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:includeFontPadding="false"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_13"
-                tools:text="111" />
-
-            <TextView
-                android:id="@+id/tv_deposit_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_15"
-                android:includeFontPadding="false"
-                android:text="@string/frezon_deposit"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_13" />
-
-            <TextView
-                android:id="@+id/tv_deposit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:includeFontPadding="false"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_sp_13"
-                tools:text="111" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:paddingHorizontal="@dimen/dp_15">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_type"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -225,33 +86,153 @@
                 android:layout_height="@dimen/dp_18"
                 android:src="@mipmap/img_yhk" />
         </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/content_bg_color_grey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_15"
+        android:paddingVertical="@dimen/dp_12">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_price_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/dp_10"
                 android:includeFontPadding="false"
-                android:text="@string/wait_operation"
+                android:text="@string/single_price_cny"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_13" />
 
             <TextView
-                android:id="@+id/tv_wait_operation"
+                android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
                 android:includeFontPadding="false"
-                android:textColor="@color/text_default"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+
+            <TextView
+                android:id="@+id/tv_sell_thing_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:includeFontPadding="false"
+                android:text="@string/sell_thing"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
+
+            <TextView
+                android:id="@+id/tv_sell_thing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+
+            <TextView
+                android:id="@+id/tv_surplus_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:includeFontPadding="false"
+                android:text="@string/deal_dan_num"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
+
+            <TextView
+                android:id="@+id/tv_surplus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_13"
                 tools:text="111" />
         </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_allamount_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/all_price_cny"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
+
+            <TextView
+                android:id="@+id/tv_allamount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+
+            <TextView
+                android:id="@+id/tv_order_number_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:includeFontPadding="false"
+                android:text="@string/deal_num"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13" />
+
+            <TextView
+                android:id="@+id/tv_order_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+
+            <TextView
+                android:id="@+id/tv_need_deal_order_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:includeFontPadding="false"
+                android:text="@string/need_deal_order"
+                android:textColor="@color/text_color"
+                android:drawableRight="@drawable/icon_arrow_right"
+                android:textSize="@dimen/text_size_sp_13" />
+
+            <TextView
+                android:id="@+id/tv_need_deal_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_error"
+                android:textSize="@dimen/text_size_sp_13"
+                tools:text="111" />
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

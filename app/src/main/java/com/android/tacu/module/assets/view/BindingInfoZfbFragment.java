@@ -1,11 +1,13 @@
 package com.android.tacu.module.assets.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -44,6 +46,7 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.permission.PermissionUtils;
+import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout;
 import com.yanzhenjie.permission.Permission;
@@ -222,7 +225,7 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
 
     @OnClick(R.id.btn_delete)
     void deleteClick() {
-        mPresenter.deleteBank(3, payInfoModel.id);
+        showDelete();
     }
 
     @Override
@@ -258,6 +261,22 @@ public class BindingInfoZfbFragment extends BaseFragment<BindingPayInfoPresenter
         if (!TextUtils.isEmpty(imageUrl)) {
             GlideUtils.disPlay(getContext(), imageUrl, img_zfb_shoukuan1);
         }
+    }
+
+    private void showDelete() {
+        new DroidDialog.Builder(getContext())
+                .title(getResources().getString(R.string.tips))
+                .content(getResources().getString(R.string.is_delete_account))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        mPresenter.deleteBank(3, payInfoModel.id);
+                    }
+                })
+                .negativeButton(getResources().getString(R.string.cancel), null)
+                .cancelable(false, false)
+                .show();
     }
 
     private void sendRefresh() {

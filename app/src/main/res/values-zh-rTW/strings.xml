@@ -616,6 +616,7 @@
     <string name="publish_otc_order">發布廣告</string>
     <string name="publish">發布</string>
     <string name="guanggao">廣告</string>
+    <string name="center">中心</string>
     <string name="certified">認證</string>
     <string name="shoper">商戶</string>
     <string name="certified_shoper">認證商戶</string>
@@ -762,7 +763,7 @@
     <string name="wait_day">等待%1$s天</string>
     <string name="cha_bi">還差%1$s筆</string>
     <string name="apply_success">申請成功！</string>
-    <string name="apply_success1">申請成功</string>
+    <string name="apply_success1">认证成功</string>
 
     <!--充值保證金-->
     <string name="recharge_deposit">保證金管理</string>
@@ -862,10 +863,10 @@
     <string name="go_pay1">去支付</string>
     <string name="confirm_coined">確認放幣</string>
 
-    <string name="sell_thing">出售物</string>
+    <string name="sell_thing">發布數量</string>
     <string name="order_number">訂單量</string>
     <string name="order_surplus">訂單余額</string>
-    <string name="all_price">總價</string>
+    <string name="all_price_cny">總價(CNY)</string>
     <string name="frezon_deposit">凍結保證金</string>
     <string name="wait_operation">待操作</string>
     <string name="look">查看</string>

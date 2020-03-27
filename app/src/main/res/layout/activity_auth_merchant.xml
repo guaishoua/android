@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/content_bg_color"
@@ -9,10 +10,80 @@
         android:id="@+id/title"
         layout="@layout/common_titlebar" />
 
-    <com.shizhefei.view.indicator.ScrollIndicatorView
-        android:id="@+id/magic_indicator"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/main_indicator_height" />
+        android:layout_height="@dimen/dp_50"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_ordinary_merchant"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/img_ordinary_merchant"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_5"
+                android:layout_toLeftOf="@+id/tv_ordinary_merchant"
+                android:visibility="gone"
+                app:srcCompat="@drawable/icon_vip" />
+
+            <TextView
+                android:id="@+id/tv_ordinary_merchant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/ordinary_merchant"
+                android:textColor="@color/text_default"
+                android:textSize="@dimen/text_size_sp_16" />
+
+            <View
+                android:id="@+id/view_ordinary_merchant"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/color_default" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_certified_shoper"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/img_certified_shoper"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_5"
+                android:layout_toLeftOf="@+id/tv_certified_shoper"
+                android:visibility="gone"
+                app:srcCompat="@mipmap/img_vip_green" />
+
+            <TextView
+                android:id="@+id/tv_certified_shoper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/ordinary_merchant"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_16" />
+
+            <View
+                android:id="@+id/view_certified_shoper"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/color_default"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

@@ -6,37 +6,12 @@
     android:background="@color/color_dialog"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingBottom="@dimen/dp_5"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/cb_xieyi"
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="@dimen/dp_20"
-            android:background="@drawable/checkbox_rect_default"
-            android:button="@null"
-            android:checked="false" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:text="@string/coined_confirm_tip"
-            android:textColor="@color/text_grey"
-            android:textSize="@dimen/text_size_sp_12" />
-    </LinearLayout>
-
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
         android:id="@+id/edit_trade_pwd"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_46"
         android:layout_marginHorizontal="@dimen/dp_2"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_1"
         android:background="@null"
         android:gravity="left|center_vertical"
         android:hint="@string/please_input_trade_password"
@@ -50,4 +25,30 @@
         app:qmui_borderColor="@color/color_grey"
         app:qmui_borderWidth="@dimen/dp_1"
         app:qmui_radius="@dimen/dp_3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp_5">
+
+        <CheckBox
+            android:id="@+id/cb_xieyi"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:background="@drawable/checkbox_rect_default"
+            android:button="@null"
+            android:checked="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:includeFontPadding="false"
+            android:text="@string/coined_confirm_tip"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_sp_12" />
+    </LinearLayout>
 </LinearLayout>

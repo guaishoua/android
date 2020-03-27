@@ -70,6 +70,21 @@ public class OtcOrderListActivity extends BaseActivity {
         fragmentList.add(sellFragment);
         viewpager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentList));
         viewpager.setOffscreenPageLimit(tabTitle.length - 1);
+        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                buyOrSell = i + 1;
+                setBuySellClick();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+        });
 
         data.add(getResources().getString(R.string.otc_order_all));
         data.add(getResources().getString(R.string.otc_order_confirmed));

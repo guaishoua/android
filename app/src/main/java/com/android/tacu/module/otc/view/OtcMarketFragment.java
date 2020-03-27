@@ -59,8 +59,6 @@ public class OtcMarketFragment extends BaseFragment {
 
     @BindView(R.id.lin_guanggao)
     QMUIRoundLinearLayout lin_guanggao;
-    @BindView(R.id.lin_auth)
-    QMUIRoundLinearLayout lin_auth;
 
     private int currencyId = Constant.ACU_CURRENCY_ID;
     private String currencyNameEn = Constant.ACU_CURRENCY_NAME;
@@ -149,22 +147,11 @@ public class OtcMarketFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.lin_auth)
-    void authClick() {
-        if (spUtil.getLogin()) {
-            jumpTo(AuthMerchantActivity.class);
-        } else {
-            jumpTo(LoginActivity.class);
-        }
-    }
-
     private void setShow(){
         if (spUtil.getApplyMerchantStatus() == 2 || spUtil.getApplyAuthMerchantStatus() == 2) {
             lin_guanggao.setVisibility(View.VISIBLE);
-            lin_auth.setVisibility(View.VISIBLE);
         } else {
             lin_guanggao.setVisibility(View.GONE);
-            lin_auth.setVisibility(View.GONE);
         }
     }
 

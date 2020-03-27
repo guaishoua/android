@@ -1,8 +1,10 @@
 package com.android.tacu.module.assets.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,6 +24,7 @@ import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.permission.PermissionUtils;
+import com.android.tacu.widget.dialog.DroidDialog;
 import com.yanzhenjie.permission.Permission;
 
 import butterknife.BindView;
@@ -133,7 +136,7 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
 
     @OnClick(R.id.btn_delete)
     void deleteClick() {
-        mPresenter.deleteBank(1, payInfoModel.id);
+        showDelete();
     }
 
     @Override
@@ -155,6 +158,22 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
     @Override
     public void deleteBankSuccess() {
         sendRefresh();
+    }
+
+    private void showDelete() {
+        new DroidDialog.Builder(getContext())
+                .title(getResources().getString(R.string.tips))
+                .content(getResources().getString(R.string.is_delete_account))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        mPresenter.deleteBank(1, payInfoModel.id);
+                    }
+                })
+                .negativeButton(getResources().getString(R.string.cancel), null)
+                .cancelable(false, false)
+                .show();
     }
 
     private void sendRefresh() {

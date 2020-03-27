@@ -13,9 +13,11 @@ import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcOrderContract;
 import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
@@ -27,6 +29,7 @@ import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcOrderPresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
+import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.UIUtils;
@@ -309,6 +312,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                 }
             }
             if (item.tradeModel != null) {
+                GlideUtils.disPlay(mContext, Constant.ACU_ICON, (ImageView) holder.getView(R.id.img_coin));
                 holder.setText(R.id.tv_name, item.tradeModel.currencyName);
                 if (item.tradeModel.buyuid == spUtil.getUserUid()) {
                     holder.setText(R.id.tv_buy_status, getResources().getString(R.string.buy));

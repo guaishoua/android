@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
@@ -25,6 +23,7 @@ import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
+import com.android.tacu.common.MyFragmentPagerAdapter;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.view.AssetsFragment;
 import com.android.tacu.module.login.view.LoginActivity;
@@ -495,25 +494,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         }
         mPresenter.logout();
         showToastSuccess(getResources().getString(R.string.logout_success));
-    }
-
-    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-        private Fragment[] list;
-
-        public MyFragmentPagerAdapter(FragmentManager fm, Fragment[] list) {
-            super(fm);
-            this.list = list;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return list[position];
-        }
-
-        @Override
-        public int getCount() {
-            return list.length;
-        }
     }
 
     private void initFragments() {

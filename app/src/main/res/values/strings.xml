@@ -631,6 +631,7 @@
     <string name="publish_otc_order">发布广告</string>
     <string name="publish">发布</string>
     <string name="guanggao">广告</string>
+    <string name="center">中心</string>
     <string name="certified">认证</string>
     <string name="shoper">商户</string>
     <string name="certified_shoper">认证商户</string>
@@ -778,7 +779,7 @@
     <string name="wait_day">等待%1$s天</string>
     <string name="cha_bi">还差%1$s笔</string>
     <string name="apply_success">申请成功！</string>
-    <string name="apply_success1">申请成功</string>
+    <string name="apply_success1">认证成功</string>
 
     <!--充值保证金-->
     <string name="recharge_deposit">保证金管理</string>
@@ -883,10 +884,10 @@
     <string name="go_pay1">去支付</string>
     <string name="confirm_coined">确认放币</string>
 
-    <string name="sell_thing">出售物</string>
+    <string name="sell_thing">发布数量</string>
     <string name="order_number">订单量</string>
     <string name="order_surplus">订单余额</string>
-    <string name="all_price">总价</string>
+    <string name="all_price_cny">总价(CNY)</string>
     <string name="frezon_deposit">冻结保证金</string>
     <string name="wait_operation">待操作</string>
     <string name="look">查看</string>
@@ -1003,4 +1004,13 @@
     <string name="please_submit_bearbitration_content">请输入您要提交申诉内容…………</string>
     <string name="arbitration_wait">仲裁中，等待仲裁</string>
     <string name="arbitration_explain">仲裁说明</string>
+
+    <!--otc6-->
+    <string name="ordinary_merchant_tips">是否确认提交普通商户申请</string>
+    <string name="certified_merchant_tips">是否确认提交认证商户申请</string>
+    <string name="go_finish">去完成</string>
+    <string name="is_delete_account">是否确认解除当前帐号</string>
+    <string name="deal_num">成交数量</string>
+    <string name="deal_dan_num">成交笔数</string>
+    <string name="need_deal_order">待处理订单</string>
 </resources>

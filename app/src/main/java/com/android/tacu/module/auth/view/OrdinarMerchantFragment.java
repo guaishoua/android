@@ -1,15 +1,14 @@
 package com.android.tacu.module.auth.view;
 
+import android.app.Dialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
-import android.text.Html;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +47,7 @@ import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.view.GlideLoader;
+import com.android.tacu.widget.dialog.DroidDialog;
 import com.lcw.library.imagepicker.ImagePicker;
 import com.lcw.library.imagepicker.activity.ImagePickerActivity;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
@@ -62,6 +62,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter> implements AuthMerchantContract.IOrdinarView {
+
+    @BindView(R.id.tv_membership_right)
+    TextView tv_membership_right;
 
     @BindView(R.id.img_membership)
     ImageView img_membership;
@@ -89,10 +92,6 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
     @BindView(R.id.btn_upload_video)
     QMUIRoundButton btn_upload_video;
 
-    @BindView(R.id.cb_xieyi)
-    CheckBox cb_xieyi;
-    @BindView(R.id.tv_xieyi)
-    TextView tv_xieyi;
     @BindView(R.id.btn_submit)
     QMUIRoundButton btn_submit;
 
@@ -148,8 +147,6 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
 
     @Override
     protected void initData(View view) {
-        tv_xieyi.setText(Html.fromHtml(getResources().getString(R.string.auth_xieyi1) + "<font color=" + ContextCompat.getColor(getContext(), R.color.text_default) + ">" + getResources().getString(R.string.auth_xieyi2) + "</font>"));
-
         dealValue();
     }
 
@@ -193,15 +190,6 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
                 mPresenter.getOssSetting();
             }
         }
-    }
-
-    @OnClick(R.id.tv_xieyi)
-    void xieyiClick() {
-        Intent intent = new Intent();
-        Uri content_url = Uri.parse(Constant.SERVICE_APPLY_SYSTEM);
-        intent.setAction("android.intent.action.VIEW");
-        intent.setData(content_url);
-        startActivity(intent);
     }
 
     @OnClick(R.id.tv_membership_right)
@@ -257,14 +245,7 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
 
     @OnClick(R.id.btn_submit)
     void submitClick() {
-        if (!cb_xieyi.isChecked()) {
-            showToastError(getResources().getString(R.string.please_check_xieyi));
-            return;
-        }
-        if (spUtil.getDisclaimer() == 0) {
-            mPresenter.disclaimer();
-        }
-        mPresenter.applyMerchant(uploadVideoName);
+        showOrdinarMerchant();
     }
 
     @Override
@@ -298,11 +279,6 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
         getHostActivity().finish();
     }
 
-    @Override
-    public void disclaimerSuccess() {
-        spUtil.setDisclaimer(1);
-    }
-
     private void upload() {
         mPresenter.countTrade();
     }
@@ -318,14 +294,13 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
     }
 
     private void dealValue() {
-        if (spUtil.getDisclaimer() == 1) {
-            cb_xieyi.setChecked(true);
-        }
         if (spUtil.getVip() != 0) {
             isMembership = true;
+            tv_membership_right.setText(getResources().getString(R.string.finished));
             img_membership.setImageResource(R.drawable.icon_auth_success);
         } else {
             isMembership = false;
+            tv_membership_right.setText(getResources().getString(R.string.buy_member));
             img_membership.setImageResource(R.drawable.icon_auth_failure);
         }
         if (spUtil.getEmailStatus() && spUtil.getPhoneStatus()) {
@@ -386,11 +361,11 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
             ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
         } else {
             btn_submit.setEnabled(false);
-            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_grey));
+            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
         }
         if (spUtil.getApplyMerchantStatus() == 1 || spUtil.getApplyMerchantStatus() == 2) {
             btn_submit.setEnabled(false);
-            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_grey));
+            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
             if (spUtil.getApplyMerchantStatus() == 1) {
                 btn_submit.setText(getResources().getString(R.string.to_be_examine));
             } else if (spUtil.getApplyMerchantStatus() == 2) {
@@ -444,6 +419,22 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
             uploadVideoName = null;
             mHandler.sendEmptyMessage(1);
         }
+    }
+
+    private void showOrdinarMerchant() {
+        new DroidDialog.Builder(getContext())
+                .title(getResources().getString(R.string.ordinary_merchant))
+                .content(getResources().getString(R.string.ordinary_merchant_tips))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        mPresenter.applyMerchant(uploadVideoName);
+                    }
+                })
+                .negativeButton(getResources().getString(R.string.cancel), null)
+                .cancelable(false, false)
+                .show();
     }
 
     private boolean isKeyc() {

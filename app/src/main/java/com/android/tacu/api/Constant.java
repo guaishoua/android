@@ -93,6 +93,9 @@ public class Constant {
     public static final int ACU_CURRENCY_ID = 237;
     public static final int TAC_CURRENCY_ID = 238;
 
+    //ACU图片地址
+    public static final String ACU_ICON = SMALL_ICON_URL + "coinimg/acu.png";
+
     //OTC开放的币种
     public static final String[] OTCList = new String[]{"ACU"};
     public static final String ACU_CURRENCY_NAME = "ACU";

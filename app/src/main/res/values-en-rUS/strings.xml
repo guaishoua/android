@@ -622,6 +622,7 @@
     <string name="publish_otc_order">Post an ad</string>
     <string name="publish">Publish</string>
     <string name="guanggao">Ad</string>
+    <string name="center">Center</string>
     <string name="certified">Verified</string>
     <string name="shoper">Merchant</string>
     <string name="certified_shoper">Verified Merchant</string>
@@ -873,10 +874,10 @@
     <string name="go_pay1">Go to pay</string>
     <string name="confirm_coined">Confirm the deposit</string>
 
-    <string name="sell_thing">Sale</string>
+    <string name="sell_thing">Number</string>
     <string name="order_number">Order volume</string>
     <string name="order_surplus">Order balance</string>
-    <string name="all_price">Total price</string>
+    <string name="all_price_cny">Total price(CNY)</string>
     <string name="frezon_deposit">Freeze margin</string>
     <string name="wait_operation">pending operation</string>
     <string name="look">View</string>
