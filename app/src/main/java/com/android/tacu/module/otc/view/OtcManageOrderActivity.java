@@ -70,6 +70,21 @@ public class OtcManageOrderActivity extends BaseActivity {
         fragmentList.add(finishFragment);
         viewpager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentList));
         viewpager.setOffscreenPageLimit(fragmentList.size() - 1);
+        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                type = i;
+                setShowBtn();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+        });
 
         waitFragment.setOnWaitLister(new onWaitLister() {
             @Override

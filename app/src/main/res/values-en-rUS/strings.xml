@@ -420,7 +420,6 @@
     <string name="lodge_amount">hanging list amount</string>
     <string name="volume_amount">turnover</string>
     <string name="trade_no_tip1">no record</string>
-    <string name="trade_no_tip2">go ahead and trade</string>
     <string name="only_current_market">Current market only</string>
     <string name="history_entrust">historical delegation</string>
     <string name="all_revoke">Undo all</string>
@@ -557,7 +556,6 @@
     <string name="weixin">WeChat</string>
     <string name="quota">Amount</string>
     <string name="single_price">Price</string>
-    <string name="single_price_acu_cny">Price(ACU/CNY)</string>
     <string name="dan">Unit</string>
     <string name="order_center">Order Center</string>
     <string name="otc_refuse_order">Order rejected</string>
@@ -620,20 +618,13 @@
     <string name="otc_manage">Ad Center</string>
     <string name="you_art_shoper_first">Please verify your business!</string>
     <string name="publish_otc_order">Post an ad</string>
-    <string name="publish">Publish</string>
     <string name="guanggao">Ad</string>
     <string name="center">Center</string>
-    <string name="certified">Verified</string>
-    <string name="shoper">Merchant</string>
     <string name="certified_shoper">Verified Merchant</string>
     <string name="goumai">Purchase</string>
     <string name="chushou">Sale</string>
-    <string name="trade_coin_type">Coin type</string>
-    <string name="trade_money">Fiat type</string>
-    <string name="current_market_value">Current market value: 1CNY/ACU</string>
     <string name="order_operation_time_limit">Order time limit</string>
     <string name="minute_15">15 min</string>
-    <string name="trade_single_price">Order price</string>
     <string name="please_input_trade_single_price">Enter order price</string>
     <string name="trade_num">Order amount</string>
     <string name="please_input_trade_num">Enter order amount</string>
@@ -642,35 +633,9 @@
     <string name="please_input_min_limit">Enter min limit</string>
     <string name="max_limit">Max limit</string>
     <string name="please_input_max_limit">Enter max limit</string>
-    <string name="deal_fee">Margin fee</string>
-    <string name="purchase_deposit">Transaction margin</string>
-    <string name="margin_balance">Margin balance</string>
-    <string name="OTC_balance">Account balance</string>
     <string name="confirm_publish">Publish</string>
-    <string name="give_up">Cancel</string>
-    <string name="buy_order_detail">Buy details</string>
-    <string name="sell_order_detail">Sell details</string>
-    <string name="single_price2">Price:</string>
-    <string name="single_limit_range">Limit Range:</string>
-    <string name="finished_trade">Transaction completed:</string>
-    <string name="success_buy">Buy successfully:</string>
-    <string name="success_sell">Sell successfully:</string>
-    <string name="pay_after2">Paid:</string>
-    <string name="get_money">Received:</string>
-    <string name="surplus_total">Total remaining:</string>
-    <string name="yhk_pay">Bank card pay:</string>
-    <string name="wx_pay">WeChat Pay:</string>
-    <string name="zfb_pay">Alipay Pay:</string>
-    <string name="failure_trade">Failed:</string>
-    <string name="fee_send">Fee:</string>
-    <string name="wait_deal_matter">Pending</string>
-    <string name="record">Records</string>
     <string name="operation_countdown">Operation Time</string>
-    <string name="order_status">Order status</string>
-    <string name="create_otc_order">Create ad</string>
-    <string name="quantity_closed">Closed orders</string>
     <string name="look_detail">View details</string>
-    <string name="pay1">Payment</string>
     <string name="exceeding_max_limit">You exceeded the max limit</string>
     <string name="exceeding_min_limit">You exceeded the min limit</string>
     <string name="you_not_set_tradepwd">You have not set a trading password</string>
@@ -728,8 +693,6 @@
     <string name="success_trade_otc_10">Traded 10 OTC orders</string>
     <string name="video_merchant">Upload video holding your ID and handwritten paper with UID, name, mobile phone number, date and TACU, read outloud "I (name), ID number (ID number), my source of funds is legal and reliable,I am willing to trade digital assets such as Bitcoin. I fully understand digital currencies and potential risks. I have the ability to resist risks and are willing to bear all risks."</string>
     <string name="upload_video">Upload video</string>
-    <string name="auth_xieyi1">I have carefully read and understood and agree to abide by the platform\'s off-site business</string>
-    <string name="auth_xieyi2">《OTC Service Agreement》</string>
     <string name="auth_tip">※ Ordinary merchant can be verified for 30 days only.If you need to continue to use the merchant account after 30 days, please reapply.</string>
     <string name="confirm_apply_submit">Confirm and submit</string>
     <string name="satisfy_ordinary_mechant">Ordinary Merchant requirements are met</string>
@@ -875,15 +838,10 @@
     <string name="confirm_coined">Confirm the deposit</string>
 
     <string name="sell_thing">Number</string>
-    <string name="order_number">Order volume</string>
-    <string name="order_surplus">Order balance</string>
     <string name="all_price_cny">Total price(CNY)</string>
-    <string name="frezon_deposit">Freeze margin</string>
-    <string name="wait_operation">pending operation</string>
     <string name="look">View</string>
     <string name="hangup">Pending</string>
     <string name="recovery">Recover</string>
-    <string name="cancel_advertisement">Cancel this ad</string>
     <string name="finished">finished</string>
     <string name="going">In progress</string>
         
@@ -994,5 +952,35 @@
     <string name="please_submit_bearbitration_content">Please enter the content of your appeal .........</string>
     <string name="arbitration_wait">Arbitration, waiting for arbitration</string>
     <string name="arbitration_explain">Arbitration Explanation</string>
+
+    <!--otc6-->
+    <string name="ordinary_merchant_tips">Are you sure to submit a general merchant application</string>
+    <string name="certified_merchant_tips">Are you sure you want to submit a certified merchant application</string>
+    <string name="go_finish">Go to finish</string>
+    <string name="is_delete_account">Are you sure you want to cancel the current account?</string>
+    <string name="deal_num">Number of deals</string>
+    <string name="deal_dan_num">Number of transactions</string>
+    <string name="need_deal_order">Pending orders</string>
+    <string name="finished_order">Order completed</string>
+    <string name="guanggao_info">Ad information</string>
+    <string name="guanggao_limit">Ad limit</string>
+    <string name="currnet_bond">This margin</string>
+    <string name="publish_buy">Purchase advertisement</string>
+    <string name="publish_sell">Publish sale ads</string>
+    <string name="quota_cny">Quota (CNY)</string>
+    <string name="shoper_order">Merchant order</string>
+    <string name="wait_payed">to be paid</string>
+    <string name="wait_payget">To be paid</string>
+    <string name="wait_coined">Pending coins</string>
+    <string name="wait_coinget">Coin to be received</string>
+    <string name="coined_timeout">Deposit timeout</string>
+    <string name="arbitrationing">Arbitration</string>
+    <string name="go_coined">Go to put money</string>
+    <string name="getmoney_type">How to receive money</string>
+    <string name="guanggao_detail">Ad Details</string>
+    <string name="all_price">Total price</string>
+    <string name="remain_amount">Remaining quantity</string>
+    <string name="otc_phone">OTC contact information</string>
+    <string name="otc_publish_time">Posting time</string>
 </resources>
 

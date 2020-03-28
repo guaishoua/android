@@ -107,7 +107,6 @@
         tools:text="15093096219" />
 
     <TextView
-        android:id="@+id/tv_mobile_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_15"
