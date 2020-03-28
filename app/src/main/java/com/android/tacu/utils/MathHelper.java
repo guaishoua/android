@@ -49,6 +49,12 @@ public class MathHelper {
         return b1.multiply(b2).doubleValue();
     }
 
+    public static String mul1(double v1, double v2) {
+        BigDecimal b1 = new BigDecimal(Double.toString(v1));
+        BigDecimal b2 = new BigDecimal(Double.toString(v2));
+        return b1.multiply(b2).stripTrailingZeros().toPlainString();
+    }
+
     /**
      * 提供精确乘法运算的mul方法
      *

@@ -526,6 +526,8 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         if (list != null && list.size() > 0) {
             vipModel = list.get(0);
             setTvFee();
+        } else {
+            vipModel = null;
         }
     }
 
@@ -1001,7 +1003,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
      */
     private void setFeeString() {
         discountFee = 1;
-        if (vipModel != null && vipModel.discountFee != null) {
+        if (vipModel != null && vipModel.discountFee != null && spUtil.getVip() > 0) {
             discountFee = vipModel.discountFee;
         }
         if (currentTradeCoinModel != null && currentTradeCoinModel.currentTradeCoin != null) {
@@ -1009,26 +1011,26 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                 buyFee = null;
                 switch (authLevel) {
                     case 1:
-                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1 * discountFee).toPlainString()));
+                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1 * 100, discountFee) + "%" : MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1, discountFee)));
                         break;
                     case 2:
-                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2 * discountFee).toPlainString()));
+                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2 * 100, discountFee) + "%" : MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2, discountFee)));
                         break;
                     case 3:
-                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3 * discountFee).toPlainString()));
+                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3 * 100, discountFee) + "%" : MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3, discountFee)));
                         break;
                 }
             } else {
                 sellFee = null;
                 switch (authLevel) {
                     case 1:
-                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1 * discountFee).toPlainString()));
+                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1 * 100, discountFee) + "%" : MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1, discountFee)));
                         break;
                     case 2:
-                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2 * discountFee).toPlainString()));
+                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2 * 100, discountFee) + "%" : MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2, discountFee)));
                         break;
                     case 3:
-                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3 * discountFee).toPlainString()));
+                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3 * 100, discountFee) + "%" : MathHelper.mul1(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3, discountFee)));
                         break;
                 }
             }

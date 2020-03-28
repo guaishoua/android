@@ -22,7 +22,7 @@ public class TradePresenter extends BaseMvpPresenter implements TradeContract.IP
      * @param checkJson
      */
     @Override
-    public void uploadSelfList( String checkJson) {
+    public void uploadSelfList(String checkJson) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).uploadSelfList(checkJson, 3), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel model) {
@@ -70,7 +70,7 @@ public class TradePresenter extends BaseMvpPresenter implements TradeContract.IP
 
     @Override
     public void selectVipDetail() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectVipDetail(), new NetDisposableObserver<BaseModel<List<VipDetailRankModel>>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectVipDetail(), new NetDisposableObserver<BaseModel<List<VipDetailRankModel>>>((IBaseMvpView) getView(), false, false) {
             @Override
             public void onNext(BaseModel<List<VipDetailRankModel>> model) {
                 TradeContract.IView view = (TradeContract.IView) getView();
