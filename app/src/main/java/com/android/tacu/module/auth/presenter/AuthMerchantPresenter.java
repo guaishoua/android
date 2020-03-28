@@ -11,7 +11,6 @@ import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.auth.contract.AuthMerchantContract;
 import com.android.tacu.module.auth.model.OtcSectionModel;
-import com.android.tacu.module.auth.model.SelectC2cSection;
 import com.android.tacu.module.main.model.OwnCenterModel;
 
 import java.util.List;
@@ -91,28 +90,6 @@ public class AuthMerchantPresenter extends BaseMvpPresenter implements AuthMerch
             public void onNext(BaseModel<List<OtcSectionModel>> o) {
                 AuthMerchantContract.IView view = (AuthMerchantContract.IView) getView();
                 view.selectOtcSection(o.attachment);
-            }
-        });
-    }
-
-    @Override
-    public void selectC2cSection() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectC2cSection(), new NetDisposableObserver<BaseModel<List<SelectC2cSection>>>((IBaseMvpView) getView(), false) {
-            @Override
-            public void onNext(BaseModel<List<SelectC2cSection>> o) {
-                AuthMerchantContract.IView view = (AuthMerchantContract.IView) getView();
-                view.selectC2cSection(o.attachment);
-            }
-        });
-    }
-
-    @Override
-    public void disclaimer() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).disclaimer(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView(), false, false) {
-            @Override
-            public void onNext(BaseModel o) {
-                AuthMerchantContract.IOrdinarView view = (AuthMerchantContract.IOrdinarView) getView();
-                view.disclaimerSuccess();
             }
         });
     }

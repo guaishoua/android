@@ -153,13 +153,9 @@
         <activity android:name="com.android.tacu.module.ZoomImageViewActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderListActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderDetailActivity" />
-        <activity android:name="com.android.tacu.module.otc.view.OtcOrderCreateActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcBuyOrSellActivity" />
-        <activity android:name="com.android.tacu.module.otc.view.OtcOrderConfirmActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcManageActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcPublishActivity" />
-        <activity android:name="com.android.tacu.module.otc.view.OtcManageBuySellDetailActivity" />
-        <activity android:name="com.android.tacu.module.otc.view.OtcManageBuySellRecordActivity" />
         <activity android:name="com.android.tacu.module.assets.view.AssetsCenterActivity" />
         <activity android:name="com.android.tacu.module.assets.view.BindingPayInfoActivity" />
         <activity android:name="com.android.tacu.module.my.view.EditPersonalDataActivity" />
@@ -168,5 +164,10 @@
         <activity android:name="com.android.tacu.module.vip.view.DepositRecordActivity" />
         <activity android:name="com.android.tacu.module.vip.view.BuyVipActivity" />
         <activity android:name="com.android.tacu.module.assets.view.AssetsInfoActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcTradeRulesActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcShopInfoActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.ArbitrationSubmitActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcManageOrderActivity" />
+        <activity android:name="com.android.tacu.module.otc.view.OtcManageDetailsActivity" />
     </application>
 </manifest>

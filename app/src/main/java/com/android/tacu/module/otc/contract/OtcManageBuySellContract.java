@@ -17,13 +17,7 @@ public class OtcManageBuySellContract {
     public interface IChildView extends IBaseMvpView {
         void selectBondFreerate(OtcSelectFeeModel model);
 
-        void BondAccount(OtcAmountModel model);
-
-        void OtcAccount(OtcAmountModel model);
-
         void orderSuccess();
-
-        void disclaimerSuccess();
     }
 
     public interface IPresenter {
@@ -31,12 +25,6 @@ public class OtcManageBuySellContract {
 
         void selectBondFreerate(boolean isShowView);
 
-        void BondAccount(boolean isShowView, int currencyId);
-
-        void OtcAccount(boolean isShowView, int currencyId);
-
         void order(OtcPublishParam param);
-
-        void disclaimer();
     }
 }

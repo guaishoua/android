@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -50,10 +51,11 @@ public class DroidDialog {
         RelativeLayout rlTitle = view.findViewById(R.id.rl_title);
         TextView txtTitle = view.findViewById(R.id.txtTitle);
         TextView txtContent = view.findViewById(R.id.txtContent);
+        ImageView imgClose = view.findViewById(R.id.img_close);
 
         btnPositive = view.findViewById(R.id.btnPositive);
         btnNegative = view.findViewById(R.id.btnNegative);
-        QMUIAlphaButton btnNeutral = view.findViewById(R.id.btnNeutral);
+        View view_space = view.findViewById(R.id.view_space);
 
         NestedScrollView scrollview = view.findViewById(R.id.scrollview);
         LinearLayout lin_view = view.findViewById(R.id.lin_view);
@@ -63,13 +65,18 @@ public class DroidDialog {
          **/
         btnPositive.setTextColor(builder.buttonTextColor);
         btnNegative.setTextColor(builder.buttonTextColor);
-        btnNeutral.setTextColor(builder.buttonTextColor);
 
         if (TextUtils.isEmpty(builder.title)) {
             rlTitle.setVisibility(View.GONE);
         } else {
             rlTitle.setVisibility(View.VISIBLE);
             txtTitle.setText(builder.title);
+        }
+
+        if (builder.isImgClose) {
+            imgClose.setVisibility(View.VISIBLE);
+        } else {
+            imgClose.setVisibility(View.GONE);
         }
 
         if (builder.titleGravity != -1) {
@@ -102,6 +109,7 @@ public class DroidDialog {
 
         if (TextUtils.isEmpty(builder.positiveText)) {
             btnPositive.setVisibility(View.GONE);
+            view_space.setVisibility(View.GONE);
         } else {
             btnPositive.setVisibility(View.VISIBLE);
             btnPositive.setText(builder.positiveText);
@@ -120,6 +128,7 @@ public class DroidDialog {
 
         if (TextUtils.isEmpty(builder.negativeText)) {
             btnNegative.setVisibility(View.GONE);
+            view_space.setVisibility(View.GONE);
         } else {
             btnNegative.setVisibility(View.VISIBLE);
             btnNegative.setText(builder.negativeText);
@@ -134,21 +143,15 @@ public class DroidDialog {
             });
         }
 
-        if (TextUtils.isEmpty(builder.neutralText)) {
-            btnNeutral.setVisibility(View.GONE);
-        } else {
-            btnNeutral.setVisibility(View.VISIBLE);
-            btnNeutral.setText(builder.neutralText);
-            btnNeutral.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (builder.onNeutralListener != null) {
-                        builder.onNeutralListener.onNeutral(dialog);
-                    }
-                    dismiss();
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (builder.onNegativeListener != null) {
+                    builder.onNegativeListener.onNegative(dialog);
                 }
-            });
-        }
+                dismiss();
+            }
+        });
 
         if (!TextUtils.isEmpty(builder.typeface)) {
             Typeface ttf = Typeface.createFromAsset(builder.context.getAssets(), "fonts/" + builder.typeface);
@@ -156,7 +159,6 @@ public class DroidDialog {
             txtContent.setTypeface(ttf);
             btnPositive.setTypeface(ttf, Typeface.BOLD);
             btnNegative.setTypeface(ttf, Typeface.BOLD);
-            btnNeutral.setTypeface(ttf, Typeface.BOLD);
         }
 
         dialog.setCancelable(builder.isCancelable);
@@ -203,6 +205,7 @@ public class DroidDialog {
         private String title = "";
         private String content = "";
         private View lin_view_layout;
+        private boolean isImgClose = false;
 
         private int titleGravity = -1;
         private int contentGravity = -1;
@@ -225,13 +228,6 @@ public class DroidDialog {
             }
         };
 
-        private String neutralText = "";
-        private onNeutralListener onNeutralListener = new onNeutralListener() {
-            @Override
-            public void onNeutral(Dialog droidDialog) {
-            }
-        };
-
         private String typeface = "";
         private int buttonTextColor = 0;
 
@@ -249,6 +245,11 @@ public class DroidDialog {
          **/
         public Builder title(String title) {
             this.title = title;
+            return this;
+        }
+
+        public Builder setShowImgClose(boolean isImgClose) {
+            this.isImgClose = isImgClose;
             return this;
         }
 
@@ -314,15 +315,6 @@ public class DroidDialog {
 
         public Builder negativeButton(onNegativeListener onNegativeListener) {
             this.onNegativeListener = onNegativeListener;
-            return this;
-        }
-
-        /**
-         * dialog neutral button and click event handler
-         **/
-        public Builder neutralButton(String neutralText, onNeutralListener onNeutralListener) {
-            this.neutralText = neutralText;
-            this.onNeutralListener = onNeutralListener;
             return this;
         }
 

@@ -799,7 +799,6 @@ public interface Api {
             @Field("type") Integer type, //1.银行卡 2.微信 3.支付宝
             @Field("bankName") String bankName,// 银行名称
             @Field("openBankName") String openBankName,//开户行名称
-            @Field("openBankAdress") String openBankAdress,//开户行地址
             @Field("bankCard") String bankCard,// 卡号
             @Field("weChatNo") String weChatNo,//微信名
             @Field("weChatImg") String weChatImg,//收款码

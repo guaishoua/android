@@ -428,7 +428,7 @@
     <string name="lastest_deal">最新成交</string>
     <string name="lodge_amount">挂单量</string>
     <string name="volume_amount">成交量</string>
-    <string name="trade_no_tip1">您当前暂无交易记录</string>
+    <string name="trade_no_tip1">暂无记录</string>
     <string name="trade_no_tip2">快去交易吧</string>
     <string name="only_current_market">仅当前市场</string>
     <string name="history_entrust">历史委托</string>
@@ -580,11 +580,7 @@
     <string name="email_auth">邮箱认证</string>
     <string name="truename_auth">实名认证</string>
     <string name="video_auth">视频认证</string>
-    <string name="buy_pay">买方支付</string>
-    <string name="sell_pay">卖方支付</string>
     <string name="please_choose_get_pay">请选择收/付款方式：</string>
-    <string name="dui_fang_confirm_time">对方须在 %1$s 内确认本订单</string>
-    <string name="returnString">返回</string>
     <string name="otc_order_confirmed_tip">交易須知
         \n1.卖家发起交易请求后，该订单的数字资产将会锁定託管；
         \n2.买家需在付款有效期限内完成付款并进行确认支付完成操作，卖家才会放币。
@@ -593,80 +589,33 @@
         \n5.买家收到相应数字资产后，如未发生仲裁，该笔订单将成功完成。
         \n6.交易过程中如发生异议，买卖双方可随时联繫或提交仲裁进行各自维权，具体请查看  《OTC场外交易规则》。
     </string>
-    <string name="payed_time_countdown">付款期限倒计时</string>
-    <string name="coined_time_countdown">放币期限倒计时</string>
-    <string name="order_id">订单编号</string>
+    <string name="order_id">订单号</string>
     <string name="pay_method">支付方式</string>
-    <string name="current_trade_should_get">本次交易应收</string>
-    <string name="current_trade_should_coin">本次交易放币</string>
-    <string name="current_trade_need_pay">本次交易需支付</string>
-    <string name="upload_img_tip">上传付款凭证
-        \n图片请图片控制在20MB大小
-        \n支持JPG\PNG\BMP格式</string>
-    <string name="upload_arbitration_tip">上传仲裁凭证
-        \n图片请图片控制在20MB大小
-        \n支持JPG\PNG\BMP格式</string>
-    <string name="upload_beArbitration_tip">上传申诉凭证
-        \n图片请图片控制在20MB大小
-        \n支持JPG\PNG\BMP格式</string>
-    <string name="confirm_and_pay">确认并支付</string>
-    <string name="please_scan_with_wx">请使用微信扫描该付款码</string>
-    <string name="please_scan_with_zfb">请使用支付宝扫描该付款码</string>
     <string name="picture">图片</string>
-    <string name="please_confirm_yhk_get_money">请确认您绑定的微信是否收到款项</string>
-    <string name="please_confirm_zfb_get_money">请确认您绑定的微信是否收到款项</string>
-    <string name="please_confirm_wx_get_money">请确认您绑定的微信是否收到款项</string>
     <string name="confirm_getmoney_and_coined">确认收款并放币</string>
     <string name="please_submit_arbitration_content">请输入您要提交仲裁内容…………</string>
-    <string name="submit_arbitration">提交仲裁</string>
-    <string name="order_make">订单生成</string>
-    <string name="order_pay">订单支付</string>
-    <string name="not_pay">未支付</string>
-    <string name="not_coined">未放币</string>
-    <string name="arbitration_reason">仲裁理由：</string>
-    <string name="appeal_reason">申诉理由：</string>
-    <string name="arbitration_result">仲裁结果：</string>
-    <string name="please_submit_appeal_content">请输入您要提交申诉内容…………</string>
+    <string name="submit_arbitration">发起仲裁</string>
     <string name="submit_appeal">提交申诉</string>
-    <string name="otc_order_create">订单生成页</string>
     <string name="please_choose_pay_method">请选择支付方式</string>
     <string name="otc_xieyi">本人已认真阅读，同意且遵守平台关于OTC场外交易的安全提示以及</string>
     <string name="otc_xieyi_name">《TACU数字资产交易平台OTC场外交易规范及免责声明》</string>
     <string name="please_check_xieyi">请勾选协议！</string>
     <string name="confirm_create_order">确认生成订单</string>
     <string name="refuse_order">拒绝订单</string>
-    <string name="otc_order_confirm">订单确认页</string>
     <string name="order_confirm">订单已确认</string>
     <string name="cancel_success">取消成功</string>
-    <string name="bond">保证金：</string>
-    <string name="all_deal_amount">总成单量：</string>
-    <string name="buy_amount">买单量：</string>
-    <string name="sell_amount">卖单量：</string>
-    <string name="deal_rate">成单率：</string>
-    <string name="dispute_amount">纠纷量：</string>
-    <string name="be_arbitrated_amount">被仲裁量：</string>
-    <string name="arbitration_amount">仲裁量：</string>
-    <string name="appeal_amount">申诉量：</string>
-    <string name="win_lawsuit_amount">胜诉量：</string>
-    <string name="average_payment_time">平均付款时间：</string>
-    <string name="current_trade_amount">本次交易数量：</string>
-    <string name="current_trade_price">本次交易金额：</string>
-    <string name="current_pay_method">本次付款方式：</string>
-    <string name="shoper_confirm_count_down">商家确认倒计时：</string>
-    <string name="account_balance">账户余额：</string>
-    <string name="completed_transaction_advertising_balance">完成交易广告余额：</string>
-    <string name="look_advertising_info">查看广告信息</string>
-    <string name="otc_buy_page">买入页面</string>
-    <string name="otc_sell_page">卖出页面</string>
-    <string name="plan_buy_amount">计划购入总量：</string>
-    <string name="remaining_unsold">剩余未购入量：</string>
-    <string name="remaining_unsold_all">剩余购入总价：</string>
+    <string name="bond">保证金</string>
+    <string name="all_deal_amount">总成交量</string>
+    <string name="buy_amount">买单量</string>
+    <string name="sell_amount">卖单量</string>
+    <string name="deal_rate">成单率</string>
+    <string name="average_payment_time">平均付款时间</string>
+    <string name="otc_buy_page">購買ACU</string>
+    <string name="otc_sell_page">出售ACU</string>
     <string name="all_num">总量</string>
     <string name="remind_num">剩余量</string>
     <string name="remind_all">剩余总价</string>
-    <string name="single_min_limit">单笔最小限额：</string>
-    <string name="single_max_limit">单笔最大限额：</string>
-    <string name="seller_coined_time_limit">卖家放币时限：</string>
+    <string name="seller_coined_time_limit">卖家放币时限</string>
     <string name="account_balance1">账户余额</string>
     <string name="sell_number">出售数量</string>
     <string name="input_sell_number">输入出售数量</string>
@@ -682,6 +631,7 @@
     <string name="publish_otc_order">发布广告</string>
     <string name="publish">发布</string>
     <string name="guanggao">广告</string>
+    <string name="center">中心</string>
     <string name="certified">认证</string>
     <string name="shoper">商户</string>
     <string name="certified_shoper">认证商户</string>
@@ -690,10 +640,10 @@
     <string name="trade_coin_type">交易币种</string>
     <string name="trade_money">交易货币</string>
     <string name="current_market_value">当前市值：1CNY/ACU</string>
-    <string name="order_operation_time_limit">订单操作时限</string>
+    <string name="order_operation_time_limit">广告操作时间</string>
     <string name="minute_15">15分钟</string>
     <string name="trade_single_price">交易单价</string>
-    <string name="please_input_trade_single_price">请输入交易单价</string>
+    <string name="please_input_trade_single_price">请输入交易价格</string>
     <string name="trade_num">交易数量</string>
     <string name="please_input_trade_num">请输入交易数量</string>
     <string name="trade_all_price">交易总价</string>
@@ -736,25 +686,19 @@
 
     <!--绑定支付-->
     <string name="binding_pay_info">绑定支付信息</string>
-    <string name="cardholder_name">持卡人姓名</string>
-    <string name="cardholder_name_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的银行</string>
-    <string name="bank_name">银行名称</string>
-    <string name="please_input_bank_name">请输入您绑定银行卡的银行名称</string>
-    <string name="open_bank_name">开户行名称</string>
-    <string name="please_input_open_bank_name">请输入开户行名称</string>
-    <string name="open_bank_address">开户行地址</string>
-    <string name="please_input_open_bank_address">请输入开户行地址</string>
+    <string name="cardholder_name">姓名</string>
+    <string name="bank_name">开户银行</string>
+    <string name="please_input_bank_name">请输入开户银行</string>
+    <string name="open_bank_name">开户支行</string>
+    <string name="please_input_open_bank_name">请输入开户支行</string>
     <string name="bank_id">银行账号</string>
-    <string name="please_input_bank_id">请输入您的银行卡账号</string>
-    <string name="please_input_trade_password">请输入您平台的交易密码</string>
+    <string name="please_input_bank_id">请输入银行卡号</string>
+    <string name="please_input_trade_password">请输入您的交易密码</string>
     <string name="confirm_binding">确认绑定</string>
-    <string name="account_owner">账号所有人</string>
-    <string name="account_owner_wx_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的微信</string>
-    <string name="account_owner_zfb_tip">为了保证您的正常交易，请绑定与您KYC真实姓名一致的支付宝</string>
-    <string name="wx_account">微信账号</string>
-    <string name="zfb_account">支付宝账号</string>
-    <string name="please_input_wx_account">请输入您绑定微信的账号</string>
-    <string name="please_input_zfb_account">请输入您绑定支付宝的账号</string>
+    <string name="wx_account">微信号</string>
+    <string name="zfb_account">支付宝</string>
+    <string name="please_input_wx_account">请输入微信号</string>
+    <string name="please_input_zfb_account">请输入支付宝账号</string>
     <string name="upload_wx_shoukuanma">上传微信收款码</string>
     <string name="please_upload_wx_shoukuanma">请上传微信收款码</string>
     <string name="upload_zfb_shoukuanma">上传支付宝收款码</string>
@@ -835,7 +779,7 @@
     <string name="wait_day">等待%1$s天</string>
     <string name="cha_bi">还差%1$s笔</string>
     <string name="apply_success">申请成功！</string>
-    <string name="apply_success1">申请成功</string>
+    <string name="apply_success1">认证成功</string>
 
     <!--充值保证金-->
     <string name="recharge_deposit">保证金管理</string>
@@ -913,7 +857,6 @@
     <string name="recharge_deposit_text3">保证金提取至币币账户</string>
     <string name="recharge_deposit_text4">保证金提取至OTC账户</string>
     <string name="order_cancel_success">撤销成功！</string>
-    <string name="yhk_tip">特别提示：为了保证您的付款可以第一时间正常到达收款方账户，请您务必不要填写任何备注信息，包括比特币、BTC、数字货币等一切字样信息，以免造成被银行误解并且冻结，影响您个人资产安全，感谢理解！</string>
 
     <string name="otc_order_all">全部</string>
     <string name="otc_order_confirmed">待确认</string>
@@ -923,7 +866,7 @@
     <string name="otc_order_cancel">取消订单</string>
     <string name="otc_order_timeout">超时订单</string>
     <string name="otc_order_arbitration">仲裁订单</string>
-    <string name="otc_order_adjude">裁决订单</string>
+    <string name="otc_order_adjude">仲裁完成</string>
     <string name="buy_order">买单</string>
     <string name="sell_order">卖单</string>
     <string name="online">在线</string>
@@ -941,10 +884,10 @@
     <string name="go_pay1">去支付</string>
     <string name="confirm_coined">确认放币</string>
 
-    <string name="sell_thing">出售物</string>
+    <string name="sell_thing">发布数量</string>
     <string name="order_number">订单量</string>
     <string name="order_surplus">订单余额</string>
-    <string name="all_price">总价</string>
+    <string name="all_price_cny">总价(CNY)</string>
     <string name="frezon_deposit">冻结保证金</string>
     <string name="wait_operation">待操作</string>
     <string name="look">查看</string>
@@ -961,8 +904,6 @@
     <string name="margin_account_acu">保证金账户(ACU)</string>
 
     <!--OTC3-->
-    <string name="sure_again">再次确认</string>
-    <string name="please_sure_again_coined">请再次确认是否放币！</string>
     <string name="total_holdings">持有总量</string>
     <string name="coin_account_recharge">币币账户充值</string>
     <string name="available_num">可用数量</string>
@@ -971,12 +912,10 @@
     <string name="asset_history">资产流水</string>
     <string name="to">向</string>
     <string name="margin_account">保证金账户</string>
-    <string name="hide">隐藏</string>
-    <string name="show">展开</string>
     <string name="realname">姓名</string>
 
     <!--OTC4-->
-    <string name="please_otc_phone">请输入OTC手机号</string>
+    <string name="please_otc_phone">请输入OTC联系方式</string>
     <string name="phone_login">手机登录</string>
     <string name="email_login">邮箱登录</string>
     <string name="email1">邮箱</string>
@@ -992,4 +931,107 @@
     <string name="choose_no_people_introduce">请勾选"没有人邀请我"</string>
     <string name="Invitation_code">邀请码</string>
     <string name="save_success">保存成功</string>
+
+    <!--OTC5-->
+    <string name="unbind">解除绑定</string>
+    <string name="tips">提示</string>
+    <string name="otc_start_xieyi">OTC交易开始前需阅读并同意《TACU数字资产交易平台OTC场外交易规范及免责声明》</string>
+    <string name="otc_trade_rules">OTC交易规则</string>
+    <string name="otc_trade_rules1">1、OTC交易基本原则</string>
+    <string name="otc_trade_rules2">
+        &#160;&#160;&#160;&#160;(1)、本规则自发布之日起正式实施，并将不时予以修改或完善，修改或完善后的新规则自公布之日起即生效；
+        \n&#160;&#160;&#160;&#160;(2)、如您不同意本规则及修改或完善后的规则内容，请立即停止使用平台服务；
+        \n&#160;&#160;&#160;&#160;(3)、如您继续使用平台服务的，视为您完全理解并接受本规则及不时修改或完善后的规则内容，并自愿受其约束。</string>
+    <string name="otc_trade_rules3">2、买方应遵循的原则</string>
+    <string name="otc_trade_rules4">
+        &#160;&#160;&#160;&#160;创建订单后，买方应当：
+        \n&#160;&#160;&#160;&#160;(1)、 在订单规定的付款时间内完成支付，再点击“我已付款”；
+        \n&#160;&#160;&#160;&#160;(2)、 使用本人实名付款方式、按订单金额及订单指定的收款账户以实时到账方式完成订单支付；
+        \n&#160;&#160;&#160;&#160;(3)、 选择非实时到账方式支付订单的，必须事先获得卖方同意；
+        \n&#160;&#160;&#160;&#160;(4)、 支付转账时不得备注“买币、买ACU、”等信息；</string>
+    <string name="otc_trade_rules5">3、卖方应遵循的原则</string>
+    <string name="otc_trade_rules6">
+        &#160;&#160;&#160;&#160;生成订单后，卖方应当：
+        \n&#160;&#160;&#160;&#160;(1)、 提供经平台认证的收款账户；
+        \n&#160;&#160;&#160;&#160;(2)、 收到买方全额付款后，在订单规定时间内完成放行；
+        \n&#160;&#160;&#160;&#160;(3)、 非经买方同意，不得要求买家/客服取消订单；
+        \n注：非实时到账方式目前包括：支付宝转银行卡、微信转银行卡、17:00-9:00超5万订单用单笔转账等方式，随着各支付通道业务的变化，非实时到账方式的具体类型将相应进行调整。
+    </string>
+    <string name="otc_trade_rules7">4、用户应遵守反洗钱原则</string>
+    <string name="otc_trade_rules8">
+        &#160;&#160;&#160;&#160;(1)、用户应严格遵循平台对用户身份及账户的实名认证管理要求，确保在平台上显示的相关账号均系本人合法注册、使用的；
+        \n&#160;&#160;&#160;&#160;(2)、用户在触发平台的反洗钱风控预警时，应积极配合平台的进一步反洗钱核实工作，并积极协助提供相关的风控举证材料（具体措施以届时平台风控审核要求为准）。
+    </string>
+    <string name="seller_info">卖家信息</string>
+    <string name="buyer_info">买家信息</string>
+    <string name="choose_getmoney_type">选择收款方式</string>
+    <string name="choose_paymoney_type">选择付款方式</string>
+    <string name="shop_info">商家信息</string>
+    <string name="order_info">订单信息</string>
+    <string name="current_paymoney_type">本次付款方式</string>
+    <string name="current_getmoney_type">本次收款方式</string>
+    <string name="buy_people">买家</string>
+    <string name="sell_people">卖家</string>
+    <string name="xiadan_time">下单时间</string>
+    <string name="coined_time">放币时间</string>
+    <string name="wait_shop_confirm">等待商家确认</string>
+    <string name="wait_buy_pay">等待买方付款</string>
+    <string name="wait_sell_coined">等待卖方放币</string>
+    <string name="confirm_counterdown">确认倒计时</string>
+    <string name="pay_counterdown">付款倒计时</string>
+    <string name="coined_counterdown">放币倒计时</string>
+    <string name="arbitration_countdown">仲裁倒计时</string>
+    <string name="single_price_cny">单价(CNY)</string>
+    <string name="num_acu">数量(ACU)</string>
+    <string name="order_amount_cny">订单金额(CNY)</string>
+    <string name="shop_noconfirm_timeout">商家未确认超时取消</string>
+    <string name="shop_refuse_order">商家拒绝订单</string>
+    <string name="pay_timeout_cancel">付款超时取消</string>
+    <string name="buy_giveup_pay">买方放弃支付</string>
+    <string name="paid">已付款</string>
+    <string name="shoukuanma">收款码</string>
+    <string name="cancel_order_tip">确保您未付款给对方，否则将造成你的资产丢失</string>
+    <string name="pay_type">付款方式</string>
+    <string name="coined_confirm">放币确认</string>
+    <string name="coined_confirm_tip">请确保您的收款账户已收到对方汇款方可放币，否则将造成您的资产损失。</string>
+    <string name="order_finished">订单已完成</string>
+    <string name="arbitration_tip">如果遇到交易问题，可发起仲裁，客服专员将会介入本次交易直至仲裁完成。</string>
+    <string name="arbitration_content">仲裁内容</string>
+    <string name="bearbitration_tip">如果遇到交易问题，可发起申诉，客服专员将会介入本次交易直至申诉完成。</string>
+    <string name="bearbitration_content">申诉内容</string>
+    <string name="upload_arbitration_img">上传支付凭证</string>
+    <string name="upload_bearbitration_img">上传申诉凭证</string>
+    <string name="please_submit_bearbitration_content">请输入您要提交申诉内容…………</string>
+    <string name="arbitration_wait">仲裁中，等待仲裁</string>
+    <string name="arbitration_explain">仲裁说明</string>
+
+    <!--otc6-->
+    <string name="ordinary_merchant_tips">是否确认提交普通商户申请</string>
+    <string name="certified_merchant_tips">是否确认提交认证商户申请</string>
+    <string name="go_finish">去完成</string>
+    <string name="is_delete_account">是否确认解除当前帐号</string>
+    <string name="deal_num">成交数量</string>
+    <string name="deal_dan_num">成交笔数</string>
+    <string name="need_deal_order">待处理订单</string>
+    <string name="finished_order">已完成订单</string>
+    <string name="guanggao_info">广告信息</string>
+    <string name="guanggao_limit">广告限制</string>
+    <string name="currnet_bond">本次保证金</string>
+    <string name="publish_buy">发布购买广告</string>
+    <string name="publish_sell">发布出售广告</string>
+    <string name="quota_cny">限额(CNY)</string>
+    <string name="shoper_order">商户订单</string>
+    <string name="wait_payed">待付款</string>
+    <string name="wait_payget">待收款</string>
+    <string name="wait_coined">待放币</string>
+    <string name="wait_coinget">待收币</string>
+    <string name="coined_timeout">放币超时</string>
+    <string name="arbitrationing">仲裁中</string>
+    <string name="go_coined">去放币</string>
+    <string name="getmoney_type">收款方式</string>
+    <string name="guanggao_detail">广告详情</string>
+    <string name="all_price">总价</string>
+    <string name="remain_amount">剩余数量</string>
+    <string name="otc_phone">OTC联系方式</string>
+    <string name="otc_publish_time">广告发布时间</string>
 </resources>

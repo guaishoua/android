@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/common_titlebar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_49"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_wait"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_wait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/need_deal_order"
+                android:textColor="@color/text_default"
+                android:textSize="@dimen/text_size_sp_16" />
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+                android:id="@+id/lin_wait_point"
+                android:layout_width="@dimen/dp_7"
+                android:layout_height="@dimen/dp_7"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_toRightOf="@+id/tv_wait"
+                android:visibility="gone"
+                app:qmui_backgroundColor="@color/color_default"
+                app:qmui_isRadiusAdjustBounds="true" />
+
+            <View
+                android:id="@+id/view_wait"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/color_default" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_finish"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/finished_order"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_16" />
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+                android:id="@+id/lin_finish_point"
+                android:layout_width="@dimen/dp_7"
+                android:layout_height="@dimen/dp_7"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_toRightOf="@+id/tv_finish"
+                android:visibility="gone"
+                app:qmui_backgroundColor="@color/color_default"
+                app:qmui_isRadiusAdjustBounds="true" />
+
+
+            <View
+                android:id="@+id/view_finish"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/color_default"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/content_bg_color_grey"
+        app:layout_constraintTop_toBottomOf="@+id/lin_indicator" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

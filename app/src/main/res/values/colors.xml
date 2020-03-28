@@ -59,6 +59,11 @@
     <!--Auction当前价-->
     <color name="text_auction_currentprice">#FF665E</color>
 
+    <!--dialog的背景色-->
+    <color name="color_dialog">#1D252F</color>
+    <color name="color_negative">#333E47</color>
+    <color name="color_positive">#E2BF1C</color>
+    <color name="color_listpop">#1D252F</color>
     <!--启动页的背景颜色-->
     <color name="color_splash">#0C2648</color>
     <!--默认进度条颜色-->
@@ -98,12 +103,8 @@
     <!--OTC-->
     <color name="color_otc_buy">#12AB69</color>
     <color name="color_otc_sell">#DE5252</color>
-    <color name="color_otc_buy_bg">#5A12AB69</color><!--透明值80%-->
-    <color name="color_otc_sell_bg">#5ADE5252</color><!--透明值80%-->
-    <color name="color_otc_countdown">#D6C17A</color>
     <color name="color_otc_giveup">#333E47</color>
     <color name="color_otc_unhappy">#80E2BF1C</color>
-    <!--交易赛-->
 
     <color name="color_coined">#7CD499</color>
     <color name="color_arbitration">#DE5252</color>

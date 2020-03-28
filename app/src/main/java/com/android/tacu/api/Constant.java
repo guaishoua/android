@@ -76,7 +76,6 @@ public class Constant {
 
     //会员权益
     public static final String MEMBERSHIP = SOCKET_IP + "/MemberShip";
-    //public static final String MEMBERSHIP = "http://192.168.20.60:3002/MemberShip";
 
     //注册协议
     public static final String REGISTER_XIEYI = "";
@@ -93,6 +92,9 @@ public class Constant {
     //几个币种的ID
     public static final int ACU_CURRENCY_ID = 237;
     public static final int TAC_CURRENCY_ID = 238;
+
+    //ACU图片地址
+    public static final String ACU_ICON = SMALL_ICON_URL + "coinimg/acu.png";
 
     //OTC开放的币种
     public static final String[] OTCList = new String[]{"ACU"};

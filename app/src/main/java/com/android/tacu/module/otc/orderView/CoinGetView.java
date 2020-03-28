@@ -1,8 +1,6 @@
 package com.android.tacu.module.otc.orderView;
 
 import android.os.CountDownTimer;
-import android.os.Environment;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,141 +8,77 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.sdk.android.oss.ClientException;
-import com.alibaba.sdk.android.oss.OSS;
-import com.alibaba.sdk.android.oss.ServiceException;
-import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
-import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
-import com.alibaba.sdk.android.oss.model.PutObjectRequest;
-import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.EventManage;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.OtcDetailNotifyEvent;
 import com.android.tacu.R;
-import com.android.tacu.api.Constant;
-import com.android.tacu.interfaces.OnPermissionListener;
-import com.android.tacu.module.ZoomImageViewActivity;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
-import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
+import com.android.tacu.module.otc.view.ArbitrationSubmitActivity;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
-import com.android.tacu.utils.GlideUtils;
-import com.android.tacu.utils.permission.PermissionUtils;
+import com.android.tacu.utils.user.UserInfoUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
-import com.yanzhenjie.permission.Permission;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 
 //待收币
-public class CoinGetView implements View.OnClickListener {
+public class CoinGetView extends BaseOtcView implements View.OnClickListener {
 
     private OtcOrderDetailActivity activity;
-    private OtcOrderDetailPresenter mPresenter;
-    private Integer status;
+    private UserInfoUtils spUtil;
 
-    private TextView tv_countdown;
-    private TextView tv_order_id;
-    private TextView tv_pay_method;
-    private TextView tv_trade_get;
-    private TextView tv_trade_coin;
+    private LinearLayout lin_countdown;
+    private TextView tv_timeout;
+    private TextView tv_hour;
+    private TextView tv_minute;
+    private TextView tv_second;
 
-    private QMUIRoundImageView img_voucher;
-
-    private QMUIRoundEditText edit_submit_arbitration;
-    private LinearLayout lin_upload;
-    private ImageView img_add;
-    private TextView tv_add;
-    private ImageView img_url;
+    private TextView tv_money_type;
+    private ImageView img_pay;
+    private TextView tv_pay;
+    private TextView tv_pay_account;
 
     private QMUIRoundButton btn_submit_arbitration;
-    private QMUIRoundButton btn_return;
 
     private OtcTradeModel tradeModel;
     private Long currentTime;
     private CountDownTimer time;
-    private String imageUrl;
-    private File uploadFile;
-    private String uploadImageName;
+    private String[] getCountDownTimes;
+    private boolean isLock = false;
 
-    private List<OSSAsyncTask> ossAsynTaskList = new ArrayList<>();
-
-    private Handler mHandler = new Handler();
-
-    public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter, Integer status) {
+    public View create(OtcOrderDetailActivity activity) {
         this.activity = activity;
-        this.mPresenter = mPresenter;
-        this.status = status;
         View statusView = View.inflate(activity, R.layout.view_otc_order_coinget, null);
         initCoinGetView(statusView);
         return statusView;
     }
 
     private void initCoinGetView(View view) {
-        tv_countdown = view.findViewById(R.id.tv_countdown);
-        tv_order_id = view.findViewById(R.id.tv_order_id);
-        tv_pay_method = view.findViewById(R.id.tv_pay_method);
-        tv_trade_get = view.findViewById(R.id.tv_trade_get);
-        tv_trade_coin = view.findViewById(R.id.tv_trade_coin);
+        setBaseView(view, activity);
 
-        img_voucher = view.findViewById(R.id.img_voucher);
+        lin_countdown = view.findViewById(R.id.lin_countdown);
+        tv_timeout = view.findViewById(R.id.tv_timeout);
+        tv_hour = view.findViewById(R.id.tv_hour);
+        tv_minute = view.findViewById(R.id.tv_minute);
+        tv_second = view.findViewById(R.id.tv_second);
 
-        edit_submit_arbitration = view.findViewById(R.id.edit_submit_arbitration);
-        lin_upload = view.findViewById(R.id.lin_upload);
-        img_add = view.findViewById(R.id.img_add);
-        tv_add = view.findViewById(R.id.tv_add);
-        img_url = view.findViewById(R.id.img_url);
-
+        tv_money_type = view.findViewById(R.id.tv_money_type);
+        img_pay = view.findViewById(R.id.img_pay);
+        tv_pay = view.findViewById(R.id.tv_pay);
+        tv_pay_account = view.findViewById(R.id.tv_pay_account);
         btn_submit_arbitration = view.findViewById(R.id.btn_submit_arbitration);
-        btn_return = view.findViewById(R.id.btn_return);
-
-        lin_upload.setOnClickListener(this);
-        img_voucher.setOnClickListener(this);
         btn_submit_arbitration.setOnClickListener(this);
-        btn_return.setOnClickListener(this);
+
+        spUtil = UserInfoUtils.getInstance();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.img_voucher:
-                if (!TextUtils.isEmpty(imageUrl)) {
-                    activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrl));
-                }
-                break;
-            case R.id.lin_upload:
-                PermissionUtils.requestPermissions(activity, new OnPermissionListener() {
-                    @Override
-                    public void onPermissionSucceed() {
-                        boolean mTakePhotoEnabled = true;
-                        // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话就没有拍照功能
-                        File takePhotoDir = new File(Environment.getExternalStorageDirectory(), "tacu");
-                        activity.startActivityForResult(BGAPhotoPickerActivity.newIntent(activity, mTakePhotoEnabled ? takePhotoDir : null, 1, null, mTakePhotoEnabled), OtcOrderDetailActivity.TAKE_PIC);
-                    }
-
-                    @Override
-                    public void onPermissionFailed() {
-                    }
-                }, Permission.Group.STORAGE, Permission.Group.CAMERA);
-                break;
             case R.id.btn_submit_arbitration:
-                if (uploadFile != null) {
-                    activity.showLoadingView();
-                    mPresenter.getOssSetting();
-                } else {
-                    if (tradeModel != null) {
-                        String arbitrateExp = edit_submit_arbitration.getText().toString();
-                        mPresenter.arbitrationOrder(tradeModel.id, arbitrateExp, null);
-                    }
-                }
-                break;
-            case R.id.btn_return:
-                activity.finish();
+                activity.startActivity(ArbitrationSubmitActivity.createActivity(activity, true, tradeModel.id));
                 break;
         }
     }
@@ -160,126 +94,96 @@ public class CoinGetView implements View.OnClickListener {
         dealTime();
     }
 
-    public void uselectUserInfo(String imageUrl) {
-        this.imageUrl = imageUrl;
-        if (!TextUtils.isEmpty(imageUrl)) {
-            GlideUtils.disPlay(activity, imageUrl, img_voucher);
-            img_voucher.setVisibility(View.VISIBLE);
-        } else {
-            img_voucher.setVisibility(View.GONE);
-        }
-    }
-
-    public void getPic(File file) {
-        if (file != null) {
-            uploadFile = file;
-            img_add.setVisibility(View.GONE);
-            tv_add.setVisibility(View.GONE);
-            img_url.setVisibility(View.VISIBLE);
-            GlideUtils.disPlay(activity, "file://" + file.getPath(), img_url);
-        }
-    }
-
-    public void uploadImgs(OSS mOss, String bucketName) {
-        if (!TextUtils.isEmpty(bucketName) && mOss != null) {
-            // 构造上传请求
-            uploadImageName = CommonUtils.getPayImageName();
-            PutObjectRequest put = new PutObjectRequest(bucketName, uploadImageName, uploadFile.getPath());
-            // 异步上传时可以设置进度回调
-            put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
-                @Override
-                public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
-                }
-            });
-            OSSAsyncTask task = mOss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-                @Override
-                public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                    dealValue(1);
-                }
-
-                @Override
-                public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
-                    dealValue(2);
-                }
-            });
-            ossAsynTaskList.add(task);
-            //可以取消任务
-            //task.cancel();
-            //可以等待直到任务完成
-            //task.waitUntilFinished();
+    public void selectPayInfoById(PayInfoModel model) {
+        if (model != null && model.type != null) {
+            switch (model.type) {
+                case 1:
+                    img_pay.setImageResource(R.mipmap.img_yhk);
+                    tv_pay.setText(activity.getResources().getString(R.string.yinhanngka));
+                    tv_pay_account.setText(CommonUtils.hideCardNo(model.bankCard));
+                    break;
+                case 2:
+                    img_pay.setImageResource(R.mipmap.img_wx);
+                    tv_pay.setText(activity.getResources().getString(R.string.weixin));
+                    tv_pay_account.setText(CommonUtils.hidePhoneNo(model.weChatNo));
+                    break;
+                case 3:
+                    img_pay.setImageResource(R.mipmap.img_zfb);
+                    tv_pay.setText(activity.getResources().getString(R.string.zhifubao));
+                    tv_pay_account.setText(CommonUtils.hidePhoneNo(model.aliPayNo));
+                    break;
+            }
         }
     }
 
     private void dealCoinGet() {
         if (tradeModel != null) {
-            tv_order_id.setText(tradeModel.orderNo);
-            tv_trade_get.setText(tradeModel.amount + " " + Constant.CNY);
-            tv_trade_coin.setText(tradeModel.num + " " + tradeModel.currencyName);
-            if (tradeModel.payType != null) {
-                switch (tradeModel.payType) {//支付类型 1 银行 2微信3支付宝
-                    case 1:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.yinhanngka));
-                        break;
-                    case 2:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.weixin));
-                        break;
-                    case 3:
-                        tv_pay_method.setText(activity.getResources().getString(R.string.zhifubao));
-                        break;
-                }
+            setBaseValue(activity, tradeModel, spUtil);
+            Boolean isBuy = null;
+            if (tradeModel.buyuid == spUtil.getUserUid()) {
+                isBuy = true;
+            } else if (tradeModel.selluid == spUtil.getUserUid()) {
+                isBuy = false;
             }
-
-            if (!TextUtils.isEmpty(tradeModel.payInfo)) {
-                img_voucher.setVisibility(View.VISIBLE);
+            if (isBuy) {
+                tv_money_type.setText(activity.getResources().getString(R.string.pay_type));
             } else {
-                img_voucher.setVisibility(View.GONE);
-            }
-
-            if (status != null && status != 9) {
-                btn_submit_arbitration.setEnabled(true);
-                ((QMUIRoundButtonDrawable) btn_submit_arbitration.getBackground()).setBgData(ContextCompat.getColorStateList(activity, R.color.color_default));
-            } else {
-                btn_submit_arbitration.setEnabled(false);
-                ((QMUIRoundButtonDrawable) btn_submit_arbitration.getBackground()).setBgData(ContextCompat.getColorStateList(activity, R.color.color_grey));
+                tv_money_type.setText(activity.getResources().getString(R.string.getmoney_type));
             }
         }
     }
 
     private void dealTime() {
         if (currentTime != null && tradeModel != null && !TextUtils.isEmpty(tradeModel.transCoinEndTime)) {
-            if (status != null && status == 9) {
-                tv_countdown.setText(activity.getResources().getString(R.string.timeouted));
+            if (tradeModel.status != null && tradeModel.status == 9) {
+                tv_timeout.setVisibility(View.VISIBLE);
+                lin_countdown.setVisibility(View.GONE);
+
+                btn_submit_arbitration.setEnabled(true);
+                ((QMUIRoundButtonDrawable) btn_submit_arbitration.getBackground()).setBgData(ContextCompat.getColorStateList(activity, R.color.color_default));
             } else {
                 long transCoinEndTime = DateUtils.string2Millis(tradeModel.transCoinEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
                 if (transCoinEndTime > 0) {
+                    tv_timeout.setVisibility(View.GONE);
+                    lin_countdown.setVisibility(View.VISIBLE);
                     startCountDownTimer(transCoinEndTime);
+
+                    btn_submit_arbitration.setEnabled(false);
+                    ((QMUIRoundButtonDrawable) btn_submit_arbitration.getBackground()).setBgData(ContextCompat.getColorStateList(activity, R.color.color_grey));
+                } else {
+                    tv_timeout.setVisibility(View.VISIBLE);
+                    lin_countdown.setVisibility(View.GONE);
+                    btn_submit_arbitration.setEnabled(true);
+                    ((QMUIRoundButtonDrawable) btn_submit_arbitration.getBackground()).setBgData(ContextCompat.getColorStateList(activity, R.color.color_default));
                 }
             }
         }
-    }
-
-    private void dealValue(final int flag) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (flag == 1 && tradeModel != null) {
-                    String arbitrateExp = edit_submit_arbitration.getText().toString();
-                    mPresenter.arbitrationOrder(tradeModel.id, arbitrateExp, uploadImageName);
-                }
-                activity.hideLoadingView();
-            }
-        });
     }
 
     private void startCountDownTimer(long valueTime) {
         if (time != null) {
             return;
         }
+        isLock = false;
         time = new CountDownTimer(valueTime, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 try {
-                    tv_countdown.setText(DateUtils.getCountDownTime1(millisUntilFinished));
+                    if (isLock) {
+                        return;
+                    }
+                    if (millisUntilFinished >= 0) {
+                        getCountDownTimes = DateUtils.getCountDownTime2(millisUntilFinished);
+                        if (getCountDownTimes != null && getCountDownTimes.length == 3) {
+                            tv_hour.setText(getCountDownTimes[0]);
+                            tv_minute.setText(getCountDownTimes[1]);
+                            tv_second.setText(getCountDownTimes[2]);
+                        }
+                    } else {
+                        cancel();
+                        isLock = true;
+                        EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -288,7 +192,8 @@ public class CoinGetView implements View.OnClickListener {
             @Override
             public void onFinish() {
                 cancel();
-                activity.finish();
+                isLock = true;
+                EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
             }
         };
         time.start();
@@ -296,12 +201,6 @@ public class CoinGetView implements View.OnClickListener {
 
     public void destory() {
         activity = null;
-        mPresenter = null;
-        if (ossAsynTaskList != null && ossAsynTaskList.size() > 0) {
-            for (OSSAsyncTask ossAsyncTask : ossAsynTaskList) {
-                ossAsyncTask.cancel();
-            }
-        }
         if (time != null) {
             time.cancel();
             time = null;

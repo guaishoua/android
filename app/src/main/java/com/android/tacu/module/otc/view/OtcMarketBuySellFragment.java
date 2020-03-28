@@ -380,7 +380,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
             data.add(getResources().getString(R.string.weixin));
             ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.simple_list_item, data);
             listPopup = new ListPopWindow(getContext(), adapter);
-            listPopup.create(UIUtils.dp2px(120), UIUtils.dp2px(163), new AdapterView.OnItemClickListener() {
+            listPopup.create(UIUtils.dp2px(120), UIUtils.dp2px(160), new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     tv.setText(data.get(position));
@@ -490,7 +490,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
 
             if (isBuy) {
                 holder.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_riseup));
-                holder.setText(R.id.btn, getResources().getString(R.string.goumai));
+                holder.setText(R.id.btn, getResources().getString(R.string.buy));
                 ((QMUIRoundButtonDrawable) holder.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_riseup));
             } else {
                 holder.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_risedown));
@@ -502,8 +502,13 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 @Override
                 public void onClick(View v) {
                     if (!OtcDialogUtils.isDialogShow(getContext())) {
+                        if (spUtil.getDisclaimer() == 0) {
+                            OtcDialogUtils.setShowOtcXieyi(getContext());
+                            return;
+                        }
+
                         if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
-                            jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
+                            jumpTo(OtcManageOrderActivity.createActivity(getContext(), item.orderModel.id));
                         } else {
                             mPresenter.selectStatus(item, String.valueOf(item.orderModel.uid), item.orderModel.id);
                         }

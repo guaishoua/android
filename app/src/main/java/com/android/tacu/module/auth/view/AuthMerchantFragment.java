@@ -1,8 +1,10 @@
 package com.android.tacu.module.auth.view;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,6 +15,7 @@ import com.android.tacu.module.auth.contract.AuthMerchantContract;
 import com.android.tacu.module.auth.presenter.AuthMerchantPresenter;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.vip.view.RechargeDepositActivity;
+import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 
@@ -63,7 +66,7 @@ public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> im
 
     @OnClick(R.id.btn_submit)
     void submitClick() {
-        mPresenter.applyMerchantAuth();
+      showAuthMerchant();
     }
 
     @Override
@@ -102,11 +105,11 @@ public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> im
             ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
         } else {
             btn_submit.setEnabled(false);
-            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_grey));
+            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
         }
         if (spUtil.getApplyAuthMerchantStatus() == 1 || spUtil.getApplyAuthMerchantStatus() == 2) {
             btn_submit.setEnabled(false);
-            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_grey));
+            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
             if (spUtil.getApplyAuthMerchantStatus() == 1) {
                 btn_submit.setText(getResources().getString(R.string.to_be_examine));
             } else if (spUtil.getApplyAuthMerchantStatus() == 2) {
@@ -115,5 +118,21 @@ public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> im
         }else{
             btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
         }
+    }
+
+    private void showAuthMerchant() {
+        new DroidDialog.Builder(getContext())
+                .title(getResources().getString(R.string.certified_shoper))
+                .content(getResources().getString(R.string.certified_merchant_tips))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        mPresenter.applyMerchantAuth();
+                    }
+                })
+                .negativeButton(getResources().getString(R.string.cancel), null)
+                .cancelable(false, false)
+                .show();
     }
 }

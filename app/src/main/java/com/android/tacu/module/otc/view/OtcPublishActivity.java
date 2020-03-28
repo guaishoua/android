@@ -42,7 +42,7 @@ public class OtcPublishActivity extends BaseActivity<OtcManageBuySellPresenter> 
 
     @Override
     protected void initView() {
-        mTopBar.setTitle(getResources().getString(R.string.publish_otc_order));
+        mTopBar.setTitle(getResources().getString(R.string.publish_otc_order) + "ACU/CNY");
 
         tabTitle = new String[]{getResources().getString(R.string.goumai), getResources().getString(R.string.chushou)};
 

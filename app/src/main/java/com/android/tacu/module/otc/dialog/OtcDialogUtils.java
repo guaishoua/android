@@ -13,6 +13,7 @@ import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.my.view.BindModeActivity;
 import com.android.tacu.module.my.view.EditPersonalDataActivity;
 import com.android.tacu.module.my.view.TradeActivity;
+import com.android.tacu.module.otc.view.OtcTradeRulesActivity;
 import com.android.tacu.utils.user.UserInfoUtils;
 import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
@@ -153,5 +154,27 @@ public class OtcDialogUtils {
                     .show();
         }
         return isFlag;
+    }
+
+    public static void setShowOtcXieyi(final Context mContext) {
+        new DroidDialog.Builder(mContext)
+                .title(mContext.getResources().getString(R.string.tips))
+                .content(mContext.getResources().getString(R.string.otc_start_xieyi))
+                .positiveButton(mContext.getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        final UserInfoUtils spUtil = UserInfoUtils.getInstance();
+                        if (!spUtil.getLogin()) {
+                            Intent intent = new Intent(mContext, LoginActivity.class);
+                            mContext.startActivity(intent);
+                            return;
+                        }
+                        Intent intent = new Intent(mContext, OtcTradeRulesActivity.class);
+                        mContext.startActivity(intent);
+                    }
+                })
+                .negativeButton(mContext.getResources().getString(R.string.cancel), null)
+                .cancelable(false, false)
+                .show();
     }
 }

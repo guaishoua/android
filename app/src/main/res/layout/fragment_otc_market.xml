@@ -100,11 +100,11 @@
         android:id="@+id/lin_guanggao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_150"
+        android:layout_marginBottom="@dimen/dp_30"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/dp_15"
         android:paddingVertical="@dimen/dp_5"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:qmui_backgroundColor="@color/transparent_80"
@@ -114,96 +114,17 @@
         app:qmui_radiusTopLeft="@dimen/dp_3">
 
         <TextView
-            android:id="@+id/tv_guanggao1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/publish"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14" />
-
-        <TextView
-            android:id="@+id/tv_guanggao2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/guanggao"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_14" />
-    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lin_guanggao2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_150"
-        android:paddingLeft="@dimen/dp_10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_50"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/dp_3"
-            android:paddingVertical="@dimen/dp_5"
-            app:qmui_backgroundColor="@color/transparent_80"
-            app:qmui_borderColor="@color/color_default"
-            app:qmui_borderWidth="@dimen/dp_0.5"
-            app:qmui_radiusBottomLeft="@dimen/dp_3"
-            app:qmui_radiusTopLeft="@dimen/dp_3" />
-    </LinearLayout>
-
-    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
-        android:id="@+id/lin_auth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_80"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/dp_15"
-        android:paddingVertical="@dimen/dp_5"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:qmui_backgroundColor="@color/transparent_80"
-        app:qmui_borderColor="@color/color_default"
-        app:qmui_borderWidth="@dimen/dp_0.5"
-        app:qmui_radiusBottomLeft="@dimen/dp_3"
-        app:qmui_radiusTopLeft="@dimen/dp_3">
 
         <TextView
-            android:id="@+id/tv_auth1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/certified"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14" />
-
-        <TextView
-            android:id="@+id/tv_auth2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/shoper"
+            android:text="@string/center"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_14" />
     </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lin_auth2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_80"
-        android:paddingLeft="@dimen/dp_10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_50"
-            android:paddingHorizontal="@dimen/dp_3"
-            android:paddingVertical="@dimen/dp_5"
-            app:qmui_backgroundColor="@color/transparent_80"
-            app:qmui_borderColor="@color/color_default"
-            app:qmui_borderWidth="@dimen/dp_0.5"
-            app:qmui_radiusBottomLeft="@dimen/dp_3"
-            app:qmui_radiusTopLeft="@dimen/dp_3" />
-    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

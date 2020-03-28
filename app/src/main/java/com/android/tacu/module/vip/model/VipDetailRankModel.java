@@ -18,4 +18,7 @@ public class VipDetailRankModel implements Serializable {
     public String createTime;
     @SerializedName("updateTime")
     public String updateTime;
+
+    @SerializedName("discountFee")
+    public Double discountFee;
 }

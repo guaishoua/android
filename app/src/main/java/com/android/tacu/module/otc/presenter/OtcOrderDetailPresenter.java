@@ -27,12 +27,12 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
     }
 
     @Override
-    public void userBaseInfo(final Integer buyOrSell, final Integer queryUid) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).userBaseInfo(queryUid), new NetDisposableObserver<BaseModel<OtcMarketInfoModel>>((IBaseMvpView) getView()) {
+    public void userBaseInfo(final Integer queryUid) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).userBaseInfo(queryUid), new NetDisposableObserver<BaseModel<OtcMarketInfoModel>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<OtcMarketInfoModel> model) {
                 OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
-                view.userBaseInfo(buyOrSell, model.attachment, queryUid);
+                view.userBaseInfo(model.attachment);
             }
         });
     }
@@ -50,7 +50,7 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
 
     @Override
     public void selectPayInfoById(String id) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectPayInfoById(id), new NetDisposableObserver<BaseModel<PayInfoModel>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectPayInfoById(id), new NetDisposableObserver<BaseModel<PayInfoModel>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<PayInfoModel> model) {
                 OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
@@ -61,7 +61,7 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
 
     @Override
     public void uselectUserInfo(String headImg) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).uselectUserInfo(headImg), new NetDisposableObserver<BaseModel<String>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).uselectUserInfo(headImg), new NetDisposableObserver<BaseModel<String>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<String> o) {
                 OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
@@ -72,7 +72,7 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
 
     @Override
     public void uselectUserInfoArbitration(final int type, String headImg) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).uselectUserInfo(headImg), new NetDisposableObserver<BaseModel<String>>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).uselectUserInfo(headImg), new NetDisposableObserver<BaseModel<String>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<String> o) {
                 OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
@@ -86,8 +86,30 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).getSts(), new NetDisposableObserver<BaseModel<AuthOssModel>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<AuthOssModel> model) {
-                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
+                OtcOrderDetailContract.IAView wView = (OtcOrderDetailContract.IAView) getView();
                 wView.getOssSetting(model.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void confirmOrder(String orderId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).confirmOrder(orderId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
+                view.confirmOrderSuccess();
+            }
+        });
+    }
+
+    @Override
+    public void confirmCancelOrder(String orderId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).confirmCancelOrder(orderId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
+                view.confirmCancelOrderSuccess();
             }
         });
     }
@@ -130,7 +152,7 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).arbitrationOrder(id, arbitrateExp, arbitrateImg), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel model) {
-                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
+                OtcOrderDetailContract.IAView wView = (OtcOrderDetailContract.IAView) getView();
                 wView.arbitrationOrderSuccess();
             }
         });
@@ -141,7 +163,7 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).beArbitrationOrder(id, beArbitrateExp, beArbitrateImg), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel model) {
-                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
+                OtcOrderDetailContract.IAView wView = (OtcOrderDetailContract.IAView) getView();
                 wView.beArbitrationOrderSuccess();
             }
         });

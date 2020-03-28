@@ -3,26 +3,21 @@ package com.android.tacu.module.otc.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.alibaba.sdk.android.oss.ClientConfiguration;
-import com.alibaba.sdk.android.oss.OSS;
-import com.alibaba.sdk.android.oss.OSSClient;
-import com.alibaba.sdk.android.oss.common.OSSLog;
-import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
-import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.OtcDetailNotifyEvent;
 import com.android.tacu.R;
-import com.android.tacu.api.Constant;
-import com.android.tacu.base.MyApplication;
-import com.android.tacu.module.assets.model.AuthOssModel;
+import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcOrderDetailContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.orderView.ArbitrationView;
+import com.android.tacu.module.otc.orderView.CancelView;
 import com.android.tacu.module.otc.orderView.CoinGetView;
 import com.android.tacu.module.otc.orderView.CoinedView;
 import com.android.tacu.module.otc.orderView.ConfirmView;
@@ -30,41 +25,18 @@ import com.android.tacu.module.otc.orderView.FinishView;
 import com.android.tacu.module.otc.orderView.PayGetView;
 import com.android.tacu.module.otc.orderView.PayedView;
 import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
-import com.android.tacu.widget.NodeProgressView;
-
-import java.io.File;
-import java.util.ArrayList;
 
 import butterknife.BindView;
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 
-public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPresenter> implements OtcOrderDetailContract.IView {
-
-    private int current = -1;
-    private Integer status = -1;
+public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter> implements OtcOrderDetailContract.IView {
 
     // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
     // 12 买家成功 13 卖家成功
-
-    private static final int ORDER_CONFIRMED = 1;//待确认
-    private static final int ORDER_PAYED = 2;//待付款
-    private static final int ORDER_PAYGET = 3;//待收款
-    private static final int ORDER_COINED = 4;//待放币
-    private static final int ORDER_COINGET = 5;//待收币
-    private static final int ORDER_FINISHED = 6;//已完成
-    public static final int ORDER_ARBITRATION_BUY = 7;//买方仲裁中
-    public static final int ORDER_ARBITRATION_SELL = 8;//卖方仲裁中
-    private static final int ORDER_CANCEL = 9;//取消
-    private static final int ORDER_TIMEOUT = 10;//超时
-    public static final int ORDER_ARBITRATION_SUCCESS = 11;//裁决成功
+    private Integer status = -1;
 
     //接口30s轮训一次
     private static final int KREFRESH_TIME = 1000 * 30;
 
-    public static final int TAKE_PIC = 1001;
-
-    @BindView(R.id.node_progress)
-    NodeProgressView nodeProgress;
     @BindView(R.id.lin_switch)
     LinearLayout linSwitch;
 
@@ -82,10 +54,13 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     private FinishView finishView;
     //仲裁中
     private ArbitrationView arbitrationView;
+    //取消
+    private CancelView cancelView;
 
     private String orderNo;
     private boolean isFirst = true;
     private boolean isNeedChange = false;
+    private OtcTradeModel model;
 
     private Handler kHandler = new Handler();
     private Runnable kRunnable = new Runnable() {
@@ -147,176 +122,121 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) {
-            return;
-        }
-        if (requestCode == TAKE_PIC) {
-            ArrayList<String> imageList = BGAPhotoPickerActivity.getSelectedImages(data);
-            for (int i = 0; i < imageList.size(); i++) {
-                String imageUri = imageList.get(i);
-                File fileOrgin = new File(imageUri);
-
-                switch (current) {
-                    case ORDER_PAYED:
-                        if (payedView != null) {
-                            payedView.getPic(fileOrgin);
-                        }
-                        break;
-                    case ORDER_COINGET:
-                        if (coinGetView != null) {
-                            coinGetView.getPic(fileOrgin);
-                        }
-                        break;
-                    case ORDER_ARBITRATION_BUY:
-                    case ORDER_ARBITRATION_SELL:
-                    case ORDER_ARBITRATION_SUCCESS:
-                        if (arbitrationView != null) {
-                            arbitrationView.getPic(fileOrgin);
-                        }
-                        break;
-                }
+    protected void receiveEvent(BaseEvent event) {
+        super.receiveEvent(event);
+        if (event != null) {
+            switch (event.getCode()) {
+                case EventConstant.OTCDetailCode:
+                    OtcDetailNotifyEvent otcDetailNotifyEvent = (OtcDetailNotifyEvent) event.getData();
+                    if (otcDetailNotifyEvent.isNotify()) {
+                        upload(true);
+                    }
+                    break;
             }
         }
     }
 
     @Override
     public void selectTradeOne(boolean isFirst, OtcTradeModel model) {
+        this.model = model;
         if (model != null) {
-            if (model.buyuid != null && isFirst) {
-                mPresenter.userBaseInfo(1, model.buyuid);
-            }
-            if (model.selluid != null && isFirst) {
-                mPresenter.userBaseInfo(2, model.selluid);
+            Boolean isBuy = null;
+            if (model.buyuid == spUtil.getUserUid()) {
+                isBuy = true;
+            } else if (model.selluid == spUtil.getUserUid()) {
+                isBuy = false;
             }
 
-            setBuyPayInfoString(model);
-            setSellPayInfoString(model);
             isNeedChange = false;
 
-            // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
-            // 12 买家成功 13 卖家成功
-            if (model.status != null) {
-                switch (model.status) {
-                    case 1:
-                        current = ORDER_CONFIRMED;
-                        break;
-                    case 2:
-                        if (model.buyuid == spUtil.getUserUid()) {
-                            current = ORDER_PAYED;
-                        } else if (model.selluid == spUtil.getUserUid()) {
-                            current = ORDER_PAYGET;
-                        }
-                        break;
-                    case 3:
-                    case 9:
-                        if (model.buyuid == spUtil.getUserUid()) {
-                            current = ORDER_COINGET;
-                        } else if (model.selluid == spUtil.getUserUid()) {
-                            current = ORDER_COINED;
-                        }
-                        break;
-                    case 4:
-                        if (model.buyuid == spUtil.getUserUid()) {
-                            current = ORDER_ARBITRATION_BUY;
-                        } else if (model.selluid == spUtil.getUserUid()) {
-                            current = ORDER_ARBITRATION_SELL;
-                        }
-                        break;
-                    case 5:
-                    case 7:
-                        current = ORDER_TIMEOUT;
-                        break;
-                    case 6:
-                    case 8:
-                        current = ORDER_CANCEL;
-                        break;
-                    case 10:
-                        current = ORDER_FINISHED;
-                        break;
-                    case 12:
-                    case 13:
-                        current = ORDER_ARBITRATION_SUCCESS;
-                        break;
-                }
-                if (!status.equals(model.status)) {
-                    status = model.status;
-                    isNeedChange = true;
-                    destoryAllView();
-                    switchView(model.status);
-                }
+            if (model.status != null && !status.equals(model.status)) {
+                status = model.status;
+                isNeedChange = true;
+                destoryAllView();
+                switchView(model);
             }
 
             if (isFirst || isNeedChange) {
                 if (isNeedChange) {
                     isNeedChange = false;
                 }
-                switch (current) {
-                    case ORDER_CONFIRMED:
-                    case ORDER_PAYGET:
+                if (isBuy) {
+                    mPresenter.userBaseInfo(model.selluid);
+                } else {
+                    mPresenter.userBaseInfo(model.buyuid);
+                }
+                // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
+                // 12 买家成功 13 卖家成功
+                switch (status) {
+                    case 4:
+                    case 12:
+                    case 13:
                         mPresenter.currentTime();
+                        if (!TextUtils.isEmpty(model.arbitrateImg)) {
+                            mPresenter.uselectUserInfoArbitration(1, model.arbitrateImg);
+                        }
+                        if (!TextUtils.isEmpty(model.beArbitrateImg)) {
+                            mPresenter.uselectUserInfoArbitration(2, model.beArbitrateImg);
+                        }
                         break;
-                    case ORDER_PAYED:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 9:
+                    case 10:
                         mPresenter.currentTime();
                         mPresenter.selectPayInfoById(model.payId);
-                        break;
-                    case ORDER_COINED:
-                    case ORDER_COINGET:
-                        mPresenter.currentTime();
-                        if (!TextUtils.isEmpty(model.payInfo)) {
-                            mPresenter.uselectUserInfo(model.payInfo);
-                        }
-                        break;
-                    case ORDER_CANCEL:
-                    case ORDER_TIMEOUT:
-                    case ORDER_FINISHED:
-                    case ORDER_ARBITRATION_BUY:
-                    case ORDER_ARBITRATION_SELL:
-                    case ORDER_ARBITRATION_SUCCESS:
-                        if (!TextUtils.isEmpty(model.payInfo)) {
-                            mPresenter.uselectUserInfo(model.payInfo);
-                        }
                         break;
                 }
             }
 
-            switch (current) {
-                case ORDER_CONFIRMED:
+            // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
+            // 12 买家成功 13 卖家成功
+            switch (status) {
+                case 1:
                     if (confirmView != null) {
                         confirmView.selectTradeOne(model);
                     }
                     break;
-                case ORDER_PAYED:
-                    if (payedView != null) {
-                        payedView.selectTradeOne(model);
+                case 2:
+                    if (model.buyuid == spUtil.getUserUid()) {
+                        if (payedView != null) {
+                            payedView.selectTradeOne(model);
+                        }
+                    } else if (model.selluid == spUtil.getUserUid()) {
+                        if (payGetView != null) {
+                            payGetView.selectTradeOne(model);
+                        }
                     }
                     break;
-                case ORDER_PAYGET:
-                    if (payGetView != null) {
-                        payGetView.selectTradeOne(model);
+                case 3:
+                case 9:
+                    if (model.buyuid == spUtil.getUserUid()) {
+                        if (coinGetView != null) {
+                            coinGetView.selectTradeOne(model);
+                        }
+                    } else if (model.selluid == spUtil.getUserUid()) {
+                        if (coinedView != null) {
+                            coinedView.selectTradeOne(model);
+                        }
                     }
                     break;
-                case ORDER_COINED:
-                    if (coinedView != null) {
-                        coinedView.selectTradeOne(model);
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                    if (cancelView != null) {
+                        cancelView.selectTradeOne(model);
                     }
                     break;
-                case ORDER_COINGET:
-                    if (coinGetView != null) {
-                        coinGetView.selectTradeOne(model);
-                    }
-                    break;
-                case ORDER_CANCEL:
-                case ORDER_TIMEOUT:
-                case ORDER_FINISHED:
+                case 10:
                     if (finishView != null) {
                         finishView.selectTradeOne(model);
                     }
                     break;
-                case ORDER_ARBITRATION_BUY:
-                case ORDER_ARBITRATION_SELL:
-                case ORDER_ARBITRATION_SUCCESS:
+                case 4:
+                case 12:
+                case 13:
                     if (arbitrationView != null) {
                         arbitrationView.selectTradeOne(model);
                     }
@@ -326,62 +246,155 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     }
 
     @Override
-    public void userBaseInfo(Integer buyOrSell, OtcMarketInfoModel model, Integer queryUid) {
-        if (model != null) {
-            if (buyOrSell != null && buyOrSell == 1) {//买
-                setBuyValue(model, queryUid, true);
-            } else if (buyOrSell != null && buyOrSell == 2) {
-                setSellValue(model, queryUid, true);
-            }
-            if (buyOrSell == null) {
-                switch (current) {
-                    case ORDER_PAYED:
-                        if (payedView != null) {
-                            payedView.userBaseInfo(model);
+    public void userBaseInfo(OtcMarketInfoModel marketInfoModel) {
+        if (marketInfoModel != null) {
+            // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
+            // 12 买家成功 13 卖家成功
+            switch (status) {
+                case 1:
+                    if (confirmView != null) {
+                        confirmView.setUserInfo(marketInfoModel);
+                    }
+                    break;
+                case 2:
+                    if (model != null) {
+                        if (model.buyuid == spUtil.getUserUid()) {
+                            if (payedView != null) {
+                                payedView.setUserInfo(marketInfoModel);
+                                payedView.userBaseInfo(marketInfoModel);
+                            }
+                        } else if (model.selluid == spUtil.getUserUid()) {
+                            if (payGetView != null) {
+                                payGetView.setUserInfo(marketInfoModel);
+                            }
                         }
-                        break;
-                }
+                    }
+                    break;
+                case 3:
+                case 9:
+                    if (model != null) {
+                        if (model.buyuid == spUtil.getUserUid()) {
+                            if (coinGetView != null) {
+                                coinGetView.setUserInfo(marketInfoModel);
+                            }
+                        } else if (model.selluid == spUtil.getUserUid()) {
+                            if (coinedView != null) {
+                                coinedView.setUserInfo(marketInfoModel);
+                            }
+                        }
+                    }
+                    break;
+                case 10:
+                    if (finishView != null) {
+                        finishView.setUserInfo(marketInfoModel);
+                    }
+                    break;
+                case 4:
+                case 12:
+                case 13:
+                    if (arbitrationView != null) {
+                        arbitrationView.setUserInfo(marketInfoModel);
+                    }
+                    break;
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                    if (cancelView != null) {
+                        cancelView.setUserInfo(marketInfoModel);
+                    }
+                    break;
             }
         }
     }
 
     @Override
     public void currentTime(Long time) {
-        switch (current) {
-            case ORDER_CONFIRMED:
+        // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
+        // 12 买家成功 13 卖家成功
+        switch (status) {
+            case 1:
                 if (confirmView != null) {
                     confirmView.currentTime(time);
                 }
                 break;
-            case ORDER_PAYED:
-                if (payedView != null) {
-                    payedView.currentTime(time);
+            case 2:
+                if (model != null) {
+                    if (model.buyuid == spUtil.getUserUid()) {
+                        if (payedView != null) {
+                            payedView.currentTime(time);
+                        }
+                    } else if (model.selluid == spUtil.getUserUid()) {
+                        if (payGetView != null) {
+                            payGetView.currentTime(time);
+                        }
+                    }
                 }
                 break;
-            case ORDER_PAYGET:
-                if (payGetView != null) {
-                    payGetView.currentTime(time);
+            case 3:
+            case 9:
+                if (model != null) {
+                    if (model.buyuid == spUtil.getUserUid()) {
+                        if (coinGetView != null) {
+                            coinGetView.currentTime(time);
+                        }
+                    } else if (model.selluid == spUtil.getUserUid()) {
+                        if (coinedView != null) {
+                            coinedView.currentTime(time);
+                        }
+                    }
                 }
                 break;
-            case ORDER_COINED:
-                if (coinedView != null) {
-                    coinedView.currentTime(time);
-                }
-                break;
-            case ORDER_COINGET:
-                if (coinGetView != null) {
-                    coinGetView.currentTime(time);
+            case 4:
+            case 12:
+            case 13:
+                if (arbitrationView != null) {
+                    arbitrationView.currentTime(time);
                 }
                 break;
         }
     }
 
     @Override
-    public void selectPayInfoById(PayInfoModel model) {
-        switch (current) {
-            case ORDER_PAYED:
-                if (payedView != null) {
-                    payedView.selectPayInfoById(model);
+    public void selectPayInfoById(PayInfoModel payInfoModel) {
+        // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
+        // 12 买家成功 13 卖家成功
+        switch (status) {
+            case 1:
+                if (confirmView!=null){
+                    confirmView.selectPayInfoById(payInfoModel);
+                }
+                break;
+            case 2:
+                if (model != null) {
+                    if (model.buyuid == spUtil.getUserUid()) {
+                        if (payedView != null) {
+                            payedView.selectPayInfoById(payInfoModel);
+                        }
+                    } else if (model.selluid == spUtil.getUserUid()) {
+                        if (payGetView != null) {
+                            payGetView.selectPayInfoById(payInfoModel);
+                        }
+                    }
+                }
+                break;
+            case 3:
+            case 9:
+                if (model != null) {
+                    if (model.buyuid == spUtil.getUserUid()) {
+                        if (coinGetView != null) {
+                            coinGetView.selectPayInfoById(payInfoModel);
+                        }
+                    } else if (model.selluid == spUtil.getUserUid()) {
+                        if (coinedView != null) {
+                            coinedView.selectPayInfoById(payInfoModel);
+                        }
+                    }
+                }
+                break;
+            case 10:
+                if (finishView != null) {
+                    finishView.selectPayInfoById(payInfoModel);
                 }
                 break;
         }
@@ -389,34 +402,12 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
 
     @Override
     public void uselectUserInfo(String imageUrl) {
-        switch (current) {
-            case ORDER_PAYED:
-                if (payedView != null) {
-                    payedView.uselectUserInfo(imageUrl);
-                }
-                break;
-            case ORDER_COINED:
-                if (coinedView != null) {
-                    coinedView.uselectUserInfo(imageUrl);
-                }
-                break;
-            case ORDER_COINGET:
-                if (coinGetView != null) {
-                    coinGetView.uselectUserInfo(imageUrl);
-                }
-                break;
-            case ORDER_CANCEL:
-            case ORDER_TIMEOUT:
-            case ORDER_FINISHED:
-                if (finishView != null) {
-                    finishView.uselectUserInfo(imageUrl);
-                }
-                break;
-            case ORDER_ARBITRATION_BUY:
-            case ORDER_ARBITRATION_SELL:
-            case ORDER_ARBITRATION_SUCCESS:
-                if (arbitrationView != null) {
-                    arbitrationView.uselectUserInfo(imageUrl);
+        switch (status) {
+            case 2:
+                if (model != null && model.buyuid == spUtil.getUserUid()) {
+                    if (payedView != null) {
+                        payedView.uselectUserInfo(imageUrl);
+                    }
                 }
                 break;
         }
@@ -424,10 +415,10 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
 
     @Override
     public void uselectUserInfoArbitration(int type, String imageUrl) {
-        switch (current) {
-            case ORDER_ARBITRATION_BUY:
-            case ORDER_ARBITRATION_SELL:
-            case ORDER_ARBITRATION_SUCCESS:
+        switch (status) {
+            case 4:
+            case 12:
+            case 13:
                 if (arbitrationView != null) {
                     arbitrationView.uselectUserInfoArbitration(type, imageUrl);
                 }
@@ -436,39 +427,15 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
     }
 
     @Override
-    public void getOssSetting(AuthOssModel model) {
-        if (model != null) {
-            OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(model.AccessKeyId, model.AccessKeySecret, model.SecurityToken);
-            ClientConfiguration conf = new ClientConfiguration();
-            conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
-            conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
-            conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
-            conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
-            OSSLog.enableLog();
+    public void confirmOrderSuccess() {
+        showToastSuccess(getResources().getString(R.string.order_confirm));
+        upload(true);
+    }
 
-            OSS mOss = new OSSClient(MyApplication.getInstance(), Constant.OSS_ENDPOINT, credentialProvider);
-            String bucketName = model.bucket;
-
-            switch (current) {
-                case ORDER_PAYED:
-                    if (payedView != null) {
-                        payedView.uploadImgs(mOss, bucketName);
-                    }
-                    break;
-                case ORDER_COINGET:
-                    if (coinGetView != null) {
-                        coinGetView.uploadImgs(mOss, bucketName);
-                    }
-                    break;
-                case ORDER_ARBITRATION_BUY:
-                case ORDER_ARBITRATION_SELL:
-                case ORDER_ARBITRATION_SUCCESS:
-                    if (arbitrationView != null) {
-                        arbitrationView.uploadImgs(mOss, bucketName);
-                    }
-                    break;
-            }
-        }
+    @Override
+    public void confirmCancelOrderSuccess() {
+        showToastSuccess(getResources().getString(R.string.cancel_success));
+        upload(true);
     }
 
     @Override
@@ -489,18 +456,6 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
         upload(true);
     }
 
-    @Override
-    public void arbitrationOrderSuccess() {
-        showToastSuccess(getResources().getString(R.string.submit_success));
-        upload(true);
-    }
-
-    @Override
-    public void beArbitrationOrderSuccess() {
-        showToastSuccess(getResources().getString(R.string.submit_success));
-        finish();
-    }
-
     private void upload(boolean isShowView) {
         mPresenter.selectTradeOne(isShowView, isFirst, orderNo);
         if (isFirst) {
@@ -508,63 +463,67 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
         }
     }
 
-    private void switchView(Integer status) {
+    private void switchView(OtcTradeModel model) {
         View statusView = null;
-        switch (current) {
-            case ORDER_CONFIRMED://待确认
+        // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
+        // 12 买家成功 13 卖家成功
+
+        switch (status) {
+            case 1://待确认
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_confirmed));
+
                 confirmView = new ConfirmView();
-                statusView = confirmView.create(this);
-                nodeProgress.setCurentNode(1);
+                statusView = confirmView.create(this, mPresenter);
                 break;
-            case ORDER_PAYED://待付款
+            case 2:
                 mTopBar.setTitle(getResources().getString(R.string.otc_order_payed));
-                payedView = new PayedView();
-                statusView = payedView.create(this, mPresenter);
-                nodeProgress.setCurentNode(1);
-                break;
-            case ORDER_PAYGET://待收款
-                mTopBar.setTitle(getResources().getString(R.string.otc_order_payed));
-                payGetView = new PayGetView();
-                statusView = payGetView.create(this);
-                nodeProgress.setCurentNode(1);
-                break;
-            case ORDER_COINED://待放币
-                mTopBar.setTitle(getResources().getString(R.string.otc_order_coined));
-                coinedView = new CoinedView();
-                statusView = coinedView.create(this, mPresenter, status);
-                nodeProgress.setCurentNode(2);
-                break;
-            case ORDER_COINGET://待收币
-                mTopBar.setTitle(getResources().getString(R.string.otc_order_coined));
-                coinGetView = new CoinGetView();
-                statusView = coinGetView.create(this, mPresenter, status);
-                nodeProgress.setCurentNode(2);
-                break;
-            case ORDER_CANCEL:
-            case ORDER_TIMEOUT:
-            case ORDER_FINISHED://已完成
-                if (current == ORDER_CANCEL) {
-                    mTopBar.setTitle(getResources().getString(R.string.otc_order_cancel));
-                } else if (current == ORDER_TIMEOUT) {
-                    mTopBar.setTitle(getResources().getString(R.string.otc_order_timeout));
-                } else if (current == ORDER_FINISHED) {
-                    mTopBar.setTitle(getResources().getString(R.string.otc_order_finished));
+
+                if (model.buyuid == spUtil.getUserUid()) {
+                    payedView = new PayedView();
+                    statusView = payedView.create(this, mPresenter);
+                } else if (model.selluid == spUtil.getUserUid()) {
+                    payGetView = new PayGetView();
+                    statusView = payGetView.create(this);
                 }
-                finishView = new FinishView();
-                statusView = finishView.create(this, status);
-                nodeProgress.setCurentNode(4);
                 break;
-            case ORDER_ARBITRATION_BUY://仲裁中
-            case ORDER_ARBITRATION_SELL:
-            case ORDER_ARBITRATION_SUCCESS:
-                mTopBar.setTitle(getResources().getString(R.string.otc_order_arbitration));
-                if (current == ORDER_ARBITRATION_SUCCESS) {
+            case 3:
+            case 9:
+                mTopBar.setTitle(getResources().getString(R.string.otc_order_coined));
+
+                if (model.buyuid == spUtil.getUserUid()) {
+                    coinGetView = new CoinGetView();
+                    statusView = coinGetView.create(this);
+                } else if (model.selluid == spUtil.getUserUid()) {
+                    coinedView = new CoinedView();
+                    statusView = coinedView.create(this, mPresenter);
+                }
+                break;
+            case 4:
+            case 12:
+            case 13:
+                if (status == 4) {
+                    mTopBar.setTitle(getResources().getString(R.string.otc_order_arbitration));
+                } else {
                     mTopBar.setTitle(getResources().getString(R.string.otc_order_adjude));
                 }
+
                 arbitrationView = new ArbitrationView();
-                statusView = arbitrationView.create(this, mPresenter, current);
-                nodeProgress.setCurentNode(4);
+                statusView = arbitrationView.create(this, mPresenter);
+                break;
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                mTopBar.setTitle(getResources().getString(R.string.otc_order_cancel));
+
+                cancelView = new CancelView();
+                statusView = cancelView.create(this);
+                break;
+            case 10:
+                mTopBar.setTitle(getResources().getString(R.string.otc_order_finished));
+
+                finishView = new FinishView();
+                statusView = finishView.create(this);
                 break;
         }
         if (statusView != null) {
@@ -601,6 +560,9 @@ public class OtcOrderDetailActivity extends BaseOtcOrderActvity<OtcOrderDetailPr
         if (arbitrationView != null) {
             arbitrationView.destory();
             arbitrationView = null;
+        }
+        if (cancelView != null) {
+            cancelView.destory();
         }
     }
 }

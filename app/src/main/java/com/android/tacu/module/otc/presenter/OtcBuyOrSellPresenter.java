@@ -8,8 +8,11 @@ import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.model.OtcAmountModel;
+import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcBuyOrSellContract;
 import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
+
+import java.util.List;
 
 public class OtcBuyOrSellPresenter extends BaseMvpPresenter implements OtcBuyOrSellContract.IPresenter {
 
@@ -31,6 +34,28 @@ public class OtcBuyOrSellPresenter extends BaseMvpPresenter implements OtcBuyOrS
             public void onNext(BaseModel<OtcMarketOrderAllModel> model) {
                 OtcBuyOrSellContract.IView view = (OtcBuyOrSellContract.IView) getView();
                 view.orderListOne(model.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void selectBank() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView(), false) {
+            @Override
+            public void onNext(BaseModel<List<PayInfoModel>> o) {
+                OtcBuyOrSellContract.IView view = (OtcBuyOrSellContract.IView) getView();
+                view.selectBank(o.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void otcTrade(String orderId, Integer payType, String num, String amount) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).otcTrade(orderId, payType, num, amount), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel model) {
+                OtcBuyOrSellContract.IView view = (OtcBuyOrSellContract.IView) getView();
+                view.otcTradeSuccess();
             }
         });
     }

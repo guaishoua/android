@@ -8,12 +8,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,7 +44,7 @@ import butterknife.OnClick;
 
 import static android.widget.ImageView.ScaleType.CENTER_CROP;
 
-public class OtcMarketFragment extends BaseFragment implements View.OnTouchListener {
+public class OtcMarketFragment extends BaseFragment {
 
     @BindView(R.id.title)
     QMUITopBar mTopBar;
@@ -61,21 +59,6 @@ public class OtcMarketFragment extends BaseFragment implements View.OnTouchListe
 
     @BindView(R.id.lin_guanggao)
     QMUIRoundLinearLayout lin_guanggao;
-    @BindView(R.id.lin_guanggao2)
-    LinearLayout lin_guanggao2;
-    @BindView(R.id.tv_guanggao1)
-    TextView tv_guanggao1;
-    @BindView(R.id.tv_guanggao2)
-    TextView tv_guanggao2;
-
-    @BindView(R.id.lin_auth)
-    QMUIRoundLinearLayout lin_auth;
-    @BindView(R.id.lin_auth2)
-    LinearLayout lin_auth2;
-    @BindView(R.id.tv_auth1)
-    TextView tv_auth1;
-    @BindView(R.id.tv_auth2)
-    TextView tv_auth2;
 
     private int currencyId = Constant.ACU_CURRENCY_ID;
     private String currencyNameEn = Constant.ACU_CURRENCY_NAME;
@@ -103,6 +86,12 @@ public class OtcMarketFragment extends BaseFragment implements View.OnTouchListe
     }
 
     @Override
+    protected void initLazy() {
+        super.initLazy();
+        setShow();
+    }
+
+    @Override
     protected int getContentViewLayoutID() {
         return R.layout.fragment_otc_market;
     }
@@ -111,7 +100,7 @@ public class OtcMarketFragment extends BaseFragment implements View.OnTouchListe
     protected void initData(View view) {
         initTitle();
 
-        tabTitle.add(getResources().getString(R.string.goumai));
+        tabTitle.add(getResources().getString(R.string.buy));
         tabTitle.add(getResources().getString(R.string.chushou));
 
         fragmentList.add(OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, true));
@@ -126,9 +115,12 @@ public class OtcMarketFragment extends BaseFragment implements View.OnTouchListe
         indicatorViewPager.setAdapter(new TabAdapter(getChildFragmentManager(), getContext(), tabTitle, fragmentList));
         viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
         viewPager.setCurrentItem(0, false);
+    }
 
-        lin_guanggao2.setOnTouchListener(this);
-        lin_auth2.setOnTouchListener(this);
+    @Override
+    public void onResume() {
+        super.onResume();
+        setShow();
     }
 
     @Override
@@ -155,48 +147,12 @@ public class OtcMarketFragment extends BaseFragment implements View.OnTouchListe
         }
     }
 
-    @OnClick(R.id.lin_auth)
-    void authClick() {
-        if (spUtil.getLogin()) {
-            jumpTo(AuthMerchantActivity.class);
+    private void setShow(){
+        if (spUtil.getApplyMerchantStatus() == 2 || spUtil.getApplyAuthMerchantStatus() == 2) {
+            lin_guanggao.setVisibility(View.VISIBLE);
         } else {
-            jumpTo(LoginActivity.class);
+            lin_guanggao.setVisibility(View.GONE);
         }
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch (v.getId()) {
-            case R.id.lin_guanggao2:
-                if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
-                    lin_guanggao.setVisibility(View.VISIBLE);
-                    lin_guanggao2.setVisibility(View.GONE);
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            lin_guanggao.setVisibility(View.GONE);
-                            lin_guanggao2.setVisibility(View.VISIBLE);
-                        }
-                    }, 1500);
-                }
-                break;
-            case R.id.lin_auth2:
-                if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
-                    lin_auth.setVisibility(View.VISIBLE);
-                    lin_auth2.setVisibility(View.GONE);
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            lin_auth.setVisibility(View.GONE);
-                            lin_auth2.setVisibility(View.VISIBLE);
-                        }
-                    }, 1500);
-                }
-                break;
-        }
-        return true;
     }
 
     private void initTitle() {

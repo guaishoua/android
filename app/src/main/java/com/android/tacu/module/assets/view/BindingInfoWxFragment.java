@@ -1,11 +1,13 @@
 package com.android.tacu.module.assets.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -38,11 +40,13 @@ import com.android.tacu.module.assets.contract.BindingPayInfoContract;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.PayInfoModel;
 import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
+import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.permission.PermissionUtils;
+import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout;
 import com.yanzhenjie.permission.Permission;
@@ -63,10 +67,6 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     TextView tv_account_owner;
     @BindView(R.id.edit_wx_name)
     EditText edit_wx_name;
-    @BindView(R.id.lin_trade_pwd)
-    LinearLayout lin_trade_pwd;
-    @BindView(R.id.edit_trade_password)
-    EditText edit_trade_password;
     @BindView(R.id.img_wx_shoukuan)
     QMUIRoundImageView img_wx_shoukuan;
     @BindView(R.id.rl_upload)
@@ -129,11 +129,6 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
 
     @Override
     protected void initData(View view) {
-        if (spUtil.getPwdVisibility()) {
-            lin_trade_pwd.setVisibility(View.VISIBLE);
-        } else {
-            lin_trade_pwd.setVisibility(View.GONE);
-        }
         tv_account_owner.setText(spUtil.getKYCName());
         tv_account_owner1.setText(spUtil.getKYCName());
     }
@@ -204,17 +199,23 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     void bindingClick() {
         if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
             weChatNo = edit_wx_name.getText().toString().trim();
-            pwdString = edit_trade_password.getText().toString().trim();
             if (TextUtils.isEmpty(weChatNo)) {
                 showToastError(getResources().getString(R.string.please_input_wx_account));
                 return;
             }
-            if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
-                showToastError(getResources().getString(R.string.please_input_trade_password));
-                return;
-            }
             if (uploadFile == null) {
                 showToastError(getResources().getString(R.string.please_upload_wx_shoukuanma));
+                return;
+            }
+            if (spUtil.getPwdVisibility()) {
+                OtcPwdDialogUtils.showPwdDiaglog(getContext(), getResources().getString(R.string.please_input_trade_password), new OtcPwdDialogUtils.OnPassListener() {
+                    @Override
+                    public void onPass(String pwd) {
+                        pwdString = pwd;
+                        showLoadingView();
+                        mPresenter.getOssSetting(2, uploadFile.getPath());
+                    }
+                });
                 return;
             }
             showLoadingView();
@@ -222,14 +223,9 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
         }
     }
 
-    @OnClick(R.id.btn_cancel)
-    void cancelClick() {
-        getHostActivity().finish();
-    }
-
     @OnClick(R.id.btn_delete)
     void deleteClick() {
-        mPresenter.deleteBank(2, payInfoModel.id);
+        showDelete();
     }
 
     @Override
@@ -267,6 +263,22 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
         }
     }
 
+    private void showDelete() {
+        new DroidDialog.Builder(getContext())
+                .title(getResources().getString(R.string.tips))
+                .content(getResources().getString(R.string.is_delete_account))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        mPresenter.deleteBank(2, payInfoModel.id);
+                    }
+                })
+                .negativeButton(getResources().getString(R.string.cancel), null)
+                .cancelable(false, false)
+                .show();
+    }
+
     private void sendRefresh() {
         EventManage.sendEvent(new BaseEvent<>(EventConstant.PayInfoCode, new PayInfoEvent(true)));
     }
@@ -288,7 +300,6 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
 
     private void clearValue() {
         edit_wx_name.setText("");
-        edit_trade_password.setText("");
         img_wx_shoukuan.setImageResource(0);
         rl_upload.setVisibility(View.VISIBLE);
         tv_upload_tip.setVisibility(View.VISIBLE);
@@ -329,7 +340,7 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     private void dealValue(int flag) {
         if (flag == 1) {
             mHandler.sendEmptyMessage(0);
-            mPresenter.insertBank(2, null, null, null, null, weChatNo, uploadImageName, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+            mPresenter.insertBank(2, null, null, null, weChatNo, uploadImageName, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
         } else {
             mHandler.sendEmptyMessage(1);
         }

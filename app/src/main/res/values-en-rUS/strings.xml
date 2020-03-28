@@ -419,7 +419,7 @@
     <string name="lastest_deal">latest transaction</string>
     <string name="lodge_amount">hanging list amount</string>
     <string name="volume_amount">turnover</string>
-    <string name="trade_no_tip1">You currently have no transaction record</string>
+    <string name="trade_no_tip1">no record</string>
     <string name="trade_no_tip2">go ahead and trade</string>
     <string name="only_current_market">Current market only</string>
     <string name="history_entrust">historical delegation</string>
@@ -571,11 +571,7 @@
     <string name="email_auth">Email verification</string>
     <string name="truename_auth">Real-name verification</string>
     <string name="video_auth">Video verification</string>
-    <string name="buy_pay">Buyer pay</string>
-    <string name="sell_pay">Seller pay</string>
     <string name="please_choose_get_pay">Select payment method:</string>
-    <string name="dui_fang_confirm_time">Other party confirms the order in %1$s</string>
-    <string name="returnString">Return</string>
     <string name="otc_order_confirmed_tip">Notes
         \n1. Once the seller places an order, his coins will be locked for custody;
         \n2. The buyer needs to complete the payment within the payment validity period and confirm the payment before the seller release the coins.
@@ -584,80 +580,33 @@
         \n5. After the buyer receives the coins, if no arbitration occurs, the order will be successfully completed.
         \n6. If there is a discord during the transaction, buyers and sellers can submit arbitration at any time to defend their rights. For details, please refer to the OTC Rules.
     </string>
-    <string name="payed_time_countdown">Payment time</string>
-    <string name="coined_time_countdown">Coin time</string>
     <string name="order_id">Order number</string>
     <string name="pay_method">Payment method</string>
-    <string name="current_trade_should_get">To be received</string>
-    <string name="current_trade_should_coin">Coin</string>
-    <string name="current_trade_need_pay">To be payed</string>
-    <string name="upload_img_tip">Upload payment voucher
-        \nPicture should be up to 20MB
-        \nSupport JPG\PNG\BMP</string>
-    <string name="upload_arbitration_tip">Upload proof of arbitration
-        \nPicture should be up to 20MB
-        \nSupport JPG\PNG\BMP</string>
-    <string name="upload_beArbitration_tip">Upload proof of appeal
-        \nPicture should be up to 20MB
-        \nSupport JPG\PNG\BMP</string>
-    <string name="confirm_and_pay">Confirm and pay</string>
-    <string name="please_scan_with_wx">Use WeChat to scan</string>
-    <string name="please_scan_with_zfb">Use Alipay to scan</string>
     <string name="picture">picture</string>
-    <string name="please_confirm_yhk_get_money">Confirm WeChat payment has been received.</string>
-    <string name="please_confirm_zfb_get_money">Confirm WeChat payment has been received.</string>
-    <string name="please_confirm_wx_get_money">Confirm WeChat payment has been received.</string>
     <string name="confirm_getmoney_and_coined">Confirm and release coins</string>
     <string name="please_submit_arbitration_content">Describe arbitration request.........</string>
     <string name="submit_arbitration">Submit Arbitration</string>
-    <string name="order_make">Order generation</string>
-    <string name="order_pay">Order payment</string>
-    <string name="not_pay">Not paid</string>
-    <string name="not_coined">Coins not released</string>
-    <string name="arbitration_reason">Arbitration reason:</string>
-    <string name="appeal_reason">Appeal reason:</string>
-    <string name="arbitration_result">Arbitration result:</string>
-    <string name="please_submit_appeal_content">Describe your appeal request.........</string>
     <string name="submit_appeal">Submit Appeal</string>
-    <string name="otc_order_create">Order page</string>
     <string name="please_choose_pay_method">Select payment method</string>
     <string name="otc_xieyi">I have read it carefully, agree and abide by the platform\'s security tips on OTC transactions and</string>
     <string name="otc_xieyi_name">《TACU digital assets trading platform OTC Specifications and Disclaimer》</string>
     <string name="please_check_xieyi">Please read the agreement!</string>
     <string name="confirm_create_order">Confirm order</string>
     <string name="refuse_order">Reject order</string>
-    <string name="otc_order_confirm">Order confirmation page</string>
     <string name="order_confirm">Order confirmed</string>
     <string name="cancel_success">Order cancelled</string>
-    <string name="bond">Margin:</string>
-    <string name="all_deal_amount">Total orders:</string>
-    <string name="buy_amount">Buy orders:</string>
-    <string name="sell_amount">Sell orders:</string>
-    <string name="deal_rate">Success rate:</string>
-    <string name="dispute_amount">Disputes:</string>
-    <string name="be_arbitrated_amount">Arbitrated:</string>
-    <string name="arbitration_amount">Arbitration:</string>
-    <string name="appeal_amount">Appeal:</string>
-    <string name="win_lawsuit_amount">Wins:</string>
-    <string name="average_payment_time">Average pay time:</string>
-    <string name="current_trade_amount">Current trades:</string>
-    <string name="current_trade_price">Current trading volume:</string>
-    <string name="current_pay_method">Payment method:</string>
-    <string name="shoper_confirm_count_down">Confirmation time:</string>
-    <string name="account_balance">Account balance:</string>
-    <string name="completed_transaction_advertising_balance">Completed transaction ad balance:</string>
-    <string name="look_advertising_info">View ad info</string>
+    <string name="bond">Margin</string>
+    <string name="all_deal_amount">Total orders</string>
+    <string name="buy_amount">Buy orders</string>
+    <string name="sell_amount">Sell orders</string>
+    <string name="deal_rate">Success rate</string>
+    <string name="average_payment_time">Average pay time</string>
     <string name="otc_buy_page">Buy page</string>
     <string name="otc_sell_page">Sell page</string>
-    <string name="plan_buy_amount">Plan purchase:</string>
-    <string name="remaining_unsold">Remaining unpurchased:</string>
-    <string name="remaining_unsold_all">Remaining purchase price:</string>
     <string name="all_num">Total</string>
     <string name="remind_num">Remaining amount</string>
     <string name="remind_all">Remaining price</string>
-    <string name="single_min_limit">Min limit:</string>
-    <string name="single_max_limit">Max limit:</string>
-    <string name="seller_coined_time_limit">Seller release coins in:</string>
+    <string name="seller_coined_time_limit">Seller release coins in</string>
     <string name="account_balance1">Account balance</string>
     <string name="sell_number">Sell amount</string>
     <string name="input_sell_number">Enter sell amount</string>
@@ -673,6 +622,7 @@
     <string name="publish_otc_order">Post an ad</string>
     <string name="publish">Publish</string>
     <string name="guanggao">Ad</string>
+    <string name="center">Center</string>
     <string name="certified">Verified</string>
     <string name="shoper">Merchant</string>
     <string name="certified_shoper">Verified Merchant</string>
@@ -727,21 +677,15 @@
 
     <!--绑定支付-->
     <string name="binding_pay_info">Bind payment info</string>
-    <string name="cardholder_name">Cardholder Name</string>
-    <string name="cardholder_name_tip">To ensure normal trading, please bind your bank card.</string>
+    <string name="cardholder_name">Name</string>
     <string name="bank_name">Bank name</string>
     <string name="please_input_bank_name">Enter your card bank name</string>
     <string name="open_bank_name">Bank\'s branch name</string>
     <string name="please_input_open_bank_name">Enter your bank\'s branch name</string>
-    <string name="open_bank_address">Bank address</string>
-    <string name="please_input_open_bank_address">Enter the bank address</string>
     <string name="bank_id">Card number</string>
     <string name="please_input_bank_id">Enter your bank card number</string>
-    <string name="please_input_trade_password">Enter your trading password</string>
+    <string name="please_input_trade_password">Enter your password</string>
     <string name="confirm_binding">Confirm binding</string>
-    <string name="account_owner">Account Owner</string>
-    <string name="account_owner_wx_tip">To ensure normal trading, please bind WeChat</string>
-    <string name="account_owner_zfb_tip">To ensure normal trading, please bind Alipay</string>
     <string name="wx_account">WeChat account</string>
     <string name="zfb_account">Alipay account</string>
     <string name="please_input_wx_account">Enter your WeChat account</string>
@@ -903,7 +847,6 @@
     <string name="recharge_deposit_text3">Margin withdrawal to Coin account</string>
     <string name="recharge_deposit_text4">Margin withdrawal to OTC account</string>
     <string name="order_cancel_success">Undo successfully!</string>
-    <string name="yhk_tip">Special reminder: In order to ensure that your payment can reach the payee\'s account normally, please do not fill in any remark information, including all the words such as Bitcoin, BTC, digital currency, etc. It will be misunderstood and frozen by the bank, affecting the safety of your personal assets. Thank you for understanding!</string>
 
     <string name="otc_order_all">All</string>
     <string name="otc_order_confirmed">To be confirmed</string>
@@ -931,10 +874,10 @@
     <string name="go_pay1">Go to pay</string>
     <string name="confirm_coined">Confirm the deposit</string>
 
-    <string name="sell_thing">Sale</string>
+    <string name="sell_thing">Number</string>
     <string name="order_number">Order volume</string>
     <string name="order_surplus">Order balance</string>
-    <string name="all_price">Total price</string>
+    <string name="all_price_cny">Total price(CNY)</string>
     <string name="frezon_deposit">Freeze margin</string>
     <string name="wait_operation">pending operation</string>
     <string name="look">View</string>
@@ -951,8 +894,6 @@
     <string name="margin_account_acu">Margin Account (ACU)</string>
 
     <!--OTC3-->
-    <string name="sure_again">Again</string>
-    <string name="please_sure_again_coined">Please double check if you want to deposit money!</string>
     <string name="total_holdings">Total holdings</string>
     <string name="coin_account_recharge">Coin Account Recharge</string>
     <string name="available_num">Available number</string>
@@ -961,8 +902,6 @@
     <string name="asset_history">Asset Flow</string>
     <string name="to">to</string>
     <string name="margin_account">Margin Account</string>
-    <string name="hide">Hide</string>
-    <string name="show">Expand</string>
     <string name="realname">name</string>
 
     <!--OTC4-->
@@ -982,5 +921,78 @@
     <string name="choose_no_people_introduce">Please check "No invitation code"</string>
     <string name="Invitation_code">Invitation code</string>
     <string name="save_success">Success</string>
+
+    <!--OTC5-->
+    <string name="unbind">Unbind</string>
+    <string name="tips">tips</string>
+    <string name="otc_start_xieyi">Before the start of OTC trading, you need to read and agree to the "OTC Trading Specifications and Disclaimer"</string>
+    <string name="otc_trade_rules">OTC trading rules</string>
+    <string name="otc_trade_rules1">1. Basic principles of OTC trading</string>
+    <string name="otc_trade_rules2">
+        &#160;&#160;&#160;&#160;(1) These rules will be formally implemented from the date of promulgation, and will be revised or improved from time to time. The new rules after the amendments or improvements become effective from the date of publication;
+        \n&#160;&#160;&#160;&#160;(2) If you do not agree with the rules and the modified or improved rules, please stop using the platform services immediately;
+        \n&#160;&#160;&#160;&#160;(3) If you continue to use the platform services, it is deemed that you fully understand and accept the rules and the content of the rules modified or improved from time to time, and you are voluntarily bound by them.</string>
+    <string name="otc_trade_rules3">2.the buyer should follow the principles</string>
+    <string name="otc_trade_rules4">
+        &#160;&#160;&#160;&#160;After creating an order, the buyer should:
+        \n&#160;&#160;&#160;&#160;(1). Complete the payment within the payment time specified in the order, and then click "I have paid";
+        \n&#160;&#160;&#160;&#160;(2). Use my real-name payment method, according to the order amount and the payment account designated by the order, to complete the order payment in real time;
+        \n&#160;&#160;&#160;&#160;(3). If you choose to pay the order by non-real-time account, you must obtain the seller\'s consent in advance;
+        \n&#160;&#160;&#160;&#160;(4). no information such as "buy coins, buy ACU," etc. when making payment transfers;</string>
+    <string name="otc_trade_rules5">3.Principles the seller should follow</string>
+    <string name="otc_trade_rules6">
+        &#160;&#160;&#160;&#160;After generating an order, the seller should:
+        \n&#160;&#160;&#160;&#160;(1) Provide a payment account certified by the platform;
+        \n&#160;&#160;&#160;&#160;(2) After receiving the buyer\'s full payment, release the order within the specified time;
+        \n&#160;&#160;&#160;&#160;(3) Without the buyer\'s consent, the buyer/customer service must not be required to cancel the order;
+        \nNote: Non-real-time account transfer methods currently include: Alipay transfer bank card, WeChat transfer bank card, single transfer of over 50,000 orders from 17:00 to 9:00, and other non-real-time transfers with changes in the business of various payment channels. The specific types of accounting methods will be adjusted accordingly.
+    </string>
+    <string name="otc_trade_rules7">4. Users should abide by the principle of anti-money laundering</string>
+    <string name="otc_trade_rules8">
+        &#160;&#160;&#160;&#160;(1) The user shall strictly follow the platform\'s management requirements for user identity and real-name authentication of the account to ensure that the relevant accounts displayed on the platform are legally registered and used by themselves;
+        \n&#160;&#160;&#160;&#160;(2) When triggering the anti-money laundering risk control early warning of the platform, the user should actively cooperate with the platform\'s further anti-money laundering verification work and actively assist in providing relevant risk control proof materials (the specific measures are subject to the platform\'s risk control review requirements at that time) .
+    </string>
+    <string name="seller_info">Seller Information</string>
+    <string name="buyer_info">buyer information</string>
+    <string name="choose_getmoney_type">Choose a payment method</string>
+    <string name="choose_paymoney_type">Select a payment method</string>
+    <string name="shop_info">Business information</string>
+    <string name="order_info">Order information</string>
+    <string name="current_paymoney_type">This payment method</string>
+    <string name="current_getmoney_type">This payment method</string>
+    <string name="buy_people">Buyer</string>
+    <string name="sell_people">Sellers</string>
+    <string name="xiadan_time">Order time</string>
+    <string name="coined_time">Currency time</string>
+    <string name="wait_shop_confirm">Waiting for merchant confirmation</string>
+    <string name="wait_buy_pay">Waiting for buyer payment</string>
+    <string name="wait_sell_coined">Waiting for the seller to release coins</string>
+    <string name="confirm_counterdown">Confirm countdown</string>
+    <string name="pay_counterdown">Payment countdown</string>
+    <string name="coined_counterdown">Count down the coin</string>
+    <string name="arbitration_countdown">Arbitration countdown</string>
+    <string name="single_price_cny">Unit price (CNY)</string>
+    <string name="num_acu">Amount (ACU)</string>
+    <string name="order_amount_cny">Order amount (CNY)</string>
+    <string name="shop_noconfirm_timeout">Cancel without confirmation timeout by merchant</string>
+    <string name="shop_refuse_order">The merchant rejected the order</string>
+    <string name="pay_timeout_cancel">Cancellation of payment timeout</string>
+    <string name="buy_giveup_pay">Buyer gives up paying</string>
+    <string name="paid">Paid</string>
+    <string name="shoukuanma">Receipt code</string>
+    <string name="cancel_order_tip">Ensure that you have not paid to the other party, otherwise your assets will be lost</string>
+    <string name="pay_type">Payment method</string>
+    <string name="coined_confirm">Coin confirmation</string>
+    <string name="coined_confirm_tip">Please make sure that your receiving account has received the remittance from the other party before putting money, otherwise it will cause loss of your assets.</string>
+    <string name="order_finished">Order completed</string>
+    <string name="arbitration_tip">If you encounter a transaction problem, you can initiate arbitration, and the customer service specialist will be involved in this transaction until the arbitration is completed.</string>
+    <string name="arbitration_content">Arbitration Content</string>
+    <string name="bearbitration_tip">If you encounter a transaction problem, you can initiate an appeal, and the customer service specialist will be involved in the transaction until the appeal is completed.</string>
+    <string name="bearbitration_content">Appeal content</string>
+    <string name="upload_arbitration_img">Upload payment credentials</string>
+    <string name="upload_bearbitration_img">Upload Appeal Credentials</string>
+    <string name="please_submit_bearbitration_content">Please enter the content of your appeal .........</string>
+    <string name="arbitration_wait">Arbitration, waiting for arbitration</string>
+    <string name="arbitration_explain">Arbitration Explanation</string>
 </resources>
 

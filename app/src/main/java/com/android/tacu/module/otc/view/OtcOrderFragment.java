@@ -12,14 +12,15 @@ import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.OTCOrderVisibleHintEvent;
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcOrderContract;
+import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeAllModel;
@@ -28,8 +29,9 @@ import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcOrderPresenter;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.DateUtils;
-import com.android.tacu.utils.LogUtils;
+import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
+import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.android.tacu.widget.dialog.DroidDialog;
@@ -65,10 +67,8 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
 
     private int start = 1;
     private boolean isFirst = true;
-    private boolean isVisibleToUserParent = false;
     private List<OtcTradeAllModel> tradeModelList = new ArrayList<>();
 
-    private DroidDialog droidDialog;
     private DroidDialog sureDialog;
 
     private Long currentTime;//当前服务器时间戳
@@ -144,10 +144,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(orderAdapter);
-
-        if (buyOrSell == 0) {
-            isVisibleToUserParent = true;
-        }
     }
 
     @Override
@@ -179,9 +175,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
             timeHandler.removeCallbacks(timeRunnable);
         }
         cancelTime();
-        if (droidDialog != null && droidDialog.isShowing()) {
-            droidDialog.dismiss();
-        }
         if (sureDialog != null && sureDialog.isShowing()) {
             sureDialog.dismiss();
         }
@@ -193,25 +186,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         if (refreshManage != null && (refreshManage.isRefreshing() || refreshManage.isLoading())) {
             refreshManage.finishRefresh();
             refreshManage.finishLoadmore();
-        }
-    }
-
-    @Override
-    protected void receiveEvent(BaseEvent event) {
-        super.receiveEvent(event);
-        if (event != null) {
-            switch (event.getCode()) {
-                case EventConstant.OTCOrderVisibleCode:
-                    OTCOrderVisibleHintEvent otcOrderVisibleHintEvent = (OTCOrderVisibleHintEvent) event.getData();
-                    isVisibleToUserParent = otcOrderVisibleHintEvent.isVisibleToUser();
-                    int buyOrSell1 = otcOrderVisibleHintEvent.getBuyOrSell();
-                    if (buyOrSell1 == buyOrSell) {
-                        upload(isFirst, true);
-                    }
-
-                    LogUtils.i("jiazhen", "isVisibleToUserParent=" + isVisibleToUserParent + " buyOrSell1=" + buyOrSell1);
-                    break;
-            }
         }
     }
 
@@ -294,8 +268,13 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         orderAdapter.notifyDataSetChanged();
     }
 
+    public void setValue(int orderStatus) {
+        this.orderStatus = orderStatus;
+        upload(true, true);
+    }
+
     private void upload(boolean isShowView, boolean isTop) {
-        if (!isVisibleToUserParent || !isVisibleToUser) {
+        if (!isVisibleToUser) {
             return;
         }
         if (isFirst) {
@@ -333,6 +312,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                 }
             }
             if (item.tradeModel != null) {
+                GlideUtils.disPlay(mContext, Constant.ACU_ICON, (ImageView) holder.getView(R.id.img_coin));
                 holder.setText(R.id.tv_name, item.tradeModel.currencyName);
                 if (item.tradeModel.buyuid == spUtil.getUserUid()) {
                     holder.setText(R.id.tv_buy_status, getResources().getString(R.string.buy));
@@ -406,19 +386,14 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.text_color));
                             holder.setGone(R.id.view_four, true);
                             holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
-                            holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.mobile));
+                            holder.setText(R.id.tv_righttop_title, "");
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
+                            holder.setText(R.id.tv_righttop, "");
 
-                            otcPhone = "";
                             if (item.tradeModel.merchantId == spUtil.getUserUid()) {
-                                otcPhone = item.infoModel.mobile;
-
                                 holder.setGone(R.id.btn_left, true);
                                 holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_order));
-                            } else {
-                                otcPhone = item.tradeModel.explaininfo;
                             }
-                            holder.setText(R.id.tv_righttop, otcPhone);
 
                             if (currentTime != null) {
                                 if (!TextUtils.isEmpty(item.tradeModel.confirmEndTime)) {
@@ -535,6 +510,11 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
                             holder.setImageResource(R.id.img_rightbottom, R.drawable.icon_auth_success);
 
+                            if (item.tradeModel.selluid == spUtil.getUserUid()) {
+                                holder.setGone(R.id.btn_left, true);
+                                holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_coined));
+                            }
+
                             if (currentTime != null) {
                                 if (!TextUtils.isEmpty(item.tradeModel.arbitrationEndTime)) {
                                     valueTime = DateUtils.string2Millis(item.tradeModel.arbitrationEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
@@ -626,9 +606,12 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                     if (item.tradeModel.status != null) {
                         switch (item.tradeModel.status) {
                             case 1://确认订单
-                                mPresenter.confirmOrder(item.tradeModel.id);
+                                if (item.tradeModel.merchantId == spUtil.getUserUid()) {
+                                    mPresenter.confirmOrder(item.tradeModel.id);
+                                }
                                 break;
                             case 3://放币
+                            case 4:
                             case 9:
                                 if (!OtcTradeDialogUtils.isDialogShow(mContext)) {
                                     showDialog(item.tradeModel.id);
@@ -644,12 +627,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                     if (item.tradeModel.status != null) {
                         switch (item.tradeModel.status) {
                             case 1:
-                                if (item.tradeModel.merchantId == spUtil.getUserUid()) {
-                                    jumpTo(OtcOrderConfirmActivity.createActivity(getContext(), item.tradeModel.id, item.tradeModel.orderNo));
-                                } else {
-                                    jumpTo(OtcOrderDetailActivity.createActivity(getContext(), item.tradeModel.orderNo));
-                                }
-                                break;
                             case 2:
                             case 3:
                             case 4:
@@ -671,34 +648,39 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     }
 
     private void showDialog(final String orderId) {
-        View view = View.inflate(getContext(), R.layout.view_dialog_trade_pwd, null);
-        final QMUIRoundEditText edit_trade_pwd = view.findViewById(R.id.edit_trade_pwd);
-        droidDialog = new DroidDialog.Builder(getContext())
-                .title(getResources().getString(R.string.trade_password))
-                .viewCustomLayout(view)
-                .positiveButton(getResources().getString(R.string.confirm_new_pwd), new DroidDialog.onPositiveListener() {
-                    @Override
-                    public void onPositive(Dialog droidDialog) {
-                        String pwd = edit_trade_pwd.getText().toString().trim();
-                        if (TextUtils.isEmpty(pwd)) {
-                            showToastError(getResources().getString(R.string.please_input_trade_password));
-                            return;
-                        }
-                        showSure(orderId, pwd);
-                    }
-                })
-                .cancelable(true, true)
-                .show();
+        if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
+            showSure(orderId);
+        }
     }
 
-    private void showSure(final String orderId, final String pwdString) {
-        sureDialog = new DroidDialog.Builder(getContext())
-                .title(getResources().getString(R.string.sure_again))
-                .content(getResources().getString(R.string.please_sure_again_coined))
-                .contentGravity(Gravity.CENTER)
-                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+    private void showSure(final String orderId) {
+        View view = View.inflate(getContext(), R.layout.dialog_coined_confirm, null);
+        final CheckBox cb_xieyi = view.findViewById(R.id.cb_xieyi);
+        final QMUIRoundEditText edit_trade_pwd = view.findViewById(R.id.edit_trade_pwd);
+
+        if (spUtil.getPwdVisibility()) {
+            edit_trade_pwd.setVisibility(View.VISIBLE);
+        } else {
+            edit_trade_pwd.setVisibility(View.GONE);
+        }
+
+        new DroidDialog.Builder(getContext())
+                .title(getResources().getString(R.string.coined_confirm))
+                .viewCustomLayout(view)
+                .positiveButton(getResources().getString(R.string.sure), false, new DroidDialog.onPositiveListener() {
                     @Override
                     public void onPositive(Dialog droidDialog) {
+                        if (!cb_xieyi.isChecked()) {
+                            ShowToast.error(getResources().getString(R.string.please_check_xieyi));
+                            return;
+                        }
+                        String pwdString = edit_trade_pwd.getText().toString();
+                        if (spUtil.getPwdVisibility() && TextUtils.isEmpty(pwdString)) {
+                            ShowToast.error(getResources().getString(R.string.please_input_trade_password));
+                            return;
+                        }
+
+                        droidDialog.dismiss();
                         mPresenter.finishOrder(orderId, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
                     }
                 })

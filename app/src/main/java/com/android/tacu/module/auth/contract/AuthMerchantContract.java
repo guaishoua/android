@@ -4,7 +4,6 @@ import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.auth.model.OtcSectionModel;
-import com.android.tacu.module.auth.model.SelectC2cSection;
 import com.android.tacu.module.main.model.OwnCenterModel;
 
 import java.util.List;
@@ -18,7 +17,6 @@ public class AuthMerchantContract {
 
         void selectOtcSection(List<OtcSectionModel> list);
 
-        void selectC2cSection(List<SelectC2cSection> list);
     }
 
     public interface IOrdinarView extends IBaseMvpView {
@@ -28,7 +26,6 @@ public class AuthMerchantContract {
 
         void applyMerchantSuccess();
 
-        void disclaimerSuccess();
     }
 
     public interface IAuthView extends IBaseMvpView {
@@ -49,9 +46,5 @@ public class AuthMerchantContract {
         void applyMerchantAuth();
 
         void selectOtcSection();
-
-        void selectC2cSection();
-
-        void disclaimer();
     }
 }

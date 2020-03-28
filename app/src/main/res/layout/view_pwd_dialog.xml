@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/content_bg_color"
+    android:background="@color/color_dialog"
     android:orientation="vertical">
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText
@@ -16,7 +16,7 @@
 
     <View
         style="@style/line_french_grey"
-        android:layout_marginBottom="@dimen/dp_10"
         android:layout_marginLeft="@dimen/dp_15"
-        android:layout_marginRight="@dimen/dp_15" />
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginBottom="@dimen/dp_10" />
 </LinearLayout>
