@@ -625,7 +625,7 @@
     <string name="trade_coin_type">交易幣種</string>
     <string name="trade_money">交易貨幣</string>
     <string name="current_market_value">當前市值：1CNY/ACU</string>
-    <string name="order_operation_time_limit">廣告操作時限</string>
+    <string name="order_operation_time_limit">廣告操作時間</string>
     <string name="minute_15">15分鐘</string>
     <string name="trade_single_price">交易單價</string>
     <string name="please_input_trade_single_price">請輸入交易價格</string>

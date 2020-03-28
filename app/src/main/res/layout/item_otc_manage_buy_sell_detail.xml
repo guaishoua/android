@@ -88,6 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_5"
+        android:textSize="@dimen/text_size_sp_16"
         app:layout_constraintBottom_toBottomOf="@+id/tv_coin_name"
         app:layout_constraintLeft_toRightOf="@+id/tv_coin_name"
         app:layout_constraintTop_toTopOf="@+id/tv_coin_name" />

@@ -200,22 +200,23 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
             }
 
             holder.setGone(R.id.btn_look, true);
-            holder.setGone(R.id.btn_show, true);
-            holder.setGone(R.id.btn_cancel, true);
-            holder.setText(R.id.btn_show, getResources().getString(R.string.hangup));
 
             if (item.status != null && item.status == 2) {
                 holder.setText(R.id.tv_type, getResources().getString(R.string.finished));
                 holder.setTextColor(R.id.tv_type, ContextCompat.getColor(mContext, R.color.text_color));
                 holder.setGone(R.id.btn_show, false);
                 holder.setGone(R.id.btn_cancel, false);
-            } else if (item.isshow != null && item.isshow == 0) {
-                holder.setText(R.id.tv_type, getResources().getString(R.string.hangup));
-                holder.setTextColor(R.id.tv_type, ContextCompat.getColor(mContext, R.color.text_default));
-                holder.setText(R.id.btn_show, getResources().getString(R.string.recovery));
             } else {
                 holder.setText(R.id.tv_type, getResources().getString(R.string.going));
                 holder.setTextColor(R.id.tv_type, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+                holder.setGone(R.id.btn_show, true);
+                holder.setGone(R.id.btn_cancel, true);
+
+                if (item.isshow != null && item.isshow == 0) {
+                    holder.setText(R.id.btn_show, getResources().getString(R.string.recovery));
+                } else {
+                    holder.setText(R.id.btn_show, getResources().getString(R.string.hangup));
+                }
             }
 
             holder.setText(R.id.tv_sell_thing_title, getResources().getString(R.string.sell_thing) + "(" + item.currencyName + ")");
@@ -254,6 +255,7 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
             holder.setOnClickListener(R.id.btn_look, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    jumpTo(OtcManageDetailsActivity.createActivity(getContext(), item));
                 }
             });
 

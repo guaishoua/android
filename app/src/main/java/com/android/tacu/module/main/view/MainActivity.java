@@ -526,12 +526,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 img_otc.setImageResource(R.mipmap.img_main_otc_selected);
                 tv_otc.setTextColor(ContextCompat.getColor(this, R.color.main_tab_black_color));
 
-                boolean isShowXieyi = true;
                 if (spUtil.getLogin()) {
-                    isShowXieyi = spUtil.getDisclaimer() == 0 ? true : false;
-                }
-                if (isShowXieyi) {
-                    OtcDialogUtils.setShowOtcXieyi(this);
+                    boolean isShowXieyi = spUtil.getDisclaimer() == 0 ? true : false;
+                    if (isShowXieyi) {
+                        OtcDialogUtils.setShowOtcXieyi(this);
+                    }
                 }
                 break;
             case Constant.MAIN_ASSETS:

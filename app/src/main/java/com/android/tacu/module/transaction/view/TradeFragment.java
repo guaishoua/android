@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
+import com.android.tacu.module.vip.model.VipDetailRankModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.EventBus.EventConstant;
@@ -231,6 +232,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     //editprice的价格是否从深度的列表中取值
     private boolean isEditPriceChange = true;
 
+    private VipDetailRankModel vipModel;
+    private double discountFee = 1;
+
     private String UserAccountString;
     private String UserAccountTemp;
 
@@ -269,6 +273,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     protected void initLazy() {
         super.initLazy();
         setTradeRefresh();
+        setTradeRequest();
     }
 
     @Override
@@ -299,6 +304,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         initCacheSelf();
         setTvFee();
         setAvailableNumber();
+        setTradeRequest();
         if (timeHandler != null && timeRunnable != null) {
             timeHandler.post(timeRunnable);
         }
@@ -513,6 +519,14 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     @Override
     public void updateFdPwdError() {
         cbPwd.setChecked(spUtil.getPwdVisibility());
+    }
+
+    @Override
+    public void selectVipDetail(List<VipDetailRankModel> list) {
+        if (list != null && list.size() > 0) {
+            vipModel = list.get(0);
+            setTvFee();
+        }
     }
 
     @Override
@@ -986,31 +1000,35 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
      * 所以都要处理一下
      */
     private void setFeeString() {
+        discountFee = 1;
+        if (vipModel != null && vipModel.discountFee != null) {
+            discountFee = vipModel.discountFee;
+        }
         if (currentTradeCoinModel != null && currentTradeCoinModel.currentTradeCoin != null) {
             if (isBuy) {
                 buyFee = null;
                 switch (authLevel) {
                     case 1:
-                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1).toPlainString()));
+                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc1 * discountFee).toPlainString()));
                         break;
                     case 2:
-                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2).toPlainString()));
+                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc2 * discountFee).toPlainString()));
                         break;
                     case 3:
-                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3).toPlainString()));
+                        buyFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycBuy.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycBuy.feeKyc3 * discountFee).toPlainString()));
                         break;
                 }
             } else {
                 sellFee = null;
                 switch (authLevel) {
                     case 1:
-                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1).toPlainString()));
+                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc1 * discountFee).toPlainString()));
                         break;
                     case 2:
-                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2).toPlainString()));
+                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc2 * discountFee).toPlainString()));
                         break;
                     case 3:
-                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3 * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3).toPlainString()));
+                        sellFee = new SpannableString(getResources().getString(R.string.fee) + " " + (currentTradeCoinModel.currentTradeCoin.kycSell.feeType == 2 ? BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3 * discountFee * 100).toPlainString() + "%" : BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.kycSell.feeKyc3 * discountFee).toPlainString()));
                         break;
                 }
             }
@@ -1210,6 +1228,12 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         isEditPriceChange = true;
         editPrice.setText("");
         editNumber.setText("");
+    }
+
+    private void setTradeRequest() {
+        if (spUtil.getLogin() && isVisibleToUser) {
+            mPresenter.selectVipDetail();
+        }
     }
 
     /**

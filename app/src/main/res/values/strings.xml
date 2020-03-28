@@ -610,8 +610,8 @@
     <string name="sell_amount">卖单量</string>
     <string name="deal_rate">成单率</string>
     <string name="average_payment_time">平均付款时间</string>
-    <string name="otc_buy_page">买入页面</string>
-    <string name="otc_sell_page">卖出页面</string>
+    <string name="otc_buy_page">購買ACU</string>
+    <string name="otc_sell_page">出售ACU</string>
     <string name="all_num">总量</string>
     <string name="remind_num">剩余量</string>
     <string name="remind_all">剩余总价</string>
@@ -640,7 +640,7 @@
     <string name="trade_coin_type">交易币种</string>
     <string name="trade_money">交易货币</string>
     <string name="current_market_value">当前市值：1CNY/ACU</string>
-    <string name="order_operation_time_limit">广告操作时限</string>
+    <string name="order_operation_time_limit">广告操作时间</string>
     <string name="minute_15">15分钟</string>
     <string name="trade_single_price">交易单价</string>
     <string name="please_input_trade_single_price">请输入交易价格</string>
@@ -1029,4 +1029,9 @@
     <string name="arbitrationing">仲裁中</string>
     <string name="go_coined">去放币</string>
     <string name="getmoney_type">收款方式</string>
+    <string name="guanggao_detail">广告详情</string>
+    <string name="all_price">总价</string>
+    <string name="remain_amount">剩余数量</string>
+    <string name="otc_phone">OTC联系方式</string>
+    <string name="otc_publish_time">广告发布时间</string>
 </resources>
