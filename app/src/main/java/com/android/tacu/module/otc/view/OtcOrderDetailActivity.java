@@ -168,9 +168,6 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                 // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
                 // 12 买家成功 13 卖家成功
                 switch (status) {
-                    case 1:
-                        mPresenter.currentTime();
-                        break;
                     case 4:
                     case 12:
                     case 13:
@@ -182,6 +179,7 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                             mPresenter.uselectUserInfoArbitration(2, model.beArbitrateImg);
                         }
                         break;
+                    case 1:
                     case 2:
                     case 3:
                     case 9:
@@ -362,6 +360,11 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
         // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
         // 12 买家成功 13 卖家成功
         switch (status) {
+            case 1:
+                if (confirmView!=null){
+                    confirmView.selectPayInfoById(payInfoModel);
+                }
+                break;
             case 2:
                 if (model != null) {
                     if (model.buyuid == spUtil.getUserUid()) {

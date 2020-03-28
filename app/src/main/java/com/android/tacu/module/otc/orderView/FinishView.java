@@ -17,12 +17,12 @@ public class FinishView extends BaseOtcView {
     private OtcOrderDetailActivity activity;
     private UserInfoUtils spUtil;
 
+    private TextView tv_money_type;
     private ImageView img_pay;
     private TextView tv_pay;
     private TextView tv_pay_account;
 
     private OtcTradeModel tradeModel;
-    private String imageUrl;
 
     //5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付   10放币完成
     public View create(OtcOrderDetailActivity activity) {
@@ -35,6 +35,7 @@ public class FinishView extends BaseOtcView {
     private void initFinishedView(View view) {
         setBaseView(view, activity);
 
+        tv_money_type = view.findViewById(R.id.tv_money_type);
         img_pay = view.findViewById(R.id.img_pay);
         tv_pay = view.findViewById(R.id.tv_pay);
         tv_pay_account = view.findViewById(R.id.tv_pay_account);
@@ -72,6 +73,17 @@ public class FinishView extends BaseOtcView {
     private void dealFinish() {
         if (tradeModel != null) {
             setBaseValue1(activity, tradeModel, spUtil);
+            Boolean isBuy = null;
+            if (tradeModel.buyuid == spUtil.getUserUid()) {
+                isBuy = true;
+            } else if (tradeModel.selluid == spUtil.getUserUid()) {
+                isBuy = false;
+            }
+            if (isBuy) {
+                tv_money_type.setText(activity.getResources().getString(R.string.pay_type));
+            } else {
+                tv_money_type.setText(activity.getResources().getString(R.string.getmoney_type));
+            }
         }
     }
 

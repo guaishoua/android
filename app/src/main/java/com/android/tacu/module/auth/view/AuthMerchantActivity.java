@@ -90,7 +90,6 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
 
         viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentList));
         viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
-        viewPager.setCurrentItem(0, false);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {

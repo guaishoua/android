@@ -1013,6 +1013,7 @@
     <string name="deal_num">成交数量</string>
     <string name="deal_dan_num">成交笔数</string>
     <string name="need_deal_order">待处理订单</string>
+    <string name="finished_order">已完成订单</string>
     <string name="guanggao_info">广告信息</string>
     <string name="guanggao_limit">广告限制</string>
     <string name="currnet_bond">本次保证金</string>
@@ -1027,4 +1028,5 @@
     <string name="coined_timeout">放币超时</string>
     <string name="arbitrationing">仲裁中</string>
     <string name="go_coined">去放币</string>
+    <string name="getmoney_type">收款方式</string>
 </resources>

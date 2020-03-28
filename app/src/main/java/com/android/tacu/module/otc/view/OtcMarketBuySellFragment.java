@@ -490,7 +490,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
 
             if (isBuy) {
                 holder.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_riseup));
-                holder.setText(R.id.btn, getResources().getString(R.string.goumai));
+                holder.setText(R.id.btn, getResources().getString(R.string.buy));
                 ((QMUIRoundButtonDrawable) holder.getView(R.id.btn).getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_riseup));
             } else {
                 holder.setTextColor(R.id.tv_single_price, ContextCompat.getColor(getContext(), R.color.color_risedown));
@@ -508,7 +508,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                         }
 
                         if (item.infoModel.uid != null && spUtil.getUserUid() == item.infoModel.uid) {
-                            jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.orderModel.id));
+                            jumpTo(OtcManageOrderActivity.createActivity(getContext(), item.orderModel.id));
                         } else {
                             mPresenter.selectStatus(item, String.valueOf(item.orderModel.uid), item.orderModel.id);
                         }

@@ -247,14 +247,13 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
             holder.setOnClickListener(R.id.tv_need_deal_order_title, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    jumpTo(OtcManageOrderActivity.createActivity(getContext(), item.id));
                 }
             });
 
             holder.setOnClickListener(R.id.btn_look, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //jumpTo(OtcManageBuySellDetailActivity.createActivity(getContext(), item.id));
                 }
             });
 

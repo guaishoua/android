@@ -69,6 +69,7 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
     private TimeModel timeModel;
     private boolean isFirst = true;
     private DroidDialog droidDialog;
+    private OtcManageOrderActivity.onWaitLister lister;
 
     private SparseArray<TimeModel> timeArray = new SparseArray<>();
     private Handler timeHandler = new Handler();
@@ -223,6 +224,9 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
                 }
                 if (tradeModelList != null && tradeModelList.size() > 0) {
                     orderAdapter.setNewData(tradeModelList);
+                    if (lister != null) {
+                        lister.onWaitL(tradeModelList);
+                    }
                     if (tradeModelList.size() >= model.total) {
                         refreshManage.setEnableLoadmore(false);
                     } else {
@@ -232,11 +236,17 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
                 }
             } else if (start == 1) {
                 orderAdapter.setNewData(null);
+                if (lister != null) {
+                    lister.onWaitL(null);
+                }
                 orderAdapter.setEmptyView(emptyView);
                 refreshManage.setEnableLoadmore(false);
             }
         } else if (start == 1) {
             orderAdapter.setNewData(null);
+            if (lister != null) {
+                lister.onWaitL(null);
+            }
             orderAdapter.setEmptyView(emptyView);
             refreshManage.setEnableLoadmore(false);
         }
@@ -306,6 +316,14 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
             }
             if (item.tradeModel != null) {
                 holder.setText(R.id.tv_coin_name, item.tradeModel.currencyName);
+
+                holder.setGone(R.id.rl_red, false);
+                if (item.tradeModel.buyuid == spUtil.getUserUid() && item.tradeModel.buyreadstatus != null && item.tradeModel.buyreadstatus == 0) {
+                    holder.setGone(R.id.rl_red, true);
+                } else if (item.tradeModel.selluid == spUtil.getUserUid() && item.tradeModel.sellreadstatus != null && item.tradeModel.sellreadstatus == 0) {
+                    holder.setGone(R.id.rl_red, true);
+                }
+
                 Boolean isBuy = null;
                 if (item.tradeModel.buyuid == spUtil.getUserUid()) {
                     isBuy = true;
@@ -368,7 +386,7 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
                             holder.setText(R.id.tv_order_status, getResources().getString(R.string.wait_payed));
                             holder.setGone(R.id.btn_center, true);
                             ((QMUIRoundButtonDrawable) holder.getView(R.id.btn_center).getBackground()).setBgData(ContextCompat.getColorStateList(mContext, R.color.color_default));
-                            holder.setText(R.id.btn_right, getResources().getString(R.string.paid));
+                            holder.setText(R.id.btn_center, getResources().getString(R.string.paid));
                         } else {
                             holder.setText(R.id.tv_order_status, getResources().getString(R.string.wait_payget));
                         }
@@ -391,7 +409,7 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
                             holder.setText(R.id.tv_order_status, getResources().getString(R.string.wait_coined));
                             holder.setGone(R.id.btn_center, true);
                             ((QMUIRoundButtonDrawable) holder.getView(R.id.btn_center).getBackground()).setBgData(ContextCompat.getColorStateList(mContext, R.color.color_default));
-                            holder.setText(R.id.btn_right, getResources().getString(R.string.go_coined));
+                            holder.setText(R.id.btn_center, getResources().getString(R.string.go_coined));
                         }
                         holder.setTextColor(R.id.tv_order_status, ContextCompat.getColor(mContext, R.color.text_color));
                         holder.setText(R.id.tv_operation_countdown_title, getResources().getString(R.string.coined_counterdown));
@@ -420,10 +438,10 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
                         if (!isBuy) {
                             holder.setGone(R.id.btn_center, true);
                             ((QMUIRoundButtonDrawable) holder.getView(R.id.btn_center).getBackground()).setBgData(ContextCompat.getColorStateList(mContext, R.color.color_default));
-                            holder.setText(R.id.btn_right, getResources().getString(R.string.go_coined));
+                            holder.setText(R.id.btn_center, getResources().getString(R.string.go_coined));
                         }
 
-                        holder.setText(R.id.tv_operation_countdown, getResources().getString(R.string.pay_timeout));
+                        holder.setText(R.id.tv_operation_countdown, getResources().getString(R.string.timeouted));
                         break;
                 }
 
@@ -531,5 +549,9 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
             this.millisInFuture = millisInFuture;
             this.tv = tv;
         }
+    }
+
+    public void setOnWaitLister(OtcManageOrderActivity.onWaitLister lister) {
+        this.lister = lister;
     }
 }

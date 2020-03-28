@@ -35,6 +35,7 @@ public class CoinGetView extends BaseOtcView implements View.OnClickListener {
     private TextView tv_minute;
     private TextView tv_second;
 
+    private TextView tv_money_type;
     private ImageView img_pay;
     private TextView tv_pay;
     private TextView tv_pay_account;
@@ -63,6 +64,7 @@ public class CoinGetView extends BaseOtcView implements View.OnClickListener {
         tv_minute = view.findViewById(R.id.tv_minute);
         tv_second = view.findViewById(R.id.tv_second);
 
+        tv_money_type = view.findViewById(R.id.tv_money_type);
         img_pay = view.findViewById(R.id.img_pay);
         tv_pay = view.findViewById(R.id.tv_pay);
         tv_pay_account = view.findViewById(R.id.tv_pay_account);
@@ -117,6 +119,17 @@ public class CoinGetView extends BaseOtcView implements View.OnClickListener {
     private void dealCoinGet() {
         if (tradeModel != null) {
             setBaseValue(activity, tradeModel, spUtil);
+            Boolean isBuy = null;
+            if (tradeModel.buyuid == spUtil.getUserUid()) {
+                isBuy = true;
+            } else if (tradeModel.selluid == spUtil.getUserUid()) {
+                isBuy = false;
+            }
+            if (isBuy) {
+                tv_money_type.setText(activity.getResources().getString(R.string.pay_type));
+            } else {
+                tv_money_type.setText(activity.getResources().getString(R.string.getmoney_type));
+            }
         }
     }
 

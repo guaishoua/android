@@ -23,6 +23,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="加隆" />
 
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
+            android:id="@+id/rl_red"
+            android:layout_width="@dimen/dp_7"
+            android:layout_height="@dimen/dp_7"
+            android:layout_marginLeft="@dimen/dp_5"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nickname"
+            app:layout_constraintLeft_toRightOf="@+id/tv_nickname"
+            app:layout_constraintTop_toTopOf="@id/tv_nickname"
+            app:qmui_backgroundColor="@color/color_default"
+            app:qmui_isRadiusAdjustBounds="true" />
+
         <TextView
             android:id="@+id/tv_offline"
             android:layout_width="wrap_content"
@@ -87,17 +98,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/otc_order_confirmed" />
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
-            android:id="@+id/rl_red"
-            android:layout_width="@dimen/dp_4"
-            android:layout_height="@dimen/dp_4"
-            android:layout_marginRight="@dimen/dp_3"
-            app:layout_constraintBottom_toBottomOf="@id/tv_status"
-            app:layout_constraintRight_toLeftOf="@+id/tv_status"
-            app:layout_constraintTop_toTopOf="@id/tv_status"
-            app:qmui_backgroundColor="@color/color_otc_sell"
-            app:qmui_isRadiusAdjustBounds="true" />
 
         <ImageView
             android:id="@+id/img_pay"
