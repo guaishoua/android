@@ -982,5 +982,7 @@
     <string name="remain_amount">Remaining quantity</string>
     <string name="otc_phone">OTC contact information</string>
     <string name="otc_publish_time">Posting time</string>
+
+    <string name="member_center">Member Center</string>
 </resources>
 

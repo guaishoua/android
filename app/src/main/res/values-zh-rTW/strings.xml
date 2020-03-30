@@ -972,4 +972,6 @@
     <string name="remain_amount">剩余數量</string>
     <string name="otc_phone">OTC聯系方式</string>
     <string name="otc_publish_time">廣告發布時間</string>
+
+    <string name="member_center">會員中心</string>
 </resources>
