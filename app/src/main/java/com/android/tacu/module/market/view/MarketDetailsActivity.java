@@ -38,7 +38,7 @@ import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.CoinPopWindow;
-import com.android.tacu.widget.tab.TabLayoutView;
+import com.android.tacu.widget.tab.TabLayoutView1;
 import com.android.tacu.widget.tab.TabPopup;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.adapter.KLineChartAdapter;
@@ -68,7 +68,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     @BindView(R.id.scrollView)
     CoordinatorLayout scrollView;
     @BindView(R.id.lin_indicator)
-    TabLayoutView linIndicator;
+    TabLayoutView1 linIndicator;
     @BindView(R.id.tv_news_price)
     TextView tvNewsPrice;
     @BindView(R.id.tv_rmb_scale)
@@ -193,7 +193,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         });
 
         //分时
-        linIndicator.addImageView();
+        /*linIndicator.addImageView();
         linIndicator.setTextColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.text_white));
         linIndicator.addTab(getResources().getString(R.string.target));
         linIndicator.addTab(getResources().getString(R.string.hour_1));
@@ -211,7 +211,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             @Override
             public void onLargeSelected() {
             }
-        });
+        });*/
         tabTitle.add(getResources().getString(R.string.min_1));
         tabTitle.add(getResources().getString(R.string.min_5));
         tabTitle.add(getResources().getString(R.string.min_15));
@@ -228,13 +228,13 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
         //获取之前选择的时间段
         chartTime = SPUtils.getInstance().getLong(Constant.MARKET_DETAIL_TIME, CHART_TIME);
-        for (int i = 0; i < timeTitle.size(); i++) {
+        /*for (int i = 0; i < timeTitle.size(); i++) {
             if (chartTime == timeTitle.get(i)) {
                 chartIndex = i;
                 linIndicator.setTabText(2, tabTitle.get(i));
                 break;
             }
-        }
+        }*/
 
         kAdapter = new KLineChartAdapter();
         mKChartView.setAdapter(kAdapter);
@@ -554,7 +554,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         }
     }
 
-    private void initTimePopUp(View view) {
+    /*private void initTimePopUp(View view) {
         if (timePopUp != null && timePopUp.isShowing()) {
             timePopUp.dismiss();
             return;
@@ -577,7 +577,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         }
         timePopUp.setWidthAndHeight(UIUtils.getScreenWidth(), UIUtils.dp2px(40));
         timePopUp.showAsDropDown(view, UIUtils.dp2px(0), 0);
-    }
+    }*/
 
     /**
      * 请求K线数据

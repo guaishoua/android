@@ -132,7 +132,7 @@
                         android:textSize="@dimen/text_size_sp_12" />
                 </RelativeLayout>
 
-                <com.android.tacu.widget.tab.TabLayoutView
+                <com.android.tacu.widget.tab.TabLayoutView1
                     android:id="@+id/lin_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_40" />

@@ -348,7 +348,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     }
 
     private void initTimePopUp(View view) {
-        if (timePopUp != null && timePopUp.isShowing()) {
+       /* if (timePopUp != null && timePopUp.isShowing()) {
             timePopUp.dismiss();
             return;
         }
@@ -365,8 +365,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                 }
             });
         }
-        timePopUp.setWidthAndHeight(UIUtils.getScreenWidth() - UIUtils.dp2px(20), UIUtils.dp2px(40));
-        timePopUp.showAsDropDown(view, UIUtils.dp2px(10), 0);
+        timePopUp.showAsDropDown(view, UIUtils.dp2px(10), 0);*/
     }
 
     public interface ItemTouch {
