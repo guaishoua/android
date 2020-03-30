@@ -28,6 +28,7 @@ import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.PackageUtils;
+import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.user.UserInfoUtils;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
@@ -61,15 +62,17 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
     private QMUIRoundButton btnUnLogin;
     private TextView tvUser;
     private TextView tvUid;
+    private ImageView img_vip;
     private QMUIRadiusImageView img_login;
     private QMUIGroupListView homeGroupListView;
-    private QMUICommonListItemView itemRealName, itemMoney, itemOrderCenter, itemOtcManage, itemSecuritySetting, itemInviting;
+    private QMUICommonListItemView itemRealName, itemMoney, itemOrderCenter, itemOtcManage, itemSecuritySetting, itemInviting, itemMember;
 
     private String realName;
     private String orderCenter;
     private String otcManage;
     private String securitySetting;
     private String inviting;
+    private String member;
     private String news;
     private String contactUs;
     private String question;
@@ -123,6 +126,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         btnUnLogin = viewHome.findViewById(R.id.btnUnLogin);
         tvUser = viewHome.findViewById(R.id.tv_user);
         tvUid = viewHome.findViewById(R.id.tv_uid);
+        img_vip = viewHome.findViewById(R.id.img_vip);
         img_login = viewHome.findViewById(R.id.img_login);
         homeGroupListView = viewHome.findViewById(R.id.groupListView);
         initHomeGroup(updateClick);
@@ -158,6 +162,11 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         itemInviting = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_invite), inviting, itemHeight);
         itemInviting.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemInviting.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
+
+        member = mResources.getString(R.string.member_center);
+        itemMember = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_huiyuan), member, itemHeight);
+        itemMember.setPadding(UIUtils.dp2px(15), 0, 0, 0);
+        itemMember.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
         news = mResources.getString(R.string.drawer_news);
         QMUICommonListItemView itemNews = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_news), news, itemHeight);
@@ -213,6 +222,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
                 .addItemView(itemOtcManage, onClickListener)
                 .addItemView(itemSecuritySetting, onClickListener)
                 .addItemView(itemInviting, onClickListener)
+                .addItemView(itemMember, onClickListener)
                 .addItemView(itemNews, onClickListener)
                 .addItemView(itemContactUs, onClickListener)
                 .addItemView(itemQuestion, onClickListener)
@@ -227,12 +237,19 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             rl_unlogin.setVisibility(View.GONE);
             rl_login.setVisibility(View.VISIBLE);
 
-            if (!TextUtils.isEmpty(spUtil.getNickName())){
+            if (!TextUtils.isEmpty(spUtil.getNickName())) {
                 tvUser.setText("Hi," + spUtil.getNickName());
-            }else if (!TextUtils.isEmpty(spUtil.getAccount())){
+            } else if (!TextUtils.isEmpty(spUtil.getAccount())) {
                 tvUser.setText("Hi," + spUtil.getAccount());
             }
             tvUid.setText("UID " + spUtil.getUserUid());
+            img_vip.setVisibility(View.VISIBLE);
+            if (spUtil.getVip() > 0) {
+                img_vip.setImageResource(R.mipmap.img_vip_yes);
+            } else {
+                img_vip.setImageResource(R.mipmap.img_vip_no);
+            }
+
             if (!TextUtils.isEmpty(spUtil.getHeadImg())) {
                 GlideUtils.disPlay(mActivity, CommonUtils.getHead(spUtil.getHeadImg()), img_login);
             } else {
@@ -245,6 +262,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             itemOtcManage.setVisibility(View.VISIBLE);
             itemSecuritySetting.setVisibility(View.VISIBLE);
             itemInviting.setVisibility(View.VISIBLE);
+            itemMember.setVisibility(View.VISIBLE);
             btnUnLogin.setVisibility(View.VISIBLE);
         } else {
             rl_unlogin.setVisibility(View.VISIBLE);
@@ -252,6 +270,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
 
             tvUser.setText("");
             tvUid.setText("");
+            img_vip.setVisibility(View.GONE);
 
             itemRealName.setVisibility(View.GONE);
             itemMoney.setVisibility(View.GONE);
@@ -259,6 +278,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             itemOtcManage.setVisibility(View.GONE);
             itemSecuritySetting.setVisibility(View.GONE);
             itemInviting.setVisibility(View.GONE);
+            itemMember.setVisibility(View.GONE);
             btnUnLogin.setVisibility(View.GONE);
         }
     }
@@ -292,6 +312,10 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             jumpTo(SecurityCenterActivity.class);
         } else if (TextUtils.equals(text, inviting)) {
             jumpTo(InvitedinfoActivity.class);
+        } else if (TextUtils.equals(text, member)) {
+            if (isKeyc()) {
+                jumpTo(WebviewActivity.createActivity(mActivity, Constant.MEMBERSHIP));
+            }
         } else if (TextUtils.equals(text, news)) {
             jumpTo(NoticeActivity.class);
         } else if (TextUtils.equals(text, contactUs)) {
@@ -330,5 +354,14 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
 
     public void jumpTo(Intent intent) {
         mActivity.startActivity(intent);
+    }
+
+    private boolean isKeyc() {
+        boolean boo = true;
+        if (spUtil.getIsAuthSenior() < 2) {
+            ShowToast.error(mResources.getString(R.string.please_get_the_level_of_KYC));
+            boo = false;
+        }
+        return boo;
     }
 }
