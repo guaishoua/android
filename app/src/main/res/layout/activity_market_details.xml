@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dp_10"
-                    android:layout_marginVertical="@dimen/dp_20"
+                    android:layout_marginVertical="@dimen/dp_10"
                     android:visibility="visible">
 
                     <TextView
@@ -132,7 +132,7 @@
                         android:textSize="@dimen/text_size_sp_12" />
                 </RelativeLayout>
 
-                <com.android.tacu.widget.tab.TabLayoutView1
+                <com.android.tacu.widget.tab.TabLayoutView
                     android:id="@+id/lin_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_40" />

@@ -6,11 +6,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import com.android.tacu.utils.UIUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.R;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout;
 
 import java.util.List;
 
@@ -50,7 +54,10 @@ public class TabPopup extends PopupWindow {
             }
         });
         mAdapter.setNewData(data);
-        setContentView(recyclerView);
+        QMUIRoundLinearLayout linearLayout = new QMUIRoundLinearLayout(mContext);
+        ((QMUIRoundButtonDrawable) linearLayout.getBackground()).setStrokeData(UIUtils.dp2px(0.5F), ContextCompat.getColorStateList(mContext, R.color.color_grey));
+        linearLayout.addView(recyclerView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        setContentView(linearLayout);
     }
 
     public class TabAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
@@ -62,8 +69,6 @@ public class TabPopup extends PopupWindow {
         @Override
         protected void convert(final BaseViewHolder helper, String item) {
             helper.setText(R.id.tab_text, item);
-            helper.setTextColor(R.id.tab_text, ContextCompat.getColor(mContext, R.color.text_color));
-            helper.setGone(R.id.indicator, false);
         }
     }
 

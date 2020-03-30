@@ -26,8 +26,6 @@ import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
 import com.android.tacu.utils.DateUtils;
-import com.android.tacu.utils.UIUtils;
-import com.android.tacu.widget.tab.TabLayoutView;
 import com.android.tacu.widget.tab.TabPopup;
 
 import java.math.BigDecimal;
@@ -50,8 +48,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     TextView tvHighPrice;
     @BindView(R.id.tv_low)
     TextView tvLowPrice;
-    @BindView(R.id.lin_indicator)
-    TabLayoutView linIndicator;
     @BindView(R.id.kchart_view)
     KLineChartView mKChartView;
 
@@ -134,7 +130,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         setSocketEvent(this, this, SocketConstant.LOGINAFTERCHANGETRADECOIN);
 
         //分时
-        linIndicator.addImageView();
+        /*linIndicator.addImageView();
         linIndicator.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default), ContextCompat.getColor(getContext(), R.color.text_grey_2));
         linIndicator.addTab(getResources().getString(R.string.target));
         linIndicator.addTab(getResources().getString(R.string.hour_1));
@@ -147,7 +143,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                     initTimePopUp(linIndicator);
                 }
             }
-        });
+        });*/
 
         tabTitle.add(getResources().getString(R.string.min_1));
         tabTitle.add(getResources().getString(R.string.min_5));
@@ -345,27 +341,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                 tvChangeRate.setText(changeRate + "%");
             }
         }
-    }
-
-    private void initTimePopUp(View view) {
-       /* if (timePopUp != null && timePopUp.isShowing()) {
-            timePopUp.dismiss();
-            return;
-        }
-        if (timePopUp == null) {
-            timePopUp = new TabPopup(getContext(), 0);
-            timePopUp.create(ContextCompat.getColor(getContext(), R.color.text_color), ContextCompat.getColor(getContext(), R.color.content_bg_color), UIUtils.getScreenWidth() - UIUtils.dp2px(20), UIUtils.dp2px(40), 6, tabTitle, new TabPopup.TabItemSelect() {
-                @Override
-                public void onTabItemSelectListener(int position) {
-                    chartTime = timeTitle.get(position);
-                    linIndicator.setTabText(2, tabTitle.get(position));
-                    isAnim = true;
-                    upLoad(true);
-                    timePopUp.dismiss();
-                }
-            });
-        }
-        timePopUp.showAsDropDown(view, UIUtils.dp2px(10), 0);*/
     }
 
     public interface ItemTouch {

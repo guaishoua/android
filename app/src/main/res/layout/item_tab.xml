@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_30">
+    android:layout_height="@dimen/dp_40">
 
     <TextView
         android:id="@+id/tab_text"
@@ -15,14 +14,4 @@
         android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_sp_12"
         tools:text="1小时" />
-
-    <View
-        android:id="@+id/indicator"
-        android:layout_width="@dimen/dp_18"
-        android:layout_height="@dimen/dp_2"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_5"
-        android:background="@color/color_default"
-        android:visibility="visible" />
 </RelativeLayout>

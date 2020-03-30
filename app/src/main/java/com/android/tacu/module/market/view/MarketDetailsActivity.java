@@ -38,7 +38,7 @@ import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.CoinPopWindow;
-import com.android.tacu.widget.tab.TabLayoutView1;
+import com.android.tacu.widget.tab.TabLayoutView;
 import com.android.tacu.widget.tab.TabPopup;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.adapter.KLineChartAdapter;
@@ -68,7 +68,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     @BindView(R.id.scrollView)
     CoordinatorLayout scrollView;
     @BindView(R.id.lin_indicator)
-    TabLayoutView1 linIndicator;
+    TabLayoutView linIndicator;
     @BindView(R.id.tv_news_price)
     TextView tvNewsPrice;
     @BindView(R.id.tv_rmb_scale)

@@ -134,12 +134,22 @@
             android:text="@string/more"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_12" />
+
+        <View
+            android:id="@+id/indicator_more"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_2"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_5"
+            android:background="@color/color_default"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <View
-        android:layout_marginVertical="@dimen/dp_13"
         android:layout_width="@dimen/dp_1"
         android:layout_height="match_parent"
+        android:layout_marginVertical="@dimen/dp_13"
         android:background="@color/color_white" />
 
     <RelativeLayout
