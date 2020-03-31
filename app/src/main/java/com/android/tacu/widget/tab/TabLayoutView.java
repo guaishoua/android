@@ -18,6 +18,7 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
+import com.github.tifezh.kchartlib.chart.base.Status;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -83,7 +84,6 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
     public TabLayoutView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
-        initData();
     }
 
     private void init() {
@@ -179,6 +179,25 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
                 tab_more.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 indicator_more.setVisibility(View.VISIBLE);
             }
+        }
+
+        //指标的处理
+        mKChartView.hideSelectData();
+        switch (klineModel.MainView) {
+            case -1:
+                mKChartView.changeMainDrawType(Status.NONE);
+                break;
+            case 0:
+                mKChartView.changeMainDrawType(Status.MA);
+                break;
+            case 1:
+                mKChartView.changeMainDrawType(Status.BOLL);
+                break;
+        }
+        if (klineModel.SecondView == -1) {
+            mKChartView.hideChildDraw();
+        } else {
+            mKChartView.setChildDraw(klineModel.SecondView);
         }
     }
 
@@ -279,6 +298,7 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
 
     public void setOnKChartView(KLineChartView kChartView) {
         this.mKChartView = kChartView;
+        initData();
     }
 
     public void setOnTabSelectListener(TabSelectListener listener) {
@@ -361,16 +381,14 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
             targetPopup.dismiss();
             return;
         }
-        if (targetPopup == null) {
-            targetPopup = new TargetPopup(getContext(), mKChartView);
-            targetPopup.create(UIUtils.getScreenWidth() - UIUtils.dp2px(10), UIUtils.dp2px(120));
-            targetPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                @Override
-                public void onDismiss() {
-                    img_setting.setImageResource(R.drawable.icon_kline_setting);
-                }
-            });
-        }
+        targetPopup = new TargetPopup(getContext(), mKChartView, klineModel);
+        targetPopup.create(UIUtils.getScreenWidth() - UIUtils.dp2px(10), UIUtils.dp2px(120));
+        targetPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                img_setting.setImageResource(R.drawable.icon_kline_setting);
+            }
+        });
         targetPopup.showAsDropDown(parentView, UIUtils.dp2px(5), UIUtils.dp2px(5));
     }
 

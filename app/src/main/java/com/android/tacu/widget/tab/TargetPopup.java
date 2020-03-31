@@ -9,8 +9,11 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
+import com.android.tacu.utils.SPUtils;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.base.Status;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,7 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
 
     private Context mContext;
     private KLineChartView mKChartView;
+    private IndexKlineModel klineModel;
 
     private TextView tv_ma;
     private TextView tv_boll;
@@ -30,18 +34,16 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
     private TextView tv_wr;
     private ImageView img_second_eye;
 
-    //null=隐藏 0=ma 1=boll
-    private Integer mainFlag = null;
-    //null=隐藏 0=macd 1=kdj 2=rsi 3=wr
-    private Integer secondFlag = null;
+    private Gson gson = new Gson();
 
     private List<TextView> mainViewList = new ArrayList<>();
     private List<TextView> secondViewList = new ArrayList<>();
 
-    public TargetPopup(Context context, KLineChartView kChartView) {
+    public TargetPopup(Context context, KLineChartView kChartView, IndexKlineModel klineModel) {
         super(context);
         this.mContext = context;
         this.mKChartView = kChartView;
+        this.klineModel = klineModel;
     }
 
     public void create(int width, int maxHeight) {
@@ -84,6 +86,39 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
         secondViewList.add(tv_kdj);
         secondViewList.add(tv_rsi);
         secondViewList.add(tv_wr);
+
+        if (klineModel.MainView == -1) {
+            clearMainColor(false);
+        } else {
+            clearMainColor(true);
+            switch (klineModel.MainView){
+                case 0:
+                    tv_ma.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
+                    break;
+                case 1:
+                    tv_boll.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
+                    break;
+            }
+        }
+        if (klineModel.SecondView == -1){
+            clearSecondColor(false);
+        }else{
+            clearSecondColor(true);
+            switch (klineModel.SecondView){
+                case 0:
+                    tv_macd.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
+                    break;
+                case 1:
+                    tv_kdj.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
+                    break;
+                case 2:
+                    tv_rsi.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
+                    break;
+                case 3:
+                    tv_wr.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
+                    break;
+            }
+        }
     }
 
     @Override
@@ -93,65 +128,93 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
                 clearMainColor(true);
                 tv_ma.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
 
-                mainFlag = 0;
+                klineModel.MainView = 0;
+                saveOpearte();
+
                 mKChartView.hideSelectData();
                 mKChartView.changeMainDrawType(Status.MA);
+                dismiss();
                 break;
             case R.id.tv_boll:
                 clearMainColor(true);
                 tv_boll.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
 
-                mainFlag = 1;
+                klineModel.MainView = 1;
+                saveOpearte();
+
                 mKChartView.hideSelectData();
                 mKChartView.changeMainDrawType(Status.BOLL);
+                dismiss();
                 break;
             case R.id.img_main_eye:
                 clearMainColor(false);
 
-                mainFlag = null;
+                klineModel.MainView = -1;
+                saveOpearte();
+
                 mKChartView.hideSelectData();
                 mKChartView.changeMainDrawType(Status.NONE);
+                dismiss();
                 break;
             case R.id.tv_macd:
                 clearSecondColor(true);
                 tv_macd.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
 
-                secondFlag = 0;
+                klineModel.SecondView = 0;
+                saveOpearte();
+
                 mKChartView.hideSelectData();
-                mKChartView.setChildDraw(secondFlag);
+                mKChartView.setChildDraw(klineModel.SecondView);
+                dismiss();
                 break;
             case R.id.tv_kdj:
                 clearSecondColor(true);
                 tv_kdj.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
 
-                secondFlag = 1;
+                klineModel.SecondView = 1;
+                saveOpearte();
+
                 mKChartView.hideSelectData();
-                mKChartView.setChildDraw(secondFlag);
+                mKChartView.setChildDraw(klineModel.SecondView);
+                dismiss();
                 break;
             case R.id.tv_rsi:
                 clearSecondColor(true);
                 tv_rsi.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
 
-                secondFlag = 2;
+                klineModel.SecondView = 2;
+                saveOpearte();
+
                 mKChartView.hideSelectData();
-                mKChartView.setChildDraw(secondFlag);
+                mKChartView.setChildDraw(klineModel.SecondView);
+                dismiss();
                 break;
             case R.id.tv_wr:
                 clearSecondColor(true);
                 tv_wr.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
 
-                secondFlag = 3;
+                klineModel.SecondView = 3;
+                saveOpearte();
+
                 mKChartView.hideSelectData();
-                mKChartView.setChildDraw(secondFlag);
+                mKChartView.setChildDraw(klineModel.SecondView);
+                dismiss();
                 break;
             case R.id.img_second_eye:
                 clearSecondColor(false);
 
-                secondFlag = null;
+                klineModel.SecondView = -1;
+                saveOpearte();
+
                 mKChartView.hideSelectData();
                 mKChartView.hideChildDraw();
+                dismiss();
                 break;
         }
+    }
+
+    private void saveOpearte() {
+        SPUtils.getInstance().put(Constant.MARKET_DETAIL_TIME, gson.toJson(klineModel));
     }
 
     private void clearMainColor(boolean isEye) {

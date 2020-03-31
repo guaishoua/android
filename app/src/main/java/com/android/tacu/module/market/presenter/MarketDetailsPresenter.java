@@ -31,7 +31,7 @@ public class MarketDetailsPresenter extends BaseMvpPresenter implements MarketDe
                     view.success(model.attachment, range, isClear, isLine);
                 } else {
                     MarketDetailsContract.IKlineView view = (MarketDetailsContract.IKlineView) getView();
-                    view.success(model.attachment, range, isClear);
+                    view.success(model.attachment, range, isClear, isLine);
                 }
             }
         });

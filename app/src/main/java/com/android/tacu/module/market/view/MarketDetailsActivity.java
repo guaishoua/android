@@ -175,6 +175,15 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             }
         });
 
+        linIndicator.setOnKChartView(mKChartView);
+        linIndicator.setOnTabSelectListener(new TabLayoutView.TabSelectListener() {
+            @Override
+            public void onTabSelected() {
+                isAnim = true;
+                upLoad(true);
+            }
+        });
+
         kAdapter = new KLineChartAdapter();
         mKChartView.setAdapter(kAdapter);
         mKChartView.setOnChartEventListener(new OnChartEventListener() {
@@ -182,15 +191,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             public void onChartTouchListener(boolean boo) {
                 //不允许ScrollView截断点击事件，点击事件由子View处理
                 scrollView.requestDisallowInterceptTouchEvent(boo);
-            }
-        });
-
-        linIndicator.setOnKChartView(mKChartView);
-        linIndicator.setOnTabSelectListener(new TabLayoutView.TabSelectListener() {
-            @Override
-            public void onTabSelected() {
-                isAnim = true;
-                upLoad(true);
             }
         });
 

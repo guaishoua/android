@@ -18,7 +18,7 @@ public class MarketDetailsContract {
     }
 
     public interface IKlineView extends IBaseMvpView {
-        void success(KLineModel model, long range, boolean isClear);
+        void success(KLineModel model, long range, boolean isClear, boolean isLine);
     }
 
     public interface IPresenter {
