@@ -24,8 +24,8 @@ public class Constant {
     public static final String HOME_NOTICE_CLOSE_CACHE = "HOME_NOTICE_CLOSE_CACHE_1";
     //缓存汇率的
     public static final String CONVERT_CACHE = "CONVERT_CACHE_1";
-    //币的详情页 时间段缓存
-    public static final String MARKET_DETAIL_TIME = "MARKET_DETAIL_TIME_1";
+    //币的详情页 用户的选择K线相关的缓存
+    public static final String MARKET_DETAIL_TIME = "MARKET_DETAIL_TIME_2";
 
     /****************************************************
      * 配置

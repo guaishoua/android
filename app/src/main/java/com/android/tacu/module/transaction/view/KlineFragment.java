@@ -312,7 +312,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
             mKChartView.resetLoadMoreEnd();
             mKChartView.showLoading();
         }
-        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), chartTime, 2, isClear);
+        //mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), chartTime, 2, isClear);
         if (isFirst) {
             isFirst = false;
         }

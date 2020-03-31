@@ -9,4 +9,21 @@
     <string name="up_down_value">涨跌额</string>
     <string name="up_down_rate">涨跌幅</string>
     <string name="volume">成交量</string>
+
+    <string name="min_time">分时</string>
+    <string name="min_1">1分钟</string>
+    <string name="min_5">5分钟</string>
+    <string name="min_15">15分钟</string>
+    <string name="min_30">30分钟</string>
+    <string name="hour_1">1小时</string>
+    <string name="hour_6">6小时</string>
+    <string name="hour_12">12小时</string>
+    <string name="day_1">1天</string>
+    <string name="week_1">1周</string>
+    <string name="month_1">1月</string>
+    <string name="more">更多</string>
+
+    <string name="main_view">主图</string>
+    <string name="second_view">副图</string>
+    <string name="target_setting">指标设置</string>
 </resources>

@@ -172,17 +172,6 @@
     <!--币种详情-->
     <string name="latest_transactions">成交记录</string>
     <string name="kdetail_share_text">全球用户可信赖的交易平台</string>
-    <string name="min_1">1分钟</string>
-    <string name="min_5">5分钟</string>
-    <string name="min_15">15分钟</string>
-    <string name="min_30">30分钟</string>
-    <string name="hour_1">1小时</string>
-    <string name="hour_6">6小时</string>
-    <string name="hour_12">12小时</string>
-    <string name="day_1">1天</string>
-    <string name="week_1">1周</string>
-    <string name="month_1">1月</string>
-    <string name="more">更多</string>
     <string name="noweixin">请安装微信客户端!</string>
     <string name="wx">微信好友</string>
     <string name="pyq">朋友圈</string>

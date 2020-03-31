@@ -39,7 +39,6 @@ import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.CoinPopWindow;
 import com.android.tacu.widget.tab.TabLayoutView;
-import com.android.tacu.widget.tab.TabPopup;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.adapter.KLineChartAdapter;
 import com.github.tifezh.kchartlib.chart.entity.KLineEntity;
@@ -90,13 +89,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     @BindView(R.id.viewpager)
     ViewPager viewpager;
 
-    private static long MIN_1 = 60000L;
-    private static long MIN_5 = 300000L;
-    private static long MIN_15 = 900000L;
-    private static long MIN_30 = 1800000L;
-    private static long HOUR_1 = 3600000L;
-    private static long DAY_1 = 86400000L;
-
     private TextView tvCenterTitle;
     //深度
     private MarketDetailDepthFragment marketDetailDepthFragment;
@@ -111,14 +103,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     private boolean isFirst = true;
     private KLineChartAdapter kAdapter;
 
-    //时间
-    private List<String> tabTitle = new ArrayList<>();
-    private List<Long> timeTitle = new ArrayList<>();
-    //默认1小时
-    private final long CHART_TIME = HOUR_1;
-    private long chartTime = CHART_TIME;
-    private int chartIndex = 4;
-
     private int pointPrice;
     private int currencyId;
     private int baseCurrencyId;
@@ -126,7 +110,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     private String baseCurrencyNameEn;
     private Gson gson = new Gson();
 
-    private TabPopup timePopUp;
     private CoinPopWindow coinPopWindow;
 
     private CurrentTradeCoinModel currentTradeCoinModel;
@@ -192,50 +175,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             }
         });
 
-        //分时
-        /*linIndicator.addImageView();
-        linIndicator.setTextColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.text_white));
-        linIndicator.addTab(getResources().getString(R.string.target));
-        linIndicator.addTab(getResources().getString(R.string.hour_1));
-        linIndicator.setOnTabSelectListener(new TabLayoutView.TabSelectListener() {
-            @Override
-            public void onTabSelected(int position) {
-                //因为先添加了一个子控件（横竖屏切换的）所以tabview从1开始
-                if (position == 1) {
-                } else if (position == 2) {
-                    initTimePopUp(linIndicator);
-                }
-            }
-        });
-        linIndicator.setOnLargeSelectListener(new TabLayoutView.EnLargeSelectListener() {
-            @Override
-            public void onLargeSelected() {
-            }
-        });*/
-        tabTitle.add(getResources().getString(R.string.min_1));
-        tabTitle.add(getResources().getString(R.string.min_5));
-        tabTitle.add(getResources().getString(R.string.min_15));
-        tabTitle.add(getResources().getString(R.string.min_30));
-        tabTitle.add(getResources().getString(R.string.hour_1));
-        tabTitle.add(getResources().getString(R.string.day_1));
-
-        timeTitle.add(MIN_1);
-        timeTitle.add(MIN_5);
-        timeTitle.add(MIN_15);
-        timeTitle.add(MIN_30);
-        timeTitle.add(HOUR_1);
-        timeTitle.add(DAY_1);
-
-        //获取之前选择的时间段
-        chartTime = SPUtils.getInstance().getLong(Constant.MARKET_DETAIL_TIME, CHART_TIME);
-        /*for (int i = 0; i < timeTitle.size(); i++) {
-            if (chartTime == timeTitle.get(i)) {
-                chartIndex = i;
-                linIndicator.setTabText(2, tabTitle.get(i));
-                break;
-            }
-        }*/
-
         kAdapter = new KLineChartAdapter();
         mKChartView.setAdapter(kAdapter);
         mKChartView.setOnChartEventListener(new OnChartEventListener() {
@@ -243,6 +182,15 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             public void onChartTouchListener(boolean boo) {
                 //不允许ScrollView截断点击事件，点击事件由子View处理
                 scrollView.requestDisallowInterceptTouchEvent(boo);
+            }
+        });
+
+        linIndicator.setOnKChartView(mKChartView);
+        linIndicator.setOnTabSelectListener(new TabLayoutView.TabSelectListener() {
+            @Override
+            public void onTabSelected() {
+                isAnim = true;
+                upLoad(true);
             }
         });
 
@@ -295,9 +243,8 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         if (kHandler != null && kRunnable != null) {
             kHandler.removeCallbacks(kRunnable);
         }
-        if (timePopUp != null && timePopUp.isShowing()) {
-            timePopUp.dismiss();
-            timePopUp = null;
+        if (linIndicator != null) {
+            linIndicator.clear();
         }
         System.gc();
     }
@@ -330,7 +277,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     }
 
     @Override
-    public void success(KLineModel model, long range, boolean isClear) {
+    public void success(KLineModel model, long range, boolean isClear, boolean isLine) {
         if (model != null && model.data != null && model.data.lines != null) {
             List<KLineEntity> data = new ArrayList<>();
             int count = model.data.lines.size();
@@ -339,7 +286,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             for (int i = 0; i < count; i++) {
                 dataModel = model.data;
                 kLineEntity = new KLineEntity();
-                if (range >= DAY_1) {
+                if (range >= linIndicator.DAY_1) {
                     kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_YMD);
                 } else {
                     kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_HMS);
@@ -367,6 +314,10 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                     } else {
                         mKChartView.setScrollColumnSpace();
                     }
+                }
+                if (isLine) {
+                    mKChartView.hideSelectData();
+                    mKChartView.setMainDrawLine(true);
                 }
             }
         }
@@ -554,31 +505,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         }
     }
 
-    /*private void initTimePopUp(View view) {
-        if (timePopUp != null && timePopUp.isShowing()) {
-            timePopUp.dismiss();
-            return;
-        }
-        if (timePopUp == null) {
-            timePopUp = new TabPopup(this, chartIndex);
-            timePopUp.create(ContextCompat.getColor(this, R.color.text_color), ContextCompat.getColor(this, R.color.content_bg_color), UIUtils.getScreenWidth(), UIUtils.dp2px(40), 6, tabTitle, new TabPopup.TabItemSelect() {
-                @Override
-                public void onTabItemSelectListener(int position) {
-                    chartTime = timeTitle.get(position);
-                    //保存用户当前的选择
-                    SPUtils.getInstance().put(Constant.MARKET_DETAIL_TIME, chartTime);
-
-                    linIndicator.setTabText(2, tabTitle.get(position));
-                    isAnim = true;
-                    upLoad(true);
-                    timePopUp.dismiss();
-                }
-            });
-        }
-        timePopUp.setWidthAndHeight(UIUtils.getScreenWidth(), UIUtils.dp2px(40));
-        timePopUp.showAsDropDown(view, UIUtils.dp2px(0), 0);
-    }*/
-
     /**
      * 请求K线数据
      */
@@ -588,7 +514,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             mKChartView.resetLoadMoreEnd();
             mKChartView.showLoading();
         }
-        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), chartTime, 1, isClear);
+        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), linIndicator.getChartTime(), 1, isClear, linIndicator.getIsLine());
         if (isFirst) {
             isFirst = false;
         }

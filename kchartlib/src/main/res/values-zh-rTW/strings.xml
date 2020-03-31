@@ -7,4 +7,20 @@
     <string name="up_down_value">漲跌額</string>
     <string name="up_down_rate">漲跌幅</string>
     <string name="volume">成交量</string>
+
+    <string name="min_time">分時</string>
+    <string name="min_1">1分鐘</string>
+    <string name="min_5">5分鐘</string>
+    <string name="min_15">15分鐘</string>
+    <string name="min_30">30分鐘</string>
+    <string name="hour_1">1小時</string>
+    <string name="hour_6">6小時</string>
+    <string name="hour_12">12小時</string>
+    <string name="day_1">1天</string>
+    <string name="week_1">1周</string>
+    <string name="month_1">1月</string>
+
+    <string name="main_view">主圖</string>
+    <string name="second_view">副圖</string>
+    <string name="target_setting">指標設置</string>
 </resources>

@@ -150,7 +150,7 @@
         android:layout_width="@dimen/dp_1"
         android:layout_height="match_parent"
         android:layout_marginVertical="@dimen/dp_13"
-        android:background="@color/color_white" />
+        android:background="@color/color_grey" />
 
     <RelativeLayout
         android:id="@+id/view_setting"

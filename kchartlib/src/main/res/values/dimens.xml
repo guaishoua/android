@@ -12,7 +12,7 @@
     <!--折线的宽度-->
     <dimen name="chart_line_width">1dp</dimen>
     <!--表格线的粗细-->
-    <dimen name="chart_grid_line_width">1dp</dimen>
+    <dimen name="chart_grid_line_width">0.5dp</dimen>
     <!--选择器的纵线-->
     <dimen name="chart_point_width">6dp</dimen>
 

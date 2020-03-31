@@ -7,4 +7,21 @@
     <string name="up_down_value">Change</string>
     <string name="up_down_rate">Change%</string>
     <string name="volume">Amount</string>
+
+    <string name="min_time">Line</string>
+    <string name="min_1">1min</string>
+    <string name="min_5">5min</string>
+    <string name="min_15">15min</string>
+    <string name="min_30">30min</string>
+    <string name="hour_1">1hour</string>
+    <string name="hour_6">6hour</string>
+    <string name="hour_12">12hour</string>
+    <string name="day_1">1day</string>
+    <string name="week_1">1week</string>
+    <string name="month_1">1month</string>
+    <string name="more">More</string>
+
+    <string name="main_view">Main</string>
+    <string name="second_view">Sec</string>
+    <string name="target_setting">Index settings</string>
 </resources>

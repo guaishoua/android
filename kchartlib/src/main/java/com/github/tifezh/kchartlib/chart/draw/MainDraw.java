@@ -62,9 +62,10 @@ public class MainDraw implements IChartDraw<ICandle> {
         mSellPaint.setColor(ContextCompat.getColor(context, R.color.chart_sell));
         mSellSelectorTextPaint.setColor(ContextCompat.getColor(context, R.color.chart_sell));
         mLinePaint.setColor(ContextCompat.getColor(context, R.color.chart_line));
+        mLinePaint.setStrokeWidth(ViewUtil.Dp2Px(mContext, 0.5F));
         paint.setColor(ContextCompat.getColor(context, R.color.chart_line_background));
         mSelectorBorderPaint.setColor(ContextCompat.getColor(context, R.color.chart_text));
-        mSelectorBorderPaint.setStrokeWidth(1f);
+        mSelectorBorderPaint.setStrokeWidth(ViewUtil.Dp2Px(mContext, 0.5F));
         mSelectorBorderPaint.setStyle(Paint.Style.STROKE);
     }
 
@@ -81,17 +82,6 @@ public class MainDraw implements IChartDraw<ICandle> {
         if (isLine) {
             view.drawMainLine(canvas, mLinePaint, lastX, lastPoint.getClosePrice(), curX, curPoint.getClosePrice());
             view.drawMainMinuteLine(canvas, paint, lastX, lastPoint.getClosePrice(), curX, curPoint.getClosePrice());
-            if (status == Status.MA) {
-                //画ma60
-                if (lastPoint.getMA60Price() != 0) {
-                    view.drawMainLine(canvas, ma10Paint, lastX, lastPoint.getMA60Price(), curX, curPoint.getMA60Price());
-                }
-            } else if (status == Status.BOLL) {
-                //画boll
-                if (lastPoint.getMb() != 0) {
-                    view.drawMainLine(canvas, ma10Paint, lastX, lastPoint.getMb(), curX, curPoint.getMb());
-                }
-            }
         } else {
             drawCandle(view, canvas, curX, curPoint.getHighPrice(), curPoint.getLowPrice(), curPoint.getOpenPrice(), curPoint.getClosePrice());
             if (status == Status.MA) {
@@ -126,19 +116,7 @@ public class MainDraw implements IChartDraw<ICandle> {
     @Override
     public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         ICandle point = (IKLine) view.getItem(position);
-        if (isLine) {
-            if (status == Status.MA) {
-                if (point.getMA60Price() != 0) {
-                    String text = "MA60:" + view.formatValue(point.getMA60Price()) + "  ";
-                    canvas.drawText(text, x, y, ma10Paint);
-                }
-            } else if (status == Status.BOLL) {
-                if (point.getMb() != 0) {
-                    String text = "BOLL:" + view.formatValue(point.getMb()) + "  ";
-                    canvas.drawText(text, x, y, ma10Paint);
-                }
-            }
-        } else {
+        if (!isLine) {
             if (status == Status.MA) {
                 String text;
                 if (point.getMA5Price() != 0) {
@@ -425,7 +403,7 @@ public class MainDraw implements IChartDraw<ICandle> {
         ma30Paint.setStrokeWidth(width);
         ma10Paint.setStrokeWidth(width);
         ma5Paint.setStrokeWidth(width);
-        mLinePaint.setStrokeWidth(width);
+        //mLinePaint.setStrokeWidth(width);
     }
 
     /**

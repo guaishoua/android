@@ -170,17 +170,6 @@
     <!--币种详情-->
     <string name="latest_transactions">Record of transaction</string>
     <string name="kdetail_share_text">Reliable trading platform for worldwide users</string>
-    <string name="min_1">1min</string>
-    <string name="min_5">5min</string>
-    <string name="min_15">15min</string>
-    <string name="min_30">30min</string>
-    <string name="hour_1">1hour</string>
-    <string name="hour_6">6hour</string>
-    <string name="hour_12">12hour</string>
-    <string name="day_1">1day</string>
-    <string name="week_1">1week</string>
-    <string name="month_1">1month</string>
-    <string name="more">More</string>
     <string name="noweixin">Please install WeChat client!</string>
     <string name="wx">WeChat</string>
     <string name="pyq">moments</string>

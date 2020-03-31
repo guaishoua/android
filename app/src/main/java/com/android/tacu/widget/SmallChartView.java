@@ -132,7 +132,7 @@ public class SmallChartView extends View {
         mPaintLine = new Paint();
         mPaintLine.setStyle(Paint.Style.STROKE);
         mPaintLine.setAntiAlias(true);
-        mPaintLine.setStrokeWidth(4f);
+        mPaintLine.setStrokeWidth(2f);
         mPaintLine.setColor(mLineColor);
         mPaintLine.setPathEffect(cornerPathEffect);
 

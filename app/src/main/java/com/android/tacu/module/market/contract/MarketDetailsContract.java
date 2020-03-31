@@ -10,7 +10,7 @@ import com.android.tacu.module.my.model.InvitedInfoModel;
 public class MarketDetailsContract {
 
     public interface IView extends IBaseMvpView {
-        void success(KLineModel model, long range, boolean isClear);
+        void success(KLineModel model, long range, boolean isClear, boolean isLine);
 
         void uploadSelfSuccess();
 
@@ -22,7 +22,7 @@ public class MarketDetailsContract {
     }
 
     public interface IPresenter {
-        void getBestexKline(String symbol, long range, int type, boolean isClear);
+        void getBestexKline(String symbol, long range, int type, boolean isClear, boolean isLine);
 
         void uploadSelfList(String checkJson);
     }

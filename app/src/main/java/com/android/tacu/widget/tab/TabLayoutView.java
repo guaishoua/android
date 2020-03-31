@@ -3,16 +3,22 @@ package com.android.tacu.widget.tab;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
+import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
+import com.github.tifezh.kchartlib.chart.KLineChartView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +29,15 @@ import java.util.List;
  */
 public class TabLayoutView extends LinearLayout implements View.OnClickListener {
 
-    private static long MIN_1 = 60000L;
-    private static long MIN_5 = 300000L;
-    private static long MIN_15 = 900000L;
-    private static long MIN_30 = 1800000L;
-    private static long HOUR_1 = 3600000L;
-    private static long HOUR_6 = 21600000L;
-    private static long DAY_1 = 86400000L;
-    private static long WEEK_1 = 604800000L;
-    private static long MONTH_1 = 2592000000L;
+    public static long MIN_1 = 60000L;
+    public static long MIN_5 = 300000L;
+    public static long MIN_15 = 900000L;
+    public static long MIN_30 = 1800000L;
+    public static long HOUR_1 = 3600000L;
+    public static long HOUR_6 = 21600000L;
+    public static long DAY_1 = 86400000L;
+    public static long WEEK_1 = 604800000L;
+    public static long MONTH_1 = 2592000000L;
 
     private View parentView;
     private RelativeLayout view_mim1;
@@ -54,12 +60,17 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
     private View indicator_day1;
     private View indicator_more;
 
-    private long chartTime = DAY_1;
-    private List<View> tabList = new ArrayList<>();
+    private KLineChartView mKChartView;
+    private IndexKlineModel klineModel;
 
-    private TabSelectListener mTabSelectListener = null;
+    private List<View> tabList = new ArrayList<>();
+    private List<String> timeTabList = new ArrayList<>();
 
     private TabPopup timePopUp;
+    private TargetPopup targetPopup;
+
+    private Gson gson = new Gson();
+    private TabSelectListener mTabSelectListener = null;
 
     public TabLayoutView(Context context) {
         this(context, null);
@@ -118,72 +129,160 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
         tabList.add(indicator_hour1);
         tabList.add(indicator_day1);
         tabList.add(indicator_more);
+
+        timeTabList.add(getContext().getResources().getString(R.string.min_time));
+        timeTabList.add(getContext().getResources().getString(R.string.min_5));
+        timeTabList.add(getContext().getResources().getString(R.string.min_30));
+        timeTabList.add(getContext().getResources().getString(R.string.hour_6));
+        timeTabList.add(getContext().getResources().getString(R.string.week_1));
+        timeTabList.add(getContext().getResources().getString(R.string.month_1));
     }
 
     private void initData() {
+        String temp = SPUtils.getInstance().getString(Constant.MARKET_DETAIL_TIME);
+        if (!TextUtils.isEmpty(temp)) {
+            klineModel = gson.fromJson(temp, IndexKlineModel.class);
+        } else {
+            klineModel = new IndexKlineModel();
+        }
 
+        //时间部分的处理
+        if (klineModel.isLine) {
+            tab_more.setText(timeTabList.get(0));
+            tab_more.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
+            indicator_more.setVisibility(View.VISIBLE);
+        } else {
+            if (klineModel.ChartTime == MIN_1) {
+                tab_min1.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
+                indicator_min1.setVisibility(View.VISIBLE);
+            } else if (klineModel.ChartTime == MIN_15) {
+                tab_min15.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
+                indicator_min15.setVisibility(View.VISIBLE);
+            } else if (klineModel.ChartTime == HOUR_1) {
+                tab_hour1.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
+                indicator_hour1.setVisibility(View.VISIBLE);
+            } else if (klineModel.ChartTime == DAY_1) {
+                tab_day1.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
+                indicator_day1.setVisibility(View.VISIBLE);
+            } else {
+                if (klineModel.ChartTime == MIN_5) {
+                    tab_more.setText(timeTabList.get(1));
+                } else if (klineModel.ChartTime == MIN_30) {
+                    tab_more.setText(timeTabList.get(2));
+                } else if (klineModel.ChartTime == HOUR_6) {
+                    tab_more.setText(timeTabList.get(3));
+                } else if (klineModel.ChartTime == WEEK_1) {
+                    tab_more.setText(timeTabList.get(4));
+                } else if (klineModel.ChartTime == MONTH_1) {
+                    tab_more.setText(timeTabList.get(5));
+                }
+                tab_more.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
+                indicator_more.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.view_mim1:
-                chartTime = MIN_1;
-                if (mTabSelectListener != null) {
-                    mTabSelectListener.onTabSelected(chartTime);
-                }
-
                 clearAllColor();
                 tab_min1.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 indicator_min1.setVisibility(View.VISIBLE);
+                tab_more.setText(getResources().getString(R.string.more));
+
+                klineModel.ChartTime = MIN_1;
+                klineModel.isLine = false;
+                saveOpearte();
+
+                mKChartView.hideSelectData();
+                mKChartView.setMainDrawLine(false);
+                if (mTabSelectListener != null) {
+                    mTabSelectListener.onTabSelected();
+                }
                 break;
             case R.id.view_mim15:
-                chartTime = MIN_15;
-                if (mTabSelectListener != null) {
-                    mTabSelectListener.onTabSelected(chartTime);
-                }
-
                 clearAllColor();
                 tab_min15.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 indicator_min15.setVisibility(View.VISIBLE);
+                tab_more.setText(getResources().getString(R.string.more));
+
+                klineModel.ChartTime = MIN_15;
+                klineModel.isLine = false;
+                saveOpearte();
+
+                mKChartView.hideSelectData();
+                mKChartView.setMainDrawLine(false);
+                if (mTabSelectListener != null) {
+                    mTabSelectListener.onTabSelected();
+                }
                 break;
             case R.id.view_hour1:
-                chartTime = HOUR_1;
-                if (mTabSelectListener != null) {
-                    mTabSelectListener.onTabSelected(chartTime);
-                }
-
                 clearAllColor();
                 tab_hour1.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 indicator_hour1.setVisibility(View.VISIBLE);
+                tab_more.setText(getResources().getString(R.string.more));
+
+                klineModel.ChartTime = HOUR_1;
+                klineModel.isLine = false;
+                saveOpearte();
+
+                mKChartView.hideSelectData();
+                mKChartView.setMainDrawLine(false);
+                if (mTabSelectListener != null) {
+                    mTabSelectListener.onTabSelected();
+                }
                 break;
             case R.id.view_day1:
-                chartTime = DAY_1;
-                if (mTabSelectListener != null) {
-                    mTabSelectListener.onTabSelected(chartTime);
-                }
-
                 clearAllColor();
                 tab_day1.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 indicator_day1.setVisibility(View.VISIBLE);
+                tab_more.setText(getResources().getString(R.string.more));
+
+                klineModel.ChartTime = DAY_1;
+                klineModel.isLine = false;
+                saveOpearte();
+
+                mKChartView.hideSelectData();
+                mKChartView.setMainDrawLine(false);
+                if (mTabSelectListener != null) {
+                    mTabSelectListener.onTabSelected();
+                }
                 break;
             case R.id.view_more:
                 clearAllColor();
                 tab_more.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
-                indicator_more.setVisibility(View.VISIBLE);
+                if (TextUtils.equals(tab_more.getText().toString(), getResources().getString(R.string.more))) {
+                    indicator_more.setVisibility(View.GONE);
+                } else {
+                    indicator_more.setVisibility(View.VISIBLE);
+                }
 
                 initTimePopUp();
                 break;
             case R.id.view_setting:
-                clearAllColor();
                 img_setting.setImageResource(R.drawable.icon_kline_setting_default);
+
+                initTargetPopUp();
                 break;
         }
     }
 
     //获取当前选择的时间类型
     public long getChartTime() {
-        return chartTime;
+        return klineModel.ChartTime;
+    }
+
+    public boolean getIsLine() {
+        return klineModel.isLine;
+    }
+
+    public void setOnKChartView(KLineChartView kChartView) {
+        this.mKChartView = kChartView;
+    }
+
+    public void setOnTabSelectListener(TabSelectListener listener) {
+        this.mTabSelectListener = listener;
     }
 
     private void initTimePopUp() {
@@ -191,37 +290,61 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
             timePopUp.dismiss();
             return;
         }
-        final List<String> datas = new ArrayList<>();
-        datas.add(getContext().getResources().getString(R.string.min_5));
-        datas.add(getContext().getResources().getString(R.string.min_30));
-        datas.add(getContext().getResources().getString(R.string.hour_6));
-        datas.add(getContext().getResources().getString(R.string.week_1));
-        datas.add(getContext().getResources().getString(R.string.month_1));
         timePopUp = new TabPopup(getContext());
-        timePopUp.create(UIUtils.getScreenWidth() - UIUtils.dp2px(10), UIUtils.dp2px(40), datas, new TabPopup.TabItemSelect() {
+        timePopUp.create(UIUtils.getScreenWidth() - UIUtils.dp2px(10), UIUtils.dp2px(40), timeTabList, new TabPopup.TabItemSelect() {
             @Override
             public void onTabItemSelectListener(int position) {
                 switch (position) {
                     case 0:
-                        chartTime = MIN_5;
+                        klineModel.ChartTime = MIN_1;
+                        klineModel.isLine = true;
+                        saveOpearte();
                         break;
                     case 1:
-                        chartTime = MIN_30;
+                        klineModel.ChartTime = MIN_5;
+                        klineModel.isLine = false;
+                        saveOpearte();
+
+                        mKChartView.hideSelectData();
+                        mKChartView.setMainDrawLine(false);
                         break;
                     case 2:
-                        chartTime = HOUR_6;
+                        klineModel.ChartTime = MIN_30;
+                        klineModel.isLine = false;
+                        saveOpearte();
+
+                        mKChartView.hideSelectData();
+                        mKChartView.setMainDrawLine(false);
                         break;
                     case 3:
-                        chartTime = WEEK_1;
+                        klineModel.ChartTime = HOUR_6;
+                        klineModel.isLine = false;
+                        saveOpearte();
+
+                        mKChartView.hideSelectData();
+                        mKChartView.setMainDrawLine(false);
                         break;
                     case 4:
-                        chartTime = MONTH_1;
+                        klineModel.ChartTime = WEEK_1;
+                        klineModel.isLine = false;
+                        saveOpearte();
+
+                        mKChartView.hideSelectData();
+                        mKChartView.setMainDrawLine(false);
+                        break;
+                    case 5:
+                        klineModel.ChartTime = MONTH_1;
+                        klineModel.isLine = false;
+                        saveOpearte();
+
+                        mKChartView.hideSelectData();
+                        mKChartView.setMainDrawLine(false);
                         break;
                 }
                 if (mTabSelectListener != null) {
-                    mTabSelectListener.onTabSelected(chartTime);
+                    mTabSelectListener.onTabSelected();
                 }
-                tab_more.setText(datas.get(position));
+                tab_more.setText(timeTabList.get(position));
 
                 clearAllColor();
                 tab_more.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
@@ -233,12 +356,26 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
         timePopUp.showAsDropDown(parentView, UIUtils.dp2px(5), UIUtils.dp2px(5));
     }
 
-    public void setOnTabSelectListener(TabSelectListener listener) {
-        this.mTabSelectListener = listener;
+    private void initTargetPopUp() {
+        if (targetPopup != null && targetPopup.isShowing()) {
+            targetPopup.dismiss();
+            return;
+        }
+        if (targetPopup == null) {
+            targetPopup = new TargetPopup(getContext(), mKChartView);
+            targetPopup.create(UIUtils.getScreenWidth() - UIUtils.dp2px(10), UIUtils.dp2px(120));
+            targetPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    img_setting.setImageResource(R.drawable.icon_kline_setting);
+                }
+            });
+        }
+        targetPopup.showAsDropDown(parentView, UIUtils.dp2px(5), UIUtils.dp2px(5));
     }
 
-    public interface TabSelectListener {
-        void onTabSelected(long time);
+    private void saveOpearte() {
+        SPUtils.getInstance().put(Constant.MARKET_DETAIL_TIME, gson.toJson(klineModel));
     }
 
     private void clearAllColor() {
@@ -258,5 +395,14 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
             timePopUp.dismiss();
             return;
         }
+        if (targetPopup != null && targetPopup.isShowing()) {
+            targetPopup.dismiss();
+            targetPopup.clear();
+            return;
+        }
+    }
+
+    public interface TabSelectListener {
+        void onTabSelected();
     }
 }
