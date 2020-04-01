@@ -12,6 +12,13 @@
     <color name="chart_ma60">#8ACC41</color>
     <color name="chart_ma280">#6634F5</color>
 
+    <color name="chart_color1">#EEDD9A</color>
+    <color name="chart_color2">#83CF9F</color>
+    <color name="chart_color3">#C692F5</color>
+    <color name="chart_color4">#EA4E45</color>
+    <color name="chart_color5">#8ACC41</color>
+    <color name="chart_color6">#6634F5</color>
+
     <!--k线的背景色-->
     <color name="chart_background">#0A121B</color>
     <!--选中的point的详情的背景色-->
