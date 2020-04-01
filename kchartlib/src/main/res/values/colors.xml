@@ -35,4 +35,12 @@
     <color name="selector_end_color">#33FFFFFF</color>
     <color name="selector_circle_color">#FFFFFF</color>
     <color name="selector_big_circle_color">#33FFFFFF</color>
+
+    <!--页面背景色-->
+    <color name="content_bg_color">#141C25</color>
+    <!--页面的背景灰色-->
+    <color name="content_bg_color_grey">#0A121B</color>
+
+    <color name="text_color">#FFFFFF</color>
+    <color name="text_grey">#7FFFFFFF</color>
 </resources>
