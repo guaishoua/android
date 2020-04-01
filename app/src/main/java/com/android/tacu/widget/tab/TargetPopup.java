@@ -1,7 +1,9 @@
 package com.android.tacu.widget.tab;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +15,7 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.utils.SPUtils;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.base.Status;
+import com.github.tifezh.kchartlib.chart.view.IndexKlineActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
     private TextView tv_rsi;
     private TextView tv_wr;
     private ImageView img_second_eye;
+
+    private ConstraintLayout view_index;
 
     private Gson gson = new Gson();
 
@@ -69,15 +74,17 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
         tv_wr = view.findViewById(R.id.tv_wr);
         img_second_eye = view.findViewById(R.id.img_second_eye);
 
+        view_index = view.findViewById(R.id.view_index);
+
         tv_ma.setOnClickListener(this);
         tv_boll.setOnClickListener(this);
         img_main_eye.setOnClickListener(this);
-
         tv_macd.setOnClickListener(this);
         tv_kdj.setOnClickListener(this);
         tv_rsi.setOnClickListener(this);
         tv_wr.setOnClickListener(this);
         img_second_eye.setOnClickListener(this);
+        view_index.setOnClickListener(this);
 
         mainViewList.add(tv_ma);
         mainViewList.add(tv_boll);
@@ -91,7 +98,7 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
             clearMainColor(false);
         } else {
             clearMainColor(true);
-            switch (klineModel.MainView){
+            switch (klineModel.MainView) {
                 case 0:
                     tv_ma.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
                     break;
@@ -100,11 +107,11 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
                     break;
             }
         }
-        if (klineModel.SecondView == -1){
+        if (klineModel.SecondView == -1) {
             clearSecondColor(false);
-        }else{
+        } else {
             clearSecondColor(true);
-            switch (klineModel.SecondView){
+            switch (klineModel.SecondView) {
                 case 0:
                     tv_macd.setTextColor(ContextCompat.getColor(mContext, R.color.text_default));
                     break;
@@ -208,6 +215,11 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
 
                 mKChartView.hideSelectData();
                 mKChartView.hideChildDraw();
+                dismiss();
+                break;
+            case R.id.view_index:
+                Intent intent = new Intent(mContext, IndexKlineActivity.class);
+                mContext.startActivity(intent);
                 dismiss();
                 break;
         }

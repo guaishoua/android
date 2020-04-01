@@ -24,4 +24,7 @@
     <string name="main_view">Main</string>
     <string name="second_view">Sec</string>
     <string name="target_setting">Index settings</string>
+    <string name="reset">Reset</string>
+    <string name="introduction">Introduction</string>
+    <string name="introduction_ma">The MA indicator is connected by the average of the closing prices over a period of time, which can smooth the short-term fluctuations and reflect the long-term trend or cycle.</string>
 </resources>

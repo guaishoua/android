@@ -23,4 +23,7 @@
     <string name="main_view">主圖</string>
     <string name="second_view">副圖</string>
     <string name="target_setting">指標設置</string>
+    <string name="reset">重置</string>
+    <string name="introduction">簡介</string>
+    <string name="introduction_ma">MA指標由壹段時間內的收盤價之和取算數平均數後連線，可撫平短期波動，反映出長期趨勢或周期。</string>
 </resources>
