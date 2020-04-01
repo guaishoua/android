@@ -18,6 +18,7 @@ import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.market.view.NoticeActivity;
 import com.android.tacu.module.my.view.ContactUsActivity;
 import com.android.tacu.module.my.view.EditPersonalDataActivity;
+import com.android.tacu.module.my.view.InvitedinfoActivity;
 import com.android.tacu.module.my.view.LanguageActivity;
 import com.android.tacu.module.my.view.SecurityCenterActivity;
 import com.android.tacu.module.otc.dialog.OtcDialogUtils;
@@ -64,12 +65,13 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
     private ImageView img_vip;
     private QMUIRadiusImageView img_login;
     private QMUIGroupListView homeGroupListView;
-    private QMUICommonListItemView itemRealName, itemMoney, itemOrderCenter, itemOtcManage, itemSecuritySetting, itemMember;
+    private QMUICommonListItemView itemRealName, itemMoney, itemOrderCenter, itemOtcManage, itemSecuritySetting, itemInviting, itemMember;
 
     private String realName;
     private String orderCenter;
     private String otcManage;
     private String securitySetting;
+    private String inviting;
     private String member;
     private String news;
     private String contactUs;
@@ -156,6 +158,11 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
         itemSecuritySetting.setPadding(UIUtils.dp2px(15), 0, 0, 0);
         itemSecuritySetting.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
 
+        inviting = mResources.getString(R.string.drawer_invite);
+        itemInviting = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_invite), inviting, itemHeight);
+        itemInviting.setPadding(UIUtils.dp2px(15), 0, 0, 0);
+        itemInviting.setTextContainerPadding(0, 0, UIUtils.dp2px(20), 0);
+
         member = mResources.getString(R.string.member_center);
         itemMember = homeGroupListView.createItemView(ContextCompat.getDrawable(mActivity, R.drawable.icon_huiyuan), member, itemHeight);
         itemMember.setPadding(UIUtils.dp2px(15), 0, 0, 0);
@@ -214,6 +221,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
                 .addItemView(itemOrderCenter, onClickListener)
                 .addItemView(itemOtcManage, onClickListener)
                 .addItemView(itemSecuritySetting, onClickListener)
+                .addItemView(itemInviting, onClickListener)
                 .addItemView(itemMember, onClickListener)
                 .addItemView(itemNews, onClickListener)
                 .addItemView(itemContactUs, onClickListener)
@@ -253,6 +261,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             itemOrderCenter.setVisibility(View.VISIBLE);
             itemOtcManage.setVisibility(View.VISIBLE);
             itemSecuritySetting.setVisibility(View.VISIBLE);
+            itemInviting.setVisibility(View.VISIBLE);
             itemMember.setVisibility(View.VISIBLE);
             btnUnLogin.setVisibility(View.VISIBLE);
         } else {
@@ -268,6 +277,7 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             itemOrderCenter.setVisibility(View.GONE);
             itemOtcManage.setVisibility(View.GONE);
             itemSecuritySetting.setVisibility(View.GONE);
+            itemInviting.setVisibility(View.GONE);
             itemMember.setVisibility(View.GONE);
             btnUnLogin.setVisibility(View.GONE);
         }
@@ -300,6 +310,8 @@ public class MainDrawerLayoutHelper implements View.OnClickListener {
             }
         } else if (TextUtils.equals(text, securitySetting)) {
             jumpTo(SecurityCenterActivity.class);
+        } else if (TextUtils.equals(text, inviting)) {
+            jumpTo(InvitedinfoActivity.class);
         } else if (TextUtils.equals(text, member)) {
             if (isKeyc()) {
                 jumpTo(WebviewActivity.createActivity(mActivity, Constant.MEMBERSHIP));
