@@ -21,4 +21,9 @@ public interface IKDJ {
      */
     float getJ();
 
+    int getKDJNValue();
+
+    int getKDJM1Value();
+
+    int getKDJM2Value();
 }

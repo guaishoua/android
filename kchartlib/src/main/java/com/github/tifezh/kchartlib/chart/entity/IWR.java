@@ -10,4 +10,10 @@ public interface IWR {
     Float getWR2();
 
     Float getWR3();
+
+    Integer getWR1Value();
+
+    Integer getWR2Value();
+
+    Integer getWR3Value();
 }

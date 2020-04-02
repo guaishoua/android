@@ -16,55 +16,164 @@ import java.util.List;
 public class DataHelper {
 
     /**
+     * 计算MA BOLL RSI KDJ MACD
+     *
+     * @param dataList
+     */
+    public static void calculate(List<KLineEntity> dataList, Context context) {
+        String temp = SPChartUtils.getInstance(context).getString(ChartConstant.KLINE_INDEX_SETTING);
+        IndexModel indexModel = new Gson().fromJson(temp, IndexModel.class);
+        if (indexModel == null) {
+            indexModel = new IndexModel();
+        }
+
+        calculateMA(dataList, indexModel);
+        calculateBOLL(dataList, indexModel);
+        calculateVolumeMA(dataList);
+        calculateMACD(dataList, indexModel);
+        calculateKDJ(dataList, indexModel);
+        calculateRSI(dataList, indexModel);
+        calculateWR(dataList, indexModel);
+    }
+
+    /**
      * 计算ma
      *
      * @param dataList
      */
     static void calculateMA(List<KLineEntity> dataList, IndexModel indexModel) {
-        float ma5 = 0;
-        float ma10 = 0;
-        float ma20 = 0;
-        float ma30 = 0;
-        float ma60 = 0;
+        float ma1 = 0, ma2 = 0, ma3 = 0, ma4 = 0, ma5 = 0, ma6 = 0;
+        Integer ma1Value = null, ma2Value = null, ma3Value = null, ma4Value = null, ma5Value = null, ma6Value = null;
+
+        if (indexModel.isMa1Check && indexModel.Ma1Value != null) {
+            ma1Value = indexModel.Ma1Value;
+        }
+        if (indexModel.isMa2Check && indexModel.Ma2Value != null) {
+            ma2Value = indexModel.Ma2Value;
+        }
+        if (indexModel.isMa3Check && indexModel.Ma3Value != null) {
+            ma3Value = indexModel.Ma3Value;
+        }
+        if (indexModel.isMa4Check && indexModel.Ma4Value != null) {
+            ma4Value = indexModel.Ma4Value;
+        }
+        if (indexModel.isMa5Check && indexModel.Ma5Value != null) {
+            ma5Value = indexModel.Ma5Value;
+        }
+        if (indexModel.isMa6Check && indexModel.Ma6Value != null) {
+            ma6Value = indexModel.Ma6Value;
+        }
 
         for (int i = 0; i < dataList.size(); i++) {
             KLineEntity point = dataList.get(i);
             final float closePrice = point.getClosePrice();
 
-            ma5 += closePrice;
-            ma10 += closePrice;
-            ma20 += closePrice;
-            ma30 += closePrice;
-            ma60 += closePrice;
-            if (i >= 5) {
-                ma5 -= dataList.get(i - 5).getClosePrice();
-                point.MA5Price = ma5 / 5f;
-            } else {
-                point.MA5Price = ma5 / (i + 1f);
+            if (ma1Value != null) {
+                ma1 += closePrice;
+                if (i >= ma1Value) {
+                    ma1 -= dataList.get(i - ma1Value).getClosePrice();
+                    point.MA1Price = ma1 / ma1Value;
+                } else {
+                    point.MA1Price = ma1 / (i + 1);
+                }
+                point.MA1Value = ma1Value;
             }
-            if (i >= 10) {
-                ma10 -= dataList.get(i - 10).getClosePrice();
-                point.MA10Price = ma10 / 10f;
-            } else {
-                point.MA10Price = ma10 / (i + 1f);
+            if (ma2Value != null) {
+                ma2 += closePrice;
+                if (i >= ma2Value) {
+                    ma2 -= dataList.get(i - ma2Value).getClosePrice();
+                    point.MA2Price = ma2 / ma2Value;
+                } else {
+                    point.MA2Price = ma2 / (i + 1);
+                }
+                point.MA2Value = ma2Value;
             }
-            if (i >= 20) {
-                ma20 -= dataList.get(i - 20).getClosePrice();
-                point.MA20Price = ma20 / 20f;
-            } else {
-                point.MA20Price = ma20 / (i + 1f);
+            if (ma3Value != null) {
+                ma3 += closePrice;
+                if (i >= ma3Value) {
+                    ma3 -= dataList.get(i - ma3Value).getClosePrice();
+                    point.MA3Price = ma3 / ma3Value;
+                } else {
+                    point.MA3Price = ma3 / (i + 1);
+                }
+                point.MA3Value = ma3Value;
             }
-            if (i >= 30) {
-                ma30 -= dataList.get(i - 30).getClosePrice();
-                point.MA30Price = ma30 / 30f;
-            } else {
-                point.MA30Price = ma30 / (i + 1f);
+            if (ma4Value != null) {
+                ma4 += closePrice;
+                if (i >= ma4Value) {
+                    ma4 -= dataList.get(i - ma4Value).getClosePrice();
+                    point.MA4Price = ma4 / ma4Value;
+                } else {
+                    point.MA4Price = ma4 / (i + 1);
+                }
+                point.MA4Value = ma4Value;
             }
-            if (i >= 60) {
-                ma60 -= dataList.get(i - 60).getClosePrice();
-                point.MA60Price = ma60 / 60f;
+            if (ma5Value != null) {
+                ma5 += closePrice;
+                if (i >= ma5Value) {
+                    ma5 -= dataList.get(i - ma5Value).getClosePrice();
+                    point.MA5Price = ma5 / ma5Value;
+                } else {
+                    point.MA5Price = ma5 / (i + 1);
+                }
+                point.MA5Value = ma5Value;
+            }
+            if (ma6Value != null) {
+                ma6 += closePrice;
+                if (i >= ma6Value) {
+                    ma6 -= dataList.get(i - ma6Value).getClosePrice();
+                    point.MA6Price = ma6 / ma6Value;
+                } else {
+                    point.MA6Price = ma6 / (i + 1);
+                }
+                point.MA6Value = ma6Value;
+            }
+        }
+    }
+
+    /**
+     * 计算 BOLL 需要在计算ma之后进行
+     *
+     * @param dataList
+     */
+    static void calculateBOLL(List<KLineEntity> dataList, IndexModel indexModel) {
+        int NValue = indexModel.BOLLNValue;
+        int PValue = indexModel.BOLLPValue;
+        float maN = 0;
+
+        for (int i = 0; i < dataList.size(); i++) {
+            KLineEntity point = dataList.get(i);
+            final float closePrice = point.getClosePrice();
+
+            maN += closePrice;
+            if (i >= NValue) {
+                maN -= dataList.get(i - NValue).getClosePrice();
+                point.MANPrice = maN / NValue;
             } else {
-                point.MA60Price = ma60 / (i + 1f);
+                point.MANPrice = maN / (i + 1);
+            }
+
+            if (i == 0) {
+                point.boll = closePrice;
+                point.ub = Float.NaN;
+                point.lb = Float.NaN;
+            } else {
+                int n = NValue;
+                if (i < NValue) {
+                    n = i + 1;
+                }
+                float md = 0;
+                for (int j = i - n + 1; j <= i; j++) {
+                    float c = dataList.get(j).getClosePrice();
+                    float m = point.getMANPrice();
+                    float value = c - m;
+                    md += value * value;
+                }
+                md = md / (n - 1);
+                md = (float) Math.sqrt(md);
+                point.boll = point.getMANPrice();
+                point.ub = point.boll + PValue * md;
+                point.lb = point.boll - PValue * md;
             }
         }
     }
@@ -84,9 +193,9 @@ public class DataHelper {
                 if (volumeMa5 < 0) {
                     volumeMa5 = 0;
                 }
-                entry.MA5Volume = (volumeMa5 / 5f);
+                entry.MA5Volume = (volumeMa5 / 5);
             } else {
-                entry.MA5Volume = (volumeMa5 / (i + 1f));
+                entry.MA5Volume = (volumeMa5 / (i + 1));
             }
 
             if (i >= 10) {
@@ -94,9 +203,9 @@ public class DataHelper {
                 if (volumeMa10 < 0) {
                     volumeMa10 = 0;
                 }
-                entry.MA10Volume = (volumeMa10 / 10f);
+                entry.MA10Volume = (volumeMa10 / 10);
             } else {
-                entry.MA10Volume = (volumeMa10 / (i + 1f));
+                entry.MA10Volume = (volumeMa10 / (i + 1));
             }
         }
     }
@@ -106,34 +215,38 @@ public class DataHelper {
      *
      * @param dataList
      */
-    static void calculateMACD(List<KLineEntity> dataList) {
-        float ema12 = 0;
-        float ema26 = 0;
-        float dif = 0;
-        float dea = 0;
-        float macd = 0;
+    static void calculateMACD(List<KLineEntity> dataList, IndexModel indexModel) {
+        int SValue = indexModel.MACDSValue;
+        int LValue = indexModel.MACDLValue;
+        int MValue = indexModel.MACDMValue;
+
+        float emaS = 0, emaL = 0;
+        float dif = 0, dea = 0, macd = 0;
 
         for (int i = 0; i < dataList.size(); i++) {
             KLineEntity point = dataList.get(i);
             final float closePrice = point.getClosePrice();
             if (i == 0) {
-                ema12 = closePrice;
-                ema26 = closePrice;
+                emaS = closePrice;
+                emaL = closePrice;
             } else {
                 // EMA（12） = 前一日EMA（12） X 11/13 + 今日收盘价 X 2/13
-                ema12 = ema12 * 11f / 13f + closePrice * 2f / 13f;
+                emaS = emaS * (SValue - 1) / (SValue + 1) + closePrice * 2 / (SValue + 1);
                 // EMA（26） = 前一日EMA（26） X 25/27 + 今日收盘价 X 2/27
-                ema26 = ema26 * 25f / 27f + closePrice * 2f / 27f;
+                emaL = emaL * (LValue - 1) / (LValue + 1) + closePrice * 2 / (LValue + 1);
             }
             // DIF = EMA（12） - EMA（26） 。
             // 今日DEA = （前一日DEA X 8/10 + 今日DIF X 2/10）
             // 用（DIF-DEA）*2即为MACD柱状图。
-            dif = ema12 - ema26;
-            dea = dea * 8f / 10f + dif * 2f / 10f;
-            macd = (dif - dea) * 2f;
+            dif = emaS - emaL;
+            dea = dea * (MValue - 1) / (MValue + 1) + dif * 2 / (MValue + 1);
+            macd = (dif - dea) * 2;
             point.dif = dif;
             point.dea = dea;
             point.macd = macd;
+            point.MACDSValue = SValue;
+            point.MACDLValue = LValue;
+            point.MACDMValue = MValue;
         }
     }
 
@@ -142,38 +255,45 @@ public class DataHelper {
      *
      * @param dataList
      */
-    static void calculateKDJ(List<KLineEntity> dataList) {
-        float k = 50.0f;
-        float d = 50.0f;
-        float j = 0.0f;
-        float rsv = 0.0f;
+    static void calculateKDJ(List<KLineEntity> dataList, IndexModel indexModel) {
+        int NValue = indexModel.KDJNValue;
+        int M1Value = indexModel.KDJM1Value;
+        int M2Value = indexModel.KDJM2Value;
+
+        float k = 50F;
+        float d = 50F;
+        float j = 0;
+        float rsv = 0;
 
         for (int i = 0; i < dataList.size(); i++) {
             KLineEntity point = dataList.get(i);
             final float closePrice = point.getClosePrice();
-            int startIndex = i - 8;
+            int startIndex = i - (NValue - 1);
             if (startIndex < 0) {
                 startIndex = 0;
             }
-            float max9 = dataList.get(startIndex).getHighPrice();
-            float min9 = dataList.get(startIndex).getLowPrice();
+            float maxN = dataList.get(startIndex).getHighPrice();
+            float minN = dataList.get(startIndex).getLowPrice();
             for (int index = startIndex; index <= i; index++) {
-                max9 = Math.max(max9, dataList.get(index).getHighPrice());
-                min9 = Math.min(min9, dataList.get(index).getLowPrice());
+                maxN = Math.max(maxN, dataList.get(index).getHighPrice());
+                minN = Math.min(minN, dataList.get(index).getLowPrice());
             }
-            if (max9 != min9) {
-                rsv = 100f * (closePrice - min9) / (max9 - min9);
+            if (maxN != minN) {
+                rsv = 100f * (closePrice - minN) / (maxN - minN);
             } else {
                 rsv = 0;
             }
 
-            k = (rsv + 2f * k) / 3f;
-            d = (k + 2f * d) / 3f;
-            j = 3f * k - 2 * d;
+            k = (rsv + (M1Value - 1) * k) / M1Value;
+            d = (k + (M2Value - 1) * d) / M2Value;
+            j = 3 * k - 2 * d;
 
             point.k = k;
             point.d = d;
             point.j = j;
+            point.KNValue = NValue;
+            point.KM1Value = M1Value;
+            point.KM2Value = M2Value;
         }
     }
 
@@ -182,16 +302,22 @@ public class DataHelper {
      *
      * @param dataList
      */
-    static void calculateRSI(List<KLineEntity> dataList) {
-        float rsi1 = 0;
-        float rsi2 = 0;
-        float rsi3 = 0;
-        float rsi1ABSEma = 0;
-        float rsi2ABSEma = 0;
-        float rsi3ABSEma = 0;
-        float rsi1MaxEma = 0;
-        float rsi2MaxEma = 0;
-        float rsi3MaxEma = 0;
+    static void calculateRSI(List<KLineEntity> dataList, IndexModel indexModel) {
+        float rsi1 = 0, rsi2 = 0, rsi3 = 0;
+        float rsi1ABSEma = 0, rsi2ABSEma = 0, rsi3ABSEma = 0;
+        float rsi1MaxEma = 0, rsi2MaxEma = 0, rsi3MaxEma = 0;
+        Integer rsi1Value = null, rsi2Value = null, rsi3Value = null;
+
+        if (indexModel.isRSI1Check && indexModel.RSI1Value != null) {
+            rsi1Value = indexModel.RSI1Value;
+        }
+        if (indexModel.isRSI2Check && indexModel.RSI2Value != null) {
+            rsi2Value = indexModel.RSI2Value;
+        }
+        if (indexModel.isRSI3Check && indexModel.RSI3Value != null) {
+            rsi3Value = indexModel.RSI3Value;
+        }
+
         for (int i = 0; i < dataList.size(); i++) {
             KLineEntity point = dataList.get(i);
             final float closePrice = point.getClosePrice();
@@ -208,55 +334,28 @@ public class DataHelper {
             } else {
                 float Rmax = Math.max(0, closePrice - dataList.get(i - 1).getClosePrice());
                 float RAbs = Math.abs(closePrice - dataList.get(i - 1).getClosePrice());
-                rsi1MaxEma = (Rmax + (6f - 1) * rsi1MaxEma) / 6f;
-                rsi1ABSEma = (RAbs + (6f - 1) * rsi1ABSEma) / 6f;
 
-                rsi2MaxEma = (Rmax + (12f - 1) * rsi2MaxEma) / 12f;
-                rsi2ABSEma = (RAbs + (12f - 1) * rsi2ABSEma) / 12f;
-
-                rsi3MaxEma = (Rmax + (24f - 1) * rsi3MaxEma) / 24f;
-                rsi3ABSEma = (RAbs + (24f - 1) * rsi3ABSEma) / 24f;
-
-                rsi1 = (rsi1MaxEma / rsi1ABSEma) * 100;
-                rsi2 = (rsi2MaxEma / rsi2ABSEma) * 100;
-                rsi3 = (rsi3MaxEma / rsi3ABSEma) * 100;
-            }
-            point.rsi = rsi1;
-            //point.rsi2 = rsi2;
-            //point.rsi3 = rsi3;
-        }
-    }
-
-    /**
-     * 计算 BOLL 需要在计算ma之后进行
-     *
-     * @param dataList
-     */
-    static void calculateBOLL(List<KLineEntity> dataList) {
-        for (int i = 0; i < dataList.size(); i++) {
-            KLineEntity point = dataList.get(i);
-            final float closePrice = point.getClosePrice();
-            if (i == 0) {
-                point.mb = closePrice;
-                point.up = Float.NaN;
-                point.dn = Float.NaN;
-            } else {
-                int n = 20;
-                if (i < 20) {
-                    n = i + 1;
+                if (rsi1Value != null) {
+                    rsi1MaxEma = (Rmax + (rsi1Value - 1) * rsi1MaxEma) / rsi1Value;
+                    rsi1ABSEma = (RAbs + (rsi1Value - 1) * rsi1ABSEma) / rsi1Value;
+                    rsi1 = (rsi1MaxEma / rsi1ABSEma) * 100;
+                    point.rsi1 = rsi1;
+                    point.rsi1Value = rsi1Value;
                 }
-                float md = 0;
-                for (int j = i - n + 1; j <= i; j++) {
-                    float c = dataList.get(j).getClosePrice();
-                    float m = point.getMA20Price();
-                    float value = c - m;
-                    md += value * value;
+                if (rsi2Value != null) {
+                    rsi2MaxEma = (Rmax + (rsi2Value - 1) * rsi2MaxEma) / rsi2Value;
+                    rsi2ABSEma = (RAbs + (rsi2Value - 1) * rsi2ABSEma) / rsi2Value;
+                    rsi2 = (rsi2MaxEma / rsi2ABSEma) * 100;
+                    point.rsi2 = rsi2;
+                    point.rsi2Value = rsi2Value;
                 }
-                md = md / (n - 1);
-                md = (float) Math.sqrt(md);
-                point.mb = point.getMA20Price();
-                point.up = point.mb + 2f * md;
-                point.dn = point.mb - 2f * md;
+                if (rsi3Value != null) {
+                    rsi3MaxEma = (Rmax + (rsi3Value - 1) * rsi3MaxEma) / rsi3Value;
+                    rsi3ABSEma = (RAbs + (rsi3Value - 1) * rsi3ABSEma) / rsi3Value;
+                    rsi3 = (rsi3MaxEma / rsi3ABSEma) * 100;
+                    point.rsi3 = rsi3;
+                    point.rsi3Value = rsi3Value;
+                }
             }
         }
     }
@@ -266,66 +365,84 @@ public class DataHelper {
      *
      * @param dataList
      */
-    static void calculateWR(List<KLineEntity> dataList) {
-        float wr1 = 0.0f;
-        float wr2 = 0.0f;
+    static void calculateWR(List<KLineEntity> dataList, IndexModel indexModel) {
+        float wr1 = 0, wr2 = 0, wr3 = 0;
+        Integer wr1Value = null, wr2Value = null, wr3Value = null;
+
+        if (indexModel.isWR1Check && indexModel.WR1Value != null) {
+            wr1Value = indexModel.WR1Value;
+        }
+        if (indexModel.isWR2Check && indexModel.WR2Value != null) {
+            wr2Value = indexModel.WR2Value;
+        }
+        if (indexModel.isWR3Check && indexModel.WR3Value != null) {
+            wr3Value = indexModel.WR3Value;
+        }
+
         for (int i = 0; i < dataList.size(); i++) {
             KLineEntity point = dataList.get(i);
             final float closePrice = point.getClosePrice();
 
-            //WR1一般是10天买卖强弱指标
-            int startIndex10 = i - 9;
-            if (startIndex10 < 0) {
-                startIndex10 = 0;
+            if (wr1Value != null) {
+                //WR1一般是10天买卖强弱指标
+                int startIndexWR1 = i - (wr1Value - 1);
+                if (startIndexWR1 < 0) {
+                    startIndexWR1 = 0;
+                }
+                float maxWR1 = dataList.get(startIndexWR1).getHighPrice();
+                float minWR1 = dataList.get(startIndexWR1).getLowPrice();
+                for (int index = startIndexWR1; index <= i; index++) {
+                    maxWR1 = Math.max(maxWR1, dataList.get(index).getHighPrice());
+                    minWR1 = Math.min(minWR1, dataList.get(index).getLowPrice());
+                }
+                if (maxWR1 != minWR1) {
+                    wr1 = 100 * (maxWR1 - closePrice) / (maxWR1 - minWR1);
+                } else {
+                    wr1 = 0;
+                }
+                point.wr1 = wr1;
+                point.wr1Value = wr1Value;
             }
-            float max10 = dataList.get(startIndex10).getHighPrice();
-            float min10 = dataList.get(startIndex10).getLowPrice();
-            for (int index = startIndex10; index <= i; index++) {
-                max10 = Math.max(max10, dataList.get(index).getHighPrice());
-                min10 = Math.min(min10, dataList.get(index).getLowPrice());
+            if (wr2Value != null) {
+                //WR2一般是6天买卖强弱指标
+                int startIndexWR2 = i - (wr2Value - 1);
+                if (startIndexWR2 < 0) {
+                    startIndexWR2 = 0;
+                }
+                float maxWR2 = dataList.get(startIndexWR2).getHighPrice();
+                float minWR2 = dataList.get(startIndexWR2).getLowPrice();
+                for (int index = startIndexWR2; index <= i; index++) {
+                    maxWR2 = Math.max(maxWR2, dataList.get(index).getHighPrice());
+                    minWR2 = Math.min(minWR2, dataList.get(index).getLowPrice());
+                }
+                if (maxWR2 != minWR2) {
+                    wr2 = 100 * (maxWR2 - closePrice) / (maxWR2 - minWR2);
+                } else {
+                    wr2 = 0;
+                }
+                point.wr2 = wr2;
+                point.wr2Value = wr2Value;
             }
-            if (max10 != min10) {
-                wr1 = 100f * (max10 - closePrice) / (max10 - min10);
-            } else {
-                wr1 = 0.0f;
+            if (wr3Value != null) {
+                //WR3一般是4天买卖强弱指标
+                int startIndexWR3 = i - (wr3Value - 1);
+                if (startIndexWR3 < 0) {
+                    startIndexWR3 = 0;
+                }
+                float maxWR3 = dataList.get(startIndexWR3).getHighPrice();
+                float minWR3 = dataList.get(startIndexWR3).getLowPrice();
+                for (int index = startIndexWR3; index <= i; index++) {
+                    maxWR3 = Math.max(maxWR3, dataList.get(index).getHighPrice());
+                    minWR3 = Math.min(minWR3, dataList.get(index).getLowPrice());
+                }
+                if (maxWR3 != minWR3) {
+                    wr3 = 100 * (maxWR3 - closePrice) / (maxWR3 - minWR3);
+                } else {
+                    wr3 = 0;
+                }
+                point.wr3 = wr3;
+                point.wr3Value = wr3Value;
             }
-            point.r = wr1;
-
-            //WR2一般是6天买卖强弱指标
-            int startIndex6 = i - 5;
-            if (startIndex6 < 0) {
-                startIndex6 = 0;
-            }
-            float max6 = dataList.get(startIndex6).getHighPrice();
-            float min6 = dataList.get(startIndex6).getLowPrice();
-            for (int index = startIndex6; index <= i; index++) {
-                max6 = Math.max(max6, dataList.get(index).getHighPrice());
-                min6 = Math.min(min6, dataList.get(index).getLowPrice());
-            }
-            if (max6 != min6) {
-                wr2 = 100f * (max6 - closePrice) / (max6 - min6);
-            } else {
-                wr2 = 0.0f;
-            }
-            //point.WR2 = wr2;
         }
-    }
-
-    /**
-     * 计算MA BOLL RSI KDJ MACD
-     *
-     * @param dataList
-     */
-    public static void calculate(List<KLineEntity> dataList, Context context) {
-        String temp = SPChartUtils.getInstance(context).getString(ChartConstant.KLINE_INDEX_SETTING);
-        IndexModel indexModel = new Gson().fromJson(temp, IndexModel.class);
-
-        calculateMA(dataList);
-        calculateVolumeMA(dataList);
-        calculateMACD(dataList);
-        calculateKDJ(dataList);
-        calculateRSI(dataList);
-        calculateBOLL(dataList);
-        calculateWR(dataList);
     }
 }

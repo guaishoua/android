@@ -20,10 +20,18 @@ public class KLineEntity implements IKLine {
     public Float MA5Price;
     public Float MA6Price;
 
+    public Integer MA1Value;
+    public Integer MA2Value;
+    public Integer MA3Value;
+    public Integer MA4Value;
+    public Integer MA5Value;
+    public Integer MA6Value;
+
     // BOLL
-    public float ub;
     public float boll;
+    public float ub;
     public float lb;
+    public float MANPrice;
 
     // VOL
     public float Volume;
@@ -35,25 +43,40 @@ public class KLineEntity implements IKLine {
     public float dif;
     public float dea;
 
+    public int MACDSValue;
+    public int MACDLValue;
+    public int MACDMValue;
+
     // KDJ
     public float k;
     public float d;
     public float j;
+
+    public int KNValue;
+    public int KM1Value;
+    public int KM2Value;
 
     // RSI--
     public Float rsi1;
     public Float rsi2;
     public Float rsi3;
 
+    public Integer rsi1Value;
+    public Integer rsi2Value;
+    public Integer rsi3Value;
+
     // WR--
     public Float wr1;
     public Float wr2;
     public Float wr3;
 
+    public Integer wr1Value;
+    public Integer wr2Value;
+    public Integer wr3Value;
+
     public String getDate() {
         return Date;
     }
-
 
     @Override
     public float getOpenPrice() {
@@ -106,8 +129,33 @@ public class KLineEntity implements IKLine {
     }
 
     @Override
-    public float getUb() {
-        return ub;
+    public Integer getMA1Value() {
+        return MA1Value;
+    }
+
+    @Override
+    public Integer getMA2Value() {
+        return MA2Value;
+    }
+
+    @Override
+    public Integer getMA3Value() {
+        return MA3Value;
+    }
+
+    @Override
+    public Integer getMA4Value() {
+        return MA4Value;
+    }
+
+    @Override
+    public Integer getMA5Value() {
+        return MA5Value;
+    }
+
+    @Override
+    public Integer getMA6Value() {
+        return MA6Value;
     }
 
     @Override
@@ -116,8 +164,18 @@ public class KLineEntity implements IKLine {
     }
 
     @Override
+    public float getUb() {
+        return ub;
+    }
+
+    @Override
     public float getLb() {
         return lb;
+    }
+
+    @Override
+    public float getMANPrice() {
+        return MANPrice;
     }
 
     @Override
@@ -151,6 +209,21 @@ public class KLineEntity implements IKLine {
     }
 
     @Override
+    public int getMACDSValue() {
+        return MACDSValue;
+    }
+
+    @Override
+    public int getMACDLValue() {
+        return MACDLValue;
+    }
+
+    @Override
+    public int getMACDMValue() {
+        return MACDMValue;
+    }
+
+    @Override
     public float getK() {
         return k;
     }
@@ -163,6 +236,21 @@ public class KLineEntity implements IKLine {
     @Override
     public float getJ() {
         return j;
+    }
+
+    @Override
+    public int getKDJNValue() {
+        return KNValue;
+    }
+
+    @Override
+    public int getKDJM1Value() {
+        return KM1Value;
+    }
+
+    @Override
+    public int getKDJM2Value() {
+        return KM2Value;
     }
 
     @Override
@@ -181,6 +269,21 @@ public class KLineEntity implements IKLine {
     }
 
     @Override
+    public Integer getRsi1Value() {
+        return rsi1Value;
+    }
+
+    @Override
+    public Integer getRsi2Value() {
+        return rsi2Value;
+    }
+
+    @Override
+    public Integer getRsi3Value() {
+        return rsi3Value;
+    }
+
+    @Override
     public Float getWR1() {
         return wr1;
     }
@@ -193,5 +296,20 @@ public class KLineEntity implements IKLine {
     @Override
     public Float getWR3() {
         return wr3;
+    }
+
+    @Override
+    public Integer getWR1Value() {
+        return wr1Value;
+    }
+
+    @Override
+    public Integer getWR2Value() {
+        return wr2Value;
+    }
+
+    @Override
+    public Integer getWR3Value() {
+        return wr3Value;
     }
 }

@@ -33,6 +33,7 @@ public interface ICandle {
 
     /**
      * MA
+     *
      * @return
      */
 
@@ -48,7 +49,25 @@ public interface ICandle {
 
     Float getMA6Price();
 
+    Integer getMA1Value();
+
+    Integer getMA2Value();
+
+    Integer getMA3Value();
+
+    Integer getMA4Value();
+
+    Integer getMA5Value();
+
+    Integer getMA6Value();
+
+
     // 以下为BOLL数据
+
+    /**
+     * 中轨线 平均线
+     */
+    float getBoll();
 
     /**
      * 上轨线
@@ -56,12 +75,12 @@ public interface ICandle {
     float getUb();
 
     /**
-     * 中轨线
-     */
-    float getBoll();
-
-    /**
      * 下轨线
      */
     float getLb();
+
+    /**
+     * 平均线
+     */
+    float getMANPrice();
 }

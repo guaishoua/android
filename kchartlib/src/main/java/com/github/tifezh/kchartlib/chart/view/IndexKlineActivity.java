@@ -299,7 +299,7 @@ public class IndexKlineActivity extends AppCompatActivity implements View.OnClic
             } else {
                 animateOpen(view_setting_rsi, RSIHeight);
             }
-        }else if (id==R.id.view_wr){
+        } else if (id == R.id.view_wr) {
             if (view_setting_wr.getVisibility() == View.VISIBLE) {
                 animateClose(view_setting_wr);
             } else {
@@ -310,6 +310,7 @@ public class IndexKlineActivity extends AppCompatActivity implements View.OnClic
 
     private void saveChartSetting() {
         SPChartUtils.getInstance(this).put(ChartConstant.KLINE_INDEX_SETTING, gson.toJson(indexModel));
+        setResult(RESULT_OK);
     }
 
     private void animateOpen(View v, int mHiddenViewMeasuredHeight) {

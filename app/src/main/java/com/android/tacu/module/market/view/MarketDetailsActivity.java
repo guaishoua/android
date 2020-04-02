@@ -3,6 +3,7 @@ package com.android.tacu.module.market.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -64,6 +65,8 @@ import static com.android.tacu.api.Constant.SELFCOIN_LIST;
 
 public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> implements MarketDetailsContract.IView, ISocketEvent, Observer {
 
+    public static final int REQUESTCODE = 1001;
+
     @BindView(R.id.scrollView)
     CoordinatorLayout scrollView;
     @BindView(R.id.lin_indicator)
@@ -121,6 +124,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     private List<String> tabDownTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
+    private List<KLineEntity> kLineEntityList = new ArrayList<>();
 
     //防止socket刷新频繁
     private int pointPriceTemp;
@@ -249,6 +253,17 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         System.gc();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUESTCODE && resultCode == RESULT_OK) {
+            DataHelper.calculate(kLineEntityList, MarketDetailsActivity.this);
+            kAdapter.clearData();
+            kAdapter.addFooterData(kLineEntityList);
+            mKChartView.refreshEnd();
+        }
+    }
+
     @OnClick(R.id.btn_buy)
     void buy() {
         EventManage.sendEvent(new BaseEvent<>(EventConstant.JumpTradeIsBuyCode, new JumpTradeCodeIsBuyEvent(currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn, true)));
@@ -300,6 +315,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             }
 
             if (data != null) {
+                this.kLineEntityList = data;
                 if (isAnim) {
                     isAnim = false;
                 }

@@ -39,7 +39,7 @@ public class IndexModel implements Serializable {
 
     // RSI
     public boolean isRSI1Check = true;
-    public Integer RSI1Value = 2;
+    public Integer RSI1Value = 14;
 
     public boolean isRSI2Check = false;
     public Integer RSI2Value = null;

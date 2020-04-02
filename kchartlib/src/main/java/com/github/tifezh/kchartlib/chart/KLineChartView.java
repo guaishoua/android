@@ -110,27 +110,32 @@ public class KLineChartView extends BaseKLineChartView {
 
             //macd
             setMACDWidth(getDimension(R.dimen.chart_candle_width));
-            setDIFColor(getColor(R.color.chart_ma5));
-            setDEAColor(getColor(R.color.chart_ma10));
-            setMACDColor(getColor(R.color.chart_ma30));
+            setMACDColor(getColor(R.color.chart_text));
+            setDIFColor(getColor(R.color.chart_color1));
+            setDEAColor(getColor(R.color.chart_color2));
 
             //kdj
-            setKColor(getColor(R.color.chart_ma5));
-            setDColor(getColor(R.color.chart_ma10));
-            setJColor(getColor(R.color.chart_ma30));
+            setKColor(getColor(R.color.chart_color1));
+            setDColor(getColor(R.color.chart_color2));
+            setJColor(getColor(R.color.chart_color3));
 
             //wr
-            setRColor(getColor(R.color.chart_ma5));
+            setWR1Color(getColor(R.color.chart_color1));
+            setWR2Color(getColor(R.color.chart_color2));
+            setWR3Color(getColor(R.color.chart_color3));
 
             //rsi
-            setRSI1Color(getColor(R.color.chart_ma5));
-            setRSI2Color(getColor(R.color.chart_ma10));
-            setRSI3Color(getColor(R.color.chart_ma30));
+            setRSI1Color(getColor(R.color.chart_color1));
+            setRSI2Color(getColor(R.color.chart_color2));
+            setRSI3Color(getColor(R.color.chart_color3));
 
             //main
-            setMa5Color(getColor(R.color.chart_ma5));
-            setMa10Color(getColor(R.color.chart_ma10));
-            setMa30Color(getColor(R.color.chart_ma30));
+            setMa1Color(getColor(R.color.chart_color1));
+            setMa2Color(getColor(R.color.chart_color2));
+            setMa3Color(getColor(R.color.chart_color3));
+            setMa4Color(getColor(R.color.chart_color4));
+            setMa5Color(getColor(R.color.chart_color5));
+            setMa6Color(getColor(R.color.chart_color6));
 
             //蜡烛线宽度
             setCandleWidth(getDimension(R.dimen.chart_candle_width));
@@ -329,8 +334,54 @@ public class KLineChartView extends BaseKLineChartView {
     /**
      * 设置R颜色
      */
-    public void setRColor(int color) {
-        mWRDraw.setRColor(color);
+    public void setWR1Color(int color) {
+        mWRDraw.setWR1Color(color);
+    }
+
+    public void setWR2Color(int color) {
+        mWRDraw.setWR2Color(color);
+    }
+
+    public void setWR3Color(int color) {
+        mWRDraw.setWR3Color(color);
+    }
+
+    /**
+     * 设置ma1颜色
+     *
+     * @param color
+     */
+    public void setMa1Color(int color) {
+        mMainDraw.setMa1Color(color);
+        mVolumeDraw.setMa5Color(color);
+    }
+
+    /**
+     * 设置ma2颜色
+     *
+     * @param color
+     */
+    public void setMa2Color(int color) {
+        mMainDraw.setMa2Color(color);
+        mVolumeDraw.setMa10Color(color);
+    }
+
+    /**
+     * 设置ma3颜色
+     *
+     * @param color
+     */
+    public void setMa3Color(int color) {
+        mMainDraw.setMa3Color(color);
+    }
+
+    /**
+     * 设置ma4颜色
+     *
+     * @param color
+     */
+    public void setMa4Color(int color) {
+        mMainDraw.setMa4Color(color);
     }
 
     /**
@@ -340,26 +391,15 @@ public class KLineChartView extends BaseKLineChartView {
      */
     public void setMa5Color(int color) {
         mMainDraw.setMa5Color(color);
-        mVolumeDraw.setMa5Color(color);
     }
 
     /**
-     * 设置ma10颜色
+     * 设置ma6颜色
      *
      * @param color
      */
-    public void setMa10Color(int color) {
-        mMainDraw.setMa10Color(color);
-        mVolumeDraw.setMa10Color(color);
-    }
-
-    /**
-     * 设置ma20颜色
-     *
-     * @param color
-     */
-    public void setMa30Color(int color) {
-        mMainDraw.setMa30Color(color);
+    public void setMa6Color(int color) {
+        mMainDraw.setMa6Color(color);
     }
 
     /**

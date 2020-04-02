@@ -5,13 +5,6 @@
     <!--卖-->
     <color name="chart_sell">#DE5252</color>
 
-    <color name="chart_ma5">#EEDD9A</color>
-    <color name="chart_ma10">#83CF9F</color>
-    <color name="chart_ma30">#C692F5</color>
-    <color name="chart_ma40">#EA4E45</color>
-    <color name="chart_ma60">#8ACC41</color>
-    <color name="chart_ma280">#6634F5</color>
-
     <color name="chart_color1">#EEDD9A</color>
     <color name="chart_color2">#83CF9F</color>
     <color name="chart_color3">#C692F5</color>

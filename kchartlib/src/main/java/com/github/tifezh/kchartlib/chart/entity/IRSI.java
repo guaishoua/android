@@ -14,4 +14,10 @@ public interface IRSI {
     Float getRsi2();
 
     Float getRsi3();
+
+    Integer getRsi1Value();
+
+    Integer getRsi2Value();
+
+    Integer getRsi3Value();
 }

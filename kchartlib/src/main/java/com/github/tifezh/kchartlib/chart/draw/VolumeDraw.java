@@ -34,10 +34,7 @@ public class VolumeDraw implements IChartDraw<IVolume> {
     }
 
     @Override
-    public void drawTranslated(
-            @Nullable IVolume lastPoint, @NonNull IVolume curPoint, float lastX, float curX,
-            @NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position) {
-
+    public void drawTranslated(@Nullable IVolume lastPoint, @NonNull IVolume curPoint, float lastX, float curX, @NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position) {
         drawHistogram(canvas, curPoint, lastPoint, curX, view, position);
         if (lastPoint.getMA5Volume() != 0f) {
             view.drawVolLine(canvas, ma5Paint, lastX, lastPoint.getMA5Volume(), curX, curPoint.getMA5Volume());
@@ -47,10 +44,7 @@ public class VolumeDraw implements IChartDraw<IVolume> {
         }
     }
 
-    private void drawHistogram(
-            Canvas canvas, IVolume curPoint, IVolume lastPoint, float curX,
-            BaseKLineChartView view, int position) {
-
+    private void drawHistogram(Canvas canvas, IVolume curPoint, IVolume lastPoint, float curX, BaseKLineChartView view, int position) {
         float r = pillarWidth / 2;
         float top = view.getVolY(curPoint.getVolume());
         int bottom = view.getVolRect().bottom;
@@ -62,15 +56,16 @@ public class VolumeDraw implements IChartDraw<IVolume> {
     }
 
     @Override
-    public void drawText(
-            @NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
+    public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IVolume point = (IVolume) view.getItem(position);
-        String text = "VOL:" + getValueFormatter().format(point.getVolume()) + "  ";
+        String text = "VOL:" + getValueFormatter().format(point.getVolume()) + "\t\t";
         canvas.drawText(text, x, y, view.getTextPaint());
         x += view.getTextPaint().measureText(text);
-        text = "MA5:" + getValueFormatter().format(point.getMA5Volume()) + "  ";
+
+        text = "MA5:" + getValueFormatter().format(point.getMA5Volume()) + "\t\t";
         canvas.drawText(text, x, y, ma5Paint);
         x += ma5Paint.measureText(text);
+
         text = "MA10:" + getValueFormatter().format(point.getMA10Volume());
         canvas.drawText(text, x, y, ma10Paint);
     }

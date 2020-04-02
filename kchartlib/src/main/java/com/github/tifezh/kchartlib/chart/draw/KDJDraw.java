@@ -41,21 +41,20 @@ public class KDJDraw implements IChartDraw<IKDJ> {
     @Override
     public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IKDJ point = (IKDJ) view.getItem(position);
-        if (point.getK() != 0) {
-            String text = "KDJ(14,1,3)  ";
-            canvas.drawText(text, x, y, view.getTextPaint());
-            x += view.getTextPaint().measureText(text);
-            text = "K:" + view.formatValue(point.getK()) + " ";
-            canvas.drawText(text, x, y, mKPaint);
-            x += mKPaint.measureText(text);
-            if (point.getD() != 0) {
-                text = "D:" + view.formatValue(point.getD()) + " ";
-                canvas.drawText(text, x, y, mDPaint);
-                x += mDPaint.measureText(text);
-                text = "J:" + view.formatValue(point.getJ()) + " ";
-                canvas.drawText(text, x, y, mJPaint);
-            }
-        }
+        String text = "KDJ(" + point.getKDJNValue() + "," + point.getKDJM1Value() + "," + point.getKDJM2Value() + ")" + "\t\t";
+        canvas.drawText(text, x, y, view.getTextPaint());
+        x += view.getTextPaint().measureText(text);
+
+        text = "K:" + view.formatValue(point.getK()) + "\t\t";
+        canvas.drawText(text, x, y, mKPaint);
+        x += mKPaint.measureText(text);
+
+        text = "D:" + view.formatValue(point.getD()) + "\t\t";
+        canvas.drawText(text, x, y, mDPaint);
+        x += mDPaint.measureText(text);
+
+        text = "J:" + view.formatValue(point.getJ()) + "\t\t";
+        canvas.drawText(text, x, y, mJPaint);
     }
 
     @Override

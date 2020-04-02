@@ -1,5 +1,6 @@
 package com.android.tacu.widget.tab;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
+import com.android.tacu.module.market.view.MarketDetailsActivity;
 import com.android.tacu.utils.SPUtils;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.base.Status;
@@ -219,7 +221,7 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
                 break;
             case R.id.view_index:
                 Intent intent = new Intent(mContext, IndexKlineActivity.class);
-                mContext.startActivity(intent);
+                ((Activity) mContext).startActivityForResult(intent, MarketDetailsActivity.REQUESTCODE);
                 dismiss();
                 break;
         }
