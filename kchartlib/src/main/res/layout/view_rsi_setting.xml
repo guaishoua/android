@@ -20,7 +20,7 @@
             android:layout_weight="1">
 
             <CheckBox
-                android:id="@+id/cb_ma1"
+                android:id="@+id/cb_rsi1"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:background="@drawable/checkbox_rect_chart1"
@@ -32,7 +32,7 @@
                 tools:checked="true" />
 
             <EditText
-                android:id="@+id/ed_ma1"
+                android:id="@+id/ed_rsi1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginVertical="@dimen/dp_5"
@@ -48,7 +48,7 @@
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_14"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/cb_ma1"
+                app:layout_constraintLeft_toRightOf="@+id/cb_rsi1"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="360" />
@@ -57,12 +57,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:text="MA"
+                android:text="RSI1"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_16"
-                app:layout_constraintBottom_toBottomOf="@+id/ed_ma1"
-                app:layout_constraintLeft_toLeftOf="@+id/ed_ma1"
-                app:layout_constraintTop_toTopOf="@+id/ed_ma1" />
+                app:layout_constraintBottom_toBottomOf="@+id/ed_rsi1"
+                app:layout_constraintLeft_toLeftOf="@+id/ed_rsi1"
+                app:layout_constraintTop_toTopOf="@+id/ed_rsi1" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
@@ -71,7 +71,7 @@
             android:layout_weight="1">
 
             <CheckBox
-                android:id="@+id/cb_ma2"
+                android:id="@+id/cb_rsi2"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:layout_marginLeft="@dimen/dp_20"
@@ -84,7 +84,7 @@
                 tools:checked="true" />
 
             <EditText
-                android:id="@+id/ed_ma2"
+                android:id="@+id/ed_rsi2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginVertical="@dimen/dp_5"
@@ -99,7 +99,7 @@
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_14"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/cb_ma2"
+                app:layout_constraintLeft_toRightOf="@+id/cb_rsi2"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="360" />
@@ -108,12 +108,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:text="MA"
+                android:text="RSI2"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_16"
-                app:layout_constraintBottom_toBottomOf="@+id/ed_ma2"
-                app:layout_constraintLeft_toLeftOf="@+id/ed_ma2"
-                app:layout_constraintTop_toTopOf="@+id/ed_ma2" />
+                app:layout_constraintBottom_toBottomOf="@+id/ed_rsi2"
+                app:layout_constraintLeft_toLeftOf="@+id/ed_rsi2"
+                app:layout_constraintTop_toTopOf="@+id/ed_rsi2" />
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 
@@ -130,7 +130,7 @@
             android:layout_weight="1">
 
             <CheckBox
-                android:id="@+id/cb_ma3"
+                android:id="@+id/cb_rsi3"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:background="@drawable/checkbox_rect_chart3"
@@ -142,7 +142,7 @@
                 tools:checked="true" />
 
             <EditText
-                android:id="@+id/ed_ma3"
+                android:id="@+id/ed_rsi3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginVertical="@dimen/dp_5"
@@ -158,7 +158,7 @@
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_14"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/cb_ma3"
+                app:layout_constraintLeft_toRightOf="@+id/cb_rsi3"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="360" />
@@ -167,174 +167,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:text="MA"
+                android:text="RSI3"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_size_sp_16"
-                app:layout_constraintBottom_toBottomOf="@+id/ed_ma3"
-                app:layout_constraintLeft_toLeftOf="@+id/ed_ma3"
-                app:layout_constraintTop_toTopOf="@+id/ed_ma3" />
+                app:layout_constraintBottom_toBottomOf="@+id/ed_rsi3"
+                app:layout_constraintLeft_toLeftOf="@+id/ed_rsi3"
+                app:layout_constraintTop_toTopOf="@+id/ed_rsi3" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <CheckBox
-                android:id="@+id/cb_ma4"
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:background="@drawable/checkbox_rect_chart4"
-                android:button="@null"
-                android:checked="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:checked="true" />
-
-            <EditText
-                android:id="@+id/ed_ma4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="@dimen/dp_5"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_weight="1"
-                android:background="@drawable/shape_chart_grey"
-                android:digits="0123456789"
-                android:gravity="center_vertical|right"
-                android:inputType="number"
-                android:maxLength="3"
-                android:paddingRight="@dimen/dp_10"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_14"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/cb_ma4"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="360" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:text="MA"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_16"
-                app:layout_constraintBottom_toBottomOf="@+id/ed_ma4"
-                app:layout_constraintLeft_toLeftOf="@+id/ed_ma4"
-                app:layout_constraintTop_toTopOf="@+id/ed_ma4" />
-        </android.support.constraint.ConstraintLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:layout_marginTop="@dimen/dp_10"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/dp_15">
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <CheckBox
-                android:id="@+id/cb_ma5"
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
-                android:background="@drawable/checkbox_rect_chart5"
-                android:button="@null"
-                android:checked="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:checked="true" />
-
-            <EditText
-                android:id="@+id/ed_ma5"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="@dimen/dp_5"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_20"
-                android:layout_weight="1"
-                android:background="@drawable/shape_chart_grey"
-                android:digits="0123456789"
-                android:gravity="center_vertical|right"
-                android:inputType="number"
-                android:maxLength="3"
-                android:paddingRight="@dimen/dp_10"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_14"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/cb_ma5"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="360" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:text="MA"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_16"
-                app:layout_constraintBottom_toBottomOf="@+id/ed_ma5"
-                app:layout_constraintLeft_toLeftOf="@+id/ed_ma5"
-                app:layout_constraintTop_toTopOf="@+id/ed_ma5" />
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <CheckBox
-                android:id="@+id/cb_ma6"
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:background="@drawable/checkbox_rect_chart6"
-                android:button="@null"
-                android:checked="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:checked="true" />
-
-            <EditText
-                android:id="@+id/ed_ma6"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="@dimen/dp_5"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_weight="1"
-                android:background="@drawable/shape_chart_grey"
-                android:digits="0123456789"
-                android:gravity="center_vertical|right"
-                android:inputType="number"
-                android:maxLength="3"
-                android:paddingRight="@dimen/dp_10"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_14"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/cb_ma6"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="360" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:text="MA"
-                android:textColor="@color/text_grey"
-                android:textSize="@dimen/text_size_sp_16"
-                app:layout_constraintBottom_toBottomOf="@+id/ed_ma6"
-                app:layout_constraintLeft_toLeftOf="@+id/ed_ma6"
-                app:layout_constraintTop_toTopOf="@+id/ed_ma6" />
-        </android.support.constraint.ConstraintLayout>
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <LinearLayout
@@ -345,7 +189,7 @@
         android:paddingHorizontal="@dimen/dp_15">
 
         <ImageView
-            android:id="@+id/img_refresh_ma"
+            android:id="@+id/img_refresh_rsi"
             android:layout_width="@dimen/dp_25"
             android:layout_height="@dimen/dp_25"
             android:src="@drawable/icon_refresh" />
@@ -380,7 +224,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
         android:paddingHorizontal="@dimen/dp_15"
-        android:text="@string/introduction_ma"
+        android:text="@string/introduction_rsi"
         android:textColor="@color/text_grey"
         android:textSize="@dimen/text_size_sp_14" />
 </LinearLayout>

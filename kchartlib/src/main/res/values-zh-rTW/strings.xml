@@ -26,4 +26,9 @@
     <string name="reset">重置</string>
     <string name="introduction">簡介</string>
     <string name="introduction_ma">MA指標由壹段時間內的收盤價之和取算數平均數後連線，可撫平短期波動，反映出長期趨勢或周期。</string>
+    <string name="introduction_boll">BOLL指標又叫布林帶，其基本的形態是由三條軌道線組成的帶狀通道(中軌和上、下軌各壹條)。中軌為價格的平均成本，上軌和下軌可分別視為價格的壓力線和支撐線。</string>
+    <string name="introduction_macd">MACD指標由壹組曲線與圖形組成，通過收盤時價格或指數的快變與慢變的指數移動平均值(EMA)之間的差計算出來，"S"指更短時段的EMA，而"L"則指較長時段的EMA，最常用的是12日及26日EMA</string>
+    <string name="introduction_kdj">KDJ指標通過壹個特定的周期(常為9日、9周等)內出現過的最高價、最低價及最後壹個計算周期的收盤價及這三者之間的比例關系，來計算最後壹個計算周期的未成熟隨機值，然後根據平滑移動平均線的方法來計算K值、D值與J值，並繪成曲線圖來研判價格走勢</string>
+    <string name="introduction_rsi">RS指標是比較價格升降運動以表達價格強度的技術分析工具，其中14日RS最具代表性。</string>
+    <string name="introduction_wr">WR指標是壹個振蕩指標，是依價格的擺動點來度量是否處於超買或超賣的現象。它衡量多空雙方創出的峰值(最高價)距每天收盤價的距離與壹定時間內(如天、14天、28天等)的價格波動範圍的比例，以提供出價格趨勢反轉的訊號。</string>
 </resources>
