@@ -239,7 +239,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                     isAnim = false;
                 }
                 KLineChartView.decimalsCount = pointPrice;
-                DataHelper.calculate(data);
+                DataHelper.calculate(data, getContext());
                 kAdapter.clearData();
                 kAdapter.addFooterData(data);
                 mKChartView.refreshEnd();

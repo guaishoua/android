@@ -1,6 +1,11 @@
 package com.github.tifezh.kchartlib.chart.utils;
 
+import android.content.Context;
+
+import com.github.tifezh.kchartlib.chart.base.ChartConstant;
 import com.github.tifezh.kchartlib.chart.entity.KLineEntity;
+import com.github.tifezh.kchartlib.chart.view.IndexModel;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -15,7 +20,7 @@ public class DataHelper {
      *
      * @param dataList
      */
-    static void calculateMA(List<KLineEntity> dataList) {
+    static void calculateMA(List<KLineEntity> dataList, IndexModel indexModel) {
         float ma5 = 0;
         float ma10 = 0;
         float ma20 = 0;
@@ -311,7 +316,10 @@ public class DataHelper {
      *
      * @param dataList
      */
-    public static void calculate(List<KLineEntity> dataList) {
+    public static void calculate(List<KLineEntity> dataList, Context context) {
+        String temp = SPChartUtils.getInstance(context).getString(ChartConstant.KLINE_INDEX_SETTING);
+        IndexModel indexModel = new Gson().fromJson(temp, IndexModel.class);
+
         calculateMA(dataList);
         calculateVolumeMA(dataList);
         calculateMACD(dataList);

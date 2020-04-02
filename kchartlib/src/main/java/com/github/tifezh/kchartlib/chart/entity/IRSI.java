@@ -9,5 +9,9 @@ public interface IRSI {
     /**
      * RSI值
      */
-    float getRsi();
+    Float getRsi1();
+
+    Float getRsi2();
+
+    Float getRsi3();
 }

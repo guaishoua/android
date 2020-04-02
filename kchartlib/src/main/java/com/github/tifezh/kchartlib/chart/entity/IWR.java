@@ -5,9 +5,9 @@ package com.github.tifezh.kchartlib.chart.entity;
  */
 public interface IWR {
 
-    /**
-     * %R值
-     */
-    float getR();
+    Float getWR1();
 
+    Float getWR2();
+
+    Float getWR3();
 }

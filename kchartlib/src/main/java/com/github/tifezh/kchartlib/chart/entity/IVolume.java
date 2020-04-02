@@ -8,16 +8,6 @@ package com.github.tifezh.kchartlib.chart.entity;
 public interface IVolume {
 
     /**
-     * 开盘价
-     */
-    float getOpenPrice();
-
-    /**
-     * 收盘价
-     */
-    float getClosePrice();
-
-    /**
      * 成交量
      */
     float getVolume();

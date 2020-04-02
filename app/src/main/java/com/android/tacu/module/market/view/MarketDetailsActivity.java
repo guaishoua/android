@@ -304,7 +304,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                     isAnim = false;
                 }
                 KLineChartView.decimalsCount = pointPrice;
-                DataHelper.calculate(data);
+                DataHelper.calculate(data, this);
                 kAdapter.clearData();
                 kAdapter.addFooterData(data);
                 mKChartView.refreshEnd();

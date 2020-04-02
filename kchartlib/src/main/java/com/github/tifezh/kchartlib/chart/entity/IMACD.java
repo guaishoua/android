@@ -9,9 +9,9 @@ package com.github.tifezh.kchartlib.chart.entity;
 public interface IMACD {
 
     /**
-     * DEA值
+     * MACD值
      */
-    float getDea();
+    float getMacd();
 
     /**
      * DIF值
@@ -19,7 +19,7 @@ public interface IMACD {
     float getDif();
 
     /**
-     * MACD值
+     * DEA值
      */
-    float getMacd();
+    float getDea();
 }

@@ -31,45 +31,37 @@ public interface ICandle {
      */
     float getVolume();
 
-    // 以下为MA数据
     /**
-     * 五(月，日，时，分，5分等)均价
+     * MA
+     * @return
      */
-    float getMA5Price();
 
-    /**
-     * 十(月，日，时，分，5分等)均价
-     */
-    float getMA10Price();
+    Float getMA1Price();
 
-    /**
-     * 二十(月，日，时，分，5分等)均价
-     */
-    float getMA20Price();
+    Float getMA2Price();
 
-    /**
-     * 三十(月，日，时，分，5分等)均价
-     */
-    float getMA30Price();
+    Float getMA3Price();
 
-    /**
-     * 六十(月，日，时，分，5分等)均价
-     */
-    float getMA60Price();
+    Float getMA4Price();
+
+    Float getMA5Price();
+
+    Float getMA6Price();
 
     // 以下为BOLL数据
+
     /**
      * 上轨线
      */
-    float getUp();
+    float getUb();
 
     /**
      * 中轨线
      */
-    float getMb();
+    float getBoll();
 
     /**
      * 下轨线
      */
-    float getDn();
+    float getLb();
 }
