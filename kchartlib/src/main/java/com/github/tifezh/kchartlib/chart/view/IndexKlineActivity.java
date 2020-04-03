@@ -18,6 +18,7 @@ import com.github.tifezh.kchartlib.chart.base.ChartConstant;
 import com.github.tifezh.kchartlib.chart.entity.IndexModel;
 import com.github.tifezh.kchartlib.chart.utils.SPChartUtils;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class IndexKlineActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -310,7 +311,8 @@ public class IndexKlineActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void saveChartSetting() {
-        SPChartUtils.getInstance(this).put(ChartConstant.KLINE_INDEX_SETTING, gson.toJson(indexModel));
+        Gson gsonBuild = new GsonBuilder().serializeNulls().create();
+        SPChartUtils.getInstance(this).put(ChartConstant.KLINE_INDEX_SETTING, gsonBuild.toJson(indexModel));
         setResult(RESULT_OK);
     }
 
