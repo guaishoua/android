@@ -145,14 +145,14 @@ public class BuySellChartView extends View {
         mBuyLinePaint = new Paint();
         mBuyLinePaint.setStyle(Paint.Style.STROKE);
         mBuyLinePaint.setAntiAlias(true);
-        mBuyLinePaint.setStrokeWidth(4f);
+        mBuyLinePaint.setStrokeWidth(2f);
         mBuyLinePaint.setColor(ContextCompat.getColor(mContext, R.color.color_riseup));
         mBuyLinePaint.setPathEffect(cornerPathEffect);
 
         mSellLinePaint = new Paint();
         mSellLinePaint.setStyle(Paint.Style.STROKE);
         mSellLinePaint.setAntiAlias(true);
-        mSellLinePaint.setStrokeWidth(4f);
+        mSellLinePaint.setStrokeWidth(2f);
         mSellLinePaint.setColor(ContextCompat.getColor(mContext, R.color.color_risedown));
         mSellLinePaint.setPathEffect(cornerPathEffect);
 

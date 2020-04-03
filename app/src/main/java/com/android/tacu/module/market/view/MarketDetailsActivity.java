@@ -189,6 +189,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 upLoad(true);
             }
         });
+        linIndicator.setFlagActivity(0, this);
 
         kAdapter = new KLineChartAdapter();
         mKChartView.setAdapter(kAdapter);

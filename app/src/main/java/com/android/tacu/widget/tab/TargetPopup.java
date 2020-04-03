@@ -1,8 +1,6 @@
 package com.android.tacu.widget.tab;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
@@ -13,11 +11,9 @@ import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
-import com.android.tacu.module.market.view.MarketDetailsActivity;
 import com.android.tacu.utils.SPUtils;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.base.Status;
-import com.github.tifezh.kchartlib.chart.view.IndexKlineActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -46,11 +42,14 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
     private List<TextView> mainViewList = new ArrayList<>();
     private List<TextView> secondViewList = new ArrayList<>();
 
-    public TargetPopup(Context context, KLineChartView kChartView, IndexKlineModel klineModel) {
+    private TargetListener listener;
+
+    public TargetPopup(Context context, KLineChartView kChartView, IndexKlineModel klineModel, TargetListener listener) {
         super(context);
         this.mContext = context;
         this.mKChartView = kChartView;
         this.klineModel = klineModel;
+        this.listener = listener;
     }
 
     public void create(int width, int maxHeight) {
@@ -220,8 +219,9 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
                 dismiss();
                 break;
             case R.id.view_index:
-                Intent intent = new Intent(mContext, IndexKlineActivity.class);
-                ((Activity) mContext).startActivityForResult(intent, MarketDetailsActivity.REQUESTCODE);
+                if (listener != null) {
+                    listener.onTarget();
+                }
                 dismiss();
                 break;
         }
@@ -255,5 +255,9 @@ public class TargetPopup extends PopupWindow implements View.OnClickListener {
 
     public void clear() {
         mKChartView = null;
+    }
+
+    public interface TargetListener {
+        void onTarget();
     }
 }

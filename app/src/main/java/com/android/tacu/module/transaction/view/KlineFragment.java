@@ -1,5 +1,6 @@
 package com.android.tacu.module.transaction.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -36,6 +37,9 @@ import java.util.Observer;
 
 import butterknife.BindView;
 
+import static android.app.Activity.RESULT_OK;
+import static com.android.tacu.module.market.view.MarketDetailsActivity.REQUESTCODE;
+
 public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implements ISocketEvent, Observer, MarketDetailsContract.IKlineView {
 
     @BindView(R.id.tv_news_price)
@@ -71,6 +75,9 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     private boolean isFirst = true;
     private boolean isVisibleToUserTrade = false;
     private boolean isVisibleToUserQuotation = false;
+
+    private KLineModel kLineModel;
+    private long klineRange;
 
     private Handler kHandler = new Handler();
     private Runnable kRunnable = new Runnable() {
@@ -124,6 +131,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                 upLoad(true);
             }
         });
+        linIndicator.setFlagFragment(1, this);
 
         kAdapter = new KLineChartAdapter();
         mKChartView.setAdapter(kAdapter);
@@ -167,6 +175,24 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         }
         if (linIndicator != null) {
             linIndicator.clear();
+        }
+        System.gc();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == REQUESTCODE && resultCode == RESULT_OK) {
+            if (kLineModel != null && kLineModel.data != null && kLineModel.data.lines != null) {
+                List<KLineEntity> data = dealKlines(kLineModel, klineRange);
+                if (data != null) {
+                    KLineChartView.decimalsCount = pointPrice;
+                    DataHelper.calculate(data, getContext());
+                    kAdapter.clearData();
+                    kAdapter.addFooterData(data);
+                    kAdapter.notifyInvalidated();
+                }
+            }
         }
     }
 
@@ -213,26 +239,11 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
 
     @Override
     public void success(KLineModel model, long range, boolean isClear, boolean isLine) {
+        this.kLineModel = model;
+        this.klineRange = range;
+
         if (model != null && model.data != null && model.data.lines != null) {
-            List<KLineEntity> data = new ArrayList<>();
-            int count = model.data.lines.size();
-            KLineModel.DataModel dataModel;
-            KLineEntity kLineEntity;
-            for (int i = 0; i < count; i++) {
-                dataModel = model.data;
-                kLineEntity = new KLineEntity();
-                if (range >= linIndicator.DAY_1) {
-                    kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_YMD);
-                } else {
-                    kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_HMS);
-                }
-                kLineEntity.Open = dataModel.lines.get(i).get(1);
-                kLineEntity.High = dataModel.lines.get(i).get(2);
-                kLineEntity.Low = dataModel.lines.get(i).get(3);
-                kLineEntity.Close = dataModel.lines.get(i).get(4);
-                kLineEntity.Volume = dataModel.lines.get(i).get(5);
-                data.add(kLineEntity);
-            }
+            List<KLineEntity> data = dealKlines(model, range);
 
             if (data != null) {
                 if (isAnim) {
@@ -273,6 +284,29 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         upLoad(true);
     }
 
+    private List<KLineEntity> dealKlines(KLineModel model, long range) {
+        List<KLineEntity> data = new ArrayList<>();
+        int count = model.data.lines.size();
+        KLineModel.DataModel dataModel;
+        KLineEntity kLineEntity;
+        for (int i = 0; i < count; i++) {
+            dataModel = model.data;
+            kLineEntity = new KLineEntity();
+            if (range >= linIndicator.DAY_1) {
+                kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_YMD);
+            } else {
+                kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_HMS);
+            }
+            kLineEntity.Open = dataModel.lines.get(i).get(1);
+            kLineEntity.High = dataModel.lines.get(i).get(2);
+            kLineEntity.Low = dataModel.lines.get(i).get(3);
+            kLineEntity.Close = dataModel.lines.get(i).get(4);
+            kLineEntity.Volume = dataModel.lines.get(i).get(5);
+            data.add(kLineEntity);
+        }
+        return data;
+    }
+
     /**
      * 请求K线数据
      */
@@ -285,7 +319,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
             mKChartView.resetLoadMoreEnd();
             mKChartView.showLoading();
         }
-        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), linIndicator.getChartTime(), 1, isClear, linIndicator.getIsLine());
+        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), linIndicator.getChartTime(), 2, isClear, linIndicator.getIsLine());
         if (isFirst) {
             isFirst = false;
         }

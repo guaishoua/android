@@ -1,7 +1,10 @@
 package com.android.tacu.widget.tab;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -15,10 +18,12 @@ import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
+import com.android.tacu.module.market.view.MarketDetailsActivity;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.base.Status;
+import com.github.tifezh.kchartlib.chart.view.IndexKlineActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -72,6 +77,11 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
 
     private Gson gson = new Gson();
     private TabSelectListener mTabSelectListener = null;
+
+    // 0来源自Activity 1来源自Fragment
+    private int flag = 0;
+    private Activity activity;
+    private Fragment fragment;
 
     public TabLayoutView(Context context) {
         this(context, null);
@@ -305,6 +315,16 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
         this.mTabSelectListener = listener;
     }
 
+    public void setFlagActivity(int flag, Activity activity) {
+        this.flag = flag;
+        this.activity = activity;
+    }
+
+    public void setFlagFragment(int flag, Fragment fragment) {
+        this.flag = flag;
+        this.fragment = fragment;
+    }
+
     private void initTimePopUp() {
         if (timePopUp != null && timePopUp.isShowing()) {
             timePopUp.dismiss();
@@ -381,7 +401,18 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
             targetPopup.dismiss();
             return;
         }
-        targetPopup = new TargetPopup(getContext(), mKChartView, klineModel);
+        targetPopup = new TargetPopup(getContext(), mKChartView, klineModel, new TargetPopup.TargetListener() {
+            @Override
+            public void onTarget() {
+                if (flag == 0) {
+                    Intent intent = new Intent(activity, IndexKlineActivity.class);
+                    activity.startActivityForResult(intent, MarketDetailsActivity.REQUESTCODE);
+                } else if (flag == 1) {
+                    Intent intent = new Intent(fragment.getContext(), IndexKlineActivity.class);
+                    fragment.startActivityForResult(intent, MarketDetailsActivity.REQUESTCODE);
+                }
+            }
+        });
         targetPopup.create(UIUtils.getScreenWidth() - UIUtils.dp2px(10), UIUtils.dp2px(120));
         targetPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
