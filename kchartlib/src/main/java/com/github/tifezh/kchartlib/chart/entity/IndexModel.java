@@ -1,4 +1,4 @@
-package com.github.tifezh.kchartlib.chart.view;
+package com.github.tifezh.kchartlib.chart.entity;
 
 import java.io.Serializable;
 

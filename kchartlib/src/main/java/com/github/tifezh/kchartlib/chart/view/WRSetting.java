@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.github.tifezh.kchartlib.R;
 
@@ -23,7 +23,7 @@ public class WRSetting implements CompoundButton.OnCheckedChangeListener {
     private EditText ed_wr1;
     private EditText ed_wr2;
     private EditText ed_wr3;
-    private ImageView img_refresh_wr;
+    private LinearLayout lin_refresh_wr;
 
     private boolean isFirst = true;
     private WRSettingLister wrSettingLister;
@@ -43,12 +43,12 @@ public class WRSetting implements CompoundButton.OnCheckedChangeListener {
         ed_wr1 = wrView.findViewById(R.id.ed_wr1);
         ed_wr2 = wrView.findViewById(R.id.ed_wr2);
         ed_wr3 = wrView.findViewById(R.id.ed_wr3);
-        img_refresh_wr = wrView.findViewById(R.id.img_refresh_wr);
+        lin_refresh_wr = wrView.findViewById(R.id.lin_refresh_wr);
 
         cb_wr1.setOnCheckedChangeListener(this);
         cb_wr2.setOnCheckedChangeListener(this);
         cb_wr3.setOnCheckedChangeListener(this);
-        img_refresh_wr.setOnClickListener(new View.OnClickListener() {
+        lin_refresh_wr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshData();

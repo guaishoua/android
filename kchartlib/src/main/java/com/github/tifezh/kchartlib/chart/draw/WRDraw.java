@@ -10,10 +10,7 @@ import com.github.tifezh.kchartlib.chart.base.IChartDraw;
 import com.github.tifezh.kchartlib.chart.base.IValueFormatter;
 import com.github.tifezh.kchartlib.chart.entity.IWR;
 import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.github.tifezh.kchartlib.chart.utils.ViewUtil;
 
 /**
  * KDJ实现类
@@ -25,10 +22,10 @@ public class WRDraw implements IChartDraw<IWR> {
     private Paint mWR2Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mWR3Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    private List<Float> maxList = new ArrayList<>();
-    private List<Float> minList = new ArrayList<>();
+    private int paddingWidth;
 
     public WRDraw(BaseKLineChartView view) {
+        paddingWidth = ViewUtil.Dp2Px(view.getContext(), 10);
     }
 
     @Override
@@ -48,49 +45,29 @@ public class WRDraw implements IChartDraw<IWR> {
     public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IWR point = (IWR) view.getItem(position);
         if (point.getWR1() != null) {
-            String text = "WR(" + point.getWR1Value() + "):" + view.formatValue(point.getWR1()) + "\t\t";
+            String text = "WR(" + point.getWR1Value() + "):" + view.formatValue(point.getWR1());
             canvas.drawText(text, x, y, mWR1Paint);
-            x += view.getTextPaint().measureText(text);
+            x += view.getTextPaint().measureText(text) + paddingWidth;
         }
         if (point.getWR2() != null) {
-            String text = "WR(" + point.getWR2Value() + "):" + view.formatValue(point.getWR2()) + "\t\t";
+            String text = "WR(" + point.getWR2Value() + "):" + view.formatValue(point.getWR2());
             canvas.drawText(text, x, y, mWR2Paint);
-            x += view.getTextPaint().measureText(text);
+            x += view.getTextPaint().measureText(text) + paddingWidth;
         }
         if (point.getWR3() != null) {
-            String text = "WR(" + point.getWR3Value() + "):" + view.formatValue(point.getWR3()) + "\t\t";
+            String text = "WR(" + point.getWR3Value() + "):" + view.formatValue(point.getWR3());
             canvas.drawText(text, x, y, mWR3Paint);
         }
     }
 
     @Override
     public float getMaxValue(IWR point) {
-        maxList.clear();
-        if (point.getWR1() != null) {
-            maxList.add(point.getWR1());
-        }
-        if (point.getWR2() != null) {
-            maxList.add(point.getWR2());
-        }
-        if (point.getWR3() != null) {
-            maxList.add(point.getWR3());
-        }
-        return Collections.max(maxList);
+        return Math.max(point.getWR1(), Math.max(point.getWR2(), point.getWR3()));
     }
 
     @Override
     public float getMinValue(IWR point) {
-        minList.clear();
-        if (point.getWR1() != null) {
-            minList.add(point.getWR1());
-        }
-        if (point.getWR2() != null) {
-            minList.add(point.getWR2());
-        }
-        if (point.getWR3() != null) {
-            minList.add(point.getWR3());
-        }
-        return Collections.min(minList);
+        return Math.min(point.getWR1(), Math.min(point.getWR2(), point.getWR3()));
     }
 
     @Override

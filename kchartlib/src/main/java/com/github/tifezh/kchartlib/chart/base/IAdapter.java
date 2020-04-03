@@ -49,4 +49,9 @@ public interface IAdapter {
      * 当数据发生变化时调用
      */
     void notifyDataSetChanged();
+
+    /**
+     * 强制重绘视图
+     */
+    void notifyInvalidated();
 }

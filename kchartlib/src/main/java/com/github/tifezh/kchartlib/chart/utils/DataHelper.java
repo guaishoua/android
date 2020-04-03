@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.github.tifezh.kchartlib.chart.base.ChartConstant;
 import com.github.tifezh.kchartlib.chart.entity.KLineEntity;
-import com.github.tifezh.kchartlib.chart.view.IndexModel;
+import com.github.tifezh.kchartlib.chart.entity.IndexModel;
 import com.google.gson.Gson;
 
 import java.util.List;

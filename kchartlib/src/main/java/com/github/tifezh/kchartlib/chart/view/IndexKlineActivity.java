@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.github.tifezh.kchartlib.R;
 import com.github.tifezh.kchartlib.chart.base.ChartConstant;
+import com.github.tifezh.kchartlib.chart.entity.IndexModel;
 import com.github.tifezh.kchartlib.chart.utils.SPChartUtils;
 import com.google.gson.Gson;
 

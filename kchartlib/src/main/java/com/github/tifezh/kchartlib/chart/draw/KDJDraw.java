@@ -10,6 +10,7 @@ import com.github.tifezh.kchartlib.chart.base.IChartDraw;
 import com.github.tifezh.kchartlib.chart.base.IValueFormatter;
 import com.github.tifezh.kchartlib.chart.entity.IKDJ;
 import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
+import com.github.tifezh.kchartlib.chart.utils.ViewUtil;
 
 /**
  * KDJ实现类
@@ -22,7 +23,10 @@ public class KDJDraw implements IChartDraw<IKDJ> {
     private Paint mDPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mJPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
+    private int paddingWidth;
+
     public KDJDraw(BaseKLineChartView view) {
+        paddingWidth = ViewUtil.Dp2Px(view.getContext(), 10);
     }
 
     @Override
@@ -41,19 +45,19 @@ public class KDJDraw implements IChartDraw<IKDJ> {
     @Override
     public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IKDJ point = (IKDJ) view.getItem(position);
-        String text = "KDJ(" + point.getKDJNValue() + "," + point.getKDJM1Value() + "," + point.getKDJM2Value() + ")" + "\t\t";
+        String text = "KDJ(" + point.getKDJNValue() + "," + point.getKDJM1Value() + "," + point.getKDJM2Value() + ")";
         canvas.drawText(text, x, y, view.getTextPaint());
-        x += view.getTextPaint().measureText(text);
+        x += view.getTextPaint().measureText(text) + paddingWidth;
 
-        text = "K:" + view.formatValue(point.getK()) + "\t\t";
+        text = "K:" + view.formatValue(point.getK());
         canvas.drawText(text, x, y, mKPaint);
-        x += mKPaint.measureText(text);
+        x += mKPaint.measureText(text) + paddingWidth;
 
-        text = "D:" + view.formatValue(point.getD()) + "\t\t";
+        text = "D:" + view.formatValue(point.getD());
         canvas.drawText(text, x, y, mDPaint);
-        x += mDPaint.measureText(text);
+        x += mDPaint.measureText(text) + paddingWidth;
 
-        text = "J:" + view.formatValue(point.getJ()) + "\t\t";
+        text = "J:" + view.formatValue(point.getJ());
         canvas.drawText(text, x, y, mJPaint);
     }
 

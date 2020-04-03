@@ -26,11 +26,15 @@ public class VolumeDraw implements IChartDraw<IVolume> {
     private Paint ma10Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private int pillarWidth = 0;
 
+    private int paddingWidth;
+
     public VolumeDraw(BaseKLineChartView view) {
         Context context = view.getContext();
         mSellPaint.setColor(ContextCompat.getColor(context, R.color.chart_sell));
         mBuyPaint.setColor(ContextCompat.getColor(context, R.color.chart_buy));
         pillarWidth = ViewUtil.Dp2Px(context, 4);
+
+        paddingWidth = ViewUtil.Dp2Px(context, 10);
     }
 
     @Override
@@ -58,13 +62,13 @@ public class VolumeDraw implements IChartDraw<IVolume> {
     @Override
     public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IVolume point = (IVolume) view.getItem(position);
-        String text = "VOL:" + getValueFormatter().format(point.getVolume()) + "\t\t";
+        String text = "VOL:" + getValueFormatter().format(point.getVolume());
         canvas.drawText(text, x, y, view.getTextPaint());
-        x += view.getTextPaint().measureText(text);
+        x += view.getTextPaint().measureText(text) + paddingWidth;
 
-        text = "MA5:" + getValueFormatter().format(point.getMA5Volume()) + "\t\t";
+        text = "MA5:" + getValueFormatter().format(point.getMA5Volume());
         canvas.drawText(text, x, y, ma5Paint);
-        x += ma5Paint.measureText(text);
+        x += ma5Paint.measureText(text) + paddingWidth;
 
         text = "MA10:" + getValueFormatter().format(point.getMA10Volume());
         canvas.drawText(text, x, y, ma10Paint);

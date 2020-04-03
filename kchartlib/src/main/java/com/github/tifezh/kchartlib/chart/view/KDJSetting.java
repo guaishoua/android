@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.github.tifezh.kchartlib.R;
 
@@ -17,7 +17,7 @@ public class KDJSetting {
     private EditText ed_kdj_n;
     private EditText ed_kdj_m1;
     private EditText ed_kdj_m2;
-    private ImageView img_refresh_kdj;
+    private LinearLayout lin_refresh_kdj;
 
     private boolean isFirst = true;
     private KDJSettingLister kdjSettingLister;
@@ -34,9 +34,9 @@ public class KDJSetting {
         ed_kdj_n = kdjView.findViewById(R.id.ed_kdj_n);
         ed_kdj_m1 = kdjView.findViewById(R.id.ed_kdj_m1);
         ed_kdj_m2 = kdjView.findViewById(R.id.ed_kdj_m2);
-        img_refresh_kdj = kdjView.findViewById(R.id.img_refresh_kdj);
+        lin_refresh_kdj = kdjView.findViewById(R.id.lin_refresh_kdj);
 
-        img_refresh_kdj.setOnClickListener(new View.OnClickListener() {
+        lin_refresh_kdj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshData();

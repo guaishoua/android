@@ -10,10 +10,9 @@ import com.github.tifezh.kchartlib.chart.base.IChartDraw;
 import com.github.tifezh.kchartlib.chart.base.IValueFormatter;
 import com.github.tifezh.kchartlib.chart.entity.IRSI;
 import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
+import com.github.tifezh.kchartlib.chart.utils.ViewUtil;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * RSI实现类
@@ -25,10 +24,10 @@ public class RSIDraw implements IChartDraw<IRSI> {
     private Paint mRSI2Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mRSI3Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    private List<Float> maxList = new ArrayList<>();
-    private List<Float> minList = new ArrayList<>();
+    private int paddingWidth;
 
     public RSIDraw(BaseKLineChartView view) {
+        paddingWidth = ViewUtil.Dp2Px(view.getContext(), 10);
     }
 
     @Override
@@ -48,49 +47,29 @@ public class RSIDraw implements IChartDraw<IRSI> {
     public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IRSI point = (IRSI) view.getItem(position);
         if (point.getRsi1() != null) {
-            String text = "RSI(" + point.getRsi1Value() + ")" + view.formatValue(point.getRsi1()) + "\t\t";
+            String text = "RSI(" + point.getRsi1Value() + ")" + view.formatValue(point.getRsi1());
             canvas.drawText(text, x, y, mRSI1Paint);
-            x += view.getTextPaint().measureText(text);
+            x += view.getTextPaint().measureText(text) + paddingWidth;
         }
         if (point.getRsi2() != null) {
-            String text = "RSI(" + point.getRsi2Value() + ")" + view.formatValue(point.getRsi2()) + "\t\t";
+            String text = "RSI(" + point.getRsi2Value() + ")" + view.formatValue(point.getRsi2());
             canvas.drawText(text, x, y, mRSI2Paint);
-            x += view.getTextPaint().measureText(text);
+            x += view.getTextPaint().measureText(text) + paddingWidth;
         }
         if (point.getRsi3() != null) {
-            String text = "RSI(" + point.getRsi3Value() + ")" + view.formatValue(point.getRsi3()) + "\t\t";
+            String text = "RSI(" + point.getRsi3Value() + ")" + view.formatValue(point.getRsi3());
             canvas.drawText(text, x, y, mRSI3Paint);
         }
     }
 
     @Override
     public float getMaxValue(IRSI point) {
-        maxList.clear();
-        if (point.getRsi1() != null) {
-            maxList.add(point.getRsi1());
-        }
-        if (point.getRsi2() != null) {
-            maxList.add(point.getRsi2());
-        }
-        if (point.getRsi3() != null) {
-            maxList.add(point.getRsi3());
-        }
-        return Collections.max(maxList);
+        return Math.max(point.getRsi1(), Math.max(point.getRsi2(), point.getRsi3()));
     }
 
     @Override
     public float getMinValue(IRSI point) {
-        minList.clear();
-        if (point.getRsi1() != null) {
-            minList.add(point.getRsi1());
-        }
-        if (point.getRsi2() != null) {
-            minList.add(point.getRsi2());
-        }
-        if (point.getRsi3() != null) {
-            minList.add(point.getRsi3());
-        }
-        return Collections.min(minList);
+        return Math.min(point.getRsi1(), Math.min(point.getRsi2(), point.getRsi3()));
     }
 
     @Override

@@ -185,11 +185,6 @@
                 layout="@layout/view_macd_setting"
                 android:visibility="visible" />
 
-            <include
-                android:id="@+id/view_setting_kdj"
-                layout="@layout/view_kdj_setting"
-                android:visibility="visible" />
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
@@ -223,6 +218,11 @@
                     android:textSize="@dimen/text_size_sp_10"
                     tools:text="111" />
             </RelativeLayout>
+
+            <include
+                android:id="@+id/view_setting_kdj"
+                layout="@layout/view_kdj_setting"
+                android:visibility="visible" />
 
             <View
                 android:layout_width="match_parent"

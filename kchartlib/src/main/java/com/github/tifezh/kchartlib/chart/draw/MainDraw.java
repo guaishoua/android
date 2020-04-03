@@ -62,6 +62,8 @@ public class MainDraw implements IChartDraw<ICandle> {
     private List<Float> maxMAList = new ArrayList<>();
     private List<Float> minMAList = new ArrayList<>();
 
+    private int paddingWidth;
+
     public MainDraw(BaseKLineChartView view) {
         Context context = view.getContext();
         kChartView = (KLineChartView) view;
@@ -76,6 +78,8 @@ public class MainDraw implements IChartDraw<ICandle> {
         mSelectorBorderPaint.setColor(ContextCompat.getColor(context, R.color.chart_text));
         mSelectorBorderPaint.setStrokeWidth(ViewUtil.Dp2Px(mContext, 0.5F));
         mSelectorBorderPaint.setStyle(Paint.Style.STROKE);
+
+        paddingWidth = ViewUtil.Dp2Px(view.getContext(), 10);
     }
 
     public void setStatus(Status status) {
@@ -135,42 +139,44 @@ public class MainDraw implements IChartDraw<ICandle> {
             if (status == Status.MA) {
                 String text;
                 if (point.getMA1Price() != null) {
-                    text = "MA" + point.getMA1Value() + ":" + view.formatValue(point.getMA1Price()) + "\t\t";
+                    text = "MA" + point.getMA1Value() + ":" + view.formatValue(point.getMA1Price());
                     canvas.drawText(text, x, y, ma1Paint);
-                    x += ma1Paint.measureText(text);
+                    x += ma1Paint.measureText(text) + paddingWidth;
                 }
                 if (point.getMA2Price() != null) {
-                    text = "MA" + point.getMA2Value() + ":" + view.formatValue(point.getMA2Price()) + "\t\t";
+                    text = "MA" + point.getMA2Value() + ":" + view.formatValue(point.getMA2Price());
                     canvas.drawText(text, x, y, ma2Paint);
-                    x += ma2Paint.measureText(text);
+                    x += ma2Paint.measureText(text) + paddingWidth;
                 }
                 if (point.getMA3Price() != null) {
-                    text = "MA" + point.getMA3Value() + ":" + view.formatValue(point.getMA3Price()) + "\t\t";
+                    text = "MA" + point.getMA3Value() + ":" + view.formatValue(point.getMA3Price());
                     canvas.drawText(text, x, y, ma3Paint);
-                    x += ma3Paint.measureText(text);
+                    x += ma3Paint.measureText(text) + paddingWidth;
                 }
                 if (point.getMA4Price() != null) {
-                    text = "MA" + point.getMA4Value() + ":" + view.formatValue(point.getMA4Price()) + "\t\t";
+                    text = "MA" + point.getMA4Value() + ":" + view.formatValue(point.getMA4Price());
                     canvas.drawText(text, x, y, ma4Paint);
-                    x += ma4Paint.measureText(text);
+                    x += ma4Paint.measureText(text) + paddingWidth;
                 }
                 if (point.getMA5Price() != null) {
-                    text = "MA" + point.getMA5Value() + ":" + view.formatValue(point.getMA5Price()) + "\t\t";
+                    text = "MA" + point.getMA5Value() + ":" + view.formatValue(point.getMA5Price());
                     canvas.drawText(text, x, y, ma5Paint);
-                    x += ma5Paint.measureText(text);
+                    x += ma5Paint.measureText(text) + paddingWidth;
                 }
                 if (point.getMA6Price() != null) {
-                    text = "MA" + point.getMA6Value() + ":" + view.formatValue(point.getMA6Price()) + "\t\t";
+                    text = "MA" + point.getMA6Value() + ":" + view.formatValue(point.getMA6Price());
                     canvas.drawText(text, x, y, ma6Paint);
                 }
             } else if (status == Status.BOLL) {
                 if (point.getBoll() != 0) {
-                    String text = "BOLL:" + view.formatValue(point.getBoll()) + "\t\t";
+                    String text = "BOLL:" + view.formatValue(point.getBoll());
                     canvas.drawText(text, x, y, ma1Paint);
-                    x += ma1Paint.measureText(text);
-                    text = "UB:" + view.formatValue(point.getUb()) + "\t\t";
+                    x += ma1Paint.measureText(text) + paddingWidth;
+
+                    text = "UB:" + view.formatValue(point.getUb());
                     canvas.drawText(text, x, y, ma2Paint);
-                    x += ma2Paint.measureText(text);
+                    x += ma2Paint.measureText(text) + paddingWidth;
+
                     text = "LB:" + view.formatValue(point.getLb());
                     canvas.drawText(text, x, y, ma3Paint);
                 }
@@ -185,18 +191,13 @@ public class MainDraw implements IChartDraw<ICandle> {
     public float getMaxValue(ICandle point) {
         if (status == Status.BOLL) {
             if (Float.isNaN(point.getUb())) {
-                if (point.getBoll() == 0) {
-                    return point.getHighPrice();
-                } else {
-                    return point.getBoll();
-                }
-            } else if (point.getUb() == 0) {
-                return point.getHighPrice();
-            } else {
-                return point.getUb();
+                return Math.max(point.getBoll(), point.getHighPrice());
+            }  else {
+                return Math.max(point.getUb(), point.getHighPrice());
             }
         } else {
             maxMAList.clear();
+            maxMAList.add(point.getHighPrice());
             if (point.getMA1Price() != null) {
                 maxMAList.add(point.getMA1Price());
             }
@@ -222,13 +223,14 @@ public class MainDraw implements IChartDraw<ICandle> {
     @Override
     public float getMinValue(ICandle point) {
         if (status == Status.BOLL) {
-            if (point.getLb() == 0) {
-                return point.getLowPrice();
-            } else {
-                return point.getLb();
+            if (Float.isNaN(point.getLb())) {
+                return Math.min(point.getBoll(), point.getLowPrice());
+            }  else {
+                return Math.min(point.getLb(), point.getLowPrice());
             }
         } else {
             minMAList.clear();
+            minMAList.add(point.getLowPrice());
             if (point.getMA1Price() != null) {
                 minMAList.add(point.getMA1Price());
             }

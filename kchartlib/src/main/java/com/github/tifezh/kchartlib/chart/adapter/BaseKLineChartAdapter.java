@@ -24,6 +24,11 @@ public abstract class BaseKLineChartAdapter implements IAdapter {
     }
 
     @Override
+    public void notifyInvalidated() {
+        mDataSetObservable.notifyInvalidated();
+    }
+
+    @Override
     public void registerDataSetObserver(DataSetObserver observer) {
         mDataSetObservable.registerObserver(observer);
     }

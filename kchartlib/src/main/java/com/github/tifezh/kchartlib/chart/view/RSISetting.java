@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.github.tifezh.kchartlib.R;
 
@@ -23,7 +23,7 @@ public class RSISetting implements CompoundButton.OnCheckedChangeListener {
     private EditText ed_rsi1;
     private EditText ed_rsi2;
     private EditText ed_rsi3;
-    private ImageView img_refresh_rsi;
+    private LinearLayout lin_refresh_rsi;
 
     private boolean isFirst = true;
     private RSISettingLister rsiSettingLister;
@@ -43,12 +43,12 @@ public class RSISetting implements CompoundButton.OnCheckedChangeListener {
         ed_rsi1 = rsiView.findViewById(R.id.ed_rsi1);
         ed_rsi2 = rsiView.findViewById(R.id.ed_rsi2);
         ed_rsi3 = rsiView.findViewById(R.id.ed_rsi3);
-        img_refresh_rsi = rsiView.findViewById(R.id.img_refresh_rsi);
+        lin_refresh_rsi = rsiView.findViewById(R.id.lin_refresh_rsi);
 
         cb_rsi1.setOnCheckedChangeListener(this);
         cb_rsi2.setOnCheckedChangeListener(this);
         cb_rsi3.setOnCheckedChangeListener(this);
-        img_refresh_rsi.setOnClickListener(new View.OnClickListener() {
+        lin_refresh_rsi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshData();
@@ -201,7 +201,7 @@ public class RSISetting implements CompoundButton.OnCheckedChangeListener {
         activity.getIndexModel().isRSI2Check = false;
         activity.getIndexModel().isRSI3Check = false;
 
-        activity.getIndexModel().RSI1Value = 2;
+        activity.getIndexModel().RSI1Value = 14;
         activity.getIndexModel().RSI2Value = null;
         activity.getIndexModel().RSI3Value = null;
 

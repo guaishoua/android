@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.github.tifezh.kchartlib.R;
 
@@ -17,7 +17,7 @@ public class MACDSetting {
     private EditText ed_macd_s;
     private EditText ed_macd_l;
     private EditText ed_macd_m;
-    private ImageView img_refresh_macd;
+    private LinearLayout lin_refresh_macd;
 
     private boolean isFirst = true;
     private MACDSettingLister macdSettingLister;
@@ -34,9 +34,9 @@ public class MACDSetting {
         ed_macd_s = macdView.findViewById(R.id.ed_macd_s);
         ed_macd_l = macdView.findViewById(R.id.ed_macd_l);
         ed_macd_m = macdView.findViewById(R.id.ed_macd_m);
-        img_refresh_macd = macdView.findViewById(R.id.img_refresh_macd);
+        lin_refresh_macd = macdView.findViewById(R.id.lin_refresh_macd);
 
-        img_refresh_macd.setOnClickListener(new View.OnClickListener() {
+        lin_refresh_macd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshData();

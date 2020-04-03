@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.github.tifezh.kchartlib.R;
 
@@ -29,7 +29,7 @@ public class MASetting implements CompoundButton.OnCheckedChangeListener {
     private EditText ed_ma4;
     private EditText ed_ma5;
     private EditText ed_ma6;
-    private ImageView img_refresh_ma;
+    private LinearLayout lin_refresh_ma;
 
     private boolean isFirst = true;
     private MASettingLister maSettingLister;
@@ -55,7 +55,7 @@ public class MASetting implements CompoundButton.OnCheckedChangeListener {
         ed_ma4 = maView.findViewById(R.id.ed_ma4);
         ed_ma5 = maView.findViewById(R.id.ed_ma5);
         ed_ma6 = maView.findViewById(R.id.ed_ma6);
-        img_refresh_ma = maView.findViewById(R.id.img_refresh_ma);
+        lin_refresh_ma = maView.findViewById(R.id.lin_refresh_ma);
 
         cb_ma1.setOnCheckedChangeListener(this);
         cb_ma2.setOnCheckedChangeListener(this);
@@ -63,7 +63,7 @@ public class MASetting implements CompoundButton.OnCheckedChangeListener {
         cb_ma4.setOnCheckedChangeListener(this);
         cb_ma5.setOnCheckedChangeListener(this);
         cb_ma6.setOnCheckedChangeListener(this);
-        img_refresh_ma.setOnClickListener(new View.OnClickListener() {
+        lin_refresh_ma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshData();

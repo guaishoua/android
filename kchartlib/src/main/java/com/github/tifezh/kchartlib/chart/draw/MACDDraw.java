@@ -13,6 +13,7 @@ import com.github.tifezh.kchartlib.chart.base.IChartDraw;
 import com.github.tifezh.kchartlib.chart.base.IValueFormatter;
 import com.github.tifezh.kchartlib.chart.entity.IMACD;
 import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
+import com.github.tifezh.kchartlib.chart.utils.ViewUtil;
 
 
 /**
@@ -27,6 +28,9 @@ public class MACDDraw implements IChartDraw<IMACD> {
     private Paint mDIFPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mDEAPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mMACDPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private int paddingWidth;
+
     /**
      * macd 中柱子的宽度
      */
@@ -36,6 +40,8 @@ public class MACDDraw implements IChartDraw<IMACD> {
         Context context = view.getContext();
         mSellPaint.setColor(ContextCompat.getColor(context, R.color.chart_sell));
         mBuyPaint.setColor(ContextCompat.getColor(context, R.color.chart_buy));
+
+        paddingWidth = ViewUtil.Dp2Px(context, 10);
     }
 
     @Override
@@ -48,17 +54,17 @@ public class MACDDraw implements IChartDraw<IMACD> {
     @Override
     public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IMACD point = (IMACD) view.getItem(position);
-        String text = "MACD(" + point.getMACDSValue() + "," + point.getMACDLValue() + "," + point.getMACDMValue() + ")" + "\t\t";
+        String text = "MACD(" + point.getMACDSValue() + "," + point.getMACDLValue() + "," + point.getMACDMValue() + ")";
         canvas.drawText(text, x, y, view.getTextPaint());
-        x += view.getTextPaint().measureText(text);
+        x += view.getTextPaint().measureText(text) + paddingWidth;
 
-        text = "MACD:" + view.formatValue(point.getMacd()) + "\t\t";
+        text = "MACD:" + view.formatValue(point.getMacd());
         canvas.drawText(text, x, y, mMACDPaint);
-        x += mMACDPaint.measureText(text);
+        x += mMACDPaint.measureText(text) + paddingWidth;
 
-        text = "DIF:" + view.formatValue(point.getDif()) + "\t\t";
+        text = "DIF:" + view.formatValue(point.getDif());
         canvas.drawText(text, x, y, mDIFPaint);
-        x += mDIFPaint.measureText(text);
+        x += mDIFPaint.measureText(text) + paddingWidth;
 
         text = "DEA:" + view.formatValue(point.getDea());
         canvas.drawText(text, x, y, mDEAPaint);

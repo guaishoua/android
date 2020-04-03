@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.github.tifezh.kchartlib.R;
 
@@ -16,7 +16,7 @@ public class BOLLSetting {
 
     private EditText ed_boll_n;
     private EditText ed_boll_p;
-    private ImageView img_refresh_boll;
+    private LinearLayout lin_refresh_boll;
 
     private boolean isFirst = true;
     private BOLLSettingLister bollSettingLister;
@@ -32,9 +32,9 @@ public class BOLLSetting {
     private void initSetting() {
         ed_boll_n = bollView.findViewById(R.id.ed_boll_n);
         ed_boll_p = bollView.findViewById(R.id.ed_boll_p);
-        img_refresh_boll = bollView.findViewById(R.id.img_refresh_boll);
+        lin_refresh_boll = bollView.findViewById(R.id.lin_refresh_boll);
 
-        img_refresh_boll.setOnClickListener(new View.OnClickListener() {
+        lin_refresh_boll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshData();

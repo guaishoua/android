@@ -97,14 +97,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lin_refresh_boll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_10"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/dp_15">
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/img_refresh_boll"
             android:layout_width="@dimen/dp_25"
             android:layout_height="@dimen/dp_25"
             android:src="@drawable/icon_refresh" />

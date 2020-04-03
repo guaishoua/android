@@ -124,7 +124,9 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     private List<String> tabDownTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
-    private List<KLineEntity> kLineEntityList = new ArrayList<>();
+
+    private KLineModel kLineModel;
+    private long klineRange;
 
     //防止socket刷新频繁
     private int pointPriceTemp;
@@ -254,13 +256,19 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == REQUESTCODE && resultCode == RESULT_OK) {
-            DataHelper.calculate(kLineEntityList, MarketDetailsActivity.this);
-            kAdapter.clearData();
-            kAdapter.addFooterData(kLineEntityList);
-            mKChartView.refreshEnd();
+            if (kLineModel != null && kLineModel.data != null && kLineModel.data.lines != null) {
+                List<KLineEntity> data = dealKlines(kLineModel, klineRange);
+                if (data != null) {
+                    KLineChartView.decimalsCount = pointPrice;
+                    DataHelper.calculate(data, MarketDetailsActivity.this);
+                    kAdapter.clearData();
+                    kAdapter.addFooterData(data);
+                    kAdapter.notifyInvalidated();
+                }
+            }
         }
     }
 
@@ -293,29 +301,13 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     @Override
     public void success(KLineModel model, long range, boolean isClear, boolean isLine) {
+        this.kLineModel = model;
+        this.klineRange = range;
+
         if (model != null && model.data != null && model.data.lines != null) {
-            List<KLineEntity> data = new ArrayList<>();
-            int count = model.data.lines.size();
-            KLineModel.DataModel dataModel;
-            KLineEntity kLineEntity;
-            for (int i = 0; i < count; i++) {
-                dataModel = model.data;
-                kLineEntity = new KLineEntity();
-                if (range >= linIndicator.DAY_1) {
-                    kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_YMD);
-                } else {
-                    kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_HMS);
-                }
-                kLineEntity.Open = dataModel.lines.get(i).get(1);
-                kLineEntity.High = dataModel.lines.get(i).get(2);
-                kLineEntity.Low = dataModel.lines.get(i).get(3);
-                kLineEntity.Close = dataModel.lines.get(i).get(4);
-                kLineEntity.Volume = dataModel.lines.get(i).get(5);
-                data.add(kLineEntity);
-            }
+            List<KLineEntity> data = dealKlines(model, range);
 
             if (data != null) {
-                this.kLineEntityList = data;
                 if (isAnim) {
                     isAnim = false;
                 }
@@ -383,6 +375,29 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 }
             }
         });
+    }
+
+    private List<KLineEntity> dealKlines(KLineModel model, long range) {
+        List<KLineEntity> data = new ArrayList<>();
+        int count = model.data.lines.size();
+        KLineModel.DataModel dataModel;
+        KLineEntity kLineEntity;
+        for (int i = 0; i < count; i++) {
+            dataModel = model.data;
+            kLineEntity = new KLineEntity();
+            if (range >= linIndicator.DAY_1) {
+                kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_YMD);
+            } else {
+                kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_HMS);
+            }
+            kLineEntity.Open = dataModel.lines.get(i).get(1);
+            kLineEntity.High = dataModel.lines.get(i).get(2);
+            kLineEntity.Low = dataModel.lines.get(i).get(3);
+            kLineEntity.Close = dataModel.lines.get(i).get(4);
+            kLineEntity.Volume = dataModel.lines.get(i).get(5);
+            data.add(kLineEntity);
+        }
+        return data;
     }
 
     /**
