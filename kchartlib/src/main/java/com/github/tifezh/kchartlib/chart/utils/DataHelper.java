@@ -137,43 +137,45 @@ public class DataHelper {
      * @param dataList
      */
     static void calculateBOLL(List<KLineEntity> dataList, IndexModel indexModel) {
-        int NValue = indexModel.BOLLNValue;
-        int PValue = indexModel.BOLLPValue;
+        Integer NValue = indexModel.BOLLNValue;
+        Integer PValue = indexModel.BOLLPValue;
         float maN = 0;
 
-        for (int i = 0; i < dataList.size(); i++) {
-            KLineEntity point = dataList.get(i);
-            final float closePrice = point.getClosePrice();
+        if (NValue != null && PValue != null) {
+            for (int i = 0; i < dataList.size(); i++) {
+                KLineEntity point = dataList.get(i);
+                final float closePrice = point.getClosePrice();
 
-            maN += closePrice;
-            if (i >= NValue) {
-                maN -= dataList.get(i - NValue).getClosePrice();
-                point.MANPrice = maN / NValue;
-            } else {
-                point.MANPrice = maN / (i + 1);
-            }
+                maN += closePrice;
+                if (i >= NValue) {
+                    maN -= dataList.get(i - NValue).getClosePrice();
+                    point.MANPrice = maN / NValue;
+                } else {
+                    point.MANPrice = maN / (i + 1);
+                }
 
-            if (i == 0) {
-                point.boll = closePrice;
-                point.ub = Float.NaN;
-                point.lb = Float.NaN;
-            } else {
-                int n = NValue;
-                if (i < NValue) {
-                    n = i + 1;
+                if (i == 0) {
+                    point.boll = closePrice;
+                    point.ub = Float.NaN;
+                    point.lb = Float.NaN;
+                } else {
+                    int n = NValue;
+                    if (i < NValue) {
+                        n = i + 1;
+                    }
+                    float md = 0;
+                    for (int j = i - n + 1; j <= i; j++) {
+                        float c = dataList.get(j).getClosePrice();
+                        float m = point.getMANPrice();
+                        float value = c - m;
+                        md += value * value;
+                    }
+                    md = md / (n - 1);
+                    md = (float) Math.sqrt(md);
+                    point.boll = point.getMANPrice();
+                    point.ub = point.boll + PValue * md;
+                    point.lb = point.boll - PValue * md;
                 }
-                float md = 0;
-                for (int j = i - n + 1; j <= i; j++) {
-                    float c = dataList.get(j).getClosePrice();
-                    float m = point.getMANPrice();
-                    float value = c - m;
-                    md += value * value;
-                }
-                md = md / (n - 1);
-                md = (float) Math.sqrt(md);
-                point.boll = point.getMANPrice();
-                point.ub = point.boll + PValue * md;
-                point.lb = point.boll - PValue * md;
             }
         }
     }
@@ -216,37 +218,39 @@ public class DataHelper {
      * @param dataList
      */
     static void calculateMACD(List<KLineEntity> dataList, IndexModel indexModel) {
-        int SValue = indexModel.MACDSValue;
-        int LValue = indexModel.MACDLValue;
-        int MValue = indexModel.MACDMValue;
+        Integer SValue = indexModel.MACDSValue;
+        Integer LValue = indexModel.MACDLValue;
+        Integer MValue = indexModel.MACDMValue;
 
         float emaS = 0, emaL = 0;
         float dif = 0, dea = 0, macd = 0;
 
-        for (int i = 0; i < dataList.size(); i++) {
-            KLineEntity point = dataList.get(i);
-            final float closePrice = point.getClosePrice();
-            if (i == 0) {
-                emaS = closePrice;
-                emaL = closePrice;
-            } else {
-                // EMA（12） = 前一日EMA（12） X 11/13 + 今日收盘价 X 2/13
-                emaS = emaS * (SValue - 1) / (SValue + 1) + closePrice * 2 / (SValue + 1);
-                // EMA（26） = 前一日EMA（26） X 25/27 + 今日收盘价 X 2/27
-                emaL = emaL * (LValue - 1) / (LValue + 1) + closePrice * 2 / (LValue + 1);
+        if (SValue != null && LValue != null && MValue != null) {
+            for (int i = 0; i < dataList.size(); i++) {
+                KLineEntity point = dataList.get(i);
+                final float closePrice = point.getClosePrice();
+                if (i == 0) {
+                    emaS = closePrice;
+                    emaL = closePrice;
+                } else {
+                    // EMA（12） = 前一日EMA（12） X 11/13 + 今日收盘价 X 2/13
+                    emaS = emaS * (SValue - 1) / (SValue + 1) + closePrice * 2 / (SValue + 1);
+                    // EMA（26） = 前一日EMA（26） X 25/27 + 今日收盘价 X 2/27
+                    emaL = emaL * (LValue - 1) / (LValue + 1) + closePrice * 2 / (LValue + 1);
+                }
+                // DIF = EMA（12） - EMA（26） 。
+                // 今日DEA = （前一日DEA X 8/10 + 今日DIF X 2/10）
+                // 用（DIF-DEA）*2即为MACD柱状图。
+                dif = emaS - emaL;
+                dea = dea * (MValue - 1) / (MValue + 1) + dif * 2 / (MValue + 1);
+                macd = (dif - dea) * 2;
+                point.dif = dif;
+                point.dea = dea;
+                point.macd = macd;
+                point.MACDSValue = SValue;
+                point.MACDLValue = LValue;
+                point.MACDMValue = MValue;
             }
-            // DIF = EMA（12） - EMA（26） 。
-            // 今日DEA = （前一日DEA X 8/10 + 今日DIF X 2/10）
-            // 用（DIF-DEA）*2即为MACD柱状图。
-            dif = emaS - emaL;
-            dea = dea * (MValue - 1) / (MValue + 1) + dif * 2 / (MValue + 1);
-            macd = (dif - dea) * 2;
-            point.dif = dif;
-            point.dea = dea;
-            point.macd = macd;
-            point.MACDSValue = SValue;
-            point.MACDLValue = LValue;
-            point.MACDMValue = MValue;
         }
     }
 
@@ -256,44 +260,46 @@ public class DataHelper {
      * @param dataList
      */
     static void calculateKDJ(List<KLineEntity> dataList, IndexModel indexModel) {
-        int NValue = indexModel.KDJNValue;
-        int M1Value = indexModel.KDJM1Value;
-        int M2Value = indexModel.KDJM2Value;
+        Integer NValue = indexModel.KDJNValue;
+        Integer M1Value = indexModel.KDJM1Value;
+        Integer M2Value = indexModel.KDJM2Value;
 
         float k = 50F;
         float d = 50F;
         float j = 0;
         float rsv = 0;
 
-        for (int i = 0; i < dataList.size(); i++) {
-            KLineEntity point = dataList.get(i);
-            final float closePrice = point.getClosePrice();
-            int startIndex = i - (NValue - 1);
-            if (startIndex < 0) {
-                startIndex = 0;
-            }
-            float maxN = dataList.get(startIndex).getHighPrice();
-            float minN = dataList.get(startIndex).getLowPrice();
-            for (int index = startIndex; index <= i; index++) {
-                maxN = Math.max(maxN, dataList.get(index).getHighPrice());
-                minN = Math.min(minN, dataList.get(index).getLowPrice());
-            }
-            if (maxN != minN) {
-                rsv = 100f * (closePrice - minN) / (maxN - minN);
-            } else {
-                rsv = 0;
-            }
+        if (NValue != null && M1Value != null && M2Value != null) {
+            for (int i = 0; i < dataList.size(); i++) {
+                KLineEntity point = dataList.get(i);
+                final float closePrice = point.getClosePrice();
+                int startIndex = i - (NValue - 1);
+                if (startIndex < 0) {
+                    startIndex = 0;
+                }
+                float maxN = dataList.get(startIndex).getHighPrice();
+                float minN = dataList.get(startIndex).getLowPrice();
+                for (int index = startIndex; index <= i; index++) {
+                    maxN = Math.max(maxN, dataList.get(index).getHighPrice());
+                    minN = Math.min(minN, dataList.get(index).getLowPrice());
+                }
+                if (maxN != minN) {
+                    rsv = 100f * (closePrice - minN) / (maxN - minN);
+                } else {
+                    rsv = 0;
+                }
 
-            k = (rsv + (M1Value - 1) * k) / M1Value;
-            d = (k + (M2Value - 1) * d) / M2Value;
-            j = 3 * k - 2 * d;
+                k = (rsv + (M1Value - 1) * k) / M1Value;
+                d = (k + (M2Value - 1) * d) / M2Value;
+                j = 3 * k - 2 * d;
 
-            point.k = k;
-            point.d = d;
-            point.j = j;
-            point.KNValue = NValue;
-            point.KM1Value = M1Value;
-            point.KM2Value = M2Value;
+                point.k = k;
+                point.d = d;
+                point.j = j;
+                point.KNValue = NValue;
+                point.KM1Value = M1Value;
+                point.KM2Value = M2Value;
+            }
         }
     }
 

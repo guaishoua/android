@@ -12,8 +12,6 @@ import com.github.tifezh.kchartlib.chart.entity.IRSI;
 import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
 import com.github.tifezh.kchartlib.chart.utils.ViewUtil;
 
-import java.util.Collections;
-
 /**
  * RSI实现类
  * Created by tifezh on 2016/6/19.

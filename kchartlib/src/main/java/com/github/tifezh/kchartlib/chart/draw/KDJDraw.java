@@ -31,34 +31,39 @@ public class KDJDraw implements IChartDraw<IKDJ> {
 
     @Override
     public void drawTranslated(@Nullable IKDJ lastPoint, @NonNull IKDJ curPoint, float lastX, float curX, @NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position) {
-        if (lastPoint.getK() != 0) {
-            view.drawChildLine(canvas, mKPaint, lastX, lastPoint.getK(), curX, curPoint.getK());
-        }
-        if (lastPoint.getD() != 0) {
-            view.drawChildLine(canvas, mDPaint, lastX, lastPoint.getD(), curX, curPoint.getD());
-        }
-        if (lastPoint.getJ() != 0) {
-            view.drawChildLine(canvas, mJPaint, lastX, lastPoint.getJ(), curX, curPoint.getJ());
+        IKDJ point = (IKDJ) view.getItem(position);
+        if (point.getKDJNValue() != null && point.getKDJM1Value() != null && point.getKDJM2Value() != null) {
+            if (lastPoint.getK() != 0) {
+                view.drawChildLine(canvas, mKPaint, lastX, lastPoint.getK(), curX, curPoint.getK());
+            }
+            if (lastPoint.getD() != 0) {
+                view.drawChildLine(canvas, mDPaint, lastX, lastPoint.getD(), curX, curPoint.getD());
+            }
+            if (lastPoint.getJ() != 0) {
+                view.drawChildLine(canvas, mJPaint, lastX, lastPoint.getJ(), curX, curPoint.getJ());
+            }
         }
     }
 
     @Override
     public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IKDJ point = (IKDJ) view.getItem(position);
-        String text = "KDJ(" + point.getKDJNValue() + "," + point.getKDJM1Value() + "," + point.getKDJM2Value() + ")";
-        canvas.drawText(text, x, y, view.getTextPaint());
-        x += view.getTextPaint().measureText(text) + paddingWidth;
+        if (point.getKDJNValue() != null && point.getKDJM1Value() != null && point.getKDJM2Value() != null) {
+            String text = "KDJ(" + point.getKDJNValue() + "," + point.getKDJM1Value() + "," + point.getKDJM2Value() + ")";
+            canvas.drawText(text, x, y, view.getTextPaint());
+            x += view.getTextPaint().measureText(text) + paddingWidth;
 
-        text = "K:" + view.formatValue(point.getK());
-        canvas.drawText(text, x, y, mKPaint);
-        x += mKPaint.measureText(text) + paddingWidth;
+            text = "K:" + view.formatValue(point.getK());
+            canvas.drawText(text, x, y, mKPaint);
+            x += mKPaint.measureText(text) + paddingWidth;
 
-        text = "D:" + view.formatValue(point.getD());
-        canvas.drawText(text, x, y, mDPaint);
-        x += mDPaint.measureText(text) + paddingWidth;
+            text = "D:" + view.formatValue(point.getD());
+            canvas.drawText(text, x, y, mDPaint);
+            x += mDPaint.measureText(text) + paddingWidth;
 
-        text = "J:" + view.formatValue(point.getJ());
-        canvas.drawText(text, x, y, mJPaint);
+            text = "J:" + view.formatValue(point.getJ());
+            canvas.drawText(text, x, y, mJPaint);
+        }
     }
 
     @Override

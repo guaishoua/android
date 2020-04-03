@@ -46,28 +46,35 @@ public class MACDDraw implements IChartDraw<IMACD> {
 
     @Override
     public void drawTranslated(@Nullable IMACD lastPoint, @NonNull IMACD curPoint, float lastX, float curX, @NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position) {
-        drawMACD(canvas, view, curX, curPoint.getMacd());
-        view.drawChildLine(canvas, mDIFPaint, lastX, lastPoint.getDea(), curX, curPoint.getDea());
-        view.drawChildLine(canvas, mDEAPaint, lastX, lastPoint.getDif(), curX, curPoint.getDif());
+        IMACD point = (IMACD) view.getItem(position);
+        if (point.getMACDSValue() != null && point.getMACDLValue() != null && point.getMACDMValue() != null) {
+            drawMACD(canvas, view, curX, curPoint.getMacd());
+            view.drawChildLine(canvas, mDIFPaint, lastX, lastPoint.getDea(), curX, curPoint.getDea());
+            view.drawChildLine(canvas, mDEAPaint, lastX, lastPoint.getDif(), curX, curPoint.getDif());
+        }
     }
 
     @Override
     public void drawText(@NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position, float x, float y) {
         IMACD point = (IMACD) view.getItem(position);
-        String text = "MACD(" + point.getMACDSValue() + "," + point.getMACDLValue() + "," + point.getMACDMValue() + ")";
-        canvas.drawText(text, x, y, view.getTextPaint());
-        x += view.getTextPaint().measureText(text) + paddingWidth;
+        if (point.getMACDSValue() != null && point.getMACDLValue() != null && point.getMACDMValue() != null) {
+            String text = "MACD(" + point.getMACDSValue() + "," + point.getMACDLValue() + "," + point.getMACDMValue() + ")";
+            canvas.drawText(text, x, y, view.getTextPaint());
+            x += view.getTextPaint().measureText(text) + paddingWidth;
 
-        text = "MACD:" + view.formatValue(point.getMacd());
-        canvas.drawText(text, x, y, mMACDPaint);
-        x += mMACDPaint.measureText(text) + paddingWidth;
+            if (point.getMacd() != 0) {
+                text = "MACD:" + view.formatValue(point.getMacd());
+                canvas.drawText(text, x, y, mMACDPaint);
+                x += mMACDPaint.measureText(text) + paddingWidth;
+            }
 
-        text = "DIF:" + view.formatValue(point.getDif());
-        canvas.drawText(text, x, y, mDIFPaint);
-        x += mDIFPaint.measureText(text) + paddingWidth;
+            text = "DIF:" + view.formatValue(point.getDif());
+            canvas.drawText(text, x, y, mDIFPaint);
+            x += mDIFPaint.measureText(text) + paddingWidth;
 
-        text = "DEA:" + view.formatValue(point.getDea());
-        canvas.drawText(text, x, y, mDEAPaint);
+            text = "DEA:" + view.formatValue(point.getDea());
+            canvas.drawText(text, x, y, mDEAPaint);
+        }
     }
 
     @Override

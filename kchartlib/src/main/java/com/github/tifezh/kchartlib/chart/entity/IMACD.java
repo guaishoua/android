@@ -24,9 +24,9 @@ public interface IMACD {
      */
     float getDea();
 
-    int getMACDSValue();
+    Integer getMACDSValue();
 
-    int getMACDLValue();
+    Integer getMACDLValue();
 
-    int getMACDMValue();
+    Integer getMACDMValue();
 }

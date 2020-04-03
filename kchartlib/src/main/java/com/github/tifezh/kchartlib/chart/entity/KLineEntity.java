@@ -43,18 +43,18 @@ public class KLineEntity implements IKLine {
     public float dif;
     public float dea;
 
-    public int MACDSValue;
-    public int MACDLValue;
-    public int MACDMValue;
+    public Integer MACDSValue;
+    public Integer MACDLValue;
+    public Integer MACDMValue;
 
     // KDJ
     public float k;
     public float d;
     public float j;
 
-    public int KNValue;
-    public int KM1Value;
-    public int KM2Value;
+    public Integer KNValue;
+    public Integer KM1Value;
+    public Integer KM2Value;
 
     // RSI--
     public Float rsi1;
@@ -209,17 +209,17 @@ public class KLineEntity implements IKLine {
     }
 
     @Override
-    public int getMACDSValue() {
+    public Integer getMACDSValue() {
         return MACDSValue;
     }
 
     @Override
-    public int getMACDLValue() {
+    public Integer getMACDLValue() {
         return MACDLValue;
     }
 
     @Override
-    public int getMACDMValue() {
+    public Integer getMACDMValue() {
         return MACDMValue;
     }
 
@@ -239,17 +239,17 @@ public class KLineEntity implements IKLine {
     }
 
     @Override
-    public int getKDJNValue() {
+    public Integer getKDJNValue() {
         return KNValue;
     }
 
     @Override
-    public int getKDJM1Value() {
+    public Integer getKDJM1Value() {
         return KM1Value;
     }
 
     @Override
-    public int getKDJM2Value() {
+    public Integer getKDJM2Value() {
         return KM2Value;
     }
 
