@@ -23,7 +23,6 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
     private OnChartEventListener listener;
 
     protected boolean isLongPress = false;
-    private boolean isLongPressDown = false;
 
     private OverScroller mScroller;
 
@@ -236,7 +235,7 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
                 listener.onChartTouchListener(true);
             }
         } else {
-            isLongPress = !isLongPress;
+            isLongPress = false;
             if (listener != null) {
                 listener.onChartTouchListener(false);
             }
