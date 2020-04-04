@@ -12,6 +12,10 @@ import com.github.tifezh.kchartlib.chart.entity.IWR;
 import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
 import com.github.tifezh.kchartlib.chart.utils.ViewUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * KDJ实现类
  * Created by tifezh on 2016/6/19.
@@ -21,6 +25,9 @@ public class WRDraw implements IChartDraw<IWR> {
     private Paint mWR1Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mWR2Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mWR3Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private List<Float> maxList = new ArrayList<>();
+    private List<Float> minList = new ArrayList<>();
 
     private int paddingWidth;
 
@@ -62,12 +69,36 @@ public class WRDraw implements IChartDraw<IWR> {
 
     @Override
     public float getMaxValue(IWR point) {
-        return Math.max(point.getWR1(), Math.max(point.getWR2(), point.getWR3()));
+        if (point.getWR1() != null) {
+            maxList.add(point.getWR1());
+        }
+        if (point.getWR2() != null) {
+            maxList.add(point.getWR2());
+        }
+        if (point.getWR3() != null) {
+            maxList.add(point.getWR3());
+        }
+        if (maxList != null && maxList.size() > 0) {
+            return Collections.max(maxList);
+        }
+        return 0;
     }
 
     @Override
     public float getMinValue(IWR point) {
-        return Math.min(point.getWR1(), Math.min(point.getWR2(), point.getWR3()));
+        if (point.getWR1() != null) {
+            minList.add(point.getWR1());
+        }
+        if (point.getWR2() != null) {
+            minList.add(point.getWR2());
+        }
+        if (point.getWR3() != null) {
+            minList.add(point.getWR3());
+        }
+        if (minList != null && minList.size() > 0) {
+            return Collections.min(minList);
+        }
+        return 0;
     }
 
     @Override

@@ -192,7 +192,7 @@ public class MainDraw implements IChartDraw<ICandle> {
         if (status == Status.BOLL) {
             if (Float.isNaN(point.getUb())) {
                 return Math.max(point.getBoll(), point.getHighPrice());
-            }  else {
+            } else {
                 return Math.max(point.getUb(), point.getHighPrice());
             }
         } else {
@@ -224,8 +224,14 @@ public class MainDraw implements IChartDraw<ICandle> {
     public float getMinValue(ICandle point) {
         if (status == Status.BOLL) {
             if (Float.isNaN(point.getLb())) {
+                if (point.getBoll() == 0) {
+                    return point.getLowPrice();
+                }
                 return Math.min(point.getBoll(), point.getLowPrice());
-            }  else {
+            } else {
+                if (point.getLb() == 0) {
+                    return point.getLowPrice();
+                }
                 return Math.min(point.getLb(), point.getLowPrice());
             }
         } else {

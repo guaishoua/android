@@ -201,7 +201,7 @@ public class WRSetting implements CompoundButton.OnCheckedChangeListener {
         activity.getIndexModel().isWR2Check = false;
         activity.getIndexModel().isWR3Check = false;
 
-        activity.getIndexModel().WR1Value = 2;
+        activity.getIndexModel().WR1Value = 14;
         activity.getIndexModel().WR2Value = null;
         activity.getIndexModel().WR3Value = null;
 

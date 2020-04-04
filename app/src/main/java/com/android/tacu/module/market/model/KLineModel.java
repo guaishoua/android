@@ -18,6 +18,6 @@ public class KLineModel implements Serializable {
 
     public static class DataModel implements Serializable {
         @SerializedName("lines")
-        public List<List<Float>> lines;
+        public List<List<String>> lines;
     }
 }

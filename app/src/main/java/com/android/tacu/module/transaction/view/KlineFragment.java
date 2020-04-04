@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
+import com.android.tacu.utils.KlineUtils;
 import com.android.tacu.widget.tab.TabLayoutView;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.adapter.KLineChartAdapter;
@@ -27,10 +28,8 @@ import com.android.tacu.module.market.presenter.MarketDetailsPresenter;
 import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
-import com.android.tacu.utils.DateUtils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -184,9 +183,8 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == REQUESTCODE && resultCode == RESULT_OK) {
             if (kLineModel != null && kLineModel.data != null && kLineModel.data.lines != null) {
-                List<KLineEntity> data = dealKlines(kLineModel, klineRange);
+                List<KLineEntity> data = KlineUtils.dealKlines(kLineModel, klineRange);
                 if (data != null) {
-                    KLineChartView.decimalsCount = pointPrice;
                     DataHelper.calculate(data, getContext());
                     kAdapter.clearData();
                     kAdapter.addFooterData(data);
@@ -243,7 +241,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         this.klineRange = range;
 
         if (model != null && model.data != null && model.data.lines != null) {
-            List<KLineEntity> data = dealKlines(model, range);
+            List<KLineEntity> data = KlineUtils.dealKlines(model, range);
 
             if (data != null) {
                 if (isAnim) {
@@ -282,29 +280,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     public void setQuotationVisible(boolean isVisibleToUserQuotation) {
         this.isVisibleToUserQuotation = isVisibleToUserQuotation;
         upLoad(true);
-    }
-
-    private List<KLineEntity> dealKlines(KLineModel model, long range) {
-        List<KLineEntity> data = new ArrayList<>();
-        int count = model.data.lines.size();
-        KLineModel.DataModel dataModel;
-        KLineEntity kLineEntity;
-        for (int i = 0; i < count; i++) {
-            dataModel = model.data;
-            kLineEntity = new KLineEntity();
-            if (range >= linIndicator.DAY_1) {
-                kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_YMD);
-            } else {
-                kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_HMS);
-            }
-            kLineEntity.Open = dataModel.lines.get(i).get(1);
-            kLineEntity.High = dataModel.lines.get(i).get(2);
-            kLineEntity.Low = dataModel.lines.get(i).get(3);
-            kLineEntity.Close = dataModel.lines.get(i).get(4);
-            kLineEntity.Volume = dataModel.lines.get(i).get(5);
-            data.add(kLineEntity);
-        }
-        return data;
     }
 
     /**

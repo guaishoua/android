@@ -13,7 +13,6 @@ import android.graphics.Shader;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
@@ -417,12 +416,13 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
 
         float translateX = xToTranslateX(0);
         if (translateX >= startX && translateX <= stopX) {
-            canvas.drawText(getAdapter().getDate(mStartIndex), 0, y, mTextPaint);
+            String text = getAdapter().getDate(mStartIndex);
+            canvas.drawText(text, 0 - mTextPaint.measureText(text) / 2, y, mTextPaint);
         }
         translateX = xToTranslateX(mWidth);
         if (translateX >= startX && translateX <= stopX) {
             String text = getAdapter().getDate(mStopIndex);
-            canvas.drawText(text, mWidth - mTextPaint.measureText(text), y, mTextPaint);
+            canvas.drawText(getAdapter().getDate(mStopIndex), mWidth - mTextPaint.measureText(text) / 2, y, mTextPaint);
         }
 
         if (isLongPress) {
@@ -1338,8 +1338,8 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     private float mColumnSpace;
 
     public void setScrollColumnSpace() {
-        //列宽度
-        mColumnSpace = mWidth / mGridColumns;
+        //列宽度，这里加5dp是为了不压线
+        mColumnSpace = mWidth / mGridColumns + ViewUtil.Dp2Px(getContext(), 5);
         //右边移动最大设置一个列宽度
         setOverScrollRange(mColumnSpace);
         //初始化默认滚动设置一个列宽度

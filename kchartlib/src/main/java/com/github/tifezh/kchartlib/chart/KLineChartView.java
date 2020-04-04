@@ -24,6 +24,19 @@ import com.github.tifezh.kchartlib.chart.draw.WRDraw;
  */
 public class KLineChartView extends BaseKLineChartView {
 
+    public static long MIN_1 = 60000L;
+    public static long MIN_5 = 300000L;
+    public static long MIN_15 = 900000L;
+    public static long MIN_30 = 1800000L;
+    public static long HOUR_1 = 3600000L;
+    public static long HOUR_6 = 21600000L;
+    public static long DAY_1 = 86400000L;
+    public static long WEEK_1 = 604800000L;
+    public static long MONTH_1 = 2592000000L;
+
+    //用于ValueFormatter的位数的显示
+    public static int decimalsCount = 2;
+
     ProgressBar mProgressBar;
     private boolean isRefreshing = false;
     private boolean isLoadMoreEnd = false;
@@ -38,9 +51,6 @@ public class KLineChartView extends BaseKLineChartView {
     private KDJDraw mKDJDraw;
     private WRDraw mWRDraw;
     private VolumeDraw mVolumeDraw;
-
-    //用于ValueFormatter的位数的显示
-    public static int decimalsCount = 2;
 
     public KLineChartView(Context context) {
         this(context, null);

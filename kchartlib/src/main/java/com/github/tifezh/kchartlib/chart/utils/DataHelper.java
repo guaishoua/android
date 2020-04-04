@@ -132,7 +132,7 @@ public class DataHelper {
     }
 
     /**
-     * 计算 BOLL 需要在计算ma之后进行
+     * 计算 BOLL
      *
      * @param dataList
      */

@@ -36,8 +36,10 @@ public class DateUtils {
     public static final String DEFAULT_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String FORMAT_DATE_YMD = "yyyy-MM-dd";
     public static final String FORMAT_DATE_YMDHM = "yyyy-MM-dd HH:mm";
+    public static final String FORMAT_DATE_MDHM = "MM-dd HH:mm";
     public static final String FORMAT_DATE_HMS = "HH:mm:ss";
     public static final String FORMAT_DATE_HM = "HH:mm";
+    public static final String FORMAT_DATE_MS = "mm:ss";
     //格林威治时间类型
     public static final String FORMAT_DATE_GMT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     //北京时区

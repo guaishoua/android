@@ -1,10 +1,12 @@
 package com.android.tacu.widget.tab;
 
+import com.github.tifezh.kchartlib.chart.KLineChartView;
+
 import java.io.Serializable;
 
 public class IndexKlineModel implements Serializable {
 
-    public long ChartTime = TabLayoutView.HOUR_1;
+    public long ChartTime = KLineChartView.HOUR_1;
     //是否分时线
     public boolean isLine = false;
     //-1=隐藏 0=ma 1=boll

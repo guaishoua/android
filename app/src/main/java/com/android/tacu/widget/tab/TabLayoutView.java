@@ -22,6 +22,7 @@ import com.android.tacu.module.market.view.MarketDetailsActivity;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
+import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.base.Status;
 import com.github.tifezh.kchartlib.chart.view.IndexKlineActivity;
 import com.google.gson.Gson;
@@ -34,16 +35,6 @@ import java.util.List;
  * Created by jiazhen on 2018/9/24.
  */
 public class TabLayoutView extends LinearLayout implements View.OnClickListener {
-
-    public static long MIN_1 = 60000L;
-    public static long MIN_5 = 300000L;
-    public static long MIN_15 = 900000L;
-    public static long MIN_30 = 1800000L;
-    public static long HOUR_1 = 3600000L;
-    public static long HOUR_6 = 21600000L;
-    public static long DAY_1 = 86400000L;
-    public static long WEEK_1 = 604800000L;
-    public static long MONTH_1 = 2592000000L;
 
     private View parentView;
     private RelativeLayout view_mim1;
@@ -162,28 +153,28 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
             tab_more.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
             indicator_more.setVisibility(View.VISIBLE);
         } else {
-            if (klineModel.ChartTime == MIN_1) {
+            if (klineModel.ChartTime == KLineChartView.MIN_1) {
                 tab_min1.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 indicator_min1.setVisibility(View.VISIBLE);
-            } else if (klineModel.ChartTime == MIN_15) {
+            } else if (klineModel.ChartTime == KLineChartView.MIN_15) {
                 tab_min15.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 indicator_min15.setVisibility(View.VISIBLE);
-            } else if (klineModel.ChartTime == HOUR_1) {
+            } else if (klineModel.ChartTime == KLineChartView.HOUR_1) {
                 tab_hour1.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 indicator_hour1.setVisibility(View.VISIBLE);
-            } else if (klineModel.ChartTime == DAY_1) {
+            } else if (klineModel.ChartTime == KLineChartView.DAY_1) {
                 tab_day1.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
                 indicator_day1.setVisibility(View.VISIBLE);
             } else {
-                if (klineModel.ChartTime == MIN_5) {
+                if (klineModel.ChartTime == KLineChartView.MIN_5) {
                     tab_more.setText(timeTabList.get(1));
-                } else if (klineModel.ChartTime == MIN_30) {
+                } else if (klineModel.ChartTime == KLineChartView.MIN_30) {
                     tab_more.setText(timeTabList.get(2));
-                } else if (klineModel.ChartTime == HOUR_6) {
+                } else if (klineModel.ChartTime == KLineChartView.HOUR_6) {
                     tab_more.setText(timeTabList.get(3));
-                } else if (klineModel.ChartTime == WEEK_1) {
+                } else if (klineModel.ChartTime == KLineChartView.WEEK_1) {
                     tab_more.setText(timeTabList.get(4));
-                } else if (klineModel.ChartTime == MONTH_1) {
+                } else if (klineModel.ChartTime == KLineChartView.MONTH_1) {
                     tab_more.setText(timeTabList.get(5));
                 }
                 tab_more.setTextColor(ContextCompat.getColor(getContext(), R.color.text_default));
@@ -220,7 +211,7 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
                 indicator_min1.setVisibility(View.VISIBLE);
                 tab_more.setText(getResources().getString(R.string.more));
 
-                klineModel.ChartTime = MIN_1;
+                klineModel.ChartTime = KLineChartView.MIN_1;
                 klineModel.isLine = false;
                 saveOpearte();
 
@@ -236,7 +227,7 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
                 indicator_min15.setVisibility(View.VISIBLE);
                 tab_more.setText(getResources().getString(R.string.more));
 
-                klineModel.ChartTime = MIN_15;
+                klineModel.ChartTime = KLineChartView.MIN_15;
                 klineModel.isLine = false;
                 saveOpearte();
 
@@ -252,7 +243,7 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
                 indicator_hour1.setVisibility(View.VISIBLE);
                 tab_more.setText(getResources().getString(R.string.more));
 
-                klineModel.ChartTime = HOUR_1;
+                klineModel.ChartTime = KLineChartView.HOUR_1;
                 klineModel.isLine = false;
                 saveOpearte();
 
@@ -268,7 +259,7 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
                 indicator_day1.setVisibility(View.VISIBLE);
                 tab_more.setText(getResources().getString(R.string.more));
 
-                klineModel.ChartTime = DAY_1;
+                klineModel.ChartTime = KLineChartView.DAY_1;
                 klineModel.isLine = false;
                 saveOpearte();
 
@@ -336,12 +327,12 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
             public void onTabItemSelectListener(int position) {
                 switch (position) {
                     case 0:
-                        klineModel.ChartTime = MIN_1;
+                        klineModel.ChartTime = KLineChartView.MIN_1;
                         klineModel.isLine = true;
                         saveOpearte();
                         break;
                     case 1:
-                        klineModel.ChartTime = MIN_5;
+                        klineModel.ChartTime = KLineChartView.MIN_5;
                         klineModel.isLine = false;
                         saveOpearte();
 
@@ -349,7 +340,7 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
                         mKChartView.setMainDrawLine(false);
                         break;
                     case 2:
-                        klineModel.ChartTime = MIN_30;
+                        klineModel.ChartTime = KLineChartView.MIN_30;
                         klineModel.isLine = false;
                         saveOpearte();
 
@@ -357,7 +348,7 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
                         mKChartView.setMainDrawLine(false);
                         break;
                     case 3:
-                        klineModel.ChartTime = HOUR_6;
+                        klineModel.ChartTime = KLineChartView.HOUR_6;
                         klineModel.isLine = false;
                         saveOpearte();
 
@@ -365,7 +356,7 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
                         mKChartView.setMainDrawLine(false);
                         break;
                     case 4:
-                        klineModel.ChartTime = WEEK_1;
+                        klineModel.ChartTime = KLineChartView.WEEK_1;
                         klineModel.isLine = false;
                         saveOpearte();
 
@@ -373,7 +364,7 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
                         mKChartView.setMainDrawLine(false);
                         break;
                     case 5:
-                        klineModel.ChartTime = MONTH_1;
+                        klineModel.ChartTime = KLineChartView.MONTH_1;
                         klineModel.isLine = false;
                         saveOpearte();
 

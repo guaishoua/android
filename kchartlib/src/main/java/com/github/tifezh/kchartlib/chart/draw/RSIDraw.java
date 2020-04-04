@@ -12,6 +12,10 @@ import com.github.tifezh.kchartlib.chart.entity.IRSI;
 import com.github.tifezh.kchartlib.chart.formatter.ValueFormatter;
 import com.github.tifezh.kchartlib.chart.utils.ViewUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * RSI实现类
  * Created by tifezh on 2016/6/19.
@@ -21,6 +25,9 @@ public class RSIDraw implements IChartDraw<IRSI> {
     private Paint mRSI1Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mRSI2Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mRSI3Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private List<Float> maxList = new ArrayList<>();
+    private List<Float> minList = new ArrayList<>();
 
     private int paddingWidth;
 
@@ -62,12 +69,36 @@ public class RSIDraw implements IChartDraw<IRSI> {
 
     @Override
     public float getMaxValue(IRSI point) {
-        return Math.max(point.getRsi1(), Math.max(point.getRsi2(), point.getRsi3()));
+        if (point.getRsi1() != null) {
+            maxList.add(point.getRsi1());
+        }
+        if (point.getRsi2() != null) {
+            maxList.add(point.getRsi2());
+        }
+        if (point.getRsi3() != null) {
+            maxList.add(point.getRsi3());
+        }
+        if (maxList != null && maxList.size() > 0) {
+            return Collections.max(maxList);
+        }
+        return 0;
     }
 
     @Override
     public float getMinValue(IRSI point) {
-        return Math.min(point.getRsi1(), Math.min(point.getRsi2(), point.getRsi3()));
+        if (point.getRsi1() != null) {
+            minList.add(point.getRsi1());
+        }
+        if (point.getRsi2() != null) {
+            minList.add(point.getRsi2());
+        }
+        if (point.getRsi3() != null) {
+            minList.add(point.getRsi3());
+        }
+        if (minList != null && minList.size() > 0) {
+            return Collections.min(minList);
+        }
+        return 0;
     }
 
     @Override

@@ -35,7 +35,7 @@ import com.android.tacu.module.market.presenter.MarketDetailsPresenter;
 import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
-import com.android.tacu.utils.DateUtils;
+import com.android.tacu.utils.KlineUtils;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.CoinPopWindow;
@@ -261,9 +261,8 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == REQUESTCODE && resultCode == RESULT_OK) {
             if (kLineModel != null && kLineModel.data != null && kLineModel.data.lines != null) {
-                List<KLineEntity> data = dealKlines(kLineModel, klineRange);
+                List<KLineEntity> data = KlineUtils.dealKlines(kLineModel, klineRange);
                 if (data != null) {
-                    KLineChartView.decimalsCount = pointPrice;
                     DataHelper.calculate(data, MarketDetailsActivity.this);
                     kAdapter.clearData();
                     kAdapter.addFooterData(data);
@@ -306,7 +305,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         this.klineRange = range;
 
         if (model != null && model.data != null && model.data.lines != null) {
-            List<KLineEntity> data = dealKlines(model, range);
+            List<KLineEntity> data = KlineUtils.dealKlines(model, range);
 
             if (data != null) {
                 if (isAnim) {
@@ -376,29 +375,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 }
             }
         });
-    }
-
-    private List<KLineEntity> dealKlines(KLineModel model, long range) {
-        List<KLineEntity> data = new ArrayList<>();
-        int count = model.data.lines.size();
-        KLineModel.DataModel dataModel;
-        KLineEntity kLineEntity;
-        for (int i = 0; i < count; i++) {
-            dataModel = model.data;
-            kLineEntity = new KLineEntity();
-            if (range >= linIndicator.DAY_1) {
-                kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_YMD);
-            } else {
-                kLineEntity.Date = DateUtils.millis2String(dataModel.lines.get(i).get(0).longValue(), DateUtils.FORMAT_DATE_HMS);
-            }
-            kLineEntity.Open = dataModel.lines.get(i).get(1);
-            kLineEntity.High = dataModel.lines.get(i).get(2);
-            kLineEntity.Low = dataModel.lines.get(i).get(3);
-            kLineEntity.Close = dataModel.lines.get(i).get(4);
-            kLineEntity.Volume = dataModel.lines.get(i).get(5);
-            data.add(kLineEntity);
-        }
-        return data;
     }
 
     /**
