@@ -23,6 +23,7 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
     private OnChartEventListener listener;
 
     protected boolean isLongPress = false;
+    private boolean isLongPressDown = false;
 
     private OverScroller mScroller;
 
@@ -64,12 +65,12 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
 
     @Override
     public boolean onDown(MotionEvent e) {
+        onPressChange(e, false);
         return false;
     }
 
     @Override
     public void onShowPress(MotionEvent e) {
-
     }
 
     @Override
@@ -88,10 +89,7 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
 
     @Override
     public void onLongPress(MotionEvent e) {
-        isLongPress = true;
-        if (listener != null) {
-            listener.onChartTouchListener(true);
-        }
+        onPressChange(e, true);
     }
 
     @Override
@@ -173,7 +171,6 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
 
     @Override
     public void onScaleEnd(ScaleGestureDetector detector) {
-
     }
 
     float x;
@@ -199,22 +196,22 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                if (x == event.getX()) {
+                /*if (x == event.getX()) {
                     if (isLongPress) {
                         isLongPress = false;
                         if (listener != null) {
                             listener.onChartTouchListener(false);
                         }
                     }
-                }
+                }*/
                 touch = false;
                 invalidate();
                 break;
             case MotionEvent.ACTION_CANCEL:
-                isLongPress = false;
+               /* isLongPress = false;
                 if (listener != null) {
                     listener.onChartTouchListener(false);
-                }
+                }*/
                 touch = false;
                 invalidate();
                 break;
@@ -222,7 +219,7 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
                 break;
         }
         mMultipleTouch = event.getPointerCount() > 1;
-        if (mMultipleTouch){
+        if (mMultipleTouch) {
             if (listener != null) {
                 listener.onChartTouchListener(true);
             }
@@ -232,6 +229,19 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements Gestu
         return true;
     }
 
+    protected void onPressChange(MotionEvent e, boolean isLongType) {
+        if (isLongType) {
+            isLongPress = true;
+            if (listener != null) {
+                listener.onChartTouchListener(true);
+            }
+        } else {
+            isLongPress = !isLongPress;
+            if (listener != null) {
+                listener.onChartTouchListener(false);
+            }
+        }
+    }
 
     /**
      * 滑到了最左边

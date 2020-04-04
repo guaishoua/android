@@ -22,7 +22,6 @@ import com.android.tacu.module.market.view.MarketDetailsActivity;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
-import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.base.Status;
 import com.github.tifezh.kchartlib.chart.view.IndexKlineActivity;
 import com.google.gson.Gson;

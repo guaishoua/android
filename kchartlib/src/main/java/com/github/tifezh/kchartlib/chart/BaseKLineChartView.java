@@ -614,6 +614,17 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     }
 
     @Override
+    protected void onPressChange(MotionEvent e, boolean isLongType) {
+        super.onPressChange(e, isLongType);
+        int lastIndex = mSelectedIndex;
+        calculateSelectedX(e.getX());
+        if (lastIndex != mSelectedIndex) {
+            onSelectedChanged(this, getItem(mSelectedIndex), mSelectedIndex);
+        }
+        invalidate();
+    }
+
+   /* @Override
     public void onLongPress(MotionEvent e) {
         super.onLongPress(e);
         int lastIndex = mSelectedIndex;
@@ -622,7 +633,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             onSelectedChanged(this, getItem(mSelectedIndex), mSelectedIndex);
         }
         invalidate();
-    }
+    }*/
 
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {

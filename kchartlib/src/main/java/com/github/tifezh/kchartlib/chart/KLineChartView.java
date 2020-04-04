@@ -535,6 +535,14 @@ public class KLineChartView extends BaseKLineChartView {
     }
 
     @Override
+    public boolean onDown(MotionEvent e) {
+        if (!isRefreshing) {
+            return super.onDown(e);
+        }
+        return false;
+    }
+
+    @Override
     public void onLongPress(MotionEvent e) {
         if (!isRefreshing) {
             super.onLongPress(e);
