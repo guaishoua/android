@@ -312,7 +312,12 @@ public class BigKlineActivity extends BaseActivity<MarketDetailsPresenter> imple
 
         if (kLineModel != null) {
             isFirst = false;
-            success(kLineModel, true);
+            mKChartView.post(new Runnable() {
+                @Override
+                public void run() {
+                    success(kLineModel, true);
+                }
+            });
         }
 
         setCacheCoinInfo();

@@ -15,7 +15,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
-        android:paddingLeft="@dimen/dp_20">
+        android:paddingLeft="@dimen/dp_10">
 
         <TextView
             android:id="@+id/tv_coin_name"
@@ -132,7 +132,7 @@
                 android:id="@+id/img_close"
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
-                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:padding="@dimen/dp_7"
                 app:srcCompat="@drawable/icon_close_white" />
@@ -153,11 +153,19 @@
             android:orientation="vertical"
             android:paddingLeft="@dimen/dp_10">
 
-            <com.github.tifezh.kchartlib.chart.KLineChartView
-                android:id="@+id/kchart_view"
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:padding="@dimen/dp_1"
+                app:qmui_borderColor="@color/content_bg_color"
+                app:qmui_borderWidth="@dimen/dp_1">
+
+                <com.github.tifezh.kchartlib.chart.KLineChartView
+                    android:id="@+id/kchart_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
             <com.shizhefei.view.indicator.ScrollIndicatorView
                 android:id="@+id/magic_indicator"
