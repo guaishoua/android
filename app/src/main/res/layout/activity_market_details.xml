@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_news_price"
                         android:layout_marginTop="@dimen/dp_2"
-                        android:textColor="@color/text_white_50"
+                        android:textColor="@color/text_grey"
                         android:textSize="@dimen/text_size_sp_14"
                         android:textStyle="bold"
                         tools:text="≈￥6000" />
@@ -64,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_rmb_scale"
                         android:layout_marginTop="@dimen/dp_2"
-                        android:textColor="@color/text_white"
+                        android:textColor="@color/text_color"
                         android:textSize="@dimen/text_size_sp_12"
                         tools:text="111" />
 
@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="@string/vol"
-                        android:textColor="@color/text_white"
+                        android:textColor="@color/text_color"
                         android:textSize="@dimen/text_size_sp_12" />
 
                     <TextView
@@ -84,7 +84,7 @@
                         android:layout_marginRight="@dimen/dp_5"
                         android:layout_toLeftOf="@id/tv_volume_title"
                         android:text="--"
-                        android:textColor="@color/text_white"
+                        android:textColor="@color/text_color"
                         android:textSize="@dimen/text_size_sp_12" />
 
                     <TextView
@@ -95,7 +95,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/dp_10"
                         android:text="@string/highest_price"
-                        android:textColor="@color/text_white"
+                        android:textColor="@color/text_color"
                         android:textSize="@dimen/text_size_sp_12" />
 
                     <TextView
@@ -106,7 +106,7 @@
                         android:layout_marginRight="@dimen/dp_5"
                         android:layout_toLeftOf="@id/tv_highprice_title"
                         android:text="--"
-                        android:textColor="@color/text_white"
+                        android:textColor="@color/text_color"
                         android:textSize="@dimen/text_size_sp_12" />
 
                     <TextView
@@ -117,7 +117,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/dp_10"
                         android:text="@string/lowest_price"
-                        android:textColor="@color/text_white"
+                        android:textColor="@color/text_color"
                         android:textSize="@dimen/text_size_sp_12" />
 
                     <TextView
@@ -128,7 +128,7 @@
                         android:layout_marginRight="@dimen/dp_5"
                         android:layout_toLeftOf="@id/tv_lowprice_title"
                         android:text="--"
-                        android:textColor="@color/text_white"
+                        android:textColor="@color/text_color"
                         android:textSize="@dimen/text_size_sp_12" />
                 </RelativeLayout>
 

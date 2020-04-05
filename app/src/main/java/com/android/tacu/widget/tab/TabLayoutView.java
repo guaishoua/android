@@ -29,6 +29,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.android.tacu.module.market.view.MarketDetailsActivity.REQUESTCODE;
+
 
 /**
  * Created by jiazhen on 2018/9/24.
@@ -301,6 +303,12 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
         initData();
     }
 
+    public void setKlineModel(IndexKlineModel klineModel) {
+        this.klineModel = klineModel;
+        clearAllColor();
+        initData();
+    }
+
     public void setOnTabSelectListener(TabSelectListener listener) {
         this.mTabSelectListener = listener;
     }
@@ -329,6 +337,9 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
                         klineModel.ChartTime = KLineChartView.MIN_1;
                         klineModel.isLine = true;
                         saveOpearte();
+
+                        mKChartView.hideSelectData();
+                        mKChartView.setMainDrawLine(true);
                         break;
                     case 1:
                         klineModel.ChartTime = KLineChartView.MIN_5;
@@ -396,10 +407,10 @@ public class TabLayoutView extends LinearLayout implements View.OnClickListener 
             public void onTarget() {
                 if (flag == 0) {
                     Intent intent = new Intent(activity, IndexKlineActivity.class);
-                    activity.startActivityForResult(intent, MarketDetailsActivity.REQUESTCODE);
+                    activity.startActivityForResult(intent, REQUESTCODE);
                 } else if (flag == 1) {
                     Intent intent = new Intent(fragment.getContext(), IndexKlineActivity.class);
-                    fragment.startActivityForResult(intent, MarketDetailsActivity.REQUESTCODE);
+                    fragment.startActivityForResult(intent, REQUESTCODE);
                 }
             }
         });

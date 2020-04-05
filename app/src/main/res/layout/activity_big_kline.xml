@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/common_titlebar"
+        android:visibility="gone" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:paddingLeft="@dimen/dp_20">
+
+        <TextView
+            android:id="@+id/tv_coin_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_16"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="BTC/ACU" />
+
+        <TextView
+            android:id="@+id/tv_news_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:includeFontPadding="false"
+            android:textColor="@color/color_riseup"
+            android:textSize="@dimen/text_size_sp_14"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_coin_name"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0.12345678" />
+
+        <TextView
+            android:id="@+id/tv_change_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_news_price"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="111" />
+
+        <TextView
+            android:id="@+id/tv_rmb_scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:textColor="@color/text_white_50"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_change_rate"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="≈￥6000" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/high"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <TextView
+                android:id="@+id/tv_highprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text="--"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text="@string/low"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <TextView
+                android:id="@+id/tv_lowprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text="--"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text="@string/vol"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <TextView
+                android:id="@+id/tv_volume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text="--"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <ImageView
+                android:id="@+id/img_close"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_10"
+                android:padding="@dimen/dp_7"
+                app:srcCompat="@drawable/icon_close_white" />
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/content_bg_color_grey"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_10">
+
+            <com.github.tifezh.kchartlib.chart.KLineChartView
+                android:id="@+id/kchart_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.shizhefei.view.indicator.ScrollIndicatorView
+                android:id="@+id/magic_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_indicator_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/main_view"
+                android:textColor="@color/text_default"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <TextView
+                android:id="@+id/tv_ma"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="MA"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <TextView
+                android:id="@+id/tv_boll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="BOLL"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <RelativeLayout
+                android:id="@+id/rl_main_eye"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/img_main_eye"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/dp_4"
+                    app:srcCompat="@drawable/qmui_icon_edittext_pwdvis" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/content_bg_color_grey" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/second_view"
+                android:textColor="@color/text_default"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <TextView
+                android:id="@+id/tv_macd"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="MACD"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <TextView
+                android:id="@+id/tv_kdj"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="KDJ"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <TextView
+                android:id="@+id/tv_rsi"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="RSI"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <TextView
+                android:id="@+id/tv_wr"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="WR"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_12" />
+
+            <RelativeLayout
+                android:id="@+id/rl_second_eye"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/img_second_eye"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/dp_4"
+                    app:srcCompat="@drawable/qmui_icon_edittext_pwdvis" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/content_bg_color_grey" />
+
+            <RelativeLayout
+                android:id="@+id/rl_setting"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/icon_kline_setting" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

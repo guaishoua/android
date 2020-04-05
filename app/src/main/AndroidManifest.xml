@@ -180,5 +180,8 @@
         <activity android:name="com.android.tacu.module.otc.view.ArbitrationSubmitActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcManageOrderActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcManageDetailsActivity" />
+        <activity
+            android:name="com.android.tacu.module.market.view.BigKlineActivity"
+            android:screenOrientation="landscape" />
     </application>
 </manifest>

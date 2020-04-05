@@ -39,6 +39,7 @@ import com.android.tacu.utils.KlineUtils;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.CoinPopWindow;
+import com.android.tacu.widget.tab.IndexKlineModel;
 import com.android.tacu.widget.tab.TabLayoutView;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
 import com.github.tifezh.kchartlib.chart.adapter.KLineChartAdapter;
@@ -66,6 +67,7 @@ import static com.android.tacu.api.Constant.SELFCOIN_LIST;
 public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> implements MarketDetailsContract.IView, ISocketEvent, Observer {
 
     public static final int REQUESTCODE = 1001;
+    public static final int REQUESTCODE_BIG = 1002;
 
     @BindView(R.id.scrollView)
     CoordinatorLayout scrollView;
@@ -99,14 +101,13 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     private MarketDetailHistoryFragment marketDetailHistoryFragment;
 
     //k线的请求 30s一次
-    private static final int KREFRESH_TIME = 1000 * 30;
+    public static final int KREFRESH_TIME = 1000 * 30;
 
     //k线是否加载动画和网络请求动画
     private boolean isAnim = true;
     private boolean isFirst = true;
     private KLineChartAdapter kAdapter;
 
-    private int pointPrice;
     private int currencyId;
     private int baseCurrencyId;
     private String currencyNameEn;
@@ -116,6 +117,9 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     private CoinPopWindow coinPopWindow;
 
     private CurrentTradeCoinModel currentTradeCoinModel;
+    private int pointPrice;
+    //防止socket刷新频繁
+    private int pointPriceTemp;
     private IndicatorViewPager indicatorViewPager;
 
     //是否添加到自选
@@ -127,9 +131,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     private KLineModel kLineModel;
     private long klineRange;
-
-    //防止socket刷新频繁
-    private int pointPriceTemp;
 
     private Handler kHandler = new Handler();
     private Runnable kRunnable = new Runnable() {
@@ -178,6 +179,12 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        mTopBar.addRightImageButton(R.drawable.icon_zoom_out, R.id.qmui_topbar_item_right, 20, 20).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpTo(BigKlineActivity.createActivity(MarketDetailsActivity.this, currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn, kLineModel), REQUESTCODE_BIG);
             }
         });
 
@@ -249,6 +256,8 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         super.onDestroy();
         if (kHandler != null && kRunnable != null) {
             kHandler.removeCallbacks(kRunnable);
+            kHandler = null;
+            kRunnable = null;
         }
         if (linIndicator != null) {
             linIndicator.clear();
@@ -269,6 +278,18 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                     kAdapter.notifyInvalidated();
                 }
             }
+        } else if (requestCode == REQUESTCODE_BIG && resultCode == RESULT_OK) {
+            String temp = SPUtils.getInstance().getString(Constant.MARKET_DETAIL_TIME);
+            IndexKlineModel indexKlineModel;
+            if (!TextUtils.isEmpty(temp)) {
+                indexKlineModel = gson.fromJson(temp, IndexKlineModel.class);
+            } else {
+                indexKlineModel = new IndexKlineModel();
+            }
+            linIndicator.setKlineModel(indexKlineModel);
+            klineRange = intent.getLongExtra("chartTime", KLineChartView.HOUR_1);
+            kLineModel = (KLineModel) intent.getSerializableExtra("kModel");
+            success(kLineModel, klineRange, false);
         }
     }
 
@@ -300,7 +321,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     }
 
     @Override
-    public void success(KLineModel model, long range, boolean isClear, boolean isLine) {
+    public void success(KLineModel model, long range, boolean isClear) {
         this.kLineModel = model;
         this.klineRange = range;
 
@@ -322,10 +343,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                     } else {
                         mKChartView.setScrollColumnSpace();
                     }
-                }
-                if (isLine) {
-                    mKChartView.hideSelectData();
-                    mKChartView.setMainDrawLine(true);
                 }
             }
         }
@@ -522,7 +539,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             mKChartView.resetLoadMoreEnd();
             mKChartView.showLoading();
         }
-        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), linIndicator.getChartTime(), 1, isClear, linIndicator.getIsLine());
+        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), linIndicator.getChartTime(), 1, isClear);
         if (isFirst) {
             isFirst = false;
         }

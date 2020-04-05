@@ -37,6 +37,7 @@ import java.util.Observer;
 import butterknife.BindView;
 
 import static android.app.Activity.RESULT_OK;
+import static com.android.tacu.module.market.view.MarketDetailsActivity.KREFRESH_TIME;
 import static com.android.tacu.module.market.view.MarketDetailsActivity.REQUESTCODE;
 
 public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implements ISocketEvent, Observer, MarketDetailsContract.IKlineView {
@@ -67,8 +68,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     private int pointPrice;
     //防止socket刷新频繁
     private int pointPriceTemp;
-
-    private static final int KREFRESH_TIME = 1000 * 30;
 
     private boolean isAnim = true;
     private boolean isFirst = true;
@@ -236,7 +235,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     }
 
     @Override
-    public void success(KLineModel model, long range, boolean isClear, boolean isLine) {
+    public void success(KLineModel model, long range, boolean isClear) {
         this.kLineModel = model;
         this.klineRange = range;
 
@@ -258,10 +257,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                     } else {
                         mKChartView.setScrollColumnSpace();
                     }
-                }
-                if (isLine) {
-                    mKChartView.hideSelectData();
-                    mKChartView.setMainDrawLine(true);
                 }
             }
         }
@@ -294,7 +289,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
             mKChartView.resetLoadMoreEnd();
             mKChartView.showLoading();
         }
-        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), linIndicator.getChartTime(), 2, isClear, linIndicator.getIsLine());
+        mPresenter.getBestexKline((currencyNameEn + baseCurrencyNameEn).toLowerCase(), linIndicator.getChartTime(), 2, isClear);
         if (isFirst) {
             isFirst = false;
         }

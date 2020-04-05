@@ -18,21 +18,32 @@ public class MarketDetailsPresenter extends BaseMvpPresenter implements MarketDe
     /**
      * @param symbol
      * @param range
-     * @param type    k线详情页 type=2 交易
+     * @param type    k线详情页 type=2 交易或者大图k线
      * @param isClear true=表示重新选择了时间类型
      */
     @Override
-    public void getBestexKline(String symbol, final long range, final int type, final boolean isClear, final boolean isLine) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.KLINE, Api.class).getKline(symbol, range), new NetDisposableObserver<BaseModel<KLineModel>>((IBaseMvpView) getView(), false) {
+    public void getBestexKline(String symbol, final long range, final int type, final boolean isClear) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.KLINE, Api.class).getKline(symbol, range), new NetDisposableObserver<BaseModel<KLineModel>>((IBaseMvpView) getView(), false, false) {
             @Override
             public void onNext(BaseModel<KLineModel> model) {
                 if (type == 1) {
                     MarketDetailsContract.IView view = (MarketDetailsContract.IView) getView();
-                    view.success(model.attachment, range, isClear, isLine);
+                    view.success(model.attachment, range, isClear);
                 } else {
                     MarketDetailsContract.IKlineView view = (MarketDetailsContract.IKlineView) getView();
-                    view.success(model.attachment, range, isClear, isLine);
+                    view.success(model.attachment, range, isClear);
                 }
+            }
+        });
+    }
+
+    @Override
+    public void getBestexKline(String symbol, final long range, final boolean isClear) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.KLINE, Api.class).getKline(symbol, range), new NetDisposableObserver<BaseModel<KLineModel>>((IBaseMvpView) getView(), false, false) {
+            @Override
+            public void onNext(BaseModel<KLineModel> model) {
+                MarketDetailsContract.IBigKlineView view = (MarketDetailsContract.IBigKlineView) getView();
+                view.success(model.attachment, isClear);
             }
         });
     }
