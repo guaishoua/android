@@ -49,8 +49,8 @@ public class MACDDraw implements IChartDraw<IMACD> {
         IMACD point = (IMACD) view.getItem(position);
         if (point.getMACDSValue() != null && point.getMACDLValue() != null && point.getMACDMValue() != null) {
             drawMACD(canvas, view, curX, curPoint.getMacd());
-            view.drawChildLine(canvas, mDIFPaint, lastX, lastPoint.getDea(), curX, curPoint.getDea());
-            view.drawChildLine(canvas, mDEAPaint, lastX, lastPoint.getDif(), curX, curPoint.getDif());
+            view.drawChildLine(canvas, mDIFPaint, lastX, lastPoint.getDif(), curX, curPoint.getDif());
+            view.drawChildLine(canvas, mDEAPaint, lastX, lastPoint.getDea(), curX, curPoint.getDea());
         }
     }
 
