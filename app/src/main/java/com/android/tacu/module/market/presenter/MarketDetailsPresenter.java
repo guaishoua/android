@@ -22,28 +22,28 @@ public class MarketDetailsPresenter extends BaseMvpPresenter implements MarketDe
      * @param isClear true=表示重新选择了时间类型
      */
     @Override
-    public void getBestexKline(String symbol, final long range, final int type, final boolean isClear) {
+    public void getBestexKline(final String symbol, final long range, final int type, final boolean isClear) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.KLINE, Api.class).getKline(symbol, range), new NetDisposableObserver<BaseModel<KLineModel>>((IBaseMvpView) getView(), false, false) {
             @Override
             public void onNext(BaseModel<KLineModel> model) {
                 if (type == 1) {
                     MarketDetailsContract.IView view = (MarketDetailsContract.IView) getView();
-                    view.success(model.attachment, range, isClear);
+                    view.success(model.attachment, symbol, range, isClear);
                 } else {
                     MarketDetailsContract.IKlineView view = (MarketDetailsContract.IKlineView) getView();
-                    view.success(model.attachment, range, isClear);
+                    view.success(model.attachment, symbol, range, isClear);
                 }
             }
         });
     }
 
     @Override
-    public void getBestexKline(String symbol, final long range, final boolean isClear) {
+    public void getBestexKline(final String symbol, final long range, final boolean isClear) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.KLINE, Api.class).getKline(symbol, range), new NetDisposableObserver<BaseModel<KLineModel>>((IBaseMvpView) getView(), false, false) {
             @Override
             public void onNext(BaseModel<KLineModel> model) {
                 MarketDetailsContract.IBigKlineView view = (MarketDetailsContract.IBigKlineView) getView();
-                view.success(model.attachment, isClear);
+                view.success(model.attachment, symbol, isClear);
             }
         });
     }

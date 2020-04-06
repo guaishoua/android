@@ -14,7 +14,6 @@ import android.graphics.Shader;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
@@ -80,7 +79,6 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     private Paint mSelectorFramePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mCurrentPricePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mCurrentPriceDottedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Paint mCurrentPriceDottedPaint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mCurrentRoundRect = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private LinearGradient linearGradient;
@@ -174,10 +172,6 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         mCurrentPriceDottedPaint.setStyle(Paint.Style.STROKE);
         mCurrentPriceDottedPaint.setStrokeWidth(ViewUtil.Dp2Px(getContext(), 1));
         mCurrentPriceDottedPaint.setPathEffect(new DashPathEffect(new float[]{4, 8}, 1));
-
-        mCurrentPriceDottedPaint1.setStyle(Paint.Style.STROKE);
-        mCurrentPriceDottedPaint1.setStrokeWidth(ViewUtil.Dp2Px(getContext(), 1));
-        mCurrentPriceDottedPaint1.setPathEffect(new DashPathEffect(new float[]{4, 8}, 1));
 
         //椭圆
         mCurrentRoundRect.setStyle(Paint.Style.STROKE);
@@ -524,22 +518,22 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             canvas.drawPath(currPath, mCurrentPriceDottedPaint);
         } else {
             String text = formatValue(point.getClosePrice()) + " ▶";
-            float top = currY - mTextPaint.getTextSize() / 2 - currOvalPaddingH;
-            float bottom = currY + mTextPaint.getTextSize() / 2 + currOvalPaddingH;
+            float top = currY - mCurrentPricePaint.getTextSize() / 2 - currOvalPaddingH;
+            float bottom = currY + mCurrentPricePaint.getTextSize() / 2 + currOvalPaddingH;
             float right = mWidth - columnSpace * 0.75f;
-            float left = right - mTextPaint.measureText(text) - currOvalPaddingW * 2;
+            float left = right - mCurrentPricePaint.measureText(text) - currOvalPaddingW * 2;
             //创建RectF对象时，要注意的是左边小于右边，上边小于下边
             canvas.drawRoundRect(new RectF(left, top, right, bottom), (bottom - top) / 2, (bottom - top) / 2, mCurrentRoundRect);
-            //这里的y值做了微调，正常应该是 currY + mTextPaint.getTextSize() / 2
-            canvas.drawText(text, left + currOvalPaddingW, currY + mTextPaint.getTextSize() / 3, mTextPaint);
+            //这里的y值做了微调，正常应该是 currY + mCurrentPricePaint.getTextSize() / 2
+            canvas.drawText(text, left + currOvalPaddingW, currY + mCurrentPricePaint.getTextSize() / 3, mCurrentPricePaint);
             Path currPath1 = new Path();
             currPath1.moveTo(0, currY);
             currPath1.lineTo(left, currY);
-            canvas.drawPath(currPath1, mCurrentPriceDottedPaint1);
+            canvas.drawPath(currPath1, mCurrentPriceDottedPaint);
             Path currPath2 = new Path();
             currPath2.moveTo(right, currY);
             currPath2.lineTo(mWidth, currY);
-            canvas.drawPath(currPath2, mCurrentPriceDottedPaint1);
+            canvas.drawPath(currPath2, mCurrentPriceDottedPaint);
         }
     }
 
@@ -1309,8 +1303,6 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
      */
     public void setTextColor(int color) {
         mTextPaint.setColor(color);
-        mCurrentRoundRect.setColor(color);
-        mCurrentPriceDottedPaint1.setColor(color);
     }
 
     public void setPointTextPaintColor(int color) {
@@ -1320,6 +1312,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     public void setCurrentPriceColor(int color) {
         mCurrentPricePaint.setColor(color);
         mCurrentPriceDottedPaint.setColor(color);
+        mCurrentRoundRect.setColor(color);
     }
 
     /**

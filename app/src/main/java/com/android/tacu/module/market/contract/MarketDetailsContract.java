@@ -10,7 +10,7 @@ import com.android.tacu.module.my.model.InvitedInfoModel;
 public class MarketDetailsContract {
 
     public interface IView extends IBaseMvpView {
-        void success(KLineModel model, long range, boolean isClear);
+        void success(KLineModel model, String symbol, long range, boolean isClear);
 
         void uploadSelfSuccess();
 
@@ -18,11 +18,11 @@ public class MarketDetailsContract {
     }
 
     public interface IKlineView extends IBaseMvpView {
-        void success(KLineModel model, long range, boolean isClear);
+        void success(KLineModel model, String symbol, long range, boolean isClear);
     }
 
     public interface IBigKlineView extends IBaseMvpView {
-        void success(KLineModel model, boolean isClear);
+        void success(KLineModel model, String symbol, boolean isClear);
     }
 
     public interface IPresenter {

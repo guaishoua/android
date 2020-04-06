@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -76,6 +77,8 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
 
     private KLineModel kLineModel;
     private long klineRange;
+
+    private CurrentTradeCoinModel currentTradeCoinModel;
 
     private Handler kHandler = new Handler();
     private Runnable kRunnable = new Runnable() {
@@ -235,12 +238,15 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     }
 
     @Override
-    public void success(KLineModel model, long range, boolean isClear) {
+    public void success(KLineModel model, String symbol, long range, boolean isClear) {
         this.kLineModel = model;
         this.klineRange = range;
 
         if (model != null && model.data != null && model.data.lines != null) {
             List<KLineEntity> data = KlineUtils.dealKlines(model, range);
+            if (data != null && data.size() > 0 && currentTradeCoinModel != null && TextUtils.equals(symbol, (currentTradeCoinModel.currentTradeCoin.currencyNameEn + currentTradeCoinModel.currentTradeCoin.baseCurrencyNameEn).toLowerCase())) {
+                data.get(data.size() - 1).Close = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).floatValue();
+            }
 
             if (data != null) {
                 if (isAnim) {
@@ -248,6 +254,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                 }
                 KLineChartView.decimalsCount = pointPrice;
                 DataHelper.calculate(data, getContext());
+                kAdapter.setCoinName(symbol);
                 kAdapter.clearData();
                 kAdapter.addFooterData(data);
                 mKChartView.refreshEnd();
@@ -296,13 +303,17 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     }
 
     private void coinInfo(CurrentTradeCoinModel model) {
+        currentTradeCoinModel = model;
         if (model != null) {
             pointPrice = model.currentTradeCoin.pointPrice;
 
-            if (kAdapter != null && pointPrice != pointPriceTemp) {
-                KLineChartView.decimalsCount = pointPrice;
-                pointPriceTemp = pointPrice;
-                kAdapter.notifyDataSetChanged();
+            if (kAdapter != null) {
+                kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
+                if (pointPrice != pointPriceTemp) {
+                    KLineChartView.decimalsCount = pointPrice;
+                    pointPriceTemp = pointPrice;
+                    kAdapter.notifyDataSetChanged();
+                }
             }
             tvLowPrice.setText(getResources().getString(R.string.lower) + BigDecimal.valueOf(model.currentTradeCoin.lowPrice).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
             tvHighPrice.setText(getResources().getString(R.string.higher) + BigDecimal.valueOf(model.currentTradeCoin.highPrice).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());

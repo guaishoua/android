@@ -1,5 +1,7 @@
 package com.github.tifezh.kchartlib.chart.adapter;
 
+import android.text.TextUtils;
+
 import com.github.tifezh.kchartlib.chart.entity.KLineEntity;
 
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.List;
  */
 public class KLineChartAdapter extends BaseKLineChartAdapter {
 
+    private String coinName;
     private List<KLineEntity> datas = new ArrayList<>();
 
     @Override
@@ -26,6 +29,14 @@ public class KLineChartAdapter extends BaseKLineChartAdapter {
     @Override
     public String getDate(int position) {
         return datas.get(position).Date;
+    }
+
+    public String getCoinName() {
+        return coinName;
+    }
+
+    public void setCoinName(String coinName) {
+        this.coinName = coinName;
     }
 
     /**
@@ -56,6 +67,14 @@ public class KLineChartAdapter extends BaseKLineChartAdapter {
     public void changeItem(int position, KLineEntity data) {
         datas.set(position, data);
         notifyDataSetChanged();
+    }
+
+    public void changeCurrentItem(float closePrice, String symbol) {
+        if (datas != null && datas.size() > 0 && TextUtils.equals(symbol, coinName)) {
+            KLineEntity data = (KLineEntity) getItem(getCount() - 1);
+            data.Close = closePrice;
+            notifyDataSetChanged();
+        }
     }
 
     /**

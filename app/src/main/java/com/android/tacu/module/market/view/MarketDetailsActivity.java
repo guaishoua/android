@@ -289,7 +289,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             linIndicator.setKlineModel(indexKlineModel);
             klineRange = intent.getLongExtra("chartTime", KLineChartView.HOUR_1);
             kLineModel = (KLineModel) intent.getSerializableExtra("kModel");
-            success(kLineModel, klineRange, false);
+            success(kLineModel, (currencyNameEn + baseCurrencyNameEn).toLowerCase(), klineRange, false);
         }
     }
 
@@ -321,12 +321,15 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     }
 
     @Override
-    public void success(KLineModel model, long range, boolean isClear) {
+    public void success(KLineModel model, String symbol, long range, boolean isClear) {
         this.kLineModel = model;
         this.klineRange = range;
 
         if (model != null && model.data != null && model.data.lines != null) {
             List<KLineEntity> data = KlineUtils.dealKlines(model, range);
+            if (data != null && data.size() > 0 && currentTradeCoinModel != null && TextUtils.equals(symbol, (currentTradeCoinModel.currentTradeCoin.currencyNameEn + currentTradeCoinModel.currentTradeCoin.baseCurrencyNameEn).toLowerCase())) {
+                data.get(data.size() - 1).Close = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).floatValue();
+            }
 
             if (data != null) {
                 if (isAnim) {
@@ -334,6 +337,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 }
                 KLineChartView.decimalsCount = pointPrice;
                 DataHelper.calculate(data, this);
+                kAdapter.setCoinName(symbol);
                 kAdapter.clearData();
                 kAdapter.addFooterData(data);
                 mKChartView.refreshEnd();
@@ -456,10 +460,13 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         if (model != null) {
             pointPrice = model.currentTradeCoin.pointPrice;
 
-            if (kAdapter != null && pointPrice != pointPriceTemp) {
-                KLineChartView.decimalsCount = pointPrice;
-                pointPriceTemp = pointPrice;
-                kAdapter.notifyDataSetChanged();
+            if (kAdapter != null) {
+                kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
+                if (pointPrice != pointPriceTemp) {
+                    KLineChartView.decimalsCount = pointPrice;
+                    pointPriceTemp = pointPrice;
+                    kAdapter.notifyDataSetChanged();
+                }
             }
             tvVolume.setText(BigDecimal.valueOf(model.currentTradeCoin.volume).setScale(2, BigDecimal.ROUND_DOWN).toPlainString());
             tvLowPrice.setText(BigDecimal.valueOf(model.currentTradeCoin.lowPrice).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
