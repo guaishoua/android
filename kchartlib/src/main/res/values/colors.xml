@@ -19,7 +19,7 @@
 
     <!--表格线的颜色-->
     <color name="chart_grid_line">#353941</color>
-    <color name="chart_text">#B1B2B6</color>
+    <color name="chart_text">#999999</color>
     <color name="chart_point_text">#FFFFFF</color>
     <color name="chart_selector">#141C25</color>
 
@@ -42,5 +42,6 @@
     <color name="content_bg_color_grey">#0A121B</color>
 
     <color name="text_color">#FFFFFF</color>
-    <color name="text_grey">#7FFFFFFF</color>
+    <color name="text_grey">#999999</color>
+    <color name="text_default">#E2BF1C</color>
 </resources>

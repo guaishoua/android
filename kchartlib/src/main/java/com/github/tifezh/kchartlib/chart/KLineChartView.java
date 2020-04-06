@@ -118,6 +118,10 @@ public class KLineChartView extends BaseKLineChartView {
             //表格线的颜色
             setGridLineColor(getColor(R.color.chart_grid_line));
 
+            //当前最新价格
+            setCurrentPriceTextSize(getDimension(R.dimen.chart_text_size));
+            setCurrentPriceColor(getColor(R.color.text_default));
+
             //macd
             setMACDWidth(getDimension(R.dimen.chart_candle_width));
             setMACDColor(getColor(R.color.chart_text));

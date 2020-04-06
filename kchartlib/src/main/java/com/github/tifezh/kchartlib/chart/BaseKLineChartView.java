@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
+import android.graphics.DashPathEffect;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -13,6 +14,7 @@ import android.graphics.Shader;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
@@ -76,11 +78,18 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     private Paint mSelectedYBigCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectPointPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mSelectorFramePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mCurrentPricePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mCurrentPriceDottedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mCurrentPriceDottedPaint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mCurrentRoundRect = new Paint(Paint.ANTI_ALIAS_FLAG);
+
     private LinearGradient linearGradient;
     private int mSelectedIndex;
 
     private int circleRadius = 0;
     private int bigCircleRadius = 0;
+    private int currOvalPaddingH = 0;
+    private int currOvalPaddingW = 0;
 
     private IChartDraw mMainDraw;
     private MainDraw mainDraw;
@@ -90,6 +99,8 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
 
     private Boolean isWR = false;
     private Boolean isShowChild = true;
+
+    private float mColumnSpace;
 
     private DataSetObserver mDataSetObserver = new DataSetObserver() {
         @Override
@@ -152,10 +163,25 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         mValueHorizontalPadding = (int) getResources().getDimension(R.dimen.value_horizontal_padding);
         circleRadius = (int) getResources().getDimension(R.dimen.selector_circle_radius);
         bigCircleRadius = (int) getResources().getDimension(R.dimen.selector_big_circle_radius);
+        currOvalPaddingW = ViewUtil.Dp2Px(getContext(), 10);
+        currOvalPaddingH = ViewUtil.Dp2Px(getContext(), 6);
 
         mSelectPointPaint.setStyle(Paint.Style.STROKE);
         mSelectedYCirclePaint.setColor(ContextCompat.getColor(getContext(), R.color.selector_circle_color));
         mSelectedYBigCirclePaint.setColor(ContextCompat.getColor(getContext(), R.color.selector_big_circle_color));
+
+        //虚线
+        mCurrentPriceDottedPaint.setStyle(Paint.Style.STROKE);
+        mCurrentPriceDottedPaint.setStrokeWidth(ViewUtil.Dp2Px(getContext(), 1));
+        mCurrentPriceDottedPaint.setPathEffect(new DashPathEffect(new float[]{4, 8}, 1));
+
+        mCurrentPriceDottedPaint1.setStyle(Paint.Style.STROKE);
+        mCurrentPriceDottedPaint1.setStrokeWidth(ViewUtil.Dp2Px(getContext(), 1));
+        mCurrentPriceDottedPaint1.setPathEffect(new DashPathEffect(new float[]{4, 8}, 1));
+
+        //椭圆
+        mCurrentRoundRect.setStyle(Paint.Style.STROKE);
+        mCurrentRoundRect.setStrokeWidth(ViewUtil.Dp2Px(getContext(), 1));
 
         mAnimator = ValueAnimator.ofFloat(0f, 1f);
         mAnimator.setDuration(mAnimationDuration);
@@ -482,6 +508,39 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             canvas.drawRect(x - textWidth / 2 - w1, y, x + textWidth / 2 + w1, y + baseLine + r, mSelectorFramePaint);
             canvas.drawText(date, x - textWidth / 2, y + baseLine + 5, mPointTextPaint);
         }
+
+        //当前价格的显示
+        float currTextHeight = mCurrentPricePaint.getTextSize();
+        IKLine point = (IKLine) getCurrentNewItem();
+        float currX = translateXtoX(getX(getCount() - 1));
+        float currY = getMainY(point.getClosePrice());
+        float currRightX = mWidth - calculateWidth(formatValue(point.getClosePrice())) - mValueHorizontalPadding;
+        float currRightXDp3 = currRightX - ViewUtil.Dp2Px(getContext(), 3);
+        if ((currRightXDp3 - currX) > 0) {
+            canvas.drawText(formatValue(point.getClosePrice()), currRightX, currY + currTextHeight / 2, mCurrentPricePaint);
+            Path currPath = new Path();
+            currPath.moveTo(currX, currY);
+            currPath.lineTo(currRightXDp3, currY);
+            canvas.drawPath(currPath, mCurrentPriceDottedPaint);
+        } else {
+            String text = formatValue(point.getClosePrice()) + " ▶";
+            float top = currY - mTextPaint.getTextSize() / 2 - currOvalPaddingH;
+            float bottom = currY + mTextPaint.getTextSize() / 2 + currOvalPaddingH;
+            float right = mWidth - columnSpace * 0.75f;
+            float left = right - mTextPaint.measureText(text) - currOvalPaddingW * 2;
+            //创建RectF对象时，要注意的是左边小于右边，上边小于下边
+            canvas.drawRoundRect(new RectF(left, top, right, bottom), (bottom - top) / 2, (bottom - top) / 2, mCurrentRoundRect);
+            //这里的y值做了微调，正常应该是 currY + mTextPaint.getTextSize() / 2
+            canvas.drawText(text, left + currOvalPaddingW, currY + mTextPaint.getTextSize() / 3, mTextPaint);
+            Path currPath1 = new Path();
+            currPath1.moveTo(0, currY);
+            currPath1.lineTo(left, currY);
+            canvas.drawPath(currPath1, mCurrentPriceDottedPaint1);
+            Path currPath2 = new Path();
+            currPath2.moveTo(right, currY);
+            currPath2.lineTo(mWidth, currY);
+            canvas.drawPath(currPath2, mCurrentPriceDottedPaint1);
+        }
     }
 
     /**
@@ -522,7 +581,6 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
                 highString = formatValue(mMainHighMaxValue) + " ──";
                 canvas.drawText(highString, x - highStringWidth, y + highStringHeight / 2, mMaxMinPaint);
             }
-
         }
     }
 
@@ -669,9 +727,10 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         mMainLowMinValue = Float.MAX_VALUE;
         for (int i = mStartIndex; i <= mStopIndex; i++) {
             IKLine point = (IKLine) getItem(i);
+            IKLine currPoint = (IKLine) getCurrentNewItem();
             if (mMainDraw != null) {
-                mMainMaxValue = Math.max(mMainMaxValue, mMainDraw.getMaxValue(point));
-                mMainMinValue = Math.min(mMainMinValue, mMainDraw.getMinValue(point));
+                mMainMaxValue = Math.max(currPoint.getClosePrice(), Math.max(mMainMaxValue, mMainDraw.getMaxValue(point)));
+                mMainMinValue = Math.min(currPoint.getClosePrice(), Math.min(mMainMinValue, mMainDraw.getMinValue(point)));
                 if (mMainHighMaxValue != Math.max(mMainHighMaxValue, point.getHighPrice())) {
                     mMainHighMaxValue = point.getHighPrice();
                     mMainMaxIndex = i;
@@ -836,6 +895,27 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             return mAdapter.getItem(position);
         } else {
             return null;
+        }
+    }
+
+    /**
+     * 获取当前也就是最新的值
+     *
+     * @return
+     */
+    public Object getCurrentNewItem() {
+        if (mAdapter != null && mAdapter.getCount() > 0) {
+            return mAdapter.getItem(mAdapter.getCount() - 1);
+        } else {
+            return null;
+        }
+    }
+
+    public int getCount() {
+        if (mAdapter != null) {
+            return mAdapter.getCount();
+        } else {
+            return 0;
         }
     }
 
@@ -1229,10 +1309,17 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
      */
     public void setTextColor(int color) {
         mTextPaint.setColor(color);
+        mCurrentRoundRect.setColor(color);
+        mCurrentPriceDottedPaint1.setColor(color);
     }
 
     public void setPointTextPaintColor(int color) {
         mPointTextPaint.setColor(color);
+    }
+
+    public void setCurrentPriceColor(int color) {
+        mCurrentPricePaint.setColor(color);
+        mCurrentPriceDottedPaint.setColor(color);
     }
 
     /**
@@ -1244,6 +1331,10 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
 
     public void setSelectorPaintTextSize(float textSize) {
         mPointTextPaint.setTextSize(textSize);
+    }
+
+    public void setCurrentPriceTextSize(float textSize) {
+        mCurrentPricePaint.setTextSize(textSize);
     }
 
     /**
@@ -1346,8 +1437,6 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     /**
      * 默认向左移动一个格
      */
-    private float mColumnSpace;
-
     public void setScrollColumnSpace() {
         //列宽度，这里加5dp是为了不压线
         mColumnSpace = mWidth / mGridColumns + ViewUtil.Dp2Px(getContext(), 5);
