@@ -138,13 +138,13 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
 
     @OnClick(R.id.rl_ordinary_merchant)
     void ordinaryMerchantClick() {
-        type = 1;
+        type = 0;
         setShowBtn();
     }
 
     @OnClick(R.id.rl_certified_shoper)
     void certifiedClick() {
-        type = 2;
+        type = 1;
         setShowBtn();
     }
 
@@ -230,12 +230,11 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
         if (type == 0) {
             tv_ordinary_merchant.setTextColor(ContextCompat.getColor(this, R.color.text_default));
             view_ordinary_merchant.setVisibility(View.VISIBLE);
-            viewPager.setCurrentItem(0);
         } else if (type == 1) {
             tv_certified_shoper.setTextColor(ContextCompat.getColor(this, R.color.text_default));
             view_certified_shoper.setVisibility(View.VISIBLE);
-            viewPager.setCurrentItem(1);
         }
+        viewPager.setCurrentItem(type);
     }
 
     private void upload() {
