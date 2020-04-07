@@ -495,7 +495,8 @@ public class BigKlineActivity extends BaseActivity<MarketDetailsPresenter> imple
         if (model != null && model.data != null && model.data.lines != null) {
             List<KLineEntity> data = KlineUtils.dealKlines(model, indexKlineModel.ChartTime);
             if (data != null && data.size() > 0 && currentTradeCoinModel != null && TextUtils.equals(symbol, (currentTradeCoinModel.currentTradeCoin.currencyNameEn + currentTradeCoinModel.currentTradeCoin.baseCurrencyNameEn).toLowerCase())) {
-                data.get(data.size() - 1).Close = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).floatValue();
+                data.get(data.size() - 1).Close = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).floatValue();
+                data.get(data.size() - 1).Volume = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.volume).floatValue();
             }
 
             if (data != null) {
@@ -624,7 +625,7 @@ public class BigKlineActivity extends BaseActivity<MarketDetailsPresenter> imple
             pointPrice = model.currentTradeCoin.pointPrice;
 
             if (kAdapter != null) {
-                kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
+                kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).floatValue(), BigDecimal.valueOf(model.currentTradeCoin.volume).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
                 if (pointPrice != pointPriceTemp) {
                     KLineChartView.decimalsCount = pointPrice;
                     pointPriceTemp = pointPrice;
