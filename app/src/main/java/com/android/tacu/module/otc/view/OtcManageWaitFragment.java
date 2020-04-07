@@ -370,7 +370,7 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
                             holder.setGone(R.id.btn_left, true);
                             holder.setGone(R.id.btn_center, true);
                             ((QMUIRoundButtonDrawable) holder.getView(R.id.btn_center).getBackground()).setBgData(ContextCompat.getColorStateList(mContext, R.color.color_grey));
-                            holder.setText(R.id.btn_center, getResources().getString(R.string.refuse_order));
+                            holder.setText(R.id.btn_center, getResources().getString(R.string.otc_refuse_order));
                         }
 
                         if (currentTime != null) {
