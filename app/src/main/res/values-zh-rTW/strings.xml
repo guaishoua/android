@@ -293,6 +293,7 @@
     <!--市場-->
     <string name="market_last_price">最新價</string>
     <string name="add_selfselection">添加自選</string>
+    <string name="target">指標</string>
     <string name="depth">深度</string>
     <string name="buy_index">買盤</string>
     <string name="sell_index">賣盤</string>
@@ -548,6 +549,9 @@
     <string name="otc_refuse_order">拒絕訂單</string>
     <string name="timeouted">已超時</string>
     <string name="pay_timeout">支付超時</string>
+    <string name="market_order">生成訂單</string>
+    <string name="buyer_pay">買方付款</string>
+    <string name="seller_coin">賣方放幣</string>
     <string name="order_finish">訂單完成</string>
     <string name="phone_auth">手機認證</string>
     <string name="email_auth">郵箱認證</string>

@@ -71,9 +71,10 @@
     <!--app更新dialog的按钮-->
     <color name="btn_update">#E94339</color>
     <!--首页折线图-->
+    <color name="chart_line_color">#E2BF1C</color>
     <color name="chart_gradient_start_color">#80E2BF1C</color> <!--起始渐变色-->
-    <!--中间渐变色-->
-    <!--最终渐变色-->
+    <color name="chart_gradient_center_color">#33E2BF1C</color><!--中间渐变色-->
+    <color name="chart_gradient_stop_color">#00000000</color><!--最终渐变色-->
     <!--首页底部tab的背景色的色值-->
     <color name="main_tab_bg_color">#141C25</color>
     <!--首页tab的字体颜色-->

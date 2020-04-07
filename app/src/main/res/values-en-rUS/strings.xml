@@ -292,6 +292,7 @@
     <!--市場-->
     <string name="market_last_price">Last Price</string>
     <string name="add_selfselection">Add “Favorite”</string>
+    <string name="target">Index</string>
     <string name="depth">Depth</string>
     <string name="buy_index">Buy</string>
     <string name="sell_index">Sell</string>
@@ -554,6 +555,9 @@
     <string name="otc_refuse_order">Order rejected</string>
     <string name="timeouted">Timed out</string>
     <string name="pay_timeout">Payout timeout</string>
+    <string name="market_order">Place order</string>
+    <string name="buyer_pay">Buyer to pay</string>
+    <string name="seller_coin">Seller to pay</string>
     <string name="order_finish">Order completed</string>
     <string name="phone_auth">Mobile verification</string>
     <string name="email_auth">Email verification</string>
