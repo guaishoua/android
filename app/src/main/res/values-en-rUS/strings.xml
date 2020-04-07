@@ -292,7 +292,6 @@
     <!--市場-->
     <string name="market_last_price">Last Price</string>
     <string name="add_selfselection">Add “Favorite”</string>
-    <string name="target">Index</string>
     <string name="depth">Depth</string>
     <string name="buy_index">Buy</string>
     <string name="sell_index">Sell</string>

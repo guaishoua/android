@@ -293,7 +293,6 @@
     <!--市场-->
     <string name="market_last_price">最新价</string>
     <string name="add_selfselection">添加自选</string>
-    <string name="target">指标</string>
     <string name="depth">深度</string>
     <string name="buy_index">买盘</string>
     <string name="sell_index">卖盘</string>
