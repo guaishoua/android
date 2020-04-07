@@ -69,11 +69,10 @@ public class KLineChartAdapter extends BaseKLineChartAdapter {
         notifyDataSetChanged();
     }
 
-    public void changeCurrentItem(float closePrice, float volume, String symbol) {
+    public void changeCurrentItem(float closePrice, String symbol) {
         if (datas != null && datas.size() > 0 && TextUtils.equals(symbol, coinName)) {
             KLineEntity data = (KLineEntity) getItem(getCount() - 1);
             data.Close = closePrice;
-            data.Volume = volume;
             notifyDataSetChanged();
         }
     }

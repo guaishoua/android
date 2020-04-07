@@ -246,7 +246,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
             List<KLineEntity> data = KlineUtils.dealKlines(model, range);
             if (data != null && data.size() > 0 && currentTradeCoinModel != null && TextUtils.equals(symbol, (currentTradeCoinModel.currentTradeCoin.currencyNameEn + currentTradeCoinModel.currentTradeCoin.baseCurrencyNameEn).toLowerCase())) {
                 data.get(data.size() - 1).Close = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).floatValue();
-                data.get(data.size() - 1).Volume = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.volume).floatValue();
             }
 
             if (data != null) {
@@ -309,7 +308,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
             pointPrice = model.currentTradeCoin.pointPrice;
 
             if (kAdapter != null) {
-                kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).floatValue(), BigDecimal.valueOf(model.currentTradeCoin.volume).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
+                kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
                 if (pointPrice != pointPriceTemp) {
                     KLineChartView.decimalsCount = pointPrice;
                     pointPriceTemp = pointPrice;
