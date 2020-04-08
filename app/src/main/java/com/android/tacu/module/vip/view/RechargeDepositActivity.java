@@ -328,9 +328,9 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
 
     private void showAccountType() {
         if (accountType == 0) {
-            tv_total_account.setText(ccValue + Constant.ACU_CURRENCY_NAME);
+            tv_total_account.setText(FormatterUtils.getFormatValue(ccValue) + Constant.ACU_CURRENCY_NAME);
         } else if (accountType == 1) {
-            tv_total_account.setText(otcValue + Constant.ACU_CURRENCY_NAME);
+            tv_total_account.setText(FormatterUtils.getFormatValue(otcValue) + Constant.ACU_CURRENCY_NAME);
         }
         dealValue();
     }
@@ -363,7 +363,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
     }
 
     private void dealAmount() {
-        tv_total_account_balance.setText(MathHelper.add(ccValue, otcValue) + Constant.ACU_CURRENCY_NAME);
+        tv_total_account_balance.setText(FormatterUtils.getFormatValue(MathHelper.add(ccValue, otcValue)) + Constant.ACU_CURRENCY_NAME);
         showAccountType();
     }
 
