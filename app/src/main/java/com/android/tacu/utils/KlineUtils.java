@@ -19,7 +19,7 @@ public class KlineUtils {
             dataModel = model.data;
             kLineEntity = new KLineEntity();
             if (range == KLineChartView.MIN_1) {
-                kLineEntity.Date = DateUtil.millis2String(Long.parseLong(dataModel.lines.get(i).get(0)), DateUtil.FORMAT_DATE_MS);
+                kLineEntity.Date = DateUtil.millis2String(Long.parseLong(dataModel.lines.get(i).get(0)), DateUtil.FORMAT_DATE_HM);
             } else if (range >= KLineChartView.MIN_5 && range <= KLineChartView.HOUR_6) {
                 kLineEntity.Date = DateUtil.millis2String(Long.parseLong(dataModel.lines.get(i).get(0)), DateUtil.FORMAT_DATE_MDHM);
             } else {

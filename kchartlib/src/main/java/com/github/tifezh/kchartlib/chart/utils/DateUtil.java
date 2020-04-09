@@ -15,7 +15,7 @@ public class DateUtil {
     public static SimpleDateFormat shortTimeFormat = new SimpleDateFormat("HH:mm");
     public static SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
-    public static final String FORMAT_DATE_MS = "mm:ss";
+    public static final String FORMAT_DATE_HM = "HH:mm";
     public static final String FORMAT_DATE_MDHM = "MM-dd HH:mm";
     public static final String FORMAT_DATE_YMD = "yyyy-MM-dd";
 
