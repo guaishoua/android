@@ -1,10 +1,10 @@
 package com.android.tacu.module.webview.model;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.webkit.JavascriptInterface;
 
@@ -19,7 +19,7 @@ import com.yanzhenjie.permission.Permission;
 
 public class WebInterface {
 
-    private AppCompatActivity activity;
+    private Activity activity;
     private LoadingAnim loadingAnim;
     private Thread thread;
     private Bitmap bitmap;
@@ -44,7 +44,7 @@ public class WebInterface {
         }
     };
 
-    public WebInterface(AppCompatActivity context) {
+    public WebInterface(Activity context) {
         activity = context;
         loadingAnim = new LoadingAnim(activity);
     }

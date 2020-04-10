@@ -24,8 +24,6 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.common.TabAdapter;
-import com.android.tacu.module.auth.view.AuthMerchantActivity;
-import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.otc.dialog.OtcDialogUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
