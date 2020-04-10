@@ -35,8 +35,7 @@ import com.android.tacu.module.main.model.UploadModel;
 import com.android.tacu.module.main.presenter.MainPresenter;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.SelfModel;
-import com.android.tacu.module.otc.dialog.OtcDialogUtils;
-import com.android.tacu.module.otc.view.OtcMarketFragment;
+import com.android.tacu.module.otc.view.OtcHomeFragment;
 import com.android.tacu.module.splash.SplashActivity;
 import com.android.tacu.module.transaction.view.TradeFragment;
 import com.android.tacu.EventBus.model.MainSwitchEvent;
@@ -101,7 +100,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private Fragment[] fragments;
     private HomeFragment homeFragment;
     private TradeFragment tradeFragment;
-    private OtcMarketFragment otcHomeFragment;
+    private OtcHomeFragment otcHomeFragment;
     private AssetsFragment assetsFragment;
 
     private MainDrawerLayoutHelper mainDrawerLayoutHelper;
@@ -499,7 +498,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     private void initFragments() {
         homeFragment = HomeFragment.newInstance();
         tradeFragment = TradeFragment.newInstance();
-        otcHomeFragment = OtcMarketFragment.newInstance();
+        otcHomeFragment = OtcHomeFragment.newInstance();
         assetsFragment = AssetsFragment.newInstance();
 
         fragments = new Fragment[]{homeFragment, tradeFragment, otcHomeFragment, assetsFragment};
@@ -525,13 +524,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
                 lastShowFragment = Constant.MAIN_OTC;
                 img_otc.setImageResource(R.mipmap.img_main_otc_selected);
                 tv_otc.setTextColor(ContextCompat.getColor(this, R.color.main_tab_black_color));
-
-                if (spUtil.getLogin()) {
-                    boolean isShowXieyi = spUtil.getDisclaimer() == 0 ? true : false;
-                    if (isShowXieyi) {
-                        OtcDialogUtils.setShowOtcXieyi(this);
-                    }
-                }
                 break;
             case Constant.MAIN_ASSETS:
                 if (spUtil.getLogin()) {

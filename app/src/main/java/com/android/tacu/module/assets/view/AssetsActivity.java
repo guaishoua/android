@@ -48,6 +48,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private String recharge;
     private String take;
     private String otcTransfer;
+    private String c2cTransfer;
     private int currencyId = Constant.TAC_CURRENCY_ID;
     private String currencyNameEn = Constant.TAC_CURRENCY_NAME;
     private FragmentAdapter fragmentAdapter;
@@ -55,6 +56,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private RechargeFragment rechargeFragment;
     private TakeCoinFragment takeCoinFragment;
     private OTCTransferFragment otcTransferFragment;
+    private C2CTransferFragment c2cTransferFragment;
 
     private Gson gson = new Gson();
     private List<Fragment> fragmentList;
@@ -211,6 +213,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
         recharge = getResources().getString(R.string.recharge);
         take = getResources().getString(R.string.withdrawals);
         otcTransfer = getResources().getString(R.string.transfer);
+        c2cTransfer = getResources().getString(R.string.transfer);
 
         switch (flags) {
             case 0:
@@ -222,10 +225,13 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
             case 2:
                 mTopBar.setTitle(currencyNameEn + otcTransfer);
                 break;
+            case 3:
+                mTopBar.setTitle(currencyNameEn + c2cTransfer);
+                break;
         }
         fragmentList = new ArrayList<>();
 
-        boolean rechargeFlag = false, takeCoinFlag = false, otcTransferFlag = false;
+        boolean rechargeFlag = false, takeCoinFlag = false, otcTransferFlag = false, c2cTransferFlag = false;
         switch (current) {
             case 0:
                 rechargeFlag = true;
@@ -236,13 +242,18 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
             case 2:
                 otcTransferFlag = true;
                 break;
+            case 3:
+                c2cTransferFlag = true;
+                break;
         }
         rechargeFragment = RechargeFragment.newInstance(currencyId, currencyNameEn, rechargeFlag);
         takeCoinFragment = TakeCoinFragment.newInstance(currencyId, currencyNameEn, takeCoinFlag);
         otcTransferFragment = OTCTransferFragment.newInstance(currencyId, currencyNameEn, otcTransferFlag);
+        c2cTransferFragment = C2CTransferFragment.newInstance(currencyId, currencyNameEn, c2cTransferFlag);
         fragmentList.add(rechargeFragment);
         fragmentList.add(takeCoinFragment);
         fragmentList.add(otcTransferFragment);
+        fragmentList.add(c2cTransferFragment);
 
         initTabTitle();
     }

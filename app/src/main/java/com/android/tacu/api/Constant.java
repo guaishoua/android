@@ -81,13 +81,13 @@ public class Constant {
     public static final String REGISTER_XIEYI = "";
     //商家申请条件及保证金制度
     public static final String SHOP_APPLY_SYSTEM = "http://ta-public.oss-accelerate.aliyuncs.com/商家申请条件及保证金制度.docx";
-    //OTC服务协议
-    public static final String SERVICE_APPLY_SYSTEM = "http://ta-public.oss-accelerate.aliyuncs.com/OTC服务协议.docx";
-    //OTC交易规则
-    public static final String TRADE_RULES_SYSTEM = "http://ta-public.oss-accelerate.aliyuncs.com/OTC交易规则.docx";
 
     //邀请好友前缀
     public static final String INVITED_FRIEND_URL = SOCKET_IP + "/RegisterInvite/";
+
+    //c2c购买页面
+    public static final String C2C_URL = "";
+    public static final String C2C_ORDER_URL = "";
 
     //几个币种的ID
     public static final int ACU_CURRENCY_ID = 237;

@@ -1,6 +1,5 @@
 package com.android.tacu.module.otc.view;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,24 +10,14 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.EventManage;
-import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
-import com.android.tacu.EventBus.model.OTCListVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.common.TabAdapter;
-import com.android.tacu.module.otc.dialog.OtcDialogUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
-import com.qmuiteam.qmui.widget.QMUITopBar;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
@@ -40,12 +29,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static android.widget.ImageView.ScaleType.CENTER_CROP;
-
 public class OtcMarketFragment extends BaseFragment {
 
-    @BindView(R.id.title)
-    QMUITopBar mTopBar;
     @BindView(R.id.tv_money)
     TextView tv_money;
     @BindView(R.id.tv_real_price)
@@ -55,14 +40,13 @@ public class OtcMarketFragment extends BaseFragment {
     @BindView(R.id.vp)
     ViewPager viewPager;
 
-    @BindView(R.id.lin_guanggao)
-    QMUIRoundLinearLayout lin_guanggao;
-
     private int currencyId = Constant.ACU_CURRENCY_ID;
     private String currencyNameEn = Constant.ACU_CURRENCY_NAME;
 
     private List<String> tabTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
+    private OtcMarketBuySellFragment buyFragment;
+    private OtcMarketBuySellFragment sellFragment;
 
     private ListPopWindow listPopup;
 
@@ -78,15 +62,12 @@ public class OtcMarketFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (spUtil != null) {
-            EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCListVisibleCode, new OTCListVisibleHintEvent(isVisibleToUser)));
+        if (buyFragment != null) {
+            buyFragment.setUserVisible(isVisibleToUser);
         }
-    }
-
-    @Override
-    protected void initLazy() {
-        super.initLazy();
-        setShow();
+        if (sellFragment != null) {
+            sellFragment.setUserVisible(isVisibleToUser);
+        }
     }
 
     @Override
@@ -96,13 +77,13 @@ public class OtcMarketFragment extends BaseFragment {
 
     @Override
     protected void initData(View view) {
-        initTitle();
-
         tabTitle.add(getResources().getString(R.string.buy));
         tabTitle.add(getResources().getString(R.string.chushou));
 
-        fragmentList.add(OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, true));
-        fragmentList.add(OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, false));
+        buyFragment = OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, true);
+        sellFragment = OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, false);
+        fragmentList.add(buyFragment);
+        fragmentList.add(sellFragment);
 
         magic_indicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tab_bg_color));
         magic_indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.text_default), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(14, 14));
@@ -113,12 +94,6 @@ public class OtcMarketFragment extends BaseFragment {
         indicatorViewPager.setAdapter(new TabAdapter(getChildFragmentManager(), getContext(), tabTitle, fragmentList));
         viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
         viewPager.setCurrentItem(0, false);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        setShow();
     }
 
     @Override
@@ -136,49 +111,6 @@ public class OtcMarketFragment extends BaseFragment {
     @OnClick(R.id.tv_money)
     void moneyClick() {
         showMoneyType(tv_money);
-    }
-
-    @OnClick(R.id.lin_guanggao)
-    void guanggaoClick() {
-        if (!OtcDialogUtils.isDialogShow(getContext())) {
-            jumpTo(OtcManageActivity.class);
-        }
-    }
-
-    private void setShow(){
-        if (spUtil.getApplyMerchantStatus() == 2 || spUtil.getApplyAuthMerchantStatus() == 2) {
-            lin_guanggao.setVisibility(View.VISIBLE);
-        } else {
-            lin_guanggao.setVisibility(View.GONE);
-        }
-    }
-
-    private void initTitle() {
-        mTopBar.setTitle(Constant.ACU_CURRENCY_NAME);
-        mTopBar.setBackgroundDividerEnabled(true);
-
-        ImageView circleImageView = new ImageView(getContext());
-        circleImageView.setBackgroundColor(Color.TRANSPARENT);
-        circleImageView.setScaleType(CENTER_CROP);
-        circleImageView.setImageResource(R.mipmap.icon_mines);
-        circleImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EventManage.sendEvent(new BaseEvent<>(EventConstant.MainDrawerLayoutOpenCode, new MainDrawerLayoutOpenEvent(Constant.MAIN_HOME)));
-            }
-        });
-        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(UIUtils.dp2px(20), UIUtils.dp2px(20));
-        lps.topMargin = UIUtils.dp2px(15);
-        lps.rightMargin = UIUtils.dp2px(8);
-        mTopBar.addLeftView(circleImageView, R.id.qmui_topbar_item_left_back, lps);
-        mTopBar.addRightImageButton(R.drawable.icon_ordercenter, R.id.qmui_topbar_item_right, 22, 22).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!OtcDialogUtils.isDialogShow(getContext())) {
-                    jumpTo(OtcOrderListActivity.class);
-                }
-            }
-        });
     }
 
     private void showMoneyType(final TextView tv) {

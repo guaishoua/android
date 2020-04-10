@@ -987,4 +987,9 @@
     <string name="otc_publish_time">广告发布时间</string>
 
     <string name="member_center">会员中心</string>
+
+    <!--C2C-->
+    <string name="c2c_account">C2C账户</string>
+    <string name="coin_c2c_account">币币账户/C2C账户</string>
+    <string name="c2c_account_available">C2C账户可用数量</string>
 </resources>

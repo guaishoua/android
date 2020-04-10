@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/content_bg_color"
+    android:layout_height="wrap_content">
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/dp_1"
+        app:qmui_borderColor="@color/color_default"
+        app:qmui_borderWidth="@dimen/dp_1"
+        app:qmui_radius="@dimen/dp_5">
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_c2c"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_5"
+            android:text="C2C"
+            android:textColor="@color/content_bg_color"
+            android:textSize="@dimen/text_size_sp_14"
+            app:qmui_backgroundColor="@color/color_default"
+            app:qmui_radiusBottomLeft="@dimen/dp_5"
+            app:qmui_radiusTopLeft="@dimen/dp_5" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_otc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_5"
+            android:text="OTC"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_size_sp_14"
+            app:qmui_backgroundColor="@color/content_bg_color"
+            app:qmui_radiusBottomRight="@dimen/dp_5"
+            app:qmui_radiusTopRight="@dimen/dp_5" />
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+</RelativeLayout>

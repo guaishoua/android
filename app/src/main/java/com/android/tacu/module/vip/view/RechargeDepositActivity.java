@@ -85,15 +85,15 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
     private List<String> tabList = new ArrayList<>();
     private List<String> tabList2 = new ArrayList<>();
 
-    //0=币币账户 1=OTC账户
+    //0=币币账户 1=OTC账户 2=C2C账户
     private int accountType = 0;
     //0=保证金充值 1=保证金提取
     private int depositType = 0;
 
     private double ccValue = 0;
     private double otcValue = 0;
+    private double c2cValue = 0;
 
-    private DroidDialog droidDialog;
     private ListPopWindow listPopup;
     private List<SelectBondModel> selectBondModelList = new ArrayList<>();
 
@@ -122,6 +122,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
 
         tabList.add(getResources().getString(R.string.coin_account));
         tabList.add(getResources().getString(R.string.otc_account));
+        tabList.add(getResources().getString(R.string.c2c_account));
         coin_indicatorView.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
         coin_indicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
         coin_indicatorView.setScrollBar(new TextWidthColorBar(this, coin_indicatorView, ContextCompat.getColor(this, R.color.text_default), 4));
@@ -175,9 +176,6 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (droidDialog != null && droidDialog.isShowing()) {
-            droidDialog.dismiss();
-        }
         if (listPopup != null && listPopup.isShowing()) {
             listPopup.dismiss();
         }
@@ -331,6 +329,8 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
             tv_total_account.setText(FormatterUtils.getFormatValue(ccValue) + Constant.ACU_CURRENCY_NAME);
         } else if (accountType == 1) {
             tv_total_account.setText(FormatterUtils.getFormatValue(otcValue) + Constant.ACU_CURRENCY_NAME);
+        } else if (accountType == 2) {
+
         }
         dealValue();
     }
@@ -359,6 +359,10 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
             tv_tag.setText(getResources().getString(R.string.recharge_deposit_tag2));
         } else if (accountType == 1 && depositType == 1) {
             tv_tag.setText(getResources().getString(R.string.recharge_deposit_tag4));
+        } else if (accountType == 2 && depositType == 0) {
+
+        } else if (accountType == 2 && depositType == 1) {
+
         }
     }
 
@@ -376,6 +380,10 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
             mPresenter.otcToBond(tv_recharge.getText().toString().replace(Constant.ACU_CURRENCY_NAME, ""), Constant.ACU_CURRENCY_ID, fdPassword);
         } else if (accountType == 1 && depositType == 1) {
             mPresenter.bondToOtc(edit_take.getText().toString().trim(), Constant.ACU_CURRENCY_ID, fdPassword);
+        } else if (accountType == 2 && depositType == 0) {
+
+        } else if (accountType == 2 && depositType == 1) {
+
         }
     }
 

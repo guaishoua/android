@@ -80,6 +80,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     private ListPopWindow listPopup;
     private OtcMarketBuySellAdapter mAdapter;
     private List<OtcMarketOrderAllModel> allList = new ArrayList<>();
+    private boolean isVisibleToUserOTCHome = false;
     private boolean isVisibleToUserParent = false;
     private boolean isFirst = true;
 
@@ -186,7 +187,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
             switch (event.getCode()) {
                 case EventConstant.OTCListVisibleCode:
                     OTCListVisibleHintEvent otcListVisibleHintEvent = (OTCListVisibleHintEvent) event.getData();
-                    isVisibleToUserParent = otcListVisibleHintEvent.isVisibleToUser();
+                    isVisibleToUserOTCHome = otcListVisibleHintEvent.isVisibleToUser();
                     upload(isFirst, true);
                     break;
             }
@@ -315,8 +316,13 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         }
     }
 
+    public void setUserVisible(boolean isVisible) {
+        this.isVisibleToUserParent = isVisible;
+        upload(isFirst, true);
+    }
+
     private void upload(boolean isShowViewing, boolean isTop) {
-        if (!isVisibleToUser || !isVisibleToUserParent) {
+        if (!isVisibleToUser || !isVisibleToUserOTCHome || !isVisibleToUserParent) {
             return;
         }
         if (isFirst) {

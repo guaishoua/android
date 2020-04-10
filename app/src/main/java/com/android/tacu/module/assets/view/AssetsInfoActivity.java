@@ -75,12 +75,28 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
     @BindView(R.id.tv_otc_frozen)
     TextView tv_otc_frozen;
 
+    @BindView(R.id.tv_c2c_title)
+    TextView tv_c2c_title;
+    @BindView(R.id.tv_c2c_available_title)
+    TextView tv_c2c_available_title;
+    @BindView(R.id.tv_c2c_frozen_title)
+    TextView tv_c2c_frozen_title;
+
+    @BindView(R.id.tv_c2c)
+    TextView tv_c2c;
+    @BindView(R.id.tv_c2c_rnb)
+    TextView tv_c2c_rnb;
+    @BindView(R.id.tv_c2c_available)
+    TextView tv_c2c_available;
+    @BindView(R.id.tv_c2c_frozen)
+    TextView tv_c2c_frozen;
+
     @BindView(R.id.rl_account)
     QMUIRoundRelativeLayout rl_account;
     @BindView(R.id.tv_account)
     TextView tv_account;
 
-    //0=OTC账户 1=保证金账户
+    //0=OTC账户 1=保证金账户 2=c2c账户
     private int flag = 0;
 
     private boolean isFirst = true;
@@ -150,6 +166,11 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
             }
         } else if (flag == 1) {
             jumpTo(RechargeDepositActivity.class);
+        } else if (flag == 2) {
+            if (!isKeyc2()) {
+                return;
+            }
+
         }
     }
 
@@ -196,6 +217,10 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
         }
     }
 
+    private void setC2cValue() {
+
+    }
+
     private void upload() {
         if (infoModel != null && infoModel.currencyId != null) {
             mPresenter.otcAmount(1, isFirst, infoModel.currencyId);
@@ -210,6 +235,8 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
             tv_account.setText(getResources().getString(R.string.coin_otc_account));
         } else if (flag == 1) {
             tv_account.setText(getResources().getString(R.string.margin_account));
+        } else if (flag == 2) {
+            tv_account.setText(getResources().getString(R.string.coin_c2c_account));
         }
     }
 
@@ -231,6 +258,7 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
             final List<String> data = new ArrayList<>();
             data.add(getResources().getString(R.string.coin_otc_account));
             data.add(getResources().getString(R.string.margin_account));
+            data.add(getResources().getString(R.string.coin_c2c_account));
             ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.simple_list_item, data);
             listPopup = new ListPopWindow(this, adapter);
             listPopup.create(UIUtils.dp2px(200), UIUtils.dp2px(80), new AdapterView.OnItemClickListener() {

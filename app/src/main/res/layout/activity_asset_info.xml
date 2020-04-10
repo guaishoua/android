@@ -293,6 +293,118 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp_15"
+                android:paddingVertical="@dimen/dp_10">
+
+                <TextView
+                    android:id="@+id/tv_c2c_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/c2c_account"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/text_size_sp_13"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/lin_c2c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_c2c_title">
+
+                    <TextView
+                        android:id="@+id/tv_c2c"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_15"
+                        tools:text="111" />
+
+                    <TextView
+                        android:id="@+id/tv_c2c_rnb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/text_size_sp_13"
+                        tools:text="111" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:orientation="vertical"
+                    android:paddingRight="@dimen/dp_8"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lin_c2c"
+                    app:layout_constraintWidth_percent="0.5">
+
+                    <TextView
+                        android:id="@+id/tv_c2c_available_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="@string/available_num"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/text_size_sp_13" />
+
+                    <TextView
+                        android:id="@+id/tv_c2c_available"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_15"
+                        tools:text="111" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/dp_8"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lin_c2c"
+                    app:layout_constraintWidth_percent="0.5">
+
+                    <TextView
+                        android:id="@+id/tv_c2c_frozen_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="@string/frozen_num"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/text_size_sp_13" />
+
+                    <TextView
+                        android:id="@+id/tv_c2c_frozen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_15"
+                        tools:text="111" />
+                </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/content_bg_color_grey" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_55"
                 android:paddingLeft="@dimen/dp_25"
                 android:paddingRight="@dimen/dp_15">

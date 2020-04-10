@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -21,6 +20,9 @@ import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -133,7 +135,12 @@ public class WebviewFragment extends BaseFragment {
             }
         });
 
-        if (TextUtils.equals(url, Constant.MEMBERSHIP)) {
+        List<String> urlList = new ArrayList<>();
+        urlList.add(Constant.MEMBERSHIP);
+        urlList.add(Constant.C2C_URL);
+        urlList.add(Constant.C2C_ORDER_URL);
+
+        if (urlList.contains(url)) {
             url += "?chaoex_uid=" + Md5Utils.AESEncrypt(String.valueOf(spUtil.getUserUid())) + "&chaoex_token=" + Md5Utils.AESEncrypt(spUtil.getToken()) + "&chaoex_htmlLang=" + spUtil.getLanguage();
         }
         webView.loadUrl(url);

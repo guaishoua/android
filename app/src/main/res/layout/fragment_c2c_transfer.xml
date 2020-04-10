@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color"
+    android:paddingHorizontal="@dimen/dp_15">
+
+    <ImageView
+        android:id="@+id/img_exchange"
+        android:layout_width="@dimen/dp_18"
+        android:layout_height="@dimen/dp_18"
+        android:layout_marginTop="@dimen/dp_20"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_exchange" />
+
+    <TextView
+        android:id="@+id/tv_asset_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_35"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_13"
+        android:textStyle="bold"
+        app:layout_constraintRight_toLeftOf="@id/img_exchange"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/coin_account" />
+
+    <TextView
+        android:id="@+id/tv_asset_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_35"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_13"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/img_exchange"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/c2c_account" />
+
+    <TextView
+        android:id="@+id/tv_coin_account_available_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_13"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_asset_one"
+        tools:text="@string/coin_account_available" />
+
+    <TextView
+        android:id="@+id/tv_coin_account_available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_13"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_coin_account_available_title"
+        app:layout_constraintLeft_toRightOf="@+id/tv_coin_account_available_title"
+        tools:text="1111" />
+
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="@string/num"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_12"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_coin_account_available" />
+
+    <EditText
+        android:id="@+id/edit_num"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@null"
+        android:digits="0123456789."
+        android:hint="@string/please_input_transfer_num"
+        android:inputType="number"
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_num" />
+
+    <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+        android:id="@+id/btn_all"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_40"
+        android:background="@null"
+        android:minWidth="80dp"
+        android:text="@string/all"
+        android:textColor="@color/text_default"
+        app:layout_constraintBottom_toBottomOf="@id/edit_num"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edit_num" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/content_bg_color_grey"
+        app:layout_constraintTop_toBottomOf="@id/edit_num" />
+
+    <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+        android:id="@+id/btn_ok"
+        style="@style/btn_gradient_blue"
+        android:layout_marginLeft="@dimen/dp_0"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_0"
+        android:text="@string/confirm"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_line" />
+</android.support.constraint.ConstraintLayout>

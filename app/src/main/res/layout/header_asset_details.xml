@@ -148,6 +148,26 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_16"
             tools:text="111" />
+
+        <TextView
+            android:id="@+id/tv_c2c_account_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:includeFontPadding="false"
+            android:text="@string/c2c_account"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_sp_12" />
+
+        <TextView
+            android:id="@+id/tv_c2c_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_16"
+            tools:text="111" />
     </LinearLayout>
 
     <View
