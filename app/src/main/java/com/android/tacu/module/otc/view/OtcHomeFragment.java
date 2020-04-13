@@ -98,7 +98,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-
             }
 
             @Override
@@ -108,7 +107,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
 
             @Override
             public void onPageScrollStateChanged(int i) {
-
             }
         });
         setTabSelection(0);
@@ -234,6 +232,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
      * @return
      */
     private boolean isMerchant() {
-        return spUtil.getApplyMerchantStatus() == 2 && spUtil.getApplyAuthMerchantStatus() != 2;
+        return spUtil.getLogin() && spUtil.getApplyMerchantStatus() == 2 && spUtil.getApplyAuthMerchantStatus() != 2;
     }
 }
