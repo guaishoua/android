@@ -40,6 +40,8 @@
     <color name="content_bg_color">#141C25</color>
     <!--页面的背景灰色-->
     <color name="content_bg_color_grey">#0A121B</color>
+    <!--当前价格的椭圆的背景色-->
+    <color name="round_rect_bg">#990A121B</color>
 
     <color name="text_color">#FFFFFF</color>
     <color name="text_grey">#999999</color>

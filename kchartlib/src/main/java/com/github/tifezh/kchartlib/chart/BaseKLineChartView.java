@@ -79,6 +79,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
     private Paint mSelectorFramePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mCurrentPricePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mCurrentPriceDottedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mCurrentRoundRectBg = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mCurrentRoundRect = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private LinearGradient linearGradient;
@@ -174,6 +175,9 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         mCurrentPriceDottedPaint.setPathEffect(new DashPathEffect(new float[]{4, 8}, 1));
 
         //椭圆
+        //背景色
+        mCurrentRoundRect.setStyle(Paint.Style.FILL);
+
         mCurrentRoundRect.setStyle(Paint.Style.STROKE);
         mCurrentRoundRect.setStrokeWidth(ViewUtil.Dp2Px(getContext(), 1));
 
@@ -523,6 +527,7 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
             float right = mWidth - columnSpace * 0.75f;
             float left = right - mCurrentPricePaint.measureText(text) - currOvalPaddingW * 2;
             //创建RectF对象时，要注意的是左边小于右边，上边小于下边
+            canvas.drawRoundRect(new RectF(left, top, right, bottom), (bottom - top) / 2, (bottom - top) / 2, mCurrentRoundRectBg);
             canvas.drawRoundRect(new RectF(left, top, right, bottom), (bottom - top) / 2, (bottom - top) / 2, mCurrentRoundRect);
             //这里的y值做了微调，正常应该是 currY + mCurrentPricePaint.getTextSize() / 2
             canvas.drawText(text, left + currOvalPaddingW, currY + mCurrentPricePaint.getTextSize() / 3, mCurrentPricePaint);
@@ -1313,6 +1318,10 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView {
         mCurrentPricePaint.setColor(color);
         mCurrentPriceDottedPaint.setColor(color);
         mCurrentRoundRect.setColor(color);
+    }
+
+    public void setCurrentPriceBgColor(int color) {
+        mCurrentRoundRectBg.setColor(color);
     }
 
     /**

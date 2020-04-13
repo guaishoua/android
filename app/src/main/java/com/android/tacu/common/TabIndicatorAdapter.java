@@ -28,6 +28,11 @@ public class TabIndicatorAdapter extends Indicator.IndicatorAdapter {
         this.tabTitle = tabTitle;
     }
 
+    public void setTabTitle(List<String> tabTitle) {
+        this.tabTitle = tabTitle;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return tabTitle.size();

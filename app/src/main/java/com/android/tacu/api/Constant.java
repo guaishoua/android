@@ -86,8 +86,9 @@ public class Constant {
     public static final String INVITED_FRIEND_URL = SOCKET_IP + "/RegisterInvite/";
 
     //c2c购买页面
-    public static final String C2C_URL = "";
-    public static final String C2C_ORDER_URL = "";
+    public static final String C2C_URL = "http://192.168.20.200:8080/ctrade";
+    public static final String C2C_ORDER_LIST_URL = "";
+    public static final String C2C_ORDER_DETAIL_URL = "";
 
     //几个币种的ID
     public static final int ACU_CURRENCY_ID = 237;

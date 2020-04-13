@@ -74,4 +74,20 @@ public class AssetsPresenter extends BaseMvpPresenter implements AssetsContract.
             }
         });
     }
+
+    @Override //flag 0=资产中心 1=资产信息详情
+    public void c2cAmount(final int flag, boolean isShowLoadingView, int currencyId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.C2C, Api.class).C2cAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView(), isShowLoadingView) {
+            @Override
+            public void onNext(BaseModel<OtcAmountModel> o) {
+                if (flag == 0) {
+                    AssetsContract.IAssetsView view = (AssetsContract.IAssetsView) getView();
+                    view.c2cAmount(o.attachment);
+                } else if (flag == 1) {
+                    AssetsContract.IAssetsInfoView view = (AssetsContract.IAssetsInfoView) getView();
+                    view.c2cAmount(o.attachment);
+                }
+            }
+        });
+    }
 }

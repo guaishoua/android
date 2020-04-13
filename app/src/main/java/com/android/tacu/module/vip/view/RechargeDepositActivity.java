@@ -27,7 +27,6 @@ import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.MathHelper;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.UIUtils;
-import com.android.tacu.widget.dialog.DroidDialog;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout;
@@ -84,6 +83,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
 
     private List<String> tabList = new ArrayList<>();
     private List<String> tabList2 = new ArrayList<>();
+    private TabIndicatorAdapter tabIndicatorAdapter;
 
     //0=币币账户 1=OTC账户 2=C2C账户
     private int accountType = 0;
@@ -97,7 +97,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
     private ListPopWindow listPopup;
     private List<SelectBondModel> selectBondModelList = new ArrayList<>();
 
-    private OtcAmountModel otcAmountModel;
+    private OtcAmountModel bondAmountModel;
 
     private boolean isFirst = true;
 
@@ -122,12 +122,13 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
 
         tabList.add(getResources().getString(R.string.coin_account));
         tabList.add(getResources().getString(R.string.otc_account));
-        tabList.add(getResources().getString(R.string.c2c_account));
+        //tabList.add(getResources().getString(R.string.c2c_account));
         coin_indicatorView.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
         coin_indicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
         coin_indicatorView.setScrollBar(new TextWidthColorBar(this, coin_indicatorView, ContextCompat.getColor(this, R.color.text_default), 4));
         coin_indicatorView.setSplitAuto(false);
-        coin_indicatorView.setAdapter(new TabIndicatorAdapter(this, tabList));
+        tabIndicatorAdapter = new TabIndicatorAdapter(this, tabList);
+        coin_indicatorView.setAdapter(tabIndicatorAdapter);
         coin_indicatorView.setOnItemSelectListener(new Indicator.OnItemSelectedListener() {
             @Override
             public void onItemSelected(View selectItemView, int select, int preSelect) {
@@ -193,9 +194,9 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
 
     @OnClick(R.id.btn_all)
     void btnAllClick() {
-        if (otcAmountModel != null) {
-            if (!TextUtils.isEmpty(otcAmountModel.cashAmount)) {
-                edit_take.setText(FormatterUtils.getFormatValue(otcAmountModel.cashAmount));
+        if (bondAmountModel != null) {
+            if (!TextUtils.isEmpty(bondAmountModel.cashAmount)) {
+                edit_take.setText(FormatterUtils.getFormatValue(bondAmountModel.cashAmount));
             } else {
                 edit_take.setText("0");
             }
@@ -240,7 +241,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
 
     @Override
     public void BondAccount(OtcAmountModel model) {
-        this.otcAmountModel = model;
+        this.bondAmountModel = model;
         if (model != null) {
             if (!TextUtils.isEmpty(model.amount)) {
                 tv_account_balance.setText(FormatterUtils.getFormatValue(model.amount) + Constant.ACU_CURRENCY_NAME);
@@ -282,6 +283,31 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
     }
 
     @Override
+    public void c2cAmount(OtcAmountModel model) {
+        if (model != null) {
+            if (!TextUtils.isEmpty(model.cashAmount)) {
+                try {
+                    c2cValue = Double.parseDouble(model.cashAmount);
+                    dealAmount();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if ((!TextUtils.isEmpty(model.amount) && Double.parseDouble(model.amount) != 0) || isMerchant()) {
+                if (!tabList.contains(getResources().getString(R.string.c2c_account))){
+                    tabList.add(getResources().getString(R.string.c2c_account));
+                    tabIndicatorAdapter.setTabTitle(tabList);
+                }
+            }else{
+                if (tabList.contains(getResources().getString(R.string.c2c_account))){
+                    tabList.remove(getResources().getString(R.string.c2c_account));
+                    tabIndicatorAdapter.setTabTitle(tabList);
+                }
+            }
+        }
+    }
+
+    @Override
     public void selectBond(List<SelectBondModel> list) {
         this.selectBondModelList = list;
         if (list != null && list.size() > 0) {
@@ -315,12 +341,26 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
         upload(true);
     }
 
+    @Override
+    public void c2cToBondSuccess() {
+        showToastSuccess(getResources().getString(R.string.success));
+        upload(true);
+    }
+
+    @Override
+    public void BondToC2cSuccess() {
+        edit_take.setText("");
+        showToastSuccess(getResources().getString(R.string.success));
+        upload(true);
+    }
+
     private void upload(boolean isShowView) {
         if (isFirst) {
             isFirst = false;
         }
         mPresenter.customerCoinByOneCoin(isShowView, Constant.ACU_CURRENCY_ID);
         mPresenter.otcAmount(isShowView, Constant.ACU_CURRENCY_ID);
+        mPresenter.c2cAmount(isShowView, Constant.ACU_CURRENCY_ID);
         mPresenter.BondAccount(isShowView, Constant.ACU_CURRENCY_ID);
     }
 
@@ -330,7 +370,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
         } else if (accountType == 1) {
             tv_total_account.setText(FormatterUtils.getFormatValue(otcValue) + Constant.ACU_CURRENCY_NAME);
         } else if (accountType == 2) {
-
+            tv_total_account.setText(FormatterUtils.getFormatValue(c2cValue) + Constant.ACU_CURRENCY_NAME);
         }
         dealValue();
     }
@@ -360,14 +400,14 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
         } else if (accountType == 1 && depositType == 1) {
             tv_tag.setText(getResources().getString(R.string.recharge_deposit_tag4));
         } else if (accountType == 2 && depositType == 0) {
-
+            tv_tag.setText(getResources().getString(R.string.recharge_deposit_tag5));
         } else if (accountType == 2 && depositType == 1) {
-
+            tv_tag.setText(getResources().getString(R.string.recharge_deposit_tag6));
         }
     }
 
     private void dealAmount() {
-        tv_total_account_balance.setText(FormatterUtils.getFormatValue(MathHelper.add(ccValue, otcValue)) + Constant.ACU_CURRENCY_NAME);
+        tv_total_account_balance.setText(FormatterUtils.getFormatValue(MathHelper.add(ccValue, MathHelper.add(otcValue, c2cValue))) + Constant.ACU_CURRENCY_NAME);
         showAccountType();
     }
 
@@ -381,9 +421,9 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
         } else if (accountType == 1 && depositType == 1) {
             mPresenter.bondToOtc(edit_take.getText().toString().trim(), Constant.ACU_CURRENCY_ID, fdPassword);
         } else if (accountType == 2 && depositType == 0) {
-
+            mPresenter.c2cToBond(tv_recharge.getText().toString().replace(Constant.ACU_CURRENCY_NAME, ""), Constant.ACU_CURRENCY_ID, fdPassword);
         } else if (accountType == 2 && depositType == 1) {
-
+            mPresenter.bondToC2c(edit_take.getText().toString().trim(), Constant.ACU_CURRENCY_ID, fdPassword);
         }
     }
 
@@ -434,5 +474,14 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
                 dealSubmit(Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
             }
         });
+    }
+
+    /**
+     * 判断当前用户是否是普通商户
+     *
+     * @return
+     */
+    private boolean isMerchant() {
+        return spUtil.getApplyMerchantStatus() == 2 && spUtil.getApplyAuthMerchantStatus() != 2;
     }
 }

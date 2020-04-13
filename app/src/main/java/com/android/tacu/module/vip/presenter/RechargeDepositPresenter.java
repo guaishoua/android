@@ -53,6 +53,17 @@ public class RechargeDepositPresenter extends BaseMvpPresenter implements Rechar
     }
 
     @Override
+    public void c2cAmount(boolean isShowView, int currencyId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.C2C, Api.class).C2cAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel<OtcAmountModel> o) {
+                RechargeDepositContract.IView view = (RechargeDepositContract.IView) getView();
+                view.c2cAmount(o.attachment);
+            }
+        });
+    }
+
+    @Override
     public void selectBond() {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBond(), new NetDisposableObserver<BaseModel<List<SelectBondModel>>>((IBaseMvpView) getView()) {
             @Override
@@ -103,6 +114,28 @@ public class RechargeDepositPresenter extends BaseMvpPresenter implements Rechar
             public void onNext(BaseModel o) {
                 RechargeDepositContract.IView view = (RechargeDepositContract.IView) getView();
                 view.BondToOtcSuccess();
+            }
+        });
+    }
+
+    @Override
+    public void c2cToBond(String amount, int currencyId, String fdPassword) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.C2C, Api.class).C2cToBond(amount, currencyId, fdPassword), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel o) {
+                RechargeDepositContract.IView view = (RechargeDepositContract.IView) getView();
+                view.c2cToBondSuccess();
+            }
+        });
+    }
+
+    @Override
+    public void bondToC2c(String amount, int currencyId, String fdPassword) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.C2C, Api.class).BondToC2c(amount, currencyId, fdPassword), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel o) {
+                RechargeDepositContract.IView view = (RechargeDepositContract.IView) getView();
+                view.BondToC2cSuccess();
             }
         });
     }

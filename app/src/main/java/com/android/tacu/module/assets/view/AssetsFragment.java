@@ -88,6 +88,8 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     private TextView tv_otc_account;
     private TextView tv_coin_account_title;
     private TextView tv_coin_account;
+    private TextView tv_c2c_account_title;
+    private TextView tv_c2c_account;
 
     private QMUIRoundButton btn_take;
     private QMUIRoundButton btn_recharge;
@@ -101,6 +103,8 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     private String otc_string = "0";
     //币币账号
     private String btc_total_string = "0";
+    //c2c账号
+    private String c2c_string = "0";
     //总资产
     private String all_total_string = "0";
 
@@ -274,6 +278,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         tv_all_amount.setText(defaultEyeStatus ? all_total_string + Constant.ACU_CURRENCY_NAME : "*****");
         tv_otc_account.setText(defaultEyeStatus ? otc_string + Constant.ACU_CURRENCY_NAME : "*****");
         tv_coin_account.setText(defaultEyeStatus ? btc_total_string + Constant.ACU_CURRENCY_NAME : "*****");
+        tv_c2c_account.setText(defaultEyeStatus ? c2c_string + Constant.ACU_CURRENCY_NAME : "*****");
         adapter.notifyDataSetChanged();
         currentPrivacyView.setImageResource(defaultEyeStatus ? R.mipmap.icon_watch : R.mipmap.icon_watch_disable);
     }
@@ -373,6 +378,26 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         dealValue();
     }
 
+    @Override
+    public void c2cAmount(OtcAmountModel model) {
+        if (model != null) {
+            c2c_string = model.amount;
+        } else {
+            c2c_string = "0";
+        }
+        if ((!TextUtils.isEmpty(c2c_string) && Double.parseDouble(c2c_string) != 0) || isMerchant()) {
+            tv_c2c_account_title.setVisibility(View.VISIBLE);
+            tv_c2c_account.setVisibility(View.VISIBLE);
+
+            c2c_string = FormatterUtils.getFormatRoundUp(2, c2c_string);
+            tv_c2c_account.setText(defaultEyeStatus ? c2c_string + Constant.ACU_CURRENCY_NAME : "*****");
+            dealValue();
+        }else{
+            tv_c2c_account_title.setVisibility(View.GONE);
+            tv_c2c_account.setVisibility(View.GONE);
+        }
+    }
+
     private void initReyclerView() {
         adapter = new AssetAdapter();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
@@ -397,10 +422,13 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         tv_otc_account = assetHeaderView.findViewById(R.id.tv_otc_account);
         tv_coin_account_title = assetHeaderView.findViewById(R.id.tv_coin_account_title);
         tv_coin_account = assetHeaderView.findViewById(R.id.tv_coin_account);
+        tv_c2c_account_title = assetHeaderView.findViewById(R.id.tv_c2c_account_title);
+        tv_c2c_account = assetHeaderView.findViewById(R.id.tv_c2c_account);
 
         tv_all_amount_title.setText(getResources().getString(R.string.all_amount) + "(" + Constant.ACU_CURRENCY_NAME + ")");
         tv_otc_account_title.setText(getResources().getString(R.string.otc_account) + "(" + Constant.ACU_CURRENCY_NAME + ")");
         tv_coin_account_title.setText(getResources().getString(R.string.coin_account) + "(" + Constant.ACU_CURRENCY_NAME + ")");
+        tv_c2c_account_title.setText(getResources().getString(R.string.c2c_account) + "(" + Constant.ACU_CURRENCY_NAME + ")");
 
         btn_take = assetHeaderView.findViewById(R.id.btn_take);
         btn_recharge = assetHeaderView.findViewById(R.id.btn_recharge);
@@ -437,6 +465,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         mPresenter.getAssetDetails(isShowLoadingView);
         mPresenter.BondAccount(isShowLoadingView, Constant.ACU_CURRENCY_ID);
         mPresenter.otcAmount(0, isShowLoadingView, Constant.ACU_CURRENCY_ID);
+        mPresenter.c2cAmount(0, isShowLoadingView, Constant.ACU_CURRENCY_ID);
     }
 
     private void dealValue() {
@@ -446,7 +475,10 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         if (TextUtils.isEmpty(otc_string)) {
             otc_string = "0";
         }
-        all_total_string = FormatterUtils.getFormatRoundHalfUp(2, MathHelper.add(Double.parseDouble(btc_total_string), Double.parseDouble(otc_string)));
+        if (TextUtils.isEmpty(c2c_string)) {
+            c2c_string = "0";
+        }
+        all_total_string = FormatterUtils.getFormatRoundHalfUp(2, MathHelper.add(Double.parseDouble(btc_total_string), MathHelper.add(Double.parseDouble(otc_string), Double.parseDouble(c2c_string))));
 
         tv_all_amount.setText(defaultEyeStatus ? all_total_string + Constant.ACU_CURRENCY_NAME : "*****");
     }
@@ -647,5 +679,14 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                 break;
         }
         return boo;
+    }
+
+    /**
+     * 判断当前用户是否是普通商户
+     *
+     * @return
+     */
+    private boolean isMerchant() {
+        return spUtil.getApplyMerchantStatus() == 2 && spUtil.getApplyAuthMerchantStatus() != 2;
     }
 }

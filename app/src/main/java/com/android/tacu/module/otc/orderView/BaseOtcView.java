@@ -78,7 +78,7 @@ public class BaseOtcView {
         setBaseValue(context, model, spUtil);
         rl_coined.setVisibility(View.VISIBLE);
         if (model != null) {
-            tv_coined_time.setText(model.updateTime);
+            tv_coined_time.setText(model.transCoinTime);
         }
     }
 

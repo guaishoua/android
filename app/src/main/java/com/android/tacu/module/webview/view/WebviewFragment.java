@@ -138,7 +138,8 @@ public class WebviewFragment extends BaseFragment {
         List<String> urlList = new ArrayList<>();
         urlList.add(Constant.MEMBERSHIP);
         urlList.add(Constant.C2C_URL);
-        urlList.add(Constant.C2C_ORDER_URL);
+        urlList.add(Constant.C2C_ORDER_LIST_URL);
+        urlList.add(Constant.C2C_ORDER_DETAIL_URL);
 
         if (urlList.contains(url)) {
             url += "?chaoex_uid=" + Md5Utils.AESEncrypt(String.valueOf(spUtil.getUserUid())) + "&chaoex_token=" + Md5Utils.AESEncrypt(spUtil.getToken()) + "&chaoex_htmlLang=" + spUtil.getLanguage();

@@ -16,6 +16,8 @@ public class RechargeDepositContract {
 
         void otcAmount(OtcAmountModel model);
 
+        void c2cAmount(OtcAmountModel model);
+
         void selectBond(List<SelectBondModel> list);
 
         void CcToBondSuccess();
@@ -25,6 +27,10 @@ public class RechargeDepositContract {
         void otcToBondSuccess();
 
         void BondToOtcSuccess();
+
+        void c2cToBondSuccess();
+
+        void BondToC2cSuccess();
     }
 
     public interface IRecordView extends IBaseMvpView {
@@ -40,6 +46,8 @@ public class RechargeDepositContract {
 
         void otcAmount(boolean isShowView, int currencyId);
 
+        void c2cAmount(boolean isShowView, int currencyId);
+
         void selectBond();
 
         void CcToBond(String amount, int currencyId, String fdPassword);
@@ -49,6 +57,10 @@ public class RechargeDepositContract {
         void otcToBond(String amount, int currencyId, String fdPassword);
 
         void bondToOtc(String amount, int currencyId, String fdPassword);
+
+        void c2cToBond(String amount, int currencyId, String fdPassword);
+
+        void bondToC2c(String amount, int currencyId, String fdPassword);
 
         void selectBondRecord(boolean isShowview);
 

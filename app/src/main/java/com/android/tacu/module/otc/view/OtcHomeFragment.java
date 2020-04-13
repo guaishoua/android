@@ -3,7 +3,6 @@ package com.android.tacu.module.otc.view;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -51,7 +50,7 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
     private WebviewFragment c2cFragment;
     private OtcMarketFragment otcMarketFragment;
     private List<Fragment> fragmentList = new ArrayList<>();
-    private FragmentPagerAdapter pagerAdapter;
+    private MyFragmentPagerAdapter pagerAdapter;
 
     public static OtcHomeFragment newInstance() {
         Bundle bundle = new Bundle();
@@ -218,13 +217,13 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
             mTopBar.setCenterView(centerView);
             if (!fragmentList.contains(c2cFragment)) {
                 fragmentList.add(0, c2cFragment);
-                pagerAdapter.notifyDataSetChanged();
+                pagerAdapter.setList(fragmentList);
             }
         } else {
             mTopBar.setTitle("OTC");
             if (fragmentList.contains(c2cFragment)) {
                 fragmentList.remove(c2cFragment);
-                pagerAdapter.notifyDataSetChanged();
+                pagerAdapter.setList(fragmentList);
             }
         }
     }
@@ -235,6 +234,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
      * @return
      */
     private boolean isMerchant() {
-        return spUtil.getApplyMerchantStatus() == 2;
+        return spUtil.getApplyMerchantStatus() == 2 && spUtil.getApplyAuthMerchantStatus() != 2;
     }
 }

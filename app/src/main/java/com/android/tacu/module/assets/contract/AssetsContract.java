@@ -20,10 +20,14 @@ public class AssetsContract {
         void BondAccount(OtcAmountModel model);
 
         void otcAmount(OtcAmountModel model);
+
+        void c2cAmount(OtcAmountModel model);
     }
 
     public interface IAssetsInfoView extends IBaseMvpView {
         void otcAmount(OtcAmountModel model);
+
+        void c2cAmount(OtcAmountModel model);
     }
 
     public interface ICurrencyView extends IBaseMvpView {
@@ -39,5 +43,8 @@ public class AssetsContract {
 
         //flag 0=资产中心 1=资产信息详情
         void otcAmount(int flag, boolean isShowLoadingView, int currencyId);
+
+        //flag 0=资产中心 1=资产信息详情
+        void c2cAmount(int flag, boolean isShowLoadingView, int currencyId);
     }
 }

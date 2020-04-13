@@ -7,16 +7,16 @@ import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
-import com.android.tacu.module.assets.contract.C2CTransferContract;
+import com.android.tacu.module.assets.contract.OTCC2CTransferContract;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 
-public class C2CTransferPresenter extends BaseMvpPresenter implements C2CTransferContract.IPresenter {
+public class OTCC2CTransferPresenter extends BaseMvpPresenter implements OTCC2CTransferContract.IPresenter {
     @Override
     public void transOut(String amount, int currencyId) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.C2C, Api.class).C2cToCC(amount, currencyId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.C2C, Api.class).C2cToOtc(amount, currencyId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel o) {
-                C2CTransferContract.IView view = (C2CTransferContract.IView) getView();
+                OTCC2CTransferContract.IView view = (OTCC2CTransferContract.IView) getView();
                 view.transOutSuccess();
             }
         });
@@ -24,22 +24,22 @@ public class C2CTransferPresenter extends BaseMvpPresenter implements C2CTransfe
 
     @Override
     public void transIn(String amount, int currencyId) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.C2C, Api.class).CcToC2c(amount, currencyId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.C2C, Api.class).OtcToC2c(amount, currencyId), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel o) {
-                C2CTransferContract.IView view = (C2CTransferContract.IView) getView();
+                OTCC2CTransferContract.IView view = (OTCC2CTransferContract.IView) getView();
                 view.transInSuccess();
             }
         });
     }
 
     @Override
-    public void customerCoinByOneCoin(int currencyId) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).customerCoinByOneCoin(currencyId), new NetDisposableObserver<BaseModel<Double>>((IBaseMvpView) getView()) {
+    public void otcAmount(int currencyId) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).OtcAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView()) {
             @Override
-            public void onNext(BaseModel<Double> o) {
-                C2CTransferContract.IView view = (C2CTransferContract.IView) getView();
-                view.customerCoinByOneCoin(o.attachment);
+            public void onNext(BaseModel<OtcAmountModel> o) {
+                OTCC2CTransferContract.IView view = (OTCC2CTransferContract.IView) getView();
+                view.otcAmount(o.attachment);
             }
         });
     }
@@ -49,7 +49,7 @@ public class C2CTransferPresenter extends BaseMvpPresenter implements C2CTransfe
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.C2C, Api.class).C2cAccount(currencyId), new NetDisposableObserver<BaseModel<OtcAmountModel>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<OtcAmountModel> o) {
-                C2CTransferContract.IView view = (C2CTransferContract.IView) getView();
+                OTCC2CTransferContract.IView view = (OTCC2CTransferContract.IView) getView();
                 view.c2cAmount(o.attachment);
             }
         });

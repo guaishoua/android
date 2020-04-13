@@ -84,6 +84,14 @@ public enum ApiHost implements Retrofit2Host {
         }
     },
     /**
+     * C2CTacu
+     */
+    C2C {
+        public String getHost() {
+            return host + "/c2c/";
+        }
+    },
+    /**
      * ali
      */
     ALI {

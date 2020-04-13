@@ -1268,4 +1268,75 @@ public interface Api {
             @Field("merchantId") String merchantId,
             @Field("orderId") String orderId
     );
+
+    /**
+     * 币币划转到C2C
+     */
+    @FormUrlEncoded
+    @POST("CcToC2c")
+    Observable<BaseModel> CcToC2c(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId
+    );
+
+    /**
+     * otc划转到币币账户
+     */
+    @FormUrlEncoded
+    @POST("C2cToCC")
+    Observable<BaseModel> C2cToCC(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId
+    );
+
+    /**
+     * c2c账户查询
+     */
+    @FormUrlEncoded
+    @POST("C2cAccount")
+    Observable<BaseModel<OtcAmountModel>> C2cAccount(
+            @Field("currencyId") Integer currencyId
+    );
+
+    /**
+     * C2C划转到保证金
+     */
+    @FormUrlEncoded
+    @POST("C2cToBond")
+    Observable<BaseModel> C2cToBond(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId,
+            @Field("fdPassword") String fdPassword//交易密码
+    );
+
+    /**
+     * 保证金划转到C2C
+     */
+    @FormUrlEncoded
+    @POST("BondToC2c")
+    Observable<BaseModel> BondToC2c(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId,
+            @Field("fdPassword") String fdPassword//交易密码
+    );
+
+    /**
+     * c2c划转到otc
+     */
+    @FormUrlEncoded
+    @POST("C2cToOtc")
+    Observable<BaseModel> C2cToOtc(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId
+    );
+
+    /**
+     * otc划转到c2c
+     */
+    @FormUrlEncoded
+    @POST("OtcToC2c")
+    Observable<BaseModel> OtcToC2c(
+            @Field("amount") String amount,
+            @Field("currencyId") Integer currencyId
+    );
 }

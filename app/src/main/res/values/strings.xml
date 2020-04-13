@@ -991,5 +991,8 @@
     <!--C2C-->
     <string name="c2c_account">C2C账户</string>
     <string name="coin_c2c_account">币币账户/C2C账户</string>
+    <string name="otc_c2c_account">OTC账户/C2C账户</string>
     <string name="c2c_account_available">C2C账户可用数量</string>
+    <string name="recharge_deposit_tag5">将从C2C账户中充入保证金数量</string>
+    <string name="recharge_deposit_tag6">申请保证金提取至C2C账户</string>
 </resources>

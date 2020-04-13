@@ -121,6 +121,7 @@ public class KLineChartView extends BaseKLineChartView {
             //当前最新价格
             setCurrentPriceTextSize(getDimension(R.dimen.chart_text_size));
             setCurrentPriceColor(getColor(R.color.text_default));
+            setCurrentPriceBgColor(getColor(R.color.round_rect_bg));
 
             //macd
             setMACDWidth(getDimension(R.dimen.chart_candle_width));

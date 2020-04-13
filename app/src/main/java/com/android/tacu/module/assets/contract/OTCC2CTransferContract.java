@@ -3,14 +3,14 @@ package com.android.tacu.module.assets.contract;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 
-public class C2CTransferContract {
+public class OTCC2CTransferContract {
 
     public interface IView extends IBaseMvpView {
         void transOutSuccess();
 
         void transInSuccess();
 
-        void customerCoinByOneCoin(Double value);
+        void otcAmount(OtcAmountModel value);
 
         void c2cAmount(OtcAmountModel model);
     }
@@ -20,7 +20,7 @@ public class C2CTransferContract {
 
         void transIn(String amount, int currencyId);
 
-        void customerCoinByOneCoin(int currencyId);
+        void otcAmount(int currencyId);
 
         void c2cAmount(int currencyId);
     }

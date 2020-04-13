@@ -49,6 +49,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private String take;
     private String otcTransfer;
     private String c2cTransfer;
+    private String otcC2cTransfer;
     private int currencyId = Constant.TAC_CURRENCY_ID;
     private String currencyNameEn = Constant.TAC_CURRENCY_NAME;
     private FragmentAdapter fragmentAdapter;
@@ -57,6 +58,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
     private TakeCoinFragment takeCoinFragment;
     private OTCTransferFragment otcTransferFragment;
     private C2CTransferFragment c2cTransferFragment;
+    private OTCC2CTransferFragment otcC2cTransferFragment;
 
     private Gson gson = new Gson();
     private List<Fragment> fragmentList;
@@ -69,7 +71,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
      * @param context
      * @param currencyNameEn
      * @param currencyId
-     * @param flags          第几个 0=充币 1=提币 2=otc划转
+     * @param flags          第几个 0=充币 1=提币 2=otc划转 3=c2c划转 4=otc划转c2c
      * @param isDetails      true：不用默认的btc
      * @return
      */
@@ -107,7 +109,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
         recordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (current == 2) {
+                if (current == 2 || current == 3 || current == 4) {
                     MoneyFlowEvent event = new MoneyFlowEvent(
                             getString(R.string.all),
                             "0",
@@ -214,6 +216,7 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
         take = getResources().getString(R.string.withdrawals);
         otcTransfer = getResources().getString(R.string.transfer);
         c2cTransfer = getResources().getString(R.string.transfer);
+        otcC2cTransfer = getResources().getString(R.string.transfer);
 
         switch (flags) {
             case 0:
@@ -228,10 +231,13 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
             case 3:
                 mTopBar.setTitle(currencyNameEn + c2cTransfer);
                 break;
+            case 4:
+                mTopBar.setTitle(currencyNameEn + otcC2cTransfer);
+                break;
         }
         fragmentList = new ArrayList<>();
 
-        boolean rechargeFlag = false, takeCoinFlag = false, otcTransferFlag = false, c2cTransferFlag = false;
+        boolean rechargeFlag = false, takeCoinFlag = false, otcTransferFlag = false, c2cTransferFlag = false, otcC2cTransferFlag = false;
         switch (current) {
             case 0:
                 rechargeFlag = true;
@@ -245,15 +251,20 @@ public class AssetsActivity extends BaseActivity<AssetsPresenter> implements Ass
             case 3:
                 c2cTransferFlag = true;
                 break;
+            case 4:
+                otcC2cTransferFlag = true;
+                break;
         }
         rechargeFragment = RechargeFragment.newInstance(currencyId, currencyNameEn, rechargeFlag);
         takeCoinFragment = TakeCoinFragment.newInstance(currencyId, currencyNameEn, takeCoinFlag);
         otcTransferFragment = OTCTransferFragment.newInstance(currencyId, currencyNameEn, otcTransferFlag);
         c2cTransferFragment = C2CTransferFragment.newInstance(currencyId, currencyNameEn, c2cTransferFlag);
+        otcC2cTransferFragment = OTCC2CTransferFragment.newInstance(currencyId, currencyNameEn, otcC2cTransferFlag);
         fragmentList.add(rechargeFragment);
         fragmentList.add(takeCoinFragment);
         fragmentList.add(otcTransferFragment);
         fragmentList.add(c2cTransferFragment);
+        fragmentList.add(otcC2cTransferFragment);
 
         initTabTitle();
     }
