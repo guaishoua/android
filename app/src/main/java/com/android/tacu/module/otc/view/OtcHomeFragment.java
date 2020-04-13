@@ -86,9 +86,11 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
         otcMarketFragment = OtcMarketFragment.newInstance();
 
         if (isMerchant()) {
+            mTopBar.setCenterView(centerView);
             fragmentList.add(c2cFragment);
             fragmentList.add(otcMarketFragment);
         } else {
+            mTopBar.setTitle("OTC");
             fragmentList.add(otcMarketFragment);
         }
 
@@ -102,7 +104,7 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
 
             @Override
             public void onPageSelected(int i) {
-                setTabSelection(i);
+                setTabPosition(i);
             }
 
             @Override
@@ -117,7 +119,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
         super.onResume();
         setShow();
     }
-
 
     @Override
     public void onClick(View v) {
@@ -173,7 +174,7 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
         btn_otc.setOnClickListener(this);
     }
 
-    private void setTabSelection(int pos) {
+    private void setTabPosition(int pos) {
         switch (pos) {
             case 0:
                 setCenterStyle(btn_c2c, true);
@@ -191,6 +192,10 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
                 }
                 break;
         }
+    }
+
+    private void setTabSelection(int pos) {
+        setTabPosition(pos);
         viewPager.setCurrentItem(pos);
     }
 
@@ -209,20 +214,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
             lin_guanggao.setVisibility(View.VISIBLE);
         } else {
             lin_guanggao.setVisibility(View.GONE);
-        }
-
-        if (isMerchant()) {
-            mTopBar.setCenterView(centerView);
-            if (!fragmentList.contains(c2cFragment)) {
-                fragmentList.add(0, c2cFragment);
-                pagerAdapter.setList(fragmentList);
-            }
-        } else {
-            mTopBar.setTitle("OTC");
-            if (fragmentList.contains(c2cFragment)) {
-                fragmentList.remove(c2cFragment);
-                pagerAdapter.setList(fragmentList);
-            }
         }
     }
 

@@ -82,6 +82,9 @@ public class OtcMarketFragment extends BaseFragment {
 
         buyFragment = OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, true);
         sellFragment = OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, false);
+        buyFragment.setUserVisible(isVisibleToUser);
+        sellFragment.setUserVisible(isVisibleToUser);
+
         fragmentList.add(buyFragment);
         fragmentList.add(sellFragment);
 
