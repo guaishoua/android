@@ -2,7 +2,10 @@ package com.android.tacu.module.otc.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -17,7 +20,6 @@ import com.android.tacu.EventBus.model.OTCListVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.common.MyFragmentPagerAdapter;
 import com.android.tacu.module.otc.dialog.OtcDialogUtils;
 import com.android.tacu.module.webview.view.WebviewFragment;
 import com.android.tacu.utils.UIUtils;
@@ -47,8 +49,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
     private QMUIRoundButton btn_c2c;
     private QMUIRoundButton btn_otc;
 
-    private WebviewFragment c2cFragment;
-    private OtcMarketFragment otcMarketFragment;
     private List<Fragment> fragmentList = new ArrayList<>();
     private MyFragmentPagerAdapter pagerAdapter;
 
@@ -82,21 +82,18 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
     protected void initData(View view) {
         initTitle();
 
-        c2cFragment = WebviewFragment.newInstance(Constant.C2C_URL);
-        otcMarketFragment = OtcMarketFragment.newInstance();
-
         if (isMerchant()) {
             mTopBar.setCenterView(centerView);
-            fragmentList.add(c2cFragment);
-            fragmentList.add(otcMarketFragment);
+            fragmentList.add(WebviewFragment.newInstance(Constant.C2C_URL));
+            fragmentList.add(OtcMarketFragment.newInstance());
         } else {
             mTopBar.setTitle("OTC");
-            fragmentList.add(otcMarketFragment);
+            fragmentList.add(OtcMarketFragment.newInstance());
         }
 
-        pagerAdapter = new MyFragmentPagerAdapter(getChildFragmentManager(), fragmentList);
+        pagerAdapter = new MyFragmentPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
+        viewPager.setOffscreenPageLimit(2);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -215,6 +212,37 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
         } else {
             lin_guanggao.setVisibility(View.GONE);
         }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getHostActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isMerchant()) {
+                            if (fragmentList.size() == 1) {
+                                mTopBar.setTitle("");
+                                mTopBar.setCenterView(centerView);
+
+                                fragmentList.clear();
+                                fragmentList.add(WebviewFragment.newInstance(Constant.C2C_URL));
+                                fragmentList.add(OtcMarketFragment.newInstance());
+                                pagerAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            if (fragmentList.size() == 2) {
+                                mTopBar.removeCenterView();
+                                mTopBar.setTitle("OTC");
+
+                                fragmentList.clear();
+                                fragmentList.add(OtcMarketFragment.newInstance());
+                                pagerAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     /**
@@ -224,5 +252,27 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
      */
     private boolean isMerchant() {
         return spUtil.getLogin() && spUtil.getApplyMerchantStatus() == 2 && spUtil.getApplyAuthMerchantStatus() != 2;
+    }
+
+    class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
+
+        public MyFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            return POSITION_NONE;
+        }
     }
 }

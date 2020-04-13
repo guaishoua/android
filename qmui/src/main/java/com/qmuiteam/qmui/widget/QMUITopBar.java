@@ -698,6 +698,24 @@ public class QMUITopBar extends RelativeLayout {
         }
     }
 
+    public void removeCenterView(){
+        if (mCenterView != null) {
+            if (mCenterView.getParent() == this) {
+                removeView(mCenterView);
+            }
+            mCenterView = null;
+        }
+    }
+
+    public void removeTitleView(){
+        if (mTitleView != null) {
+            if (mTitleView.getParent() == this) {
+                removeView(mTitleView);
+            }
+            mTitleView = null;
+        }
+    }
+
     private int getTopBarHeight() {
         if (mTopbarHeight == -1) {
             mTopbarHeight = QMUIResHelper.getAttrDimen(getContext(), R.attr.qmui_topbar_height);
