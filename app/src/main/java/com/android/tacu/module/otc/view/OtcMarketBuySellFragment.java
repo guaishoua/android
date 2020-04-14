@@ -18,7 +18,8 @@ import android.widget.TextView;
 
 import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.OTCListVisibleHintEvent;
+import com.android.tacu.EventBus.model.OtcHomeVisibleHintEvent;
+import com.android.tacu.EventBus.model.OtcMarketVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
@@ -81,7 +82,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     private OtcMarketBuySellAdapter mAdapter;
     private List<OtcMarketOrderAllModel> allList = new ArrayList<>();
     private boolean isVisibleToUserOTCHome = false;
-    private boolean isVisibleToUserParent = false;
+    private boolean isVisibleToUserOTCMarket = false;
     private boolean isFirst = true;
 
     private DroidDialog offlineDialog;
@@ -181,13 +182,18 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     }
 
     @Override
-    protected void receiveEvent(BaseEvent event) {
-        super.receiveEvent(event);
+    protected void receiveStickyEvent(BaseEvent event) {
+        super.receiveStickyEvent(event);
         if (event != null) {
             switch (event.getCode()) {
-                case EventConstant.OTCListVisibleCode:
-                    OTCListVisibleHintEvent otcListVisibleHintEvent = (OTCListVisibleHintEvent) event.getData();
-                    isVisibleToUserOTCHome = otcListVisibleHintEvent.isVisibleToUser();
+                case EventConstant.OtcHomeVisibleCode:
+                    OtcHomeVisibleHintEvent otcHomeVisibleHintEvent = (OtcHomeVisibleHintEvent) event.getData();
+                    isVisibleToUserOTCHome = otcHomeVisibleHintEvent.isVisibleToUser();
+                    upload(isFirst, true);
+                    break;
+                case EventConstant.OtcMarketVisibleCode:
+                    OtcMarketVisibleHintEvent otcMarketVisibleHintEvent = (OtcMarketVisibleHintEvent) event.getData();
+                    isVisibleToUserOTCMarket = otcMarketVisibleHintEvent.isVisibleToUser();
                     upload(isFirst, true);
                     break;
             }
@@ -316,13 +322,8 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         }
     }
 
-    public void setUserVisible(boolean isVisible) {
-        this.isVisibleToUserParent = isVisible;
-        upload(isFirst, true);
-    }
-
     private void upload(boolean isShowViewing, boolean isTop) {
-        if (!isVisibleToUser || !isVisibleToUserOTCHome || !isVisibleToUserParent) {
+        if (!isVisibleToUser || !isVisibleToUserOTCHome || !isVisibleToUserOTCMarket) {
             return;
         }
         if (isFirst) {

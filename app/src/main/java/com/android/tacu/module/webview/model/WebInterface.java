@@ -9,8 +9,10 @@ import android.util.Base64;
 import android.webkit.JavascriptInterface;
 
 import com.android.tacu.R;
+import com.android.tacu.api.Constant;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.assets.view.AssetsActivity;
+import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.ImgUtils;
 import com.android.tacu.utils.ShowToast;
 import com.android.tacu.utils.permission.PermissionUtils;
@@ -55,6 +57,14 @@ public class WebInterface {
     @JavascriptInterface
     public void JumpWithdraw(String currencyNameEn, int currencyId) {
         activity.startActivity(AssetsActivity.createActivity(activity, currencyNameEn, currencyId, 0, true));
+    }
+
+    /**
+     * 跳转C2C订单详情
+     */
+    @JavascriptInterface
+    public void JumpC2CDetail(String url) {
+        activity.startActivity(WebviewActivity.createActivity(activity, Constant.C2C_URL + url));
     }
 
     /**

@@ -12,6 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.EventManage;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.OtcMarketVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
@@ -45,8 +49,6 @@ public class OtcMarketFragment extends BaseFragment {
 
     private List<String> tabTitle = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
-    private OtcMarketBuySellFragment buyFragment;
-    private OtcMarketBuySellFragment sellFragment;
 
     private ListPopWindow listPopup;
 
@@ -62,12 +64,7 @@ public class OtcMarketFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (buyFragment != null) {
-            buyFragment.setUserVisible(isVisibleToUser);
-        }
-        if (sellFragment != null) {
-            sellFragment.setUserVisible(isVisibleToUser);
-        }
+        EventManage.sendStickyEvent(new BaseEvent<>(EventConstant.OtcMarketVisibleCode, new OtcMarketVisibleHintEvent(isVisibleToUser)));
     }
 
     @Override
@@ -80,13 +77,8 @@ public class OtcMarketFragment extends BaseFragment {
         tabTitle.add(getResources().getString(R.string.buy));
         tabTitle.add(getResources().getString(R.string.chushou));
 
-        buyFragment = OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, true);
-        sellFragment = OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, false);
-        buyFragment.setUserVisible(isVisibleToUser);
-        sellFragment.setUserVisible(isVisibleToUser);
-
-        fragmentList.add(buyFragment);
-        fragmentList.add(sellFragment);
+        fragmentList.add(OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, true));
+        fragmentList.add(OtcMarketBuySellFragment.newInstance(currencyId, currencyNameEn, false));
 
         magic_indicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.tab_bg_color));
         magic_indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(getContext(), R.color.text_default), ContextCompat.getColor(getContext(), R.color.tab_text_color)).setSize(14, 14));

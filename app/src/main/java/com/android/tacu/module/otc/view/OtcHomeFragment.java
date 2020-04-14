@@ -16,7 +16,8 @@ import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.EventManage;
 import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
-import com.android.tacu.EventBus.model.OTCListVisibleHintEvent;
+import com.android.tacu.EventBus.model.OtcHomeVisibleHintEvent;
+import com.android.tacu.EventBus.model.OtcMarketVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
@@ -68,9 +69,7 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (spUtil != null) {
-            EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCListVisibleCode, new OTCListVisibleHintEvent(isVisibleToUser)));
-        }
+        EventManage.sendStickyEvent(new BaseEvent<>(EventConstant.OtcHomeVisibleCode, new OtcHomeVisibleHintEvent(isVisibleToUser)));
     }
 
     @Override
@@ -84,7 +83,7 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
 
         if (isMerchant()) {
             mTopBar.setCenterView(centerView);
-            fragmentList.add(WebviewFragment.newInstance(Constant.C2C_URL));
+            fragmentList.add(WebviewFragment.newInstance(Constant.C2C_URL_TRADE));
             fragmentList.add(OtcMarketFragment.newInstance());
         } else {
             mTopBar.setTitle("OTC");
@@ -213,36 +212,51 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
             lin_guanggao.setVisibility(View.GONE);
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getHostActivity().runOnUiThread(new Runnable() {
+        if (isMerchant()) {
+            if (fragmentList.size() == 1) {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if (isMerchant()) {
-                            if (fragmentList.size() == 1) {
+                        getHostActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
                                 mTopBar.setTitle("");
                                 mTopBar.setCenterView(centerView);
 
                                 fragmentList.clear();
-                                fragmentList.add(WebviewFragment.newInstance(Constant.C2C_URL));
+                                fragmentList.add(WebviewFragment.newInstance(Constant.C2C_URL_TRADE));
                                 fragmentList.add(OtcMarketFragment.newInstance());
                                 pagerAdapter.notifyDataSetChanged();
+
+                                EventManage.sendStickyEvent(new BaseEvent<>(EventConstant.OtcHomeVisibleCode, new OtcHomeVisibleHintEvent(isVisibleToUser)));
                             }
-                        } else {
-                            if (fragmentList.size() == 2) {
+                        });
+                    }
+                }).start();
+            }
+        } else {
+            if (fragmentList.size() == 2) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getHostActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
                                 mTopBar.removeCenterView();
                                 mTopBar.setTitle("OTC");
 
                                 fragmentList.clear();
                                 fragmentList.add(OtcMarketFragment.newInstance());
                                 pagerAdapter.notifyDataSetChanged();
+
+                                EventManage.sendStickyEvent(new BaseEvent<>(EventConstant.OtcHomeVisibleCode, new OtcHomeVisibleHintEvent(isVisibleToUser)));
+                                EventManage.sendStickyEvent(new BaseEvent<>(EventConstant.OtcMarketVisibleCode, new OtcMarketVisibleHintEvent(true)));
                             }
-                        }
+                        });
                     }
-                });
+                }).start();
             }
-        }).start();
+        }
     }
 
     /**

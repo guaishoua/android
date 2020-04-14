@@ -10,17 +10,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseArray;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.OtcOrderListVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.otc.contract.OtcOrderContract;
-import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeAllModel;
@@ -65,11 +66,10 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     private int buyOrSell;
     private OtcOrderAdapter orderAdapter;
 
+    private boolean isVisibleToUserOTCOrderList = false;
     private int start = 1;
     private boolean isFirst = true;
     private List<OtcTradeAllModel> tradeModelList = new ArrayList<>();
-
-    private DroidDialog sureDialog;
 
     private Long currentTime;//当前服务器时间戳
     private long valueTime;
@@ -175,9 +175,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
             timeHandler.removeCallbacks(timeRunnable);
         }
         cancelTime();
-        if (sureDialog != null && sureDialog.isShowing()) {
-            sureDialog.dismiss();
-        }
     }
 
     @Override
@@ -186,6 +183,20 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         if (refreshManage != null && (refreshManage.isRefreshing() || refreshManage.isLoading())) {
             refreshManage.finishRefresh();
             refreshManage.finishLoadmore();
+        }
+    }
+
+    @Override
+    protected void receiveStickyEvent(BaseEvent event) {
+        super.receiveStickyEvent(event);
+        if (event != null) {
+            switch (event.getCode()) {
+                case EventConstant.OtcOrderListVisibleCode:
+                    OtcOrderListVisibleHintEvent otcOrderListVisibleHintEvent = (OtcOrderListVisibleHintEvent) event.getData();
+                    isVisibleToUserOTCOrderList = otcOrderListVisibleHintEvent.isVisibleToUser();
+                    upload(isFirst, true);
+                    break;
+            }
         }
     }
 
@@ -274,7 +285,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
     }
 
     private void upload(boolean isShowView, boolean isTop) {
-        if (!isVisibleToUser) {
+        if (!isVisibleToUserOTCOrderList || !isVisibleToUser) {
             return;
         }
         if (isFirst) {

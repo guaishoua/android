@@ -1,5 +1,7 @@
 package com.android.tacu.api;
 
+import com.android.tacu.BuildConfig;
+
 import static com.android.tacu.api.ApiHost.SOCKET_IP;
 
 public class Constant {
@@ -86,9 +88,9 @@ public class Constant {
     public static final String INVITED_FRIEND_URL = SOCKET_IP + "/RegisterInvite/";
 
     //c2c购买页面
-    public static final String C2C_URL = "http://192.168.20.200:8080/ctrade";
-    public static final String C2C_ORDER_LIST_URL = "";
-    public static final String C2C_ORDER_DETAIL_URL = "";
+    public static final String C2C_URL = BuildConfig.ISFORMALHOST ? "http://c2c.tacu.com" : "http://192.168.20.200:8080";
+    public static final String C2C_URL_TRADE = C2C_URL + "/ctrade";
+    public static final String C2C_ORDER_LIST_URL = C2C_URL + "/orderList";
 
     //几个币种的ID
     public static final int ACU_CURRENCY_ID = 237;
