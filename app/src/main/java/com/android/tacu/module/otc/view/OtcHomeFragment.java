@@ -50,6 +50,8 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
     private QMUIRoundButton btn_c2c;
     private QMUIRoundButton btn_otc;
 
+    private int userUid = 0;
+
     private List<Fragment> fragmentList = new ArrayList<>();
     private MyFragmentPagerAdapter pagerAdapter;
 
@@ -108,6 +110,7 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
             }
         });
         setTabSelection(0);
+        userUid = spUtil.getUserUid();
     }
 
     @Override
@@ -213,13 +216,15 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
         }
 
         if (isMerchant()) {
-            if (fragmentList.size() == 1) {
+            if (fragmentList.size() == 1 || userUid != spUtil.getUserUid()) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         getHostActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                userUid = spUtil.getUserUid();
+
                                 mTopBar.setTitle("");
                                 mTopBar.setCenterView(centerView);
 
