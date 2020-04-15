@@ -20,8 +20,10 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.common.TabAdapter;
+import com.android.tacu.module.otc.dialog.OtcDialogUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
@@ -43,6 +45,8 @@ public class OtcMarketFragment extends BaseFragment {
     ScrollIndicatorView magic_indicator;
     @BindView(R.id.vp)
     ViewPager viewPager;
+    @BindView(R.id.lin_guanggao)
+    QMUIRoundLinearLayout lin_guanggao;
 
     private int currencyId = Constant.ACU_CURRENCY_ID;
     private String currencyNameEn = Constant.ACU_CURRENCY_NAME;
@@ -59,6 +63,12 @@ public class OtcMarketFragment extends BaseFragment {
         OtcMarketFragment fragment = new OtcMarketFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    protected void initLazy() {
+        super.initLazy();
+        setShow();
     }
 
     @Override
@@ -92,6 +102,12 @@ public class OtcMarketFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        setShow();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (listPopup != null) {
@@ -106,6 +122,21 @@ public class OtcMarketFragment extends BaseFragment {
     @OnClick(R.id.tv_money)
     void moneyClick() {
         showMoneyType(tv_money);
+    }
+
+    @OnClick(R.id.lin_guanggao)
+    void guanggaoClick() {
+        if (!OtcDialogUtils.isDialogShow(getContext())) {
+            jumpTo(OtcManageActivity.class);
+        }
+    }
+
+    private void setShow() {
+        if (spUtil.getApplyMerchantStatus() == 2 || spUtil.getApplyAuthMerchantStatus() == 2) {
+            lin_guanggao.setVisibility(View.VISIBLE);
+        } else {
+            lin_guanggao.setVisibility(View.GONE);
+        }
     }
 
     private void showMoneyType(final TextView tv) {
