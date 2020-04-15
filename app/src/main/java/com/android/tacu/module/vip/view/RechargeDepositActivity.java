@@ -293,16 +293,16 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
                     e.printStackTrace();
                 }
             }
-            if ((!TextUtils.isEmpty(model.amount) && Double.parseDouble(model.amount) != 0) || isMerchant()) {
-                if (!tabList.contains(getResources().getString(R.string.c2c_account))){
-                    tabList.add(getResources().getString(R.string.c2c_account));
-                    tabIndicatorAdapter.setTabTitle(tabList);
-                }
-            }else{
-                if (tabList.contains(getResources().getString(R.string.c2c_account))){
-                    tabList.remove(getResources().getString(R.string.c2c_account));
-                    tabIndicatorAdapter.setTabTitle(tabList);
-                }
+        }
+        if ((model != null && !TextUtils.isEmpty(model.amount) && Double.parseDouble(model.amount) != 0) || isMerchant()) {
+            if (!tabList.contains(getResources().getString(R.string.c2c_account))) {
+                tabList.add(getResources().getString(R.string.c2c_account));
+                tabIndicatorAdapter.setTabTitle(tabList);
+            }
+        } else {
+            if (tabList.contains(getResources().getString(R.string.c2c_account))) {
+                tabList.remove(getResources().getString(R.string.c2c_account));
+                tabIndicatorAdapter.setTabTitle(tabList);
             }
         }
     }
