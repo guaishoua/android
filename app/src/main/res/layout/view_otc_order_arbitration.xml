@@ -133,6 +133,18 @@
             tools:text="@string/arbitration_explain" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/dp_1"
+        android:background="@color/content_bg_color"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_15"
+        android:text="@string/order_info"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_16" />
+
     <include layout="@layout/view_otc_detail_base" />
 
     <LinearLayout
@@ -253,30 +265,33 @@
             app:qmui_radius="@dimen/dp_2" />
     </LinearLayout>
 
-    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-        android:id="@+id/btn_be"
+    <LinearLayout
+        android:id="@+id/view_btn"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
-        android:layout_marginHorizontal="@dimen/dp_15"
-        android:layout_marginTop="@dimen/dp_20"
-        android:text="@string/submit_appeal"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_14"
-        android:visibility="gone"
-        app:qmui_backgroundColor="@color/color_default"
-        app:qmui_radius="@dimen/dp_3" />
-
-    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-        android:id="@+id/btn_coined"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:layout_marginHorizontal="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginBottom="@dimen/dp_20"
-        android:text="@string/confirm_getmoney_and_coined"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_sp_14"
-        android:visibility="gone"
-        app:qmui_backgroundColor="@color/color_default"
-        app:qmui_radius="@dimen/dp_3" />
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dp_15">
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14"
+            android:visibility="gone"
+            app:qmui_backgroundColor="@color/color_default"
+            app:qmui_radius="@dimen/dp_3" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_sp_14"
+            android:visibility="gone"
+            app:qmui_backgroundColor="@color/color_default"
+            app:qmui_radius="@dimen/dp_3" />
+    </LinearLayout>
 </LinearLayout>

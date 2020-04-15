@@ -185,6 +185,7 @@
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/view_leftbottom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_15"
@@ -268,6 +269,40 @@
                 app:layout_constraintLeft_toRightOf="@id/tv_rightbottom"
                 app:layout_constraintTop_toTopOf="@id/tv_rightbottom"
                 tools:srcCompat="@drawable/icon_auth_failure" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/view_bottomfive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_leftbottom"
+            app:layout_constraintWidth_percent="0.5">
+
+            <TextView
+                android:id="@+id/tv_bottomfive_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_13"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/order_time" />
+
+            <TextView
+                android:id="@+id/tv_bottomfive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_size_sp_15"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_bottomfive_title"
+                tools:text="20:20:29" />
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 

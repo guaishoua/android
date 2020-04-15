@@ -31,12 +31,13 @@
         android:paddingHorizontal="@dimen/dp_15">
 
         <TextView
+            android:id="@+id/tv_countdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="@string/wait_sell_coined"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14" />
+            android:textSize="@dimen/text_size_sp_16" />
 
         <LinearLayout
             android:id="@+id/lin_countdown"
@@ -121,6 +122,18 @@
             android:textSize="@dimen/text_size_sp_14"
             android:visibility="gone" />
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/dp_1"
+        android:background="@color/content_bg_color"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_15"
+        android:text="@string/order_info"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_16" />
 
     <include layout="@layout/view_otc_detail_base" />
 

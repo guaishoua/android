@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
         android:layout_marginTop="@dimen/dp_1"
+        android:layout_marginBottom="@dimen/dp_1"
         android:background="@color/content_bg_color"
         android:paddingHorizontal="@dimen/dp_15">
 
@@ -19,7 +20,7 @@
             android:layout_centerVertical="true"
             android:text="@string/order_info"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14" />
+            android:textSize="@dimen/text_size_sp_16" />
 
         <TextView
             android:id="@+id/tv_status"

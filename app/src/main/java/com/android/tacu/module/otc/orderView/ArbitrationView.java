@@ -51,8 +51,9 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
     private TextView tv_bearbitration;
     private QMUIRoundImageView img_bearbitration;
 
-    private QMUIRoundButton btn_be;
-    private QMUIRoundButton btn_coined;
+    private LinearLayout view_btn;
+    private QMUIRoundButton btn_left;
+    private QMUIRoundButton btn_right;
 
     private OtcTradeModel tradeModel;
     private Long currentTime;
@@ -91,13 +92,14 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
         tv_bearbitration = view.findViewById(R.id.tv_bearbitration);
         img_bearbitration = view.findViewById(R.id.img_bearbitration);
 
-        btn_be = view.findViewById(R.id.btn_be);
-        btn_coined = view.findViewById(R.id.btn_coined);
+        view_btn = view.findViewById(R.id.view_btn);
+        btn_left = view.findViewById(R.id.btn_left);
+        btn_right = view.findViewById(R.id.btn_right);
 
         img_arbitration.setOnClickListener(this);
         img_bearbitration.setOnClickListener(this);
-        btn_be.setOnClickListener(this);
-        btn_coined.setOnClickListener(this);
+        btn_left.setOnClickListener(this);
+        btn_right.setOnClickListener(this);
         spUtil = UserInfoUtils.getInstance();
     }
 
@@ -114,13 +116,13 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                     activity.jumpTo(ZoomImageViewActivity.createActivity(activity, imageUrlBeAritrotion));
                 }
                 break;
-            case R.id.btn_coined:
-                if (!OtcTradeDialogUtils.isDialogShow(activity)) {
+            case R.id.btn_left:
+                /*if (!OtcTradeDialogUtils.isDialogShow(activity)) {
                     showSure();
-                }
+                }*/
                 break;
-            case R.id.btn_be:
-                activity.startActivity(ArbitrationSubmitActivity.createActivity(activity, false, tradeModel.id));
+            case R.id.btn_right:
+                //activity.startActivity(ArbitrationSubmitActivity.createActivity(activity, false, tradeModel.id));
                 break;
         }
     }
@@ -166,9 +168,15 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                         rl_top.setVisibility(View.VISIBLE);
                         lin_top.setVisibility(View.GONE);
                         if (tradeModel.buyuid == spUtil.getUserUid()) {
+                            btn_left.setText(activity.getResources().getString(R.string.shensu));
+                            btn_right.setText(activity.getResources().getString(R.string.cancel));
+
                             btn_be.setVisibility(View.GONE);
                             btn_coined.setVisibility(View.GONE);
                         } else if (tradeModel.selluid == spUtil.getUserUid()) {
+                            btn_left.setText(activity.getResources().getString(R.string.shensu));
+                            btn_right.setText(activity.getResources().getString(R.string.cancel));
+
                             if (!TextUtils.isEmpty(tradeModel.beArbitrateExp)) {
                                 btn_be.setVisibility(View.GONE);
                             } else {
@@ -181,8 +189,8 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                     case 13:
                         rl_top.setVisibility(View.GONE);
                         lin_top.setVisibility(View.VISIBLE);
-                        btn_be.setVisibility(View.GONE);
-                        btn_coined.setVisibility(View.GONE);
+                        btn_left.setVisibility(View.GONE);
+                        btn_right.setVisibility(View.GONE);
                         tv_explain.setText(tradeModel.arbitrateResults);
                         break;
                 }

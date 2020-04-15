@@ -29,6 +29,7 @@ public class CoinGetView extends BaseOtcView implements View.OnClickListener {
     private OtcOrderDetailActivity activity;
     private UserInfoUtils spUtil;
 
+    private TextView tv_countdown;
     private LinearLayout lin_countdown;
     private TextView tv_timeout;
     private TextView tv_hour;
@@ -58,6 +59,7 @@ public class CoinGetView extends BaseOtcView implements View.OnClickListener {
     private void initCoinGetView(View view) {
         setBaseView(view, activity);
 
+        tv_countdown = view.findViewById(R.id.tv_countdown);
         lin_countdown = view.findViewById(R.id.lin_countdown);
         tv_timeout = view.findViewById(R.id.tv_timeout);
         tv_hour = view.findViewById(R.id.tv_hour);
@@ -137,6 +139,7 @@ public class CoinGetView extends BaseOtcView implements View.OnClickListener {
         if (currentTime != null && tradeModel != null && !TextUtils.isEmpty(tradeModel.transCoinEndTime)) {
             if (tradeModel.status != null && tradeModel.status == 9) {
                 tv_timeout.setVisibility(View.VISIBLE);
+                tv_countdown.setVisibility(View.GONE);
                 lin_countdown.setVisibility(View.GONE);
 
                 btn_submit_arbitration.setEnabled(true);
@@ -145,6 +148,7 @@ public class CoinGetView extends BaseOtcView implements View.OnClickListener {
                 long transCoinEndTime = DateUtils.string2Millis(tradeModel.transCoinEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
                 if (transCoinEndTime > 0) {
                     tv_timeout.setVisibility(View.GONE);
+                    tv_countdown.setVisibility(View.VISIBLE);
                     lin_countdown.setVisibility(View.VISIBLE);
                     startCountDownTimer(transCoinEndTime);
 
@@ -152,7 +156,9 @@ public class CoinGetView extends BaseOtcView implements View.OnClickListener {
                     ((QMUIRoundButtonDrawable) btn_submit_arbitration.getBackground()).setBgData(ContextCompat.getColorStateList(activity, R.color.color_grey));
                 } else {
                     tv_timeout.setVisibility(View.VISIBLE);
+                    tv_countdown.setVisibility(View.GONE);
                     lin_countdown.setVisibility(View.GONE);
+
                     btn_submit_arbitration.setEnabled(true);
                     ((QMUIRoundButtonDrawable) btn_submit_arbitration.getBackground()).setBgData(ContextCompat.getColorStateList(activity, R.color.color_default));
                 }

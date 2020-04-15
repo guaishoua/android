@@ -356,6 +356,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                 }
 
                 holder.setGone(R.id.view_four, false);
+                holder.setGone(R.id.view_bottomfive, false);
                 holder.setGone(R.id.view_three, false);
                 holder.setGone(R.id.img_leftbottom, false);
                 holder.setGone(R.id.img_rightbottom, false);
@@ -364,11 +365,14 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                 holder.setGone(R.id.tv_time_title, true);
                 holder.setGone(R.id.tv_time, true);
                 holder.setGone(R.id.btn_left, false);
+
+                holder.setTextColor(R.id.tv_top, ContextCompat.getColor(mContext, R.color.text_color));
                 holder.setTextColor(R.id.tv_lefttop, ContextCompat.getColor(mContext, R.color.text_color));
                 holder.setTextColor(R.id.tv_righttop, ContextCompat.getColor(mContext, R.color.text_color));
 
                 holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.text_color));
                 holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.text_color));
+                holder.setTextColor(R.id.tv_bottomfive, ContextCompat.getColor(mContext, R.color.text_color));
                 holder.setTextColor(R.id.tv_leftbottom1, ContextCompat.getColor(mContext, R.color.text_color));
                 holder.setTextColor(R.id.tv_rightbottom1, ContextCompat.getColor(mContext, R.color.text_color));
 
@@ -500,19 +504,23 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_status, getResources().getString(R.string.otc_order_arbitration));
                             holder.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.color_arbitration));
                             holder.setGone(R.id.view_four, true);
+                            holder.setGone(R.id.view_bottomfive, true);
                             holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
-                            holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.duifang_shensu));
+                            holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.shensu));
+                            holder.setText(R.id.tv_bottomfive_title, getResources().getString(R.string.mobile));
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
-                            if (item.tradeModel.buyuid == spUtil.getUserUid()) {
-                                holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.duifang_shensu));
+
+                            /*if (item.tradeModel.buyuid == spUtil.getUserUid()) {
+                                holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.shensu));
                             } else if (item.tradeModel.selluid == spUtil.getUserUid()) {
                                 holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.tijiao_shensu));
-                            }
-                            if (item.tradeModel.beArbitrateUid != null && item.tradeModel.beArbitrateUid != 0) {
+                            }*/
+                            /*if (item.tradeModel.beArbitrateUid != null && item.tradeModel.beArbitrateUid != 0) {
                                 holder.setText(R.id.tv_righttop, getResources().getString(R.string.submited));
                             } else {
                                 holder.setText(R.id.tv_righttop, getResources().getString(R.string.unsubmit));
-                            }
+                            }*/
+
                             holder.setTextColor(R.id.tv_righttop, ContextCompat.getColor(mContext, R.color.color_otc_sell));
                             holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_sell));
                             holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
@@ -520,6 +528,14 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setGone(R.id.img_rightbottom, true);
                             holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
                             holder.setImageResource(R.id.img_rightbottom, R.drawable.icon_auth_success);
+
+                            otcPhone = "";
+                            if (item.tradeModel.merchantId == spUtil.getUserUid()) {
+                                otcPhone = item.infoModel.mobile;
+                            } else {
+                                otcPhone = item.tradeModel.explaininfo;
+                            }
+                            holder.setText(R.id.tv_bottomfive, otcPhone);
 
                             if (item.tradeModel.selluid == spUtil.getUserUid()) {
                                 holder.setGone(R.id.btn_left, true);

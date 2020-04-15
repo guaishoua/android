@@ -31,12 +31,13 @@
         android:paddingHorizontal="@dimen/dp_15">
 
         <TextView
+            android:id="@+id/tv_countdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="@string/wait_sell_coined"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14" />
+            android:textSize="@dimen/text_size_sp_16" />
 
         <LinearLayout
             android:id="@+id/lin_countdown"
@@ -114,13 +115,24 @@
             android:id="@+id/tv_timeout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="@string/timeouted"
+            android:layout_centerInParent="true"
+            android:text="@string/coined_timeout"
             android:textColor="@color/text_error"
-            android:textSize="@dimen/text_size_sp_14"
+            android:textSize="@dimen/text_size_sp_16"
             android:visibility="gone" />
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:background="@color/content_bg_color"
+        android:paddingLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_1"
+        android:text="@string/order_info"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_16" />
 
     <include layout="@layout/view_otc_detail_base" />
 
