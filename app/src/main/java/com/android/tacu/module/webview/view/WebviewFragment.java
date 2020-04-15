@@ -162,7 +162,7 @@ public class WebviewFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (isResumeReload) {
+        if (isVisibleToUser && isResumeReload) {
             webView.reload();
         }
     }
