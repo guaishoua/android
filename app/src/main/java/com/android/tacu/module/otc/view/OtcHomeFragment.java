@@ -85,7 +85,7 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
 
         if (isMerchant()) {
             mTopBar.setCenterView(centerView);
-            fragmentList.add(WebviewFragment.newInstance(Constant.C2C_URL_TRADE));
+            fragmentList.add(WebviewFragment.newInstance(Constant.C2C_URL_TRADE, true));
             fragmentList.add(OtcMarketFragment.newInstance());
         } else {
             mTopBar.setTitle("OTC");
@@ -229,7 +229,7 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
                                 mTopBar.setCenterView(centerView);
 
                                 fragmentList.clear();
-                                fragmentList.add(WebviewFragment.newInstance(Constant.C2C_URL_TRADE));
+                                fragmentList.add(WebviewFragment.newInstance(Constant.C2C_URL_TRADE, true));
                                 fragmentList.add(OtcMarketFragment.newInstance());
                                 pagerAdapter.notifyDataSetChanged();
 

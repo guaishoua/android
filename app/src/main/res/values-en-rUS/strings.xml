@@ -977,5 +977,14 @@
     <string name="otc_publish_time">Posting time</string>
 
     <string name="member_center">Member Center</string>
+
+    <!--C2C-->
+    <string name="c2c_account">C2C account</string>
+    <string name="coin_c2c_account">Coin account/C2C account</string>
+    <string name="otc_c2c_account">OTC account/C2C account</string>
+    <string name="c2c_account_available">C2C account available quantity</string>
+    <string name="recharge_deposit_tag5">The deposit amount will be charged from the C2C account</string>
+    <string name="recharge_deposit_tag6">Apply for deposit withdrawal to C2C account</string>
+    <string name="order">Order</string>
 </resources>
 

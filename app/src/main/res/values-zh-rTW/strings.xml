@@ -967,4 +967,13 @@
     <string name="otc_publish_time">廣告發布時間</string>
 
     <string name="member_center">會員中心</string>
+
+    <!--C2C-->
+    <string name="c2c_account">C2C賬戶</string>
+    <string name="coin_c2c_account">幣幣賬戶/C2C賬戶</string>
+    <string name="otc_c2c_account">OTC賬戶/C2C賬戶</string>
+    <string name="c2c_account_available">C2C賬戶可用數量</string>
+    <string name="recharge_deposit_tag5">將從C2C賬戶中充入保證金數量</string>
+    <string name="recharge_deposit_tag6">申請保證金提取至C2C賬戶</string>
+    <string name="order">訂單</string>
 </resources>

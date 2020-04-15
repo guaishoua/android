@@ -40,7 +40,7 @@ public class OtcOrderListActivity extends BaseActivity implements View.OnClickLi
 
         if (isMerchant()) {
             mTopBar.setCenterView(centerView);
-            fragmentList.add(WebviewFragment.newInstance(Constant.C2C_ORDER_LIST_URL));
+            fragmentList.add(WebviewFragment.newInstance(Constant.C2C_ORDER_LIST_URL, true));
             fragmentList.add(OtcOrderListFragment.newInstance());
         } else {
             mTopBar.setTitle(getResources().getString(R.string.order_center));

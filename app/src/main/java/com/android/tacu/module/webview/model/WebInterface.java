@@ -1,6 +1,7 @@
 package com.android.tacu.module.webview.model;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.assets.view.AssetsActivity;
+import com.android.tacu.module.assets.view.BindingPayInfoActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.ImgUtils;
 import com.android.tacu.utils.ShowToast;
@@ -46,8 +48,8 @@ public class WebInterface {
         }
     };
 
-    public WebInterface(Activity context) {
-        activity = context;
+    public WebInterface(Activity activity) {
+        this.activity = activity;
         loadingAnim = new LoadingAnim(activity);
     }
 
@@ -65,6 +67,15 @@ public class WebInterface {
     @JavascriptInterface
     public void JumpC2CDetail(String url) {
         activity.startActivity(WebviewActivity.createActivity(activity, Constant.C2C_URL + url));
+    }
+
+    /**
+     * 跳转绑定支付信息页面
+     */
+    @JavascriptInterface
+    public void JumpPayInfo() {
+        Intent intent = new Intent(activity, BindingPayInfoActivity.class);
+        activity.startActivity(intent);
     }
 
     /**

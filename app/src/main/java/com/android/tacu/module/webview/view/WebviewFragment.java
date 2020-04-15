@@ -37,6 +37,8 @@ public class WebviewFragment extends BaseFragment {
     LinearLayout llWeb;
 
     private String url;
+    // isResumeReload true=onresume刷新
+    private boolean isResumeReload = false;
 
     private WebView webView;
     private WebInterface webInterface;
@@ -46,6 +48,16 @@ public class WebviewFragment extends BaseFragment {
     public static WebviewFragment newInstance(String url) {
         Bundle bundle = new Bundle();
         bundle.putString("url", url);
+        bundle.putBoolean("isResumeReload", false);
+        WebviewFragment fragment = new WebviewFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    public static WebviewFragment newInstance(String url, boolean isResumeReload) {
+        Bundle bundle = new Bundle();
+        bundle.putString("url", url);
+        bundle.putBoolean("isResumeReload", isResumeReload);
         WebviewFragment fragment = new WebviewFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -56,6 +68,7 @@ public class WebviewFragment extends BaseFragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             url = bundle.getString("url");
+            isResumeReload = bundle.getBoolean("isResumeReload");
         }
         super.onCreate(savedInstanceState);
     }
@@ -144,6 +157,14 @@ public class WebviewFragment extends BaseFragment {
             url += "?chaoex_uid=" + Md5Utils.AESEncrypt(String.valueOf(spUtil.getUserUid())) + "&chaoex_token=" + Md5Utils.AESEncrypt(spUtil.getToken()) + "&chaoex_htmlLang=" + spUtil.getLanguage();
         }
         webView.loadUrl(url);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isResumeReload) {
+            webView.reload();
+        }
     }
 
     @Override
