@@ -41,6 +41,7 @@ import com.android.tacu.module.market.view.SelfSelectionFragment;
 import com.android.tacu.module.my.view.BindModeActivity;
 import com.android.tacu.module.my.view.GoogleHintActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
+import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
@@ -300,9 +301,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void socketConnectEventAgain() {
-        if (baseAppSocket != null) {
-            baseAppSocket.coinAllList();
-        }
+        AppSocket.getInstance().coinAllList();
     }
 
     @Override
@@ -353,28 +352,28 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 if (marketModelList.get(i).tradeCoinsAutoList != null && marketModelList.get(i).tradeCoinsAutoList.size() > 0) {
                     switch (marketModelList.get(i).sort_type) {
                         case 1://价格正序
-                            mPresenter.sortLastPrice(marketModelList.get(i).tradeCoinsAutoList, "up");
-                            break;
-                        case 2://价格倒序
                             mPresenter.sortLastPrice(marketModelList.get(i).tradeCoinsAutoList, "down");
                             break;
-                        case 3://涨跌幅正序
-                            mPresenter.sortHour(marketModelList.get(i).tradeCoinsAutoList, "up");
+                        case 2://价格倒序
+                            mPresenter.sortLastPrice(marketModelList.get(i).tradeCoinsAutoList, "up");
                             break;
-                        case 4://涨跌幅倒序
+                        case 3://涨跌幅正序
                             mPresenter.sortHour(marketModelList.get(i).tradeCoinsAutoList, "down");
                             break;
-                        case 5://交易币首字母正序
-                            mPresenter.sortPair(marketModelList.get(i).tradeCoinsAutoList, "up");
+                        case 4://涨跌幅倒序
+                            mPresenter.sortHour(marketModelList.get(i).tradeCoinsAutoList, "up");
                             break;
-                        case 6://交易币首字母倒序
+                        case 5://交易币首字母正序
                             mPresenter.sortPair(marketModelList.get(i).tradeCoinsAutoList, "down");
                             break;
+                        case 6://交易币首字母倒序
+                            mPresenter.sortPair(marketModelList.get(i).tradeCoinsAutoList, "up");
+                            break;
                         case 7://24小时成交量正序
-                            mPresenter.sortVol(marketModelList.get(i).tradeCoinsAutoList, "up");
+                            mPresenter.sortVol(marketModelList.get(i).tradeCoinsAutoList, "down");
                             break;
                         case 8://24小时成交量倒序
-                            mPresenter.sortVol(marketModelList.get(i).tradeCoinsAutoList, "down");
+                            mPresenter.sortVol(marketModelList.get(i).tradeCoinsAutoList, "up");
                             break;
                     }
                 }

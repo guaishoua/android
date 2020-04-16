@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
+import com.android.tacu.socket.AppSocket;
 import com.android.tacu.utils.KlineUtils;
 import com.android.tacu.widget.tab.TabLayoutView;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
@@ -198,9 +199,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
 
     @Override
     public void socketConnectEventAgain() {
-        if (baseAppSocket != null) {
-            baseAppSocket.coinInfo(currencyId, baseCurrencyId);
-        }
+        AppSocket.getInstance().coinInfo(currencyId, baseCurrencyId);
     }
 
     @Override
