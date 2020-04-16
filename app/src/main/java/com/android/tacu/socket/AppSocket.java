@@ -12,16 +12,22 @@ import io.socket.client.Socket;
 
 public class AppSocket extends BaseSocket {
 
-    public AppSocket() {
-        super(new Builder(ApiHost.SOCKET_IP));
+    private static volatile AppSocket INSTANCE = null;
+
+    public static AppSocket getInstance() {
+        if (INSTANCE == null) {
+            AppSocket.Builder builder = new AppSocket.Builder(ApiHost.SOCKET_IP);
+            INSTANCE = new AppSocket(builder);
+        }
+        return INSTANCE;
+    }
+
+    private AppSocket(Builder builder) {
+        super(builder);
     }
 
     public Socket getSocket() {
         return mSocket;
-    }
-
-    public void clearSocket() {
-        mSocket = null;
     }
 
     /**

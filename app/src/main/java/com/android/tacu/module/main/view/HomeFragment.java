@@ -41,6 +41,7 @@ import com.android.tacu.module.market.view.SelfSelectionFragment;
 import com.android.tacu.module.my.view.BindModeActivity;
 import com.android.tacu.module.my.view.GoogleHintActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
+import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
@@ -300,9 +301,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void socketConnectEventAgain() {
-        if (baseAppSocket != null) {
-            baseAppSocket.coinAllList();
-        }
+        AppSocket.getInstance().coinAllList();
     }
 
     @Override

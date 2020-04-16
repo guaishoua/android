@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
 import com.android.tacu.module.vip.model.VipDetailRankModel;
+import com.android.tacu.socket.AppSocket;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.EventBus.EventConstant;
@@ -244,8 +245,8 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         @Override
         public void run() {
             //监听列表 列表变 可用余额变
-            if (spUtil != null && spUtil.getLogin() && baseAppSocket != null) {
-                baseAppSocket.userAccount(currencyId, baseCurrencyId, spUtil.getToken(), spUtil.getUserUid());
+            if (spUtil != null && spUtil.getLogin()) {
+                AppSocket.getInstance().userAccount(currencyId, baseCurrencyId, spUtil.getToken(), spUtil.getUserUid());
             }
             if (timeHandler != null) {
                 timeHandler.postDelayed(this, 2000);
@@ -533,10 +534,8 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
 
     @Override
     public void socketConnectEventAgain() {
-        if (baseAppSocket != null) {
-            baseAppSocket.coinInfo(currencyId, baseCurrencyId);
-            baseAppSocket.entrust(currencyId, baseCurrencyId);
-        }
+        AppSocket.getInstance().coinInfo(currencyId, baseCurrencyId);
+        AppSocket.getInstance().entrust(currencyId, baseCurrencyId);
     }
 
     @Override
