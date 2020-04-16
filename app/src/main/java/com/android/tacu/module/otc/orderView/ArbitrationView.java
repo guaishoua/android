@@ -64,6 +64,7 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
     private String imageUrlAritrotion;
     private String imageUrlBeAritrotion;
 
+    private DroidDialog cancelDialog;
     private DroidDialog droidDialog;
 
     public View create(OtcOrderDetailActivity activity, OtcOrderDetailPresenter mPresenter) {
@@ -117,12 +118,18 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                 }
                 break;
             case R.id.btn_left:
-                /*if (!OtcTradeDialogUtils.isDialogShow(activity)) {
-                    showSure();
-                }*/
+                activity.startActivity(ArbitrationSubmitActivity.createActivity(activity, false, tradeModel.id));
                 break;
             case R.id.btn_right:
-                //activity.startActivity(ArbitrationSubmitActivity.createActivity(activity, false, tradeModel.id));
+                //如果是买方，这里显示取消仲裁按钮
+                //如果是卖方，这里显示放币按钮
+                if (tradeModel.buyuid == spUtil.getUserUid()) {
+                    showCancel();
+                } else if (tradeModel.selluid == spUtil.getUserUid()) {
+                    if (!OtcTradeDialogUtils.isDialogShow(activity)) {
+                        showSure();
+                    }
+                }
                 break;
         }
     }
@@ -167,30 +174,24 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                     case 4:
                         rl_top.setVisibility(View.VISIBLE);
                         lin_top.setVisibility(View.GONE);
+
+                        /**
+                         * 这里预留一下，判断点击过申诉之后，btn_left、btn_right都不显示
+                         */
+                        view_btn.setVisibility(View.VISIBLE);
                         if (tradeModel.buyuid == spUtil.getUserUid()) {
                             btn_left.setText(activity.getResources().getString(R.string.shensu));
                             btn_right.setText(activity.getResources().getString(R.string.cancel));
-
-                            btn_be.setVisibility(View.GONE);
-                            btn_coined.setVisibility(View.GONE);
                         } else if (tradeModel.selluid == spUtil.getUserUid()) {
                             btn_left.setText(activity.getResources().getString(R.string.shensu));
-                            btn_right.setText(activity.getResources().getString(R.string.cancel));
-
-                            if (!TextUtils.isEmpty(tradeModel.beArbitrateExp)) {
-                                btn_be.setVisibility(View.GONE);
-                            } else {
-                                btn_be.setVisibility(View.VISIBLE);
-                            }
-                            btn_coined.setVisibility(View.VISIBLE);
+                            btn_right.setText(activity.getResources().getString(R.string.coined));
                         }
                         break;
                     case 12:
                     case 13:
                         rl_top.setVisibility(View.GONE);
                         lin_top.setVisibility(View.VISIBLE);
-                        btn_left.setVisibility(View.GONE);
-                        btn_right.setVisibility(View.GONE);
+                        view_btn.setVisibility(View.GONE);
                         tv_explain.setText(tradeModel.arbitrateResults);
                         break;
                 }
@@ -209,6 +210,21 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                 img_bearbitration.setVisibility(View.GONE);
             }
         }
+    }
+
+    private void showCancel() {
+        cancelDialog = new DroidDialog.Builder(activity)
+                .title(activity.getResources().getString(R.string.cancel_arbitration))
+                .content(activity.getResources().getString(R.string.cancel_arbitration_tip))
+                .positiveButton(activity.getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+
+                    }
+                })
+                .negativeButton(activity.getResources().getString(R.string.cancel), null)
+                .cancelable(false, false)
+                .show();
     }
 
     private void showSure() {
@@ -256,14 +272,11 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                 if (arbitrationEndTime > 0) {
                     tv_timeout.setVisibility(View.GONE);
                     lin_countdown.setVisibility(View.VISIBLE);
-                    if (tradeModel.selluid == spUtil.getUserUid()) {
-                        btn_be.setVisibility(View.VISIBLE);
-                    }
                     startCountDownTimer(arbitrationEndTime);
                 } else {
                     tv_timeout.setVisibility(View.VISIBLE);
                     lin_countdown.setVisibility(View.GONE);
-                    btn_be.setVisibility(View.GONE);
+                    view_btn.setVisibility(View.GONE);
                 }
             } else {
                 tv_timeout.setVisibility(View.VISIBLE);
@@ -314,6 +327,9 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
     public void destory() {
         activity = null;
         mPresenter = null;
+        if (cancelDialog != null && cancelDialog.isShowing()) {
+            cancelDialog.dismiss();
+        }
         if (droidDialog != null && droidDialog.isShowing()) {
             droidDialog.dismiss();
         }

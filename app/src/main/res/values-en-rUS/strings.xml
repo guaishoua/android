@@ -986,5 +986,13 @@
     <string name="recharge_deposit_tag5">The deposit amount will be charged from the C2C account</string>
     <string name="recharge_deposit_tag6">Apply for deposit withdrawal to C2C account</string>
     <string name="order">Order</string>
+
+    <!--OTC-->
+    <string name="shensu">Appeal</string>
+    <string name="wait_deal">To be processed</string>
+    <string name="canceled">canceled</string>
+    <string name="coined">Loan money</string>
+    <string name="cancel_arbitration">Cancel arbitration</string>
+    <string name="cancel_arbitration_tip">Please confirm that you have not paid to the other party, otherwise it will cause loss of assets</string>
 </resources>
 

@@ -978,4 +978,12 @@
     <string name="recharge_deposit_tag5">将从C2C账户中充入保证金数量</string>
     <string name="recharge_deposit_tag6">申请保证金提取至C2C账户</string>
     <string name="order">订单</string>
+
+    <!--OTC-->
+    <string name="shensu">申诉</string>
+    <string name="wait_deal">待处理</string>
+    <string name="canceled">已取消</string>
+    <string name="coined">放币</string>
+    <string name="cancel_arbitration">取消仲裁</string>
+    <string name="cancel_arbitration_tip">请确认您未付款给对方，否则将造成资产丢失</string>
 </resources>

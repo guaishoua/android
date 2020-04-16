@@ -1001,4 +1001,7 @@
     <string name="shensu">申诉</string>
     <string name="wait_deal">待处理</string>
     <string name="canceled">已取消</string>
+    <string name="coined">放币</string>
+    <string name="cancel_arbitration">取消仲裁</string>
+    <string name="cancel_arbitration_tip">请确认您未付款给对方，否则将造成资产丢失</string>
 </resources>

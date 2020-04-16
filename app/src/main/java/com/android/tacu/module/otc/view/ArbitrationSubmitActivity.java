@@ -252,11 +252,11 @@ public class ArbitrationSubmitActivity extends BaseActivity<OtcOrderDetailPresen
             public void run() {
                 if (flag == 1) {
                     String arbitrateExp = edit_submit_arbitration.getText().toString();
-                    if (isArbitration){
+                   /* if (isArbitration){
                         mPresenter.arbitrationOrder(id, arbitrateExp, uploadImageName);
                     }else{
                         mPresenter.beArbitrationOrder(id, arbitrateExp, uploadImageName);
-                    }
+                    }*/
                 }
                 hideLoadingView();
             }
