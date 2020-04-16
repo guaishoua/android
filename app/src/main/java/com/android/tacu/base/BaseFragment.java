@@ -21,7 +21,6 @@ import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.view.TradeDataBridge;
 import com.android.tacu.module.market.model.MarketNewModel;
-import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.MainSocketManager;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.ShowToast;
@@ -55,7 +54,6 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
     //Socket
     private ISocketEvent baseSocketEvent;
     private Observer baseObserver;
-    protected AppSocket baseAppSocket;
     protected MainSocketManager baseSocketManager;
     //当前fragment的可见
     protected boolean isVisibleToUser = false;
@@ -79,8 +77,7 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
     public void setSocketEvent(ISocketEvent mSocketEvent, Observer observer, String... strings) {
         this.baseSocketEvent = mSocketEvent;
         this.baseObserver = observer;
-        baseAppSocket = new AppSocket();
-        baseSocketManager = new MainSocketManager(baseAppSocket.getSocket());
+        baseSocketManager = new MainSocketManager();
         baseSocketManager.initEmitterEvent(strings);
         baseSocketManager.addObserver(observer);
     }
@@ -217,10 +214,6 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
             baseSocketManager.deleteObserver(baseObserver);
             baseSocketManager.disconnectEmitterListener();
             baseSocketManager = null;
-        }
-        if (baseAppSocket != null) {
-            baseAppSocket.clearSocket();
-            baseAppSocket = null;
         }
         EventManage.unregister(this);
     }

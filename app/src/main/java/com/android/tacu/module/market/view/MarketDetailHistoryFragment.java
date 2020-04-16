@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.tacu.socket.AppSocket;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.R;
@@ -112,9 +113,7 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
 
     @Override
     public void socketConnectEventAgain() {
-        if (baseAppSocket != null) {
-            baseAppSocket.tradeHistory(currencyId, baseCurrencyId);
-        }
+        AppSocket.getInstance().tradeHistory(currencyId, baseCurrencyId);
     }
 
     @Override
@@ -155,7 +154,7 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
         });
     }
 
-    public void setValue(int currencyId, int baseCurrencyId){
+    public void setValue(int currencyId, int baseCurrencyId) {
         this.currencyId = currencyId;
         this.baseCurrencyId = baseCurrencyId;
         socketConnectEventAgain();

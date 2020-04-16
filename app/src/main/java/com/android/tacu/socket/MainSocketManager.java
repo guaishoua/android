@@ -1,7 +1,5 @@
 package com.android.tacu.socket;
 
-import io.socket.client.Socket;
-
 /**
  * Created by jiazhen on 2018/8/1.
  */
@@ -9,24 +7,19 @@ import io.socket.client.Socket;
 public class MainSocketManager extends BaseSocketManager {
 
     private EmitterEvent mEmitterEvent;
-    private Socket mSocket;
-
-    public MainSocketManager(Socket mSocket) {
-        this.mSocket = mSocket;
-    }
 
     public void initEmitterEvent(String... strings) {
         if (mEmitterEvent == null) {
             mEmitterEvent = new EmitterEvent(this, strings);
         }
-        mEmitterEvent.initEmitterEvent(mSocket);
+        mEmitterEvent.initEmitterEvent(AppSocket.getInstance().getSocket());
     }
 
     public void initOnceEmitterEvent(String... strings) {
         if (mEmitterEvent == null) {
             mEmitterEvent = new EmitterEvent(this, strings);
         }
-        mEmitterEvent.initOnceEmitterEvent(mSocket);
+        mEmitterEvent.initOnceEmitterEvent(AppSocket.getInstance().getSocket());
     }
 
     public void onEmitterListener() {

@@ -32,6 +32,7 @@ import com.android.tacu.module.market.model.KLineModel;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.SelfModel;
 import com.android.tacu.module.market.presenter.MarketDetailsPresenter;
+import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
@@ -373,9 +374,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     @Override
     public void socketConnectEventAgain() {
-        if (baseAppSocket != null) {
-            baseAppSocket.coinInfo(currencyId, baseCurrencyId);
-        }
+        AppSocket.getInstance().coinInfo(currencyId, baseCurrencyId);
     }
 
     @Override

@@ -20,7 +20,6 @@ import com.android.tacu.R;
 import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.splash.SplashActivity;
-import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.MainSocketManager;
 import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.ConvertMoneyUtils;
@@ -56,7 +55,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     //Socket
     private ISocketEvent baseSocketEvent;
     private Observer baseObserver;
-    protected AppSocket baseAppSocket;
     private MainSocketManager baseSocketManager;
     //判断当前Activity是否可见
     protected boolean isVisibleActivity = true;
@@ -74,8 +72,7 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     public void setSocketEvent(ISocketEvent mSocketEvent, Observer observer, String... strings) {
         this.baseSocketEvent = mSocketEvent;
         this.baseObserver = observer;
-        baseAppSocket = new AppSocket();
-        baseSocketManager = new MainSocketManager(baseAppSocket.getSocket());
+        baseSocketManager = new MainSocketManager();
         baseSocketManager.initEmitterEvent(strings);
         baseSocketManager.addObserver(observer);
     }
@@ -168,10 +165,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
             baseSocketManager.deleteObserver(baseObserver);
             baseSocketManager.disconnectEmitterListener();
             baseSocketManager = null;
-        }
-        if (baseAppSocket != null) {
-            baseAppSocket.clearSocket();
-            baseAppSocket = null;
         }
         EventManage.unregister(this);
     }

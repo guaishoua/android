@@ -22,6 +22,7 @@ import com.android.tacu.module.market.model.CurrentTradeCoinModel;
 import com.android.tacu.module.market.model.KLineModel;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.presenter.MarketDetailsPresenter;
+import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
@@ -521,9 +522,7 @@ public class BigKlineActivity extends BaseActivity<MarketDetailsPresenter> imple
 
     @Override
     public void socketConnectEventAgain() {
-        if (baseAppSocket != null) {
-            baseAppSocket.coinInfo(currencyId, baseCurrencyId);
-        }
+        AppSocket.getInstance().coinInfo(currencyId, baseCurrencyId);
     }
 
     @Override

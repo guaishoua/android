@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.tacu.socket.AppSocket;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.R;
@@ -106,9 +107,7 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
 
     @Override
     public void socketConnectEventAgain() {
-        if (baseAppSocket != null) {
-            baseAppSocket.entrust(currencyId, baseCurrencyId);
-        }
+        AppSocket.getInstance().entrust(currencyId, baseCurrencyId);
     }
 
     @Override
