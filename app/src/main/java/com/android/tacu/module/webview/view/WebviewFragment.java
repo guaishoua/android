@@ -36,6 +36,7 @@ public class WebviewFragment extends BaseFragment {
     @BindView(R.id.ll_web)
     LinearLayout llWeb;
 
+    private String urlOrign;
     private String url;
     // isResumeReload true=onresume刷新
     private boolean isResumeReload = false;
@@ -44,6 +45,7 @@ public class WebviewFragment extends BaseFragment {
     private WebInterface webInterface;
     private ValueCallback<Uri> uploadFile;
     private ValueCallback<Uri[]> uploadFiles;
+    private List<String> urlList = new ArrayList<>();
 
     public static WebviewFragment newInstance(String url) {
         Bundle bundle = new Bundle();
@@ -67,7 +69,7 @@ public class WebviewFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            url = bundle.getString("url");
+            urlOrign = bundle.getString("url");
             isResumeReload = bundle.getBoolean("isResumeReload");
         }
         super.onCreate(savedInstanceState);
@@ -148,22 +150,14 @@ public class WebviewFragment extends BaseFragment {
             }
         });
 
-        List<String> urlList = new ArrayList<>();
-        urlList.add(Constant.MEMBERSHIP);
-        urlList.add(Constant.C2C_URL_TRADE);
-        urlList.add(Constant.C2C_ORDER_LIST_URL);
-
-        if (urlList.contains(url)) {
-            url += "?chaoex_uid=" + Md5Utils.AESEncrypt(String.valueOf(spUtil.getUserUid())) + "&chaoex_token=" + Md5Utils.AESEncrypt(spUtil.getToken()) + "&chaoex_htmlLang=" + spUtil.getLanguage();
-        }
-        webView.loadUrl(url);
+        upload();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if (isVisibleToUser && isResumeReload) {
-            webView.reload();
+            upload();
         }
     }
 
@@ -222,6 +216,17 @@ public class WebviewFragment extends BaseFragment {
                 uploadFiles = null;
             }
         }
+    }
+
+    private void upload() {
+        urlList.clear();
+        urlList.add(Constant.MEMBERSHIP);
+        urlList.add(Constant.C2C_URL_TRADE);
+        urlList.add(Constant.C2C_ORDER_LIST_URL);
+        if (urlList.contains(urlOrign)) {
+            url = urlOrign + "?chaoex_uid=" + Md5Utils.AESEncrypt(String.valueOf(spUtil.getUserUid())) + "&chaoex_token=" + Md5Utils.AESEncrypt(spUtil.getToken()) + "&chaoex_htmlLang=" + spUtil.getLanguage();
+        }
+        webView.loadUrl(url);
     }
 
     private void initWebViewSettings() {

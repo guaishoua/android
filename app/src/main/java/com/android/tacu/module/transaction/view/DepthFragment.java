@@ -104,7 +104,11 @@ public class DepthFragment extends BaseFragment {
                     buyPriceList.add(recordModel.buy.get(i).current);
                 }
                 buyHighPrice = Collections.max(buyPriceList, comp);
-                tv_buy_high.setText(BigDecimal.valueOf(buyHighPrice).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString());
+                if (currentTradeCoinModel != null && currentTradeCoinModel.currentTradeCoin != null) {
+                    tv_buy_high.setText(BigDecimal.valueOf(buyHighPrice).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString());
+                } else {
+                    tv_buy_high.setText(BigDecimal.valueOf(buyHighPrice).setScale(2, RoundingMode.DOWN).toPlainString());
+                }
             }
             if (recordModel.sell != null && recordModel.sell.size() > 0) {
                 List<Double> sellPriceList = new ArrayList<>();
@@ -112,12 +116,20 @@ public class DepthFragment extends BaseFragment {
                     sellPriceList.add(recordModel.sell.get(i).current);
                 }
                 sellLowPrice = Collections.min(sellPriceList, comp);
-                tv_sell_low.setText(BigDecimal.valueOf(sellLowPrice).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString());
+                if (currentTradeCoinModel != null && currentTradeCoinModel.currentTradeCoin != null) {
+                    tv_sell_low.setText(BigDecimal.valueOf(sellLowPrice).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString());
+                } else {
+                    tv_sell_low.setText(BigDecimal.valueOf(sellLowPrice).setScale(2, RoundingMode.DOWN).toPlainString());
+                }
             }
             if (buyHighPrice != 0) {
                 double dis = sellLowPrice - buyHighPrice;
                 double disValue = dis / buyHighPrice;
-                tv_buy_sell.setText(BigDecimal.valueOf(dis).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString() + " | " + BigDecimal.valueOf(disValue * 100).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "%");
+                if (currentTradeCoinModel != null && currentTradeCoinModel.currentTradeCoin != null) {
+                    tv_buy_sell.setText(BigDecimal.valueOf(dis).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString() + " | " + BigDecimal.valueOf(disValue * 100).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "%");
+                } else {
+                    tv_buy_sell.setText(BigDecimal.valueOf(dis).setScale(2, RoundingMode.DOWN).toPlainString() + " | " + BigDecimal.valueOf(disValue * 100).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "%");
+                }
             }
 
             //买卖的折线图

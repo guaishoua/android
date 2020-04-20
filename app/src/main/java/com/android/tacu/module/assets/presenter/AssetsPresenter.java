@@ -19,20 +19,31 @@ import com.android.tacu.module.assets.model.OtcAmountModel;
  */
 public class AssetsPresenter extends BaseMvpPresenter implements AssetsContract.IAssetsPresenter {
 
+    /**
+     * @param isShowLoadingView
+     * @param type              1代表AssetsFragment 2代表AssetsInfoActivity
+     */
     @Override
-    public void getAssetDetails(boolean isShowLoadingView) {
+    public void getAssetDetails(boolean isShowLoadingView, final int type) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.ASSET, Api.class).getAsAsets(), new NetDisposableObserver<BaseModel<AssetDetailsModel>>((IBaseMvpView) getView(), isShowLoadingView) {
             @Override
             public void onNext(BaseModel<AssetDetailsModel> model) {
-                AssetsContract.IAssetsView iAssetsView = (AssetsContract.IAssetsView) getView();
-                iAssetsView.showContent(model.attachment);
+                if (type == 1) {
+                    AssetsContract.IAssetsView iAssetsView = (AssetsContract.IAssetsView) getView();
+                    iAssetsView.showContent(model.attachment);
+                } else if (type == 2) {
+                    AssetsContract.IAssetsInfoView iAssetsInfoView = (AssetsContract.IAssetsInfoView) getView();
+                    iAssetsInfoView.showContent(model.attachment);
+                }
             }
 
             @Override
             public void onError(Throwable throwable) {
                 super.onError(throwable);
-                AssetsContract.IAssetsView view = (AssetsContract.IAssetsView) getView();
-                view.showContentError();
+                if (type == 1) {
+                    AssetsContract.IAssetsView view = (AssetsContract.IAssetsView) getView();
+                    view.showContentError();
+                }
             }
         });
     }
