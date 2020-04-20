@@ -88,7 +88,7 @@ public class Constant {
     public static final String INVITED_FRIEND_URL = SOCKET_IP + "/RegisterInvite/";
 
     //c2c购买页面
-    public static final String C2C_URL = BuildConfig.ISFORMALHOST ? "http://c2c.tacu.com" : "http://c2c.cdcbk.com";
+    public static final String C2C_URL = BuildConfig.ISFORMALHOST ? "https://c2c.tacu.com" : "http://c2c.cdcbk.com";
     public static final String C2C_URL_TRADE = C2C_URL + "/ctrade";
     public static final String C2C_ORDER_LIST_URL = C2C_URL + "/orderList";
 
