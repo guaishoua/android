@@ -495,7 +495,7 @@ public class BigKlineActivity extends BaseActivity<MarketDetailsPresenter> imple
 
         if (model != null && model.data != null && model.data.lines != null) {
             List<KLineEntity> data = KlineUtils.dealKlines(model, indexKlineModel.ChartTime);
-            if (data != null && data.size() > 0 && currentTradeCoinModel != null && TextUtils.equals(symbol, (currentTradeCoinModel.currentTradeCoin.currencyNameEn + currentTradeCoinModel.currentTradeCoin.baseCurrencyNameEn).toLowerCase())) {
+            if (data != null && data.size() > 0 && currentTradeCoinModel != null && TextUtils.equals(symbol, (currentTradeCoinModel.currentTradeCoin.currencyNameEn + currentTradeCoinModel.currentTradeCoin.baseCurrencyNameEn).toLowerCase()) && currentTradeCoinModel.currentTradeCoin.currentAmount != 0) {
                 data.get(data.size() - 1).Close = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).floatValue();
             }
 
@@ -623,7 +623,9 @@ public class BigKlineActivity extends BaseActivity<MarketDetailsPresenter> imple
             pointPrice = model.currentTradeCoin.pointPrice;
 
             if (kAdapter != null) {
-                kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
+                if (model.currentTradeCoin.currentAmount != 0) {
+                    kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
+                }
                 if (pointPrice != pointPriceTemp) {
                     KLineChartView.decimalsCount = pointPrice;
                     pointPriceTemp = pointPrice;
@@ -634,8 +636,10 @@ public class BigKlineActivity extends BaseActivity<MarketDetailsPresenter> imple
             tvLowPrice.setText(BigDecimal.valueOf(model.currentTradeCoin.lowPrice).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
             tvHighPrice.setText(BigDecimal.valueOf(model.currentTradeCoin.highPrice).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
             String changeRate = BigDecimal.valueOf(model.currentTradeCoin.changeRate).toPlainString();
-            tvNewsPrice.setText(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
-            tvRmbScale.setText("≈" + getMcM(baseCurrencyId, model.currentTradeCoin.currentAmount));
+            if (model.currentTradeCoin.currentAmount != 0) {
+                tvNewsPrice.setText(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
+                tvRmbScale.setText("≈" + getMcM(baseCurrencyId, model.currentTradeCoin.currentAmount));
+            }
 
             if (model.currentTradeCoin.changeRate >= 0) {
                 tvChangeRate.setTextColor(ContextCompat.getColor(this, R.color.color_riseup));

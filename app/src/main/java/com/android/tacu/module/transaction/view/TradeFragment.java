@@ -962,8 +962,10 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                     }
                 }
             }
-            tvNewsPrice.setText(BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
-            tvNewsPriceRnb.setText("≈" + getMcM(baseCurrencyId, currentTradeCoinModel.currentTradeCoin.currentAmount));
+            if (currentTradeCoinModel.currentTradeCoin.currentAmount != 0) {
+                tvNewsPrice.setText(BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
+                tvNewsPriceRnb.setText("≈" + getMcM(baseCurrencyId, currentTradeCoinModel.currentTradeCoin.currentAmount));
+            }
             if (currentTradeCoinModel.currentTradeCoin.changeRate >= 0) {
                 tvNewsPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.color_riseup));
                 tvNewsPriceRate.setText("+" + FormatterUtils.getFormatValue(currentTradeCoinModel.currentTradeCoin.changeRate) + "%");
