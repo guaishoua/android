@@ -28,15 +28,15 @@ public class KLineEntity implements IKLine {
     public Integer MA6Value;
 
     // BOLL
-    public float boll;
-    public float ub;
-    public float lb;
-    public float MANPrice;
+    public Float boll;
+    public Float ub;
+    public Float lb;
+    public Float MANPrice;
 
     // VOL
     public float Volume;
-    public float MA5Volume;
-    public float MA10Volume;
+    public Float MA5Volume;
+    public Float MA10Volume;
 
     // MACD
     public float macd;
@@ -159,22 +159,22 @@ public class KLineEntity implements IKLine {
     }
 
     @Override
-    public float getBoll() {
+    public Float getBoll() {
         return boll;
     }
 
     @Override
-    public float getUb() {
+    public Float getUb() {
         return ub;
     }
 
     @Override
-    public float getLb() {
+    public Float getLb() {
         return lb;
     }
 
     @Override
-    public float getMANPrice() {
+    public Float getMANPrice() {
         return MANPrice;
     }
 
@@ -184,12 +184,12 @@ public class KLineEntity implements IKLine {
     }
 
     @Override
-    public float getMA5Volume() {
+    public Float getMA5Volume() {
         return MA5Volume;
     }
 
     @Override
-    public float getMA10Volume() {
+    public Float getMA10Volume() {
         return MA10Volume;
     }
 

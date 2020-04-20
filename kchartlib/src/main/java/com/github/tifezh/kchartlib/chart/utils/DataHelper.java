@@ -70,61 +70,73 @@ public class DataHelper {
 
             if (ma1Value != null) {
                 ma1 += closePrice;
-                if (i >= ma1Value) {
+                if (i == (ma1Value - 1)) {
+                    point.MA1Price = ma1 / ma1Value;
+                } else if (i >= ma1Value) {
                     ma1 -= dataList.get(i - ma1Value).getClosePrice();
                     point.MA1Price = ma1 / ma1Value;
                 } else {
-                    point.MA1Price = ma1 / (i + 1);
+                    point.MA1Price = null;
                 }
                 point.MA1Value = ma1Value;
             }
             if (ma2Value != null) {
                 ma2 += closePrice;
-                if (i >= ma2Value) {
+                if (i == (ma2Value - 1)) {
+                    point.MA2Price = ma2 / ma2Value;
+                } else if (i >= ma2Value) {
                     ma2 -= dataList.get(i - ma2Value).getClosePrice();
                     point.MA2Price = ma2 / ma2Value;
                 } else {
-                    point.MA2Price = ma2 / (i + 1);
+                    point.MA2Price = null;
                 }
                 point.MA2Value = ma2Value;
             }
             if (ma3Value != null) {
                 ma3 += closePrice;
-                if (i >= ma3Value) {
+                if (i == (ma3Value - 1)) {
+                    point.MA3Price = ma3 / ma3Value;
+                } else if (i >= ma3Value) {
                     ma3 -= dataList.get(i - ma3Value).getClosePrice();
                     point.MA3Price = ma3 / ma3Value;
                 } else {
-                    point.MA3Price = ma3 / (i + 1);
+                    point.MA3Price = null;
                 }
                 point.MA3Value = ma3Value;
             }
             if (ma4Value != null) {
                 ma4 += closePrice;
-                if (i >= ma4Value) {
+                if (i == (ma4Value - 1)) {
+                    point.MA4Price = ma4 / ma4Value;
+                } else if (i >= ma4Value) {
                     ma4 -= dataList.get(i - ma4Value).getClosePrice();
                     point.MA4Price = ma4 / ma4Value;
                 } else {
-                    point.MA4Price = ma4 / (i + 1);
+                    point.MA4Price = null;
                 }
                 point.MA4Value = ma4Value;
             }
             if (ma5Value != null) {
                 ma5 += closePrice;
-                if (i >= ma5Value) {
+                if (i == (ma5Value - 1)) {
+                    point.MA5Price = ma5 / ma5Value;
+                } else if (i >= ma5Value) {
                     ma5 -= dataList.get(i - ma5Value).getClosePrice();
                     point.MA5Price = ma5 / ma5Value;
                 } else {
-                    point.MA5Price = ma5 / (i + 1);
+                    point.MA5Price = null;
                 }
                 point.MA5Value = ma5Value;
             }
             if (ma6Value != null) {
                 ma6 += closePrice;
-                if (i >= ma6Value) {
+                if (i == (ma6Value - 1)) {
+                    point.MA6Price = ma6 / ma6Value;
+                } else if (i >= ma6Value) {
                     ma6 -= dataList.get(i - ma6Value).getClosePrice();
                     point.MA6Price = ma6 / ma6Value;
                 } else {
-                    point.MA6Price = ma6 / (i + 1);
+                    point.MA6Price = null;
                 }
                 point.MA6Value = ma6Value;
             }
@@ -147,22 +159,21 @@ public class DataHelper {
                 final float closePrice = point.getClosePrice();
 
                 maN += closePrice;
-                if (i >= NValue) {
+                if (i == (NValue - 1)) {
+                    point.MANPrice = maN / NValue;
+                } else if (i >= NValue) {
                     maN -= dataList.get(i - NValue).getClosePrice();
                     point.MANPrice = maN / NValue;
                 } else {
-                    point.MANPrice = maN / (i + 1);
+                    point.MANPrice = null;
                 }
 
-                if (i == 0) {
-                    point.boll = closePrice;
-                    point.ub = Float.NaN;
-                    point.lb = Float.NaN;
+                if (i < (NValue - 1)) {
+                    point.boll = null;
+                    point.ub = null;
+                    point.lb = null;
                 } else {
                     int n = NValue;
-                    if (i < NValue) {
-                        n = i + 1;
-                    }
                     float md = 0;
                     for (int j = i - n + 1; j <= i; j++) {
                         float c = dataList.get(j).getClosePrice();
@@ -190,24 +201,22 @@ public class DataHelper {
             volumeMa5 += entry.getVolume();
             volumeMa10 += entry.getVolume();
 
-            if (i >= 5) {
+            if (i == 4) {
+                entry.MA5Volume = (volumeMa5 / 5);
+            } else if (i >= 5) {
                 volumeMa5 -= entries.get(i - 5).getVolume();
-                if (volumeMa5 < 0) {
-                    volumeMa5 = 0;
-                }
                 entry.MA5Volume = (volumeMa5 / 5);
             } else {
-                entry.MA5Volume = (volumeMa5 / (i + 1));
+                entry.MA5Volume = null;
             }
 
-            if (i >= 10) {
+            if (i == 9) {
+                entry.MA10Volume = (volumeMa10 / 10);
+            } else if (i >= 10) {
                 volumeMa10 -= entries.get(i - 10).getVolume();
-                if (volumeMa10 < 0) {
-                    volumeMa10 = 0;
-                }
                 entry.MA10Volume = (volumeMa10 / 10);
             } else {
-                entry.MA10Volume = (volumeMa10 / (i + 1));
+                entry.MA10Volume = null;
             }
         }
     }
