@@ -27,13 +27,11 @@ import com.android.tacu.utils.UIUtils;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 import static android.widget.ImageView.ScaleType.CENTER_CROP;
 
@@ -43,8 +41,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
     QMUITopBar mTopBar;
     @BindView(R.id.vp)
     ViewPager viewPager;
-    @BindView(R.id.lin_guanggao)
-    QMUIRoundLinearLayout lin_guanggao;
 
     private View centerView;
     private QMUIRoundButton btn_c2c;
@@ -131,13 +127,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
-    @OnClick(R.id.lin_guanggao)
-    void guanggaoClick() {
-        if (!OtcDialogUtils.isDialogShow(getContext())) {
-            jumpTo(OtcManageActivity.class);
-        }
-    }
-
     private void initTitle() {
         mTopBar.setBackgroundDividerEnabled(true);
 
@@ -209,12 +198,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void setShow() {
-        if (spUtil.getApplyMerchantStatus() == 2 || spUtil.getApplyAuthMerchantStatus() == 2) {
-            lin_guanggao.setVisibility(View.VISIBLE);
-        } else {
-            lin_guanggao.setVisibility(View.GONE);
-        }
-
         if (isMerchant()) {
             if (fragmentList.size() == 1 || userUid != spUtil.getUserUid()) {
                 new Thread(new Runnable() {

@@ -1,9 +1,6 @@
 package com.android.tacu.module.assets.view;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -110,14 +107,6 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
     private OtcAmountModel c2cAmountModel;
     private ListPopWindow listPopup;
 
-    public static Intent createActivity(Context context, AssetDetailsModel.CoinListBean infoModel) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("infoModel", infoModel);
-        Intent intent = new Intent(context, AssetsInfoActivity.class);
-        intent.putExtras(bundle);
-        return intent;
-    }
-
     @Override
     protected void setView() {
         setContentView(R.layout.activity_asset_info);
@@ -125,10 +114,7 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
 
     @Override
     protected void initView() {
-        infoModel = (AssetDetailsModel.CoinListBean) getIntent().getSerializableExtra("infoModel");
-
         dealFlag();
-        setValue();
     }
 
     @Override
@@ -139,7 +125,7 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
     @Override
     protected void onResume() {
         super.onResume();
-        upload();
+        upload1();
     }
 
     @Override
@@ -147,6 +133,21 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
         super.onDestroy();
         if (listPopup != null && listPopup.isShowing()) {
             listPopup.dismiss();
+        }
+    }
+
+    @Override
+    public void showContent(AssetDetailsModel model) {
+        if (model != null) {
+            if (model.coinList != null && model.coinList.size() > 0) {
+                for (int i = 0; i < model.coinList.size(); i++) {
+                    if (TextUtils.equals(model.coinList.get(i).currencyNameEn, "ACU")) {
+                        infoModel = model.coinList.get(i);
+                        setValue();
+                        upload2();
+                    }
+                }
+            }
         }
     }
 
@@ -279,7 +280,11 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
         }
     }
 
-    private void upload() {
+    private void upload1() {
+        mPresenter.getAssetDetails(isFirst, 2);
+    }
+
+    private void upload2() {
         if (infoModel != null && infoModel.currencyId != null) {
             mPresenter.otcAmount(1, isFirst, infoModel.currencyId);
             mPresenter.c2cAmount(1, isFirst, infoModel.currencyId);

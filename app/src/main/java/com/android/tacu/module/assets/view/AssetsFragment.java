@@ -392,7 +392,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             c2c_string = FormatterUtils.getFormatRoundUp(2, c2c_string);
             tv_c2c_account.setText(defaultEyeStatus ? c2c_string + Constant.ACU_CURRENCY_NAME : "*****");
             dealValue();
-        }else{
+        } else {
             tv_c2c_account_title.setVisibility(View.GONE);
             tv_c2c_account.setVisibility(View.GONE);
         }
@@ -462,7 +462,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     }
 
     private void upLoad(boolean isShowLoadingView) {
-        mPresenter.getAssetDetails(isShowLoadingView);
+        mPresenter.getAssetDetails(isShowLoadingView, 1);
         mPresenter.BondAccount(isShowLoadingView, Constant.ACU_CURRENCY_ID);
         mPresenter.otcAmount(0, isShowLoadingView, Constant.ACU_CURRENCY_ID);
         mPresenter.c2cAmount(0, isShowLoadingView, Constant.ACU_CURRENCY_ID);
@@ -526,7 +526,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
             holder.setOnClickListener(R.id.btn_info, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    jumpTo(AssetsInfoActivity.createActivity(mContext, data));
+                    jumpTo(AssetsInfoActivity.class);
                 }
             });
             holder.setOnClickListener(R.id.btn_withdraw, new View.OnClickListener() {

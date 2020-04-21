@@ -67,20 +67,20 @@ public interface ICandle {
     /**
      * 中轨线 平均线
      */
-    float getBoll();
+    Float getBoll();
 
     /**
      * 上轨线
      */
-    float getUb();
+    Float getUb();
 
     /**
      * 下轨线
      */
-    float getLb();
+    Float getLb();
 
     /**
      * 平均线
      */
-    float getMANPrice();
+    Float getMANPrice();
 }

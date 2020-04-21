@@ -15,6 +15,10 @@ import com.github.tifezh.kchartlib.chart.entity.IVolume;
 import com.github.tifezh.kchartlib.chart.formatter.BigValueFormatter;
 import com.github.tifezh.kchartlib.chart.utils.ViewUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by hjm on 2017/11/14 17:49.
  */
@@ -28,6 +32,9 @@ public class VolumeDraw implements IChartDraw<IVolume> {
 
     private int paddingWidth;
 
+    private List<Float> maxVOLList = new ArrayList<>();
+    private List<Float> minVOLList = new ArrayList<>();
+
     public VolumeDraw(BaseKLineChartView view) {
         Context context = view.getContext();
         mSellPaint.setColor(ContextCompat.getColor(context, R.color.chart_sell));
@@ -40,10 +47,10 @@ public class VolumeDraw implements IChartDraw<IVolume> {
     @Override
     public void drawTranslated(@Nullable IVolume lastPoint, @NonNull IVolume curPoint, float lastX, float curX, @NonNull Canvas canvas, @NonNull BaseKLineChartView view, int position) {
         drawHistogram(canvas, curPoint, lastPoint, curX, view, position);
-        if (lastPoint.getMA5Volume() != 0f) {
+        if (lastPoint.getMA5Volume() != null) {
             view.drawVolLine(canvas, ma5Paint, lastX, lastPoint.getMA5Volume(), curX, curPoint.getMA5Volume());
         }
-        if (lastPoint.getMA10Volume() != 0f) {
+        if (lastPoint.getMA10Volume() != null) {
             view.drawVolLine(canvas, ma10Paint, lastX, lastPoint.getMA10Volume(), curX, curPoint.getMA10Volume());
         }
     }
@@ -66,22 +73,42 @@ public class VolumeDraw implements IChartDraw<IVolume> {
         canvas.drawText(text, x, y, view.getTextPaint());
         x += view.getTextPaint().measureText(text) + paddingWidth;
 
-        text = "MA5:" + getValueFormatter().format(point.getMA5Volume());
-        canvas.drawText(text, x, y, ma5Paint);
-        x += ma5Paint.measureText(text) + paddingWidth;
+        if (point.getMA5Volume() != null) {
+            text = "MA5:" + getValueFormatter().format(point.getMA5Volume());
+            canvas.drawText(text, x, y, ma5Paint);
+            x += ma5Paint.measureText(text) + paddingWidth;
+        }
 
-        text = "MA10:" + getValueFormatter().format(point.getMA10Volume());
-        canvas.drawText(text, x, y, ma10Paint);
+        if (point.getMA10Volume() != null) {
+            text = "MA10:" + getValueFormatter().format(point.getMA10Volume());
+            canvas.drawText(text, x, y, ma10Paint);
+        }
     }
 
     @Override
     public float getMaxValue(IVolume point) {
-        return Math.max(point.getVolume(), Math.max(point.getMA5Volume(), point.getMA10Volume()));
+        maxVOLList.clear();
+        maxVOLList.add(point.getVolume());
+        if (point.getMA5Volume() != null) {
+            maxVOLList.add(point.getMA5Volume());
+        }
+        if (point.getMA10Volume() != null) {
+            maxVOLList.add(point.getMA10Volume());
+        }
+        return Collections.max(maxVOLList);
     }
 
     @Override
     public float getMinValue(IVolume point) {
-        return Math.min(point.getVolume(), Math.min(point.getMA5Volume(), point.getMA10Volume()));
+        minVOLList.clear();
+        minVOLList.add(point.getVolume());
+        if (point.getMA5Volume() != null) {
+            minVOLList.add(point.getMA5Volume());
+        }
+        if (point.getMA10Volume() != null) {
+            minVOLList.add(point.getMA10Volume());
+        }
+        return Collections.min(minVOLList);
     }
 
     @Override

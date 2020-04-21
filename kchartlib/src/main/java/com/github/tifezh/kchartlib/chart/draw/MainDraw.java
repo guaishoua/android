@@ -118,13 +118,13 @@ public class MainDraw implements IChartDraw<ICandle> {
                 }
             } else if (status == Status.BOLL) {
                 //画boll
-                if (lastPoint.getBoll() != 0) {
+                if (lastPoint.getBoll() != null) {
                     view.drawMainLine(canvas, ma1Paint, lastX, lastPoint.getBoll(), curX, curPoint.getBoll());
                 }
-                if (lastPoint.getUb() != 0) {
+                if (lastPoint.getUb() != null) {
                     view.drawMainLine(canvas, ma2Paint, lastX, lastPoint.getUb(), curX, curPoint.getUb());
                 }
-                if (lastPoint.getLb() != 0) {
+                if (lastPoint.getLb() != null) {
                     view.drawMainLine(canvas, ma3Paint, lastX, lastPoint.getLb(), curX, curPoint.getLb());
                 }
             }
@@ -168,15 +168,18 @@ public class MainDraw implements IChartDraw<ICandle> {
                     canvas.drawText(text, x, y, ma6Paint);
                 }
             } else if (status == Status.BOLL) {
-                if (point.getBoll() != 0) {
-                    String text = "BOLL:" + view.formatValue(point.getBoll());
+                String text;
+                if (point.getBoll() != null) {
+                    text = "BOLL:" + view.formatValue(point.getBoll());
                     canvas.drawText(text, x, y, ma1Paint);
                     x += ma1Paint.measureText(text) + paddingWidth;
-
+                }
+                if (point.getUb() != null) {
                     text = "UB:" + view.formatValue(point.getUb());
                     canvas.drawText(text, x, y, ma2Paint);
                     x += ma2Paint.measureText(text) + paddingWidth;
-
+                }
+                if (point.getLb() != null) {
                     text = "LB:" + view.formatValue(point.getLb());
                     canvas.drawText(text, x, y, ma3Paint);
                 }
@@ -190,11 +193,10 @@ public class MainDraw implements IChartDraw<ICandle> {
     @Override
     public float getMaxValue(ICandle point) {
         if (status == Status.BOLL) {
-            if (Float.isNaN(point.getUb())) {
-                return Math.max(point.getBoll(), point.getHighPrice());
-            } else {
+            if (point.getUb() != null) {
                 return Math.max(point.getUb(), point.getHighPrice());
             }
+            return point.getHighPrice();
         } else {
             maxMAList.clear();
             maxMAList.add(point.getHighPrice());
@@ -223,17 +225,10 @@ public class MainDraw implements IChartDraw<ICandle> {
     @Override
     public float getMinValue(ICandle point) {
         if (status == Status.BOLL) {
-            if (Float.isNaN(point.getLb())) {
-                if (point.getBoll() == 0) {
-                    return point.getLowPrice();
-                }
-                return Math.min(point.getBoll(), point.getLowPrice());
-            } else {
-                if (point.getLb() == 0) {
-                    return point.getLowPrice();
-                }
+            if (point.getLb() != null) {
                 return Math.min(point.getLb(), point.getLowPrice());
             }
+            return point.getLowPrice();
         } else {
             minMAList.clear();
             minMAList.add(point.getLowPrice());

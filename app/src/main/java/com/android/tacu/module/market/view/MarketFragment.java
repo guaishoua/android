@@ -197,10 +197,17 @@ public class MarketFragment extends BaseFragment<MarketPresenter> implements Mar
         protected void convert(BaseViewHolder helper, final MarketNewModel.TradeCoinsBean item) {
             GlideUtils.disPlay(getContext(), Constant.SMALL_ICON_URL + item.icoUrl, (ImageView) helper.getView(R.id.img_coins_icon));
             helper.setText(R.id.tv_coins_name, item.currencyNameEn + "/" + item.baseCurrencyNameEn);
-            helper.setText(R.id.tv_current_amount, BigDecimal.valueOf(item.currentAmount).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
-            String value = BigDecimal.valueOf(item.currentAmount * item.volume).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString();
-            helper.setText(R.id.tv_amount, value);
-            helper.setText(R.id.tv_rmb_scale, "≈" + getMcM(item.baseCurrencyId, item.currentAmount));
+
+            if (item.currentAmount != 0) {
+                helper.setText(R.id.tv_current_amount, BigDecimal.valueOf(item.currentAmount).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
+                String value = BigDecimal.valueOf(item.currentAmount * item.volume).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString();
+                helper.setText(R.id.tv_amount, value);
+                helper.setText(R.id.tv_rmb_scale, "≈" + getMcM(item.baseCurrencyId, item.currentAmount));
+            } else {
+                helper.setText(R.id.tv_current_amount, "--");
+                helper.setText(R.id.tv_amount, "--");
+                helper.setText(R.id.tv_rmb_scale, "--");
+            }
 
             if (item.changeRate >= 0) {
                 helper.setText(R.id.tv_change_rate, "+" + BigDecimal.valueOf(item.changeRate).toPlainString() + "%");

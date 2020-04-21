@@ -25,6 +25,8 @@ public class AssetsContract {
     }
 
     public interface IAssetsInfoView extends IBaseMvpView {
+        void showContent(AssetDetailsModel attachment);
+
         void otcAmount(OtcAmountModel model);
 
         void c2cAmount(OtcAmountModel model);
@@ -35,7 +37,7 @@ public class AssetsContract {
     }
 
     public interface IAssetsPresenter {
-        void getAssetDetails(boolean isShowLoadingView);
+        void getAssetDetails(boolean isShowLoadingView, int type);
 
         void coins(boolean isShowLoadingView);
 
