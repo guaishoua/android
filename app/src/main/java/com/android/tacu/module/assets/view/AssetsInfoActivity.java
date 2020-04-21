@@ -242,6 +242,9 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
     private void setC2cValue() {
         if (c2cAmountModel != null) {
             if ((!TextUtils.isEmpty(c2cAmountModel.amount) && Double.parseDouble(c2cAmountModel.amount) != 0) || isMerchant()) {
+                view_c2c.setVisibility(View.VISIBLE);
+                view_line_c2c.setVisibility(View.VISIBLE);
+
                 tv_c2c_title.setText(getResources().getString(R.string.c2c_account) + "(" + c2cAmountModel.currencyName + ")");
                 tv_c2c_available_title.setText(getResources().getString(R.string.available_num) + "(" + c2cAmountModel.currencyName + ")");
                 tv_c2c_frozen_title.setText(getResources().getString(R.string.frozen_num) + "(" + c2cAmountModel.currencyName + ")");
