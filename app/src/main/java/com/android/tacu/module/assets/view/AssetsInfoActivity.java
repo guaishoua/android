@@ -216,25 +216,47 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
 
     private void setOtcValue() {
         if (otcAmountModel != null) {
-            if ((!TextUtils.isEmpty(otcAmountModel.amount) && Double.parseDouble(otcAmountModel.amount) != 0) || isMerchant()) {
-                view_c2c.setVisibility(View.VISIBLE);
-                view_line_c2c.setVisibility(View.VISIBLE);
+            tv_otc_title.setText(getResources().getString(R.string.otc_account) + "(" + otcAmountModel.currencyName + ")");
+            tv_otc_available_title.setText(getResources().getString(R.string.available_num) + "(" + otcAmountModel.currencyName + ")");
+            tv_otc_frozen_title.setText(getResources().getString(R.string.frozen_num) + "(" + otcAmountModel.currencyName + ")");
 
-                tv_otc_title.setText(getResources().getString(R.string.otc_account) + "(" + otcAmountModel.currencyName + ")");
-                tv_otc_available_title.setText(getResources().getString(R.string.available_num) + "(" + otcAmountModel.currencyName + ")");
-                tv_otc_frozen_title.setText(getResources().getString(R.string.frozen_num) + "(" + otcAmountModel.currencyName + ")");
+            tv_otc.setText(otcAmountModel.amount);
+            String ycn = null;
+            if (!TextUtils.isEmpty(otcAmountModel.amount)) {
+                ycn = getMcM(otcAmountModel.currencyId, Double.parseDouble(otcAmountModel.amount));
+            }
+            tv_otc_rnb.setText((TextUtils.isEmpty(ycn) ? "" : "≈" + ycn));
+            tv_otc_available.setText(otcAmountModel.cashAmount);
 
-                tv_otc.setText(otcAmountModel.amount);
+            Double value1 = (!TextUtils.isEmpty(otcAmountModel.freezeAmount)) ? Double.valueOf(otcAmountModel.freezeAmount) : 0;
+            Double value2 = (!TextUtils.isEmpty(otcAmountModel.bondFreezeAmount)) ? Double.valueOf(otcAmountModel.bondFreezeAmount) : 0;
+            tv_otc_frozen.setText(FormatterUtils.getFormatValue(MathHelper.add(value1, value2)));
+        } else {
+            tv_otc.setText("0.0");
+            tv_otc_rnb.setText("");
+            tv_otc_available.setText("0.0");
+            tv_otc_frozen.setText("0.0");
+        }
+    }
+
+    private void setC2cValue() {
+        if (c2cAmountModel != null) {
+            if ((!TextUtils.isEmpty(c2cAmountModel.amount) && Double.parseDouble(c2cAmountModel.amount) != 0) || isMerchant()) {
+                tv_c2c_title.setText(getResources().getString(R.string.c2c_account) + "(" + c2cAmountModel.currencyName + ")");
+                tv_c2c_available_title.setText(getResources().getString(R.string.available_num) + "(" + c2cAmountModel.currencyName + ")");
+                tv_c2c_frozen_title.setText(getResources().getString(R.string.frozen_num) + "(" + c2cAmountModel.currencyName + ")");
+
+                tv_c2c.setText(c2cAmountModel.amount);
                 String ycn = null;
-                if (!TextUtils.isEmpty(otcAmountModel.amount)) {
-                    ycn = getMcM(otcAmountModel.currencyId, Double.parseDouble(otcAmountModel.amount));
+                if (!TextUtils.isEmpty(c2cAmountModel.amount)) {
+                    ycn = getMcM(c2cAmountModel.currencyId, Double.parseDouble(c2cAmountModel.amount));
                 }
-                tv_otc_rnb.setText((TextUtils.isEmpty(ycn) ? "" : "≈" + ycn));
-                tv_otc_available.setText(otcAmountModel.cashAmount);
+                tv_c2c_rnb.setText((TextUtils.isEmpty(ycn) ? "" : "≈" + ycn));
+                tv_c2c_available.setText(c2cAmountModel.cashAmount);
 
-                Double value1 = (!TextUtils.isEmpty(otcAmountModel.freezeAmount)) ? Double.valueOf(otcAmountModel.freezeAmount) : 0;
-                Double value2 = (!TextUtils.isEmpty(otcAmountModel.bondFreezeAmount)) ? Double.valueOf(otcAmountModel.bondFreezeAmount) : 0;
-                tv_otc_frozen.setText(FormatterUtils.getFormatValue(MathHelper.add(value1, value2)));
+                Double value1 = (!TextUtils.isEmpty(c2cAmountModel.freezeAmount)) ? Double.valueOf(c2cAmountModel.freezeAmount) : 0;
+                Double value2 = (!TextUtils.isEmpty(c2cAmountModel.bondFreezeAmount)) ? Double.valueOf(c2cAmountModel.bondFreezeAmount) : 0;
+                tv_c2c_frozen.setText(FormatterUtils.getFormatValue(MathHelper.add(value1, value2)));
             } else {
                 view_c2c.setVisibility(View.GONE);
                 view_line_c2c.setVisibility(View.GONE);
@@ -244,39 +266,14 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
                 view_c2c.setVisibility(View.VISIBLE);
                 view_line_c2c.setVisibility(View.VISIBLE);
 
-                tv_otc.setText("0.0");
-                tv_otc_rnb.setText("");
-                tv_otc_available.setText("0.0");
-                tv_otc_frozen.setText("0.0");
-            } else {
+                tv_c2c.setText("0.0");
+                tv_c2c_rnb.setText("");
+                tv_c2c_available.setText("0.0");
+                tv_c2c_frozen.setText("0.0");
+            }else{
                 view_c2c.setVisibility(View.GONE);
                 view_line_c2c.setVisibility(View.GONE);
             }
-        }
-    }
-
-    private void setC2cValue() {
-        if (c2cAmountModel != null) {
-            tv_c2c_title.setText(getResources().getString(R.string.c2c_account) + "(" + c2cAmountModel.currencyName + ")");
-            tv_c2c_available_title.setText(getResources().getString(R.string.available_num) + "(" + c2cAmountModel.currencyName + ")");
-            tv_c2c_frozen_title.setText(getResources().getString(R.string.frozen_num) + "(" + c2cAmountModel.currencyName + ")");
-
-            tv_c2c.setText(c2cAmountModel.amount);
-            String ycn = null;
-            if (!TextUtils.isEmpty(c2cAmountModel.amount)) {
-                ycn = getMcM(c2cAmountModel.currencyId, Double.parseDouble(c2cAmountModel.amount));
-            }
-            tv_c2c_rnb.setText((TextUtils.isEmpty(ycn) ? "" : "≈" + ycn));
-            tv_c2c_available.setText(c2cAmountModel.cashAmount);
-
-            Double value1 = (!TextUtils.isEmpty(c2cAmountModel.freezeAmount)) ? Double.valueOf(c2cAmountModel.freezeAmount) : 0;
-            Double value2 = (!TextUtils.isEmpty(c2cAmountModel.bondFreezeAmount)) ? Double.valueOf(c2cAmountModel.bondFreezeAmount) : 0;
-            tv_c2c_frozen.setText(FormatterUtils.getFormatValue(MathHelper.add(value1, value2)));
-        } else {
-            tv_c2c.setText("0.0");
-            tv_c2c_rnb.setText("");
-            tv_c2c_available.setText("0.0");
-            tv_c2c_frozen.setText("0.0");
         }
     }
 
@@ -325,7 +322,7 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
 
             data.add(getResources().getString(R.string.coin_otc_account));
             data.add(getResources().getString(R.string.margin_account));
-            if ((otcAmountModel != null && !TextUtils.isEmpty(otcAmountModel.amount) && Double.parseDouble(otcAmountModel.amount) != 0) || isMerchant()) {
+            if ((c2cAmountModel != null && !TextUtils.isEmpty(c2cAmountModel.amount) && Double.parseDouble(c2cAmountModel.amount) != 0) || isMerchant()) {
                 data.add(getResources().getString(R.string.coin_c2c_account));
                 data.add(getResources().getString(R.string.otc_c2c_account));
             }

@@ -157,7 +157,8 @@
             android:includeFontPadding="false"
             android:text="@string/c2c_account"
             android:textColor="@color/text_grey"
-            android:textSize="@dimen/text_size_sp_12" />
+            android:textSize="@dimen/text_size_sp_12"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_c2c_account"
@@ -167,6 +168,7 @@
             android:includeFontPadding="false"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_16"
+            android:visibility="gone"
             tools:text="111" />
     </LinearLayout>
 
