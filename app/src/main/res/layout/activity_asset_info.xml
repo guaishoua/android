@@ -296,7 +296,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/dp_15"
-                android:paddingVertical="@dimen/dp_10">
+                android:paddingVertical="@dimen/dp_10"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_c2c_title"
@@ -403,7 +404,8 @@
                 android:id="@+id/view_line_c2c"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_10"
-                android:background="@color/content_bg_color_grey" />
+                android:background="@color/content_bg_color_grey"
+                android:visibility="gone" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
