@@ -358,8 +358,13 @@ public class RechargeFragment extends BaseFragment<RechargePresenter> implements
                 helper.setTextColor(R.id.tv_situation, ContextCompat.getColor(getContext(), R.color.color_risedown));
             }
 
-            helper.setText(R.id.tv_situation, BigDecimal.valueOf(item.currentAmount).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
-            helper.setText(R.id.tv_money, "≈" + getMcM(item.baseCurrencyId, item.currentAmount));
+            if (item.currentAmount != 0) {
+                helper.setText(R.id.tv_situation, BigDecimal.valueOf(item.currentAmount).setScale(item.pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
+                helper.setText(R.id.tv_money, "≈" + getMcM(item.baseCurrencyId, item.currentAmount));
+            } else {
+                helper.setText(R.id.tv_situation, "--");
+                helper.setText(R.id.tv_money, "--");
+            }
 
             helper.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

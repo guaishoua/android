@@ -470,8 +470,12 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 }
             }
             tvVolume.setText(BigDecimal.valueOf(model.currentTradeCoin.volume).setScale(2, BigDecimal.ROUND_DOWN).toPlainString());
-            tvLowPrice.setText(BigDecimal.valueOf(model.currentTradeCoin.lowPrice).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
-            tvHighPrice.setText(BigDecimal.valueOf(model.currentTradeCoin.highPrice).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
+            if (model.currentTradeCoin.lowPrice != 0) {
+                tvLowPrice.setText(BigDecimal.valueOf(model.currentTradeCoin.lowPrice).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
+            }
+            if (model.currentTradeCoin.highPrice != 0) {
+                tvHighPrice.setText(BigDecimal.valueOf(model.currentTradeCoin.highPrice).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());
+            }
             String changeRate = BigDecimal.valueOf(model.currentTradeCoin.changeRate).toPlainString();
             if (model.currentTradeCoin.currentAmount != 0) {
                 tvNewsPrice.setText(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).setScale(pointPrice, BigDecimal.ROUND_DOWN).toPlainString());

@@ -218,7 +218,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     private boolean isInput = true;
     private boolean isSeekProgress = true;
     //行情价标识 (type=1 限价  type =2 市价 )
-    private int limitPriceType = 1;
+    private int limitPriceType = 2;
     //手续费买
     private SpannableString buyFee;
     //手续费卖
@@ -696,6 +696,11 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         tvNewsPriceRnb = view.findViewById(R.id.tv_news_price_rnb);
         tvNewsPriceRate = view.findViewById(R.id.tv_news_price_rate);
 
+        if (limitPriceType == 1) {
+            btnSelectPrice.setText(getResources().getText(R.string.limit_price));
+        } else if (limitPriceType == 2) {
+            btnSelectPrice.setText(getResources().getText(R.string.lowest_obtainable_price));
+        }
         limitEditLength();
 
         sellAdapter = new SellAdapter();
