@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -21,6 +20,7 @@ import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.view.TradeDataBridge;
 import com.android.tacu.module.market.model.MarketNewModel;
+import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.MainSocketManager;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.ShowToast;
@@ -44,7 +44,7 @@ import butterknife.Unbinder;
  * <p>
  * Created by jiazhen on 2018/8/10.
  */
-public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment implements IBaseMvpView {
+public abstract class BaseFragment<P extends BaseMvpPresenter> extends LazyLoadBaseFragment implements IBaseMvpView {
 
     private FragmentActivity mFragAct;
     private Unbinder unBinder;
@@ -54,6 +54,7 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
     //Socket
     private ISocketEvent baseSocketEvent;
     private Observer baseObserver;
+    protected AppSocket baseAppSocket;
     protected MainSocketManager baseSocketManager;
     //当前fragment的可见
     protected boolean isVisibleToUser = false;
@@ -77,15 +78,22 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
     public void setSocketEvent(ISocketEvent mSocketEvent, Observer observer, String... strings) {
         this.baseSocketEvent = mSocketEvent;
         this.baseObserver = observer;
-        baseSocketManager = new MainSocketManager();
+        baseAppSocket = new AppSocket();
+        baseSocketManager = new MainSocketManager(baseAppSocket.getSocket());
         baseSocketManager.initEmitterEvent(strings);
         baseSocketManager.addObserver(observer);
     }
 
-    protected void setBackGroundAlpha(float backGroundAlpha) {
-        WindowManager.LayoutParams lp = getHostActivity().getWindow().getAttributes();
-        lp.alpha = backGroundAlpha;
-        getHostActivity().getWindow().setAttributes(lp);
+    @Override
+    public void onFragmentResume() {
+        super.onFragmentResume();
+        onEmit();
+    }
+
+    @Override
+    public void onFragmentPause() {
+        super.onFragmentPause();
+        disconnectEmit();
     }
 
     @Override
@@ -96,9 +104,6 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
         if (spUtil != null) {
             if (isVisibleToUser) {
                 initLazy();
-                onEmit();
-            } else {
-                disconnectEmit();
             }
         }
     }
@@ -108,11 +113,8 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
         super.onHiddenChanged(hidden);
         this.isVisibleHidden = hidden;
         if (spUtil != null) {
-            if (hidden) {
-                disconnectEmit();
-            } else {
+            if (!hidden) {
                 initLazy();
-                onEmit();
             }
         }
     }
@@ -173,18 +175,12 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
     public void onResume() {
         super.onResume();
         isVisibleActivity = true;
-        if (isVisibleToUser || !isVisibleHidden) {
-            onEmit();
-        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
         isVisibleActivity = false;
-        if (isVisibleToUser || !isVisibleHidden) {
-            disconnectEmit();
-        }
     }
 
     @Override
@@ -214,6 +210,10 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
             baseSocketManager.deleteObserver(baseObserver);
             baseSocketManager.disconnectEmitterListener();
             baseSocketManager = null;
+        }
+        if (baseAppSocket != null) {
+            baseAppSocket.clearSocket();
+            baseAppSocket = null;
         }
         EventManage.unregister(this);
     }
@@ -379,6 +379,12 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends Fragment 
 
     protected BigDecimal getMcMValue(int baseCurrentId, double number) {
         return ConvertMoneyUtils.getMcMValue(baseCurrentId, number);
+    }
+
+    protected void setBackGroundAlpha(float backGroundAlpha) {
+        WindowManager.LayoutParams lp = getHostActivity().getWindow().getAttributes();
+        lp.alpha = backGroundAlpha;
+        getHostActivity().getWindow().setAttributes(lp);
     }
 
     protected void onEmit() {

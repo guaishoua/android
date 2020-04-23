@@ -20,6 +20,7 @@ import com.android.tacu.R;
 import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.splash.SplashActivity;
+import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.MainSocketManager;
 import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.ConvertMoneyUtils;
@@ -55,6 +56,7 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     //Socket
     private ISocketEvent baseSocketEvent;
     private Observer baseObserver;
+    protected AppSocket baseAppSocket;
     private MainSocketManager baseSocketManager;
     //判断当前Activity是否可见
     protected boolean isVisibleActivity = true;
@@ -72,15 +74,10 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     public void setSocketEvent(ISocketEvent mSocketEvent, Observer observer, String... strings) {
         this.baseSocketEvent = mSocketEvent;
         this.baseObserver = observer;
-        baseSocketManager = new MainSocketManager();
+        baseAppSocket = new AppSocket();
+        baseSocketManager = new MainSocketManager(baseAppSocket.getSocket());
         baseSocketManager.initEmitterEvent(strings);
         baseSocketManager.addObserver(observer);
-    }
-
-    protected void setBackGroundAlpha(float backGroundAlpha) {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = backGroundAlpha;
-        getWindow().setAttributes(lp);
     }
 
     @SuppressLint("WrongViewCast")
@@ -165,6 +162,10 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
             baseSocketManager.deleteObserver(baseObserver);
             baseSocketManager.disconnectEmitterListener();
             baseSocketManager = null;
+        }
+        if (baseAppSocket != null) {
+            baseAppSocket.clearSocket();
+            baseAppSocket = null;
         }
         EventManage.unregister(this);
     }
@@ -345,6 +346,12 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
 
     protected BigDecimal getMcMValue(int baseCurrentId, double number) {
         return ConvertMoneyUtils.getMcMValue(baseCurrentId, number);
+    }
+
+    protected void setBackGroundAlpha(float backGroundAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = backGroundAlpha;
+        getWindow().setAttributes(lp);
     }
 
     protected void onEmit() {

@@ -301,7 +301,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void socketConnectEventAgain() {
-        AppSocket.getInstance().coinAllList();
+        if (baseAppSocket != null) {
+            baseAppSocket.coinAllList();
+        }
     }
 
     @Override

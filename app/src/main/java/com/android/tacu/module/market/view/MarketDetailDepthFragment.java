@@ -107,7 +107,9 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
 
     @Override
     public void socketConnectEventAgain() {
-        AppSocket.getInstance().entrust(currencyId, baseCurrencyId);
+        if (baseAppSocket != null) {
+            baseAppSocket.entrust(currencyId, baseCurrencyId);
+        }
     }
 
     @Override

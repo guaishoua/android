@@ -199,7 +199,9 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
 
     @Override
     public void socketConnectEventAgain() {
-        AppSocket.getInstance().coinInfo(currencyId, baseCurrencyId);
+        if (baseAppSocket != null) {
+            baseAppSocket.coinInfo(currencyId, baseCurrencyId);
+        }
     }
 
     @Override

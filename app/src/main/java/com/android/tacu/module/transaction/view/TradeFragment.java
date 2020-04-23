@@ -246,7 +246,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         public void run() {
             //监听列表 列表变 可用余额变
             if (spUtil != null && spUtil.getLogin()) {
-                AppSocket.getInstance().userAccount(currencyId, baseCurrencyId, spUtil.getToken(), spUtil.getUserUid());
+                if (baseAppSocket != null) {
+                    baseAppSocket.userAccount(currencyId, baseCurrencyId, spUtil.getToken(), spUtil.getUserUid());
+                }
             }
             if (timeHandler != null) {
                 timeHandler.postDelayed(this, 2000);
@@ -534,8 +536,10 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
 
     @Override
     public void socketConnectEventAgain() {
-        AppSocket.getInstance().coinInfo(currencyId, baseCurrencyId);
-        AppSocket.getInstance().entrust(currencyId, baseCurrencyId);
+        if (baseAppSocket != null) {
+            baseAppSocket.coinInfo(currencyId, baseCurrencyId);
+            baseAppSocket.entrust(currencyId, baseCurrencyId);
+        }
     }
 
     @Override

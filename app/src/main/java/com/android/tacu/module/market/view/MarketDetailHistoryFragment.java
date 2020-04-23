@@ -113,7 +113,9 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
 
     @Override
     public void socketConnectEventAgain() {
-        AppSocket.getInstance().tradeHistory(currencyId, baseCurrencyId);
+        if (baseAppSocket != null) {
+            baseAppSocket.tradeHistory(currencyId, baseCurrencyId);
+        }
     }
 
     @Override

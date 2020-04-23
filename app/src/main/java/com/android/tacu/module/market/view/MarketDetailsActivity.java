@@ -374,7 +374,9 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     @Override
     public void socketConnectEventAgain() {
-        AppSocket.getInstance().coinInfo(currencyId, baseCurrencyId);
+        if (baseAppSocket != null) {
+            baseAppSocket.coinInfo(currencyId, baseCurrencyId);
+        }
     }
 
     @Override

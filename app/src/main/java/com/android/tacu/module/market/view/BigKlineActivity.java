@@ -522,7 +522,9 @@ public class BigKlineActivity extends BaseActivity<MarketDetailsPresenter> imple
 
     @Override
     public void socketConnectEventAgain() {
-        AppSocket.getInstance().coinInfo(currencyId, baseCurrencyId);
+        if (baseAppSocket != null) {
+            baseAppSocket.coinInfo(currencyId, baseCurrencyId);
+        }
     }
 
     @Override
