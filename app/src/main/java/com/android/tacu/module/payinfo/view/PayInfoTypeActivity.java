@@ -24,11 +24,11 @@ public class PayInfoTypeActivity extends BaseActivity {
 
     @OnClick(R.id.rl_wx)
     void wxClick() {
-
+        jumpTo(BindingInfoWxActivity.class);
     }
 
     @OnClick(R.id.rl_zfb)
     void zfbClick() {
-
+        jumpTo(BindingInfoZfbActivity.class);
     }
 }

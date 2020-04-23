@@ -9,7 +9,7 @@ import android.view.View;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.otc.model.OtcTradeAllModel;
-import com.android.tacu.module.payinfo.contract.PayInfoListContract;
+import com.android.tacu.module.payinfo.contract.PayInfoContract;
 import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.payinfo.presenter.PayInfoPresenter;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
@@ -24,7 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class PayInfoListActivity extends BaseActivity<PayInfoPresenter> implements PayInfoListContract.IView {
+public class PayInfoListActivity extends BaseActivity<PayInfoPresenter> implements PayInfoContract.IView {
 
     @BindView(R.id.refreshlayout)
     SmartRefreshLayout refreshManage;

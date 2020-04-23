@@ -9,18 +9,18 @@ import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.payinfo.model.PayInfoModel;
-import com.android.tacu.module.payinfo.contract.PayInfoListContract;
+import com.android.tacu.module.payinfo.contract.PayInfoContract;
 
 import java.util.List;
 
-public class PayInfoPresenter extends BaseMvpPresenter implements PayInfoListContract.IPresenter {
+public class PayInfoPresenter extends BaseMvpPresenter implements PayInfoContract.IPresenter {
 
     @Override
     public void selectBank() {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<List<PayInfoModel>> o) {
-                PayInfoListContract.IView view = (PayInfoListContract.IView) getView();
+                PayInfoContract.IView view = (PayInfoContract.IView) getView();
                 view.selectBank(o.attachment);
             }
         });
@@ -31,7 +31,7 @@ public class PayInfoPresenter extends BaseMvpPresenter implements PayInfoListCon
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).insertBank(type, bankName, openBankName, bankCard, weChatNo, weChatImg, aliPayNo, aliPayImg, fdPassword), new NetDisposableObserver<BaseModel<PayInfoModel>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<PayInfoModel> o) {
-                PayInfoListContract.IDetailView yView = (PayInfoListContract.IDetailView) getView();
+                PayInfoContract.IDetailView yView = (PayInfoContract.IDetailView) getView();
                 yView.insertSuccess();
             }
         });
@@ -42,7 +42,7 @@ public class PayInfoPresenter extends BaseMvpPresenter implements PayInfoListCon
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).deleteBank(id), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel o) {
-                PayInfoListContract.IDetailView yView = (PayInfoListContract.IDetailView) getView();
+                PayInfoContract.IDetailView yView = (PayInfoContract.IDetailView) getView();
                 yView.deleteSuccess();
             }
         });
@@ -53,7 +53,7 @@ public class PayInfoPresenter extends BaseMvpPresenter implements PayInfoListCon
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).getSts(), new NetDisposableObserver<BaseModel<AuthOssModel>>((IBaseMvpView) getView(), false) {
             @Override
             public void onNext(BaseModel<AuthOssModel> model) {
-                PayInfoListContract.IDetailView wView = (PayInfoListContract.IDetailView) getView();
+                PayInfoContract.IDetailView wView = (PayInfoContract.IDetailView) getView();
                 wView.getOssSetting(model.attachment, fileLocalNameAddress);
             }
         });
@@ -64,7 +64,7 @@ public class PayInfoPresenter extends BaseMvpPresenter implements PayInfoListCon
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).uselectUserInfo(headImg), new NetDisposableObserver<BaseModel<String>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<String> model) {
-                PayInfoListContract.IDetailView wView = (PayInfoListContract.IDetailView) getView();
+                PayInfoContract.IDetailView wView = (PayInfoContract.IDetailView) getView();
                 wView.uselectUserInfo(model.attachment);
             }
         });

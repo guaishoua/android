@@ -13,7 +13,7 @@ import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.assets.model.AuthOssModel;
-import com.android.tacu.module.payinfo.contract.PayInfoListContract;
+import com.android.tacu.module.payinfo.contract.PayInfoContract;
 import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
@@ -29,7 +29,7 @@ import butterknife.OnClick;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 
-public class BindingInfoYhkActivity extends BaseActivity<PayInfoPresenter> implements PayInfoListContract.IDetailView {
+public class BindingInfoYhkActivity extends BaseActivity<PayInfoPresenter> implements PayInfoContract.IDetailView {
 
     @BindView(R.id.lin_edit)
     LinearLayout lin_edit;
@@ -63,6 +63,7 @@ public class BindingInfoYhkActivity extends BaseActivity<PayInfoPresenter> imple
 
     @Override
     protected void initView() {
+        mTopBar.setTitle(getResources().getString(R.string.add) + getResources().getString(R.string.yinhanngka));
         tv_cardholder_name.setText(spUtil.getKYCName());
         tv_cardholder_name1.setText(spUtil.getKYCName());
     }

@@ -6,7 +6,7 @@ import com.android.tacu.module.payinfo.model.PayInfoModel;
 
 import java.util.List;
 
-public class PayInfoListContract {
+public class PayInfoContract {
 
     public interface IView extends IBaseMvpView {
         void selectBank(List<PayInfoModel> list);

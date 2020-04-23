@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg_color_grey"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/common_titlebar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lin_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_55"
+                    android:background="@color/content_bg_color"
+                    android:paddingHorizontal="@dimen/dp_15">
+
+                    <TextView
+                        android:id="@+id/tv_account_owner_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:text="@string/cardholder_name"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_14"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_account_owner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_17"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_account_owner_title"
+                        app:layout_constraintLeft_toRightOf="@id/tv_account_owner_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_account_owner_title"
+                        tools:text="加隆" />
+                </android.support.constraint.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_55"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/content_bg_color"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/dp_15">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/wx_account"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_14" />
+
+                    <EditText
+                        android:id="@+id/edit_wx_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_22"
+                        android:background="@null"
+                        android:hint="@string/please_input_wx_account"
+                        android:maxLines="1"
+                        android:textColor="@color/text_color"
+                        android:textColorHint="@color/text_grey"
+                        android:textSize="@dimen/text_size_sp_16" />
+                </LinearLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_250"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/content_bg_color"
+                    android:paddingHorizontal="@dimen/dp_15"
+                    android:paddingBottom="@dimen/dp_5">
+
+                    <TextView
+                        android:id="@+id/tv_wx_shoukuan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/upload_wx_shoukuanma"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_14"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
+                        android:id="@+id/img_wx_shoukuan"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_wx_shoukuan"
+                        app:qmui_borderColor="@color/color_grey"
+                        app:qmui_borderWidth="@dimen/dp_1"
+                        app:qmui_radius="@dimen/dp_1" />
+
+                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
+                        android:id="@+id/rl_upload"
+                        android:layout_width="@dimen/dp_50"
+                        android:layout_height="@dimen/dp_50"
+                        app:layout_constraintBottom_toBottomOf="@id/img_wx_shoukuan"
+                        app:layout_constraintLeft_toLeftOf="@id/img_wx_shoukuan"
+                        app:layout_constraintRight_toRightOf="@id/img_wx_shoukuan"
+                        app:layout_constraintTop_toTopOf="@id/img_wx_shoukuan"
+                        app:qmui_borderColor="@color/color_grey"
+                        app:qmui_borderWidth="@dimen/dp_1"
+                        app:qmui_radius="@dimen/dp_1">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_20"
+                            android:layout_centerInParent="true"
+                            app:srcCompat="@drawable/icon_add_grey" />
+                    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tv_upload_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/upload_wx_shoukuanma"
+                        android:textColor="@color/text_grey_2"
+                        android:textSize="@dimen/text_size_sp_14"
+                        app:layout_constraintLeft_toLeftOf="@+id/img_wx_shoukuan"
+                        app:layout_constraintRight_toRightOf="@+id/img_wx_shoukuan"
+                        app:layout_constraintTop_toBottomOf="@+id/rl_upload" />
+                </android.support.constraint.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/dp_15">
+
+                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                        android:id="@+id/btn_bindinng"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_weight="1"
+                        android:text="@string/confirm_binding"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_14"
+                        app:qmui_backgroundColor="@color/color_default"
+                        app:qmui_radius="@dimen/dp_3" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@color/content_bg_color"
+                    android:paddingHorizontal="@dimen/dp_15">
+
+                    <TextView
+                        android:id="@+id/tv_account_owner_title1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:text="@string/cardholder_name"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/text_size_sp_14"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_account_owner1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_17"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_account_owner_title1"
+                        app:layout_constraintLeft_toRightOf="@id/tv_account_owner_title1"
+                        app:layout_constraintTop_toTopOf="@id/tv_account_owner_title1"
+                        tools:text="加隆" />
+                </android.support.constraint.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/content_bg_color"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/dp_15">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/wx_account"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/text_size_sp_14" />
+
+                    <TextView
+                        android:id="@+id/tv_wx_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_22"
+                        android:background="@null"
+                        android:maxLines="1"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_16" />
+                </LinearLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_250"
+                    android:layout_marginTop="@dimen/dp_1"
+                    android:background="@color/content_bg_color"
+                    android:paddingHorizontal="@dimen/dp_15"
+                    android:paddingBottom="@dimen/dp_5">
+
+                    <TextView
+                        android:id="@+id/tv_wx_shoukuan1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/upload_wx_shoukuanma"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_sp_14"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundImageView
+                        android:id="@+id/img_wx_shoukuan1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_wx_shoukuan1"
+                        app:qmui_borderColor="@color/color_grey"
+                        app:qmui_borderWidth="@dimen/dp_1"
+                        app:qmui_radius="@dimen/dp_1" />
+                </android.support.constraint.ConstraintLayout>
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/btn_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginHorizontal="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/unbind"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_sp_14"
+                    app:qmui_backgroundColor="@color/color_otc_giveup"
+                    app:qmui_radius="@dimen/dp_3" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
