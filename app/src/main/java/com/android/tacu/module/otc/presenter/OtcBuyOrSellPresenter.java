@@ -8,7 +8,7 @@ import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.assets.model.OtcAmountModel;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcBuyOrSellContract;
 import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 

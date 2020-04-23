@@ -19,7 +19,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.assets.model.OtcAmountModel;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.assets.view.BindingPayInfoActivity;
 import com.android.tacu.module.otc.contract.OtcBuyOrSellContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;

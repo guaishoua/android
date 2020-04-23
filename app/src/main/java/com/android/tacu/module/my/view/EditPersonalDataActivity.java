@@ -29,13 +29,13 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.assets.model.AuthOssModel;
-import com.android.tacu.module.assets.model.PayInfoModel;
-import com.android.tacu.module.assets.view.BindingPayInfoActivity;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.auth.view.AuthActivity;
 import com.android.tacu.module.auth.view.AuthMerchantActivity;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.my.contract.EditPersonalDataContact;
 import com.android.tacu.module.my.presenter.EditPersonalDataPresenter;
+import com.android.tacu.module.payinfo.view.PayInfoListActivity;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.permission.PermissionUtils;
@@ -204,7 +204,7 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         if (spUtil.getIsAuthSenior() == -1 || spUtil.getIsAuthSenior() == 0 || spUtil.getIsAuthSenior() == 1) {
             showToastError(getResources().getString(R.string.please_get_the_level_of_KYC));
         } else {
-            jumpTo(BindingPayInfoActivity.class);
+            jumpTo(PayInfoListActivity.class);
         }
     }
 
@@ -283,15 +283,10 @@ public class EditPersonalDataActivity extends BaseActivity<EditPersonalDataPrese
         } else {
             tv_apply_buniness.setTextColor(ContextCompat.getColorStateList(this, R.color.text_color));
             String value = "";
-            if (spUtil.getApplyMerchantStatus() == 2) {
-                value = getResources().getString(R.string.ordinary_merchant);
-            }
             if (spUtil.getApplyAuthMerchantStatus() == 2) {
-                if (TextUtils.isEmpty(value)) {
-                    value = getResources().getString(R.string.certified_shoper);
-                } else {
-                    value = value + " & " + getResources().getString(R.string.certified_shoper);
-                }
+                value = getResources().getString(R.string.certified_shoper);
+            } else if (spUtil.getApplyMerchantStatus() == 2) {
+                value = getResources().getString(R.string.ordinary_merchant);
             }
             tv_apply_buniness.setText(value);
         }

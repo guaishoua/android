@@ -183,5 +183,7 @@
         <activity
             android:name="com.android.tacu.module.market.view.BigKlineActivity"
             android:screenOrientation="landscape" />
+        <activity android:name="com.android.tacu.module.payinfo.view.PayInfoListActivity" />
+        <activity android:name="com.android.tacu.module.payinfo.view.PayInfoTypeActivity" />
     </application>
 </manifest>

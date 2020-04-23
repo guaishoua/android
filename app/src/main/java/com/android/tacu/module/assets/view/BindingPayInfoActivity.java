@@ -6,12 +6,11 @@ import android.support.v4.view.ViewPager;
 
 import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.PayInfoEvent;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabAdapter;
 import com.android.tacu.module.assets.contract.BindingPayInfoContract;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.shizhefei.view.indicator.IndicatorViewPager;

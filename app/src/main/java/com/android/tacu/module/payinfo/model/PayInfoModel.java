@@ -1,4 +1,4 @@
-package com.android.tacu.module.assets.model;
+package com.android.tacu.module.payinfo.model;
 
 import com.google.gson.annotations.*;
 

@@ -7,7 +7,7 @@ import com.android.tacu.base.BaseMvpPresenter;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.http.factory.APIServiceFactory;
 import com.android.tacu.http.network.NetDisposableObserver;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.login.contract.LoginContract;
 import com.android.tacu.module.login.model.LoginModel;
 import com.android.tacu.module.main.model.OwnCenterModel;

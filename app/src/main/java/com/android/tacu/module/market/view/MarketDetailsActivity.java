@@ -483,9 +483,11 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             }
 
             if (model.currentTradeCoin.changeRate >= 0) {
+                tvNewsPrice.setTextColor(ContextCompat.getColor(this, R.color.color_riseup));
                 tvChangeRate.setTextColor(ContextCompat.getColor(this, R.color.color_riseup));
                 tvChangeRate.setText("+" + changeRate + "%");
             } else {
+                tvNewsPrice.setTextColor(ContextCompat.getColor(this, R.color.color_risedown));
                 tvChangeRate.setTextColor(ContextCompat.getColor(this, R.color.color_risedown));
                 tvChangeRate.setText(changeRate + "%");
             }

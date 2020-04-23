@@ -2,7 +2,7 @@ package com.android.tacu.module.login.contract;
 
 import com.android.tacu.base.BaseModel;
 import com.android.tacu.base.IBaseMvpView;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.login.model.LoginModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.market.model.SelfModel;

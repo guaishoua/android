@@ -10,7 +10,7 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.base.BaseModel;
 import com.android.tacu.db.model.LockNewModel;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.dingxiang.contract.ISwitchView;
 import com.android.tacu.module.dingxiang.presenter.SwitchPresenter;
 import com.android.tacu.module.login.contract.LoginContract;

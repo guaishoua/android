@@ -15,7 +15,7 @@ import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.OtcDetailNotifyEvent;
 import com.android.tacu.R;
 import com.android.tacu.module.ZoomImageViewActivity;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;

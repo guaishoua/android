@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.TabAdapter;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcManageBuySellContract;
 import com.android.tacu.module.otc.presenter.OtcManageBuySellPresenter;
 import com.android.tacu.utils.user.UserManageUtils;

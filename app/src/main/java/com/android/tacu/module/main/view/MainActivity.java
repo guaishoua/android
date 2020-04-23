@@ -24,7 +24,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.MyFragmentPagerAdapter;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.assets.view.AssetsFragment;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.MainContract;

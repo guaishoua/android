@@ -25,7 +25,7 @@ import android.widget.TextView;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcManageBuySellContract;
 import com.android.tacu.module.otc.model.OtcPublishParam;
 import com.android.tacu.module.otc.model.OtcSelectFeeModel;

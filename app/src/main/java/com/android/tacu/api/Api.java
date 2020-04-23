@@ -7,7 +7,7 @@ import com.android.tacu.module.assets.model.ChargeModel;
 import com.android.tacu.module.assets.model.CoinAddressModel;
 import com.android.tacu.module.assets.model.MoneyFlowModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.assets.model.SelectTakeCoinAddressModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
 import com.android.tacu.module.auth.model.OtcSectionModel;

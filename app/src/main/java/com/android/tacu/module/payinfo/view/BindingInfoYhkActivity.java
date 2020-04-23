@@ -1,8 +1,7 @@
-package com.android.tacu.module.assets.view;
+package com.android.tacu.module.payinfo.view;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -10,17 +9,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.EventManage;
-import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.R;
-import com.android.tacu.base.BaseFragment;
+import com.android.tacu.base.BaseActivity;
 import com.android.tacu.interfaces.OnPermissionListener;
-import com.android.tacu.module.assets.contract.BindingPayInfoContract;
+import com.android.tacu.module.assets.model.AuthOssModel;
+import com.android.tacu.module.payinfo.contract.PayInfoListContract;
 import com.android.tacu.module.payinfo.model.PayInfoModel;
-import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
 import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
+import com.android.tacu.module.payinfo.presenter.PayInfoPresenter;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.permission.PermissionUtils;
 import com.android.tacu.widget.dialog.DroidDialog;
@@ -31,7 +29,7 @@ import butterknife.OnClick;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 
-public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter> implements BindingPayInfoContract.IYhkView {
+public class BindingInfoYhkActivity extends BaseActivity<PayInfoPresenter> implements PayInfoListContract.IDetailView {
 
     @BindView(R.id.lin_edit)
     LinearLayout lin_edit;
@@ -58,35 +56,28 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
     private PayInfoModel payInfoModel;
     private final int MY_SCAN_REQUEST_CODE = 1001;
 
-    public static BindingInfoYhkFragment newInstance() {
-        Bundle bundle = new Bundle();
-        BindingInfoYhkFragment fragment = new BindingInfoYhkFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    @Override
+    protected void setView() {
+        setContentView(R.layout.activity_yhk);
     }
 
     @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.fragment_yhk;
-    }
-
-    @Override
-    protected void initData(View view) {
+    protected void initView() {
         tv_cardholder_name.setText(spUtil.getKYCName());
         tv_cardholder_name1.setText(spUtil.getKYCName());
     }
 
     @Override
-    protected BindingPayInfoPresenter createPresenter(BindingPayInfoPresenter mPresenter) {
-        return new BindingPayInfoPresenter();
+    protected PayInfoPresenter createPresenter(PayInfoPresenter mPresenter) {
+        return new PayInfoPresenter();
     }
 
     @OnClick(R.id.img_saomiao)
     void saomiaoClick() {
-        PermissionUtils.requestPermissions(getContext(), new OnPermissionListener() {
+        PermissionUtils.requestPermissions(this, new OnPermissionListener() {
             @Override
             public void onPermissionSucceed() {
-                Intent scanIntent = new Intent(getContext(), CardIOActivity.class);
+                Intent scanIntent = new Intent(BindingInfoYhkActivity.this, CardIOActivity.class);
                 scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, false)
                         .putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false)
                         .putExtra(CardIOActivity.EXTRA_HIDE_CARDIO_LOGO, true)//去除水印
@@ -103,7 +94,7 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
 
     @OnClick(R.id.btn_bindinng)
     void bindingClick() {
-        if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
+        if (!OtcTradeDialogUtils.isDialogShow(this)) {
             final String bankName = edit_bank_name.getText().toString().trim();
             final String openBankName = edit_open_bank_name.getText().toString().trim();
             final String bankCard = edit_bank_id.getText().toString().trim();
@@ -121,15 +112,15 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
             }
 
             if (spUtil.getPwdVisibility()) {
-                OtcPwdDialogUtils.showPwdDiaglog(getContext(), getResources().getString(R.string.please_input_trade_password), new OtcPwdDialogUtils.OnPassListener() {
+                OtcPwdDialogUtils.showPwdDiaglog(this, getResources().getString(R.string.please_input_trade_password), new OtcPwdDialogUtils.OnPassListener() {
                     @Override
                     public void onPass(String pwd) {
-                        mPresenter.insertBank(1, bankName, openBankName, bankCard, null, null, null, null, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
+                        mPresenter.insert(1, bankName, openBankName, bankCard, null, null, null, null, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
                     }
                 });
                 return;
             }
-            mPresenter.insertBank(1, bankName, openBankName, bankCard, null, null, null, null, null);
+            mPresenter.insert(1, bankName, openBankName, bankCard, null, null, null, null, null);
         }
     }
 
@@ -150,33 +141,41 @@ public class BindingInfoYhkFragment extends BaseFragment<BindingPayInfoPresenter
     }
 
     @Override
-    public void insertBankSuccess() {
-        sendRefresh();
+    public void insertSuccess() {
+        ActivityStack.getInstance().finishActivity(PayInfoTypeActivity.class);
+        finish();
     }
 
     @Override
-    public void deleteBankSuccess() {
-        sendRefresh();
+    public void deleteSuccess() {
+        ActivityStack.getInstance().finishActivity(PayInfoTypeActivity.class);
+        finish();
+    }
+
+    @Override
+    public void getOssSetting(AuthOssModel model, String fileLocalNameAddress) {
+
+    }
+
+    @Override
+    public void uselectUserInfo(String imageUrl) {
+
     }
 
     private void showDelete() {
-        new DroidDialog.Builder(getContext())
+        new DroidDialog.Builder(this)
                 .title(getResources().getString(R.string.tips))
                 .content(getResources().getString(R.string.is_delete_account))
                 .contentGravity(Gravity.CENTER)
                 .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
                     @Override
                     public void onPositive(Dialog droidDialog) {
-                        mPresenter.deleteBank(1, payInfoModel.id);
+                        mPresenter.delete(payInfoModel.id);
                     }
                 })
                 .negativeButton(getResources().getString(R.string.cancel), null)
                 .cancelable(false, false)
                 .show();
-    }
-
-    private void sendRefresh() {
-        EventManage.sendEvent(new BaseEvent<>(EventConstant.PayInfoCode, new PayInfoEvent(true)));
     }
 
     public void setValue(PayInfoModel model) {

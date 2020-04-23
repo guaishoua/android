@@ -11,7 +11,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.base.BaseModel;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.lock.FingerprintActivity;
 import com.android.tacu.module.lock.GestureActivity;
 import com.android.tacu.module.main.model.OwnCenterModel;

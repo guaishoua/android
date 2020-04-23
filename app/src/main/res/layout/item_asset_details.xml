@@ -47,20 +47,6 @@
             app:layout_constraintLeft_toRightOf="@+id/tv_icon_name"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="(ACU)" />
-
-        <com.qmuiteam.qmui.alpha.QMUIAlphaButton
-            android:id="@+id/btn_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:minWidth="0dp"
-            android:paddingLeft="@dimen/dp_10"
-            android:text="@string/transfer"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_14"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
@@ -68,6 +54,39 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/dp_15"
         android:paddingVertical="@dimen/dp_10">
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_go_trade"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_26"
+            android:minWidth="@dimen/dp_60"
+            android:paddingHorizontal="@dimen/dp_15"
+            android:text="@string/go_trade"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_borderColor="@color/text_default"
+            app:qmui_borderWidth="@dimen/dp_1"
+            app:qmui_isRadiusAdjustBounds="true" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_info"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_26"
+            android:background="@null"
+            android:minWidth="@dimen/dp_60"
+            android:layout_marginRight="@dimen/dp_10"
+            android:paddingHorizontal="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="@string/transfer"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintRight_toLeftOf="@id/btn_go_trade"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_borderColor="@color/text_default"
+            app:qmui_borderWidth="@dimen/dp_1"
+            app:qmui_isRadiusAdjustBounds="true" />
 
         <TextView
             android:id="@+id/tv_total_holdings_title"
@@ -168,20 +187,6 @@
                 android:textSize="@dimen/text_size_sp_15"
                 tools:text="111" />
         </LinearLayout>
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/btn_withdraw"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_25"
-            android:layout_marginTop="@dimen/dp_4"
-            android:background="@null"
-            android:includeFontPadding="false"
-            android:paddingLeft="@dimen/dp_10"
-            android:text="@string/coin_account_recharge"
-            android:textColor="@color/text_default"
-            android:textSize="@dimen/text_size_sp_12"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <View
@@ -196,17 +201,34 @@
         android:paddingHorizontal="@dimen/dp_15">
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/btn_platform_transfer"
+            android:id="@+id/btn_withdraw"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_26"
+            android:minWidth="@dimen/dp_80"
             android:paddingHorizontal="@dimen/dp_15"
-            android:text="@string/platform_transfer"
+            android:text="@string/recharge"
             android:textColor="@color/text_white"
             android:textSize="@dimen/text_size_sp_12"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:qmui_backgroundColor="@color/color_default"
+            app:qmui_backgroundColor="@color/color_risedown"
+            app:qmui_radius="@dimen/dp_2" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/btn_platform_transfer"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_26"
+            android:minWidth="@dimen/dp_80"
+            android:paddingHorizontal="@dimen/dp_15"
+            android:text="@string/withdrawals"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_sp_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_backgroundColor="@color/color_riseup"
             app:qmui_radius="@dimen/dp_2" />
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
@@ -218,26 +240,10 @@
             android:textColor="@color/text_default"
             android:textSize="@dimen/text_size_sp_12"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:qmui_borderColor="@color/text_default"
             app:qmui_borderWidth="@dimen/dp_1"
             app:qmui_radius="@dimen/dp_2" />
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/btn_go_trade"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_26"
-            android:paddingHorizontal="@dimen/dp_15"
-            android:text="@string/go_trade"
-            android:textColor="@color/text_default"
-            android:textSize="@dimen/text_size_sp_12"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:qmui_borderColor="@color/text_default"
-            app:qmui_borderWidth="@dimen/dp_1"
-            app:qmui_isRadiusAdjustBounds="true" />
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>
