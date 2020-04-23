@@ -25,9 +25,6 @@ import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.EventManage;
-import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
@@ -35,7 +32,6 @@ import com.android.tacu.base.MyApplication;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.assets.model.AuthOssModel;
-import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
 import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
 import com.android.tacu.module.payinfo.contract.PayInfoContract;
@@ -117,12 +113,12 @@ public class BindingInfoZfbActivity extends BaseActivity<PayInfoPresenter> imple
 
     @Override
     protected void setView() {
-        setContentView(R.layout.activity_yhk);
+        setContentView(R.layout.activity_zfb);
     }
 
     @Override
     protected void initView() {
-        mTopBar.setTitle(getResources().getString(R.string.add) + getResources().getString(R.string.yinhanngka));
+        mTopBar.setTitle(getResources().getString(R.string.add) + getResources().getString(R.string.zhifubao));
         tv_account_owner.setText(spUtil.getKYCName());
         tv_account_owner1.setText(spUtil.getKYCName());
     }

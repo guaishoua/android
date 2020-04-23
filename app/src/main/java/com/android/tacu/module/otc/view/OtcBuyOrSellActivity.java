@@ -20,12 +20,12 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.payinfo.model.PayInfoModel;
-import com.android.tacu.module.assets.view.BindingPayInfoActivity;
 import com.android.tacu.module.otc.contract.OtcBuyOrSellContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderModel;
 import com.android.tacu.module.otc.presenter.OtcBuyOrSellPresenter;
+import com.android.tacu.module.payinfo.view.PayInfoListActivity;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.GlideUtils;
@@ -203,7 +203,7 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
             case R.id.btn_go_zfb:
             case R.id.btn_go_yhk:
                 droidDialog.dismiss();
-                jumpTo(BindingPayInfoActivity.class);
+                jumpTo(PayInfoListActivity.class);
                 break;
         }
     }

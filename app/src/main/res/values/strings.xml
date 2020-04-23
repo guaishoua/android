@@ -856,10 +856,8 @@
 
     <!--OTC3-->
     <string name="total_holdings">持有总量</string>
-    <string name="coin_account_recharge">币币账户充值</string>
     <string name="available_num">可用数量</string>
     <string name="frozen_num">冻结数量</string>
-    <string name="platform_transfer">平台转出</string>
     <string name="asset_history">资产流水</string>
     <string name="to">向</string>
     <string name="margin_account">保证金账户</string>

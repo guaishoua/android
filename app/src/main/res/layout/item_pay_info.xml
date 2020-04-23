@@ -47,7 +47,6 @@
         tools:text="加隆" />
 
     <CheckBox
-        android:id="@+id/cb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:button="?attr/qmui_common_list_item_switch"
@@ -57,7 +56,6 @@
         app:layout_constraintTop_toTopOf="@id/tv_user" />
 
     <TextView
-        android:id="@+id/tv_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_8"

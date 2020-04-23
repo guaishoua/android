@@ -44,7 +44,7 @@ public class PayInfoListActivity extends BaseActivity<PayInfoPresenter> implemen
         mTopBar.addRightImageButton(R.drawable.icon_add_white, R.id.qmui_topbar_item_right, 18, 18).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                jumpTo(PayInfoTypeActivity.class);
             }
         });
 

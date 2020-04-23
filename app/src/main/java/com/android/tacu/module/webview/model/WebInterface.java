@@ -13,7 +13,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.assets.view.AssetsActivity;
-import com.android.tacu.module.assets.view.BindingPayInfoActivity;
+import com.android.tacu.module.payinfo.view.PayInfoListActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.ImgUtils;
 import com.android.tacu.utils.ShowToast;
@@ -74,7 +74,7 @@ public class WebInterface {
      */
     @JavascriptInterface
     public void JumpPayInfo() {
-        Intent intent = new Intent(activity, BindingPayInfoActivity.class);
+        Intent intent = new Intent(activity, PayInfoListActivity.class);
         activity.startActivity(intent);
     }
 

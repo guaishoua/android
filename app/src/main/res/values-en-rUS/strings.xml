@@ -846,10 +846,8 @@
 
     <!--OTC3-->
     <string name="total_holdings">Total holdings</string>
-    <string name="coin_account_recharge">Coin Account Recharge</string>
     <string name="available_num">Available number</string>
     <string name="frozen_num">Frozen quantity</string>
-    <string name="platform_transfer">Platform transfer</string>
     <string name="asset_history">Asset Flow</string>
     <string name="to">to</string>
     <string name="margin_account">Margin Account</string>

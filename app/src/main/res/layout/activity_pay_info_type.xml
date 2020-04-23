@@ -114,7 +114,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_15"
                     android:layout_toRightOf="@id/img_zfb"
-                    android:text="@string/weixin"
+                    android:text="@string/zhifubao"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_sp_16" />
 
