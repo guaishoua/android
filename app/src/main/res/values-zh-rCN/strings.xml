@@ -558,7 +558,6 @@
     <string name="email_auth">邮箱认证</string>
     <string name="truename_auth">实名认证</string>
     <string name="video_auth">视频认证</string>
-    <string name="please_choose_get_pay">请选择收/付款方式：</string>
     <string name="otc_order_confirmed_tip">交易須知
         \n1.卖家发起交易请求后，该订单的数字资产将会锁定託管；
         \n2.买家需在付款有效期限内完成付款并进行确认支付完成操作，卖家才会放币。
@@ -895,8 +894,6 @@
     </string>
     <string name="seller_info">卖家信息</string>
     <string name="buyer_info">买家信息</string>
-    <string name="choose_getmoney_type">选择收款方式</string>
-    <string name="choose_paymoney_type">选择付款方式</string>
     <string name="shop_info">商家信息</string>
     <string name="order_info">订单信息</string>
     <string name="current_paymoney_type">本次付款方式</string>
@@ -976,4 +973,11 @@
     <string name="recharge_deposit_tag5">将从C2C账户中充入保证金数量</string>
     <string name="recharge_deposit_tag6">申请保证金提取至C2C账户</string>
     <string name="order">订单</string>
+
+    <!--OTC绑定收付款设置-->
+    <string name="get_setting">收款设置</string>
+    <string name="add">添加</string>
+    <string name="pay_info_one">每种支付方式只能绑定一个账号</string>
+    <string name="please_input_username">请输入姓名</string>
+    <string name="select_getmoney_type">选择收款方式</string>
 </resources>

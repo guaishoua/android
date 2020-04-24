@@ -562,7 +562,6 @@
     <string name="email_auth">Email verification</string>
     <string name="truename_auth">Real-name verification</string>
     <string name="video_auth">Video verification</string>
-    <string name="please_choose_get_pay">Select payment method:</string>
     <string name="otc_order_confirmed_tip">Notes
         \n1. Once the seller places an order, his coins will be locked for custody;
         \n2. The buyer needs to complete the payment within the payment validity period and confirm the payment before the seller release the coins.
@@ -903,8 +902,6 @@
     </string>
     <string name="seller_info">Seller Information</string>
     <string name="buyer_info">buyer information</string>
-    <string name="choose_getmoney_type">Choose a payment method</string>
-    <string name="choose_paymoney_type">Select a payment method</string>
     <string name="shop_info">Business information</string>
     <string name="order_info">Order information</string>
     <string name="current_paymoney_type">This payment method</string>
@@ -984,5 +981,12 @@
     <string name="recharge_deposit_tag5">The deposit amount will be charged from the C2C account</string>
     <string name="recharge_deposit_tag6">Apply for deposit withdrawal to C2C account</string>
     <string name="order">Order</string>
+
+    <!--OTC绑定收付款设置-->
+    <string name="get_setting">receipt setting</string>
+    <string name="add">Add</string>
+    <string name="pay_info_one">Each payment method can only be bound to one account</string>
+    <string name="please_input_username">Please enter a name</string>
+    <string name="select_getmoney_type">select payment method</string>
 </resources>
 

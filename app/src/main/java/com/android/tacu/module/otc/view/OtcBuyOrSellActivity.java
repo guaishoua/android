@@ -3,14 +3,19 @@ package com.android.tacu.module.otc.view;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,24 +30,26 @@ import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderAllModel;
 import com.android.tacu.module.otc.model.OtcMarketOrderModel;
 import com.android.tacu.module.otc.presenter.OtcBuyOrSellPresenter;
-import com.android.tacu.module.payinfo.view.PayInfoListActivity;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.MathHelper;
+import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.user.UserManageUtils;
-import com.android.tacu.widget.dialog.DroidDialog;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> implements OtcBuyOrSellContract.IView, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> implements OtcBuyOrSellContract.IView {
 
     @BindView(R.id.img_people)
     QMUIRadiusImageView img_people;
@@ -74,10 +81,6 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
     @BindView(R.id.btn_sure)
     QMUIRoundButton btn_sure;
 
-    private CheckBox cb_wx;
-    private CheckBox cb_zfb;
-    private CheckBox cb_yhk;
-
     private boolean isBuy = true;
     private String orderId;
 
@@ -87,10 +90,9 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
     private boolean isInputAmount = true;
     private boolean isInputAll = true;
 
-    //支付类型 1银行卡 2微信 3支付宝
-    private Integer payType;
-    private PayInfoModel yhkModel = null, wxModel = null, zfbModel = null;
-    private DroidDialog droidDialog;
+    private Dialog dialog;
+    private List<PayInfoModel> bankList = new ArrayList<>();
+    private PayInfoAdapter adapter;
 
     public static Intent createActivity(Context context, boolean isBuy, String orderId) {
         Intent intent = new Intent(context, OtcBuyOrSellActivity.class);
@@ -191,44 +193,8 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (droidDialog != null && droidDialog.isShowing()) {
-            droidDialog.dismiss();
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_go_wx:
-            case R.id.btn_go_zfb:
-            case R.id.btn_go_yhk:
-                droidDialog.dismiss();
-                jumpTo(PayInfoListActivity.class);
-                break;
-        }
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            //支付类型 1银行卡 2微信 3支付宝
-            switch (buttonView.getId()) {
-                case R.id.cb_wx:
-                    payType = 2;
-                    cb_zfb.setChecked(false);
-                    cb_yhk.setChecked(false);
-                    break;
-                case R.id.cb_zfb:
-                    payType = 3;
-                    cb_wx.setChecked(false);
-                    cb_yhk.setChecked(false);
-                    break;
-                case R.id.cb_yhk:
-                    payType = 1;
-                    cb_wx.setChecked(false);
-                    cb_zfb.setChecked(false);
-                    break;
-            }
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
         }
     }
 
@@ -304,7 +270,7 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
                 }
             }
 
-            chooseType(FormatterUtils.getFormatRoundDown(2, num), FormatterUtils.getFormatRoundDown(2, amount));
+            showSure();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -325,24 +291,8 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
 
     @Override
     public void selectBank(List<PayInfoModel> list) {
+        this.bankList = list;
         UserManageUtils.setPeoplePayInfo(list);
-        if (list != null && list.size() > 0) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).type != null && list.get(i).type == 1) {
-                    yhkModel = list.get(i);
-                }
-                if (list.get(i).type != null && list.get(i).type == 2) {
-                    wxModel = list.get(i);
-                }
-                if (list.get(i).type != null && list.get(i).type == 3) {
-                    zfbModel = list.get(i);
-                }
-            }
-        } else {
-            yhkModel = null;
-            wxModel = null;
-            zfbModel = null;
-        }
     }
 
     @Override
@@ -392,98 +342,97 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
         }
     }
 
-    private void chooseType(final String num, final String amount) {
-        View view = View.inflate(this, R.layout.dialog_choose_money_type, null);
-        ConstraintLayout view_wx = view.findViewById(R.id.view_wx);
-        ConstraintLayout view_zfb = view.findViewById(R.id.view_zfb);
-        ConstraintLayout view_yhk = view.findViewById(R.id.view_yhk);
-        TextView tv_wx_account = view.findViewById(R.id.tv_wx_account);
-        TextView tv_zfb_account = view.findViewById(R.id.tv_zfb_account);
-        TextView tv_yhk_account = view.findViewById(R.id.tv_yhk_account);
-        cb_wx = view.findViewById(R.id.cb_wx);
-        cb_zfb = view.findViewById(R.id.cb_zfb);
-        cb_yhk = view.findViewById(R.id.cb_yhk);
-        QMUIAlphaButton btn_go_wx = view.findViewById(R.id.btn_go_wx);
-        QMUIAlphaButton btn_go_zfb = view.findViewById(R.id.btn_go_zfb);
-        QMUIAlphaButton btn_go_yhk = view.findViewById(R.id.btn_go_yhk);
+    private void showSure() {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_confirm_payinfo, null);
 
-        view_wx.setVisibility(View.GONE);
-        view_zfb.setVisibility(View.GONE);
-        view_yhk.setVisibility(View.GONE);
+        ImageView img_close = view.findViewById(R.id.img_close);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        QMUIRoundButton btn_sure = view.findViewById(R.id.btn_sure);
 
-        cb_wx.setOnCheckedChangeListener(this);
-        cb_zfb.setOnCheckedChangeListener(this);
-        cb_yhk.setOnCheckedChangeListener(this);
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        btn_go_wx.setOnClickListener(this);
-        btn_go_zfb.setOnClickListener(this);
-        btn_go_yhk.setOnClickListener(this);
+            }
+        });
 
-        if (allModel != null) {
-            OtcMarketOrderModel orderModel = allModel.orderModel;
-            if (orderModel != null) {
-                if (orderModel.payByCard == 1) {
-                    view_yhk.setVisibility(View.VISIBLE);
-                    if (yhkModel != null) {
-                        cb_yhk.setVisibility(View.VISIBLE);
-                        btn_go_yhk.setVisibility(View.GONE);
-                        tv_yhk_account.setText(CommonUtils.hideCardNo(yhkModel.bankCard));
-                    } else {
-                        cb_yhk.setVisibility(View.GONE);
-                        btn_go_yhk.setVisibility(View.VISIBLE);
-                        tv_yhk_account.setText("");
-                    }
+        adapter = new PayInfoAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        adapter.setNewData(bankList);
+
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(view);
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+        params.copyFrom(dialog.getWindow().getAttributes());
+        params.width = UIUtils.getScreenWidth();
+        //判断高度
+        int num = 0;
+        if (bankList != null && bankList.size() > 0) {
+            num = bankList.size();
+        }
+        if (UIUtils.dp2px(50) * num >= UIUtils.getScreenHeight() / 2) {
+            params.height = UIUtils.getScreenHeight() / 2;
+        } else {
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        }
+        params.gravity = Gravity.BOTTOM | Gravity.CENTER;
+        dialog.getWindow().setBackgroundDrawableResource(R.color.color_transparent);
+        dialog.getWindow().setAttributes(params);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+    }
+
+    public class PayInfoAdapter extends BaseQuickAdapter<PayInfoModel, BaseViewHolder> {
+
+        public PayInfoAdapter() {
+            super(R.layout.item_payinfo);
+        }
+
+        @Override
+        protected void convert(final BaseViewHolder holder, final PayInfoModel item) {
+            if (item.type == 1) {
+                holder.setBackgroundRes(R.id.img_pay, R.mipmap.img_yhk);
+                holder.setText(R.id.tv_name, getResources().getString(R.string.yinhanngka));
+                holder.setText(R.id.tv_pay_account, CommonUtils.hideCardNo(item.bankCard));
+            } else if (item.type == 2) {
+                holder.setBackgroundRes(R.id.img_pay, R.mipmap.img_wx);
+                holder.setText(R.id.tv_name, getResources().getString(R.string.weixin));
+                holder.setText(R.id.tv_pay_account, CommonUtils.hidePhoneNo(item.weChatNo));
+            } else if (item.type == 3) {
+                holder.setBackgroundRes(R.id.img_pay, R.mipmap.img_zfb);
+                holder.setText(R.id.tv_name, getResources().getString(R.string.zhifubao));
+                holder.setText(R.id.tv_pay_account, CommonUtils.hidePhoneNo(item.aliPayNo));
+            }
+
+            ((CheckBox) holder.getView(R.id.cb)).setChecked(item.isCB);
+            holder.setOnClickListener(R.id.cb, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    notifyCheckbox(item.id);
                 }
-                if (orderModel.payWechat == 1) {
-                    view_wx.setVisibility(View.VISIBLE);
-                    if (wxModel != null) {
-                        cb_wx.setVisibility(View.VISIBLE);
-                        btn_go_wx.setVisibility(View.GONE);
-                        tv_wx_account.setText(CommonUtils.hidePhoneNo(wxModel.weChatNo));
-                    } else {
-                        cb_wx.setVisibility(View.GONE);
-                        btn_go_wx.setVisibility(View.VISIBLE);
-                        tv_wx_account.setText("");
-                    }
-                }
-                if (orderModel.payAlipay == 1) {
-                    view_zfb.setVisibility(View.VISIBLE);
-                    if (zfbModel != null) {
-                        cb_zfb.setVisibility(View.VISIBLE);
-                        btn_go_zfb.setVisibility(View.GONE);
-                        tv_zfb_account.setText(CommonUtils.hidePhoneNo(zfbModel.aliPayNo));
-                    } else {
-                        cb_zfb.setVisibility(View.GONE);
-                        btn_go_zfb.setVisibility(View.VISIBLE);
-                        tv_zfb_account.setText("");
-                    }
+            });
+        }
+    }
+
+    private void notifyCheckbox(int id) {
+        if (bankList != null && bankList.size() > 0) {
+            for (int i = 0; i < bankList.size(); i++) {
+                if (bankList.get(i).id == id) {
+                    bankList.get(i).isCB = true;
+                } else {
+                    bankList.get(i).isCB = false;
                 }
             }
+            adapter.notifyDataSetChanged();
         }
-
-        payType = null;
-        String titleString = "";
-        if (isBuy) {
-            titleString = getResources().getString(R.string.choose_paymoney_type);
-        } else {
-            titleString = getResources().getString(R.string.choose_getmoney_type);
-        }
-        droidDialog = new DroidDialog.Builder(this)
-                .title(titleString)
-                .viewCustomLayout(view)
-                .positiveButton(getResources().getString(R.string.sure), false, new DroidDialog.onPositiveListener() {
-                    @Override
-                    public void onPositive(Dialog droidDialog) {
-                        if (payType == null || payType == 0) {
-                            showToastError(getResources().getString(R.string.please_choose_get_pay));
-                            return;
-                        }
-                        droidDialog.dismiss();
-                        mPresenter.otcTrade(allModel.orderModel.id, payType, num, amount);
-                    }
-                })
-                .setShowImgClose(true)
-                .cancelable(false, false)
-                .show();
     }
 }

@@ -16,8 +16,8 @@ import java.util.List;
 public class PayInfoPresenter extends BaseMvpPresenter implements PayInfoContract.IPresenter {
 
     @Override
-    public void selectBank() {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView()) {
+    public void selectBank(boolean isShowView) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).selectBank(), new NetDisposableObserver<BaseModel<List<PayInfoModel>>>((IBaseMvpView) getView(), isShowView) {
             @Override
             public void onNext(BaseModel<List<PayInfoModel>> o) {
                 PayInfoContract.IView view = (PayInfoContract.IView) getView();

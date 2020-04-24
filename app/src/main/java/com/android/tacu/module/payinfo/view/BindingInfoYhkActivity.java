@@ -1,6 +1,7 @@
 package com.android.tacu.module.payinfo.view;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -33,8 +34,8 @@ public class BindingInfoYhkActivity extends BaseActivity<PayInfoPresenter> imple
 
     @BindView(R.id.lin_edit)
     LinearLayout lin_edit;
-    @BindView(R.id.tv_cardholder_name)
-    TextView tv_cardholder_name;
+    @BindView(R.id.edit_cardholder_name)
+    EditText edit_cardholder_name;
     @BindView(R.id.edit_bank_name)
     EditText edit_bank_name;
     @BindView(R.id.edit_open_bank_name)
@@ -56,6 +57,12 @@ public class BindingInfoYhkActivity extends BaseActivity<PayInfoPresenter> imple
     private PayInfoModel payInfoModel;
     private final int MY_SCAN_REQUEST_CODE = 1001;
 
+    public static Intent createActivity(Context context, PayInfoModel payInfoModel) {
+        Intent intent = new Intent(context, BindingInfoYhkActivity.class);
+        intent.putExtra("payInfoModel", payInfoModel);
+        return intent;
+    }
+
     @Override
     protected void setView() {
         setContentView(R.layout.activity_yhk);
@@ -63,14 +70,20 @@ public class BindingInfoYhkActivity extends BaseActivity<PayInfoPresenter> imple
 
     @Override
     protected void initView() {
+        payInfoModel = (PayInfoModel) getIntent().getSerializableExtra("payInfoModel");
+
         mTopBar.setTitle(getResources().getString(R.string.add) + getResources().getString(R.string.yinhanngka));
-        tv_cardholder_name.setText(spUtil.getKYCName());
-        tv_cardholder_name1.setText(spUtil.getKYCName());
     }
 
     @Override
     protected PayInfoPresenter createPresenter(PayInfoPresenter mPresenter) {
         return new PayInfoPresenter();
+    }
+
+    @Override
+    protected void onPresenterCreated(PayInfoPresenter presenter) {
+        super.onPresenterCreated(presenter);
+        setValue(payInfoModel);
     }
 
     @OnClick(R.id.img_saomiao)
@@ -180,27 +193,23 @@ public class BindingInfoYhkActivity extends BaseActivity<PayInfoPresenter> imple
     }
 
     public void setValue(PayInfoModel model) {
-        clearValue();
         this.payInfoModel = model;
         if (model != null) {
             lin_edit.setVisibility(View.GONE);
             lin_list.setVisibility(View.VISIBLE);
 
+            //tv_cardholder_name1.setText();
             tv_bank_name.setText(model.bankName);
             tv_open_bank_name.setText(model.openBankName);
             tv_bank_id.setText(model.bankCard);
         } else {
             lin_edit.setVisibility(View.VISIBLE);
             lin_list.setVisibility(View.GONE);
-        }
-    }
 
-    private void clearValue() {
-        edit_bank_name.setText("");
-        edit_open_bank_name.setText("");
-        edit_bank_id.setText("");
-        tv_bank_name.setText("");
-        tv_open_bank_name.setText("");
-        tv_bank_id.setText("");
+            if (spUtil.getApplyAuthMerchantStatus() != 2) {
+                edit_cardholder_name.setEnabled(false);
+                edit_cardholder_name.setText(spUtil.getKYCName());
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.android.tacu.module.payinfo.view;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.os.Handler;
@@ -59,8 +60,8 @@ public class BindingInfoZfbActivity extends BaseActivity<PayInfoPresenter> imple
 
     @BindView(R.id.lin_edit)
     LinearLayout lin_edit;
-    @BindView(R.id.tv_account_owner)
-    TextView tv_account_owner;
+    @BindView(R.id.edit_account_owner)
+    TextView edit_account_owner;
     @BindView(R.id.edit_zfb_name)
     EditText edit_zfb_name;
     @BindView(R.id.img_zfb_shoukuan)
@@ -111,6 +112,12 @@ public class BindingInfoZfbActivity extends BaseActivity<PayInfoPresenter> imple
         }
     };
 
+    public static Intent createActivity(Context context, PayInfoModel payInfoModel) {
+        Intent intent = new Intent(context, BindingInfoZfbActivity.class);
+        intent.putExtra("payInfoModel", payInfoModel);
+        return intent;
+    }
+
     @Override
     protected void setView() {
         setContentView(R.layout.activity_zfb);
@@ -118,14 +125,20 @@ public class BindingInfoZfbActivity extends BaseActivity<PayInfoPresenter> imple
 
     @Override
     protected void initView() {
+        payInfoModel = (PayInfoModel) getIntent().getSerializableExtra("payInfoModel");
+
         mTopBar.setTitle(getResources().getString(R.string.add) + getResources().getString(R.string.zhifubao));
-        tv_account_owner.setText(spUtil.getKYCName());
-        tv_account_owner1.setText(spUtil.getKYCName());
     }
 
     @Override
     protected PayInfoPresenter createPresenter(PayInfoPresenter mPresenter) {
         return new PayInfoPresenter();
+    }
+
+    @Override
+    protected void onPresenterCreated(PayInfoPresenter presenter) {
+        super.onPresenterCreated(presenter);
+        setValue(payInfoModel);
     }
 
     @Override
@@ -272,27 +285,23 @@ public class BindingInfoZfbActivity extends BaseActivity<PayInfoPresenter> imple
     }
 
     public void setValue(PayInfoModel model) {
-        clearValue();
         this.payInfoModel = model;
         if (model != null) {
             lin_edit.setVisibility(View.GONE);
             lin_list.setVisibility(View.VISIBLE);
 
+            //tv_account_owner1.setText();
             tv_zfb_name.setText(model.aliPayNo);
             mPresenter.uselectUserInfo(model.aliPayImg);
         } else {
             lin_edit.setVisibility(View.VISIBLE);
             lin_list.setVisibility(View.GONE);
-        }
-    }
 
-    private void clearValue() {
-        edit_zfb_name.setText("");
-        img_zfb_shoukuan.setImageResource(0);
-        rl_upload.setVisibility(View.VISIBLE);
-        tv_upload_tip.setVisibility(View.VISIBLE);
-        tv_zfb_name.setText("");
-        img_zfb_shoukuan1.setImageResource(0);
+            if (spUtil.getApplyAuthMerchantStatus() != 2) {
+                edit_account_owner.setEnabled(false);
+                edit_account_owner.setText(spUtil.getKYCName());
+            }
+        }
     }
 
     private void uploadImgs(String fileLocalNameAddress) {
