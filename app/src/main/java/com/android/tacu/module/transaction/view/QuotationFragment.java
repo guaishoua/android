@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.module.market.model.CurrentTradeCoinModel;
-import com.android.tacu.module.transaction.model.RecordModel;
 import com.android.tacu.utils.UIUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundTextView;
@@ -111,7 +109,7 @@ public class QuotationFragment extends BaseFragment {
                 viewPager.requestDisallowInterceptTouchEvent(boo);
             }
         });
-        depthFragment = DepthFragment.newInstance();
+        depthFragment = DepthFragment.newInstance(currencyNameEn, baseCurrencyNameEn);
         fragmentList.add(klineFragment);
         fragmentList.add(depthFragment);
 
@@ -130,17 +128,8 @@ public class QuotationFragment extends BaseFragment {
         if (klineFragment != null) {
             klineFragment.setValue(currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn);
         }
-    }
-
-    public void setCurrentTradeCoinModel(CurrentTradeCoinModel currentTradeCoinModel) {
         if (depthFragment != null) {
-            depthFragment.setCurrentTradeCoinModel(currentTradeCoinModel);
-        }
-    }
-
-    public void entrustInfo(RecordModel recordModel, String currencyNameEn, String baseCurrencyNameEn) {
-        if (depthFragment != null) {
-            depthFragment.entrustInfo(recordModel, currencyNameEn, baseCurrencyNameEn);
+            depthFragment.setValue(currencyNameEn, baseCurrencyNameEn);
         }
     }
 

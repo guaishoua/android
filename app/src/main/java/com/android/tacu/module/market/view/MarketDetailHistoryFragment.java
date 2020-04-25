@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.tacu.socket.AppSocket;
+import com.android.tacu.module.transaction.view.TradeFragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.R;
@@ -58,6 +58,9 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
     private int baseCurrencyId;
     private int bgColor;
 
+    private int pointPrice = 0;
+    private int pointNum = 0;
+
     private Gson gson = new Gson();
     private MarketHistoryAdapter historyAdapter;
 
@@ -65,7 +68,6 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
     private List<ContentBean> falseBeanList = new ArrayList<>();
 
     private TradeHistoryModel tradeHistoryModel;
-    private CurrentTradeCoinModel currentTradeCoinModel;
 
     public static MarketDetailHistoryFragment newInstance(int currencyId, int baseCurrencyId, int Color) {
         Bundle bundle = new Bundle();
@@ -84,6 +86,17 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
             currencyId = bundle.getInt("currencyId");
             baseCurrencyId = bundle.getInt("baseCurrencyId");
             bgColor = bundle.getInt("bgColor", 0);
+            if (bgColor == 0) {
+                if (MarketDetailsActivity.currentTradeCoinModel != null) {
+                    pointPrice = MarketDetailsActivity.currentTradeCoinModel.currentTradeCoin.pointPrice;
+                    pointNum = MarketDetailsActivity.currentTradeCoinModel.currentTradeCoin.pointNum;
+                }
+            } else {
+                if (TradeFragment.currentTradeCoinModel != null) {
+                    pointPrice = TradeFragment.currentTradeCoinModel.currentTradeCoin.pointPrice;
+                    pointNum = TradeFragment.currentTradeCoinModel.currentTradeCoin.pointNum;
+                }
+            }
         }
         super.onCreate(savedInstanceState);
     }
@@ -101,6 +114,12 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
     @Override
     public void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
+
+        if (bgColor == 0) {
+            MarketDetailsActivity.marketDetailSocketManager.addObserver(this);
+        } else {
+            TradeFragment.tradeSocketManager.addObserver(this);
+        }
 
         historyAdapter = new MarketHistoryAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -155,6 +174,12 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
                                 }
                             }
                             break;
+                        case SocketConstant.LOGINAFTERCHANGETRADECOIN:
+                            ObserverModel.LoginAfterChangeTradeCoin coinInfo = model.getTradeCoin();
+                            if (coinInfo != null) {
+                                setCurrentTradeCoinModel(coinInfo.getCoinModel());
+                            }
+                            break;
                     }
                 }
             }
@@ -167,10 +192,15 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
         socketConnectEventAgain();
     }
 
-    public void setCurrentTradeCoinModel(CurrentTradeCoinModel currentTradeCoinModel) {
-        this.currentTradeCoinModel = currentTradeCoinModel;
-        if (tradeHistoryModel != null && tradeHistoryModel.content != null && tradeHistoryModel.content.size() > 0) {
-            historyAdapter.notifyDataSetChanged();
+    private void setCurrentTradeCoinModel(CurrentTradeCoinModel currentTradeCoinModel) {
+        if (currentTradeCoinModel != null) {
+            if (pointPrice != currentTradeCoinModel.currentTradeCoin.pointPrice || pointNum != currentTradeCoinModel.currentTradeCoin.pointNum) {
+                pointPrice = currentTradeCoinModel.currentTradeCoin.pointPrice;
+                pointNum = currentTradeCoinModel.currentTradeCoin.pointNum;
+                if (tradeHistoryModel != null && tradeHistoryModel.content != null && tradeHistoryModel.content.size() > 0) {
+                    historyAdapter.notifyDataSetChanged();
+                }
+            }
         }
     }
 
@@ -196,18 +226,17 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
             if (!TextUtils.isEmpty(item.time)) {
                 helper.setText(R.id.tv_time, DateUtils.getStrToStr(item.time, DateUtils.FORMAT_DATE_GMT, DateUtils.FORMAT_DATE_HMS));
             }
-            if (currentTradeCoinModel != null) {
-                if (item.current != 0) {
-                    helper.setText(R.id.tv_price, BigDecimal.valueOf(item.current).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString());
-                }
-                if (item.amount != 0) {
-                    helper.setText(R.id.tv_amount, BigDecimal.valueOf(item.amount).setScale(currentTradeCoinModel.currentTradeCoin.pointNum, RoundingMode.DOWN).toPlainString());
-                }
-            } else {
-                if (item.current != 0) {
+            if (item.current != 0) {
+                if (pointPrice != 0) {
+                    helper.setText(R.id.tv_price, BigDecimal.valueOf(item.current).setScale(pointPrice, RoundingMode.DOWN).toPlainString());
+                } else {
                     helper.setText(R.id.tv_price, String.valueOf(item.current));
                 }
-                if (item.amount != 0) {
+            }
+            if (item.amount != 0) {
+                if (pointNum != 0) {
+                    helper.setText(R.id.tv_amount, BigDecimal.valueOf(item.amount).setScale(pointNum, RoundingMode.DOWN).toPlainString());
+                } else {
                     helper.setText(R.id.tv_amount, String.valueOf(item.amount));
                 }
             }

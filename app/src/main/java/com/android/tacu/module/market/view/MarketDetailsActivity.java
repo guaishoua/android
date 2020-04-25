@@ -34,6 +34,7 @@ import com.android.tacu.module.market.model.SelfModel;
 import com.android.tacu.module.market.presenter.MarketDetailsPresenter;
 import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.BaseSocketManager;
+import com.android.tacu.socket.MainSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
 import com.android.tacu.utils.KlineUtils;
@@ -95,6 +96,8 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     @BindView(R.id.viewpager)
     ViewPager viewpager;
 
+    public static MainSocketManager marketDetailSocketManager;
+
     private TextView tvCenterTitle;
     //深度
     private MarketDetailDepthFragment marketDetailDepthFragment;
@@ -117,7 +120,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     private CoinPopWindow coinPopWindow;
 
-    private CurrentTradeCoinModel currentTradeCoinModel;
+    public static CurrentTradeCoinModel currentTradeCoinModel;
     private int pointPrice;
     //防止socket刷新频繁
     private int pointPriceTemp;
@@ -162,6 +165,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     @Override
     protected void initView() {
         setSocketEvent(MarketDetailsActivity.this, MarketDetailsActivity.this, SocketConstant.LOGINAFTERCHANGETRADECOIN);
+        marketDetailSocketManager = baseSocketManager;
 
         currencyId = getIntent().getIntExtra("currencyId", Constant.TAC_CURRENCY_ID);
         baseCurrencyId = getIntent().getIntExtra("baseCurrencyId", Constant.ACU_CURRENCY_ID);
@@ -262,6 +266,13 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         }
         if (linIndicator != null) {
             linIndicator.clear();
+        }
+        if (currentTradeCoinModel != null) {
+            currentTradeCoinModel = null;
+        }
+        if (marketDetailSocketManager != null) {
+            marketDetailSocketManager.deleteObservers();
+            marketDetailSocketManager = null;
         }
         System.gc();
     }
@@ -491,12 +502,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
                 tvChangeRate.setTextColor(ContextCompat.getColor(this, R.color.color_risedown));
                 tvChangeRate.setText(changeRate + "%");
             }
-        }
-        if (marketDetailDepthFragment != null) {
-            marketDetailDepthFragment.setCurrentTradeCoinModel(currentTradeCoinModel);
-        }
-        if (marketDetailHistoryFragment != null) {
-            marketDetailHistoryFragment.setCurrentTradeCoinModel(currentTradeCoinModel);
         }
     }
 

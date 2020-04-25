@@ -56,7 +56,7 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends LazyLoadB
     private ISocketEvent baseSocketEvent;
     private Observer baseObserver;
     protected AppSocket baseAppSocket;
-    private MainSocketManager baseSocketManager;
+    protected MainSocketManager baseSocketManager;
     //判断当前Activity是否可见
     protected boolean isVisibleActivity = true;
 

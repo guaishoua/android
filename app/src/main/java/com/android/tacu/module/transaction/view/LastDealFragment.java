@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.module.market.model.CurrentTradeCoinModel;
 import com.android.tacu.module.market.view.MarketDetailHistoryFragment;
 import com.android.tacu.utils.UIUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
@@ -124,12 +123,6 @@ public class LastDealFragment extends BaseFragment {
         }
         if (myDealFragment != null) {
             myDealFragment.setValue(currencyId, baseCurrencyId);
-        }
-    }
-
-    public void setCurrentTradeCoinModel(CurrentTradeCoinModel currentTradeCoinModel) {
-        if (marketDetailHistoryFragment != null) {
-            marketDetailHistoryFragment.setCurrentTradeCoinModel(currentTradeCoinModel);
         }
     }
 

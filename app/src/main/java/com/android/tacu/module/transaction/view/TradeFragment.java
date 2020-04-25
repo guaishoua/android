@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.android.tacu.common.TabAdapter;
 import com.android.tacu.module.vip.model.VipDetailRankModel;
+import com.android.tacu.socket.MainSocketManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.EventBus.EventConstant;
@@ -150,6 +151,8 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     //交易深度
     private QMUIBottomSheet mDepthSheet;
 
+    public static MainSocketManager tradeSocketManager;
+
     //设置交易左右的位置
     public static final String VIEW_POSITION = "VIEW_POSITION";
     public static final String POSITION_LEFT = "POSITION_LEFT";
@@ -174,7 +177,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     //交易对的深度合并选项默认条数
     private final int DEPTHPOPNUMBER = 4;
     //当前币种信息
-    private CurrentTradeCoinModel currentTradeCoinModel;
+    public static CurrentTradeCoinModel currentTradeCoinModel;
     //买卖委托列表
     private RecordModel recordModel;
     //用户数据
@@ -267,6 +270,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     @Override
     protected void initData(View view) {
         setSocketEvent(this, this, SocketConstant.LOGINAFTERCHANGETRADECOIN, SocketConstant.USERACCOUNT, SocketConstant.ENTRUST);
+        tradeSocketManager = baseSocketManager;
 
         tv_name.setText(currencyNameEn + "/" + baseCurrencyNameEn);
     }
@@ -319,6 +323,13 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         }
         if (screenShareHelper != null) {
             screenShareHelper.destory();
+        }
+        if (currentTradeCoinModel != null) {
+            currentTradeCoinModel = null;
+        }
+        if (tradeSocketManager != null) {
+            tradeSocketManager.deleteObservers();
+            tradeSocketManager = null;
         }
     }
 
@@ -898,7 +909,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         this.baseCurrencyNameEn = baseCurrencyNameEn;
 
         if (currentEntrustFragment != null) {
-            currentEntrustFragment.setCoinInfo(currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn);
+            currentEntrustFragment.setValue(currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn);
         }
         if (lastDealFragment != null) {
             lastDealFragment.setValue(currencyId, baseCurrencyId);
@@ -926,12 +937,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
      */
     private void coinInfo() {
         if (currentTradeCoinModel != null && currentTradeCoinModel.currentTradeCoin != null && currentTradeCoinModel.currentTradeCoin.baseCurrencyId == baseCurrencyId && currentTradeCoinModel.currentTradeCoin.currencyId == currencyId) {
-            if (lastDealFragment != null) {
-                lastDealFragment.setCurrentTradeCoinModel(currentTradeCoinModel);
-            }
-            if (quotationFragment != null) {
-                quotationFragment.setCurrentTradeCoinModel(currentTradeCoinModel);
-            }
             pointPrice = currentTradeCoinModel.currentTradeCoin.pointPrice;
             pointNum = currentTradeCoinModel.currentTradeCoin.pointNum;
 
@@ -1085,9 +1090,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                     //Socekt的加载动画
                     hideLoadingView();
                     setDepthPriceList(true);
-                    if (quotationFragment != null) {
-                        quotationFragment.entrustInfo(recordModel, currencyNameEn, baseCurrencyNameEn);
-                    }
                 }
             }
         });

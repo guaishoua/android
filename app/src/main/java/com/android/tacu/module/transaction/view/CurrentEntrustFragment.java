@@ -224,7 +224,7 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
         getEntrustList();
     }
 
-    public void setCoinInfo(int currencyId, int baseCurrencyId, String currencyNameEn, String baseCurrencyNameEn) {
+    public void setValue(int currencyId, int baseCurrencyId, String currencyNameEn, String baseCurrencyNameEn) {
         this.currencyId = currencyId;
         this.baseCurrencyId = baseCurrencyId;
         this.currencyNameEn = currencyNameEn;
