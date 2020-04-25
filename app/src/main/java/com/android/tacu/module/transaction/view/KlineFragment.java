@@ -9,10 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
-import com.android.tacu.socket.AppSocket;
 import com.android.tacu.utils.KlineUtils;
 import com.android.tacu.widget.tab.TabLayoutView;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
@@ -73,8 +69,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
 
     private boolean isAnim = true;
     private boolean isFirst = true;
-    private boolean isVisibleToUserTrade = false;
-    private boolean isVisibleToUserQuotation = false;
 
     private KLineModel kLineModel;
     private long klineRange;
@@ -124,6 +118,16 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     @Override
     protected void initData(View view) {
         setSocketEvent(this, this, SocketConstant.LOGINAFTERCHANGETRADECOIN);
+    }
+
+    @Override
+    protected MarketDetailsPresenter createPresenter(MarketDetailsPresenter mPresenter) {
+        return new MarketDetailsPresenter();
+    }
+
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
 
         linIndicator.setOnKChartView(mKChartView);
         linIndicator.setOnTabSelectListener(new TabLayoutView.TabSelectListener() {
@@ -149,21 +153,16 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     }
 
     @Override
-    protected MarketDetailsPresenter createPresenter(MarketDetailsPresenter mPresenter) {
-        return new MarketDetailsPresenter();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentResume() {
+        super.onFragmentResume();
         if (kHandler != null && kRunnable != null) {
             kHandler.post(kRunnable);
         }
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onFragmentPause() {
+        super.onFragmentPause();
         if (kHandler != null && kRunnable != null) {
             kHandler.removeCallbacks(kRunnable);
         }
@@ -201,20 +200,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     public void socketConnectEventAgain() {
         if (baseAppSocket != null) {
             baseAppSocket.coinInfo(currencyId, baseCurrencyId);
-        }
-    }
-
-    @Override
-    protected void receiveEvent(BaseEvent event) {
-        super.receiveEvent(event);
-        if (event != null) {
-            switch (event.getCode()) {
-                case EventConstant.TradeVisibleCode:
-                    TradeVisibleHintEvent tradeVisibleHintEvent = (TradeVisibleHintEvent) event.getData();
-                    isVisibleToUserTrade = tradeVisibleHintEvent.isVisibleToUser();
-                    upLoad(true);
-                    break;
-            }
         }
     }
 
@@ -280,18 +265,10 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         upLoad(true);
     }
 
-    public void setQuotationVisible(boolean isVisibleToUserQuotation) {
-        this.isVisibleToUserQuotation = isVisibleToUserQuotation;
-        upLoad(true);
-    }
-
     /**
      * 请求K线数据
      */
     private void upLoad(boolean isClear) {
-        if (!isVisibleToUserTrade || !isVisibleToUserQuotation || !isVisibleToUser) {
-            return;
-        }
         if (isAnim) {
             kAdapter.clearDataAndNotify();
             mKChartView.resetLoadMoreEnd();

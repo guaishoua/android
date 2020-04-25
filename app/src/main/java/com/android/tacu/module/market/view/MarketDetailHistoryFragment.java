@@ -96,6 +96,11 @@ public class MarketDetailHistoryFragment extends BaseFragment implements ISocket
     @Override
     protected void initData(View view) {
         setSocketEvent(this, this, SocketConstant.TRADEHISTORY);
+    }
+
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
 
         historyAdapter = new MarketHistoryAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

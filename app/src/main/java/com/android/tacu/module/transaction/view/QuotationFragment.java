@@ -10,9 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.EventManage;
-import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.market.model.CurrentTradeCoinModel;
@@ -60,14 +57,6 @@ public class QuotationFragment extends BaseFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (spUtil != null && klineFragment != null) {
-            klineFragment.setQuotationVisible(isVisibleToUser);
-        }
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -86,6 +75,12 @@ public class QuotationFragment extends BaseFragment {
 
     @Override
     protected void initData(View view) {
+    }
+
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+
         magicIndicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.content_bg_color));
         magicIndicator.setOnTransitionListener(new OnTransitionTextListener() {
             @Override

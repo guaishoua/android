@@ -15,7 +15,6 @@ public class LazyLoadBaseFragment extends Fragment {
     private boolean isViewCreated = false;
     private boolean currentVisibleState = false;
 
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);

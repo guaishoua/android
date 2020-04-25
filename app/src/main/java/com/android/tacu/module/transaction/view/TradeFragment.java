@@ -8,9 +8,7 @@ import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +19,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.transition.TransitionManager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
@@ -31,9 +28,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
+import com.android.tacu.common.TabAdapter;
 import com.android.tacu.module.vip.model.VipDetailRankModel;
-import com.android.tacu.socket.AppSocket;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.EventBus.EventConstant;
@@ -264,22 +260,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (spUtil != null) {
-            EventManage.sendEvent(new BaseEvent<>(EventConstant.TradeVisibleCode, new TradeVisibleHintEvent(isVisibleToUser)));
-            currentEntrustFragment.setTradeVisible(isVisibleToUser);
-        }
-    }
-
-    @Override
-    protected void initLazy() {
-        super.initLazy();
-        setTradeRefresh();
-        setTradeRequest();
-    }
-
-    @Override
     protected int getContentViewLayoutID() {
         return R.layout.fragment_trade;
     }
@@ -289,9 +269,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         setSocketEvent(this, this, SocketConstant.LOGINAFTERCHANGETRADECOIN, SocketConstant.USERACCOUNT, SocketConstant.ENTRUST);
 
         tv_name.setText(currencyNameEn + "/" + baseCurrencyNameEn);
-
-        initHeader();
-        initTradeHeader(tradeHeader);
     }
 
     @Override
@@ -300,13 +277,22 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+        initHeader();
+        initTradeHeader(tradeHeader);
+    }
+
+    @Override
+    public void onFragmentResume() {
+        super.onFragmentResume();
+
         isEditPriceChange = true;
         setPwdVis();
         initCacheSelf();
         setTvFee();
         setAvailableNumber();
+        setTradeRefresh();
         setTradeRequest();
         if (timeHandler != null && timeRunnable != null) {
             timeHandler.post(timeRunnable);
@@ -662,7 +648,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         fragmentList.add(quotationFragment);
 
         indicatorViewPager = new IndicatorViewPager(magicIndicator, viewPager);
-        indicatorViewPager.setAdapter(new TabAdapter(getChildFragmentManager()));
+        indicatorViewPager.setAdapter(new TabAdapter(getChildFragmentManager(), getContext(), tabDownTitle, fragmentList));
         viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
         viewPager.setCurrentItem(0, false);
     }
@@ -1233,9 +1219,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         }
     }
 
-    /**
-     * 加载Socket
-     */
     private void setTradeRefresh() {
         isEditPriceChange = true;
         editPrice.setText("");
@@ -1243,7 +1226,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     }
 
     private void setTradeRequest() {
-        if (spUtil.getLogin() && isVisibleToUser) {
+        if (spUtil.getLogin()) {
             mPresenter.selectVipDetail();
         }
     }
@@ -1615,42 +1598,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         }
         tradePopWindow.notifyInfo(currencyNameEn, baseCurrencyNameEn);
         tradePopWindow.showAsDropDown(view, 0, 0);
-    }
-
-    private class TabAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
-
-        public TabAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-        @Override
-        public int getCount() {
-            return tabDownTitle != null ? tabDownTitle.size() : 0;
-        }
-
-        @Override
-        public View getViewForTab(int position, View convertView, ViewGroup container) {
-            if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.view_tab, container, false);
-            }
-            TextView textView = (TextView) convertView;
-            textView.setText(tabDownTitle.get(position));
-            int padding = UIUtils.dp2px(10);
-            textView.setPadding(padding, 0, padding, 0);
-            return convertView;
-        }
-
-        @Override
-        public Fragment getFragmentForPage(int position) {
-            return fragmentList.get(position);
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            //这是ViewPager适配器的特点,有两个值 POSITION_NONE，POSITION_UNCHANGED，默认就是POSITION_UNCHANGED,
-            // 表示数据没变化不用更新.notifyDataChange的时候重新调用getViewForPage
-            return PagerAdapter.POSITION_UNCHANGED;
-        }
     }
 
     private boolean isKeyc() {

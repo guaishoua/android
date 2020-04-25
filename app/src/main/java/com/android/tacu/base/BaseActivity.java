@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -46,7 +45,7 @@ import static com.android.tacu.utils.ActivityStack.STATUS_KILLED;
 /**
  * Created by jiazhen on 2018/8/8.
  */
-public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompatActivity implements IBaseMvpView {
+public abstract class BaseActivity<P extends BaseMvpPresenter> extends LazyLoadBaseActivity implements IBaseMvpView {
 
     protected P mPresenter;
     private Unbinder unBinder;
@@ -122,15 +121,22 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         EventManage.register(this);
     }
 
-    protected boolean onTopBarBackPressed() {
-        return false;
+    @Override
+    public void onActivityResume() {
+        super.onActivityResume();
+        onEmit();
+    }
+
+    @Override
+    public void onActivityPause() {
+        super.onActivityPause();
+        disconnectEmit();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         isVisibleActivity = true;
-        onEmit();
         MobclickAgent.onResume(this);
     }
 
@@ -138,7 +144,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     protected void onPause() {
         super.onPause();
         isVisibleActivity = false;
-        disconnectEmit();
         MobclickAgent.onPause(this);
     }
 
@@ -182,6 +187,10 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
             res.updateConfiguration(config, res.getDisplayMetrics());
         }
         return res;
+    }
+
+    protected boolean onTopBarBackPressed() {
+        return false;
     }
 
     /**

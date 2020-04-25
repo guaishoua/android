@@ -85,18 +85,6 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends LazyLoadB
     }
 
     @Override
-    public void onFragmentResume() {
-        super.onFragmentResume();
-        onEmit();
-    }
-
-    @Override
-    public void onFragmentPause() {
-        super.onFragmentPause();
-        disconnectEmit();
-    }
-
-    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
@@ -169,6 +157,18 @@ public abstract class BaseFragment<P extends BaseMvpPresenter> extends LazyLoadB
             onPresenterCreated(mPresenter);
         }
         EventManage.register(this);
+    }
+
+    @Override
+    public void onFragmentResume() {
+        super.onFragmentResume();
+        onEmit();
+    }
+
+    @Override
+    public void onFragmentPause() {
+        super.onFragmentPause();
+        disconnectEmit();
     }
 
     @Override

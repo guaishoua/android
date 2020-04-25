@@ -57,7 +57,6 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
 
     // true=仅仅显示当前市场
     private boolean isCheckbox = false;
-    private boolean isVisibleToUserTrade = false;
 
     private CurrentAdapter currentAdapter;
 
@@ -81,13 +80,6 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
     }
 
     @Override
-    protected void initLazy() {
-        super.initLazy();
-
-        getEntrustList();
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -106,6 +98,16 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
 
     @Override
     protected void initData(View view) {
+    }
+
+    @Override
+    protected CurrentEntrustPresenter createPresenter(CurrentEntrustPresenter mPresenter) {
+        return new CurrentEntrustPresenter();
+    }
+
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
         refreshTrade.setEnableRefresh(false);
         refreshTrade.setEnableLoadmore(false);
         refreshTrade.setEnableOverScrollBounce(false);
@@ -140,13 +142,8 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
     }
 
     @Override
-    protected CurrentEntrustPresenter createPresenter(CurrentEntrustPresenter mPresenter) {
-        return new CurrentEntrustPresenter();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentResume() {
+        super.onFragmentResume();
 
         getEntrustList();
         if (!spUtil.getLogin()) {
@@ -242,15 +239,7 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
         getEntrustList();
     }
 
-    public void setTradeVisible(boolean isVisibleToUserTrade) {
-        this.isVisibleToUserTrade = isVisibleToUserTrade;
-        getEntrustList();
-    }
-
     private void getEntrustList() {
-        if (!isVisibleToUserTrade || !isVisibleToUser) {
-            return;
-        }
         if (spUtil != null && spUtil.getLogin()) {
             if (isCheckbox) {
                 currencyIdValue = currencyId;
