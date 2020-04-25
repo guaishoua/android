@@ -31,6 +31,7 @@ import android.widget.TextView;
 import com.android.tacu.common.TabAdapter;
 import com.android.tacu.module.vip.model.VipDetailRankModel;
 import com.android.tacu.socket.MainSocketManager;
+import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.EventBus.EventConstant;
@@ -78,6 +79,9 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -99,12 +103,14 @@ import static com.android.tacu.api.Constant.SELFCOIN_LIST;
 /**
  * Created by jiazhen on 2018/9/27.
  */
-public class TradeFragment extends BaseFragment<TradePresenter> implements View.OnClickListener, TradeContract.IView, ISocketEvent, Observer {
+public class TradeFragment extends BaseFragment<TradePresenter> implements View.OnClickListener, TradeContract.IView, ISocketEvent, Observer, CurrentEntrustFragment.TradeRefresh {
 
     @BindView(R.id.root_view)
     View rootView;
     @BindView(R.id.title)
     QMUITopBar mTopBar;
+    @BindView(R.id.refreshlayout)
+    SmartRefreshLayout refresh;
     @BindView(R.id.con_layout)
     ConstraintLayout con_layout;
     @BindView(R.id.trade_header)
@@ -283,6 +289,22 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     @Override
     public void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
+
+        CustomTextHeaderView header = new CustomTextHeaderView(getContext());
+        header.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
+        refresh.setRefreshHeader(header);
+        refresh.setEnableLoadmore(false);
+        refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                if (spUtil.getLogin() && currentEntrustFragment != null) {
+                    currentEntrustFragment.notiy(TradeFragment.this);
+                } else if (refresh != null && refresh.isRefreshing()) {
+                    refresh.finishRefresh();
+                }
+            }
+        });
+
         initHeader();
         initTradeHeader(tradeHeader);
     }
@@ -324,13 +346,11 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         if (screenShareHelper != null) {
             screenShareHelper.destory();
         }
-        if (currentTradeCoinModel != null) {
-            currentTradeCoinModel = null;
-        }
         if (tradeSocketManager != null) {
             tradeSocketManager.deleteObservers();
             tradeSocketManager = null;
         }
+        currentTradeCoinModel = null;
     }
 
     @OnClick(R.id.tv_name)
@@ -506,7 +526,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         editPrice.setText("");
         editNumber.setText("");
         editPwd.setText("");
-        currentEntrustFragment.notiy();
+        currentEntrustFragment.notiy(this);
     }
 
     @Override
@@ -595,6 +615,13 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                     }
                     break;
             }
+        }
+    }
+
+    @Override
+    public void hideTradeRefresh() {
+        if (refresh != null && refresh.isRefreshing()) {
+            refresh.finishRefresh();
         }
     }
 
@@ -926,7 +953,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         tvAvailableNumber.setText(getResources().getString(R.string.available_number) + " --" + baseCurrencyNameEn);
         sellAdapter.setNewData(null);
         buyAdapter.setNewData(null);
-        onEmit();
+        socketConnectEventAgain();
         setTradeRefresh();
         marketPriceShow();
         initCacheSelf();
@@ -1064,7 +1091,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
             if (!TextUtils.equals(UserAccountString, UserAccountTemp)) {
                 UserAccountTemp = UserAccountString;
                 if (currentEntrustFragment != null) {
-                    currentEntrustFragment.notiy();
+                    currentEntrustFragment.notiy(this);
                 }
                 if (lastDealFragment != null) {
                     lastDealFragment.notiy();

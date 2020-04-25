@@ -205,6 +205,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         }
     }
 
+    @Override
+    public void hideRefreshView() {
+        super.hideRefreshView();
+        if (refreshHome != null && refreshHome.isRefreshing()) {
+            refreshHome.finishRefresh();
+        }
+    }
+
     @OnClick(R.id.tv_auction)
     void auctionClick() {
         jumpTo(AuctionActivity.class);
@@ -264,14 +272,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @OnClick(R.id.tv_hour)
     void hour() {
         hourClick();
-    }
-
-    @Override
-    public void hideRefreshView() {
-        super.hideRefreshView();
-        if (refreshHome != null && refreshHome.isRefreshing()) {
-            refreshHome.finishRefresh();
-        }
     }
 
     @Override

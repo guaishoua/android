@@ -133,15 +133,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     }
 
     @Override
-    protected void initLazy() {
-        super.initLazy();
-        if (spUtil.getLogin()) {
-            dealBondValue();
-            upLoad(assetDetailsModel != null ? false : true);
-        }
-    }
-
-    @Override
     protected int getContentViewLayoutID() {
         return R.layout.fragment_assets;
     }
@@ -204,11 +195,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                 upLoad(false);
             }
         });
-
-        initReyclerView();
-        initAssetHeader();
-        editViewSearch();
-        dealBondValue();
     }
 
     @Override
@@ -217,16 +203,26 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (isVisibleToUser) {
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+
+        initReyclerView();
+        initAssetHeader();
+        editViewSearch();
+    }
+
+    @Override
+    public void onFragmentResume() {
+        super.onFragmentResume();
+        if (spUtil.getLogin()) {
+            dealBondValue();
             upLoad(assetDetailsModel != null ? false : true);
         }
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onFragmentPause() {
+        super.onFragmentPause();
         //跳转其他页面关闭EditText焦点
         et_search.setFocusable(false);
         if (inputMethod.isActive()) {

@@ -68,6 +68,8 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
 
     private ShowOrderListModel showOrderListModel;
 
+    private TradeRefresh tradeRefresh;
+
     public static CurrentEntrustFragment newInstance(int currencyId, int baseCurrencyId, String currencyNameEn, String baseCurrencyNameEn) {
         Bundle bundle = new Bundle();
         bundle.putInt("currencyId", currencyId);
@@ -148,6 +150,14 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
         getEntrustList();
         if (!spUtil.getLogin()) {
             currentAdapter.setNewData(null);
+        }
+    }
+
+    @Override
+    public void hideRefreshView() {
+        super.hideRefreshView();
+        if (tradeRefresh != null) {
+            tradeRefresh.hideTradeRefresh();
         }
     }
 
@@ -235,7 +245,8 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
         getEntrustList();
     }
 
-    public void notiy() {
+    public void notiy(TradeRefresh refresh) {
+        this.tradeRefresh = refresh;
         getEntrustList();
     }
 
@@ -331,5 +342,9 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
                 }
             });
         }
+    }
+
+    public interface TradeRefresh {
+        void hideTradeRefresh();
     }
 }
