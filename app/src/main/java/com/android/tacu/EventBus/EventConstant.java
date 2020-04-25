@@ -23,10 +23,6 @@ public class EventConstant {
     public static final int PayInfoCode = 1008;
     //购买vip，子fragment通知父Activity刷新
     public static final int VipBuyCode = 1009;
-    //OtcHomeFragment 发送当前的isVisibleToUser
-    public static final int OtcHomeVisibleCode = 1010;
-    //OtcMarketFragment 发送当前的isVisibleToUser
-    public static final int OtcMarketVisibleCode = 1011;
     //刷新订单详情
     public static final int OTCDetailCode = 1013;
     //OtcOrderListFragment 发送当前的isVisibleToUser

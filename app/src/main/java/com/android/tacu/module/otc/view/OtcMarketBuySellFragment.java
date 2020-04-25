@@ -16,10 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.OtcHomeVisibleHintEvent;
-import com.android.tacu.EventBus.model.OtcMarketVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
@@ -81,8 +77,6 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     private ListPopWindow listPopup;
     private OtcMarketBuySellAdapter mAdapter;
     private List<OtcMarketOrderAllModel> allList = new ArrayList<>();
-    private boolean isVisibleToUserOTCHome = false;
-    private boolean isVisibleToUserOTCMarket = false;
     private boolean isFirst = true;
 
     private DroidDialog offlineDialog;
@@ -96,14 +90,6 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         OtcMarketBuySellFragment fragment = new OtcMarketBuySellFragment();
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    @Override
-    protected void initLazy() {
-        super.initLazy();
-        if (isFirst) {
-            upload(true, true);
-        }
     }
 
     @Override
@@ -162,8 +148,8 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentResume() {
+        super.onFragmentResume();
         upload(isFirst, true);
     }
 
@@ -178,25 +164,6 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         }
         if (doingDialog != null && doingDialog.isShowing()) {
             doingDialog.dismiss();
-        }
-    }
-
-    @Override
-    protected void receiveStickyEvent(BaseEvent event) {
-        super.receiveStickyEvent(event);
-        if (event != null) {
-            switch (event.getCode()) {
-                case EventConstant.OtcHomeVisibleCode:
-                    OtcHomeVisibleHintEvent otcHomeVisibleHintEvent = (OtcHomeVisibleHintEvent) event.getData();
-                    isVisibleToUserOTCHome = otcHomeVisibleHintEvent.isVisibleToUser();
-                    upload(isFirst, true);
-                    break;
-                case EventConstant.OtcMarketVisibleCode:
-                    OtcMarketVisibleHintEvent otcMarketVisibleHintEvent = (OtcMarketVisibleHintEvent) event.getData();
-                    isVisibleToUserOTCMarket = otcMarketVisibleHintEvent.isVisibleToUser();
-                    upload(isFirst, true);
-                    break;
-            }
         }
     }
 
@@ -323,9 +290,6 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
     }
 
     private void upload(boolean isShowViewing, boolean isTop) {
-        if (!isVisibleToUser || !isVisibleToUserOTCHome || !isVisibleToUserOTCMarket) {
-            return;
-        }
         if (isFirst) {
             isFirst = false;
         }
