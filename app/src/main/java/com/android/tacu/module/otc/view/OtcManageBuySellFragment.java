@@ -94,14 +94,6 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     }
 
     @Override
-    protected void initLazy() {
-        super.initLazy();
-        if (isFirst) {
-            upload();
-        }
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -217,8 +209,9 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     }
 
     @Override
-    protected void onPresenterCreated(OtcManageBuySellPresenter mPresenter) {
-        super.onPresenterCreated(mPresenter);
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+
         upload();
     }
 
@@ -340,13 +333,11 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     }
 
     private void upload() {
-        if (isVisibleToUser) {
-            if (!isBuy) {
-                mPresenter.selectBondFreerate(isFirst);
-            }
-            if (isFirst) {
-                isFirst = false;
-            }
+        if (!isBuy) {
+            mPresenter.selectBondFreerate(isFirst);
+        }
+        if (isFirst) {
+            isFirst = false;
         }
     }
 

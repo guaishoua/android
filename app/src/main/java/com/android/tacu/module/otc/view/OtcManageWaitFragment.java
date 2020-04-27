@@ -92,14 +92,6 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
     }
 
     @Override
-    protected void initLazy() {
-        super.initLazy();
-        if (isFirst) {
-            upload(true, true);
-        }
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -149,8 +141,9 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentResume() {
+        super.onFragmentResume();
+
         upload(isFirst, true);
         if (timeHandler != null && timeRunnable != null) {
             timeHandler.post(timeRunnable);
@@ -158,8 +151,9 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onFragmentPause() {
+        super.onFragmentPause();
+
         if (timeHandler != null && timeRunnable != null) {
             timeHandler.removeCallbacks(timeRunnable);
         }
@@ -283,9 +277,6 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
     }
 
     private void upload(boolean isShowView, boolean isTop) {
-        if (!isVisibleToUser) {
-            return;
-        }
         if (isTop) {
             start = 1;
         }
