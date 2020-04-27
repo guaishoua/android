@@ -980,4 +980,5 @@
     <string name="pay_info_one">每种支付方式只能绑定一个账号</string>
     <string name="please_input_username">请输入姓名</string>
     <string name="select_getmoney_type">选择收款方式</string>
+    <string name="please_select_getmoney_type">请选择收款方式</string>
 </resources>

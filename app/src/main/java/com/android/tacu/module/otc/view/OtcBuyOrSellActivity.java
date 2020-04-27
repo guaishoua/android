@@ -91,8 +91,9 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
     private boolean isInputAll = true;
 
     private Dialog dialog;
-    private List<PayInfoModel> bankList = new ArrayList<>();
+    private List<PayInfoModel> selectBankList = new ArrayList<>();
     private PayInfoAdapter adapter;
+    private Integer payId;
 
     public static Intent createActivity(Context context, boolean isBuy, String orderId) {
         Intent intent = new Intent(context, OtcBuyOrSellActivity.class);
@@ -270,7 +271,11 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
                 }
             }
 
-            showSure();
+            if (isBuy) {
+                mPresenter.selectMerchantBank(String.valueOf(allModel.orderModel.uid), FormatterUtils.getFormatRoundDown(2, num), FormatterUtils.getFormatRoundDown(2, amount));
+            } else {
+                mPresenter.selectBank(FormatterUtils.getFormatRoundDown(2, num), FormatterUtils.getFormatRoundDown(2, amount));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -290,9 +295,14 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
     }
 
     @Override
-    public void selectBank(List<PayInfoModel> list) {
-        this.bankList = list;
+    public void selectBank(List<PayInfoModel> list, String num, String amount) {
         UserManageUtils.setPeoplePayInfo(list);
+        showSure(list, num, amount);
+    }
+
+    @Override
+    public void selectMerchantBank(List<PayInfoModel> list, String num, String amount) {
+        showSure(list, num, amount);
     }
 
     @Override
@@ -304,7 +314,6 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
     private void upload() {
         mPresenter.otcAmount(Constant.ACU_CURRENCY_ID);
         mPresenter.orderListOne(orderId);
-        mPresenter.selectBank();
     }
 
     public void setOrderInfo() {
@@ -342,7 +351,31 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
         }
     }
 
-    private void showSure() {
+    private void showSure(List<PayInfoModel> pays, final String num, final String amount) {
+        if (pays == null || pays.size() <= 0 || allModel == null) {
+            return;
+        }
+
+        payId = null;
+        selectBankList.clear();
+        for (PayInfoModel pay : pays) {
+            if (allModel.orderModel.payByCard != null && allModel.orderModel.payByCard == 1) {
+                if (pay.type != null && pay.type == 1 && pay.status == 1) {
+                    selectBankList.add(pay);
+                }
+            }
+            if (allModel.orderModel.payWechat != null && allModel.orderModel.payWechat == 1) {
+                if (pay.type != null && pay.type == 2 && pay.status == 1) {
+                    selectBankList.add(pay);
+                }
+            }
+            if (allModel.orderModel.payAlipay != null && allModel.orderModel.payAlipay == 1) {
+                if (pay.type != null && pay.type == 3 && pay.status == 1) {
+                    selectBankList.add(pay);
+                }
+            }
+        }
+
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_confirm_payinfo, null);
 
         ImageView img_close = view.findViewById(R.id.img_close);
@@ -358,14 +391,19 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
         btn_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (payId == null) {
+                    showToastError(getResources().getString(R.string.please_select_getmoney_type));
+                    return;
+                }
+                dialog.dismiss();
+                mPresenter.otcTrade(allModel.orderModel.id, payId, num, amount);
             }
         });
 
         adapter = new PayInfoAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-        adapter.setNewData(bankList);
+        adapter.setNewData(selectBankList);
 
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -374,11 +412,11 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
         params.copyFrom(dialog.getWindow().getAttributes());
         params.width = UIUtils.getScreenWidth();
         //判断高度
-        int num = 0;
-        if (bankList != null && bankList.size() > 0) {
-            num = bankList.size();
+        int size = 0;
+        if (selectBankList != null && selectBankList.size() > 0) {
+            size = selectBankList.size();
         }
-        if (UIUtils.dp2px(50) * num >= UIUtils.getScreenHeight() / 2) {
+        if (UIUtils.dp2px(50) * size >= UIUtils.getScreenHeight() / 2) {
             params.height = UIUtils.getScreenHeight() / 2;
         } else {
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -401,19 +439,20 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
         protected void convert(final BaseViewHolder holder, final PayInfoModel item) {
             if (item.type == 1) {
                 holder.setBackgroundRes(R.id.img_pay, R.mipmap.img_yhk);
-                holder.setText(R.id.tv_name, getResources().getString(R.string.yinhanngka));
+                holder.setText(R.id.tv_pay, getResources().getString(R.string.yinhanngka));
                 holder.setText(R.id.tv_pay_account, CommonUtils.hideCardNo(item.bankCard));
             } else if (item.type == 2) {
                 holder.setBackgroundRes(R.id.img_pay, R.mipmap.img_wx);
-                holder.setText(R.id.tv_name, getResources().getString(R.string.weixin));
+                holder.setText(R.id.tv_pay, getResources().getString(R.string.weixin));
                 holder.setText(R.id.tv_pay_account, CommonUtils.hidePhoneNo(item.weChatNo));
             } else if (item.type == 3) {
                 holder.setBackgroundRes(R.id.img_pay, R.mipmap.img_zfb);
-                holder.setText(R.id.tv_name, getResources().getString(R.string.zhifubao));
+                holder.setText(R.id.tv_pay, getResources().getString(R.string.zhifubao));
                 holder.setText(R.id.tv_pay_account, CommonUtils.hidePhoneNo(item.aliPayNo));
             }
 
             ((CheckBox) holder.getView(R.id.cb)).setChecked(item.isCB);
+
             holder.setOnClickListener(R.id.cb, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -424,12 +463,13 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
     }
 
     private void notifyCheckbox(int id) {
-        if (bankList != null && bankList.size() > 0) {
-            for (int i = 0; i < bankList.size(); i++) {
-                if (bankList.get(i).id == id) {
-                    bankList.get(i).isCB = true;
+        payId = id;
+        if (selectBankList != null && selectBankList.size() > 0) {
+            for (int i = 0; i < selectBankList.size(); i++) {
+                if (selectBankList.get(i).id == id) {
+                    selectBankList.get(i).isCB = true;
                 } else {
-                    bankList.get(i).isCB = false;
+                    selectBankList.get(i).isCB = false;
                 }
             }
             adapter.notifyDataSetChanged();

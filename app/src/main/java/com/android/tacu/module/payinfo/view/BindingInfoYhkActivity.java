@@ -109,9 +109,14 @@ public class BindingInfoYhkActivity extends BaseActivity<PayInfoPresenter> imple
     @OnClick(R.id.btn_bindinng)
     void bindingClick() {
         if (!OtcTradeDialogUtils.isDialogShow(this)) {
+            final String name = edit_cardholder_name.getText().toString().trim();
             final String bankName = edit_bank_name.getText().toString().trim();
             final String openBankName = edit_open_bank_name.getText().toString().trim();
             final String bankCard = edit_bank_id.getText().toString().trim();
+            if (TextUtils.isEmpty(name)) {
+                showToastError(getResources().getString(R.string.please_input_username));
+                return;
+            }
             if (TextUtils.isEmpty(bankName)) {
                 showToastError(getResources().getString(R.string.please_input_bank_name));
                 return;
@@ -129,12 +134,12 @@ public class BindingInfoYhkActivity extends BaseActivity<PayInfoPresenter> imple
                 OtcPwdDialogUtils.showPwdDiaglog(this, getResources().getString(R.string.please_input_trade_password), new OtcPwdDialogUtils.OnPassListener() {
                     @Override
                     public void onPass(String pwd) {
-                        mPresenter.insert(1, bankName, openBankName, bankCard, null, null, null, null, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
+                        mPresenter.insert(1, name, bankName, openBankName, bankCard, null, null, null, null, Md5Utils.encryptFdPwd(pwd, spUtil.getUserUid()).toLowerCase());
                     }
                 });
                 return;
             }
-            mPresenter.insert(1, bankName, openBankName, bankCard, null, null, null, null, null);
+            mPresenter.insert(1, name, bankName, openBankName, bankCard, null, null, null, null, null);
         }
     }
 
@@ -192,13 +197,12 @@ public class BindingInfoYhkActivity extends BaseActivity<PayInfoPresenter> imple
                 .show();
     }
 
-    public void setValue(PayInfoModel model) {
-        this.payInfoModel = model;
+    private void setValue(PayInfoModel model) {
         if (model != null) {
             lin_edit.setVisibility(View.GONE);
             lin_list.setVisibility(View.VISIBLE);
 
-            //tv_cardholder_name1.setText();
+            tv_cardholder_name1.setText(model.name);
             tv_bank_name.setText(model.bankName);
             tv_open_bank_name.setText(model.openBankName);
             tv_bank_id.setText(model.bankCard);

@@ -244,6 +244,7 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
             orderAdapter.setEmptyView(emptyView);
             refreshManage.setEnableLoadmore(false);
         }
+        mPresenter.currentTime();
     }
 
     @Override
@@ -287,7 +288,6 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
             tradeModelList.clear();
         }
         currentTime = null;
-        mPresenter.currentTime();
         mPresenter.tradeList(isShowView, orderId, null, start, 10, null, 16);
     }
 

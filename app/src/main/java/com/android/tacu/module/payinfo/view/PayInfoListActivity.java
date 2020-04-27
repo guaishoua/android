@@ -21,7 +21,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,6 +120,58 @@ public class PayInfoListActivity extends BaseActivity<PayInfoPresenter> implemen
         payInfoAdapter.setNewData(list);
     }
 
+    @Override
+    public void cancelBankSuccess(Integer id) {
+        if (payInfoModelList != null && payInfoModelList.size() > 0) {
+            for (int i = 0; i < payInfoModelList.size(); i++) {
+                if (payInfoModelList.get(i).id == id) {
+                    payInfoModelList.get(i).status = 0;
+                    break;
+                }
+            }
+            payInfoAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void cancelBankFailure(Integer id) {
+        if (payInfoModelList != null && payInfoModelList.size() > 0) {
+            for (int i = 0; i < payInfoModelList.size(); i++) {
+                if (payInfoModelList.get(i).id == id) {
+                    payInfoModelList.get(i).status = 1;
+                    break;
+                }
+            }
+            payInfoAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void openBankSuccess(Integer id) {
+        if (payInfoModelList != null && payInfoModelList.size() > 0) {
+            for (int i = 0; i < payInfoModelList.size(); i++) {
+                if (payInfoModelList.get(i).id == id) {
+                    payInfoModelList.get(i).status = 1;
+                    break;
+                }
+            }
+            payInfoAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void openBankFailure(Integer id) {
+        if (payInfoModelList != null && payInfoModelList.size() > 0) {
+            for (int i = 0; i < payInfoModelList.size(); i++) {
+                if (payInfoModelList.get(i).id == id) {
+                    payInfoModelList.get(i).status = 0;
+                    break;
+                }
+            }
+            payInfoAdapter.notifyDataSetChanged();
+        }
+    }
+
     private void upload() {
         mPresenter.selectBank(isFirst);
         if (isFirst) {
@@ -149,13 +200,24 @@ public class PayInfoListActivity extends BaseActivity<PayInfoPresenter> implemen
                 holder.setText(R.id.tv_name, getResources().getString(R.string.zhifubao));
                 holder.setText(R.id.tv_no, CommonUtils.hidePhoneNo(item.aliPayNo));
             }
+
+            holder.setText(R.id.tv_user, item.name);
             holder.setGone(R.id.cb, isShowCb);
+            if (item.status != null && item.status == 0) {
+                ((CheckBox) holder.getView(R.id.cb)).setChecked(false);
+            } else {
+                ((CheckBox) holder.getView(R.id.cb)).setChecked(true);
+            }
+
             holder.setOnClickListener(R.id.cb, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((CheckBox) holder.getView(R.id.cb)).toggle();
-
-
+                    if (((CheckBox) holder.getView(R.id.cb)).isChecked()) {
+                        mPresenter.openBank(item.id);
+                    } else {
+                        mPresenter.cancelBank(item.id);
+                    }
                 }
             });
             holder.itemView.setOnClickListener(new View.OnClickListener() {

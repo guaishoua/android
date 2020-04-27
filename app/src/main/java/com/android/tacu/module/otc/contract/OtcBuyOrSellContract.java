@@ -14,7 +14,9 @@ public class OtcBuyOrSellContract {
 
         void orderListOne(OtcMarketOrderAllModel model);
 
-        void selectBank(List<PayInfoModel> list);
+        void selectBank(List<PayInfoModel> list, String num, final String amount);
+
+        void selectMerchantBank(List<PayInfoModel> list, String num, final String amount);
 
         void otcTradeSuccess();
     }
@@ -24,7 +26,9 @@ public class OtcBuyOrSellContract {
 
         void orderListOne(String orderId);
 
-        void selectBank();
+        void selectBank(String num, String amount);
+
+        void selectMerchantBank(String merchantId, String num, final String amount);
 
         void otcTrade(String orderId, Integer payType, String num, String amount);
     }

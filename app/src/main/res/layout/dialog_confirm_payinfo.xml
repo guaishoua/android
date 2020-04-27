@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_dialog"
@@ -9,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_55"
+        android:layout_height="@dimen/dp_45"
         android:paddingLeft="@dimen/dp_15"
         android:paddingRight="@dimen/dp_5">
 
@@ -17,9 +16,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:text="@string/select_getmoney_type"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_16"
-            tools:text="@string/select_getmoney_type" />
+            android:textSize="@dimen/text_size_sp_16" />
 
         <ImageView
             android:id="@+id/img_close"
@@ -46,8 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
         android:layout_marginHorizontal="@dimen/dp_15"
-        android:layout_marginBottom="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginBottom="@dimen/dp_15"
         android:text="@string/sure"
         android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_sp_14"

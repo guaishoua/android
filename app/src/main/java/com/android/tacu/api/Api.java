@@ -1340,4 +1340,31 @@ public interface Api {
             @Field("amount") String amount,
             @Field("currencyId") Integer currencyId
     );
+
+    /**
+     * 认证商户关闭支付渠道
+     */
+    @FormUrlEncoded
+    @POST("cancelBank")
+    Observable<BaseModel> cancelBank(
+            @Field("id") Integer id
+    );
+
+    /**
+     * 认证商户开启支付渠道
+     */
+    @FormUrlEncoded
+    @POST("openBank")
+    Observable<BaseModel> openBank(
+            @Field("id") Integer id
+    );
+
+    /**
+     * 认证商户开启支付渠道
+     */
+    @FormUrlEncoded
+    @POST("selectMerchantBank")
+    Observable<BaseModel<List<PayInfoModel>>> selectMerchantBank(
+            @Field("merchantId") String merchantId
+    );
 }

@@ -87,6 +87,7 @@ public class BindingInfoWxActivity extends BaseActivity<PayInfoPresenter> implem
     private String uploadImageName;
     private File uploadFile;
 
+    private String name;
     private String weChatNo;
     private String pwdString;
 
@@ -201,7 +202,12 @@ public class BindingInfoWxActivity extends BaseActivity<PayInfoPresenter> implem
     @OnClick(R.id.btn_bindinng)
     void bindingClick() {
         if (!OtcTradeDialogUtils.isDialogShow(this)) {
+            name = edit_account_owner.getText().toString().trim();
             weChatNo = edit_wx_name.getText().toString().trim();
+            if (TextUtils.isEmpty(name)) {
+                showToastError(getResources().getString(R.string.please_input_username));
+                return;
+            }
             if (TextUtils.isEmpty(weChatNo)) {
                 showToastError(getResources().getString(R.string.please_input_wx_account));
                 return;
@@ -284,13 +290,12 @@ public class BindingInfoWxActivity extends BaseActivity<PayInfoPresenter> implem
                 .show();
     }
 
-    public void setValue(PayInfoModel model) {
-        this.payInfoModel = model;
+    private void setValue(PayInfoModel model) {
         if (model != null) {
             lin_edit.setVisibility(View.GONE);
             lin_list.setVisibility(View.VISIBLE);
 
-            //tv_account_owner1.setText();
+            tv_account_owner1.setText(model.name);
             tv_wx_name.setText(model.weChatNo);
             mPresenter.uselectUserInfo(model.weChatImg);
         } else {
@@ -337,7 +342,7 @@ public class BindingInfoWxActivity extends BaseActivity<PayInfoPresenter> implem
     private void dealValue(int flag) {
         if (flag == 1) {
             mHandler.sendEmptyMessage(0);
-            mPresenter.insert(2, null, null, null, weChatNo, uploadImageName, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+            mPresenter.insert(2, name, null, null, null, weChatNo, uploadImageName, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
         } else {
             mHandler.sendEmptyMessage(1);
         }

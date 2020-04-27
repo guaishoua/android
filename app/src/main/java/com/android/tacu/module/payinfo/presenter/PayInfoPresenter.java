@@ -69,4 +69,42 @@ public class PayInfoPresenter extends BaseMvpPresenter implements PayInfoContrac
             }
         });
     }
+
+    @Override
+    public void cancelBank(final Integer id) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).cancelBank(id), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel o) {
+                PayInfoContract.IView view = (PayInfoContract.IView) getView();
+                view.cancelBankSuccess(id);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                super.onError(throwable);
+
+                PayInfoContract.IView view = (PayInfoContract.IView) getView();
+                view.cancelBankFailure(id);
+            }
+        });
+    }
+
+    @Override
+    public void openBank(final Integer id) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).openBank(id), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel o) {
+                PayInfoContract.IView view = (PayInfoContract.IView) getView();
+                view.openBankSuccess(id);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                super.onError(throwable);
+
+                PayInfoContract.IView view = (PayInfoContract.IView) getView();
+                view.openBankFailure(id);
+            }
+        });
+    }
 }

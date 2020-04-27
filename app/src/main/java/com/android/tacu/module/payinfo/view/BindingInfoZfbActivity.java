@@ -61,7 +61,7 @@ public class BindingInfoZfbActivity extends BaseActivity<PayInfoPresenter> imple
     @BindView(R.id.lin_edit)
     LinearLayout lin_edit;
     @BindView(R.id.edit_account_owner)
-    TextView edit_account_owner;
+    EditText edit_account_owner;
     @BindView(R.id.edit_zfb_name)
     EditText edit_zfb_name;
     @BindView(R.id.img_zfb_shoukuan)
@@ -87,6 +87,7 @@ public class BindingInfoZfbActivity extends BaseActivity<PayInfoPresenter> imple
     private String uploadImageName;
     private File uploadFile;
 
+    private String name;
     private String zfbChatNo;
     private String pwdString;
 
@@ -201,7 +202,12 @@ public class BindingInfoZfbActivity extends BaseActivity<PayInfoPresenter> imple
     @OnClick(R.id.btn_bindinng)
     void bindingClick() {
         if (!OtcTradeDialogUtils.isDialogShow(this)) {
+            name = edit_account_owner.getText().toString().trim();
             zfbChatNo = edit_zfb_name.getText().toString().trim();
+            if (TextUtils.isEmpty(name)) {
+                showToastError(getResources().getString(R.string.please_input_username));
+                return;
+            }
             if (TextUtils.isEmpty(zfbChatNo)) {
                 showToastError(getResources().getString(R.string.please_input_zfb_account));
                 return;
@@ -284,13 +290,12 @@ public class BindingInfoZfbActivity extends BaseActivity<PayInfoPresenter> imple
                 .show();
     }
 
-    public void setValue(PayInfoModel model) {
-        this.payInfoModel = model;
+    private void setValue(PayInfoModel model) {
         if (model != null) {
             lin_edit.setVisibility(View.GONE);
             lin_list.setVisibility(View.VISIBLE);
 
-            //tv_account_owner1.setText();
+            tv_account_owner1.setText(model.name);
             tv_zfb_name.setText(model.aliPayNo);
             mPresenter.uselectUserInfo(model.aliPayImg);
         } else {
@@ -337,7 +342,7 @@ public class BindingInfoZfbActivity extends BaseActivity<PayInfoPresenter> imple
     private void dealValue(int flag) {
         if (flag == 1) {
             mHandler.sendEmptyMessage(0);
-            mPresenter.insert(3, null, null, null, null, null, zfbChatNo, uploadImageName, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+            mPresenter.insert(3, name, null, null, null, null, null, zfbChatNo, uploadImageName, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
         } else {
             mHandler.sendEmptyMessage(1);
         }

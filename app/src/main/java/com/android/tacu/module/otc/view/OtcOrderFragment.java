@@ -235,6 +235,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
             orderAdapter.setNewData(null);
             refreshManage.setEnableLoadmore(false);
         }
+        mPresenter.currentTime();
     }
 
     @Override
@@ -271,7 +272,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
             tradeModelList.clear();
         }
         currentTime = null;
-        mPresenter.currentTime();
         mPresenter.tradeList(isShowView, isTop, null, null, start, 10, buyOrSell, orderStatus);
     }
 

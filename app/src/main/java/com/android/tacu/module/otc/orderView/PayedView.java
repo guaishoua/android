@@ -16,7 +16,6 @@ import com.android.tacu.EventBus.model.OtcDetailNotifyEvent;
 import com.android.tacu.R;
 import com.android.tacu.module.ZoomImageViewActivity;
 import com.android.tacu.module.payinfo.model.PayInfoModel;
-import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 import com.android.tacu.module.otc.presenter.OtcOrderDetailPresenter;
 import com.android.tacu.module.otc.view.OtcOrderDetailActivity;
@@ -191,6 +190,7 @@ public class PayedView extends BaseOtcView implements View.OnClickListener {
             switch (model.type) {
                 case 1:
                     lin_yhk.setVisibility(View.VISIBLE);
+                    tv_yhk_name.setText(model.name);
                     tv_paytype.setText(activity.getResources().getString(R.string.yinhanngka));
                     tv_bank_name.setText(model.bankName);
                     tv_open_bank_name.setText(model.openBankName);
@@ -198,12 +198,14 @@ public class PayedView extends BaseOtcView implements View.OnClickListener {
                     break;
                 case 2:
                     lin_wx.setVisibility(View.VISIBLE);
+                    tv_account_wx.setText(model.name);
                     tv_paytype.setText(activity.getResources().getString(R.string.weixin));
                     tv_wx_name.setText(model.weChatNo);
                     mPresenter.uselectUserInfo(model.weChatImg);
                     break;
                 case 3:
                     lin_zfb.setVisibility(View.VISIBLE);
+                    tv_account_zfb.setText(model.name);
                     tv_paytype.setText(activity.getResources().getString(R.string.zhifubao));
                     tv_zfb_name.setText(model.aliPayNo);
                     mPresenter.uselectUserInfo(model.aliPayImg);
@@ -231,14 +233,6 @@ public class PayedView extends BaseOtcView implements View.OnClickListener {
                         break;
                 }
             }
-        }
-    }
-
-    public void userBaseInfo(OtcMarketInfoModel model) {
-        if (model != null) {
-            tv_account_wx.setText(model.firstName + model.secondName);
-            tv_account_zfb.setText(model.firstName + model.secondName);
-            tv_yhk_name.setText(model.firstName + model.secondName);
         }
     }
 

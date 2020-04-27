@@ -28,7 +28,6 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.interfaces.OnPermissionListener;
-import com.android.tacu.module.assets.view.AssetsActivity;
 import com.android.tacu.module.auctionplus.view.AuctionActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.HomeContract;
@@ -42,13 +41,11 @@ import com.android.tacu.module.market.view.SelfSelectionFragment;
 import com.android.tacu.module.my.view.BindModeActivity;
 import com.android.tacu.module.my.view.GoogleHintActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
-import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
 import com.android.tacu.utils.ConvertMoneyUtils;
 import com.android.tacu.utils.GlideUtils;
-import com.android.tacu.utils.LogUtils;
 import com.android.tacu.utils.SPUtils;
 import com.android.tacu.utils.ScreenShareHelper;
 import com.android.tacu.utils.UIUtils;
@@ -271,14 +268,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @OnClick(R.id.tv_hour)
     void hour() {
         hourClick();
-    }
-
-    @Override
-    public void hideRefreshView() {
-        super.hideRefreshView();
-        if (refreshHome != null && refreshHome.isRefreshing()) {
-            refreshHome.finishRefresh();
-        }
     }
 
     @Override

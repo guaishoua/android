@@ -10,6 +10,14 @@ public class PayInfoContract {
 
     public interface IView extends IBaseMvpView {
         void selectBank(List<PayInfoModel> list);
+
+        void cancelBankSuccess(Integer id);
+
+        void cancelBankFailure(Integer id);
+
+        void openBankSuccess(Integer id);
+
+        void openBankFailure(Integer id);
     }
 
     public interface IDetailView extends IBaseMvpView {
@@ -32,5 +40,9 @@ public class PayInfoContract {
         void getOssSetting(String fileLocalNameAddress);
 
         void uselectUserInfo(String headImg);
+
+        void cancelBank(Integer id);
+
+        void openBank(Integer id);
     }
 }

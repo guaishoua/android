@@ -261,7 +261,6 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                         if (model.buyuid == spUtil.getUserUid()) {
                             if (payedView != null) {
                                 payedView.setUserInfo(marketInfoModel);
-                                payedView.userBaseInfo(marketInfoModel);
                             }
                         } else if (model.selluid == spUtil.getUserUid()) {
                             if (payGetView != null) {

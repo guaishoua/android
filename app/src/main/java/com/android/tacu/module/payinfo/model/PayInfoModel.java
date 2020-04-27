@@ -14,6 +14,8 @@ public class PayInfoModel implements Serializable {
     public String uuid;
     @SerializedName("type")
     public Integer type;//1=银行卡 2=微信 3=支付宝
+    @SerializedName("name")
+    public String name;
     @SerializedName("bankName")
     public String bankName;
     @SerializedName("openBankName")
@@ -34,6 +36,8 @@ public class PayInfoModel implements Serializable {
     public String createTime;
     @SerializedName("updateTime")
     public String updateTime;
+    @SerializedName("status")
+    public Integer status;// 0关闭 1开启
 
     @Expose(deserialize = false)
     public boolean isCB = false;
