@@ -25,7 +25,7 @@ public class PayInfoContract {
     public interface IPresenter {
         void selectBank(boolean isShowView);
 
-        void insert(Integer type, String bankName, String openBankName, String bankCard, String weChatNo, String weChatImg, String aliPayNo, String aliPayImg, String fdPassword);
+        void insert(Integer type, String name, String bankName, String openBankName, String bankCard, String weChatNo, String weChatImg, String aliPayNo, String aliPayImg, String fdPassword);
 
         void delete(Integer id);
 

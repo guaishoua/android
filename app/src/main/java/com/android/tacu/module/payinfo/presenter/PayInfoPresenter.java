@@ -27,8 +27,8 @@ public class PayInfoPresenter extends BaseMvpPresenter implements PayInfoContrac
     }
 
     @Override
-    public void insert(Integer type, String bankName, String openBankName, String bankCard, String weChatNo, String weChatImg, String aliPayNo, String aliPayImg, String fdPassword) {
-        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).insertBank(type, bankName, openBankName, bankCard, weChatNo, weChatImg, aliPayNo, aliPayImg, fdPassword), new NetDisposableObserver<BaseModel<PayInfoModel>>((IBaseMvpView) getView()) {
+    public void insert(Integer type, String name, String bankName, String openBankName, String bankCard, String weChatNo, String weChatImg, String aliPayNo, String aliPayImg, String fdPassword) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).insertBank(type, name, bankName, openBankName, bankCard, weChatNo, weChatImg, aliPayNo, aliPayImg, fdPassword), new NetDisposableObserver<BaseModel<PayInfoModel>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<PayInfoModel> o) {
                 PayInfoContract.IDetailView yView = (PayInfoContract.IDetailView) getView();

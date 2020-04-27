@@ -797,6 +797,7 @@ public interface Api {
     @POST("insertBank")
     Observable<BaseModel> insertBank(
             @Field("type") Integer type, //1.银行卡 2.微信 3.支付宝
+            @Field("name") String name,// 用户姓名
             @Field("bankName") String bankName,// 银行名称
             @Field("openBankName") String openBankName,//开户行名称
             @Field("bankCard") String bankCard,// 卡号
