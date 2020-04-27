@@ -12,10 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.EventManage;
-import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.OtcOrderListVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.common.MyFragmentPagerAdapter;
@@ -67,18 +63,17 @@ public class OtcOrderListFragment extends BaseFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        EventManage.sendStickyEvent(new BaseEvent<>(EventConstant.OtcOrderListVisibleCode, new OtcOrderListVisibleHintEvent(isVisibleToUser)));
-    }
-
-    @Override
     protected int getContentViewLayoutID() {
         return R.layout.fragment_otc_list;
     }
 
     @Override
     protected void initData(View view) {
+    }
+
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
         tabTitle = new String[]{getResources().getString(R.string.buy_order), getResources().getString(R.string.sell_order)};
         buyFragment = OtcOrderFragment.newInstance(1, buyOrderStatus);
         sellFragment = OtcOrderFragment.newInstance(2, sellOrderStatus);

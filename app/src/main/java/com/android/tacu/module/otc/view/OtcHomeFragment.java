@@ -16,8 +16,6 @@ import com.android.tacu.EventBus.EventConstant;
 import com.android.tacu.EventBus.EventManage;
 import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
-import com.android.tacu.EventBus.model.OtcHomeVisibleHintEvent;
-import com.android.tacu.EventBus.model.OtcMarketVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
@@ -59,18 +57,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
-    protected void initLazy() {
-        super.initLazy();
-        setShow();
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        EventManage.sendStickyEvent(new BaseEvent<>(EventConstant.OtcHomeVisibleCode, new OtcHomeVisibleHintEvent(isVisibleToUser)));
-    }
-
-    @Override
     protected int getContentViewLayoutID() {
         return R.layout.fragment_otc_home;
     }
@@ -78,6 +64,11 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
     @Override
     protected void initData(View view) {
         initTitle();
+    }
+
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
 
         if (isMerchant()) {
             mTopBar.setCenterView(centerView);
@@ -110,8 +101,9 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentResume() {
+        super.onFragmentResume();
+
         setShow();
     }
 
@@ -215,8 +207,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
                                 fragmentList.add(WebviewFragment.newInstance(Constant.C2C_URL_TRADE, true));
                                 fragmentList.add(OtcMarketFragment.newInstance());
                                 pagerAdapter.notifyDataSetChanged();
-
-                                EventManage.sendStickyEvent(new BaseEvent<>(EventConstant.OtcHomeVisibleCode, new OtcHomeVisibleHintEvent(isVisibleToUser)));
                             }
                         });
                     }
@@ -236,9 +226,6 @@ public class OtcHomeFragment extends BaseFragment implements View.OnClickListene
                                 fragmentList.clear();
                                 fragmentList.add(OtcMarketFragment.newInstance());
                                 pagerAdapter.notifyDataSetChanged();
-
-                                EventManage.sendStickyEvent(new BaseEvent<>(EventConstant.OtcHomeVisibleCode, new OtcHomeVisibleHintEvent(isVisibleToUser)));
-                                EventManage.sendStickyEvent(new BaseEvent<>(EventConstant.OtcMarketVisibleCode, new OtcMarketVisibleHintEvent(true)));
                             }
                         });
                     }

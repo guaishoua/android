@@ -1,6 +1,7 @@
 package com.android.tacu.module.transaction.view;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,6 +11,9 @@ import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.market.model.CurrentTradeCoinModel;
 import com.android.tacu.module.market.model.PriceModal;
 import com.android.tacu.module.transaction.model.RecordModel;
+import com.android.tacu.socket.BaseSocketManager;
+import com.android.tacu.socket.ObserverModel;
+import com.android.tacu.socket.SocketConstant;
 import com.android.tacu.widget.BuySellChartView;
 
 import java.math.BigDecimal;
@@ -18,10 +22,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import butterknife.BindView;
 
-public class DepthFragment extends BaseFragment {
+public class DepthFragment extends BaseFragment implements Observer {
 
     @BindView(R.id.text_rise)
     TextView text_rise;
@@ -36,13 +42,33 @@ public class DepthFragment extends BaseFragment {
     @BindView(R.id.chart_view)
     BuySellChartView chart_view;
 
-    private CurrentTradeCoinModel currentTradeCoinModel;
+    private String currencyNameEn;
+    private String baseCurrencyNameEn;
 
-    public static DepthFragment newInstance() {
+    private int pointPrice = 0;
+    private int pointNum = 0;
+
+    public static DepthFragment newInstance(String currencyNameEn, String baseCurrencyNameEn) {
         Bundle bundle = new Bundle();
+        bundle.putString("currencyNameEn", currencyNameEn);
+        bundle.putString("baseCurrencyNameEn", baseCurrencyNameEn);
         DepthFragment fragment = new DepthFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            currencyNameEn = bundle.getString("currencyNameEn");
+            baseCurrencyNameEn = bundle.getString("baseCurrencyNameEn");
+        }
+        if (TradeFragment.currentTradeCoinModel != null) {
+            pointPrice = TradeFragment.currentTradeCoinModel.currentTradeCoin.pointPrice;
+            pointNum = TradeFragment.currentTradeCoinModel.currentTradeCoin.pointNum;
+        }
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -52,14 +78,63 @@ public class DepthFragment extends BaseFragment {
 
     @Override
     protected void initData(View view) {
-
     }
 
-    public void setCurrentTradeCoinModel(CurrentTradeCoinModel currentTradeCoinModel) {
-        this.currentTradeCoinModel = currentTradeCoinModel;
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+        TradeFragment.tradeSocketManager.addObserver(this);
     }
 
-    public void entrustInfo(RecordModel recordModel, String currencyNameEn, String baseCurrencyNameEn) {
+    @Override
+    public void update(final Observable observable, final Object object) {
+        getHostActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (observable instanceof BaseSocketManager) {
+                        ObserverModel model = (ObserverModel) object;
+                        switch (model.getEventType()) {
+                            //获取币种信息
+                            case SocketConstant.LOGINAFTERCHANGETRADECOIN:
+                                ObserverModel.LoginAfterChangeTradeCoin coinInfo = model.getTradeCoin();
+                                if (coinInfo != null) {
+                                    setCurrentTradeCoinModel(coinInfo.getCoinModel());
+                                }
+                                break;
+                            //获取买卖委托
+                            case SocketConstant.ENTRUST:
+                                ObserverModel.Entrust entrust = model.getEntrust();
+                                if (entrust != null) {
+                                    entrustInfo(entrust.getRecordModel());
+                                }
+                                break;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void setValue(String currencyNameEn, String baseCurrencyNameEn) {
+        this.currencyNameEn = currencyNameEn;
+        this.baseCurrencyNameEn = baseCurrencyNameEn;
+        chart_view.clearItem();
+    }
+
+    private void setCurrentTradeCoinModel(CurrentTradeCoinModel currentTradeCoinModel) {
+        if (currentTradeCoinModel != null) {
+            if (pointPrice != currentTradeCoinModel.currentTradeCoin.pointPrice || pointNum != currentTradeCoinModel.currentTradeCoin.pointNum) {
+                pointPrice = currentTradeCoinModel.currentTradeCoin.pointPrice;
+                pointNum = currentTradeCoinModel.currentTradeCoin.pointNum;
+                chart_view.setItems(pointPrice != 0 ? pointPrice : 2, pointNum != 0 ? pointNum : 2);
+            }
+        }
+    }
+
+    private void entrustInfo(RecordModel recordModel) {
         if (recordModel != null) {
             //买卖对比
             double buyNum = 0, sellNum = 0;
@@ -104,8 +179,8 @@ public class DepthFragment extends BaseFragment {
                     buyPriceList.add(recordModel.buy.get(i).current);
                 }
                 buyHighPrice = Collections.max(buyPriceList, comp);
-                if (currentTradeCoinModel != null && currentTradeCoinModel.currentTradeCoin != null) {
-                    tv_buy_high.setText(BigDecimal.valueOf(buyHighPrice).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString());
+                if (pointPrice != 0) {
+                    tv_buy_high.setText(BigDecimal.valueOf(buyHighPrice).setScale(pointPrice, RoundingMode.DOWN).toPlainString());
                 } else {
                     tv_buy_high.setText(BigDecimal.valueOf(buyHighPrice).setScale(2, RoundingMode.DOWN).toPlainString());
                 }
@@ -116,8 +191,8 @@ public class DepthFragment extends BaseFragment {
                     sellPriceList.add(recordModel.sell.get(i).current);
                 }
                 sellLowPrice = Collections.min(sellPriceList, comp);
-                if (currentTradeCoinModel != null && currentTradeCoinModel.currentTradeCoin != null) {
-                    tv_sell_low.setText(BigDecimal.valueOf(sellLowPrice).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString());
+                if (pointPrice != 0) {
+                    tv_sell_low.setText(BigDecimal.valueOf(sellLowPrice).setScale(pointPrice, RoundingMode.DOWN).toPlainString());
                 } else {
                     tv_sell_low.setText(BigDecimal.valueOf(sellLowPrice).setScale(2, RoundingMode.DOWN).toPlainString());
                 }
@@ -125,8 +200,8 @@ public class DepthFragment extends BaseFragment {
             if (buyHighPrice != 0) {
                 double dis = sellLowPrice - buyHighPrice;
                 double disValue = dis / buyHighPrice;
-                if (currentTradeCoinModel != null && currentTradeCoinModel.currentTradeCoin != null) {
-                    tv_buy_sell.setText(BigDecimal.valueOf(dis).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString() + " | " + BigDecimal.valueOf(disValue * 100).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "%");
+                if (pointPrice != 0) {
+                    tv_buy_sell.setText(BigDecimal.valueOf(dis).setScale(pointPrice, RoundingMode.DOWN).toPlainString() + " | " + BigDecimal.valueOf(disValue * 100).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "%");
                 } else {
                     tv_buy_sell.setText(BigDecimal.valueOf(dis).setScale(2, RoundingMode.DOWN).toPlainString() + " | " + BigDecimal.valueOf(disValue * 100).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "%");
                 }
@@ -157,7 +232,7 @@ public class DepthFragment extends BaseFragment {
                     sellList.add(new PriceModal(recordModel.sell.get(i).current, recordModel.sell.get(i).number, all));
                 }
             }
-            chart_view.setItems(buyList, sellList, currentTradeCoinModel != null ? currentTradeCoinModel.currentTradeCoin.pointPrice : 2, currentTradeCoinModel != null ? currentTradeCoinModel.currentTradeCoin.pointNum : 2, currencyNameEn, baseCurrencyNameEn);
+            chart_view.setItems(buyList, sellList, pointPrice != 0 ? pointPrice : 2, pointNum != 0 ? pointNum : 2, currencyNameEn, baseCurrencyNameEn);
         }
     }
 }

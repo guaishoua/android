@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.tacu.socket.AppSocket;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.R;
@@ -56,13 +55,15 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
     private String currencyNameEn;
     private String baseCurrencyNameEn;
 
+    private int pointPrice = 0;
+    private int pointNum = 0;
+
     private MarketDepthAdapter depthAdapter;
 
     //20条空白数据
     private List<MarketDepthModel> falseBeanList = new ArrayList<>();
 
     private List<MarketDepthModel> depthModelList = new ArrayList<>();
-    private CurrentTradeCoinModel currentTradeCoinModel;
 
     public static MarketDetailDepthFragment newInstance(int currencyId, int baseCurrencyId, String currencyNameEn, String baseCurrencyNameEn) {
         Bundle bundle = new Bundle();
@@ -83,6 +84,10 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
             baseCurrencyId = bundle.getInt("baseCurrencyId");
             currencyNameEn = bundle.getString("currencyNameEn");
             baseCurrencyNameEn = bundle.getString("baseCurrencyNameEn");
+            if (MarketDetailsActivity.currentTradeCoinModel != null) {
+                pointPrice = MarketDetailsActivity.currentTradeCoinModel.currentTradeCoin.pointPrice;
+                pointNum = MarketDetailsActivity.currentTradeCoinModel.currentTradeCoin.pointNum;
+            }
         }
         super.onCreate(savedInstanceState);
     }
@@ -95,6 +100,12 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
     @Override
     protected void initData(View view) {
         setSocketEvent(this, this, SocketConstant.ENTRUST);
+    }
+
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+        MarketDetailsActivity.marketDetailSocketManager.addObserver(this);
 
         depthAdapter = new MarketDepthAdapter();
         depthAdapter.setHeaderFooterEmpty(true, false);
@@ -107,7 +118,9 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
 
     @Override
     public void socketConnectEventAgain() {
-        AppSocket.getInstance().entrust(currencyId, baseCurrencyId);
+        if (baseAppSocket != null) {
+            baseAppSocket.entrust(currencyId, baseCurrencyId);
+        }
     }
 
     @Override
@@ -124,6 +137,12 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
                                 entrustInfo(entrust.getRecordModel());
                             }
                             break;
+                        case SocketConstant.LOGINAFTERCHANGETRADECOIN:
+                            ObserverModel.LoginAfterChangeTradeCoin coinInfo = model.getTradeCoin();
+                            if (coinInfo != null) {
+                                setCurrentTradeCoinModel(coinInfo.getCoinModel());
+                            }
+                            break;
                     }
                 }
             }
@@ -135,6 +154,7 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
         this.baseCurrencyId = baseCurrencyId;
         this.currencyNameEn = currencyNameEn;
         this.baseCurrencyNameEn = baseCurrencyNameEn;
+        chart_view.clearItem();
         socketConnectEventAgain();
     }
 
@@ -234,7 +254,11 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
                     buyPriceList.add(recordModel.buy.get(i).current);
                 }
                 buyHighPrice = Collections.max(buyPriceList, comp);
-                tv_buy_high.setText(BigDecimal.valueOf(buyHighPrice).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString());
+                if (pointPrice != 0) {
+                    tv_buy_high.setText(BigDecimal.valueOf(buyHighPrice).setScale(pointPrice, RoundingMode.DOWN).toPlainString());
+                } else {
+                    tv_buy_high.setText(BigDecimal.valueOf(buyHighPrice).toPlainString());
+                }
             }
             if (recordModel.sell != null && recordModel.sell.size() > 0) {
                 List<Double> sellPriceList = new ArrayList<>();
@@ -242,12 +266,20 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
                     sellPriceList.add(recordModel.sell.get(i).current);
                 }
                 sellLowPrice = Collections.min(sellPriceList, comp);
-                tv_sell_low.setText(BigDecimal.valueOf(sellLowPrice).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString());
+                if (pointPrice != 0) {
+                    tv_sell_low.setText(BigDecimal.valueOf(sellLowPrice).setScale(pointPrice, RoundingMode.DOWN).toPlainString());
+                } else {
+                    tv_sell_low.setText(BigDecimal.valueOf(sellLowPrice).toPlainString());
+                }
             }
             if (buyHighPrice != 0) {
                 double dis = sellLowPrice - buyHighPrice;
                 double disValue = dis / buyHighPrice;
-                tv_buy_sell.setText(BigDecimal.valueOf(dis).setScale(currentTradeCoinModel.currentTradeCoin.pointPrice, RoundingMode.DOWN).toPlainString() + " | " + BigDecimal.valueOf(disValue * 100).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "%");
+                if (pointPrice != 0) {
+                    tv_buy_sell.setText(BigDecimal.valueOf(dis).setScale(pointPrice, RoundingMode.DOWN).toPlainString() + " | " + BigDecimal.valueOf(disValue * 100).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "%");
+                } else {
+                    tv_buy_sell.setText(BigDecimal.valueOf(dis).toPlainString() + " | " + BigDecimal.valueOf(disValue * 100).setScale(2, BigDecimal.ROUND_DOWN).toPlainString() + "%");
+                }
             }
 
             //买卖的折线图
@@ -275,14 +307,20 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
                     sellList.add(new PriceModal(recordModel.sell.get(i).current, recordModel.sell.get(i).number, all));
                 }
             }
-            chart_view.setItems(buyList, sellList, currentTradeCoinModel != null ? currentTradeCoinModel.currentTradeCoin.pointPrice : 2, currentTradeCoinModel != null ? currentTradeCoinModel.currentTradeCoin.pointNum : 2, currencyNameEn, baseCurrencyNameEn);
+            chart_view.setItems(buyList, sellList, pointPrice != 0 ? pointPrice : 2, pointNum != 0 ? pointNum : 2, currencyNameEn, baseCurrencyNameEn);
         }
     }
 
-    public void setCurrentTradeCoinModel(CurrentTradeCoinModel currentTradeCoinModel) {
-        this.currentTradeCoinModel = currentTradeCoinModel;
-        if (depthModelList != null && depthModelList.size() > 0) {
-            depthAdapter.notifyDataSetChanged();
+    private void setCurrentTradeCoinModel(CurrentTradeCoinModel currentTradeCoinModel) {
+        if (currentTradeCoinModel != null) {
+            if (pointPrice != currentTradeCoinModel.currentTradeCoin.pointPrice || pointNum != currentTradeCoinModel.currentTradeCoin.pointNum) {
+                pointPrice = currentTradeCoinModel.currentTradeCoin.pointPrice;
+                pointNum = currentTradeCoinModel.currentTradeCoin.pointNum;
+                if (depthModelList != null && depthModelList.size() > 0) {
+                    depthAdapter.notifyDataSetChanged();
+                }
+                chart_view.setItems(pointPrice != 0 ? pointPrice : 2, pointNum != 0 ? pointNum : 2);
+            }
         }
     }
 
@@ -305,26 +343,39 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
 
         @Override
         protected void convert(BaseViewHolder helper, MarketDepthModel item) {
-            if (currentTradeCoinModel != null) {
-                if (item.getBuyNumber() != 0) {
-                    helper.setText(R.id.tv_buyamount, FormatterUtils.getBigValueFormatter(currentTradeCoinModel.currentTradeCoin.pointNum, item.getBuyNumber()));
-                } else {
-                    helper.setText(R.id.tv_buyamount, "--");
-                }
-                if (item.getSellNumber() != 0) {
-                    helper.setText(R.id.tv_sellamount, FormatterUtils.getBigValueFormatter(currentTradeCoinModel.currentTradeCoin.pointNum, item.getSellNumber()));
-                } else {
-                    helper.setText(R.id.tv_sellamount, "--");
-                }
+            if (pointPrice != 0) {
                 if (item.getBuyCurrent() != 0) {
-                    helper.setText(R.id.tv_buyprice, FormatterUtils.getFormatRoundDown(currentTradeCoinModel.currentTradeCoin.pointPrice, item.getBuyCurrent()));
+                    helper.setText(R.id.tv_buyprice, FormatterUtils.getFormatRoundDown(pointPrice, item.getBuyCurrent()));
                 } else {
                     helper.setText(R.id.tv_buyprice, "--");
                 }
                 if (item.getSellCurrent() != 0) {
-                    helper.setText(R.id.tv_sellprice, FormatterUtils.getFormatRoundDown(currentTradeCoinModel.currentTradeCoin.pointPrice, item.getSellCurrent()));
+                    helper.setText(R.id.tv_sellprice, FormatterUtils.getFormatRoundDown(pointPrice, item.getSellCurrent()));
                 } else {
                     helper.setText(R.id.tv_sellprice, "--");
+                }
+            } else {
+                if (item.getBuyCurrent() != 0) {
+                    helper.setText(R.id.tv_buyprice, FormatterUtils.getFormatValue(item.getBuyCurrent()));
+                } else {
+                    helper.setText(R.id.tv_buyprice, "--");
+                }
+                if (item.getSellCurrent() != 0) {
+                    helper.setText(R.id.tv_sellprice, FormatterUtils.getFormatValue(item.getSellCurrent()));
+                } else {
+                    helper.setText(R.id.tv_sellprice, "--");
+                }
+            }
+            if (pointNum != 0) {
+                if (item.getBuyNumber() != 0) {
+                    helper.setText(R.id.tv_buyamount, FormatterUtils.getBigValueFormatter(pointNum, item.getBuyNumber()));
+                } else {
+                    helper.setText(R.id.tv_buyamount, "--");
+                }
+                if (item.getSellNumber() != 0) {
+                    helper.setText(R.id.tv_sellamount, FormatterUtils.getBigValueFormatter(pointNum, item.getSellNumber()));
+                } else {
+                    helper.setText(R.id.tv_sellamount, "--");
                 }
             } else {
                 if (item.getBuyNumber() != 0) {
@@ -337,16 +388,7 @@ public class MarketDetailDepthFragment extends BaseFragment implements ISocketEv
                 } else {
                     helper.setText(R.id.tv_sellamount, "--");
                 }
-                if (item.getBuyCurrent() != 0) {
-                    helper.setText(R.id.tv_buyprice, FormatterUtils.getFormatValue(item.getBuyCurrent()));
-                } else {
-                    helper.setText(R.id.tv_buyprice, "--");
-                }
-                if (item.getSellCurrent() != 0) {
-                    helper.setText(R.id.tv_sellprice, FormatterUtils.getFormatValue(item.getSellCurrent()));
-                } else {
-                    helper.setText(R.id.tv_sellprice, "--");
-                }
+
             }
 
             if (item.getBuyDepth() != 0) {

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.module.market.model.CurrentTradeCoinModel;
 import com.android.tacu.module.market.view.MarketDetailHistoryFragment;
 import com.android.tacu.utils.UIUtils;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
@@ -53,14 +52,6 @@ public class LastDealFragment extends BaseFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (spUtil != null && myDealFragment != null) {
-            myDealFragment.setLastDealVisible(isVisibleToUser);
-        }
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -77,6 +68,12 @@ public class LastDealFragment extends BaseFragment {
 
     @Override
     protected void initData(View view) {
+    }
+
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+
         magicIndicator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.content_bg_color));
         magicIndicator.setOnTransitionListener(new OnTransitionTextListener() {
             @Override
@@ -123,16 +120,9 @@ public class LastDealFragment extends BaseFragment {
 
         if (marketDetailHistoryFragment != null) {
             marketDetailHistoryFragment.setValue(currencyId, baseCurrencyId);
-            marketDetailHistoryFragment.socketConnectEventAgain();
         }
         if (myDealFragment != null) {
             myDealFragment.setValue(currencyId, baseCurrencyId);
-        }
-    }
-
-    public void setCurrentTradeCoinModel(CurrentTradeCoinModel currentTradeCoinModel) {
-        if (marketDetailHistoryFragment != null) {
-            marketDetailHistoryFragment.setCurrentTradeCoinModel(currentTradeCoinModel);
         }
     }
 

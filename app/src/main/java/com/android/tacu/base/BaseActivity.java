@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,6 +19,7 @@ import com.android.tacu.R;
 import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.splash.SplashActivity;
+import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.MainSocketManager;
 import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.ConvertMoneyUtils;
@@ -45,7 +45,7 @@ import static com.android.tacu.utils.ActivityStack.STATUS_KILLED;
 /**
  * Created by jiazhen on 2018/8/8.
  */
-public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompatActivity implements IBaseMvpView {
+public abstract class BaseActivity<P extends BaseMvpPresenter> extends LazyLoadBaseActivity implements IBaseMvpView {
 
     protected P mPresenter;
     private Unbinder unBinder;
@@ -55,7 +55,8 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     //Socket
     private ISocketEvent baseSocketEvent;
     private Observer baseObserver;
-    private MainSocketManager baseSocketManager;
+    protected AppSocket baseAppSocket;
+    protected MainSocketManager baseSocketManager;
     //判断当前Activity是否可见
     protected boolean isVisibleActivity = true;
 
@@ -72,15 +73,10 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     public void setSocketEvent(ISocketEvent mSocketEvent, Observer observer, String... strings) {
         this.baseSocketEvent = mSocketEvent;
         this.baseObserver = observer;
-        baseSocketManager = new MainSocketManager();
+        baseAppSocket = new AppSocket();
+        baseSocketManager = new MainSocketManager(baseAppSocket.getSocket());
         baseSocketManager.initEmitterEvent(strings);
         baseSocketManager.addObserver(observer);
-    }
-
-    protected void setBackGroundAlpha(float backGroundAlpha) {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = backGroundAlpha;
-        getWindow().setAttributes(lp);
     }
 
     @SuppressLint("WrongViewCast")
@@ -125,15 +121,22 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
         EventManage.register(this);
     }
 
-    protected boolean onTopBarBackPressed() {
-        return false;
+    @Override
+    public void onActivityResume() {
+        super.onActivityResume();
+        onEmit();
+    }
+
+    @Override
+    public void onActivityPause() {
+        super.onActivityPause();
+        disconnectEmit();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         isVisibleActivity = true;
-        onEmit();
         MobclickAgent.onResume(this);
     }
 
@@ -141,7 +144,6 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
     protected void onPause() {
         super.onPause();
         isVisibleActivity = false;
-        disconnectEmit();
         MobclickAgent.onPause(this);
     }
 
@@ -166,6 +168,10 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
             baseSocketManager.disconnectEmitterListener();
             baseSocketManager = null;
         }
+        if (baseAppSocket != null) {
+            baseAppSocket.clearSocket();
+            baseAppSocket = null;
+        }
         EventManage.unregister(this);
     }
 
@@ -181,6 +187,10 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
             res.updateConfiguration(config, res.getDisplayMetrics());
         }
         return res;
+    }
+
+    protected boolean onTopBarBackPressed() {
+        return false;
     }
 
     /**
@@ -345,6 +355,12 @@ public abstract class BaseActivity<P extends BaseMvpPresenter> extends AppCompat
 
     protected BigDecimal getMcMValue(int baseCurrentId, double number) {
         return ConvertMoneyUtils.getMcMValue(baseCurrentId, number);
+    }
+
+    protected void setBackGroundAlpha(float backGroundAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = backGroundAlpha;
+        getWindow().setAttributes(lp);
     }
 
     protected void onEmit() {

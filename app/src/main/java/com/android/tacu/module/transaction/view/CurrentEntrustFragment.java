@@ -57,7 +57,6 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
 
     // true=仅仅显示当前市场
     private boolean isCheckbox = false;
-    private boolean isVisibleToUserTrade = false;
 
     private CurrentAdapter currentAdapter;
 
@@ -69,6 +68,8 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
 
     private ShowOrderListModel showOrderListModel;
 
+    private TradeRefresh tradeRefresh;
+
     public static CurrentEntrustFragment newInstance(int currencyId, int baseCurrencyId, String currencyNameEn, String baseCurrencyNameEn) {
         Bundle bundle = new Bundle();
         bundle.putInt("currencyId", currencyId);
@@ -78,13 +79,6 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
         CurrentEntrustFragment fragment = new CurrentEntrustFragment();
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    @Override
-    protected void initLazy() {
-        super.initLazy();
-
-        getEntrustList();
     }
 
     @Override
@@ -106,6 +100,16 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
 
     @Override
     protected void initData(View view) {
+    }
+
+    @Override
+    protected CurrentEntrustPresenter createPresenter(CurrentEntrustPresenter mPresenter) {
+        return new CurrentEntrustPresenter();
+    }
+
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
         refreshTrade.setEnableRefresh(false);
         refreshTrade.setEnableLoadmore(false);
         refreshTrade.setEnableOverScrollBounce(false);
@@ -140,17 +144,20 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
     }
 
     @Override
-    protected CurrentEntrustPresenter createPresenter(CurrentEntrustPresenter mPresenter) {
-        return new CurrentEntrustPresenter();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentResume() {
+        super.onFragmentResume();
 
         getEntrustList();
         if (!spUtil.getLogin()) {
             currentAdapter.setNewData(null);
+        }
+    }
+
+    @Override
+    public void hideRefreshView() {
+        super.hideRefreshView();
+        if (tradeRefresh != null) {
+            tradeRefresh.hideTradeRefresh();
         }
     }
 
@@ -227,7 +234,7 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
         getEntrustList();
     }
 
-    public void setCoinInfo(int currencyId, int baseCurrencyId, String currencyNameEn, String baseCurrencyNameEn) {
+    public void setValue(int currencyId, int baseCurrencyId, String currencyNameEn, String baseCurrencyNameEn) {
         this.currencyId = currencyId;
         this.baseCurrencyId = baseCurrencyId;
         this.currencyNameEn = currencyNameEn;
@@ -238,19 +245,12 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
         getEntrustList();
     }
 
-    public void notiy() {
-        getEntrustList();
-    }
-
-    public void setTradeVisible(boolean isVisibleToUserTrade) {
-        this.isVisibleToUserTrade = isVisibleToUserTrade;
+    public void notiy(TradeRefresh refresh) {
+        this.tradeRefresh = refresh;
         getEntrustList();
     }
 
     private void getEntrustList() {
-        if (!isVisibleToUserTrade || !isVisibleToUser) {
-            return;
-        }
         if (spUtil != null && spUtil.getLogin()) {
             if (isCheckbox) {
                 currencyIdValue = currencyId;
@@ -342,5 +342,9 @@ public class CurrentEntrustFragment extends BaseFragment<CurrentEntrustPresenter
                 }
             });
         }
+    }
+
+    public interface TradeRefresh {
+        void hideTradeRefresh();
     }
 }

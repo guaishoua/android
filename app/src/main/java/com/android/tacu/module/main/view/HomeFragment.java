@@ -28,6 +28,7 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.interfaces.OnPermissionListener;
+import com.android.tacu.module.assets.view.AssetsActivity;
 import com.android.tacu.module.auctionplus.view.AuctionActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.HomeContract;
@@ -206,6 +207,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         }
     }
 
+    @Override
+    public void hideRefreshView() {
+        super.hideRefreshView();
+        if (refreshHome != null && refreshHome.isRefreshing()) {
+            refreshHome.finishRefresh();
+        }
+    }
+
     @OnClick(R.id.tv_auction)
     void auctionClick() {
         jumpTo(AuctionActivity.class);
@@ -299,8 +308,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void socketConnectEventAgain() {
-        LogUtils.i("jiazhen", "111");
-        AppSocket.getInstance().coinAllList();
+        if (baseAppSocket != null) {
+            baseAppSocket.coinAllList();
+        }
     }
 
     @Override

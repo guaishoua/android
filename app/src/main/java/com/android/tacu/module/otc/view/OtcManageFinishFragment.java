@@ -60,14 +60,6 @@ public class OtcManageFinishFragment extends BaseFragment<OtcManageFinishPresent
     }
 
     @Override
-    protected void initLazy() {
-        super.initLazy();
-        if (isFirst) {
-            upload(true, true);
-        }
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -116,11 +108,11 @@ public class OtcManageFinishFragment extends BaseFragment<OtcManageFinishPresent
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentResume() {
+        super.onFragmentResume();
+
         upload(isFirst, true);
     }
-
 
     @Override
     public void hideRefreshView() {
@@ -199,9 +191,6 @@ public class OtcManageFinishFragment extends BaseFragment<OtcManageFinishPresent
 
 
     private void upload(boolean isShowView, boolean isTop) {
-        if (!isVisibleToUser) {
-            return;
-        }
         if (isTop) {
             start = 1;
         }

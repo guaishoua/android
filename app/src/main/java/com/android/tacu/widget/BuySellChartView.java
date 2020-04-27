@@ -77,6 +77,12 @@ public class BuySellChartView extends View {
     private String currencyNameEn;
     private String baseCurrencyNameEn;
 
+    public void setItems( int point, int pointNum) {
+        this.point = point;
+        this.pointNum = pointNum;
+        invalidate();
+    }
+
     public void setItems(List<PriceModal> buyList, List<PriceModal> sellList, int point, int pointNum, String currencyNameEn, String baseCurrencyNameEn) {
         if (buyList != null && buyList.size() > 0 || sellList != null && sellList.size() > 0) {
             this.buyList = buyList;
@@ -104,6 +110,17 @@ public class BuySellChartView extends View {
 
             invalidate();
         }
+    }
+
+    public void clearItem(){
+        this.buyList.clear();
+        this.sellList.clear();
+        this.point = 0;
+        this.pointNum = 0;
+        this.currencyNameEn = "";
+        this.baseCurrencyNameEn = "";
+
+        invalidate();
     }
 
     public BuySellChartView(Context context) {
