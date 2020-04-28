@@ -379,7 +379,6 @@
     <!--VDS-->
 
     <!--首页-->
-    <string name="home_recharge">Recharge</string>
 
     <string name="refresh_string">tacu</string>
     <string name="exit">Exit TACU</string>

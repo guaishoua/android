@@ -372,8 +372,7 @@
     <string name="txid_tips">請輸入TXID</string>
     <string name="amount_tips">請輸入充幣數量</string>
 
-    <!--首頁-->    
-    <string name="home_recharge">充值</string><![CDATA[    
+    <!--首頁--><![CDATA[    
 
     ]]>
     <string name="refresh_string">tacu</string>
