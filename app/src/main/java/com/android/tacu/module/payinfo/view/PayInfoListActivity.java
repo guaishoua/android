@@ -203,16 +203,17 @@ public class PayInfoListActivity extends BaseActivity<PayInfoPresenter> implemen
 
             holder.setText(R.id.tv_user, item.name);
             holder.setGone(R.id.cb, isShowCb);
-            if (item.status != null && item.status == 0) {
-                ((CheckBox) holder.getView(R.id.cb)).setChecked(false);
-            } else {
-                ((CheckBox) holder.getView(R.id.cb)).setChecked(true);
+            if (isShowCb) {
+                if (item.status != null && item.status == 0) {
+                    ((CheckBox) holder.getView(R.id.cb)).setChecked(false);
+                } else {
+                    ((CheckBox) holder.getView(R.id.cb)).setChecked(true);
+                }
             }
 
             holder.setOnClickListener(R.id.cb, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((CheckBox) holder.getView(R.id.cb)).toggle();
                     if (((CheckBox) holder.getView(R.id.cb)).isChecked()) {
                         mPresenter.openBank(item.id);
                     } else {
