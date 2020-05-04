@@ -44,6 +44,7 @@ public class DepthFragment extends BaseFragment implements Observer {
 
     private String currencyNameEn;
     private String baseCurrencyNameEn;
+    private RecordModel recordModel;
 
     private int pointPrice = 0;
     private int pointNum = 0;
@@ -68,6 +69,9 @@ public class DepthFragment extends BaseFragment implements Observer {
             pointPrice = TradeFragment.currentTradeCoinModel.currentTradeCoin.pointPrice;
             pointNum = TradeFragment.currentTradeCoinModel.currentTradeCoin.pointNum;
         }
+        if (TradeFragment.recordModel != null) {
+            recordModel = TradeFragment.recordModel;
+        }
         super.onCreate(savedInstanceState);
     }
 
@@ -83,6 +87,9 @@ public class DepthFragment extends BaseFragment implements Observer {
     @Override
     public void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
+        if (recordModel != null) {
+            entrustInfo(recordModel);
+        }
         TradeFragment.tradeSocketManager.addObserver(this);
     }
 

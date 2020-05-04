@@ -185,7 +185,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     //当前币种信息
     public static CurrentTradeCoinModel currentTradeCoinModel;
     //买卖委托列表
-    private RecordModel recordModel;
+    public static RecordModel recordModel;
     //用户数据
     private UserAccountModel userData;
     private List<RecordModel.BuyBean> buyRecordModelList = new ArrayList<>();
