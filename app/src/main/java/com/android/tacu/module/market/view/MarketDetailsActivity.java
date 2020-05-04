@@ -2,6 +2,7 @@ package com.android.tacu.module.market.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -153,6 +154,18 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         intent.putExtra("baseCurrencyId", baseCurrencyId);
         intent.putExtra("currencyNameEn", currencyNameEn);
         intent.putExtra("baseCurrencyNameEn", baseCurrencyNameEn);
+        return intent;
+    }
+
+    public static Intent createActivity(Context context, int currencyId, int baseCurrencyId, String currencyNameEn, String baseCurrencyNameEn, CurrentTradeCoinModel currentTradeCoinModel) {
+        Intent intent = new Intent(context, MarketDetailsActivity.class);
+        intent.putExtra("currencyId", currencyId);
+        intent.putExtra("baseCurrencyId", baseCurrencyId);
+        intent.putExtra("currencyNameEn", currencyNameEn);
+        intent.putExtra("baseCurrencyNameEn", baseCurrencyNameEn);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("currentTradeCoinModel", currentTradeCoinModel);
+        intent.putExtras(bundle);
         return intent;
     }
 
@@ -410,55 +423,60 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
      * 从缓存中拿到数据
      */
     private void setCacheCoinInfo() {
-        String cacheString = SPUtils.getInstance().getString(Constant.SELECT_COIN_GROUP_CACHE);
-        List<MarketNewModel> cacheList = new Gson().fromJson(cacheString, new TypeToken<List<MarketNewModel>>() {
-        }.getType());
-        if (cacheList != null && cacheList.size() > 0) {
-            MarketNewModel.TradeCoinsBean bean = null;
-            Flag:
-            for (int i = 0; i < cacheList.size(); i++) {
-                for (int j = 0; j < cacheList.get(i).tradeCoinsList.size(); j++) {
-                    if (cacheList.get(i).tradeCoinsList.get(j).baseCurrencyId == baseCurrencyId && cacheList.get(i).tradeCoinsList.get(j).currencyId == currencyId) {
-                        bean = cacheList.get(i).tradeCoinsList.get(j);
-                        break Flag;
+        CurrentTradeCoinModel currModel = (CurrentTradeCoinModel) getIntent().getSerializableExtra("currentTradeCoinModel");
+        if (currModel != null && currModel.currentTradeCoin != null && currModel.currentTradeCoin.currencyId == currencyId && currModel.currentTradeCoin.baseCurrencyId == baseCurrencyId) {
+            coinInfo(currModel);
+        }else{
+            String cacheString = SPUtils.getInstance().getString(Constant.SELECT_COIN_GROUP_CACHE);
+            List<MarketNewModel> cacheList = new Gson().fromJson(cacheString, new TypeToken<List<MarketNewModel>>() {
+            }.getType());
+            if (cacheList != null && cacheList.size() > 0) {
+                MarketNewModel.TradeCoinsBean bean = null;
+                Flag:
+                for (int i = 0; i < cacheList.size(); i++) {
+                    for (int j = 0; j < cacheList.get(i).tradeCoinsList.size(); j++) {
+                        if (cacheList.get(i).tradeCoinsList.get(j).baseCurrencyId == baseCurrencyId && cacheList.get(i).tradeCoinsList.get(j).currencyId == currencyId) {
+                            bean = cacheList.get(i).tradeCoinsList.get(j);
+                            break Flag;
+                        }
                     }
                 }
-            }
-            if (bean != null) {
-                CurrentTradeCoinModel model = new CurrentTradeCoinModel();
-                CurrentTradeCoinModel.CurrentTradeCoinBean coinBean = new CurrentTradeCoinModel.CurrentTradeCoinBean();
+                if (bean != null) {
+                    CurrentTradeCoinModel model = new CurrentTradeCoinModel();
+                    CurrentTradeCoinModel.CurrentTradeCoinBean coinBean = new CurrentTradeCoinModel.CurrentTradeCoinBean();
 
-                coinBean.coinCode = bean.coinCode;
-                coinBean.baseCurrencyId = bean.baseCurrencyId;
-                coinBean.baseCurrencyNameEn = bean.baseCurrencyNameEn;
-                coinBean.currentAmount = bean.currentAmount;
-                coinBean.highPrice = bean.highPrice;
-                coinBean.lowPrice = bean.lowPrice;
-                coinBean.openPrice = bean.openPrice;
-                coinBean.closePrice = bean.closePrice;
-                coinBean.yesterClosePirce = bean.yesterClosePirce;
-                coinBean.changeRate = bean.changeRate;
-                coinBean.changeAmount = bean.changeAmount;
-                coinBean.volume = bean.volume;
-                coinBean.amount = bean.amount;
-                coinBean.currencyId = bean.currencyId;
-                coinBean.currencyName = bean.currencyName;
-                coinBean.currencyNameEn = bean.currencyNameEn;
-                coinBean.pointNum = bean.pointNum;
-                coinBean.pointPrice = bean.pointPrice;
-                coinBean.previousPrice = bean.previousPrice;
-                coinBean.buyFee = bean.buyFee;
-                coinBean.sellFee = bean.sellFee;
-                coinBean.amountHighLimit = bean.amountHighLimit;
-                coinBean.amountLowLimit = bean.amountLowLimit;
-                coinBean.entrustPriceMax = bean.entrustPriceMax;
-                coinBean.entrustPriceMin = bean.entrustPriceMin;
-                coinBean.relationStatus = bean.relationStatus;
-                coinBean.entrustScale = bean.entrustScale;
-                coinBean.rmbScale = bean.rmbScale;
+                    coinBean.coinCode = bean.coinCode;
+                    coinBean.baseCurrencyId = bean.baseCurrencyId;
+                    coinBean.baseCurrencyNameEn = bean.baseCurrencyNameEn;
+                    coinBean.currentAmount = bean.currentAmount;
+                    coinBean.highPrice = bean.highPrice;
+                    coinBean.lowPrice = bean.lowPrice;
+                    coinBean.openPrice = bean.openPrice;
+                    coinBean.closePrice = bean.closePrice;
+                    coinBean.yesterClosePirce = bean.yesterClosePirce;
+                    coinBean.changeRate = bean.changeRate;
+                    coinBean.changeAmount = bean.changeAmount;
+                    coinBean.volume = bean.volume;
+                    coinBean.amount = bean.amount;
+                    coinBean.currencyId = bean.currencyId;
+                    coinBean.currencyName = bean.currencyName;
+                    coinBean.currencyNameEn = bean.currencyNameEn;
+                    coinBean.pointNum = bean.pointNum;
+                    coinBean.pointPrice = bean.pointPrice;
+                    coinBean.previousPrice = bean.previousPrice;
+                    coinBean.buyFee = bean.buyFee;
+                    coinBean.sellFee = bean.sellFee;
+                    coinBean.amountHighLimit = bean.amountHighLimit;
+                    coinBean.amountLowLimit = bean.amountLowLimit;
+                    coinBean.entrustPriceMax = bean.entrustPriceMax;
+                    coinBean.entrustPriceMin = bean.entrustPriceMin;
+                    coinBean.relationStatus = bean.relationStatus;
+                    coinBean.entrustScale = bean.entrustScale;
+                    coinBean.rmbScale = bean.rmbScale;
 
-                model.currentTradeCoin = coinBean;
-                coinInfo(model);
+                    model.currentTradeCoin = coinBean;
+                    coinInfo(model);
+                }
             }
         }
     }

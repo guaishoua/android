@@ -365,7 +365,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
 
     @OnClick(R.id.img_kline)
     void klineClick() {
-        jumpTo(MarketDetailsActivity.createActivity(getContext(), currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn));
+        jumpTo(MarketDetailsActivity.createActivity(getContext(), currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn, currentTradeCoinModel));
     }
 
     @OnClick(R.id.btn_select_price)
