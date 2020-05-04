@@ -22,7 +22,6 @@ import com.android.tacu.module.market.model.CurrentTradeCoinModel;
 import com.android.tacu.module.market.model.KLineModel;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.presenter.MarketDetailsPresenter;
-import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
@@ -495,9 +494,6 @@ public class BigKlineActivity extends BaseActivity<MarketDetailsPresenter> imple
 
         if (model != null && model.data != null && model.data.lines != null) {
             List<KLineEntity> data = KlineUtils.dealKlines(model, indexKlineModel.ChartTime);
-            if (data != null && data.size() > 0 && currentTradeCoinModel != null && TextUtils.equals(symbol, (currentTradeCoinModel.currentTradeCoin.currencyNameEn + currentTradeCoinModel.currentTradeCoin.baseCurrencyNameEn).toLowerCase()) && currentTradeCoinModel.currentTradeCoin.currentAmount != 0) {
-                data.get(data.size() - 1).Close = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).floatValue();
-            }
 
             if (data != null) {
                 if (isAnim) {
@@ -625,9 +621,6 @@ public class BigKlineActivity extends BaseActivity<MarketDetailsPresenter> imple
             pointPrice = model.currentTradeCoin.pointPrice;
 
             if (kAdapter != null) {
-                if (model.currentTradeCoin.currentAmount != 0) {
-                    kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
-                }
                 if (pointPrice != pointPriceTemp) {
                     KLineChartView.decimalsCount = pointPrice;
                     pointPriceTemp = pointPrice;

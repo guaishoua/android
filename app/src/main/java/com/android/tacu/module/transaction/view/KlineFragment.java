@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -228,9 +227,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
 
         if (model != null && model.data != null && model.data.lines != null) {
             List<KLineEntity> data = KlineUtils.dealKlines(model, range);
-            if (data != null && data.size() > 0 && currentTradeCoinModel != null && TextUtils.equals(symbol, (currentTradeCoinModel.currentTradeCoin.currencyNameEn + currentTradeCoinModel.currentTradeCoin.baseCurrencyNameEn).toLowerCase()) && currentTradeCoinModel.currentTradeCoin.currentAmount != 0) {
-                data.get(data.size() - 1).Close = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).floatValue();
-            }
 
             if (data != null) {
                 if (isAnim) {
@@ -282,9 +278,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
             pointPrice = model.currentTradeCoin.pointPrice;
 
             if (kAdapter != null) {
-                if (model.currentTradeCoin.currentAmount != 0) {
-                    kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
-                }
                 if (pointPrice != pointPriceTemp) {
                     KLineChartView.decimalsCount = pointPrice;
                     pointPriceTemp = pointPrice;
