@@ -1,8 +1,8 @@
-package com.android.tacu.module.assets.view;
+package com.android.tacu.module.payinfo.view;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -26,22 +26,19 @@ import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.EventManage;
-import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.PayInfoEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
-import com.android.tacu.base.BaseFragment;
+import com.android.tacu.base.BaseActivity;
 import com.android.tacu.base.MyApplication;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.ZoomImageViewActivity;
-import com.android.tacu.module.assets.contract.BindingPayInfoContract;
 import com.android.tacu.module.assets.model.AuthOssModel;
-import com.android.tacu.module.assets.model.PayInfoModel;
-import com.android.tacu.module.assets.presenter.BindingPayInfoPresenter;
 import com.android.tacu.module.otc.dialog.OtcPwdDialogUtils;
 import com.android.tacu.module.otc.dialog.OtcTradeDialogUtils;
+import com.android.tacu.module.payinfo.contract.PayInfoContract;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
+import com.android.tacu.module.payinfo.presenter.PayInfoPresenter;
+import com.android.tacu.utils.ActivityStack;
 import com.android.tacu.utils.CommonUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
@@ -59,16 +56,16 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 
-public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter> implements BindingPayInfoContract.IWxView {
+public class BindingInfoZfbActivity extends BaseActivity<PayInfoPresenter> implements PayInfoContract.IDetailView {
 
     @BindView(R.id.lin_edit)
     LinearLayout lin_edit;
-    @BindView(R.id.tv_account_owner)
-    TextView tv_account_owner;
-    @BindView(R.id.edit_wx_name)
-    EditText edit_wx_name;
-    @BindView(R.id.img_wx_shoukuan)
-    QMUIRoundImageView img_wx_shoukuan;
+    @BindView(R.id.edit_account_owner)
+    EditText edit_account_owner;
+    @BindView(R.id.edit_zfb_name)
+    EditText edit_zfb_name;
+    @BindView(R.id.img_zfb_shoukuan)
+    QMUIRoundImageView img_zfb_shoukuan;
     @BindView(R.id.rl_upload)
     QMUIRoundRelativeLayout rl_upload;
     @BindView(R.id.tv_upload_tip)
@@ -78,10 +75,10 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     LinearLayout lin_list;
     @BindView(R.id.tv_account_owner1)
     TextView tv_account_owner1;
-    @BindView(R.id.tv_wx_name)
-    TextView tv_wx_name;
-    @BindView(R.id.img_wx_shoukuan1)
-    QMUIRoundImageView img_wx_shoukuan1;
+    @BindView(R.id.tv_zfb_name)
+    TextView tv_zfb_name;
+    @BindView(R.id.img_zfb_shoukuan1)
+    QMUIRoundImageView img_zfb_shoukuan1;
 
     private final int TAKE_PIC = 1001;
     private PayInfoModel payInfoModel;
@@ -90,7 +87,8 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     private String uploadImageName;
     private File uploadFile;
 
-    private String weChatNo;
+    private String name;
+    private String zfbChatNo;
     private String pwdString;
 
     private OSS mOss = null;
@@ -115,27 +113,33 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
         }
     };
 
-    public static BindingInfoWxFragment newInstance() {
-        Bundle bundle = new Bundle();
-        BindingInfoWxFragment fragment = new BindingInfoWxFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static Intent createActivity(Context context, PayInfoModel payInfoModel) {
+        Intent intent = new Intent(context, BindingInfoZfbActivity.class);
+        intent.putExtra("payInfoModel", payInfoModel);
+        return intent;
     }
 
     @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.fragment_wx;
+    protected void setView() {
+        setContentView(R.layout.activity_zfb);
     }
 
     @Override
-    protected void initData(View view) {
-        tv_account_owner.setText(spUtil.getKYCName());
-        tv_account_owner1.setText(spUtil.getKYCName());
+    protected void initView() {
+        payInfoModel = (PayInfoModel) getIntent().getSerializableExtra("payInfoModel");
+
+        mTopBar.setTitle(getResources().getString(R.string.add) + getResources().getString(R.string.zhifubao));
     }
 
     @Override
-    protected BindingPayInfoPresenter createPresenter(BindingPayInfoPresenter mPresenter) {
-        return new BindingPayInfoPresenter();
+    protected PayInfoPresenter createPresenter(PayInfoPresenter mPresenter) {
+        return new PayInfoPresenter();
+    }
+
+    @Override
+    protected void onPresenterCreated(PayInfoPresenter presenter) {
+        super.onPresenterCreated(presenter);
+        setValue(payInfoModel);
     }
 
     @Override
@@ -166,20 +170,20 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
                 uploadFile = fileOrgin;
                 rl_upload.setVisibility(View.GONE);
                 tv_upload_tip.setVisibility(View.GONE);
-                GlideUtils.disPlay(getContext(), "file://" + fileOrgin.getPath(), img_wx_shoukuan);
+                GlideUtils.disPlay(this, "file://" + fileOrgin.getPath(), img_zfb_shoukuan);
             }
         }
     }
 
-    @OnClick({R.id.img_wx_shoukuan, R.id.rl_upload})
+    @OnClick({R.id.img_zfb_shoukuan, R.id.rl_upload})
     void wxImageClick() {
-        PermissionUtils.requestPermissions(getContext(), new OnPermissionListener() {
+        PermissionUtils.requestPermissions(this, new OnPermissionListener() {
             @Override
             public void onPermissionSucceed() {
                 boolean mTakePhotoEnabled = true;
                 // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话就没有拍照功能
                 File takePhotoDir = new File(Environment.getExternalStorageDirectory(), "tacu");
-                startActivityForResult(BGAPhotoPickerActivity.newIntent(getContext(), mTakePhotoEnabled ? takePhotoDir : null, 1, null, mTakePhotoEnabled), TAKE_PIC);
+                startActivityForResult(BGAPhotoPickerActivity.newIntent(BindingInfoZfbActivity.this, mTakePhotoEnabled ? takePhotoDir : null, 1, null, mTakePhotoEnabled), TAKE_PIC);
             }
 
             @Override
@@ -188,38 +192,43 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
         }, Permission.Group.STORAGE, Permission.Group.CAMERA);
     }
 
-    @OnClick(R.id.img_wx_shoukuan1)
+    @OnClick(R.id.img_zfb_shoukuan1)
     void lookBigClick() {
         if (!TextUtils.isEmpty(imageUrl)) {
-            jumpTo(ZoomImageViewActivity.createActivity(getContext(), imageUrl));
+            jumpTo(ZoomImageViewActivity.createActivity(this, imageUrl));
         }
     }
 
     @OnClick(R.id.btn_bindinng)
     void bindingClick() {
-        if (!OtcTradeDialogUtils.isDialogShow(getContext())) {
-            weChatNo = edit_wx_name.getText().toString().trim();
-            if (TextUtils.isEmpty(weChatNo)) {
-                showToastError(getResources().getString(R.string.please_input_wx_account));
+        if (!OtcTradeDialogUtils.isDialogShow(this)) {
+            name = edit_account_owner.getText().toString().trim();
+            zfbChatNo = edit_zfb_name.getText().toString().trim();
+            if (TextUtils.isEmpty(name)) {
+                showToastError(getResources().getString(R.string.please_input_username));
+                return;
+            }
+            if (TextUtils.isEmpty(zfbChatNo)) {
+                showToastError(getResources().getString(R.string.please_input_zfb_account));
                 return;
             }
             if (uploadFile == null) {
-                showToastError(getResources().getString(R.string.please_upload_wx_shoukuanma));
+                showToastError(getResources().getString(R.string.please_upload_zfb_shoukuanma));
                 return;
             }
             if (spUtil.getPwdVisibility()) {
-                OtcPwdDialogUtils.showPwdDiaglog(getContext(), getResources().getString(R.string.please_input_trade_password), new OtcPwdDialogUtils.OnPassListener() {
+                OtcPwdDialogUtils.showPwdDiaglog(this, getResources().getString(R.string.please_input_trade_password), new OtcPwdDialogUtils.OnPassListener() {
                     @Override
                     public void onPass(String pwd) {
                         pwdString = pwd;
                         showLoadingView();
-                        mPresenter.getOssSetting(2, uploadFile.getPath());
+                        mPresenter.getOssSetting(uploadFile.getPath());
                     }
                 });
                 return;
             }
             showLoadingView();
-            mPresenter.getOssSetting(2, uploadFile.getPath());
+            mPresenter.getOssSetting(uploadFile.getPath());
         }
     }
 
@@ -229,13 +238,15 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     }
 
     @Override
-    public void insertBankSuccess() {
-        sendRefresh();
+    public void insertSuccess() {
+        ActivityStack.getInstance().finishActivity(PayInfoTypeActivity.class);
+        finish();
     }
 
     @Override
-    public void deleteBankSuccess() {
-        sendRefresh();
+    public void deleteSuccess() {
+        ActivityStack.getInstance().finishActivity(PayInfoTypeActivity.class);
+        finish();
     }
 
     @Override
@@ -259,19 +270,19 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     public void uselectUserInfo(String imageUrl) {
         this.imageUrl = imageUrl;
         if (!TextUtils.isEmpty(imageUrl)) {
-            GlideUtils.disPlay(getContext(), imageUrl, img_wx_shoukuan1);
+            GlideUtils.disPlay(this, imageUrl, img_zfb_shoukuan1);
         }
     }
 
     private void showDelete() {
-        new DroidDialog.Builder(getContext())
+        new DroidDialog.Builder(this)
                 .title(getResources().getString(R.string.tips))
                 .content(getResources().getString(R.string.is_delete_account))
                 .contentGravity(Gravity.CENTER)
                 .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
                     @Override
                     public void onPositive(Dialog droidDialog) {
-                        mPresenter.deleteBank(2, payInfoModel.id);
+                        mPresenter.delete(payInfoModel.id);
                     }
                 })
                 .negativeButton(getResources().getString(R.string.cancel), null)
@@ -279,38 +290,29 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
                 .show();
     }
 
-    private void sendRefresh() {
-        EventManage.sendEvent(new BaseEvent<>(EventConstant.PayInfoCode, new PayInfoEvent(true)));
-    }
-
-    public void setValue(PayInfoModel model) {
-        clearValue();
-        this.payInfoModel = model;
+    private void setValue(PayInfoModel model) {
         if (model != null) {
             lin_edit.setVisibility(View.GONE);
             lin_list.setVisibility(View.VISIBLE);
 
-            tv_wx_name.setText(model.weChatNo);
-            mPresenter.uselectUserInfo(2, model.weChatImg);
+            tv_account_owner1.setText(model.name);
+            tv_zfb_name.setText(model.aliPayNo);
+            mPresenter.uselectUserInfo(model.aliPayImg);
         } else {
             lin_edit.setVisibility(View.VISIBLE);
             lin_list.setVisibility(View.GONE);
-        }
-    }
 
-    private void clearValue() {
-        edit_wx_name.setText("");
-        img_wx_shoukuan.setImageResource(0);
-        rl_upload.setVisibility(View.VISIBLE);
-        tv_upload_tip.setVisibility(View.VISIBLE);
-        tv_wx_name.setText("");
-        img_wx_shoukuan1.setImageResource(0);
+            if (spUtil.getApplyAuthMerchantStatus() != 2) {
+                edit_account_owner.setEnabled(false);
+                edit_account_owner.setText(spUtil.getKYCName());
+            }
+        }
     }
 
     private void uploadImgs(String fileLocalNameAddress) {
         if (!TextUtils.isEmpty(bucketName) && mOss != null) {
             // 构造上传请求
-            uploadImageName = CommonUtils.getWxImageName();
+            uploadImageName = CommonUtils.getZfbImageName();
             PutObjectRequest put = new PutObjectRequest(bucketName, uploadImageName, fileLocalNameAddress);
             // 异步上传时可以设置进度回调
             put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
@@ -340,7 +342,7 @@ public class BindingInfoWxFragment extends BaseFragment<BindingPayInfoPresenter>
     private void dealValue(int flag) {
         if (flag == 1) {
             mHandler.sendEmptyMessage(0);
-            mPresenter.insertBank(2, null, null, null, weChatNo, uploadImageName, null, null, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
+            mPresenter.insert(3, name, null, null, null, null, null, zfbChatNo, uploadImageName, spUtil.getPwdVisibility() ? Md5Utils.encryptFdPwd(pwdString, spUtil.getUserUid()).toLowerCase() : null);
         } else {
             mHandler.sendEmptyMessage(1);
         }

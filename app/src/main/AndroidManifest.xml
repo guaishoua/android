@@ -168,7 +168,6 @@
         <activity android:name="com.android.tacu.module.otc.view.OtcManageActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcPublishActivity" />
         <activity android:name="com.android.tacu.module.assets.view.AssetsCenterActivity" />
-        <activity android:name="com.android.tacu.module.assets.view.BindingPayInfoActivity" />
         <activity android:name="com.android.tacu.module.my.view.EditPersonalDataActivity" />
         <activity android:name="com.android.tacu.module.auth.view.AuthMerchantActivity" />
         <activity android:name="com.android.tacu.module.vip.view.RechargeDepositActivity" />
@@ -183,5 +182,10 @@
         <activity
             android:name="com.android.tacu.module.market.view.BigKlineActivity"
             android:screenOrientation="landscape" />
+        <activity android:name="com.android.tacu.module.payinfo.view.PayInfoListActivity" />
+        <activity android:name="com.android.tacu.module.payinfo.view.PayInfoTypeActivity" />
+        <activity android:name="com.android.tacu.module.payinfo.view.BindingInfoYhkActivity" />
+        <activity android:name="com.android.tacu.module.payinfo.view.BindingInfoWxActivity" />
+        <activity android:name="com.android.tacu.module.payinfo.view.BindingInfoZfbActivity" />
     </application>
 </manifest>

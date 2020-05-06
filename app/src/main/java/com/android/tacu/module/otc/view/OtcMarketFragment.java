@@ -12,10 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.EventManage;
-import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.OtcMarketVisibleHintEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
@@ -66,24 +62,18 @@ public class OtcMarketFragment extends BaseFragment {
     }
 
     @Override
-    protected void initLazy() {
-        super.initLazy();
-        setShow();
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        EventManage.sendStickyEvent(new BaseEvent<>(EventConstant.OtcMarketVisibleCode, new OtcMarketVisibleHintEvent(isVisibleToUser)));
-    }
-
-    @Override
     protected int getContentViewLayoutID() {
         return R.layout.fragment_otc_market;
     }
 
     @Override
     protected void initData(View view) {
+    }
+
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+
         tabTitle.add(getResources().getString(R.string.buy));
         tabTitle.add(getResources().getString(R.string.chushou));
 
@@ -102,8 +92,9 @@ public class OtcMarketFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentResume() {
+        super.onFragmentResume();
+
         setShow();
     }
 

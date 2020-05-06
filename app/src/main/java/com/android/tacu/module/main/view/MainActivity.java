@@ -24,7 +24,7 @@ import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.common.MyFragmentPagerAdapter;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.assets.view.AssetsFragment;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.MainContract;
@@ -173,57 +173,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
         reboundAnim(ll_tab_otc);
         reboundAnim(ll_tab_assets);
 
-        initFragments();
         initDragview();
-        setTabSelection(Constant.MAIN_HOME);
-    }
-
-    @Override
-    protected void initLazy() {
-        super.initLazy();
-        //加载侧边栏
-        getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                mainDrawerLayoutHelper = new MainDrawerLayoutHelper(MainActivity.this, viewDrawer);
-                mainDrawerLayoutHelper.setHomeDrawerMenuView(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (spUtil.getLogin()) {
-                            new DroidDialog.Builder(MainActivity.this)
-                                    .title(getResources().getString(R.string.logout))
-                                    .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
-                                        @Override
-                                        public void onPositive(Dialog droidDialog) {
-                                            logoutSuccess();
-                                            tokenInvalid();
-                                            mainDrawerLayoutHelper.setLogin(false);
-                                        }
-                                    })
-                                    .negativeButton(getResources().getString(R.string.cancel), null)
-                                    .show();
-                        } else {
-                            jumpTo(LoginActivity.class);
-                        }
-                    }
-                }, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mPresenter.upload(PackageUtils.getVersion(), PackageUtils.getMetaValue(MainActivity.this, PackageUtils.META_NAME), true);
-                    }
-                });
-                mainDrawerLayoutHelper.setLogin(spUtil.getLogin());
-            }
-        });
-
-        //版本更新
-        getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                //版本更新
-                mPresenter.upload(PackageUtils.getVersion(), PackageUtils.getMetaValue(MainActivity.this, PackageUtils.META_NAME), false);
-            }
-        });
     }
 
     @Override
@@ -232,8 +182,46 @@ public class MainActivity extends BaseActivity<MainPresenter> implements View.On
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onActivityFirstVisible() {
+        initFragments();
+        setTabSelection(Constant.MAIN_HOME);
+
+        mainDrawerLayoutHelper = new MainDrawerLayoutHelper(MainActivity.this, viewDrawer);
+        mainDrawerLayoutHelper.setHomeDrawerMenuView(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (spUtil.getLogin()) {
+                    new DroidDialog.Builder(MainActivity.this)
+                            .title(getResources().getString(R.string.logout))
+                            .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                                @Override
+                                public void onPositive(Dialog droidDialog) {
+                                    logoutSuccess();
+                                    tokenInvalid();
+                                    mainDrawerLayoutHelper.setLogin(false);
+                                }
+                            })
+                            .negativeButton(getResources().getString(R.string.cancel), null)
+                            .show();
+                } else {
+                    jumpTo(LoginActivity.class);
+                }
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.upload(PackageUtils.getVersion(), PackageUtils.getMetaValue(MainActivity.this, PackageUtils.META_NAME), true);
+            }
+        });
+        mainDrawerLayoutHelper.setLogin(spUtil.getLogin());
+
+        //版本更新
+        mPresenter.upload(PackageUtils.getVersion(), PackageUtils.getMetaValue(MainActivity.this, PackageUtils.META_NAME), false);
+    }
+
+    @Override
+    public void onActivityResume() {
+        super.onActivityResume();
         if (spUtil.getLogin()) {
             if (isOwnCenterFlag) {
                 mPresenter.ownCenter();

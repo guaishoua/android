@@ -22,12 +22,12 @@ import com.android.tacu.EventBus.EventManage;
 import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.HomeNotifyEvent;
 import com.android.tacu.EventBus.model.MainDrawerLayoutOpenEvent;
+import com.android.tacu.EventBus.model.MainSwitchEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.interfaces.OnPermissionListener;
-import com.android.tacu.module.assets.view.AssetsActivity;
 import com.android.tacu.module.auctionplus.view.AuctionActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.HomeContract;
@@ -41,7 +41,6 @@ import com.android.tacu.module.market.view.SelfSelectionFragment;
 import com.android.tacu.module.my.view.BindModeActivity;
 import com.android.tacu.module.my.view.GoogleHintActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
-import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.BaseSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
@@ -205,6 +204,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         }
     }
 
+    @Override
+    public void hideRefreshView() {
+        super.hideRefreshView();
+        if (refreshHome != null && refreshHome.isRefreshing()) {
+            refreshHome.finishRefresh();
+        }
+    }
+
     @OnClick(R.id.tv_auction)
     void auctionClick() {
         jumpTo(AuctionActivity.class);
@@ -213,7 +220,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @OnClick(R.id.tv_recharge)
     void rechargeClick() {
         if (spUtil.getLogin()) {
-            jumpTo(AssetsActivity.createActivity(getHostActivity(), "", -1, 0, false));
+            EventManage.sendEvent(new BaseEvent<>(EventConstant.MainSwitchCode, new MainSwitchEvent(Constant.MAIN_ASSETS)));
         } else {
             jumpTo(LoginActivity.class);
         }
@@ -222,10 +229,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @OnClick(R.id.tv_takecoin)
     void takeCoinClick() {
         if (spUtil.getLogin()) {
-            if (!isKeyc()) {
-                return;
-            }
-            jumpTo(AssetsActivity.createActivity(getHostActivity(), "", -1, 1, false));
+            EventManage.sendEvent(new BaseEvent<>(EventConstant.MainSwitchCode, new MainSwitchEvent(Constant.MAIN_ASSETS)));
         } else {
             jumpTo(LoginActivity.class);
         }
@@ -267,14 +271,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void hideRefreshView() {
-        super.hideRefreshView();
-        if (refreshHome != null && refreshHome.isRefreshing()) {
-            refreshHome.finishRefresh();
-        }
-    }
-
-    @Override
     public void home(HomeModel model) {
         this.homeModel = model;
         if (model != null) {
@@ -301,7 +297,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void socketConnectEventAgain() {
-        AppSocket.getInstance().coinAllList();
+        if (baseAppSocket != null) {
+            baseAppSocket.coinAllList();
+        }
     }
 
     @Override

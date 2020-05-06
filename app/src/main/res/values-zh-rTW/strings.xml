@@ -372,10 +372,8 @@
     <string name="txid_tips">請輸入TXID</string>
     <string name="amount_tips">請輸入充幣數量</string>
 
-    <!--首頁-->    
-    <string name="home_recharge">充值</string><![CDATA[    
+    <!--首頁-->
 
-    ]]>
     <string name="refresh_string">tacu</string>
     <string name="exit">再按壹次退出TACU</string>
     <string name="register_fast">立即註冊</string>
@@ -556,7 +554,6 @@
     <string name="email_auth">郵箱認證</string>
     <string name="truename_auth">實名認證</string>
     <string name="video_auth">視頻認證</string>
-    <string name="please_choose_get_pay">請選擇收/付款方式：</string>
     <string name="otc_order_confirmed_tip">交易須知
         \n1.賣家發起交易請求後，該訂單的數字資產將會鎖定託管；
         \n2.買家需在付款有效期限內完成付款並進行確認支付完成操作，賣家才會放幣。
@@ -836,10 +833,8 @@
 
     <!--OTC3-->
     <string name="total_holdings">持有總量</string>
-    <string name="coin_account_recharge">幣幣賬戶充值</string>
     <string name="available_num">可用數量</string>
     <string name="frozen_num">凍結數量</string>
-    <string name="platform_transfer">平臺轉出</string>
     <string name="asset_history">資產流水</string>
     <string name="to">向</string>
     <string name="margin_account">保證金賬戶</string>
@@ -895,8 +890,6 @@
     </string>
     <string name="seller_info">賣家信息</string>
     <string name="buyer_info">買家信息</string>
-    <string name="choose_getmoney_type">選擇收款方式</string>
-    <string name="choose_paymoney_type">選擇付款方式</string>
     <string name="shop_info">商家信息</string>
     <string name="order_info">訂單信息</string>
     <string name="current_paymoney_type">本次付款方式</string>
@@ -976,6 +969,14 @@
     <string name="recharge_deposit_tag5">將從C2C賬戶中充入保證金數量</string>
     <string name="recharge_deposit_tag6">申請保證金提取至C2C賬戶</string>
     <string name="order">訂單</string>
+
+    <!--OTC绑定收付款设置-->
+    <string name="get_setting">收款設置</string>
+    <string name="add">添加</string>
+    <string name="pay_info_one">每種支付方式只能綁定壹個賬號</string>
+    <string name="please_input_username">請輸入姓名</string>
+    <string name="select_getmoney_type">選擇收款方式</string>
+    <string name="please_select_getmoney_type">請選擇收款方式</string>
 
     <!--OTC-->
     <string name="shensu">申訴</string>

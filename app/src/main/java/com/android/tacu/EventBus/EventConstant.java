@@ -19,18 +19,8 @@ public class EventConstant {
     public static final int AuctionPlusListCode = 1006;
     //homgfragment通知marketfragment和selffragment刷新
     public static final int HomeNotifyCode = 1007;
-    //绑定支付页面，子fragment通知父Activity刷新
-    public static final int PayInfoCode = 1008;
     //购买vip，子fragment通知父Activity刷新
     public static final int VipBuyCode = 1009;
-    //OtcHomeFragment 发送当前的isVisibleToUser
-    public static final int OtcHomeVisibleCode = 1010;
-    //OtcMarketFragment 发送当前的isVisibleToUser
-    public static final int OtcMarketVisibleCode = 1011;
-    //TradeFragment 发送当前的isVisibleToUser
-    public static final int TradeVisibleCode = 1012;
     //刷新订单详情
     public static final int OTCDetailCode = 1013;
-    //OtcOrderListFragment 发送当前的isVisibleToUser
-    public static final int OtcOrderListVisibleCode = 1014;
 }

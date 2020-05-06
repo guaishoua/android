@@ -88,7 +88,7 @@ public class SelfSelectionEditActivity extends BaseActivity<SelfSelectionEditPre
                 showLeaveDialog();
             }
         });
-        mTopBar.addRightImageButton(R.drawable.icon_add_white, R.id.qmui_topbar_item_right, 20, 20).setOnClickListener(new View.OnClickListener() {
+        mTopBar.addRightImageButton(R.drawable.icon_add_circle_white, R.id.qmui_topbar_item_right, 20, 20).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (spUtil.getLogin()) {

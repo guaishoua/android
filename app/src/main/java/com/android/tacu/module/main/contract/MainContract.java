@@ -1,7 +1,7 @@
 package com.android.tacu.module.main.contract;
 
 import com.android.tacu.base.IBaseMvpView;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.main.model.AliModel;
 import com.android.tacu.module.main.model.ConvertModel;
 import com.android.tacu.module.main.model.OwnCenterModel;

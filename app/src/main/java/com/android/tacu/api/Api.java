@@ -7,7 +7,7 @@ import com.android.tacu.module.assets.model.ChargeModel;
 import com.android.tacu.module.assets.model.CoinAddressModel;
 import com.android.tacu.module.assets.model.MoneyFlowModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.assets.model.SelectTakeCoinAddressModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
 import com.android.tacu.module.auth.model.OtcSectionModel;
@@ -797,6 +797,7 @@ public interface Api {
     @POST("insertBank")
     Observable<BaseModel> insertBank(
             @Field("type") Integer type, //1.银行卡 2.微信 3.支付宝
+            @Field("name") String name,// 用户姓名
             @Field("bankName") String bankName,// 银行名称
             @Field("openBankName") String openBankName,//开户行名称
             @Field("bankCard") String bankCard,// 卡号
@@ -1338,5 +1339,32 @@ public interface Api {
     Observable<BaseModel> OtcToC2c(
             @Field("amount") String amount,
             @Field("currencyId") Integer currencyId
+    );
+
+    /**
+     * 认证商户关闭支付渠道
+     */
+    @FormUrlEncoded
+    @POST("cancelBank")
+    Observable<BaseModel> cancelBank(
+            @Field("id") Integer id
+    );
+
+    /**
+     * 认证商户开启支付渠道
+     */
+    @FormUrlEncoded
+    @POST("openBank")
+    Observable<BaseModel> openBank(
+            @Field("id") Integer id
+    );
+
+    /**
+     * 认证商户开启支付渠道
+     */
+    @FormUrlEncoded
+    @POST("selectMerchantBank")
+    Observable<BaseModel<List<PayInfoModel>>> selectMerchantBank(
+            @Field("merchantId") String merchantId
     );
 }

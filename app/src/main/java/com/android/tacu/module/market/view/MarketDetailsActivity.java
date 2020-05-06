@@ -2,6 +2,7 @@ package com.android.tacu.module.market.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -32,8 +33,8 @@ import com.android.tacu.module.market.model.KLineModel;
 import com.android.tacu.module.market.model.MarketNewModel;
 import com.android.tacu.module.market.model.SelfModel;
 import com.android.tacu.module.market.presenter.MarketDetailsPresenter;
-import com.android.tacu.socket.AppSocket;
 import com.android.tacu.socket.BaseSocketManager;
+import com.android.tacu.socket.MainSocketManager;
 import com.android.tacu.socket.ObserverModel;
 import com.android.tacu.socket.SocketConstant;
 import com.android.tacu.utils.KlineUtils;
@@ -95,6 +96,8 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     @BindView(R.id.viewpager)
     ViewPager viewpager;
 
+    public static MainSocketManager marketDetailSocketManager;
+
     private TextView tvCenterTitle;
     //深度
     private MarketDetailDepthFragment marketDetailDepthFragment;
@@ -117,7 +120,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     private CoinPopWindow coinPopWindow;
 
-    private CurrentTradeCoinModel currentTradeCoinModel;
+    public static CurrentTradeCoinModel currentTradeCoinModel;
     private int pointPrice;
     //防止socket刷新频繁
     private int pointPriceTemp;
@@ -154,6 +157,18 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         return intent;
     }
 
+    public static Intent createActivity(Context context, int currencyId, int baseCurrencyId, String currencyNameEn, String baseCurrencyNameEn, CurrentTradeCoinModel currentTradeCoinModel) {
+        Intent intent = new Intent(context, MarketDetailsActivity.class);
+        intent.putExtra("currencyId", currencyId);
+        intent.putExtra("baseCurrencyId", baseCurrencyId);
+        intent.putExtra("currencyNameEn", currencyNameEn);
+        intent.putExtra("baseCurrencyNameEn", baseCurrencyNameEn);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("currentTradeCoinModel", currentTradeCoinModel);
+        intent.putExtras(bundle);
+        return intent;
+    }
+
     @Override
     protected void setView() {
         setContentView(R.layout.activity_market_details);
@@ -162,6 +177,7 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
     @Override
     protected void initView() {
         setSocketEvent(MarketDetailsActivity.this, MarketDetailsActivity.this, SocketConstant.LOGINAFTERCHANGETRADECOIN);
+        marketDetailSocketManager = baseSocketManager;
 
         currencyId = getIntent().getIntExtra("currencyId", Constant.TAC_CURRENCY_ID);
         baseCurrencyId = getIntent().getIntExtra("baseCurrencyId", Constant.ACU_CURRENCY_ID);
@@ -263,6 +279,13 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
         if (linIndicator != null) {
             linIndicator.clear();
         }
+        if (currentTradeCoinModel != null) {
+            currentTradeCoinModel = null;
+        }
+        if (marketDetailSocketManager != null) {
+            marketDetailSocketManager.deleteObservers();
+            marketDetailSocketManager = null;
+        }
         System.gc();
     }
 
@@ -328,9 +351,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
         if (model != null && model.data != null && model.data.lines != null) {
             List<KLineEntity> data = KlineUtils.dealKlines(model, range);
-            if (data != null && data.size() > 0 && currentTradeCoinModel != null && TextUtils.equals(symbol, (currentTradeCoinModel.currentTradeCoin.currencyNameEn + currentTradeCoinModel.currentTradeCoin.baseCurrencyNameEn).toLowerCase()) && currentTradeCoinModel.currentTradeCoin.currentAmount != 0) {
-                data.get(data.size() - 1).Close = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).floatValue();
-            }
 
             if (data != null) {
                 if (isAnim) {
@@ -374,7 +394,9 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
 
     @Override
     public void socketConnectEventAgain() {
-        AppSocket.getInstance().coinInfo(currencyId, baseCurrencyId);
+        if (baseAppSocket != null) {
+            baseAppSocket.coinInfo(currencyId, baseCurrencyId);
+        }
     }
 
     @Override
@@ -401,55 +423,60 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
      * 从缓存中拿到数据
      */
     private void setCacheCoinInfo() {
-        String cacheString = SPUtils.getInstance().getString(Constant.SELECT_COIN_GROUP_CACHE);
-        List<MarketNewModel> cacheList = new Gson().fromJson(cacheString, new TypeToken<List<MarketNewModel>>() {
-        }.getType());
-        if (cacheList != null && cacheList.size() > 0) {
-            MarketNewModel.TradeCoinsBean bean = null;
-            Flag:
-            for (int i = 0; i < cacheList.size(); i++) {
-                for (int j = 0; j < cacheList.get(i).tradeCoinsList.size(); j++) {
-                    if (cacheList.get(i).tradeCoinsList.get(j).baseCurrencyId == baseCurrencyId && cacheList.get(i).tradeCoinsList.get(j).currencyId == currencyId) {
-                        bean = cacheList.get(i).tradeCoinsList.get(j);
-                        break Flag;
+        CurrentTradeCoinModel currModel = (CurrentTradeCoinModel) getIntent().getSerializableExtra("currentTradeCoinModel");
+        if (currModel != null && currModel.currentTradeCoin != null && currModel.currentTradeCoin.currencyId == currencyId && currModel.currentTradeCoin.baseCurrencyId == baseCurrencyId) {
+            coinInfo(currModel);
+        }else{
+            String cacheString = SPUtils.getInstance().getString(Constant.SELECT_COIN_GROUP_CACHE);
+            List<MarketNewModel> cacheList = new Gson().fromJson(cacheString, new TypeToken<List<MarketNewModel>>() {
+            }.getType());
+            if (cacheList != null && cacheList.size() > 0) {
+                MarketNewModel.TradeCoinsBean bean = null;
+                Flag:
+                for (int i = 0; i < cacheList.size(); i++) {
+                    for (int j = 0; j < cacheList.get(i).tradeCoinsList.size(); j++) {
+                        if (cacheList.get(i).tradeCoinsList.get(j).baseCurrencyId == baseCurrencyId && cacheList.get(i).tradeCoinsList.get(j).currencyId == currencyId) {
+                            bean = cacheList.get(i).tradeCoinsList.get(j);
+                            break Flag;
+                        }
                     }
                 }
-            }
-            if (bean != null) {
-                CurrentTradeCoinModel model = new CurrentTradeCoinModel();
-                CurrentTradeCoinModel.CurrentTradeCoinBean coinBean = new CurrentTradeCoinModel.CurrentTradeCoinBean();
+                if (bean != null) {
+                    CurrentTradeCoinModel model = new CurrentTradeCoinModel();
+                    CurrentTradeCoinModel.CurrentTradeCoinBean coinBean = new CurrentTradeCoinModel.CurrentTradeCoinBean();
 
-                coinBean.coinCode = bean.coinCode;
-                coinBean.baseCurrencyId = bean.baseCurrencyId;
-                coinBean.baseCurrencyNameEn = bean.baseCurrencyNameEn;
-                coinBean.currentAmount = bean.currentAmount;
-                coinBean.highPrice = bean.highPrice;
-                coinBean.lowPrice = bean.lowPrice;
-                coinBean.openPrice = bean.openPrice;
-                coinBean.closePrice = bean.closePrice;
-                coinBean.yesterClosePirce = bean.yesterClosePirce;
-                coinBean.changeRate = bean.changeRate;
-                coinBean.changeAmount = bean.changeAmount;
-                coinBean.volume = bean.volume;
-                coinBean.amount = bean.amount;
-                coinBean.currencyId = bean.currencyId;
-                coinBean.currencyName = bean.currencyName;
-                coinBean.currencyNameEn = bean.currencyNameEn;
-                coinBean.pointNum = bean.pointNum;
-                coinBean.pointPrice = bean.pointPrice;
-                coinBean.previousPrice = bean.previousPrice;
-                coinBean.buyFee = bean.buyFee;
-                coinBean.sellFee = bean.sellFee;
-                coinBean.amountHighLimit = bean.amountHighLimit;
-                coinBean.amountLowLimit = bean.amountLowLimit;
-                coinBean.entrustPriceMax = bean.entrustPriceMax;
-                coinBean.entrustPriceMin = bean.entrustPriceMin;
-                coinBean.relationStatus = bean.relationStatus;
-                coinBean.entrustScale = bean.entrustScale;
-                coinBean.rmbScale = bean.rmbScale;
+                    coinBean.coinCode = bean.coinCode;
+                    coinBean.baseCurrencyId = bean.baseCurrencyId;
+                    coinBean.baseCurrencyNameEn = bean.baseCurrencyNameEn;
+                    coinBean.currentAmount = bean.currentAmount;
+                    coinBean.highPrice = bean.highPrice;
+                    coinBean.lowPrice = bean.lowPrice;
+                    coinBean.openPrice = bean.openPrice;
+                    coinBean.closePrice = bean.closePrice;
+                    coinBean.yesterClosePirce = bean.yesterClosePirce;
+                    coinBean.changeRate = bean.changeRate;
+                    coinBean.changeAmount = bean.changeAmount;
+                    coinBean.volume = bean.volume;
+                    coinBean.amount = bean.amount;
+                    coinBean.currencyId = bean.currencyId;
+                    coinBean.currencyName = bean.currencyName;
+                    coinBean.currencyNameEn = bean.currencyNameEn;
+                    coinBean.pointNum = bean.pointNum;
+                    coinBean.pointPrice = bean.pointPrice;
+                    coinBean.previousPrice = bean.previousPrice;
+                    coinBean.buyFee = bean.buyFee;
+                    coinBean.sellFee = bean.sellFee;
+                    coinBean.amountHighLimit = bean.amountHighLimit;
+                    coinBean.amountLowLimit = bean.amountLowLimit;
+                    coinBean.entrustPriceMax = bean.entrustPriceMax;
+                    coinBean.entrustPriceMin = bean.entrustPriceMin;
+                    coinBean.relationStatus = bean.relationStatus;
+                    coinBean.entrustScale = bean.entrustScale;
+                    coinBean.rmbScale = bean.rmbScale;
 
-                model.currentTradeCoin = coinBean;
-                coinInfo(model);
+                    model.currentTradeCoin = coinBean;
+                    coinInfo(model);
+                }
             }
         }
     }
@@ -460,9 +487,6 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             pointPrice = model.currentTradeCoin.pointPrice;
 
             if (kAdapter != null) {
-                if (model.currentTradeCoin.currentAmount != 0) {
-                    kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
-                }
                 if (pointPrice != pointPriceTemp) {
                     KLineChartView.decimalsCount = pointPrice;
                     pointPriceTemp = pointPrice;
@@ -483,18 +507,14 @@ public class MarketDetailsActivity extends BaseActivity<MarketDetailsPresenter> 
             }
 
             if (model.currentTradeCoin.changeRate >= 0) {
+                tvNewsPrice.setTextColor(ContextCompat.getColor(this, R.color.color_riseup));
                 tvChangeRate.setTextColor(ContextCompat.getColor(this, R.color.color_riseup));
                 tvChangeRate.setText("+" + changeRate + "%");
             } else {
+                tvNewsPrice.setTextColor(ContextCompat.getColor(this, R.color.color_risedown));
                 tvChangeRate.setTextColor(ContextCompat.getColor(this, R.color.color_risedown));
                 tvChangeRate.setText(changeRate + "%");
             }
-        }
-        if (marketDetailDepthFragment != null) {
-            marketDetailDepthFragment.setCurrentTradeCoinModel(currentTradeCoinModel);
-        }
-        if (marketDetailHistoryFragment != null) {
-            marketDetailHistoryFragment.setCurrentTradeCoinModel(currentTradeCoinModel);
         }
     }
 

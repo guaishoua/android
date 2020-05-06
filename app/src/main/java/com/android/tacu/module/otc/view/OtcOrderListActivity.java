@@ -37,6 +37,11 @@ public class OtcOrderListActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void initView() {
         initTitle();
+    }
+
+    @Override
+    public void onActivityFirstVisible() {
+        super.onActivityFirstVisible();
 
         if (isMerchant()) {
             mTopBar.setCenterView(centerView);

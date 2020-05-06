@@ -12,7 +12,7 @@ import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.EventBus.model.OtcDetailNotifyEvent;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcOrderDetailContract;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
@@ -261,7 +261,6 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                         if (model.buyuid == spUtil.getUserUid()) {
                             if (payedView != null) {
                                 payedView.setUserInfo(marketInfoModel);
-                                payedView.userBaseInfo(marketInfoModel);
                             }
                         } else if (model.selluid == spUtil.getUserUid()) {
                             if (payGetView != null) {

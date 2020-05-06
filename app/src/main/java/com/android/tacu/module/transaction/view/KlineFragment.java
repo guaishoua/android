@@ -5,14 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.android.tacu.EventBus.EventConstant;
-import com.android.tacu.EventBus.model.BaseEvent;
-import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
-import com.android.tacu.socket.AppSocket;
 import com.android.tacu.utils.KlineUtils;
 import com.android.tacu.widget.tab.TabLayoutView;
 import com.github.tifezh.kchartlib.chart.KLineChartView;
@@ -22,7 +17,6 @@ import com.github.tifezh.kchartlib.chart.interfaces.OnChartEventListener;
 import com.github.tifezh.kchartlib.chart.utils.DataHelper;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.module.market.contract.MarketDetailsContract;
 import com.android.tacu.module.market.model.CurrentTradeCoinModel;
 import com.android.tacu.module.market.model.KLineModel;
@@ -42,7 +36,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.android.tacu.module.market.view.MarketDetailsActivity.KREFRESH_TIME;
 import static com.android.tacu.module.market.view.MarketDetailsActivity.REQUESTCODE;
 
-public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implements ISocketEvent, Observer, MarketDetailsContract.IKlineView {
+public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implements Observer, MarketDetailsContract.IKlineView {
 
     @BindView(R.id.tv_news_price)
     TextView tvNewsPrice;
@@ -73,8 +67,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
 
     private boolean isAnim = true;
     private boolean isFirst = true;
-    private boolean isVisibleToUserTrade = false;
-    private boolean isVisibleToUserQuotation = false;
 
     private KLineModel kLineModel;
     private long klineRange;
@@ -112,6 +104,8 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
             baseCurrencyId = bundle.getInt("baseCurrencyId");
             currencyNameEn = bundle.getString("currencyNameEn");
             baseCurrencyNameEn = bundle.getString("baseCurrencyNameEn");
+
+            currentTradeCoinModel = TradeFragment.currentTradeCoinModel;
         }
         super.onCreate(savedInstanceState);
     }
@@ -123,7 +117,18 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
 
     @Override
     protected void initData(View view) {
-        setSocketEvent(this, this, SocketConstant.LOGINAFTERCHANGETRADECOIN);
+    }
+
+    @Override
+    protected MarketDetailsPresenter createPresenter(MarketDetailsPresenter mPresenter) {
+        return new MarketDetailsPresenter();
+    }
+
+    @Override
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+
+        TradeFragment.tradeSocketManager.addObserver(this);
 
         linIndicator.setOnKChartView(mKChartView);
         linIndicator.setOnTabSelectListener(new TabLayoutView.TabSelectListener() {
@@ -146,24 +151,21 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                 }
             }
         });
+
+        coinInfo(currentTradeCoinModel);
     }
 
     @Override
-    protected MarketDetailsPresenter createPresenter(MarketDetailsPresenter mPresenter) {
-        return new MarketDetailsPresenter();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentResume() {
+        super.onFragmentResume();
         if (kHandler != null && kRunnable != null) {
             kHandler.post(kRunnable);
         }
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onFragmentPause() {
+        super.onFragmentPause();
         if (kHandler != null && kRunnable != null) {
             kHandler.removeCallbacks(kRunnable);
         }
@@ -198,25 +200,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     }
 
     @Override
-    public void socketConnectEventAgain() {
-        AppSocket.getInstance().coinInfo(currencyId, baseCurrencyId);
-    }
-
-    @Override
-    protected void receiveEvent(BaseEvent event) {
-        super.receiveEvent(event);
-        if (event != null) {
-            switch (event.getCode()) {
-                case EventConstant.TradeVisibleCode:
-                    TradeVisibleHintEvent tradeVisibleHintEvent = (TradeVisibleHintEvent) event.getData();
-                    isVisibleToUserTrade = tradeVisibleHintEvent.isVisibleToUser();
-                    upLoad(true);
-                    break;
-            }
-        }
-    }
-
-    @Override
     public void update(final Observable observable, final Object object) {
         getHostActivity().runOnUiThread(new Runnable() {
             @Override
@@ -227,6 +210,7 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
                         case SocketConstant.LOGINAFTERCHANGETRADECOIN:
                             ObserverModel.LoginAfterChangeTradeCoin coinInfo = model.getTradeCoin();
                             if (coinInfo != null) {
+                                currentTradeCoinModel = coinInfo.getCoinModel();
                                 coinInfo(coinInfo.getCoinModel());
                             }
                             break;
@@ -243,9 +227,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
 
         if (model != null && model.data != null && model.data.lines != null) {
             List<KLineEntity> data = KlineUtils.dealKlines(model, range);
-            if (data != null && data.size() > 0 && currentTradeCoinModel != null && TextUtils.equals(symbol, (currentTradeCoinModel.currentTradeCoin.currencyNameEn + currentTradeCoinModel.currentTradeCoin.baseCurrencyNameEn).toLowerCase()) && currentTradeCoinModel.currentTradeCoin.currentAmount != 0) {
-                data.get(data.size() - 1).Close = BigDecimal.valueOf(currentTradeCoinModel.currentTradeCoin.currentAmount).floatValue();
-            }
 
             if (data != null) {
                 if (isAnim) {
@@ -274,12 +255,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
         this.currencyNameEn = currencyNameEn;
         this.baseCurrencyNameEn = baseCurrencyNameEn;
 
-        socketConnectEventAgain();
-        upLoad(true);
-    }
-
-    public void setQuotationVisible(boolean isVisibleToUserQuotation) {
-        this.isVisibleToUserQuotation = isVisibleToUserQuotation;
         upLoad(true);
     }
 
@@ -287,9 +262,6 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
      * 请求K线数据
      */
     private void upLoad(boolean isClear) {
-        if (!isVisibleToUserTrade || !isVisibleToUserQuotation || !isVisibleToUser) {
-            return;
-        }
         if (isAnim) {
             kAdapter.clearDataAndNotify();
             mKChartView.resetLoadMoreEnd();
@@ -302,14 +274,10 @@ public class KlineFragment extends BaseFragment<MarketDetailsPresenter> implemen
     }
 
     private void coinInfo(CurrentTradeCoinModel model) {
-        currentTradeCoinModel = model;
         if (model != null) {
             pointPrice = model.currentTradeCoin.pointPrice;
 
             if (kAdapter != null) {
-                if (model.currentTradeCoin.currentAmount != 0) {
-                    kAdapter.changeCurrentItem(BigDecimal.valueOf(model.currentTradeCoin.currentAmount).floatValue(), (model.currentTradeCoin.currencyNameEn + model.currentTradeCoin.baseCurrencyNameEn).toLowerCase());
-                }
                 if (pointPrice != pointPriceTemp) {
                     KLineChartView.decimalsCount = pointPrice;
                     pointPriceTemp = pointPrice;

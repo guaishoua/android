@@ -8,9 +8,7 @@ import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +19,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.transition.TransitionManager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
@@ -31,9 +28,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.tacu.EventBus.model.TradeVisibleHintEvent;
+import com.android.tacu.common.TabAdapter;
 import com.android.tacu.module.vip.model.VipDetailRankModel;
-import com.android.tacu.socket.AppSocket;
+import com.android.tacu.socket.MainSocketManager;
+import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.android.tacu.EventBus.EventConstant;
@@ -81,6 +79,9 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -102,12 +103,14 @@ import static com.android.tacu.api.Constant.SELFCOIN_LIST;
 /**
  * Created by jiazhen on 2018/9/27.
  */
-public class TradeFragment extends BaseFragment<TradePresenter> implements View.OnClickListener, TradeContract.IView, ISocketEvent, Observer {
+public class TradeFragment extends BaseFragment<TradePresenter> implements View.OnClickListener, TradeContract.IView, ISocketEvent, Observer, CurrentEntrustFragment.TradeRefresh {
 
     @BindView(R.id.root_view)
     View rootView;
     @BindView(R.id.title)
     QMUITopBar mTopBar;
+    @BindView(R.id.refreshlayout)
+    SmartRefreshLayout refresh;
     @BindView(R.id.con_layout)
     ConstraintLayout con_layout;
     @BindView(R.id.trade_header)
@@ -154,6 +157,8 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     //交易深度
     private QMUIBottomSheet mDepthSheet;
 
+    public static MainSocketManager tradeSocketManager;
+
     //设置交易左右的位置
     public static final String VIEW_POSITION = "VIEW_POSITION";
     public static final String POSITION_LEFT = "POSITION_LEFT";
@@ -178,9 +183,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     //交易对的深度合并选项默认条数
     private final int DEPTHPOPNUMBER = 4;
     //当前币种信息
-    private CurrentTradeCoinModel currentTradeCoinModel;
+    public static CurrentTradeCoinModel currentTradeCoinModel;
     //买卖委托列表
-    private RecordModel recordModel;
+    public static RecordModel recordModel;
     //用户数据
     private UserAccountModel userData;
     private List<RecordModel.BuyBean> buyRecordModelList = new ArrayList<>();
@@ -246,7 +251,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         public void run() {
             //监听列表 列表变 可用余额变
             if (spUtil != null && spUtil.getLogin()) {
-                AppSocket.getInstance().userAccount(currencyId, baseCurrencyId, spUtil.getToken(), spUtil.getUserUid());
+                if (baseAppSocket != null) {
+                    baseAppSocket.userAccount(currencyId, baseCurrencyId, spUtil.getToken(), spUtil.getUserUid());
+                }
             }
             if (timeHandler != null) {
                 timeHandler.postDelayed(this, 2000);
@@ -262,22 +269,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (spUtil != null) {
-            EventManage.sendEvent(new BaseEvent<>(EventConstant.TradeVisibleCode, new TradeVisibleHintEvent(isVisibleToUser)));
-            currentEntrustFragment.setTradeVisible(isVisibleToUser);
-        }
-    }
-
-    @Override
-    protected void initLazy() {
-        super.initLazy();
-        setTradeRefresh();
-        setTradeRequest();
-    }
-
-    @Override
     protected int getContentViewLayoutID() {
         return R.layout.fragment_trade;
     }
@@ -285,11 +276,9 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     @Override
     protected void initData(View view) {
         setSocketEvent(this, this, SocketConstant.LOGINAFTERCHANGETRADECOIN, SocketConstant.USERACCOUNT, SocketConstant.ENTRUST);
+        tradeSocketManager = baseSocketManager;
 
         tv_name.setText(currencyNameEn + "/" + baseCurrencyNameEn);
-
-        initHeader();
-        initTradeHeader(tradeHeader);
     }
 
     @Override
@@ -298,13 +287,38 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+
+        CustomTextHeaderView header = new CustomTextHeaderView(getContext());
+        header.setPrimaryColors(ContextCompat.getColor(getContext(), R.color.content_bg_color), ContextCompat.getColor(getContext(), R.color.text_color));
+        refresh.setRefreshHeader(header);
+        refresh.setEnableLoadmore(false);
+        refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                if (spUtil.getLogin() && currentEntrustFragment != null) {
+                    currentEntrustFragment.notiy(TradeFragment.this);
+                } else if (refresh != null && refresh.isRefreshing()) {
+                    refresh.finishRefresh();
+                }
+            }
+        });
+
+        initHeader();
+        initTradeHeader(tradeHeader);
+    }
+
+    @Override
+    public void onFragmentResume() {
+        super.onFragmentResume();
+
         isEditPriceChange = true;
         setPwdVis();
         initCacheSelf();
         setTvFee();
         setAvailableNumber();
+        setTradeRefresh();
         setTradeRequest();
         if (timeHandler != null && timeRunnable != null) {
             timeHandler.post(timeRunnable);
@@ -332,6 +346,11 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         if (screenShareHelper != null) {
             screenShareHelper.destory();
         }
+        if (tradeSocketManager != null) {
+            tradeSocketManager.deleteObservers();
+            tradeSocketManager = null;
+        }
+        currentTradeCoinModel = null;
     }
 
     @OnClick(R.id.tv_name)
@@ -346,7 +365,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
 
     @OnClick(R.id.img_kline)
     void klineClick() {
-        jumpTo(MarketDetailsActivity.createActivity(getContext(), currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn));
+        jumpTo(MarketDetailsActivity.createActivity(getContext(), currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn, currentTradeCoinModel));
     }
 
     @OnClick(R.id.btn_select_price)
@@ -507,7 +526,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         editPrice.setText("");
         editNumber.setText("");
         editPwd.setText("");
-        currentEntrustFragment.notiy();
+        currentEntrustFragment.notiy(this);
     }
 
     @Override
@@ -534,8 +553,10 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
 
     @Override
     public void socketConnectEventAgain() {
-        AppSocket.getInstance().coinInfo(currencyId, baseCurrencyId);
-        AppSocket.getInstance().entrust(currencyId, baseCurrencyId);
+        if (baseAppSocket != null) {
+            baseAppSocket.coinInfo(currencyId, baseCurrencyId);
+            baseAppSocket.entrust(currencyId, baseCurrencyId);
+        }
     }
 
     @Override
@@ -594,6 +615,13 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                     }
                     break;
             }
+        }
+    }
+
+    @Override
+    public void hideTradeRefresh() {
+        if (refresh != null && refresh.isRefreshing()) {
+            refresh.finishRefresh();
         }
     }
 
@@ -658,7 +686,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         fragmentList.add(quotationFragment);
 
         indicatorViewPager = new IndicatorViewPager(magicIndicator, viewPager);
-        indicatorViewPager.setAdapter(new TabAdapter(getChildFragmentManager()));
+        indicatorViewPager.setAdapter(new TabAdapter(getChildFragmentManager(), getContext(), tabDownTitle, fragmentList));
         viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
         viewPager.setCurrentItem(0, false);
     }
@@ -908,7 +936,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         this.baseCurrencyNameEn = baseCurrencyNameEn;
 
         if (currentEntrustFragment != null) {
-            currentEntrustFragment.setCoinInfo(currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn);
+            currentEntrustFragment.setValue(currencyId, baseCurrencyId, currencyNameEn, baseCurrencyNameEn);
         }
         if (lastDealFragment != null) {
             lastDealFragment.setValue(currencyId, baseCurrencyId);
@@ -925,7 +953,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         tvAvailableNumber.setText(getResources().getString(R.string.available_number) + " --" + baseCurrencyNameEn);
         sellAdapter.setNewData(null);
         buyAdapter.setNewData(null);
-        onEmit();
+        socketConnectEventAgain();
         setTradeRefresh();
         marketPriceShow();
         initCacheSelf();
@@ -936,12 +964,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
      */
     private void coinInfo() {
         if (currentTradeCoinModel != null && currentTradeCoinModel.currentTradeCoin != null && currentTradeCoinModel.currentTradeCoin.baseCurrencyId == baseCurrencyId && currentTradeCoinModel.currentTradeCoin.currencyId == currencyId) {
-            if (lastDealFragment != null) {
-                lastDealFragment.setCurrentTradeCoinModel(currentTradeCoinModel);
-            }
-            if (quotationFragment != null) {
-                quotationFragment.setCurrentTradeCoinModel(currentTradeCoinModel);
-            }
             pointPrice = currentTradeCoinModel.currentTradeCoin.pointPrice;
             pointNum = currentTradeCoinModel.currentTradeCoin.pointNum;
 
@@ -1069,7 +1091,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
             if (!TextUtils.equals(UserAccountString, UserAccountTemp)) {
                 UserAccountTemp = UserAccountString;
                 if (currentEntrustFragment != null) {
-                    currentEntrustFragment.notiy();
+                    currentEntrustFragment.notiy(this);
                 }
                 if (lastDealFragment != null) {
                     lastDealFragment.notiy();
@@ -1095,9 +1117,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
                     //Socekt的加载动画
                     hideLoadingView();
                     setDepthPriceList(true);
-                    if (quotationFragment != null) {
-                        quotationFragment.entrustInfo(recordModel, currencyNameEn, baseCurrencyNameEn);
-                    }
                 }
             }
         });
@@ -1229,9 +1248,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         }
     }
 
-    /**
-     * 加载Socket
-     */
     private void setTradeRefresh() {
         isEditPriceChange = true;
         editPrice.setText("");
@@ -1239,7 +1255,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     }
 
     private void setTradeRequest() {
-        if (spUtil.getLogin() && isVisibleToUser) {
+        if (spUtil.getLogin()) {
             mPresenter.selectVipDetail();
         }
     }
@@ -1611,42 +1627,6 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
         }
         tradePopWindow.notifyInfo(currencyNameEn, baseCurrencyNameEn);
         tradePopWindow.showAsDropDown(view, 0, 0);
-    }
-
-    private class TabAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
-
-        public TabAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
-        }
-
-        @Override
-        public int getCount() {
-            return tabDownTitle != null ? tabDownTitle.size() : 0;
-        }
-
-        @Override
-        public View getViewForTab(int position, View convertView, ViewGroup container) {
-            if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.view_tab, container, false);
-            }
-            TextView textView = (TextView) convertView;
-            textView.setText(tabDownTitle.get(position));
-            int padding = UIUtils.dp2px(10);
-            textView.setPadding(padding, 0, padding, 0);
-            return convertView;
-        }
-
-        @Override
-        public Fragment getFragmentForPage(int position) {
-            return fragmentList.get(position);
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            //这是ViewPager适配器的特点,有两个值 POSITION_NONE，POSITION_UNCHANGED，默认就是POSITION_UNCHANGED,
-            // 表示数据没变化不用更新.notifyDataChange的时候重新调用getViewForPage
-            return PagerAdapter.POSITION_UNCHANGED;
-        }
     }
 
     private boolean isKeyc() {

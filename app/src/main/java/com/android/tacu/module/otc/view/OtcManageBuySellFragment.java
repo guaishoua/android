@@ -25,7 +25,7 @@ import android.widget.TextView;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.otc.contract.OtcManageBuySellContract;
 import com.android.tacu.module.otc.model.OtcPublishParam;
 import com.android.tacu.module.otc.model.OtcSelectFeeModel;
@@ -91,14 +91,6 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
         OtcManageBuySellFragment fragment = new OtcManageBuySellFragment();
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    @Override
-    protected void initLazy() {
-        super.initLazy();
-        if (isFirst) {
-            upload();
-        }
     }
 
     @Override
@@ -217,8 +209,9 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     }
 
     @Override
-    protected void onPresenterCreated(OtcManageBuySellPresenter mPresenter) {
-        super.onPresenterCreated(mPresenter);
+    public void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+
         upload();
     }
 
@@ -340,13 +333,11 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     }
 
     private void upload() {
-        if (isVisibleToUser) {
-            if (!isBuy) {
-                mPresenter.selectBondFreerate(isFirst);
-            }
-            if (isFirst) {
-                isFirst = false;
-            }
+        if (!isBuy) {
+            mPresenter.selectBondFreerate(isFirst);
+        }
+        if (isFirst) {
+            isFirst = false;
         }
     }
 

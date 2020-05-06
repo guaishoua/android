@@ -2,7 +2,7 @@ package com.android.tacu.module.otc.contract;
 
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.assets.model.AuthOssModel;
-import com.android.tacu.module.assets.model.PayInfoModel;
+import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.otc.model.OtcTradeModel;
 

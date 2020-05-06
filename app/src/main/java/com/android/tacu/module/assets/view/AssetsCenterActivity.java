@@ -4,6 +4,7 @@ import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.my.view.ConvertActivity;
+import com.android.tacu.module.payinfo.view.PayInfoListActivity;
 
 import butterknife.OnClick;
 
@@ -32,7 +33,7 @@ public class AssetsCenterActivity extends BaseActivity {
         } else if (spUtil.getIsAuthSenior() == -1 || spUtil.getIsAuthSenior() == 0 || spUtil.getIsAuthSenior() == 1) {
             showToastError(getResources().getString(R.string.please_get_the_level_of_KYC));
         } else {
-            jumpTo(BindingPayInfoActivity.class);
+            jumpTo(PayInfoListActivity.class);
         }
     }
 }

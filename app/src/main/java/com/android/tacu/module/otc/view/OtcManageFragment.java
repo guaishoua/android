@@ -55,14 +55,6 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
     }
 
     @Override
-    protected void initLazy() {
-        super.initLazy();
-        if (isFirst) {
-            upload(true, true);
-        }
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -109,12 +101,12 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (isVisibleToUser) {
-            upload(isFirst, true);
-        }
+    public void onFragmentResume() {
+        super.onFragmentResume();
+
+        upload(isFirst, true);
     }
+
 
     @Override
     public void hideRefreshView() {
