@@ -22,6 +22,9 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 
 public class InvitedRecordFragment extends BaseFragment<InvitedinfoPresenter> implements InvitedinfoContract.IRecordChildView {
@@ -36,7 +39,7 @@ public class InvitedRecordFragment extends BaseFragment<InvitedinfoPresenter> im
 
     private int status;//1 已实名   0 未实名
     private RecordAdapter recordAdapter;
-    private InvitedAllDetailModel detailModel;
+    private List<InvitedAllDetailModel.InvitedRecordModel> recordList = new ArrayList<>();
 
     private View emptyView;
 
@@ -116,30 +119,29 @@ public class InvitedRecordFragment extends BaseFragment<InvitedinfoPresenter> im
 
     @Override
     public void showInvitedInfo(InvitedAllDetailModel model) {
-        if (detailModel != null && detailModel.list != null && detailModel.list.size() > 0) {
-            if (model == null || model.list == null || model.list.size() <= 0) {
-                detailModel.total = model.total;
-                detailModel.list.addAll(model.list);
-            }
-        } else {
-            detailModel = model;
-        }
+        if (model != null && model.list != null && model.list.size() > 0) {
+            recordList.addAll(model.list);
 
-        if (detailModel != null && detailModel.list != null && detailModel.list.size() > 0) {
-            recordAdapter.setNewData(model.list);
-        } else {
+            if (recordList != null && recordList.size() > 0) {
+                recordAdapter.setNewData(recordList);
+                if (recordList.size() >= model.total) {
+                    refreshlayout.setEnableLoadmore(false);
+                } else {
+                    page++;
+                    refreshlayout.setEnableLoadmore(true);
+                }
+            }
+        } else if (page == 1) {
             recordAdapter.setNewData(null);
             recordAdapter.setEmptyView(emptyView);
-        }
-
-        if (detailModel == null || detailModel.list == null || detailModel.list.size() >= model.total) {
             refreshlayout.setEnableLoadmore(false);
-        } else {
-            refreshlayout.setEnableLoadmore(true);
         }
     }
 
     private void upload(boolean isShow) {
+        if (page == 1) {
+            recordList.clear();
+        }
         mPresenter.getInvitedAllDetail(isShow, page, size, status);
     }
 

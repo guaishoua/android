@@ -1,21 +1,32 @@
 package com.android.tacu.module.my.view;
 
+import android.app.Dialog;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.Html;
+import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
+import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.my.contract.InvitedinfoContract;
 import com.android.tacu.module.my.model.InvitedAllModel;
 import com.android.tacu.module.my.presenter.InvitedinfoPresenter;
 import com.android.tacu.utils.FormatterUtils;
+import com.android.tacu.utils.GlideUtils;
+import com.android.tacu.utils.ImgUtils;
+import com.android.tacu.utils.ScreenShootUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.utils.ZXingUtils;
+import com.android.tacu.utils.permission.PermissionUtils;
+import com.yanzhenjie.permission.Permission;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,6 +49,11 @@ public class InvitedinfoActivity extends BaseActivity<InvitedinfoPresenter> impl
 
     private InvitedAllModel invitedAllModel;
     private Bitmap bitmapZxing;
+    private Bitmap picBitmap;
+
+    private View view;
+    private Dialog dialog;
+    private Thread thread;
 
     @Override
     protected void setView() {
@@ -67,12 +83,23 @@ public class InvitedinfoActivity extends BaseActivity<InvitedinfoPresenter> impl
             bitmapZxing.recycle();
             bitmapZxing = null;
         }
+        if (picBitmap != null && !picBitmap.isRecycled()) {
+            picBitmap.recycle();
+            picBitmap = null;
+        }
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        if (thread != null) {
+            thread.interrupt();
+            thread = null;
+        }
         System.gc();
     }
 
     @OnClick(R.id.tv_invited_record)
     void invitedRecordClick() {
-
+        jumpTo(InvitedRecordActivity.class);
     }
 
     @OnClick({R.id.tv_code, R.id.img_code})
@@ -91,7 +118,40 @@ public class InvitedinfoActivity extends BaseActivity<InvitedinfoPresenter> impl
 
     @OnClick(R.id.bt_poster)
     void posterClick() {
+        if (invitedAllModel != null && invitedAllModel.psoter != null && invitedAllModel.psoter.size() > 0) {
+            view = View.inflate(this, R.layout.view_invited_share, null);
+            ImageView img_url = view.findViewById(R.id.img_url);
+            final ImageView img_qr = view.findViewById(R.id.img_qr);
 
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    saveImg();
+                }
+            });
+
+            GlideUtils.disPlay(this, invitedAllModel.psoter.get(0).imageUrl, img_url);
+            img_qr.post(new Runnable() {
+                @Override
+                public void run() {
+                    bitmapZxing = ZXingUtils.createQRImage(Constant.INVITED_FRIEND_URL + invitedAllModel.invitedId, img_qr.getWidth(), img_qr.getHeight());
+                    if (bitmapZxing != null) {
+                        img_qr.setImageBitmap(bitmapZxing);
+                    }
+                }
+            });
+
+            PermissionUtils.requestPermissions(this, new OnPermissionListener() {
+                @Override
+                public void onPermissionSucceed() {
+                    showDialog();
+                }
+
+                @Override
+                public void onPermissionFailed() {
+                }
+            }, Permission.Group.STORAGE);
+        }
     }
 
     @Override
@@ -117,5 +177,42 @@ public class InvitedinfoActivity extends BaseActivity<InvitedinfoPresenter> impl
             bitmapZxing = ZXingUtils.createQRImage(url, UIUtils.dp2px(150), UIUtils.dp2px(150));
             img_qr.setImageBitmap(bitmapZxing);
         }
+    }
+
+    private void showDialog() {
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(view);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = UIUtils.getScreenWidth() * 3 / 5;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.gravity = Gravity.CENTER;
+        dialog.getWindow().setBackgroundDrawableResource(R.color.color_transparent);
+        dialog.getWindow().setAttributes(lp);
+
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+    }
+
+    private void saveImg() {
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        picBitmap = ScreenShootUtils.convertViewToBitmap(view);
+                        if (picBitmap != null) {
+                            ImgUtils.saveImageToGallery(InvitedinfoActivity.this, picBitmap);
+                            showToastSuccess(getResources().getString(R.string.save_success));
+                        }
+                    }
+                });
+            }
+        });
+        thread.start();
     }
 }
