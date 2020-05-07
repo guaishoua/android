@@ -1,24 +1,26 @@
 package com.android.tacu.module.my.view;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.InvitedRecordEvent;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
-import com.android.tacu.module.my.contract.InvitedinfoContract;
-import com.android.tacu.module.my.model.InvitedAllModel;
-import com.android.tacu.module.my.presenter.InvitedinfoPresenter;
-import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
+import com.android.tacu.common.TabAdapter;
+import com.shizhefei.view.indicator.IndicatorViewPager;
+import com.shizhefei.view.indicator.ScrollIndicatorView;
+import com.shizhefei.view.indicator.slidebar.TextWidthColorBar;
+import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -26,27 +28,22 @@ import butterknife.BindView;
  * Created by xiaohong on 2018/9/26.
  */
 
-public class InvitedRecordActivity extends BaseActivity<InvitedinfoPresenter> implements InvitedinfoContract.IView {
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
-    @BindView(R.id.refreshlayout)
-    SmartRefreshLayout refreshlayout;
+public class InvitedRecordActivity extends BaseActivity {
 
-    private int size = 10;
-    private int page = 1;
-    private View empeyView;
-    private InvitedAdapter adapter;
+    @BindView(R.id.lin_invited_me)
+    LinearLayout lin_invited_me;
+    @BindView(R.id.tv_invitedme_uid)
+    TextView tv_invitedme_uid;
+    @BindView(R.id.tv_invitedme_account)
+    TextView tv_invitedme_account;
 
-    @Override
-    protected InvitedinfoPresenter createPresenter(InvitedinfoPresenter mPresenter) {
-        return new InvitedinfoPresenter();
-    }
+    @BindView(R.id.magic_indicator)
+    ScrollIndicatorView magic_indicator;
+    @BindView(R.id.vp)
+    ViewPager viewPager;
 
-    @Override
-    protected void onPresenterCreated(InvitedinfoPresenter presenter) {
-        super.onPresenterCreated(presenter);
-        upLoad(true);
-    }
+    private List<String> tabTitle = new ArrayList<>();
+    private List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
     protected void setView() {
@@ -56,89 +53,42 @@ public class InvitedRecordActivity extends BaseActivity<InvitedinfoPresenter> im
     @Override
     protected void initView() {
         mTopBar.setTitle(getResources().getString(R.string.invited_record));
-        empeyView = View.inflate(this, R.layout.view_empty, null);
 
-        CustomTextHeaderView headerView = new CustomTextHeaderView(this);
-        headerView.setPrimaryColors(ContextCompat.getColor(this, R.color.content_bg_color_grey), ContextCompat.getColor(this, R.color.text_color));
-        refreshlayout.setRefreshHeader(headerView);
-        refreshlayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_default)));
-        refreshlayout.setEnableLoadmore(false);
-        refreshlayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                upLoad(false);
-            }
+        tabTitle.add(getResources().getString(R.string.real_name));
+        tabTitle.add(getResources().getString(R.string.not_real_name));
 
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                upLoad(true);
-            }
-        });
+        fragmentList.add(InvitedRecordFragment.newInstance(1));
+        fragmentList.add(InvitedRecordFragment.newInstance(0));
 
-        adapter = new InvitedAdapter();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-    }
+        magic_indicator.setBackgroundColor(ContextCompat.getColor(this, R.color.tab_bg_color));
+        magic_indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(ContextCompat.getColor(this, R.color.text_default), ContextCompat.getColor(this, R.color.tab_text_color)).setSize(14, 14));
+        magic_indicator.setScrollBar(new TextWidthColorBar(this, magic_indicator, ContextCompat.getColor(this, R.color.text_default), 4));
+        magic_indicator.setSplitAuto(true);
 
-    private void upLoad(boolean isRefresh) {
-        if (isRefresh) {
-            page = 1;
-        } else {
-            page++;
-        }
-        mPresenter.getInvitedInfo(page, size);
+        IndicatorViewPager indicatorViewPager = new IndicatorViewPager(magic_indicator, viewPager);
+        indicatorViewPager.setAdapter(new TabAdapter(getSupportFragmentManager(), this, tabTitle, fragmentList));
+        viewPager.setOffscreenPageLimit(fragmentList.size() - 1);
+        viewPager.setCurrentItem(0, false);
     }
 
     @Override
-    public void showInvitedInfo(InvitedAllModel model) {
-        if (page == 1) {
-            adapter.setNewData(null);
-        }
-        if (model != null) {
-            if (model.total == 0) {
-                adapter.setEmptyView(empeyView);
-                adapter.setNewData(null);
-                adapter.notifyDataSetChanged();
-            } else if (model.list != null && model.list.size() == 0) {
-                refreshlayout.setEnableLoadmore(false);
-            } else if (model.list != null && model.total <= 10) {
-                adapter.setNewData(model.list);
-                refreshlayout.setEnableLoadmore(false);
-            } else if (model.total > 10 && model.list != null) {
-                adapter.addData(model.list);
-                refreshlayout.setEnableLoadmore(true);
-            }
-        }
-    }
+    protected void receiveEvent(BaseEvent event) {
+        super.receiveEvent(event);
 
-    @Override
-    public void hideRefreshView() {
-        super.hideRefreshView();
-        if (refreshlayout != null && (refreshlayout.isRefreshing() || refreshlayout.isLoading())) {
-            refreshlayout.finishRefresh();
-            refreshlayout.finishLoadmore();
-        }
-    }
-
-    private class InvitedAdapter extends BaseQuickAdapter<InvitedAllModel.InvitedRecordModel, BaseViewHolder> {
-
-        public InvitedAdapter() {
-            super(R.layout.item_invited);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, InvitedAllModel.InvitedRecordModel item) {
-            helper.setText(R.id.tv_item_one, item.uid);
-            helper.setText(R.id.tv_item_three, item.createTime);
-
-            if (TextUtils.equals(item.source, "1")) {
-                helper.setText(R.id.tv_item_two, "Web");
-            } else if (TextUtils.equals(item.source, "3")) {
-                helper.setText(R.id.tv_item_two, "Android");
-            } else if (TextUtils.equals(item.source, "4")) {
-                helper.setText(R.id.tv_item_two, "IOS");
-            } else {
-                helper.setText(R.id.tv_item_two, "");
+        if (event != null) {
+            switch (event.getCode()) {
+                case EventConstant.Invited_Record:
+                    InvitedRecordEvent recordEvent = (InvitedRecordEvent) event.getData();
+                    String uid = recordEvent.getInvited_uid();
+                    String name = recordEvent.getInvited_name();
+                    if (!TextUtils.isEmpty(uid) || !TextUtils.isEmpty(name)) {
+                        lin_invited_me.setVisibility(View.VISIBLE);
+                        tv_invitedme_uid.setText(uid);
+                        tv_invitedme_account.setText(name);
+                    } else {
+                        lin_invited_me.setVisibility(View.GONE);
+                    }
+                    break;
             }
         }
     }

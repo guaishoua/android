@@ -23,4 +23,8 @@ public class EventConstant {
     public static final int VipBuyCode = 1009;
     //刷新订单详情
     public static final int OTCDetailCode = 1013;
+    //刷新申请商户的页面
+    public static final int AuthMerchant = 1014;
+    //邀请列表
+    public static final int Invited_Record = 1015;
 }

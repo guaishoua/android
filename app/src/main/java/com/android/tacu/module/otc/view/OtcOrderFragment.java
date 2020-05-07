@@ -356,7 +356,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
 
                 if (item.tradeModel.status != null) {
                     // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成
-                    // 12裁决完成 13裁决完成
+                    // 12裁决成功 13裁决失败
 
                     holder.setText(R.id.tv_leftbottom_title, getResources().getString(R.string.trade_num) + "(" + item.tradeModel.currencyName + ")");
                     holder.setText(R.id.tv_rightbottom_title, getResources().getString(R.string.trade_price) + "(CNY)");
@@ -383,6 +383,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                                 holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_order));
                             }
 
+                            holder.setText(R.id.tv_time_title, getResources().getString(R.string.confirm_counterdown));
                             if (currentTime != null) {
                                 if (!TextUtils.isEmpty(item.tradeModel.confirmEndTime)) {
                                     valueTime = DateUtils.string2Millis(item.tradeModel.confirmEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
@@ -418,6 +419,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                                 holder.setTextColor(R.id.btn_right, ContextCompat.getColor(mContext, R.color.text_color));
                             }
 
+                            holder.setText(R.id.tv_time_title, getResources().getString(R.string.pay_counterdown));
                             if (currentTime != null) {
                                 if (!TextUtils.isEmpty(item.tradeModel.payEndTime)) {
                                     valueTime = DateUtils.string2Millis(item.tradeModel.payEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
@@ -458,6 +460,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                                 holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_coined));
                             }
 
+                            holder.setText(R.id.tv_time_title, getResources().getString(R.string.coined_counterdown));
                             if (item.tradeModel.status == 3) {
                                 if (currentTime != null) {
                                     if (!TextUtils.isEmpty(item.tradeModel.transCoinEndTime)) {
@@ -483,18 +486,14 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_bottomfive_title, getResources().getString(R.string.mobile));
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
 
-                            /*if (item.tradeModel.buyuid == spUtil.getUserUid()) {
-                                holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.shensu));
-                            } else if (item.tradeModel.selluid == spUtil.getUserUid()) {
-                                holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.tijiao_shensu));
-                            }*/
-                            /*if (item.tradeModel.beArbitrateUid != null && item.tradeModel.beArbitrateUid != 0) {
+                            if (item.tradeModel.beArbitrateUid != null && item.tradeModel.beArbitrateUid != 0) {
                                 holder.setText(R.id.tv_righttop, getResources().getString(R.string.submited));
+                                holder.setTextColor(R.id.tv_righttop, ContextCompat.getColor(mContext, R.color.color_otc_buy));
                             } else {
                                 holder.setText(R.id.tv_righttop, getResources().getString(R.string.unsubmit));
-                            }*/
+                                holder.setTextColor(R.id.tv_righttop, ContextCompat.getColor(mContext, R.color.color_otc_sell));
+                            }
 
-                            holder.setTextColor(R.id.tv_righttop, ContextCompat.getColor(mContext, R.color.color_otc_sell));
                             holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_sell));
                             holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
                             holder.setGone(R.id.img_leftbottom, true);
@@ -515,13 +514,19 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                                 holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_coined));
                             }
 
-                            if (currentTime != null) {
-                                if (!TextUtils.isEmpty(item.tradeModel.arbitrationEndTime)) {
-                                    valueTime = DateUtils.string2Millis(item.tradeModel.arbitrationEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
-                                    if (valueTime > 0) {
-                                        timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_time)));
-                                    } else {
-                                        holder.setText(R.id.tv_time, getResources().getString(R.string.timeouted));
+                            if (item.tradeModel.beArbitrateUid != null && item.tradeModel.beArbitrateUid != 0) {
+                                holder.setGone(R.id.tv_time_title, false);
+                                holder.setGone(R.id.tv_time, false);
+                            } else {
+                                holder.setText(R.id.tv_time_title, getResources().getString(R.string.arbitration_countdown));
+                                if (currentTime != null) {
+                                    if (!TextUtils.isEmpty(item.tradeModel.arbitrationEndTime)) {
+                                        valueTime = DateUtils.string2Millis(item.tradeModel.arbitrationEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
+                                        if (valueTime > 0) {
+                                            timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_time)));
+                                        } else {
+                                            holder.setText(R.id.tv_time, getResources().getString(R.string.timeouted));
+                                        }
                                     }
                                 }
                             }
@@ -575,7 +580,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             holder.setText(R.id.tv_lefttop_title, getResources().getString(R.string.order_time));
                             holder.setText(R.id.tv_righttop_title, getResources().getString(R.string.arbitration_result1));
                             holder.setText(R.id.tv_lefttop, item.tradeModel.createTime);
-                            holder.setText(R.id.tv_righttop, getResources().getString(R.string.arbitrationed));
                             holder.setTextColor(R.id.tv_rightbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
                             holder.setTextColor(R.id.tv_righttop, ContextCompat.getColor(mContext, R.color.color_arbitration_finish));
                             holder.setGone(R.id.img_leftbottom, true);
@@ -584,16 +588,17 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             if (item.tradeModel.status == 12) {
                                 holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_success);
                                 holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_buy));
+                                holder.setText(R.id.tv_righttop, getResources().getString(R.string.coined1));
                             } else if (item.tradeModel.status == 13) {
                                 holder.setImageResource(R.id.img_leftbottom, R.drawable.icon_auth_failure);
                                 holder.setTextColor(R.id.tv_leftbottom, ContextCompat.getColor(mContext, R.color.color_otc_sell));
+                                holder.setText(R.id.tv_righttop, getResources().getString(R.string.canceled));
                             }
                             holder.setImageResource(R.id.img_rightbottom, R.drawable.icon_auth_success);
 
                             holder.setGone(R.id.tv_time_title, false);
                             holder.setGone(R.id.tv_time, false);
                             break;
-
                     }
                 } else {
                     holder.setText(R.id.tv_status, "");

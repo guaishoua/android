@@ -351,6 +351,8 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
                 holder.setGone(R.id.btn_left, false);
                 holder.setGone(R.id.btn_center, false);
                 holder.setGone(R.id.btn_right, true);
+                holder.setGone(R.id.tv_operation_countdown_title, true);
+                holder.setGone(R.id.tv_operation_countdown, true);
 
                 switch (item.tradeModel.status) {
                     case 1:
@@ -420,7 +422,21 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
                         holder.setTextColor(R.id.tv_order_status, ContextCompat.getColor(mContext, R.color.color_arbitration));
                         holder.setText(R.id.tv_operation_countdown_title, getResources().getString(R.string.arbitration_countdown));
 
-                        holder.setText(R.id.tv_operation_countdown, getResources().getString(R.string.pay_timeout));
+                        if (item.tradeModel.beArbitrateUid != null && item.tradeModel.beArbitrateUid != 0) {
+                            holder.setGone(R.id.tv_operation_countdown_title, false);
+                            holder.setGone(R.id.tv_operation_countdown, false);
+                        } else {
+                            if (currentTime != null) {
+                                if (!TextUtils.isEmpty(item.tradeModel.arbitrationEndTime)) {
+                                    valueTime = DateUtils.string2Millis(item.tradeModel.arbitrationEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
+                                    if (valueTime > 0) {
+                                        timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_operation_countdown)));
+                                    } else {
+                                        holder.setText(R.id.tv_operation_countdown, getResources().getString(R.string.timeouted));
+                                    }
+                                }
+                            }
+                        }
                         break;
                     case 9:
                         holder.setText(R.id.tv_order_status, getResources().getString(R.string.coined_timeout));

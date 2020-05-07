@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.model.BaseEvent;
 import com.android.tacu.R;
 import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseActivity;
@@ -20,6 +22,7 @@ import com.android.tacu.module.auth.contract.AuthMerchantContract;
 import com.android.tacu.module.auth.model.OtcSectionModel;
 import com.android.tacu.module.auth.presenter.AuthMerchantPresenter;
 import com.android.tacu.module.main.model.OwnCenterModel;
+import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.popupwindow.OtcPopWindow;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
@@ -136,6 +139,18 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
         }
     }
 
+    @Override
+    protected void receiveEvent(BaseEvent event) {
+        super.receiveEvent(event);
+        if (event != null) {
+            switch (event.getCode()) {
+                case EventConstant.VipBuyCode:
+                    upload();
+                    break;
+            }
+        }
+    }
+
     @OnClick(R.id.rl_ordinary_merchant)
     void ordinaryMerchantClick() {
         type = 0;
@@ -190,9 +205,6 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
         if (ordinarMerchantFragment != null) {
             ordinarMerchantFragment.setBondAccount(model);
         }
-        if (authMerchantFragment != null) {
-            authMerchantFragment.setBondAccount(model);
-        }
     }
 
     @Override
@@ -221,6 +233,26 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
         }
     }
 
+    @Override
+    public void countTrade(Integer num) {
+        if (ordinarMerchantFragment != null) {
+            ordinarMerchantFragment.setCountTrade(num);
+        }
+        if (authMerchantFragment != null) {
+            authMerchantFragment.setCountTrade(num);
+        }
+    }
+
+    @Override
+    public void userBaseInfo(OtcMarketInfoModel model) {
+        if (ordinarMerchantFragment != null) {
+            ordinarMerchantFragment.setUserBaseInfo(model);
+        }
+        if (authMerchantFragment != null) {
+            authMerchantFragment.setUserBaseInfo(model);
+        }
+    }
+
     private void setShowBtn() {
         tv_ordinary_merchant.setTextColor(ContextCompat.getColor(this, R.color.text_color));
         tv_certified_shoper.setTextColor(ContextCompat.getColor(this, R.color.text_color));
@@ -240,6 +272,8 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
     private void upload() {
         mPresenter.ownCenter();
         mPresenter.BondAccount(Constant.ACU_CURRENCY_ID);
+        mPresenter.countTrade();
+        mPresenter.userBaseInfo(spUtil.getUserUid());
     }
 
     private void initPop() {

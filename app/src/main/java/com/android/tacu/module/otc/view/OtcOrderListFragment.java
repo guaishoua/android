@@ -97,16 +97,6 @@ public class OtcOrderListFragment extends BaseFragment {
             }
         });
 
-        /*data.add(getResources().getString(R.string.otc_order_all));
-        data.add(getResources().getString(R.string.otc_order_confirmed));
-        data.add(getResources().getString(R.string.otc_order_finished));
-        data.add(getResources().getString(R.string.otc_order_payed));
-        data.add(getResources().getString(R.string.otc_order_coined));
-        data.add(getResources().getString(R.string.otc_order_cancel));
-        data.add(getResources().getString(R.string.otc_order_timeout));
-        data.add(getResources().getString(R.string.otc_order_arbitration));
-        data.add(getResources().getString(R.string.otc_order_adjude));*/
-
         data.add(getResources().getString(R.string.otc_order_all));
         data.add(getResources().getString(R.string.otc_order_confirmed));
         data.add(getResources().getString(R.string.wait_deal));
@@ -115,16 +105,9 @@ public class OtcOrderListFragment extends BaseFragment {
 
         dataInt.add(0);
         dataInt.add(1);
-
-        /*dataInt.add(0);
-        dataInt.add(1);
-        dataInt.add(10);
-        dataInt.add(2);
-        dataInt.add(3);
-        dataInt.add(17);
-        dataInt.add(18);
-        dataInt.add(4);
-        dataInt.add(12);*/
+        dataInt.add(20);
+        dataInt.add(21);
+        dataInt.add(22);
 
         setBuySellClick();
     }

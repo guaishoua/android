@@ -119,4 +119,16 @@ public class OtcMarketInfoModel implements Serializable {
     public String allTime;
     @SerializedName("merchantStatus")
     public Integer merchantStatus; //0=下线 1=上线
+
+    @SerializedName("downTime")
+    public String downTime;// 降级时间
+    @SerializedName("quitTime")
+    public String quitTime;// 退出时间
+    @SerializedName("days")
+    public Integer days;// 退出或降级之后多少天才能申请
+    @SerializedName("applyTime")
+    public String applyTime; //认证 普通商家时间
+
+    @SerializedName("timestamp")
+    public String timestamp; //当前服务器时间戳
 }

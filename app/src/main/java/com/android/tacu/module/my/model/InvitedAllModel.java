@@ -22,6 +22,11 @@ public class InvitedAllModel implements Serializable {
     @SerializedName("invitedId")
     public String invitedId;
 
+    @SerializedName("all")
+    public String all;//累计获得佣金
+    @SerializedName("pre")
+    public String pre;//冻结中的佣金
+
     public static class InvitedRecordModel implements Serializable {
         @SerializedName("uid")
         public String uid;

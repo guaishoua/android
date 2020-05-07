@@ -455,6 +455,12 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
         upload(true);
     }
 
+    @Override
+    public void arbitrationOrderCancelSuccess() {
+        showToastSuccess(getResources().getString(R.string.submit_success));
+        upload(true);
+    }
+
     private void upload(boolean isShowView) {
         mPresenter.selectTradeOne(isShowView, isFirst, orderNo);
         if (isFirst) {

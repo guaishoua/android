@@ -41,6 +41,7 @@ import com.android.tacu.module.auth.presenter.AuthMerchantPresenter;
 import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.main.view.MainActivity;
 import com.android.tacu.module.my.view.SecurityCenterActivity;
+import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 import com.android.tacu.module.vip.view.RechargeDepositActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.CommonUtils;
@@ -63,27 +64,40 @@ import butterknife.OnClick;
 
 public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter> implements AuthMerchantContract.IOrdinarView {
 
-    @BindView(R.id.tv_membership_right)
-    TextView tv_membership_right;
-
     @BindView(R.id.img_membership)
     ImageView img_membership;
+    @BindView(R.id.tv_membership_right)
+    TextView tv_membership_right;
 
     @BindView(R.id.img_binding)
     ImageView img_binding;
     @BindView(R.id.tv_binding_right)
     TextView tv_binding_right;
+    @BindView(R.id.tv_binding_finish)
+    TextView tv_binding_finish;
 
     @BindView(R.id.img_asset)
     ImageView img_asset;
+    @BindView(R.id.btn_asset_right)
+    QMUIRoundButton btn_asset_right;
+    @BindView(R.id.tv_asset_finish)
+    TextView tv_asset_finish;
 
     @BindView(R.id.img_kyc)
     ImageView img_kyc;
+    @BindView(R.id.btn_kyc_right)
+    QMUIRoundButton btn_kyc_right;
+    @BindView(R.id.tv_kyc_finish)
+    TextView tv_kyc_finish;
     @BindView(R.id.tv_kyc_error)
     TextView tv_kyc_error;
 
     @BindView(R.id.img_otc)
     ImageView img_otc;
+    @BindView(R.id.btn_otc_right)
+    QMUIRoundButton btn_otc_right;
+    @BindView(R.id.tv_otc_finish)
+    TextView tv_otc_finish;
     @BindView(R.id.tv_otc_error)
     TextView tv_otc_error;
 
@@ -113,6 +127,7 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
     private OwnCenterModel ownCenterModel;
     private OtcAmountModel otcAmountModel;
     private Integer otcTradeNum = null;
+    private OtcMarketInfoModel marketInfoModel = null;
     private File uploadFile;
     private String uploadVideoName;
 
@@ -245,13 +260,11 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
 
     @OnClick(R.id.btn_submit)
     void submitClick() {
-        showOrdinarMerchant();
-    }
-
-    @Override
-    public void countTrade(Integer num) {
-        this.otcTradeNum = num;
-        dealValue();
+        if (TextUtils.equals(btn_submit.getText().toString(), getResources().getString(R.string.apply_drop_out))) {
+            dropOutDialog();
+        } else {
+            showOrdinarMerchant();
+        }
     }
 
     @Override
@@ -277,6 +290,23 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
     public void applyMerchantSuccess() {
         showToastSuccess(getResources().getString(R.string.apply_success));
         getHostActivity().finish();
+    }
+
+    @Override
+    public void quitMerchantSuccess() {
+        spUtil.setApplyMerchantStatus(0);
+        spUtil.setApplyAuthMerchantStatus(0);
+        EventManage.sendEvent(new BaseEvent<>(EventConstant.AuthMerchant, new Object()));
+    }
+
+    public void setCountTrade(Integer num) {
+        this.otcTradeNum = num;
+        dealValue();
+    }
+
+    public void setUserBaseInfo(OtcMarketInfoModel model) {
+        this.marketInfoModel = model;
+        dealValue();
     }
 
     private void upload() {
@@ -306,20 +336,26 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
         if (spUtil.getEmailStatus() && spUtil.getPhoneStatus()) {
             isBind = true;
             img_binding.setImageResource(R.drawable.icon_auth_success);
+            tv_binding_right.setVisibility(View.GONE);
+            tv_binding_finish.setVisibility(View.VISIBLE);
             tv_binding_right.setText(getResources().getString(R.string.binded));
-            tv_binding_right.setClickable(false);
         } else {
             isBind = false;
             img_binding.setImageResource(R.drawable.icon_auth_failure);
-            tv_binding_right.setText(getResources().getString(R.string.go_binding));
-            tv_binding_right.setClickable(true);
+            tv_binding_right.setVisibility(View.VISIBLE);
+            tv_binding_finish.setVisibility(View.GONE);
+            tv_binding_right.setText(getResources().getString(R.string.go_finish));
         }
-        if (otcAmountModel != null && !TextUtils.isEmpty(otcAmountModel.cashAmount) && Double.valueOf(otcAmountModel.cashAmount) >= 5000) {
+        if (otcAmountModel != null && !TextUtils.isEmpty(otcAmountModel.amount) && Double.valueOf(otcAmountModel.amount) >= 5000) {
             isAsset = true;
             img_asset.setImageResource(R.drawable.icon_auth_success);
+            btn_asset_right.setVisibility(View.GONE);
+            tv_asset_finish.setVisibility(View.VISIBLE);
         } else {
             isAsset = false;
             img_asset.setImageResource(R.drawable.icon_auth_failure);
+            btn_asset_right.setVisibility(View.VISIBLE);
+            tv_asset_finish.setVisibility(View.GONE);
         }
         if (ownCenterModel != null && !TextUtils.isEmpty(ownCenterModel.keytowAdoptTime)) {
             int between = DateUtils.differentDaysByMillisecond(System.currentTimeMillis(), DateUtils.string2Millis(ownCenterModel.keytowAdoptTime, DateUtils.DEFAULT_PATTERN));
@@ -327,28 +363,43 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
             if (between >= 60) {
                 isKyc = true;
                 img_kyc.setImageResource(R.drawable.icon_auth_success);
+                btn_kyc_right.setVisibility(View.GONE);
+                tv_kyc_finish.setVisibility(View.VISIBLE);
                 tv_kyc_error.setText("");
             } else {
+                if (waitTime == 0) {
+                    waitTime = 1;
+                }
                 isKyc = false;
                 img_kyc.setImageResource(R.drawable.icon_auth_failure);
+                btn_kyc_right.setVisibility(View.VISIBLE);
+                tv_kyc_finish.setVisibility(View.GONE);
                 tv_kyc_error.setText(String.format(getResources().getString(R.string.wait_day), String.valueOf(waitTime)));
             }
         } else {
             isKyc = false;
             img_kyc.setImageResource(R.drawable.icon_auth_failure);
+            btn_kyc_right.setVisibility(View.VISIBLE);
+            tv_kyc_finish.setVisibility(View.GONE);
         }
         if (otcTradeNum != null) {
             if (otcTradeNum >= 10) {
                 isOtc = true;
                 img_otc.setImageResource(R.drawable.icon_auth_success);
+                btn_otc_right.setVisibility(View.GONE);
+                tv_otc_finish.setVisibility(View.VISIBLE);
             } else {
                 isOtc = false;
                 img_otc.setImageResource(R.drawable.icon_auth_failure);
+                btn_otc_right.setVisibility(View.VISIBLE);
+                tv_otc_finish.setVisibility(View.GONE);
                 tv_otc_error.setText(String.format(getResources().getString(R.string.cha_bi), String.valueOf(10 - otcTradeNum)));
             }
         } else {
             isOtc = false;
             img_otc.setImageResource(R.drawable.icon_auth_failure);
+            btn_otc_right.setVisibility(View.VISIBLE);
+            tv_otc_finish.setVisibility(View.GONE);
         }
         if (isVideo) {
             img_video.setImageResource(R.drawable.icon_auth_success);
@@ -364,18 +415,36 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
             ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
         }
         if (spUtil.getApplyMerchantStatus() == 1 || spUtil.getApplyMerchantStatus() == 2) {
-            btn_submit.setEnabled(false);
-            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
             if (spUtil.getApplyMerchantStatus() == 1) {
+                btn_submit.setEnabled(false);
+                ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
                 btn_submit.setText(getResources().getString(R.string.to_be_examine));
             } else if (spUtil.getApplyMerchantStatus() == 2) {
-                btn_submit.setText(getResources().getString(R.string.apply_success1));
+                btn_submit.setEnabled(true);
+                ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
+                btn_submit.setText(getResources().getString(R.string.apply_drop_out));
             }
             img_video.setImageResource(R.drawable.icon_auth_success);
             btn_upload_video.setVisibility(View.GONE);
         } else {
-            btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
             btn_upload_video.setVisibility(View.VISIBLE);
+
+            if (marketInfoModel != null) {
+                Integer days = marketInfoModel.days != null ? marketInfoModel.days : 0;
+                long currentTime = marketInfoModel.timestamp != null ? Long.parseLong(marketInfoModel.timestamp) : 0L;
+                long quitTime = marketInfoModel.quitTime != null ? Long.parseLong(marketInfoModel.quitTime) : 0L;
+                int between = DateUtils.differentDaysByMillisecond(currentTime, quitTime);
+                int waitTime = days - between;
+                if (waitTime > 0) {
+                    btn_submit.setEnabled(false);
+                    ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
+                    btn_submit.setText(String.format(getResources().getString(R.string.countdown_day), String.valueOf(waitTime)));
+                } else {
+                    btn_submit.setEnabled(true);
+                    ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
+                    btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
+                }
+            }
         }
     }
 
@@ -430,6 +499,22 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
                     @Override
                     public void onPositive(Dialog droidDialog) {
                         mPresenter.applyMerchant(uploadVideoName);
+                    }
+                })
+                .negativeButton(getResources().getString(R.string.cancel), null)
+                .cancelable(false, false)
+                .show();
+    }
+
+    private void dropOutDialog() {
+        new DroidDialog.Builder(getContext())
+                .title(getResources().getString(R.string.dropout_mechant))
+                .content(getResources().getString(R.string.dropout_mechant_tip))
+                .contentGravity(Gravity.CENTER)
+                .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
+                    @Override
+                    public void onPositive(Dialog droidDialog) {
+                        mPresenter.quitMerchant(1);
                     }
                 })
                 .negativeButton(getResources().getString(R.string.cancel), null)

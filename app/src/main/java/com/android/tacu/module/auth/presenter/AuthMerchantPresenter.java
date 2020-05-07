@@ -12,6 +12,7 @@ import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.auth.contract.AuthMerchantContract;
 import com.android.tacu.module.auth.model.OtcSectionModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
+import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class AuthMerchantPresenter extends BaseMvpPresenter implements AuthMerch
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).countTrade(), new NetDisposableObserver<BaseModel<Integer>>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel<Integer> o) {
-                AuthMerchantContract.IOrdinarView view = (AuthMerchantContract.IOrdinarView) getView();
+                AuthMerchantContract.IView view = (AuthMerchantContract.IView) getView();
                 view.countTrade(o.attachment);
             }
         });
@@ -90,6 +91,48 @@ public class AuthMerchantPresenter extends BaseMvpPresenter implements AuthMerch
             public void onNext(BaseModel<List<OtcSectionModel>> o) {
                 AuthMerchantContract.IView view = (AuthMerchantContract.IView) getView();
                 view.selectOtcSection(o.attachment);
+            }
+        });
+    }
+
+    @Override
+    public void downMerchantAuth() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).downMerchantAuth(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel o) {
+                AuthMerchantContract.IAuthView view = (AuthMerchantContract.IAuthView) getView();
+                view.downMerchantAuthSuccess();
+            }
+        });
+    }
+
+    /**
+     *
+     * @param type 1=普通商户 2=认证商户
+     */
+    @Override
+    public void quitMerchant(final int type) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).quitMerchant(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel o) {
+                if (type==1){
+                    AuthMerchantContract.IOrdinarView view = (AuthMerchantContract.IOrdinarView) getView();
+                    view.quitMerchantSuccess();
+                }else if (type==2){
+                    AuthMerchantContract.IAuthView view = (AuthMerchantContract.IAuthView) getView();
+                    view.quitMerchantSuccess();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void userBaseInfo(Integer queryUid) {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).userBaseInfo(queryUid), new NetDisposableObserver<BaseModel<OtcMarketInfoModel>>((IBaseMvpView) getView()) {
+            @Override
+            public void onNext(BaseModel<OtcMarketInfoModel> model) {
+                AuthMerchantContract.IView view = (AuthMerchantContract.IView) getView();
+                view.userBaseInfo(model.attachment);
             }
         });
     }

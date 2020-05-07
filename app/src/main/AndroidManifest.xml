@@ -150,7 +150,6 @@
         <activity android:name="com.android.tacu.module.my.view.InvitedRecordActivity" />
         <activity android:name="com.android.tacu.module.transaction.view.TradeRecordManageActivity" />
         <activity android:name="com.android.tacu.module.transaction.view.DealDetailsActivity" />
-        <activity android:name="com.android.tacu.module.my.view.InvitePosterActivity" />
         <activity android:name="com.android.tacu.module.my.view.ConvertActivity" />
         <activity android:name="com.android.tacu.module.assets.view.MoneyFlowActivity" />
         <activity android:name="com.android.tacu.module.main.view.ZXingActivity" />

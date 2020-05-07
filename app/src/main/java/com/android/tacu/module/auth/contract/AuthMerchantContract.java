@@ -5,6 +5,7 @@ import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
 import com.android.tacu.module.auth.model.OtcSectionModel;
 import com.android.tacu.module.main.model.OwnCenterModel;
+import com.android.tacu.module.otc.model.OtcMarketInfoModel;
 
 import java.util.List;
 
@@ -17,19 +18,26 @@ public class AuthMerchantContract {
 
         void selectOtcSection(List<OtcSectionModel> list);
 
+        void countTrade(Integer num);
+
+        void userBaseInfo(OtcMarketInfoModel model);
     }
 
     public interface IOrdinarView extends IBaseMvpView {
-        void countTrade(Integer num);
 
         void getOssSetting(AuthOssModel model);
 
         void applyMerchantSuccess();
 
+        void quitMerchantSuccess();
     }
 
     public interface IAuthView extends IBaseMvpView {
         void applyMerchantAuthSuccess();
+
+        void downMerchantAuthSuccess();
+
+        void quitMerchantSuccess();
     }
 
     public interface IPresenter {
@@ -46,5 +54,11 @@ public class AuthMerchantContract {
         void applyMerchantAuth();
 
         void selectOtcSection();
+
+        void downMerchantAuth();
+
+        void quitMerchant(int type);
+
+        void userBaseInfo(Integer queryUid);
     }
 }

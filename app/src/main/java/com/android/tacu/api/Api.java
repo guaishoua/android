@@ -312,8 +312,8 @@ public interface Api {
     @FormUrlEncoded
     @POST("invitedAll")
     Observable<BaseModel<InvitedAllModel>> invitedAll(
-            @Field("page") Integer page,
-            @Field("size") Integer size
+            @Field("page") int page,
+            @Field("size") int size
     );
 
     /**
@@ -1118,7 +1118,7 @@ public interface Api {
             @Field("size") Integer size,
             @Field("buyorsell") Integer buyorsell,//1买2卖
             // 1 待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时 10放币完成  12 裁决完成 13仲裁失败  14 (5,6,7,8,10,12,13) 15(3,9) 16（1,2,3,4,9)
-            // 17（6 拒绝订单 8放弃支付） 18（5 未确认超时取消 7 付款超时取消）
+            // 17（6 拒绝订单 8放弃支付） 18（5 未确认超时取消 7 付款超时取消） 20 待处理：2 3 4; 21  已完成：10 12 13; 22 已取消：5 6 7 8 9
             @Field("status") Integer status
     );
 
@@ -1167,7 +1167,7 @@ public interface Api {
     );
 
     /**
-     * 申请申述
+     * 卖方申请申述
      */
     @FormUrlEncoded
     @POST("beArbitrationOrder")
@@ -1366,5 +1366,49 @@ public interface Api {
     @POST("selectMerchantBank")
     Observable<BaseModel<List<PayInfoModel>>> selectMerchantBank(
             @Field("merchantId") String merchantId
+    );
+
+    /**
+     * 买方申请申述
+     */
+    @FormUrlEncoded
+    @POST("arbitrationOrderAgain")
+    Observable<BaseModel> arbitrationOrderAgain(
+            @Field("id") String id,
+            @Field("arbitrateExp") String beArbitrateExp,//申诉说明
+            @Field("arbitrateImg") String beArbitrateImg//图片
+    );
+
+    /**
+     * 买方撤销仲裁
+     */
+    @FormUrlEncoded
+    @POST("arbitrationOrderCancel")
+    Observable<BaseModel> arbitrationOrderCancel(
+            @Field("id") String id
+    );
+
+    /**
+     * 认证商家降级
+     */
+    @POST("downMerchantAuth")
+    Observable<BaseModel> downMerchantAuth();
+
+    /**
+     * 商家推出
+     */
+    @POST("quitMerchant")
+    Observable<BaseModel> quitMerchant();
+
+    /**
+     * 查看推广记录明细
+     */
+    @FormUrlEncoded
+    @POST("getInvitedAllDetail")
+    Observable<BaseModel<InvitedAllModel>> getInvitedAllDetail(
+            @Field("page") int page,
+            @Field("size") int size,
+            @Field("status") int status,
+            @Field("language") int language
     );
 }

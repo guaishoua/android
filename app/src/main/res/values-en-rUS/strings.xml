@@ -672,7 +672,6 @@
 
     <!--认证商户-->
     <string name="ordinary_merchant">Ordinary merchants</string>
-    <string name="member_ship">Membership</string>
     <string name="buy_member">Buy Membership</string>
     <string name="binding_tel_email">Bind mobile phone number email</string>
     <string name="binded">Bound</string>
@@ -681,11 +680,9 @@
     <string name="go_recharge">Deposit</string>
     <string name="go_auth">Pass KYC</string>
     <string name="kyc_60_day">Passed KYC for 60 days</string>
-    <string name="success_trade_otc_10">Traded 10 OTC orders</string>
     <string name="video_merchant">Upload video holding your ID and handwritten paper with UID, name, mobile phone number, date and TACU, read outloud "I (name), ID number (ID number), my source of funds is legal and reliable,I am willing to trade digital assets such as Bitcoin. I fully understand digital currencies and potential risks. I have the ability to resist risks and are willing to bear all risks."</string>
     <string name="upload_video">Upload video</string>
     <string name="auth_tip">※ Ordinary merchant can be verified for 30 days only.If you need to continue to use the merchant account after 30 days, please reapply.</string>
-    <string name="confirm_apply_submit">Confirm and submit</string>
     <string name="satisfy_ordinary_mechant">Ordinary Merchant requirements are met</string>
     <string name="need_5000_bond">Merchant account must have 50,000ACU warranty deposit</string>
     <string name="go_pay">Go to pay</string>
@@ -818,10 +815,6 @@
     <string name="order_time">Order time</string>
     <string name="mobile">Contact information</string>
     <string name="trade_price">Transaction Amount</string>
-    <string name="duifang_shensu">The other party appeals</string>
-    <string name="tijiao_shensu">Submit an appeal</string>
-    <string name="submited">Submitted</string>
-    <string name="unsubmit">Not submitted</string>
     <string name="arbitration_result1">Arbitration Results</string>
     <string name="arbitrationed">Ruled</string>
     <string name="look_order">View order</string>

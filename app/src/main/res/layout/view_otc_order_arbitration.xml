@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="@string/arbitration_wait"
+            android:text="@string/arbitrationing"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_14" />
 
@@ -279,6 +279,7 @@
             android:id="@+id/btn_left"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_14"
             app:qmui_backgroundColor="@color/color_default"
@@ -288,6 +289,7 @@
             android:id="@+id/btn_right"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_14"
             app:qmui_backgroundColor="@color/color_default"

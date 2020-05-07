@@ -18,7 +18,7 @@
             android:paddingHorizontal="@dimen/dp_15">
 
             <ImageView
-                android:id="@+id/img_satisfy_ordinary_mechant"
+                android:id="@+id/img_pass"
                 android:layout_width="@dimen/dp_15"
                 android:layout_height="@dimen/dp_15"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -30,69 +30,138 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_5"
-                android:text="@string/satisfy_ordinary_mechant"
+                android:text="@string/through_ordinary_mechant_3day"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/img_satisfy_ordinary_mechant"
-                app:layout_constraintRight_toLeftOf="@+id/tv_membership_right"
+                app:layout_constraintLeft_toRightOf="@+id/img_pass"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_pass_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_10"
+                android:textColor="@color/text_error"
+                android:textSize="@dimen/text_size_sp_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/tv_pass"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="111" />
+
+            <TextView
+                android:id="@+id/tv_pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/passed" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_53"
             android:layout_marginTop="@dimen/dp_1"
             android:background="@color/content_bg_color"
-            android:paddingHorizontal="@dimen/dp_15"
-            android:paddingVertical="@dimen/dp_15">
+            android:paddingHorizontal="@dimen/dp_15">
 
             <ImageView
-                android:id="@+id/img_bond"
+                android:id="@+id/img_otc"
                 android:layout_width="@dimen/dp_15"
                 android:layout_height="@dimen/dp_15"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/icon_auth_success" />
 
             <TextView
-                android:id="@+id/tv_bond"
-                android:layout_width="0dp"
+                android:id="@+id/tv_otc"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_5"
-                android:text="@string/need_5000_bond"
+                android:text="@string/success_trade_otc_50"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_sp_14"
-                app:layout_constraintLeft_toRightOf="@+id/img_bond"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/img_otc"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                android:id="@+id/btn_asset_right"
+                android:id="@+id/btn_otc_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_5"
                 android:paddingHorizontal="@dimen/dp_10"
                 android:paddingVertical="@dimen/dp_5"
-                android:text="@string/go_pay"
+                android:text="@string/go_trade"
                 android:textColor="@color/text_default"
                 android:textSize="@dimen/text_size_sp_12"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_bond"
+                app:layout_constraintTop_toTopOf="parent"
                 app:qmui_borderColor="@color/text_default"
                 app:qmui_borderWidth="@dimen/dp_1"
                 app:qmui_radius="@dimen/dp_1" />
+
+            <TextView
+                android:id="@+id/tv_otc_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp_10"
+                android:paddingVertical="@dimen/dp_5"
+                android:text="@string/finished"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_12"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_otc_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_10"
+                android:textColor="@color/text_error"
+                android:textSize="@dimen/text_size_sp_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/btn_otc_right"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="111" />
         </android.support.constraint.ConstraintLayout>
 
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/btn_submit"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_49"
-            android:layout_marginHorizontal="@dimen/dp_50"
+            android:layout_marginHorizontal="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_15"
-            android:text="@string/confirm_apply_submit"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_sp_16"
-            app:qmui_backgroundColor="@color/color_default"
-            app:qmui_radius="@dimen/dp_3" />
+            android:orientation="horizontal">
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/btn_dropout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_weight="1"
+                android:text="@string/apply_drop_out"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_16"
+                android:visibility="gone"
+                app:qmui_backgroundColor="@color/color_otc_giveup"
+                app:qmui_radius="@dimen/dp_3" />
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/btn_submit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/confirm_apply_submit"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_sp_16"
+                app:qmui_backgroundColor="@color/color_default"
+                app:qmui_radius="@dimen/dp_3" />
+        </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

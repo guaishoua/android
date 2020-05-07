@@ -76,15 +76,24 @@ public class ArbitrationSubmitActivity extends BaseActivity<OtcOrderDetailPresen
     //true=仲裁 false=申诉
     private boolean isArbitration = true;
     private String id;
+    private boolean isBuy = true;
 
     private File uploadFile;
     private String uploadImageName;
     private List<OSSAsyncTask> ossAsynTaskList = new ArrayList<>();
 
-    public static Intent createActivity(Context context, boolean isArbitration, String id) {
+    /**
+     * @param context
+     * @param isArbitration true=仲裁 false=申诉
+     * @param id
+     * @param isBuy         当前用户对应是买单还是卖单
+     * @return
+     */
+    public static Intent createActivity(Context context, boolean isArbitration, String id, boolean isBuy) {
         Intent intent = new Intent(context, ArbitrationSubmitActivity.class);
         intent.putExtra("isArbitration", isArbitration);
         intent.putExtra("id", id);
+        intent.putExtra("isBuy", isBuy);
         return intent;
     }
 
@@ -97,6 +106,7 @@ public class ArbitrationSubmitActivity extends BaseActivity<OtcOrderDetailPresen
     protected void initView() {
         isArbitration = getIntent().getBooleanExtra("isArbitration", true);
         id = getIntent().getStringExtra("id");
+        isBuy = getIntent().getBooleanExtra("isBuy", true);
 
         if (isArbitration) {
             mTopBar.setTitle(getResources().getString(R.string.submit_arbitration));
@@ -246,17 +256,28 @@ public class ArbitrationSubmitActivity extends BaseActivity<OtcOrderDetailPresen
         EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
     }
 
+    @Override
+    public void arbitrationOrderAgainSuccess() {
+        showToastSuccess(getResources().getString(R.string.submit_success));
+        finish();
+        EventManage.sendEvent(new BaseEvent<>(EventConstant.OTCDetailCode, new OtcDetailNotifyEvent(true)));
+    }
+
     private void dealValue(final int flag) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (flag == 1) {
                     String arbitrateExp = edit_submit_arbitration.getText().toString();
-                   /* if (isArbitration){
+                    if (isArbitration) {
                         mPresenter.arbitrationOrder(id, arbitrateExp, uploadImageName);
-                    }else{
-                        mPresenter.beArbitrationOrder(id, arbitrateExp, uploadImageName);
-                    }*/
+                    } else {
+                        if (isBuy) {
+                            mPresenter.arbitrationOrderAgain(id, arbitrateExp, uploadImageName);
+                        } else {
+                            mPresenter.beArbitrationOrder(id, arbitrateExp, uploadImageName);
+                        }
+                    }
                 }
                 hideLoadingView();
             }

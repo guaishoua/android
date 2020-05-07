@@ -665,20 +665,17 @@
 
     <!--認證商戶-->
     <string name="ordinary_merchant">普通商戶</string>
-    <string name="member_ship">會員身份</string>
     <string name="buy_member">購買會員</string>
-    <string name="binding_tel_email">綁定手機號&amp;郵箱</string>
+    <string name="binding_tel_email">綁定手機號/郵箱</string>
     <string name="binded">已綁定</string>
     <string name="go_binding">去綁定</string>
     <string name="net_assets_dayu">保證金≥5000ACU</string>
     <string name="go_recharge">去充值</string>
     <string name="go_auth">去認證</string>
     <string name="kyc_60_day">通過實名KYC認證60日</string>
-    <string name="success_trade_otc_10">成功交易10筆OTC訂單</string>
     <string name="video_merchant">上傳本人手持證件及手寫UID、姓名、手機號、日期憑證和TACU字樣後宣讀“本人（姓名），身份證號（身份證號碼），我的資金來源合法可靠，自願交易比特幣等數字資產，本人充分了解數字貨幣及潛在風險，本人具有抗風險的能力並願意承擔壹切風險。”的視頻文件</string>
     <string name="upload_video">上傳視頻</string>
     <string name="auth_tip">※  普通商戶身份為30個自然日壹個週期，申請成功後自動計時，滿30日後如需繼續使用商戶身份請重新申請。</string>
-    <string name="confirm_apply_submit">確認申請並提交</string>
     <string name="satisfy_ordinary_mechant">是否滿足普通商戶身份要求資格</string>
     <string name="need_5000_bond">商戶保證金賬戶需提交50,000ACU作為保證金</string>
     <string name="go_pay">去繳納</string>
@@ -807,10 +804,6 @@
     <string name="order_time">訂單時間</string>
     <string name="mobile">聯系方式</string>
     <string name="trade_price">交易金額</string>
-    <string name="duifang_shensu">對方申訴</string>
-    <string name="tijiao_shensu">提交申訴</string>
-    <string name="submited">已提交</string>
-    <string name="unsubmit">未提交</string>
     <string name="arbitration_result1">仲裁結果</string>
     <string name="arbitrationed">已裁定</string>
     <string name="look_order">查看訂單</string>

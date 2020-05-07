@@ -30,6 +30,8 @@ public class OtcOrderDetailContract {
         void payCancelOrderSuccess();
 
         void finishOrderSuccess();
+
+        void arbitrationOrderCancelSuccess();
     }
 
     public interface IAView extends IBaseMvpView {
@@ -38,6 +40,8 @@ public class OtcOrderDetailContract {
         void arbitrationOrderSuccess();
 
         void beArbitrationOrderSuccess();
+
+        void arbitrationOrderAgainSuccess();
     }
 
     public interface IPresenter {
@@ -70,5 +74,9 @@ public class OtcOrderDetailContract {
         void arbitrationOrder(String id, String arbitrateExp, String arbitrateImg);
 
         void beArbitrationOrder(String id, String beArbitrateExp, String beArbitrateImg);
+
+        void arbitrationOrderAgain(String id, String beArbitrateExp, String beArbitrateImg);
+
+        void arbitrationOrderCancel(String id);
     }
 }

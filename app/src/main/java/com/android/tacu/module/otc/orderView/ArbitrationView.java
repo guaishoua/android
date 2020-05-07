@@ -118,7 +118,13 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                 }
                 break;
             case R.id.btn_left:
-                activity.startActivity(ArbitrationSubmitActivity.createActivity(activity, false, tradeModel.id));
+                if (tradeModel != null) {
+                    if (tradeModel.buyuid == spUtil.getUserUid()) {
+                        activity.startActivity(ArbitrationSubmitActivity.createActivity(activity, false, tradeModel.id, true));
+                    } else if (tradeModel.selluid == spUtil.getUserUid()) {
+                        activity.startActivity(ArbitrationSubmitActivity.createActivity(activity, false, tradeModel.id, false));
+                    }
+                }
                 break;
             case R.id.btn_right:
                 //如果是买方，这里显示取消仲裁按钮
@@ -175,16 +181,17 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                         rl_top.setVisibility(View.VISIBLE);
                         lin_top.setVisibility(View.GONE);
 
-                        /**
-                         * 这里预留一下，判断点击过申诉之后，btn_left、btn_right都不显示
-                         */
-                        view_btn.setVisibility(View.VISIBLE);
-                        if (tradeModel.buyuid == spUtil.getUserUid()) {
-                            btn_left.setText(activity.getResources().getString(R.string.shensu));
-                            btn_right.setText(activity.getResources().getString(R.string.cancel));
-                        } else if (tradeModel.selluid == spUtil.getUserUid()) {
-                            btn_left.setText(activity.getResources().getString(R.string.shensu));
-                            btn_right.setText(activity.getResources().getString(R.string.coined));
+                        if (tradeModel.beArbitrateUid != null && tradeModel.beArbitrateUid != 0) {
+                            view_btn.setVisibility(View.GONE);
+                        } else {
+                            view_btn.setVisibility(View.VISIBLE);
+                            if (tradeModel.buyuid == spUtil.getUserUid()) {
+                                btn_left.setText(activity.getResources().getString(R.string.shensu));
+                                btn_right.setText(activity.getResources().getString(R.string.cancel));
+                            } else if (tradeModel.selluid == spUtil.getUserUid()) {
+                                btn_left.setText(activity.getResources().getString(R.string.shensu));
+                                btn_right.setText(activity.getResources().getString(R.string.coined));
+                            }
                         }
                         break;
                     case 12:
@@ -219,7 +226,9 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
                 .positiveButton(activity.getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
                     @Override
                     public void onPositive(Dialog droidDialog) {
-
+                        if (tradeModel != null) {
+                            mPresenter.arbitrationOrderCancel(tradeModel.id);
+                        }
                     }
                 })
                 .negativeButton(activity.getResources().getString(R.string.cancel), null)
@@ -267,20 +276,43 @@ public class ArbitrationView extends BaseOtcView implements View.OnClickListener
 
     private void dealTime() {
         if (currentTime != null && tradeModel != null && !TextUtils.isEmpty(tradeModel.arbitrationEndTime)) {
-            if (tradeModel.status != null && tradeModel.status == 4) {
-                long arbitrationEndTime = DateUtils.string2Millis(tradeModel.arbitrationEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
-                if (arbitrationEndTime > 0) {
-                    tv_timeout.setVisibility(View.GONE);
-                    lin_countdown.setVisibility(View.VISIBLE);
-                    startCountDownTimer(arbitrationEndTime);
+            if (tradeModel.beArbitrateUid != null && tradeModel.beArbitrateUid != 0) {
+                tv_timeout.setVisibility(View.GONE);
+                lin_countdown.setVisibility(View.GONE);
+                view_btn.setVisibility(View.GONE);
+            } else {
+                if (tradeModel.status != null && tradeModel.status == 4) {
+                    view_btn.setVisibility(View.VISIBLE);
+                    long arbitrationEndTime = DateUtils.string2Millis(tradeModel.arbitrationEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
+                    if (arbitrationEndTime > 0) {
+                        tv_timeout.setVisibility(View.GONE);
+                        lin_countdown.setVisibility(View.VISIBLE);
+
+                        if (tradeModel.buyuid == spUtil.getUserUid()) {
+                            btn_left.setVisibility(View.GONE);
+                            btn_right.setVisibility(View.VISIBLE);
+                        } else if (tradeModel.selluid == spUtil.getUserUid()) {
+                            btn_left.setVisibility(View.VISIBLE);
+                            btn_right.setVisibility(View.VISIBLE);
+                        }
+                        startCountDownTimer(arbitrationEndTime);
+                    } else {
+                        tv_timeout.setVisibility(View.VISIBLE);
+                        lin_countdown.setVisibility(View.GONE);
+
+                        if (tradeModel.buyuid == spUtil.getUserUid()) {
+                            btn_left.setVisibility(View.VISIBLE);
+                            btn_right.setVisibility(View.VISIBLE);
+                        } else if (tradeModel.selluid == spUtil.getUserUid()) {
+                            btn_left.setVisibility(View.GONE);
+                            btn_right.setVisibility(View.GONE);
+                        }
+                    }
                 } else {
                     tv_timeout.setVisibility(View.VISIBLE);
                     lin_countdown.setVisibility(View.GONE);
                     view_btn.setVisibility(View.GONE);
                 }
-            } else {
-                tv_timeout.setVisibility(View.VISIBLE);
-                lin_countdown.setVisibility(View.GONE);
             }
         }
     }

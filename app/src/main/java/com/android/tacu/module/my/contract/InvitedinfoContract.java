@@ -1,6 +1,7 @@
 package com.android.tacu.module.my.contract;
 
 import com.android.tacu.base.IBaseMvpView;
+import com.android.tacu.module.my.model.InvitedAllDetailModel;
 import com.android.tacu.module.my.model.InvitedAllModel;
 
 /**
@@ -12,7 +13,13 @@ public class InvitedinfoContract {
         void showInvitedInfo(InvitedAllModel model);
     }
 
+    public interface IRecordChildView extends IBaseMvpView {
+        void showInvitedInfo(InvitedAllDetailModel model);
+    }
+
     public interface IPresenter {
-        void getInvitedInfo(Integer page, Integer size);
+        void getInvitedInfo();
+
+        void getInvitedAllDetail(boolean isShowView,int page, int size, int status);
     }
 }
