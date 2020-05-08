@@ -69,17 +69,6 @@ public class MyDealFragment extends BaseFragment<MyDealPresenter> implements MyD
 
     @Override
     protected void initData(View view) {
-    }
-
-    @Override
-    protected MyDealPresenter createPresenter(MyDealPresenter mPresenter) {
-        return new MyDealPresenter();
-    }
-
-    @Override
-    public void onFragmentFirstVisible() {
-        super.onFragmentFirstVisible();
-
         refreshTrade.setEnableRefresh(false);
         refreshTrade.setEnableLoadmore(false);
         refreshTrade.setEnableOverScrollBounce(false);
@@ -101,6 +90,11 @@ public class MyDealFragment extends BaseFragment<MyDealPresenter> implements MyD
         recyclerView.setAdapter(dealRecordAdapter);
 
         dealRecordAdapter.setEmptyView(emptyView);
+    }
+
+    @Override
+    protected MyDealPresenter createPresenter(MyDealPresenter mPresenter) {
+        return new MyDealPresenter();
     }
 
     @Override
