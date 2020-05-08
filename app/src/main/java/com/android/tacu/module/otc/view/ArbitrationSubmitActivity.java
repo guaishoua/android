@@ -97,6 +97,13 @@ public class ArbitrationSubmitActivity extends BaseActivity<OtcOrderDetailPresen
         return intent;
     }
 
+    public static Intent createActivity(Context context, boolean isArbitration, String id) {
+        Intent intent = new Intent(context, ArbitrationSubmitActivity.class);
+        intent.putExtra("isArbitration", isArbitration);
+        intent.putExtra("id", id);
+        return intent;
+    }
+
     @Override
     protected void setView() {
         setContentView(R.layout.activity_arbitration_submit);

@@ -171,12 +171,6 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        upload();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mHandler != null) {
@@ -309,10 +303,6 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
         dealValue();
     }
 
-    private void upload() {
-        mPresenter.countTrade();
-    }
-
     public void setValue(OwnCenterModel model) {
         this.ownCenterModel = model;
         dealValue();
@@ -324,96 +314,122 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
     }
 
     private void dealValue() {
-        if (spUtil.getVip() != 0) {
-            isMembership = true;
-            tv_membership_right.setText(getResources().getString(R.string.finished));
-            img_membership.setImageResource(R.drawable.icon_auth_success);
-        } else {
-            isMembership = false;
-            tv_membership_right.setText(getResources().getString(R.string.buy_member));
-            img_membership.setImageResource(R.drawable.icon_auth_failure);
-        }
-        if (spUtil.getEmailStatus() && spUtil.getPhoneStatus()) {
-            isBind = true;
-            img_binding.setImageResource(R.drawable.icon_auth_success);
-            tv_binding_right.setVisibility(View.GONE);
-            tv_binding_finish.setVisibility(View.VISIBLE);
-            tv_binding_right.setText(getResources().getString(R.string.binded));
-        } else {
-            isBind = false;
-            img_binding.setImageResource(R.drawable.icon_auth_failure);
-            tv_binding_right.setVisibility(View.VISIBLE);
-            tv_binding_finish.setVisibility(View.GONE);
-            tv_binding_right.setText(getResources().getString(R.string.go_finish));
-        }
-        if (otcAmountModel != null && !TextUtils.isEmpty(otcAmountModel.amount) && Double.valueOf(otcAmountModel.amount) >= 5000) {
-            isAsset = true;
-            img_asset.setImageResource(R.drawable.icon_auth_success);
-            btn_asset_right.setVisibility(View.GONE);
-            tv_asset_finish.setVisibility(View.VISIBLE);
-        } else {
-            isAsset = false;
-            img_asset.setImageResource(R.drawable.icon_auth_failure);
-            btn_asset_right.setVisibility(View.VISIBLE);
-            tv_asset_finish.setVisibility(View.GONE);
-        }
-        if (ownCenterModel != null && !TextUtils.isEmpty(ownCenterModel.keytowAdoptTime)) {
-            int between = DateUtils.differentDaysByMillisecond(System.currentTimeMillis(), DateUtils.string2Millis(ownCenterModel.keytowAdoptTime, DateUtils.DEFAULT_PATTERN));
-            int waitTime = 60 - between;
-            if (between >= 60) {
-                isKyc = true;
-                img_kyc.setImageResource(R.drawable.icon_auth_success);
-                btn_kyc_right.setVisibility(View.GONE);
-                tv_kyc_finish.setVisibility(View.VISIBLE);
-                tv_kyc_error.setText("");
+        if (spUtil.getApplyMerchantStatus() != 2) {
+            if (spUtil.getVip() != 0) {
+                isMembership = true;
+                tv_membership_right.setText(getResources().getString(R.string.finished));
+                img_membership.setImageResource(R.drawable.icon_auth_success);
             } else {
-                if (waitTime == 0) {
-                    waitTime = 1;
+                isMembership = false;
+                tv_membership_right.setText(getResources().getString(R.string.buy_member));
+                img_membership.setImageResource(R.drawable.icon_auth_failure);
+            }
+            if (spUtil.getEmailStatus() && spUtil.getPhoneStatus()) {
+                isBind = true;
+                img_binding.setImageResource(R.drawable.icon_auth_success);
+                tv_binding_right.setVisibility(View.GONE);
+                tv_binding_finish.setVisibility(View.VISIBLE);
+                tv_binding_right.setText(getResources().getString(R.string.binded));
+            } else {
+                isBind = false;
+                img_binding.setImageResource(R.drawable.icon_auth_failure);
+                tv_binding_right.setVisibility(View.VISIBLE);
+                tv_binding_finish.setVisibility(View.GONE);
+                tv_binding_right.setText(getResources().getString(R.string.go_finish));
+            }
+            if (otcAmountModel != null && !TextUtils.isEmpty(otcAmountModel.amount) && Double.valueOf(otcAmountModel.amount) >= 5000) {
+                isAsset = true;
+                img_asset.setImageResource(R.drawable.icon_auth_success);
+                btn_asset_right.setVisibility(View.GONE);
+                tv_asset_finish.setVisibility(View.VISIBLE);
+            } else {
+                isAsset = false;
+                img_asset.setImageResource(R.drawable.icon_auth_failure);
+                btn_asset_right.setVisibility(View.VISIBLE);
+                tv_asset_finish.setVisibility(View.GONE);
+            }
+            if (ownCenterModel != null && !TextUtils.isEmpty(ownCenterModel.keytowAdoptTime)) {
+                int between = DateUtils.differentDaysByMillisecond(System.currentTimeMillis(), DateUtils.string2Millis(ownCenterModel.keytowAdoptTime, DateUtils.DEFAULT_PATTERN));
+                int waitTime = 60 - between;
+                if (between >= 60) {
+                    isKyc = true;
+                    img_kyc.setImageResource(R.drawable.icon_auth_success);
+                    btn_kyc_right.setVisibility(View.GONE);
+                    tv_kyc_finish.setVisibility(View.VISIBLE);
+                    tv_kyc_error.setText("");
+                } else {
+                    if (waitTime == 0) {
+                        waitTime = 1;
+                    }
+                    isKyc = false;
+                    img_kyc.setImageResource(R.drawable.icon_auth_failure);
+                    btn_kyc_right.setVisibility(View.VISIBLE);
+                    tv_kyc_finish.setVisibility(View.GONE);
+                    tv_kyc_error.setText(String.format(getResources().getString(R.string.wait_day), String.valueOf(waitTime)));
                 }
+            } else {
                 isKyc = false;
                 img_kyc.setImageResource(R.drawable.icon_auth_failure);
                 btn_kyc_right.setVisibility(View.VISIBLE);
                 tv_kyc_finish.setVisibility(View.GONE);
-                tv_kyc_error.setText(String.format(getResources().getString(R.string.wait_day), String.valueOf(waitTime)));
             }
-        } else {
-            isKyc = false;
-            img_kyc.setImageResource(R.drawable.icon_auth_failure);
-            btn_kyc_right.setVisibility(View.VISIBLE);
-            tv_kyc_finish.setVisibility(View.GONE);
-        }
-        if (otcTradeNum != null) {
-            if (otcTradeNum >= 10) {
-                isOtc = true;
-                img_otc.setImageResource(R.drawable.icon_auth_success);
-                btn_otc_right.setVisibility(View.GONE);
-                tv_otc_finish.setVisibility(View.VISIBLE);
+            if (otcTradeNum != null) {
+                if (otcTradeNum >= 10) {
+                    isOtc = true;
+                    img_otc.setImageResource(R.drawable.icon_auth_success);
+                    btn_otc_right.setVisibility(View.GONE);
+                    tv_otc_finish.setVisibility(View.VISIBLE);
+                } else {
+                    isOtc = false;
+                    img_otc.setImageResource(R.drawable.icon_auth_failure);
+                    btn_otc_right.setVisibility(View.VISIBLE);
+                    tv_otc_finish.setVisibility(View.GONE);
+                    tv_otc_error.setText(String.format(getResources().getString(R.string.cha_bi), String.valueOf(10 - otcTradeNum)));
+                }
             } else {
                 isOtc = false;
                 img_otc.setImageResource(R.drawable.icon_auth_failure);
                 btn_otc_right.setVisibility(View.VISIBLE);
                 tv_otc_finish.setVisibility(View.GONE);
-                tv_otc_error.setText(String.format(getResources().getString(R.string.cha_bi), String.valueOf(10 - otcTradeNum)));
+            }
+            if (isVideo) {
+                img_video.setImageResource(R.drawable.icon_auth_success);
+            } else {
+                img_video.setImageResource(R.drawable.icon_auth_failure);
             }
         } else {
-            isOtc = false;
-            img_otc.setImageResource(R.drawable.icon_auth_failure);
-            btn_otc_right.setVisibility(View.VISIBLE);
-            tv_otc_finish.setVisibility(View.GONE);
-        }
-        if (isVideo) {
+            isMembership = true;
+            tv_membership_right.setText(getResources().getString(R.string.finished));
+            img_membership.setImageResource(R.drawable.icon_auth_success);
+
+            isBind = true;
+            img_binding.setImageResource(R.drawable.icon_auth_success);
+            tv_binding_right.setVisibility(View.GONE);
+            tv_binding_finish.setVisibility(View.VISIBLE);
+            tv_binding_right.setText(getResources().getString(R.string.binded));
+
+            isAsset = true;
+            img_asset.setImageResource(R.drawable.icon_auth_success);
+            btn_asset_right.setVisibility(View.GONE);
+            tv_asset_finish.setVisibility(View.VISIBLE);
+
+            isKyc = true;
+            img_kyc.setImageResource(R.drawable.icon_auth_success);
+            btn_kyc_right.setVisibility(View.GONE);
+            tv_kyc_finish.setVisibility(View.VISIBLE);
+            tv_kyc_error.setText("");
+
+            isOtc = true;
+            img_otc.setImageResource(R.drawable.icon_auth_success);
+            btn_otc_right.setVisibility(View.GONE);
+            tv_otc_finish.setVisibility(View.VISIBLE);
+
+            isVideo = true;
             img_video.setImageResource(R.drawable.icon_auth_success);
-        } else {
-            img_video.setImageResource(R.drawable.icon_auth_failure);
+            btn_upload_video.setVisibility(View.GONE);
         }
 
-        if (isMembership && isBind && isAsset && isKyc && isOtc && isVideo) {
-            btn_submit.setEnabled(true);
-            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
-        } else {
-            btn_submit.setEnabled(false);
-            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
-        }
+
         if (spUtil.getApplyMerchantStatus() == 1 || spUtil.getApplyMerchantStatus() == 2) {
             if (spUtil.getApplyMerchantStatus() == 1) {
                 btn_submit.setEnabled(false);
@@ -424,25 +440,39 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
                 ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
                 btn_submit.setText(getResources().getString(R.string.apply_drop_out));
             }
+
             img_video.setImageResource(R.drawable.icon_auth_success);
             btn_upload_video.setVisibility(View.GONE);
         } else {
             btn_upload_video.setVisibility(View.VISIBLE);
 
-            if (marketInfoModel != null) {
-                Integer days = marketInfoModel.days != null ? marketInfoModel.days : 0;
-                long currentTime = marketInfoModel.timestamp != null ? Long.parseLong(marketInfoModel.timestamp) : 0L;
-                long quitTime = marketInfoModel.quitTime != null ? Long.parseLong(marketInfoModel.quitTime) : 0L;
-                int between = DateUtils.differentDaysByMillisecond(currentTime, quitTime);
-                int waitTime = days - between;
+            if (marketInfoModel != null && marketInfoModel.days != null && marketInfoModel.days != 0 && !TextUtils.isEmpty(marketInfoModel.timestamp) && !TextUtils.equals(marketInfoModel.timestamp, "0") && !TextUtils.isEmpty(marketInfoModel.quitTime) && !TextUtils.equals(marketInfoModel.quitTime, "0")) {
+                int between = DateUtils.differentDaysByMillisecond(Long.parseLong(marketInfoModel.timestamp), DateUtils.string2Millis(marketInfoModel.quitTime, DateUtils.DEFAULT_PATTERN));
+                int waitTime = marketInfoModel.days - between;
                 if (waitTime > 0) {
                     btn_submit.setEnabled(false);
                     ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
                     btn_submit.setText(String.format(getResources().getString(R.string.countdown_day), String.valueOf(waitTime)));
                 } else {
+                    btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
+
+                    if (isMembership && isBind && isAsset && isKyc && isOtc && isVideo) {
+                        btn_submit.setEnabled(true);
+                        ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
+                    } else {
+                        btn_submit.setEnabled(false);
+                        ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
+                    }
+                }
+            } else {
+                btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
+
+                if (isMembership && isBind && isAsset && isKyc && isOtc && isVideo) {
                     btn_submit.setEnabled(true);
                     ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
-                    btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
+                } else {
+                    btn_submit.setEnabled(false);
+                    ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
                 }
             }
         }
@@ -507,9 +537,13 @@ public class OrdinarMerchantFragment extends BaseFragment<AuthMerchantPresenter>
     }
 
     private void dropOutDialog() {
+        int days = 60;
+        if (marketInfoModel != null && marketInfoModel.days != null) {
+            days = marketInfoModel.days;
+        }
         new DroidDialog.Builder(getContext())
                 .title(getResources().getString(R.string.dropout_mechant))
-                .content(getResources().getString(R.string.dropout_mechant_tip))
+                .content(String.format(getResources().getString(R.string.dropout_mechant_tip), String.valueOf(days)))
                 .contentGravity(Gravity.CENTER)
                 .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
                     @Override

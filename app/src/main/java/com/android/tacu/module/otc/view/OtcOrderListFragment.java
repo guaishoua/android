@@ -167,7 +167,7 @@ public class OtcOrderListFragment extends BaseFragment {
         if (listPopup == null) {
             ArrayAdapter adapter = new ArrayAdapter<>(getContext(), R.layout.simple_list_item, data);
             listPopup = new ListPopWindow(getContext(), adapter);
-            listPopup.create(UIUtils.dp2px(100), UIUtils.dp2px(360), new AdapterView.OnItemClickListener() {
+            listPopup.create(UIUtils.dp2px(100), UIUtils.dp2px(200), new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     if (buyOrSell == 1) {

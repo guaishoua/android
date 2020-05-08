@@ -15,7 +15,6 @@ import java.io.IOException;
  */
 public class ScreenShootUtils {
 
-
     public static Bitmap convertViewToBitmap(View view) {
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);

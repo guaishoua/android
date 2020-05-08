@@ -107,7 +107,6 @@ public class AuthMerchantPresenter extends BaseMvpPresenter implements AuthMerch
     }
 
     /**
-     *
      * @param type 1=普通商户 2=认证商户
      */
     @Override
@@ -115,10 +114,10 @@ public class AuthMerchantPresenter extends BaseMvpPresenter implements AuthMerch
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).quitMerchant(), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel o) {
-                if (type==1){
+                if (type == 1) {
                     AuthMerchantContract.IOrdinarView view = (AuthMerchantContract.IOrdinarView) getView();
                     view.quitMerchantSuccess();
-                }else if (type==2){
+                } else if (type == 2) {
                     AuthMerchantContract.IAuthView view = (AuthMerchantContract.IAuthView) getView();
                     view.quitMerchantSuccess();
                 }

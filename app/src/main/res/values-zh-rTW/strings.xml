@@ -978,4 +978,33 @@
     <string name="coined">放幣</string>
     <string name="cancel_arbitration">取消仲裁</string>
     <string name="cancel_arbitration_tip">請確認您未付款給對方，否則將造成資產丟失</string>
+
+    <!--商户申请降级-->
+    <string name="confirm_apply_submit">確認提交申請</string>
+    <string name="apply_drop_out">申請退出</string>
+    <string name="apply_downgrade">申請降級</string>
+    <string name="through_ordinary_mechant_3day">通過普通商家認證3天</string>
+    <string name="passed">已通過</string>
+    <string name="not_passed">未通過</string>
+    <string name="success_trade_otc_10">完成10筆OTC訂單</string>
+    <string name="success_trade_otc_50">完成50筆OTC訂單</string>
+    <string name="member_ship">成為會員</string>
+    <string name="kyc_30_day">通過KYC實名認證30天</string>
+    <string name="dropout_mechant">退出商家</string>
+    <string name="dropout_mechant_tip">商家退出5天後才可以提取保證金，%1$s天後才能重新申請商家，是否確認？</string>
+    <string name="apply_downgrade_tip">降級為普通商家後將無法繼續享受認證商戶優勢，是否確認？</string>
+    <string name="accumulated_commission">累計獲得傭金</string>
+    <string name="forzen_commission">凍結中的傭金</string>
+    <string name="generate_poster">生成海報</string>
+    <string name="invite_me">邀請我的人</string>
+    <string name="my_invite">我邀請的人</string>
+    <string name="real_name">已實名</string>
+    <string name="not_real_name">未實名</string>
+    <string name="real_name_status">實名情況</string>
+    <string name="invited_time">邀請時間</string>
+    <string name="submited">已提交</string>
+    <string name="unsubmit">未提交</string>
+    <string name="coined1">已放幣</string>
+    <string name="countdown_day">倒計時%1$s天後才可以申請</string>
+    <string name="people">人</string>
 </resources>

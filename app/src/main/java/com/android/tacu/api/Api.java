@@ -7,6 +7,7 @@ import com.android.tacu.module.assets.model.ChargeModel;
 import com.android.tacu.module.assets.model.CoinAddressModel;
 import com.android.tacu.module.assets.model.MoneyFlowModel;
 import com.android.tacu.module.assets.model.OtcAmountModel;
+import com.android.tacu.module.my.model.InvitedAllDetailModel;
 import com.android.tacu.module.payinfo.model.PayInfoModel;
 import com.android.tacu.module.assets.model.SelectTakeCoinAddressModel;
 import com.android.tacu.module.assets.model.TakeCoinListModel;
@@ -1405,7 +1406,7 @@ public interface Api {
      */
     @FormUrlEncoded
     @POST("getInvitedAllDetail")
-    Observable<BaseModel<InvitedAllModel>> getInvitedAllDetail(
+    Observable<BaseModel<InvitedAllDetailModel>> getInvitedAllDetail(
             @Field("page") int page,
             @Field("size") int size,
             @Field("status") int status,

@@ -29,6 +29,11 @@ public class ImgUtils {
 
     //保存文件到指定路径
     public static boolean saveImageToGallery(Context context, Bitmap bmp) {
+        return saveImageToGallery(context, bmp, 60);
+    }
+
+    //保存文件到指定路径
+    public static boolean saveImageToGallery(Context context, Bitmap bmp, int quality) {
         // 首先保存图片
         String storePath = Environment.getExternalStorageDirectory()
                 + File.separator + Environment.DIRECTORY_DCIM
@@ -42,7 +47,7 @@ public class ImgUtils {
         try {
             FileOutputStream fos = new FileOutputStream(file);
             //通过io流的方式来压缩保存图片
-            boolean isSuccess = bmp.compress(Bitmap.CompressFormat.JPEG, 60, fos);
+            boolean isSuccess = bmp.compress(Bitmap.CompressFormat.JPEG, quality, fos);
             fos.flush();
             fos.close();
 

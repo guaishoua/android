@@ -989,5 +989,34 @@
     <string name="coined">Loan money</string>
     <string name="cancel_arbitration">Cancel arbitration</string>
     <string name="cancel_arbitration_tip">Please confirm that you have not paid to the other party, otherwise it will cause loss of assets</string>
+
+    <!--商户申请降级-->
+    <string name="confirm_apply_submit">Confirm submission of application</string>
+    <string name="apply_drop_out">Apply to quit</string>
+    <string name="apply_downgrade">Apply for downgrade</string>
+    <string name="through_ordinary_mechant_3day">3 days through ordinary merchant certification</string>
+    <string name="passed">Passed</string>
+    <string name="not_passed">Failed</string>
+    <string name="success_trade_otc_10">Complete 10 OTC orders</string>
+    <string name="success_trade_otc_50">Complete 50 OTC orders</string>
+    <string name="member_ship">Become a member</string>
+    <string name="kyc_30_day">Pass KYC real-name authentication for 30 days</string>
+    <string name="dropout_mechant">Exit merchant</string>
+    <string name="dropout_mechant_tip">The merchant can withdraw the deposit after 5 days, and %1$s days before reapplying the merchant. Are you sure?</string>
+    <string name="apply_downgrade_tip">After downgrading to an ordinary merchant, you will no longer be able to enjoy the advantages of certified merchants, are you sure?</string>
+    <string name="accumulated_commission">Accumulated commission</string>
+    <string name="forzen_commission">Commission in freeze</string>
+    <string name="generate_poster">Generate poster</string>
+    <string name="invite_me">person who invited me</string>
+    <string name="my_invite">People I invite</string>
+    <string name="real_name">Real name</string>
+    <string name="not_real_name">Unreal name</string>
+    <string name="real_name_status">Real name situation</string>
+    <string name="invited_time">Invitation time</string>
+    <string name="submited">Submitted</string>
+    <string name="unsubmit">Unsubmitted</string>
+    <string name="coined1">Coins have been put in</string>
+    <string name="countdown_day">Countdown %1$s days before you can apply</string>
+    <string name="people">people</string>
 </resources>
 

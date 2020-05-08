@@ -133,61 +133,71 @@ public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> im
     }
 
     private void dealValue() {
-        if (spUtil.getApplyMerchantStatus() == 2) {
-            isMechant = true;
+        if (spUtil.getApplyAuthMerchantStatus() != 2) {
+            if (spUtil.getApplyMerchantStatus() == 2) {
 
-            long currentTime = marketInfoModel.timestamp != null ? Long.parseLong(marketInfoModel.timestamp) : 0L;
-            long applyTime = marketInfoModel.applyTime != null ? Long.parseLong(marketInfoModel.applyTime) : 0L;
-            int between = DateUtils.differentDaysByMillisecond(currentTime, applyTime);
-            int waitTime = 3 - between;
-            if (waitTime >= 3) {
-                img_pass.setImageResource(R.drawable.icon_auth_success);
-                tv_pass.setText(getResources().getText(R.string.passed));
-                tv_pass_error.setText("");
-            }else{
-                if (waitTime == 0) {
-                    waitTime = 1;
+                if (marketInfoModel != null && !TextUtils.isEmpty(marketInfoModel.timestamp) && !TextUtils.equals(marketInfoModel.timestamp, "0") && !TextUtils.isEmpty(marketInfoModel.applyTime) && !TextUtils.equals(marketInfoModel.applyTime, "0")) {
+                    int between = DateUtils.differentDaysByMillisecond(Long.parseLong(marketInfoModel.timestamp), DateUtils.string2Millis(marketInfoModel.applyTime, DateUtils.DEFAULT_PATTERN));
+                    int waitTime = 3 - between;
+                    if (waitTime >= 3) {
+                        isMechant = true;
+                        img_pass.setImageResource(R.drawable.icon_auth_success);
+                        tv_pass.setText(getResources().getText(R.string.passed));
+                        tv_pass_error.setText("");
+                    } else {
+                        isMechant = false;
+                        if (waitTime == 0) {
+                            waitTime = 1;
+                        }
+                        img_pass.setImageResource(R.drawable.icon_auth_failure);
+                        tv_pass.setText(getResources().getText(R.string.not_passed));
+                        tv_pass_error.setText(String.format(getResources().getString(R.string.wait_day), String.valueOf(waitTime)));
+                    }
+                } else {
+                    isMechant = false;
+                    img_pass.setImageResource(R.drawable.icon_auth_failure);
+                    tv_pass.setText(getResources().getText(R.string.not_passed));
+                    tv_pass_error.setText("");
                 }
+            } else {
+                isMechant = false;
                 img_pass.setImageResource(R.drawable.icon_auth_failure);
                 tv_pass.setText(getResources().getText(R.string.not_passed));
-                tv_pass_error.setText(String.format(getResources().getString(R.string.wait_day), String.valueOf(waitTime)));
+                tv_pass_error.setText("");
             }
-        } else {
-            isMechant = false;
-            img_pass.setImageResource(R.drawable.icon_auth_failure);
-            tv_pass.setText(getResources().getText(R.string.not_passed));
-            tv_pass_error.setText("");
-        }
-        if (otcTradeNum != null) {
-            if (otcTradeNum >= 50) {
-                isOtc = true;
-                img_otc.setImageResource(R.drawable.icon_auth_success);
-                btn_otc_right.setVisibility(View.GONE);
-                tv_otc_finish.setVisibility(View.VISIBLE);
+
+            if (otcTradeNum != null) {
+                if (otcTradeNum >= 50) {
+                    isOtc = true;
+                    img_otc.setImageResource(R.drawable.icon_auth_success);
+                    btn_otc_right.setVisibility(View.GONE);
+                    tv_otc_finish.setVisibility(View.VISIBLE);
+                } else {
+                    isOtc = false;
+                    img_otc.setImageResource(R.drawable.icon_auth_failure);
+                    btn_otc_right.setVisibility(View.VISIBLE);
+                    tv_otc_finish.setVisibility(View.GONE);
+                    tv_otc_error.setText(String.format(getResources().getString(R.string.cha_bi), String.valueOf(50 - otcTradeNum)));
+                }
             } else {
                 isOtc = false;
                 img_otc.setImageResource(R.drawable.icon_auth_failure);
                 btn_otc_right.setVisibility(View.VISIBLE);
                 tv_otc_finish.setVisibility(View.GONE);
-                tv_otc_error.setText(String.format(getResources().getString(R.string.cha_bi), String.valueOf(10 - otcTradeNum)));
             }
         } else {
-            isOtc = false;
-            img_otc.setImageResource(R.drawable.icon_auth_failure);
-            btn_otc_right.setVisibility(View.VISIBLE);
-            tv_otc_finish.setVisibility(View.GONE);
-        }
+            isMechant = true;
+            img_pass.setImageResource(R.drawable.icon_auth_success);
+            tv_pass.setText(getResources().getText(R.string.passed));
+            tv_pass_error.setText("");
 
-        if (isMechant && isOtc) {
-            btn_submit.setEnabled(true);
-            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
-        } else {
-            btn_submit.setEnabled(false);
-            ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
+            isOtc = true;
+            img_otc.setImageResource(R.drawable.icon_auth_success);
+            btn_otc_right.setVisibility(View.GONE);
+            tv_otc_finish.setVisibility(View.VISIBLE);
         }
 
         btn_dropout.setVisibility(View.GONE);
-
         if (spUtil.getApplyAuthMerchantStatus() == 1 || spUtil.getApplyAuthMerchantStatus() == 2) {
             if (spUtil.getApplyAuthMerchantStatus() == 1) {
                 btn_submit.setEnabled(false);
@@ -200,20 +210,33 @@ public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> im
                 btn_submit.setText(getResources().getString(R.string.apply_downgrade));
             }
         } else {
-            if (marketInfoModel != null) {
-                Integer days = marketInfoModel.days != null ? marketInfoModel.days : 0;
-                long currentTime = marketInfoModel.timestamp != null ? Long.parseLong(marketInfoModel.timestamp) : 0L;
-                long downTime = marketInfoModel.downTime != null ? Long.parseLong(marketInfoModel.downTime) : 0L;
-                int between = DateUtils.differentDaysByMillisecond(currentTime, downTime);
-                int waitTime = days - between;
+            if (marketInfoModel != null && marketInfoModel.days != null && !TextUtils.isEmpty(marketInfoModel.timestamp) && !TextUtils.equals(marketInfoModel.timestamp, "0") && !TextUtils.isEmpty(marketInfoModel.downTime) && !TextUtils.equals(marketInfoModel.downTime, "0")) {
+                int between = DateUtils.differentDaysByMillisecond(Long.parseLong(marketInfoModel.timestamp), DateUtils.string2Millis(marketInfoModel.downTime, DateUtils.DEFAULT_PATTERN));
+                int waitTime = marketInfoModel.days - between;
                 if (waitTime > 0) {
                     btn_submit.setEnabled(false);
                     ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
                     btn_submit.setText(String.format(getResources().getString(R.string.countdown_day), String.valueOf(waitTime)));
                 } else {
+                    btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
+
+                    if (isMechant && isOtc) {
+                        btn_submit.setEnabled(true);
+                        ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
+                    } else {
+                        btn_submit.setEnabled(false);
+                        ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
+                    }
+                }
+            } else {
+                btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
+
+                if (isMechant && isOtc) {
                     btn_submit.setEnabled(true);
                     ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_default));
-                    btn_submit.setText(getResources().getString(R.string.confirm_apply_submit));
+                } else {
+                    btn_submit.setEnabled(false);
+                    ((QMUIRoundButtonDrawable) btn_submit.getBackground()).setBgData(ContextCompat.getColorStateList(getContext(), R.color.color_otc_unhappy));
                 }
             }
         }
@@ -236,9 +259,13 @@ public class AuthMerchantFragment extends BaseFragment<AuthMerchantPresenter> im
     }
 
     private void dropOutDialog() {
+        int days = 60;
+        if (marketInfoModel != null && marketInfoModel.days != null) {
+            days = marketInfoModel.days;
+        }
         new DroidDialog.Builder(getContext())
                 .title(getResources().getString(R.string.dropout_mechant))
-                .content(getResources().getString(R.string.dropout_mechant_tip))
+                .content(String.format(getResources().getString(R.string.dropout_mechant_tip), String.valueOf(days)))
                 .contentGravity(Gravity.CENTER)
                 .positiveButton(getResources().getString(R.string.sure), new DroidDialog.onPositiveListener() {
                     @Override

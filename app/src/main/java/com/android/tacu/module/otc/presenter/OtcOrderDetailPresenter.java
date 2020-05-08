@@ -141,8 +141,15 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).finishOrder(orderId, fdPassword), new NetDisposableObserver<BaseModel>((IBaseMvpView) getView()) {
             @Override
             public void onNext(BaseModel model) {
-                OtcOrderDetailContract.IView wView = (OtcOrderDetailContract.IView) getView();
-                wView.finishOrderSuccess();
+                OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
+                view.finishOrderSuccess();
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                super.onError(throwable);
+                OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
+                view.finishOrderFailure();
             }
         });
     }
@@ -187,6 +194,14 @@ public class OtcOrderDetailPresenter extends BaseMvpPresenter implements OtcOrde
             public void onNext(BaseModel model) {
                 OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
                 view.arbitrationOrderCancelSuccess();
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                super.onError(throwable);
+
+                OtcOrderDetailContract.IView view = (OtcOrderDetailContract.IView) getView();
+                view.arbitrationOrderCancelFailure();
             }
         });
     }

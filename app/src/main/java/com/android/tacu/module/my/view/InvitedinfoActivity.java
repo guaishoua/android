@@ -160,14 +160,14 @@ public class InvitedinfoActivity extends BaseActivity<InvitedinfoPresenter> impl
             invitedAllModel = model;
 
             String value = "";
-            value = "<big>" + model.total + "</big>" + getResources().getString(R.string.people);
+            value = "<big><big>" + model.total + "</big></big>" + getResources().getString(R.string.people);
             tv_invited_people.setText(Html.fromHtml(value));
 
-            value = "<big>" + FormatterUtils.getFormatRoundDown(2, model.all) + "</big>" + Constant.ACU_CURRENCY_NAME;
-            tv_accumulated_commission.setText(value);
+            value = "<big><big>" + FormatterUtils.getFormatRoundDown(2, model.all) + "</big></big>" + Constant.ACU_CURRENCY_NAME;
+            tv_accumulated_commission.setText(Html.fromHtml(value));
 
-            value = "<big>" + FormatterUtils.getFormatRoundDown(2, model.pre) + "</big>" + Constant.ACU_CURRENCY_NAME;
-            tv_forzen_commission.setText(value);
+            value = "<big><big>" + FormatterUtils.getFormatRoundDown(2, model.pre) + "</big></big>" + Constant.ACU_CURRENCY_NAME;
+            tv_forzen_commission.setText(Html.fromHtml(value));
 
             tvCode.setText(model.invitedId);
 
@@ -186,7 +186,7 @@ public class InvitedinfoActivity extends BaseActivity<InvitedinfoPresenter> impl
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width = UIUtils.getScreenWidth() * 3 / 5;
+        lp.width = UIUtils.getScreenWidth() * 4 / 5;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.gravity = Gravity.CENTER;
         dialog.getWindow().setBackgroundDrawableResource(R.color.color_transparent);
@@ -206,8 +206,11 @@ public class InvitedinfoActivity extends BaseActivity<InvitedinfoPresenter> impl
                     public void run() {
                         picBitmap = ScreenShootUtils.convertViewToBitmap(view);
                         if (picBitmap != null) {
-                            ImgUtils.saveImageToGallery(InvitedinfoActivity.this, picBitmap);
+                            ImgUtils.saveImageToGallery(InvitedinfoActivity.this, picBitmap, 100);
                             showToastSuccess(getResources().getString(R.string.save_success));
+                            if (dialog != null && dialog.isShowing()) {
+                                dialog.dismiss();
+                            }
                         }
                     }
                 });

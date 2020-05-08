@@ -456,8 +456,18 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
     }
 
     @Override
+    public void finishOrderFailure() {
+        upload(true);
+    }
+
+    @Override
     public void arbitrationOrderCancelSuccess() {
-        showToastSuccess(getResources().getString(R.string.submit_success));
+        showToastSuccess(getResources().getString(R.string.cancel_success));
+        upload(true);
+    }
+
+    @Override
+    public void arbitrationOrderCancelFailure() {
         upload(true);
     }
 

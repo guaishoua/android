@@ -144,7 +144,7 @@ public class AuthMerchantActivity extends BaseActivity<AuthMerchantPresenter> im
         super.receiveEvent(event);
         if (event != null) {
             switch (event.getCode()) {
-                case EventConstant.VipBuyCode:
+                case EventConstant.AuthMerchant:
                     upload();
                     break;
             }

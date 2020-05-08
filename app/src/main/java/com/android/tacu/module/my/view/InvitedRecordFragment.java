@@ -8,6 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.android.tacu.EventBus.EventConstant;
+import com.android.tacu.EventBus.EventManage;
+import com.android.tacu.EventBus.model.BaseEvent;
+import com.android.tacu.EventBus.model.InvitedRecordEvent;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.module.my.contract.InvitedinfoContract;
@@ -119,6 +123,10 @@ public class InvitedRecordFragment extends BaseFragment<InvitedinfoPresenter> im
 
     @Override
     public void showInvitedInfo(InvitedAllDetailModel model) {
+        if (model != null) {
+            EventManage.sendEvent(new BaseEvent<>(EventConstant.Invited_Record, new InvitedRecordEvent(model.invited_uid, model.invited_name)));
+        }
+
         if (model != null && model.list != null && model.list.size() > 0) {
             recordList.addAll(model.list);
 

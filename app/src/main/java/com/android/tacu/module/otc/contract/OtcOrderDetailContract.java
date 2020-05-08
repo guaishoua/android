@@ -31,7 +31,11 @@ public class OtcOrderDetailContract {
 
         void finishOrderSuccess();
 
+        void finishOrderFailure();
+
         void arbitrationOrderCancelSuccess();
+
+        void arbitrationOrderCancelFailure();
     }
 
     public interface IAView extends IBaseMvpView {

@@ -37,6 +37,9 @@ public class InvitedRecordActivity extends BaseActivity {
     @BindView(R.id.tv_invitedme_account)
     TextView tv_invitedme_account;
 
+    @BindView(R.id.view_line)
+    View view_line;
+
     @BindView(R.id.magic_indicator)
     ScrollIndicatorView magic_indicator;
     @BindView(R.id.vp)
@@ -83,10 +86,12 @@ public class InvitedRecordActivity extends BaseActivity {
                     String name = recordEvent.getInvited_name();
                     if (!TextUtils.isEmpty(uid) || !TextUtils.isEmpty(name)) {
                         lin_invited_me.setVisibility(View.VISIBLE);
+                        view_line.setVisibility(View.VISIBLE);
                         tv_invitedme_uid.setText(uid);
                         tv_invitedme_account.setText(name);
                     } else {
                         lin_invited_me.setVisibility(View.GONE);
+                        view_line.setVisibility(View.GONE);
                     }
                     break;
             }
