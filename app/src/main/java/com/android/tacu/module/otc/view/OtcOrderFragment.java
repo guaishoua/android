@@ -517,6 +517,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             if (item.tradeModel.beArbitrateUid != null && item.tradeModel.beArbitrateUid != 0) {
                                 holder.setGone(R.id.tv_time_title, false);
                                 holder.setGone(R.id.tv_time, false);
+                                holder.setGone(R.id.btn_left, false);
                             } else {
                                 holder.setText(R.id.tv_time_title, getResources().getString(R.string.arbitration_countdown));
                                 if (currentTime != null) {
@@ -526,6 +527,7 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                                             timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_time)));
                                         } else {
                                             holder.setText(R.id.tv_time, getResources().getString(R.string.timeouted));
+                                            holder.setGone(R.id.btn_left, false);
                                         }
                                     }
                                 }

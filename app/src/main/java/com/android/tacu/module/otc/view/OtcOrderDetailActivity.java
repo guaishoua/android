@@ -171,7 +171,6 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                     case 4:
                     case 12:
                     case 13:
-                        mPresenter.currentTime();
                         if (!TextUtils.isEmpty(model.arbitrateImg)) {
                             mPresenter.uselectUserInfoArbitration(1, model.arbitrateImg);
                         }
@@ -184,10 +183,22 @@ public class OtcOrderDetailActivity extends BaseActivity<OtcOrderDetailPresenter
                     case 3:
                     case 9:
                     case 10:
-                        mPresenter.currentTime();
                         mPresenter.selectPayInfoById(model.payId);
                         break;
                 }
+            }
+
+            switch (status){
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 9:
+                case 10:
+                case 12:
+                case 13:
+                    mPresenter.currentTime();
+                    break;
             }
 
             // 1待确认 2 已确认待付款 3已付款待放币 4 仲裁 5 未确认超时取消 6 拒绝订单 7 付款超时取消 8放弃支付 9 放币超时  10放币完成

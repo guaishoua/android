@@ -189,6 +189,7 @@
         android:layout_height="@dimen/dp_40"
         android:layout_marginHorizontal="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_20"
         android:text="@string/submit_arbitration"
         android:textColor="@color/text_color"
         android:textSize="@dimen/text_size_sp_14"

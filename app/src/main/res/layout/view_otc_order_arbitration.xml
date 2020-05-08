@@ -207,6 +207,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lin_bearbitration_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
@@ -240,6 +241,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lin_bearbitration_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
@@ -279,6 +281,7 @@
             android:id="@+id/btn_left"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_10"
             android:layout_weight="1"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_14"
@@ -292,7 +295,7 @@
             android:layout_weight="1"
             android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_sp_14"
-            app:qmui_backgroundColor="@color/color_default"
+            app:qmui_backgroundColor="@color/color_otc_giveup"
             app:qmui_radius="@dimen/dp_3" />
     </LinearLayout>
 </LinearLayout>
