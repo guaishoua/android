@@ -182,6 +182,9 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
 
     @Override
     public void tradeList(OtcTradeListModel model) {
+        if (start == 1 && tradeModelList != null && tradeModelList.size() > 0) {
+            tradeModelList.clear();
+        }
         if (model != null) {
             if (model.list != null && model.list.size() > 0) {
                 OtcTradeAllModel allModel = null;
@@ -283,9 +286,6 @@ public class OtcManageWaitFragment extends BaseFragment<OtcManageWaitPresenter> 
         }
         if (isFirst) {
             isFirst = false;
-        }
-        if (start == 1 && tradeModelList != null && tradeModelList.size() > 0) {
-            tradeModelList.clear();
         }
         currentTime = null;
         mPresenter.tradeList(isShowView, orderId, null, start, 10, null, 16);

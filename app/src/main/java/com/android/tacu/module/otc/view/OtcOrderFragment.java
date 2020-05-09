@@ -178,6 +178,9 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
 
     @Override
     public void tradeList(boolean isClean, OtcTradeListModel model) {
+        if (start == 1 && tradeModelList != null && tradeModelList.size() > 0) {
+            tradeModelList.clear();
+        }
         if (model != null) {
             if (model.list != null && model.list.size() > 0) {
                 if (isClean) {
@@ -267,9 +270,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
         }
         if (isTop) {
             start = 1;
-        }
-        if (start == 1 && tradeModelList != null && tradeModelList.size() > 0) {
-            tradeModelList.clear();
         }
         currentTime = null;
         mPresenter.tradeList(isShowView, isTop, null, null, start, 10, buyOrSell, orderStatus);
@@ -509,11 +509,6 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                             }
                             holder.setText(R.id.tv_bottomfive, otcPhone);
 
-                            if (item.tradeModel.selluid == spUtil.getUserUid()) {
-                                holder.setGone(R.id.btn_left, true);
-                                holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_coined));
-                            }
-
                             if (item.tradeModel.beArbitrateUid != null && item.tradeModel.beArbitrateUid != 0) {
                                 holder.setGone(R.id.tv_time_title, false);
                                 holder.setGone(R.id.tv_time, false);
@@ -524,6 +519,10 @@ public class OtcOrderFragment extends BaseFragment<OtcOrderPresenter> implements
                                     if (!TextUtils.isEmpty(item.tradeModel.arbitrationEndTime)) {
                                         valueTime = DateUtils.string2Millis(item.tradeModel.arbitrationEndTime, DateUtils.DEFAULT_PATTERN) - currentTime;
                                         if (valueTime > 0) {
+                                            if (item.tradeModel.selluid == spUtil.getUserUid()) {
+                                                holder.setGone(R.id.btn_left, true);
+                                                holder.setText(R.id.btn_left, getResources().getString(R.string.confirm_coined));
+                                            }
                                             timeArray.put(holder.getLayoutPosition(), new TimeModel(valueTime, (TextView) holder.getView(R.id.tv_time)));
                                         } else {
                                             holder.setText(R.id.tv_time, getResources().getString(R.string.timeouted));

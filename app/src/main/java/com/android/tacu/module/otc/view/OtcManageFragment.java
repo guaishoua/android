@@ -119,6 +119,9 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
 
     @Override
     public void orderListOwn(OtcMarketOrderListModel model) {
+        if (start == 1 && orderList != null && orderList.size() > 0) {
+            orderList.clear();
+        }
         if (model != null) {
             if (model.list != null && model.list.size() > 0) {
                 if (orderList != null && orderList.size() > 0) {
@@ -166,9 +169,6 @@ public class OtcManageFragment extends BaseFragment<OtcManagePresenter> implemen
         }
         if (isTop) {
             start = 1;
-        }
-        if (start == 1 && orderList != null && orderList.size() > 0) {
-            orderList.clear();
         }
         mPresenter.orderListOwn(isShowView, start, 10, buyorsell);
     }

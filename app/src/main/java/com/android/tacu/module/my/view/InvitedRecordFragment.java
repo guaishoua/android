@@ -127,17 +127,18 @@ public class InvitedRecordFragment extends BaseFragment<InvitedinfoPresenter> im
             EventManage.sendEvent(new BaseEvent<>(EventConstant.Invited_Record, new InvitedRecordEvent(model.invited_uid, model.invited_name)));
         }
 
+        if (page == 1 && recordList != null && recordList.size() > 0) {
+            recordList.clear();
+        }
         if (model != null && model.list != null && model.list.size() > 0) {
             recordList.addAll(model.list);
 
-            if (recordList != null && recordList.size() > 0) {
-                recordAdapter.setNewData(recordList);
-                if (recordList.size() >= model.total) {
-                    refreshlayout.setEnableLoadmore(false);
-                } else {
-                    page++;
-                    refreshlayout.setEnableLoadmore(true);
-                }
+            recordAdapter.setNewData(recordList);
+            if (recordList.size() >= model.total) {
+                refreshlayout.setEnableLoadmore(false);
+            } else {
+                page++;
+                refreshlayout.setEnableLoadmore(true);
             }
         } else if (page == 1) {
             recordAdapter.setNewData(null);
@@ -147,9 +148,6 @@ public class InvitedRecordFragment extends BaseFragment<InvitedinfoPresenter> im
     }
 
     private void upload(boolean isShow) {
-        if (page == 1) {
-            recordList.clear();
-        }
         mPresenter.getInvitedAllDetail(isShow, page, size, status);
     }
 

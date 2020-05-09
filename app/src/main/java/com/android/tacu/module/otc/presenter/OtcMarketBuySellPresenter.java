@@ -14,7 +14,7 @@ import com.android.tacu.module.otc.model.SelectStatusModel;
 
 public class OtcMarketBuySellPresenter extends BaseMvpPresenter implements OtcMarketBuySellContract.IPresenter {
     @Override
-    public void orderList(boolean isShowView, Integer type, Integer currencyId, Integer start, Integer size, Integer payType, Integer buyorsell) {
+    public void orderList(boolean isShowView, Integer type, Integer currencyId, final Integer start, Integer size, Integer payType, Integer buyorsell) {
         this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.OTCTACU, Api.class).orderList(type, currencyId, start, size, payType, buyorsell), new NetDisposableObserver<BaseModel<OtcMarketOrderListModel>>((IBaseMvpView) getView(), isShowView) {
             @Override
             public void onNext(BaseModel<OtcMarketOrderListModel> model) {

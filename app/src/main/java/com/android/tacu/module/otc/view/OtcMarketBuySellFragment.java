@@ -223,6 +223,9 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
 
     @Override
     public void orderList(OtcMarketOrderListModel model) {
+        if (start == 1 && allList != null && allList.size() > 0) {
+            allList.clear();
+        }
         if (model != null) {
             if (model.list != null && model.list.size() > 0) {
                 OtcMarketOrderAllModel allModel = null;
@@ -295,9 +298,6 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
         }
         if (isTop) {
             start = 1;
-        }
-        if (start == 1 && allList != null && allList.size() > 0) {
-            allList.clear();
         }
         mPresenter.orderList(isShowViewing, type, currencyId, start, 10, payType, isBuy ? 2 : 1);
     }

@@ -125,6 +125,10 @@ public class OtcManageFinishFragment extends BaseFragment<OtcManageFinishPresent
 
     @Override
     public void tradeListByOrder(OtcTradeListModel model) {
+        if (start == 1 && tradeModelList != null && tradeModelList.size() > 0) {
+            tradeModelList.clear();
+        }
+
         if (model != null) {
             if (model.list != null && model.list.size() > 0) {
                 OtcTradeAllModel allModel = null;
@@ -189,16 +193,12 @@ public class OtcManageFinishFragment extends BaseFragment<OtcManageFinishPresent
         }
     }
 
-
     private void upload(boolean isShowView, boolean isTop) {
         if (isTop) {
             start = 1;
         }
         if (isFirst) {
             isFirst = false;
-        }
-        if (start == 1 && tradeModelList != null && tradeModelList.size() > 0) {
-            tradeModelList.clear();
         }
         mPresenter.tradeListByOrder(isShowView, orderId, start, 10);
     }
