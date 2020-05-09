@@ -148,10 +148,6 @@ public class OtcMarketFragment extends BaseFragment {
                 }
             });
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            listPopup.setDropDownGravity(Gravity.START);
-        }
-        listPopup.setAnchorView(tv);
-        listPopup.show();
+        listPopup.showAsDropDown(tv, 0, 0);
     }
 }

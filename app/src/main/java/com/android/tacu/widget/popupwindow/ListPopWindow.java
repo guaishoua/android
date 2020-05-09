@@ -3,9 +3,10 @@ package com.android.tacu.widget.popupwindow;
 import android.content.Context;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListPopupWindow;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 
-public class ListPopWindow extends ListPopupWindow {
+public class ListPopWindow extends PopupWindow {
 
     private Context mContext;
     private BaseAdapter mAdapter;
@@ -19,17 +20,14 @@ public class ListPopWindow extends ListPopupWindow {
     public void create(int width, int maxHeight, AdapterView.OnItemClickListener onItemClickListener) {
         setWidth(width);
         setHeight(maxHeight);
+        setFocusable(true);
+        setOutsideTouchable(true);
         setBackgroundDrawable(null);
 
-        setAdapter(mAdapter);
-        setModal(true);
-
-        setOnItemClickListener(onItemClickListener);
-    }
-
-    @Override
-    public void show() {
-        super.show();
-        getListView().setDividerHeight(0);
+        ListView listView = new ListView(mContext);
+        listView.setDividerHeight(0);
+        listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(onItemClickListener);
+        setContentView(listView);
     }
 }

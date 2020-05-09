@@ -428,10 +428,6 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
                 }
             });
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            timeLimitPopup.setDropDownGravity(Gravity.END);
-        }
-        timeLimitPopup.setAnchorView(tv_order_operation_time_limit);
-        timeLimitPopup.show();
+        timeLimitPopup.showAsDropDown(tv_order_operation_time_limit, 0, 0);
     }
 }

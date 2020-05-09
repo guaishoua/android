@@ -273,7 +273,7 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
                 tv_c2c_rnb.setText("");
                 tv_c2c_available.setText("0.0");
                 tv_c2c_frozen.setText("0.0");
-            }else{
+            } else {
                 view_c2c.setVisibility(View.GONE);
                 view_line_c2c.setVisibility(View.GONE);
             }
@@ -349,11 +349,8 @@ public class AssetsInfoActivity extends BaseActivity<AssetsPresenter> implements
                 }
             });
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            listPopup.setDropDownGravity(Gravity.START);
-        }
-        listPopup.setAnchorView(rl_account);
-        listPopup.show();
+        listPopup.showAsDropDown(rl_account, 0, 0);
+
     }
 
     /**

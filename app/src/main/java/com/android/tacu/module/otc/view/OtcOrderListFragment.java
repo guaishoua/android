@@ -186,11 +186,6 @@ public class OtcOrderListFragment extends BaseFragment {
                 }
             });
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            listPopup.setDropDownGravity(Gravity.CENTER_HORIZONTAL);
-        }
-        listPopup.setAnchorView(con_status);
-        listPopup.setHorizontalOffset(UIUtils.dp2px(10));
-        listPopup.show();
+        listPopup.showAsDropDown(con_status, 0, 0);
     }
 }

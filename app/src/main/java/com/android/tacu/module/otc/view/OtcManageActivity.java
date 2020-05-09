@@ -169,12 +169,7 @@ public class OtcManageActivity extends BaseActivity<OtcManagePresenter> implemen
                 }
             });
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            listPopup.setDropDownGravity(Gravity.START);
-            listPopup.setHorizontalOffset(UIUtils.dp2px(10));
-        }
-        listPopup.setAnchorView(lin_status);
-        listPopup.show();
+        listPopup.showAsDropDown(lin_status, UIUtils.dp2px(10), 0);
     }
 
     private void setCurr(int position) {

@@ -459,11 +459,7 @@ public class RechargeDepositActivity extends BaseActivity<RechargeDepositPresent
                 listPopup.dismiss();
             }
         });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            listPopup.setDropDownGravity(Gravity.END);
-        }
-        listPopup.setAnchorView(tv_recharge);
-        listPopup.show();
+        listPopup.showAsDropDown(tv_recharge, 0, 0);
     }
 
 

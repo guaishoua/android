@@ -375,11 +375,7 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 }
             });
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            listPopup.setDropDownGravity(Gravity.END);
-        }
-        listPopup.setAnchorView(view_flag);
-        listPopup.show();
+        listPopup.showAsDropDown(view_flag, 0, 0);
     }
 
     private void showOffline() {
