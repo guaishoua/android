@@ -101,13 +101,13 @@ public class OtcShopInfoActivity extends BaseActivity {
             }
             tv_single_price.setText(orderModel.price + valueWei);
             tv_plan_buy_amount.setText(orderModel.num + " " + orderModel.currencyName);
-            tv_remaining_unsold.setText(orderModel.remainAmount + " " + orderModel.currencyName);
+            tv_remaining_unsold.setText(FormatterUtils.getFormatValue(orderModel.remainAmount) + " " + orderModel.currencyName);
             if (!TextUtils.isEmpty(orderModel.price) && !TextUtils.isEmpty(orderModel.remainAmount)) {
                 double value = MathHelper.mul(Double.parseDouble(orderModel.price), Double.parseDouble(orderModel.remainAmount));
                 tv_remaining_all.setText(FormatterUtils.getFormatRoundDown(2, value) + valueWei);
             }
-            tv_single_min_limit.setText(orderModel.lowLimit + valueWei);
-            tv_single_max_limit.setText(orderModel.highLimit + valueWei);
+            tv_single_min_limit.setText(FormatterUtils.getFormatValue(orderModel.lowLimit) + valueWei);
+            tv_single_max_limit.setText(FormatterUtils.getFormatValue(orderModel.highLimit) + valueWei);
 
             if (orderModel.payByCard != null && orderModel.payByCard == 1) {
                 img_yhk.setVisibility(View.VISIBLE);

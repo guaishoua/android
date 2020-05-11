@@ -347,7 +347,7 @@ public class OtcBuyOrSellActivity extends BaseActivity<OtcBuyOrSellPresenter> im
             if (orderModel.money != null && orderModel.money == 1) {
                 valueWei = " " + Constant.CNY;
             }
-            tv_limit.setText(getResources().getString(R.string.quota) + orderModel.lowLimit + "-" + orderModel.highLimit + valueWei);
+            tv_limit.setText(getResources().getString(R.string.quota) + FormatterUtils.getFormatValue(orderModel.lowLimit) + "-" + FormatterUtils.getFormatValue(orderModel.highLimit) + valueWei);
         }
     }
 

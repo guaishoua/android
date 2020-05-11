@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.android.tacu.R;
 import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.otc.model.OtcMarketOrderModel;
+import com.android.tacu.utils.FormatterUtils;
 
 import butterknife.BindView;
 
@@ -125,12 +126,12 @@ public class OtcManageDetailsActivity extends BaseActivity {
             tv_deal_amount.setText(otcMarketOrderModel.tradeAmount);
 
             tv_remain_amount_title.setText(getResources().getString(R.string.remain_amount) + "(" + otcMarketOrderModel.currencyName + ")");
-            tv_remain_amount.setText(otcMarketOrderModel.remainAmount);
+            tv_remain_amount.setText(FormatterUtils.getFormatValue(otcMarketOrderModel.remainAmount));
 
             tv_frozen_title.setText(getResources().getString(R.string.frozen_num) + "(" + otcMarketOrderModel.currencyName + ")");
             tv_frozen.setText(otcMarketOrderModel.lockAmount);
 
-            tv_limit.setText(otcMarketOrderModel.lowLimit + "-" + otcMarketOrderModel.highLimit);
+            tv_limit.setText(FormatterUtils.getFormatValue(otcMarketOrderModel.lowLimit) + "-" + FormatterUtils.getFormatValue(otcMarketOrderModel.highLimit));
 
             tv_otc_phone.setText(otcMarketOrderModel.explaininfo);
 

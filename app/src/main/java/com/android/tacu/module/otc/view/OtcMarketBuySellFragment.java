@@ -28,6 +28,7 @@ import com.android.tacu.module.otc.model.OtcMarketOrderListModel;
 import com.android.tacu.module.otc.model.SelectStatusModel;
 import com.android.tacu.module.otc.presenter.OtcMarketBuySellPresenter;
 import com.android.tacu.utils.CommonUtils;
+import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.UIUtils;
 import com.android.tacu.widget.dialog.DroidDialog;
@@ -429,13 +430,13 @@ public class OtcMarketBuySellFragment extends BaseFragment<OtcMarketBuySellPrese
                 holder.setText(R.id.tv_history_deal, item.infoModel.total);
             }
             if (item.orderModel != null) {
-                holder.setText(R.id.tv_surplus, item.orderModel.remainAmount + " " + currencyNameEn);
+                holder.setText(R.id.tv_surplus, FormatterUtils.getFormatValue(item.orderModel.remainAmount) + " " + currencyNameEn);
 
                 String moneyWei = " " + Constant.CNY;
                 if (item.orderModel.money != null && item.orderModel.money == 1) {
                     moneyWei = " " + Constant.CNY;
                 }
-                holder.setText(R.id.tv_single_quota, Constant.CNY_SIGN + item.orderModel.lowLimit + "~" + Constant.CNY_SIGN + item.orderModel.highLimit);
+                holder.setText(R.id.tv_single_quota, Constant.CNY_SIGN + FormatterUtils.getFormatValue(item.orderModel.lowLimit) + "~" + Constant.CNY_SIGN + FormatterUtils.getFormatValue(item.orderModel.highLimit));
                 holder.setText(R.id.tv_single_price, item.orderModel.price + " " + moneyWei);
 
                 if (item.orderModel.payByCard != null && item.orderModel.payByCard == 1) {
