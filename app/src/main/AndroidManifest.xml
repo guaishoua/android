@@ -182,5 +182,6 @@
         <activity android:name="com.android.tacu.module.payinfo.view.BindingInfoYhkActivity" />
         <activity android:name="com.android.tacu.module.payinfo.view.BindingInfoWxActivity" />
         <activity android:name="com.android.tacu.module.payinfo.view.BindingInfoZfbActivity" />
+        <activity android:name="com.android.tacu.module.Auction.view.AuctionDetailsActivity" />
     </application>
 </manifest>
