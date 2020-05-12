@@ -57,7 +57,6 @@
     <!--字体黑色-->
     <color name="text_black">#000000</color>
     <!--Auction当前价-->
-    <color name="text_auction_currentprice">#FF665E</color>
 
     <!--dialog的背景色-->
     <color name="color_dialog">#1D252F</color>
@@ -90,16 +89,8 @@
     <!--透明度80%的黑色-->
     <color name="transparent_80">#5A000000</color>
     <!--透明度40%的白色-->
-    <color name="white_40">#99FFFFFF</color>
     <!--小图标的颜色-->
     <color name="color_icon">#FFFFFF</color>
-    <!--Auction状态颜色-->
-    <color name="color_status_ing">#FF665E</color>
-    <color name="color_status_soonstart">#5196C7</color>
-    <color name="color_status_finish">#868686</color>
-    <color name="color_pay_now">#EEA34A</color>
-    <color name="color_pay_after">#C2863E</color>
-    <color name="color_pay_gotime">#636363</color>
     <!--OTC-->
     <color name="color_otc_buy">#12AB69</color>
     <color name="color_otc_sell">#DE5252</color>

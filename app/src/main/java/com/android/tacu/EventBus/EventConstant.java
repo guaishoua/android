@@ -15,8 +15,6 @@ public class EventConstant {
     public static final int MainDrawerLayoutOpenCode = 1004;
     //提币查看记录页面按钮展示
     public static final int TakeCode = 1005;
-    //AuctionPlusListFragment切换fragment
-    public static final int AuctionPlusListCode = 1006;
     //homgfragment通知marketfragment和selffragment刷新
     public static final int HomeNotifyCode = 1007;
     //购买vip，子fragment通知父Activity刷新

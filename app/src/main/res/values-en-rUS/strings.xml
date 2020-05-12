@@ -297,18 +297,12 @@
     <string name="sell_index">Sell</string>
 
     <!--邀请好友-->
-    <string name="invite_posters">Exclusive poster</string>
     <string name="invite_num">Invite the number</string>
     <string name="invite_type">The invitation way</string>
     <string name="invitation_success">Successfully invited</string>
     <string name="invitation_one">Copy code&#160;</string>
     <string name="invitation_two">Copy links</string>
-    <string name="invite_uid">Be inviter uid</string>
-    <string name="register_source">Registered source</string>
-    <string name="register_date">Registered date</string>
     <string name="invited_record">Invited record</string>
-    <string name="invited_poster">Share the poster to</string>
-    <string name="invite_hint">Please select a Shared posters</string>
 
     <!--交易-->
     <string name="actual_transaction">Filled</string>
@@ -473,67 +467,9 @@
     <string name="usdt_tip">Please select USDT based on ERC20 to recharge</string>
 
     <!--Auction-->
-    <string name="auction_list_all">All</string>
-    <string name="auction_list_going">Ongoing</string>
-    <string name="auction_list_finish">Ended</string>
-    <string name="auction_list_collection">Favorites</string>
-    <string name="auction_list_whitepaper">Whitepaper</string>
-    <string name="auction_list_starttime">Start time(UTC+8)</string>
-    <string name="auction_starttime">Start time</string>
-    <string name="auction_list_paynow">Pay</string>
-    <string name="auction_list_payafter">Paid</string>
-    <string name="auction_list_paygotime">Payment expired</string>
-    <string name="auction_now_goprice">Bid</string>
-    <string name="auction_collection_num">%1$s favorites</string>
-    <string name="auction_goprice_num">%1$s bidders</string>
-    <string name="auction_watch_num">%1$s viewers</string>
-    <string name="auction_count_time">Countdown duration</string>
-    <string name="auction_rules">Rules Explanation</string>
-    <string name="auction_goprice_record">Place bid record</string>
-    <string name="location">Location</string>
-    <string name="auction_pay_title">Auction-Pay</string>
-    <string name="successful_pay">Congratulations! </string>
-    <string name="auction_balance">Available balance</string>
-    <string name="successful_tip">Please done the payment by %1$s(UTC+8) or you will be regarded as give the qualification up.</string>
-    <string name="auction_pay_success">Success</string>
-    <string name="record_ten">Show the latest 10 records only</string>
     <string name="auction_estimate">Time left %1$s</string>
-    <string name="auction_finish_time">End time is %1$s</string>
-    <string name="collect_success">Success!</string>
-    <string name="collect_error">Failure!</string>
-    <string name="auction_go_activity">Go to new project</string>
 
     <!--ActionPlus-->
-    <string name="auctionplus_list_start">To start</string>
-    <string name="plus_win_record">Win</string>
-    <string name="auction_win_record">Auction Winning Record</string>
-    <string name="pay">Pay</string>
-    <string name="pay_status">Payment status</string>
-    <string name="pay_all">All</string>
-    <string name="pay_before">To be paid</string>
-    <string name="pay_after">Paid</string>
-    <string name="pay_gotime">Payment expired</string>
-    <string name="mode">mode</string>
-    <string name="date2">date</string>
-    <string name="get_auction">Obtain the target</string>
-    <string name="auctionplus_residual_times">remaining times</string>
-    <string name="auctionplus_num">Amount/Share</string>
-    <string name="auctionplus_dealprice">Price/Share</string>
-    <string name="auctionplus_all_time">Total number of times</string>
-    <string name="auction_getall">Win</string>
-    <string name="auctionplus_dealprice_all">Total transaction price</string>
-    <string name="plus_every_num">Per quantity</string>
-    <string name="plus_every_price">Price per share</string>
-    <string name="plus_fee">Starting fee</string>
-    <string name="plus_add_price">Place bid range</string>
-    <string name="plus_rules">1.For each Auction the place - bid times limit will be set. For each Auction service fee starting price will be set. The service fee will increase by certain amount based on the fee of the former bid. There will be 10s countdown right after each bid being placed, the Auction will end when the countdown turns 0 or when the place-bid times limit will be reached. The participants will get the qualification for buying certain amount of auctioned token with certain price, while each placed bid will represent one share of reward after the Auction. Besides, all the participants can get bonus with different proportion for free.
-\n2. The countdown will start immediately once the participant places a bid, and the timer of the chosen auction will be automatically reset.  If the timer returns to zero, it means the participant win the bid.
-\n3. Winners should buy the token with the hammer price within 24 hours or will be regarded as giving the qualification up.
-\n4. TACU will cancel the auction and return related assets if any uncontrollable situations such as hacker attack, natural disaster and cheating.
-\n5. At least one bidder in each auction or the auction will be canceled.
-\n6. All rights are reserved by TACU.</string>
-
-    <string name="currency">Currency</string>
 
     <!--OTC-->
     <string name="please_perfect_follow_info">Fill in the info to make transaction</string>
@@ -552,7 +488,6 @@
     <string name="order_center">Order Center</string>
     <string name="otc_refuse_order">Order rejected</string>
     <string name="timeouted">Timed out</string>
-    <string name="pay_timeout">Payout timeout</string>
     <string name="market_order">Place order</string>
     <string name="buyer_pay">Buyer to pay</string>
     <string name="seller_coin">Seller to pay</string>
@@ -679,13 +614,9 @@
     <string name="net_assets_dayu">Margin ≥5000ACU</string>
     <string name="go_recharge">Deposit</string>
     <string name="go_auth">Pass KYC</string>
-    <string name="kyc_60_day">Passed KYC for 60 days</string>
     <string name="video_merchant">Upload video holding your ID and handwritten paper with UID, name, mobile phone number, date and TACU, read outloud "I (name), ID number (ID number), my source of funds is legal and reliable,I am willing to trade digital assets such as Bitcoin. I fully understand digital currencies and potential risks. I have the ability to resist risks and are willing to bear all risks."</string>
     <string name="upload_video">Upload video</string>
     <string name="auth_tip">※ Ordinary merchant can be verified for 30 days only.If you need to continue to use the merchant account after 30 days, please reapply.</string>
-    <string name="satisfy_ordinary_mechant">Ordinary Merchant requirements are met</string>
-    <string name="need_5000_bond">Merchant account must have 50,000ACU warranty deposit</string>
-    <string name="go_pay">Go to pay</string>
     <string name="merchant_advantage">Merchant Benefits</string>
     <string name="merchant_otc_advantage">Merchant OTC Advantage</string>
     <string name="merchant_c2c_advantage">C2C Merchant Advantage</string>
@@ -721,7 +652,6 @@
     <string name="wait_day">Waiting for %1$s days</string>
     <string name="cha_bi">%1$s pen left</string>
     <string name="apply_success">Application succeed!</string>
-    <string name="apply_success1">Application succeed</string>
 
     <!--充值保证金-->
     <string name="recharge_deposit">Margin management</string>
@@ -816,7 +746,6 @@
     <string name="mobile">Contact information</string>
     <string name="trade_price">Transaction Amount</string>
     <string name="arbitration_result1">Arbitration Results</string>
-    <string name="arbitrationed">Ruled</string>
     <string name="look_order">View order</string>
     <string name="go_pay1">Go to pay</string>
     <string name="confirm_coined">Confirm the deposit</string>
@@ -930,7 +859,6 @@
     <string name="upload_arbitration_img">Upload payment credentials</string>
     <string name="upload_bearbitration_img">Upload Appeal Credentials</string>
     <string name="please_submit_bearbitration_content">Please enter the content of your appeal .........</string>
-    <string name="arbitration_wait">Arbitration, waiting for arbitration</string>
     <string name="arbitration_explain">Arbitration Explanation</string>
 
     <!--otc6-->
@@ -1018,5 +946,8 @@
     <string name="coined1">Coins have been put in</string>
     <string name="countdown_day">Countdown %1$s days before you can apply</string>
     <string name="people">people</string>
+
+    <!--拍卖-->
+    <string name="auction_paimai">Auction</string>
 </resources>
 

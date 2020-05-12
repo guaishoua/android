@@ -156,10 +156,6 @@
         <activity android:name="com.android.tacu.module.main.view.ZXingCommonActivity" />
         <activity android:name="com.android.tacu.module.main.view.ZXingLoginActivity" />
         <activity android:name="com.android.tacu.module.assets.view.RecordActivity" />
-        <activity android:name="com.android.tacu.module.auctionplus.view.AuctionActivity" />
-        <activity android:name="com.android.tacu.module.auctionplus.view.AuctionPlusDetailActivity" />
-        <activity android:name="com.android.tacu.module.auctionplus.view.AuctionPlusOfferActivity" />
-        <activity android:name="com.android.tacu.module.auctionplus.view.AuctionWinRecordActivity" />
         <activity android:name="com.android.tacu.module.ZoomImageViewActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderListActivity" />
         <activity android:name="com.android.tacu.module.otc.view.OtcOrderDetailActivity" />

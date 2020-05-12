@@ -300,16 +300,10 @@
     <!--邀请好友-->
     <string name="invite_num">邀請人數</string>
     <string name="invite_type">邀請方式</string>
-    <string name="invite_posters">專屬海報</string>
     <string name="invitation_success">成功邀請</string>
     <string name="invitation_one">複製邀請碼&#8195;</string>
     <string name="invitation_two">複制分享鏈接</string>
-    <string name="invite_uid">被邀請人UID</string>
-    <string name="register_source">註冊來源</string>
-    <string name="register_date">註冊日期</string>
     <string name="invited_record">邀請記錄</string>
-    <string name="invited_poster">分享海報到</string>
-    <string name="invite_hint">請選擇要分享海報</string>
     <!--交易-->
     <string name="actual_transaction">實際成交</string>
     <string name="trade_pwd_confirm">交易密碼確認</string>
@@ -466,67 +460,9 @@
     <string name="usdt_tip">請選擇基於ERC20的USDT進行充值</string>
 
     <!--Auction-->
-    <string name="auction_list_all">全部</string>
-    <string name="auction_list_going">進行中</string>
-    <string name="auction_list_finish">已完成</string>
-    <string name="auction_list_collection">收藏</string>
-    <string name="auction_list_whitepaper">白皮書</string>
-    <string name="auction_list_starttime">開始時間(UTC+8)</string>
-    <string name="auction_starttime">開始時間</string>
-    <string name="auction_list_paynow">立即支付</string>
-    <string name="auction_list_payafter">已支付</string>
-    <string name="auction_list_paygotime">支付過期</string>
-    <string name="auction_now_goprice">立即出價</string>
-    <string name="auction_collection_num">收藏%1$s人</string>
-    <string name="auction_goprice_num">出價%1$s人</string>
-    <string name="auction_watch_num">圍觀%1$s人</string>
-    <string name="auction_count_time">倒計時長</string>
-    <string name="auction_rules">規則說明</string>
-    <string name="auction_goprice_record">出價記錄</string>
-    <string name="location">所在地</string>
-    <string name="auction_pay_title">Auction-支付</string>
-    <string name="successful_pay">祝賀您</string>
-    <string name="auction_balance">可用余額</string>
-    <string name="successful_tip">溫馨提示：請在(UTC+8) %1$s時 之前完成支付，逾期將視為主動放棄。</string>
-    <string name="auction_pay_success">支付成功</string>
-    <string name="record_ten">僅顯示最新10條記錄</string>
     <string name="auction_estimate">預計 %1$s 後結束</string>
-    <string name="auction_finish_time">結束時間為 %1$s</string>
-    <string name="collect_success">收藏成功!</string>
-    <string name="collect_error">收藏失敗!</string>
-    <string name="auction_go_activity">前往新項目</string>
 
     <!--ActionPlus-->
-    <string name="auctionplus_list_start">新品審核中</string>
-    <string name="plus_win_record">獲勝\n記錄</string>
-    <string name="auction_win_record">Auction獲勝記錄</string>
-    <string name="pay">支付</string>
-    <string name="pay_status">支付狀態</string>
-    <string name="pay_all">全部</string>
-    <string name="pay_before">待支付</string>
-    <string name="pay_after">已支付</string>
-    <string name="pay_gotime">支付過期</string>
-    <string name="mode">模式</string>
-    <string name="date2">日期</string>
-    <string name="get_auction">獲得標的</string>
-    <string name="auctionplus_residual_times">剩余次數</string>
-    <string name="auctionplus_num">標的數量/份</string>
-    <string name="auctionplus_dealprice">成交價/份</string>
-    <string name="auctionplus_all_time">總次數</string>
-    <string name="auction_getall">共可獲得</string>
-    <string name="auctionplus_dealprice_all">成交總價</string>
-    <string name="plus_every_num">每份數量</string>
-    <string name="plus_every_price">每份價格</string>
-    <string name="plus_fee">起拍手續費</string>
-    <string name="plus_add_price">加價幅度</string>
-    <string name="plus_rules">1.所有數字貨幣競拍限定出價次數，指定首次出價的手續費，之後的每壹出價消耗的手續費需比前壹出價多消耗指定單位的手續費。每壹出價次數均對應壹個獎勵份額。每次出價後有10秒計時，當倒計時為0時，即競拍結束。結束後參與用戶均可按照獲取的份額購買標的，同時免費獲得不同比例的獎勵。
-\n2.進入拍賣，當您出價後，即進入拍賣倒計時，該數字貨幣的計時器將被自動重置，計時器歸零時，該競拍結束。
-\n3.若競拍結束，請在競拍結束後24小時內以規定價格購買所獲份額，逾期視為自動放棄。
-\n4.當網絡出現如黑客惡意攻擊，自然災害，作弊拍賣等不可控原因時，TACU平臺有權取消本次拍賣，退回相關資產。
-\n5.每期拍賣需至少有壹人出價，方可算有效交易。如無人出價，該期競拍取消。
-\n6.本活動最終解釋權歸TACU平臺所有。</string>
-
-    <string name="currency">幣種</string>
 
     <!--OTC-->
     <string name="please_perfect_follow_info">請完善以下信息方可進行交易</string>
@@ -545,7 +481,6 @@
     <string name="order_center">訂單中心</string>
     <string name="otc_refuse_order">拒絕訂單</string>
     <string name="timeouted">已超時</string>
-    <string name="pay_timeout">支付超時</string>
     <string name="market_order">生成訂單</string>
     <string name="buyer_pay">買方付款</string>
     <string name="seller_coin">賣方放幣</string>
@@ -672,13 +607,9 @@
     <string name="net_assets_dayu">保證金≥5000ACU</string>
     <string name="go_recharge">去充值</string>
     <string name="go_auth">去認證</string>
-    <string name="kyc_60_day">通過實名KYC認證60日</string>
     <string name="video_merchant">上傳本人手持證件及手寫UID、姓名、手機號、日期憑證和TACU字樣後宣讀“本人（姓名），身份證號（身份證號碼），我的資金來源合法可靠，自願交易比特幣等數字資產，本人充分了解數字貨幣及潛在風險，本人具有抗風險的能力並願意承擔壹切風險。”的視頻文件</string>
     <string name="upload_video">上傳視頻</string>
     <string name="auth_tip">※  普通商戶身份為30個自然日壹個週期，申請成功後自動計時，滿30日後如需繼續使用商戶身份請重新申請。</string>
-    <string name="satisfy_ordinary_mechant">是否滿足普通商戶身份要求資格</string>
-    <string name="need_5000_bond">商戶保證金賬戶需提交50,000ACU作為保證金</string>
-    <string name="go_pay">去繳納</string>
     <string name="merchant_advantage">商家優勢</string>
     <string name="merchant_otc_advantage">商家OTC優勢</string>
     <string name="merchant_c2c_advantage">商家C2C優勢</string>
@@ -714,7 +645,6 @@
     <string name="wait_day">等待%1$s天</string>
     <string name="cha_bi">還差%1$s筆</string>
     <string name="apply_success">申請成功！</string>
-    <string name="apply_success1">认证成功</string>
 
     <!--充值保證金-->
     <string name="recharge_deposit">保證金管理</string>
@@ -805,7 +735,6 @@
     <string name="mobile">聯系方式</string>
     <string name="trade_price">交易金額</string>
     <string name="arbitration_result1">仲裁結果</string>
-    <string name="arbitrationed">已裁定</string>
     <string name="look_order">查看訂單</string>
     <string name="go_pay1">去支付</string>
     <string name="confirm_coined">確認放幣</string>
@@ -919,7 +848,6 @@
     <string name="upload_arbitration_img">上傳支付憑證</string>
     <string name="upload_bearbitration_img">上傳申訴憑證</string>
     <string name="please_submit_bearbitration_content">請輸入您要提交申訴內容…………</string>
-    <string name="arbitration_wait">仲裁中，等待仲裁</string>
     <string name="arbitration_explain">仲裁說明</string>
 
     <!--otc6-->
