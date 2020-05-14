@@ -183,5 +183,8 @@
         <activity android:name="com.android.tacu.module.payinfo.view.BindingInfoWxActivity" />
         <activity android:name="com.android.tacu.module.payinfo.view.BindingInfoZfbActivity" />
         <activity android:name="com.android.tacu.module.Auction.view.AuctionDetailsActivity" />
+        <activity android:name="com.android.tacu.module.Auction.view.AuctionRecordActivity" />
+        <activity android:name="com.android.tacu.module.Auction.view.MyAuctionActivity" />
+        <activity android:name="com.android.tacu.module.Auction.view.MyAddressActivity" />
     </application>
 </manifest>

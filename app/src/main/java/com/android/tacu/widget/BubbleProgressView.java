@@ -43,6 +43,9 @@ public class BubbleProgressView extends View {
     private Paint.FontMetricsInt mFontMetricsInt;
     private float lineCirclePointY = 0;
 
+    private float leftX = 0;
+    private float rightX = 0;
+
     public BubbleProgressView(Context context) {
         this(context, null);
     }
@@ -103,8 +106,11 @@ public class BubbleProgressView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         lineCirclePointY = h - mProgressHeight * 2;
-        mPathSrc.moveTo(UIUtils.dp2px(20), h - mProgressHeight * 2);
-        mPathSrc.lineTo(w - UIUtils.dp2px(20), h - mProgressHeight * 2);//进度条位置在控件整体底部，且距离控件左边和右边各20像素
+        leftX = UIUtils.dp2px(20);
+        rightX = w - UIUtils.dp2px(20);
+
+        mPathSrc.moveTo(leftX, h - mProgressHeight * 2);
+        mPathSrc.lineTo(rightX, h - mProgressHeight * 2);//进度条位置在控件整体底部，且距离控件左边和右边各20像素
         mPathMeasure.setPath(mPathSrc, false);
         invalidate();
     }
@@ -152,7 +158,12 @@ public class BubbleProgressView extends View {
         //top:进度所在的高度 - 底部三角形高度 - 进度条高度 - 矩形高度
         //right:矩形右边位置的计算原理与左边相同，同样((1-mProgress)*width)也是为了不断改变气泡底部的三角形与气泡顶部矩形的相对位置（与left相对应）
         //bottom:这个就简单了，与top相比小了一个矩形的高度
-        RectF rectF = new RectF(p[0] - mBubbleTriangleHeight - mBubbleRectRound / 2 - (depth * width) - UIUtils.dp2px(2), p[1] - mBubbleTriangleHeight - mProgressHeight - height, p[0] + mBubbleTriangleHeight + mBubbleRectRound / 2 + ((1 - depth) * width) + UIUtils.dp2px(2), p[1] - mBubbleTriangleHeight - mProgressHeight);
+        RectF rectF = null;
+        if (p[0] - mBubbleTriangleHeight - mBubbleRectRound / 2 - (0.5F * width) - UIUtils.dp2px(2) < leftX || p[0] + mBubbleTriangleHeight + mBubbleRectRound / 2 + (0.5F * width) + UIUtils.dp2px(2) > rightX) {
+            rectF = new RectF(p[0] - mBubbleTriangleHeight - mBubbleRectRound / 2 - (depth * width) - UIUtils.dp2px(2), p[1] - mBubbleTriangleHeight - mProgressHeight - height, p[0] + mBubbleTriangleHeight + mBubbleRectRound / 2 + ((1 - depth) * width) + UIUtils.dp2px(2), p[1] - mBubbleTriangleHeight - mProgressHeight);
+        } else {
+            rectF = new RectF(p[0] - mBubbleTriangleHeight - mBubbleRectRound / 2 - (0.5F * width) - UIUtils.dp2px(2), p[1] - mBubbleTriangleHeight - mProgressHeight - height, p[0] + mBubbleTriangleHeight + mBubbleRectRound / 2 + (0.5F * width) + UIUtils.dp2px(2), p[1] - mBubbleTriangleHeight - mProgressHeight);
+        }
         mPathBubble.addRoundRect(rectF, mBubbleRectRound, mBubbleRectRound, Path.Direction.CW);//添加矩形路径
         canvas.drawPath(mPathBubble, mPaintBubble);//绘制气泡
         int i = (mFontMetricsInt.bottom - mFontMetricsInt.ascent) / 2 - mFontMetricsInt.bottom;//让文字垂直居中

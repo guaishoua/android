@@ -11,15 +11,19 @@ import com.android.tacu.base.BaseActivity;
 import com.android.tacu.module.Auction.adapter.AuctionRecordAdapter;
 import com.android.tacu.module.Auction.contract.AuctionContract;
 import com.android.tacu.module.Auction.presenter.AuctionPresenter;
-import com.android.tacu.widget.BubbleProgressView;
+import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
-public class AuctionDetailsActivity extends BaseActivity<AuctionPresenter> implements AuctionContract.IDetailsView {
+public class AuctionRecordActivity extends BaseActivity<AuctionPresenter> implements AuctionContract.IRecordView {
 
-    @BindView(R.id.progress)
-    BubbleProgressView progress;
+    @BindView(R.id.refreshlayout)
+    SmartRefreshLayout refreshlayout;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
@@ -28,16 +32,25 @@ public class AuctionDetailsActivity extends BaseActivity<AuctionPresenter> imple
 
     @Override
     protected void setView() {
-        setContentView(R.layout.activity_auction_details);
+        setContentView(R.layout.activity_auction_record);
     }
 
     @Override
     protected void initView() {
-        mTopBar.setTitle(getResources().getString(R.string.auction_paimai));
-        mTopBar.addRightTextButton(getResources().getString(R.string.my_auction), R.id.qmui_topbar_item_right).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mTopBar.setTitle(getResources().getString(R.string.auction_record));
 
+        CustomTextHeaderView header = new CustomTextHeaderView(this);
+        header.setPrimaryColors(ContextCompat.getColor(this, R.color.content_bg_color), ContextCompat.getColor(this, R.color.text_color));
+        refreshlayout.setRefreshHeader(header);
+        refreshlayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale).setAnimatingColor(ContextCompat.getColor(this, R.color.color_default)));
+        refreshlayout.setEnableLoadmore(false);
+        refreshlayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+            }
+
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
             }
         });
 
@@ -54,10 +67,5 @@ public class AuctionDetailsActivity extends BaseActivity<AuctionPresenter> imple
     @Override
     protected AuctionPresenter createPresenter(AuctionPresenter mPresenter) {
         return new AuctionPresenter();
-    }
-
-    @OnClick(R.id.tv_look_more)
-    void lookMoreClick() {
-        jumpTo(AuctionRecordActivity.class);
     }
 }

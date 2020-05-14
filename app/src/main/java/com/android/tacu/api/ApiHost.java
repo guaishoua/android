@@ -60,14 +60,6 @@ public enum ApiHost implements Retrofit2Host {
         }
     },
     /**
-     * AuctionPlus
-     */
-    AUCTIONPLUS {
-        public String getHost() {
-            return host + "/auctionplus/";
-        }
-    },
-    /**
      * ZENDESK
      */
     ZEN {
@@ -97,6 +89,14 @@ public enum ApiHost implements Retrofit2Host {
     ALI {
         public String getHost() {
             return host + "/ali/";
+        }
+    },
+    /**
+     * 地址
+     */
+    USEADDRESS {
+        public String getHost() {
+            return host + "/userAddress/";
         }
     };
 

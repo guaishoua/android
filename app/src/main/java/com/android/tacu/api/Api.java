@@ -1,6 +1,10 @@
 package com.android.tacu.api;
 
 import com.android.tacu.base.BaseModel;
+import com.android.tacu.module.Auction.model.AddressModel;
+import com.android.tacu.module.Auction.model.AreaModel;
+import com.android.tacu.module.Auction.model.CityModel;
+import com.android.tacu.module.Auction.model.ProvinceModel;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.ChargeModel;
@@ -1284,4 +1288,77 @@ public interface Api {
             @Field("status") int status,
             @Field("language") int language
     );
+
+    /**
+     * 获取省份
+     */
+    @POST("getProvince")
+    Observable<BaseModel<List<ProvinceModel>>> getProvince();
+
+    /**
+     * 获取市
+     */
+    @FormUrlEncoded
+    @POST("getCity")
+    Observable<BaseModel<List<CityModel>>> getCity(
+            @Field("province") String province
+    );
+
+    /**
+     * 获取区
+     */
+    @FormUrlEncoded
+    @POST("getArea")
+    Observable<BaseModel<List<AreaModel>>> getArea(
+            @Field("city") String city
+    );
+
+    /**
+     * 添加地址
+     */
+    @FormUrlEncoded
+    @POST("insertAddress")
+    Observable<BaseModel> insertAddress(
+            @Field("consignee") String consignee,
+            @Field("phone") String phone,
+            @Field("provinceCode") String provinceCode,
+            @Field("provinceName") String provinceName,
+            @Field("cityCode") String cityCode,
+            @Field("cityName") String cityName,
+            @Field("areaCode") String areaCode,
+            @Field("areaName") String areaName,
+            @Field("detailedAddress") String detailedAddress,
+            @Field("status") int status//是否默认 地址 1是 0否
+    );
+
+    @FormUrlEncoded
+    @POST("deleteAddress")
+    Observable<BaseModel> deleteAddress(
+            @Field("id") String id
+    );
+
+    /**
+     * 添加地址
+     */
+    @FormUrlEncoded
+    @POST("updateAddress")
+    Observable<BaseModel> updateAddress(
+            @Field("id") String id,
+            @Field("consignee") String consignee,
+            @Field("phone") String phone,
+            @Field("provinceCode") String provinceCode,
+            @Field("provinceName") String provinceName,
+            @Field("cityCode") String cityCode,
+            @Field("cityName") String cityName,
+            @Field("areaCode") String areaCode,
+            @Field("areaName") String areaName,
+            @Field("detailedAddress") String detailedAddress,
+            @Field("status") int status//是否默认 地址 1是 0否
+    );
+
+    /**
+     * 查询地址
+     */
+    @POST("getAddressList")
+    Observable<BaseModel<List<AddressModel>>> getAddressList();
 }

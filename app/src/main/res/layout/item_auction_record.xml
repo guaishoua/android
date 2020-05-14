@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/content_bg_color"
+    android:paddingHorizontal="@dimen/dp_15"
+    android:paddingVertical="@dimen/dp_10">
+
+    <TextView
+        android:id="@+id/tv_uid_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="UID"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_amount_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_amount_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:includeFontPadding="false"
+        android:text="@string/auction_num"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintLeft_toRightOf="@id/tv_uid_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_uid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_15"
+        app:layout_constraintLeft_toLeftOf="@id/tv_uid_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_uid_title"
+        tools:text="111" />
+
+    <TextView
+        android:id="@+id/tv_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_15"
+        app:layout_constraintLeft_toLeftOf="@id/tv_amount_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_amount_title"
+        tools:text="111" />
+
+    <TextView
+        android:id="@+id/tv_price_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:includeFontPadding="false"
+        android:text="@string/auction_price_acu"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintLeft_toLeftOf="@id/tv_uid"
+        app:layout_constraintTop_toBottomOf="@id/tv_uid" />
+
+    <TextView
+        android:id="@+id/tv_time_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:includeFontPadding="false"
+        android:text="@string/auction_date"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_sp_13"
+        app:layout_constraintLeft_toLeftOf="@id/tv_amount"
+        app:layout_constraintTop_toBottomOf="@id/tv_amount" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_15"
+        app:layout_constraintLeft_toLeftOf="@id/tv_price_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_price_title"
+        tools:text="111" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_sp_15"
+        app:layout_constraintLeft_toLeftOf="@id/tv_time_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_time_title"
+        tools:text="111" />
+</android.support.constraint.ConstraintLayout>
