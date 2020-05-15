@@ -1,10 +1,12 @@
 package com.android.tacu.api;
 
 import com.android.tacu.base.BaseModel;
-import com.android.tacu.module.Auction.model.AddressModel;
-import com.android.tacu.module.Auction.model.AreaModel;
-import com.android.tacu.module.Auction.model.CityModel;
-import com.android.tacu.module.Auction.model.ProvinceModel;
+import com.android.tacu.module.auction.model.AddressModel;
+import com.android.tacu.module.auction.model.AreaModel;
+import com.android.tacu.module.auction.model.AuctionLogsListModel;
+import com.android.tacu.module.auction.model.AuctionModel;
+import com.android.tacu.module.auction.model.CityModel;
+import com.android.tacu.module.auction.model.ProvinceModel;
 import com.android.tacu.module.assets.model.AssetDetailsModel;
 import com.android.tacu.module.assets.model.AuthOssModel;
 import com.android.tacu.module.assets.model.ChargeModel;
@@ -1331,34 +1333,65 @@ public interface Api {
             @Field("status") int status//是否默认 地址 1是 0否
     );
 
+    /**
+     * 查询地址
+     */
+    @POST("getAddressList")
+    Observable<BaseModel<List<AddressModel>>> getAddressList();
+
+    /**
+     * Auction数量
+     */
+    @POST("total")
+    Observable<BaseModel<Integer>> auctionTotal();
+
+    /**
+     * Auction活动详情
+     */
+    @POST("list")
+    Observable<BaseModel<AuctionModel>> auctionList();
+
+    /**
+     * 点击购买
+     */
     @FormUrlEncoded
-    @POST("deleteAddress")
-    Observable<BaseModel> deleteAddress(
-            @Field("id") String id
+    @POST("buy")
+    Observable<BaseModel> auctionBuy(
+            @Field("id") Integer id,
+            @Field("fdPassword") String fdPassword
+    );
+
+    /**
+     * 最新购买人
+     */
+    @FormUrlEncoded
+    @POST("logsAll")
+    Observable<BaseModel<AuctionLogsListModel>> auctionLogsAll(
+            @Field("id") Integer id,
+            @Field("isLast") Integer isLast,
+            @Field("start") Integer start,
+            @Field("size") Integer size
+    );
+
+    /**
+     * 自己参与的记录
+     */
+    @FormUrlEncoded
+    @POST("logs")
+    Observable<BaseModel<AuctionLogsListModel>> auctionLogs(
+            @Field("id") Integer id,
+            @Field("isLast") Integer isLast,
+            @Field("start") Integer start,
+            @Field("size") Integer size
     );
 
     /**
      * 添加地址
      */
     @FormUrlEncoded
-    @POST("updateAddress")
-    Observable<BaseModel> updateAddress(
-            @Field("id") String id,
-            @Field("consignee") String consignee,
-            @Field("phone") String phone,
-            @Field("provinceCode") String provinceCode,
-            @Field("provinceName") String provinceName,
-            @Field("cityCode") String cityCode,
-            @Field("cityName") String cityName,
-            @Field("areaCode") String areaCode,
-            @Field("areaName") String areaName,
-            @Field("detailedAddress") String detailedAddress,
-            @Field("status") int status//是否默认 地址 1是 0否
+    @POST("chooseAddr")
+    Observable<BaseModel> chooseAddr(
+            @Field("id") Integer id,
+            @Field("addrId") String addrId
     );
-
-    /**
-     * 查询地址
-     */
-    @POST("getAddressList")
-    Observable<BaseModel<List<AddressModel>>> getAddressList();
 }

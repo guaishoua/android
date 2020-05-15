@@ -16,12 +16,16 @@ public class HomeContract {
         void home(HomeModel homeModel);
 
         void showNoticeList(List<NoticeModel> list);
+
+        void auctionTotal(Integer total);
     }
 
     public interface IPresenter {
         void getNoticeInfo();
 
         void getHome(boolean isShowLoadingView);
+
+        void auctionTotal();
 
         /**
          * 最新价排序
@@ -50,6 +54,5 @@ public class HomeContract {
          * 名称/成交量：pairVol 最新价：lastPrice 24H成交量：24Hour
          */
         void sortList(String currentStatus, int pairVolStatus, int lastPriceStatus, int hourStatus, List<MarketNewModel.TradeCoinsBean> tradesList);
-
     }
 }

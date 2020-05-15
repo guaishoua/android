@@ -979,9 +979,20 @@
     <string name="receiver">收货人</string>
     <string name="please_input_receiver">请填写收货人</string>
     <string name="tel">手机号码</string>
+    <string name="please_input_telephone">请填写手机号</string>
     <string name="please_input_tel">国外用户请填写区号+手机号码</string>
     <string name="area">所在地区</string>
+    <string name="please_input_area">请填写所在地区</string>
     <string name="full_address">详细地址</string>
     <string name="please_input_address">请输入您的详细地址：如市区、道路、门牌号、小区、楼栋号、单元室等</string>
     <string name="confirm_address_submit">确认地址正确并提交</string>
+    <string name="auction_only_vip">该拍品进限平台会员参与</string>
+    <string name="go_open">去开通</string>
+    <string name="please_set_pwd">请先设置交易密码</string>
+    <string name="think_again">再想想</string>
+    <string name="auction_pay">竞拍支付</string>
+    <string name="pay_confirm_pay">是否确认支付%1$sACU参与%2$s竞拍？</string>
+    <string name="insufficient_balance">余额不足</string>
+    <string name="conngratulation_user">恭喜%1$s用户在%2$s成功参与%3$s竞拍</string>
+    <string name="please_select">请选择</string>
 </resources>

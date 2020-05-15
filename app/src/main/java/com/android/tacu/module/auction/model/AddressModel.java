@@ -1,4 +1,4 @@
-package com.android.tacu.module.Auction.model;
+package com.android.tacu.module.auction.model;
 
 import com.google.gson.annotations.SerializedName;
 

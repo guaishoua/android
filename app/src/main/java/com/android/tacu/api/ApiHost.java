@@ -98,6 +98,14 @@ public enum ApiHost implements Retrofit2Host {
         public String getHost() {
             return host + "/userAddress/";
         }
+    },
+    /**
+     * Auction
+     */
+    AUCTIONNEW {
+        public String getHost() {
+            return host + "/auctionnew/";
+        }
     };
 
     public static String host = BuildConfig.API_HOST;

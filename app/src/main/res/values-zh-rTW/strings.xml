@@ -935,4 +935,47 @@
     <string name="coined1">已放幣</string>
     <string name="countdown_day">倒計時%1$s天後才可以申請</string>
     <string name="people">人</string>
+
+    <!--拍賣-->
+    <string name="auction_paimai">Auction拍賣</string>
+    <string name="auction_confirm_endtime">拍賣確認倒計時</string>
+    <string name="auction_number">拍賣數量</string>
+    <string name="bid_price_acu">競拍價(ACU)</string>
+    <string name="auction_time">競拍次數</string>
+    <string name="join_auction">參與競拍</string>
+    <string name="auction_record">競拍紀錄</string>
+    <string name="look_more">查看更多</string>
+    <string name="auction_num">競拍數量</string>
+    <string name="auction_price_acu">競拍價格(ACU)</string>
+    <string name="auction_date">競拍時間</string>
+    <string name="my_auction">我的競拍</string>
+    <string name="reward_endtime">開獎倒計時</string>
+    <string name="auction_success_wait_get">已開獎，等待收貨</string>
+    <string name="congratulation_get">恭喜您獲得%1$s</string>
+    <string name="auction_failure_wait_get">已開獎，未拍得%1$s</string>
+    <string name="auction_asset_back">競拍資金將原路退還到您的賬號</string>
+    <string name="my_auction_record">我的競拍記錄</string>
+    <string name="my_shipping_address">我的收貨地址</string>
+    <string name="add_address">填寫收貨地址</string>
+    <string name="auction_doubt_tip">如有疑問，可以聯系客服</string>
+    <string name="my_address_tip">※ 請認真填寫並核實收貨地址，地址錯誤將導致您無法收取貨物，如有疑問可聯系客戶。</string>
+    <string name="receiver">收貨人</string>
+    <string name="please_input_receiver">請填寫收貨人</string>
+    <string name="tel">手機號碼</string>
+    <string name="please_input_telephone">請填寫手機號</string>
+    <string name="please_input_tel">國外用戶請填寫區號+手機號碼</string>
+    <string name="area">所在地區</string>
+    <string name="please_input_area">請填寫所在地區</string>
+    <string name="full_address">詳細地址</string>
+    <string name="please_input_address">請輸入您的詳細地址：如市區、道路、門牌號、小區、樓棟號、單元室等</string>
+    <string name="confirm_address_submit">確認地址正確並提交</string>
+    <string name="auction_only_vip">該拍品進限平臺會員參與</string>
+    <string name="go_open">去開通</string>
+    <string name="please_set_pwd">請先設置交易密碼</string>
+    <string name="think_again">再想想</string>
+    <string name="auction_pay">競拍支付</string>
+    <string name="pay_confirm_pay">是否確認支付%1$sACU參與%2$s競拍？</string>
+    <string name="insufficient_balance">余額不足</string>
+    <string name="conngratulation_user">恭喜%1$s用戶在%2$s成功參與%3$s競拍</string>
+    <string name="please_select">請選擇</string>
 </resources>

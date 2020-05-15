@@ -1,10 +1,10 @@
-package com.android.tacu.module.Auction.model;
+package com.android.tacu.module.auction.model;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class ProvinceModel implements Serializable {
+public class AreaModel implements Serializable {
 
     @SerializedName("id")
     public String id;
@@ -12,6 +12,6 @@ public class ProvinceModel implements Serializable {
     public String name;
     @SerializedName("code")
     public String code;
-    @SerializedName("status")
-    public Integer status;
+    @SerializedName("cityCode")
+    public String cityCode;
 }

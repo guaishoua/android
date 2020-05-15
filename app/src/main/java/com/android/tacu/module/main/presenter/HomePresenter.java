@@ -45,6 +45,17 @@ public class HomePresenter extends BaseMvpPresenter implements HomeContract.IPre
         });
     }
 
+    @Override
+    public void auctionTotal() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.AUCTIONNEW, Api.class).auctionTotal(), new NetDisposableObserver<BaseModel<Integer>>((IBaseMvpView) getView(), false) {
+            @Override
+            public void onNext(BaseModel<Integer> model) {
+                HomeContract.IView view = (HomeContract.IView) getView();
+                view.auctionTotal(model.attachment);
+            }
+        });
+    }
+
     /**
      * 最新价排序
      * type : up升序 down降序

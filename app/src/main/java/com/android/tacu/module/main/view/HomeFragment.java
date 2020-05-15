@@ -28,7 +28,7 @@ import com.android.tacu.api.Constant;
 import com.android.tacu.base.BaseFragment;
 import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.interfaces.OnPermissionListener;
-import com.android.tacu.module.Auction.view.AuctionDetailsActivity;
+import com.android.tacu.module.auction.view.AuctionDetailsActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.HomeContract;
 import com.android.tacu.module.main.model.HomeModel;
@@ -112,6 +112,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     ViewPager viewpager;
     @BindView(R.id.img_notice_close)
     ImageView img_notice_close;
+    @BindView(R.id.tv_auction)
+    TextView tv_auction;
 
     private Gson gson = new Gson();
     private List<NoticeModel> noticeList = new ArrayList<>();
@@ -190,6 +192,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         super.onResume();
         mPresenter.getHome(homeModel == null);
         mPresenter.getNoticeInfo();
+        mPresenter.auctionTotal();
     }
 
     @Override
@@ -214,7 +217,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @OnClick(R.id.tv_auction)
     void auctionClick() {
-        jumpTo(AuctionDetailsActivity.class);
+        if (spUtil.getLogin()) {
+            jumpTo(AuctionDetailsActivity.class);
+        } else {
+            jumpTo(LoginActivity.class);
+        }
     }
 
     @OnClick(R.id.tv_recharge)
@@ -293,6 +300,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             }
         }
         setInitHomeNoticeValue();
+    }
+
+    @Override
+    public void auctionTotal(Integer total) {
+        if (total != null && total > 0) {
+            tv_auction.setVisibility(View.VISIBLE);
+        } else {
+            tv_auction.setVisibility(View.GONE);
+        }
     }
 
     @Override

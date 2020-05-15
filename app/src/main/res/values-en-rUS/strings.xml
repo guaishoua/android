@@ -949,5 +949,45 @@
 
     <!--拍卖-->
     <string name="auction_paimai">Auction</string>
+    <string name="auction_confirm_endtime">Countdown to auction confirmation</string>
+    <string name="auction_number">number of auctions</string>
+    <string name="bid_price_acu">Auction price (ACU)</string>
+    <string name="auction_time">Number of auctions</string>
+    <string name="join_auction">Participate in auction</string>
+    <string name="auction_record">Auction record</string>
+    <string name="look_more">View more</string>
+    <string name="auction_num">Number of auctions</string>
+    <string name="auction_price_acu">Auction price (ACU)</string>
+    <string name="auction_date">Bid time</string>
+    <string name="my_auction">My auction</string>
+    <string name="reward_endtime">Drawdown countdown</string>
+    <string name="auction_success_wait_get">The prize has been drawn, waiting for receipt</string>
+    <string name="congratulation_get">Congratulations on getting %1$s</string>
+    <string name="auction_failure_wait_get">The lottery has been won, %1$s not taken</string>
+    <string name="auction_asset_back">Bid funds will be returned to your account</string>
+    <string name="my_auction_record">My auction record</string>
+    <string name="my_shipping_address">My delivery address</string>
+    <string name="add_address">Fill in the receiving address</string>
+    <string name="auction_doubt_tip">If you have any questions, you can contact customer service</string>
+    <string name="my_address_tip">※ Please fill in and verify the delivery address carefully. The wrong address will cause you to fail to receive the goods. If you have any questions, please contact the customer.</string>
+    <string name="receiver">consignee</string>
+    <string name="please_input_receiver">Please fill in the consignee</string>
+    <string name="tel">mobile phone number</string>
+    <string name="please_input_telephone">Please fill in the mobile phone number</string>
+    <string name="please_input_tel">For foreign users, please fill in the area code + mobile phone number</string>
+    <string name="area">area</string>
+    <string name="please_input_area">Please fill in the location</string>
+    <string name="full_address">Detailed address</string>
+    <string name="please_input_address">Please enter your detailed address: such as urban area, road, house number, community, building number, unit room etc.</string>
+    <string name="confirm_address_submit">Confirm that the address is correct and submit</string>
+    <string name="auction_only_vip">This lot enters the limited platform member participation</string>
+    <string name="go_open">Go to open</string>
+    <string name="please_set_pwd">Please set transaction password first</string>
+    <string name="think_again">Think again</string>
+    <string name="auction_pay">Bid payment</string>
+    <string name="pay_confirm_pay">Are you sure to pay %1$s ACU to participate in %2$s auction?</string>
+    <string name="insufficient_balance">Insufficient balance</string>
+    <string name="conngratulation_user">Congratulations to %1$s user who successfully participated in %3$s auction on %2$s</string>
+    <string name="please_select">Please select</string>
 </resources>
 
