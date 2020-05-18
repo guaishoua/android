@@ -13,7 +13,7 @@ public class AuctionContract {
 
         void auctionBuySuccess();
 
-        void auctionBuyFailure(int status);
+        void auctionBuyFailure();
 
         void auctionLogsAll(AuctionLogsListModel model);
     }

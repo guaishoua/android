@@ -208,7 +208,7 @@ public class MyAddressActivity extends BaseActivity<MyAddressPresenter> implemen
 
     @Override
     public void insertAddressSuccess() {
-        mPresenter.getAddressList(2);
+        finish();
     }
 
     @Override
@@ -353,12 +353,18 @@ public class MyAddressActivity extends BaseActivity<MyAddressPresenter> implemen
                         PFlag = helper.getLayoutPosition();
                         PString = item.name;
                         PCode = item.code;
+
+                        clearCity();
+
                         flag = 1;
                         mPresenter.getCity(item.code);
                     } else if (flag == 1) {
                         CFlag = helper.getLayoutPosition();
                         CString = item.name;
                         CCode = item.code;
+
+                        clearArea();
+
                         flag = 2;
                         mPresenter.getArea(item.code);
                     } else if (flag == 2) {
@@ -399,6 +405,22 @@ public class MyAddressActivity extends BaseActivity<MyAddressPresenter> implemen
         }
         baseApapter.notifyDataSetChanged();
         magic_indicator.setCurrentItem(flag);
+    }
+
+    private void clearCity() {
+        CFlag = -1;
+        CString = "";
+        CCode = "";
+
+        AFlag = -1;
+        AString = "";
+        ACode = "";
+    }
+
+    private void clearArea() {
+        AFlag = -1;
+        AString = "";
+        ACode = "";
     }
 
     private void clear() {

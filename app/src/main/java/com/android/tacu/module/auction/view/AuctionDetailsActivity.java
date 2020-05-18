@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.tacu.R;
@@ -46,6 +47,8 @@ public class AuctionDetailsActivity extends BaseActivity<AuctionPresenter> imple
 
     @BindView(R.id.banner)
     XBanner banner;
+    @BindView(R.id.lin_scroll)
+    LinearLayout lin_scroll;
     @BindView(R.id.text_scroll)
     QMUIScrollTextView text_scroll;
     @BindView(R.id.tv_name)
@@ -260,10 +263,8 @@ public class AuctionDetailsActivity extends BaseActivity<AuctionPresenter> imple
     }
 
     @Override
-    public void auctionBuyFailure(int status) {
-        if (status == 1001) {
-            showNotMoneyDialog();
-        }
+    public void auctionBuyFailure() {
+        showNotMoneyDialog();
     }
 
     @Override
@@ -280,16 +281,18 @@ public class AuctionDetailsActivity extends BaseActivity<AuctionPresenter> imple
                 List<String> infos = new ArrayList<>();
                 // 添加三个相同的，实现轮播效果
                 if (TextUtils.equals(spUtil.getLanguage(), Constant.ZH_TW) || TextUtils.equals(spUtil.getLanguage(), Constant.ZH_CN)) {
-                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, model.list.get(0).createTime, auctionModel.auctionName));
-                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, model.list.get(0).createTime, auctionModel.auctionName));
-                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, model.list.get(0).createTime, auctionModel.auctionName));
+                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, DateUtils.getStrToStr(model.list.get(0).createTime, DateUtils.DEFAULT_PATTERN, DateUtils.FORMAT_DATE_HM), auctionModel.auctionName));
+                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, DateUtils.getStrToStr(model.list.get(0).createTime, DateUtils.DEFAULT_PATTERN, DateUtils.FORMAT_DATE_HM), auctionModel.auctionName));
+                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, DateUtils.getStrToStr(model.list.get(0).createTime, DateUtils.DEFAULT_PATTERN, DateUtils.FORMAT_DATE_HM), auctionModel.auctionName));
                 } else {
-                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, model.list.get(0).createTime, auctionModel.auctionNameEn));
-                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, model.list.get(0).createTime, auctionModel.auctionNameEn));
-                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, model.list.get(0).createTime, auctionModel.auctionNameEn));
+                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, DateUtils.getStrToStr(model.list.get(0).createTime, DateUtils.DEFAULT_PATTERN, DateUtils.FORMAT_DATE_HM), auctionModel.auctionNameEn));
+                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, DateUtils.getStrToStr(model.list.get(0).createTime, DateUtils.DEFAULT_PATTERN, DateUtils.FORMAT_DATE_HM), auctionModel.auctionNameEn));
+                    infos.add(String.format(getResources().getString(R.string.conngratulation_user), model.list.get(0).uid, DateUtils.getStrToStr(model.list.get(0).createTime, DateUtils.DEFAULT_PATTERN, DateUtils.FORMAT_DATE_HM), auctionModel.auctionNameEn));
                 }
+                lin_scroll.setVisibility(View.VISIBLE);
                 text_scroll.startWithList(infos);
             } else {
+                lin_scroll.setVisibility(View.GONE);
                 recordAdapter.setNewData(null);
                 recordAdapter.setEmptyView(emptyView);
             }

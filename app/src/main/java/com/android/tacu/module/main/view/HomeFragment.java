@@ -29,6 +29,7 @@ import com.android.tacu.base.BaseFragment;
 import com.android.tacu.interfaces.ISocketEvent;
 import com.android.tacu.interfaces.OnPermissionListener;
 import com.android.tacu.module.auction.view.AuctionDetailsActivity;
+import com.android.tacu.module.auction.view.MyAddressActivity;
 import com.android.tacu.module.login.view.LoginActivity;
 import com.android.tacu.module.main.contract.HomeContract;
 import com.android.tacu.module.main.model.HomeModel;

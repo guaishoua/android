@@ -68,7 +68,13 @@ public class AuctionPresenter extends BaseMvpPresenter implements AuctionContrac
                 if (throwable instanceof ResponseException) {
                     ResponseException responseException = (ResponseException) throwable;
                     AuctionContract.IDetailsView view = (AuctionContract.IDetailsView) getView();
-                    view.auctionBuyFailure(responseException.status);
+                    if (responseException.type == 1) {
+                        if (responseException.status == 1001) {
+                            view.auctionBuyFailure();
+                        } else {
+                            view.showToastError(responseException.message);
+                        }
+                    }
                 }
             }
         });
