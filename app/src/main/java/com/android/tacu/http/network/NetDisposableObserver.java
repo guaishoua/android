@@ -45,11 +45,15 @@ public abstract class NetDisposableObserver<T> extends DisposableObserver<T> {
             if (throwable instanceof ResponseException) {
                 ResponseException responseException = (ResponseException) throwable;
                 if (responseException.type == 1) {
+                    onErrorServer(responseException);
+
                     if (responseException.status == ApiStatus.ERROR_TOKEN) {
                         this.mBaseMvpView.tokenInvalid();
                     } else if (this.isToast) {
                         this.mBaseMvpView.showToastError(responseException.message);
                     }
+                } else if (responseException.type == 0) {
+                    onErrorSystem(responseException);
                 }
             }
         }
@@ -63,5 +67,20 @@ public abstract class NetDisposableObserver<T> extends DisposableObserver<T> {
             }
             this.mBaseMvpView.hideRefreshView();
         }
+    }
+
+    /**
+     * 服务端返回的错误
+     * @param responseException
+     */
+    protected void onErrorServer(ResponseException responseException) {
+    }
+
+    /**
+     * 系统的错误，比如无网络情况
+     * @param responseException
+     */
+    protected void onErrorSystem(ResponseException responseException) {
+
     }
 }

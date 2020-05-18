@@ -208,7 +208,7 @@ public class MyAddressActivity extends BaseActivity<MyAddressPresenter> implemen
 
     @Override
     public void insertAddressSuccess() {
-        finish();
+        mPresenter.getAddressList(2);
     }
 
     @Override
@@ -220,15 +220,15 @@ public class MyAddressActivity extends BaseActivity<MyAddressPresenter> implemen
         }
 
         if (addressModel != null) {
-            lin_edit.setVisibility(View.GONE);
-            lin_details.setVisibility(View.VISIBLE);
+            if (type == 1) {
+                lin_edit.setVisibility(View.GONE);
+                lin_details.setVisibility(View.VISIBLE);
 
-            tv_receiver.setText(addressModel.consignee);
-            tv_tel.setText(addressModel.phone);
-            tv_area.setText(addressModel.provinceName + " " + addressModel.cityName + " " + addressModel.areaName);
-            tv_address.setText(addressModel.detailedAddress);
-
-            if (type == 2) {
+                tv_receiver.setText(addressModel.consignee);
+                tv_tel.setText(addressModel.phone);
+                tv_area.setText(addressModel.provinceName + " " + addressModel.cityName + " " + addressModel.areaName);
+                tv_address.setText(addressModel.detailedAddress);
+            } else if (type == 2) {
                 mPresenter.chooseAddr(id, addressModel.id);
             }
         } else {
@@ -239,6 +239,8 @@ public class MyAddressActivity extends BaseActivity<MyAddressPresenter> implemen
 
     @Override
     public void chooseAddrSuccess() {
+        showToastSuccess(getResources().getString(R.string.success));
+        finish();
     }
 
     private void setAddressDialog() {

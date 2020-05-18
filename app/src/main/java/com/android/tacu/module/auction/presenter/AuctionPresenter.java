@@ -62,19 +62,14 @@ public class AuctionPresenter extends BaseMvpPresenter implements AuctionContrac
             }
 
             @Override
-            public void onError(Throwable throwable) {
-                super.onError(throwable);
+            protected void onErrorServer(ResponseException responseException) {
+                super.onErrorServer(responseException);
 
-                if (throwable instanceof ResponseException) {
-                    ResponseException responseException = (ResponseException) throwable;
-                    AuctionContract.IDetailsView view = (AuctionContract.IDetailsView) getView();
-                    if (responseException.type == 1) {
-                        if (responseException.status == 1001) {
-                            view.auctionBuyFailure();
-                        } else {
-                            view.showToastError(responseException.message);
-                        }
-                    }
+                AuctionContract.IDetailsView view = (AuctionContract.IDetailsView) getView();
+                if (responseException.status == 1001) {
+                    view.auctionBuyFailure();
+                } else {
+                    view.showToastError(responseException.message);
                 }
             }
         });
