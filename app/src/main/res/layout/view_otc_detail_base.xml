@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:drawablePadding="@dimen/dp_5"
-            android:textColor="@color/text_color"
+            android:textColor="@color/text_error"
             android:textSize="@dimen/text_size_sp_14"
             tools:text="111111" />
     </RelativeLayout>
@@ -122,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:drawablePadding="@dimen/dp_5"
-            android:textColor="@color/text_color"
+            android:textColor="@color/text_error"
             android:textSize="@dimen/text_size_sp_14"
             tools:text="111111" />
     </RelativeLayout>
