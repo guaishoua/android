@@ -969,7 +969,7 @@
     <string name="full_address">詳細地址</string>
     <string name="please_input_address">請輸入您的詳細地址：如市區、道路、門牌號、小區、樓棟號、單元室等</string>
     <string name="confirm_address_submit">確認地址正確並提交</string>
-    <string name="auction_only_vip">該拍品進限平臺會員參與</string>
+    <string name="auction_only_vip">該拍品僅限平臺會員參與</string>
     <string name="go_open">去開通</string>
     <string name="please_set_pwd">請先設置交易密碼</string>
     <string name="think_again">再想想</string>

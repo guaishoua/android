@@ -986,7 +986,7 @@
     <string name="full_address">详细地址</string>
     <string name="please_input_address">请输入您的详细地址：如市区、道路、门牌号、小区、楼栋号、单元室等</string>
     <string name="confirm_address_submit">确认地址正确并提交</string>
-    <string name="auction_only_vip">该拍品进限平台会员参与</string>
+    <string name="auction_only_vip">该拍品仅限平台会员参与</string>
     <string name="go_open">去开通</string>
     <string name="please_set_pwd">请先设置交易密码</string>
     <string name="think_again">再想想</string>

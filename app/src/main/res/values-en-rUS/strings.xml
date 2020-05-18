@@ -980,7 +980,7 @@
     <string name="full_address">Detailed address</string>
     <string name="please_input_address">Please enter your detailed address: such as urban area, road, house number, community, building number, unit room etc.</string>
     <string name="confirm_address_submit">Confirm that the address is correct and submit</string>
-    <string name="auction_only_vip">This lot enters the limited platform member participation</string>
+    <string name="auction_only_vip">This lot is limited to platform members</string>
     <string name="go_open">Go to open</string>
     <string name="please_set_pwd">Please set transaction password first</string>
     <string name="think_again">Think again</string>
