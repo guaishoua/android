@@ -233,9 +233,6 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (refreshlayout != null && refreshlayout.isRefreshing()) {
-            refreshlayout.finishRefresh();
-        }
         if (screenShareHelper != null) {
             screenShareHelper.destory();
         }
@@ -333,21 +330,11 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
         this.assetDetailsModel = model;
 
         if (assetDetailsModel != null) {
-            if (refreshlayout != null && refreshlayout.isRefreshing()) {
-                refreshlayout.finishRefresh();
-            }
             myAssets();
             dealAssetList();
             if (assetDetailsModel.otcCoinList != null && assetDetailsModel.otcCoinList.size() > 0) {
                 SPUtils.getInstance().put(OTC_SELECT_COIN_CACHE, gson.toJson(assetDetailsModel.otcCoinList));
             }
-        }
-    }
-
-    @Override
-    public void showContentError() {
-        if (refreshlayout != null && refreshlayout.isRefreshing()) {
-            refreshlayout.finishRefresh();
         }
     }
 
@@ -614,12 +601,17 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
     private void myAssets() {
         if (assetDetailsModel != null) {
             double btcxAmount = 0;
+            double winxAmount = 0;
             double acuxAmount = 0;
             double btcx_acuxPrice = 0;
+            double winx_acuxPrice = 0;
             if (assetDetailsModel.coinList != null && assetDetailsModel.coinList.size() > 0) {
                 for (int i = 0; i < assetDetailsModel.coinList.size(); i++) {
                     if (TextUtils.equals(assetDetailsModel.coinList.get(i).currencyNameEn, "BTCX")) {
                         btcxAmount = assetDetailsModel.coinList.get(i).amount;
+                    }
+                    if (TextUtils.equals(assetDetailsModel.coinList.get(i).currencyNameEn, "WINX")) {
+                        winxAmount = assetDetailsModel.coinList.get(i).amount;
                     }
                     if (TextUtils.equals(assetDetailsModel.coinList.get(i).currencyNameEn, "ACUX")) {
                         acuxAmount = assetDetailsModel.coinList.get(i).amount;
@@ -627,7 +619,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                 }
             }
 
-            if (btcxAmount != 0) {
+            if (btcxAmount != 0 || winxAmount != 0) {
                 String cacheString = SPUtils.getInstance().getString(Constant.SELECT_COIN_GROUP_CACHE);
                 marketNewModelList = new Gson().fromJson(cacheString, new TypeToken<List<MarketNewModel>>() {
                 }.getType());
@@ -638,13 +630,18 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
                         for (int j = 0; j < marketNewModelList.get(i).tradeCoinsList.size(); j++) {
                             if (TextUtils.equals(marketNewModelList.get(i).tradeCoinsList.get(j).baseCurrencyNameEn, "ACUX") && TextUtils.equals(marketNewModelList.get(i).tradeCoinsList.get(j).currencyNameEn, "BTCX")) {
                                 btcx_acuxPrice = marketNewModelList.get(i).tradeCoinsList.get(j).currentAmount;
+                            }
+                            if (TextUtils.equals(marketNewModelList.get(i).tradeCoinsList.get(j).baseCurrencyNameEn, "ACUX") && TextUtils.equals(marketNewModelList.get(i).tradeCoinsList.get(j).currencyNameEn, "WINX")) {
+                                winx_acuxPrice = marketNewModelList.get(i).tradeCoinsList.get(j).currentAmount;
+                            }
+                            if (btcx_acuxPrice != 0 && winx_acuxPrice != 0) {
                                 break FLAG;
                             }
                         }
                     }
                 }
             }
-            double allAcu = acuxAmount + btcxAmount * btcx_acuxPrice + Double.parseDouble(assetDetailsModel.allMoney);
+            double allAcu = acuxAmount + btcxAmount * btcx_acuxPrice + winxAmount * winx_acuxPrice + Double.parseDouble(assetDetailsModel.allMoney);
 
             btc_total_string = FormatterUtils.getFormatRoundUp(2, allAcu);
             tv_coin_account.setText(defaultEyeStatus ? btc_total_string + Constant.ACU_CURRENCY_NAME : "*****");
