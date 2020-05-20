@@ -47,7 +47,6 @@ import com.android.tacu.utils.UIUtils;
 import com.android.tacu.view.popup.CoinPickerView;
 import com.android.tacu.view.smartrefreshlayout.CustomTextHeaderView;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -600,50 +599,7 @@ public class AssetsFragment extends BaseFragment<AssetsPresenter> implements Ass
 
     private void myAssets() {
         if (assetDetailsModel != null) {
-            double btcxAmount = 0;
-            double winxAmount = 0;
-            double acuxAmount = 0;
-            double btcx_acuxPrice = 0;
-            double winx_acuxPrice = 0;
-            if (assetDetailsModel.coinList != null && assetDetailsModel.coinList.size() > 0) {
-                for (int i = 0; i < assetDetailsModel.coinList.size(); i++) {
-                    if (TextUtils.equals(assetDetailsModel.coinList.get(i).currencyNameEn, "BTCX")) {
-                        btcxAmount = assetDetailsModel.coinList.get(i).amount;
-                    }
-                    if (TextUtils.equals(assetDetailsModel.coinList.get(i).currencyNameEn, "WINX")) {
-                        winxAmount = assetDetailsModel.coinList.get(i).amount;
-                    }
-                    if (TextUtils.equals(assetDetailsModel.coinList.get(i).currencyNameEn, "ACUX")) {
-                        acuxAmount = assetDetailsModel.coinList.get(i).amount;
-                    }
-                }
-            }
-
-            if (btcxAmount != 0 || winxAmount != 0) {
-                String cacheString = SPUtils.getInstance().getString(Constant.SELECT_COIN_GROUP_CACHE);
-                marketNewModelList = new Gson().fromJson(cacheString, new TypeToken<List<MarketNewModel>>() {
-                }.getType());
-
-                if (marketNewModelList != null && marketNewModelList.size() > 0) {
-                    FLAG:
-                    for (int i = 0; i < marketNewModelList.size(); i++) {
-                        for (int j = 0; j < marketNewModelList.get(i).tradeCoinsList.size(); j++) {
-                            if (TextUtils.equals(marketNewModelList.get(i).tradeCoinsList.get(j).baseCurrencyNameEn, "ACUX") && TextUtils.equals(marketNewModelList.get(i).tradeCoinsList.get(j).currencyNameEn, "BTCX")) {
-                                btcx_acuxPrice = marketNewModelList.get(i).tradeCoinsList.get(j).currentAmount;
-                            }
-                            if (TextUtils.equals(marketNewModelList.get(i).tradeCoinsList.get(j).baseCurrencyNameEn, "ACUX") && TextUtils.equals(marketNewModelList.get(i).tradeCoinsList.get(j).currencyNameEn, "WINX")) {
-                                winx_acuxPrice = marketNewModelList.get(i).tradeCoinsList.get(j).currentAmount;
-                            }
-                            if (btcx_acuxPrice != 0 && winx_acuxPrice != 0) {
-                                break FLAG;
-                            }
-                        }
-                    }
-                }
-            }
-            double allAcu = acuxAmount + btcxAmount * btcx_acuxPrice + winxAmount * winx_acuxPrice + Double.parseDouble(assetDetailsModel.allMoney);
-
-            btc_total_string = FormatterUtils.getFormatRoundUp(2, allAcu);
+            btc_total_string = FormatterUtils.getFormatRoundUp(2, assetDetailsModel.allMoney);
             tv_coin_account.setText(defaultEyeStatus ? btc_total_string + Constant.ACU_CURRENCY_NAME : "*****");
 
             dealValue();
