@@ -15,8 +15,6 @@ public class AssetsContract {
     public interface IAssetsView extends IBaseMvpView {
         void showContent(AssetDetailsModel attachment);
 
-        void showContentError();
-
         void BondAccount(OtcAmountModel model);
 
         void otcAmount(OtcAmountModel model);

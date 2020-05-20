@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -33,6 +34,7 @@ import com.android.tacu.module.otc.presenter.OtcManageBuySellPresenter;
 import com.android.tacu.utils.FormatterUtils;
 import com.android.tacu.utils.MathHelper;
 import com.android.tacu.utils.UIUtils;
+import com.android.tacu.view.DecimalDigitsInputFilter;
 import com.android.tacu.widget.popupwindow.ListPopWindow;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
@@ -110,6 +112,7 @@ public class OtcManageBuySellFragment extends BaseFragment<OtcManageBuySellPrese
     @Override
     protected void initData(View view) {
         param = new OtcPublishParam(isBuy);
+        edit_trade_single_price.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3)});
         edit_trade_single_price.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

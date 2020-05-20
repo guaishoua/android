@@ -36,15 +36,6 @@ public class AssetsPresenter extends BaseMvpPresenter implements AssetsContract.
                     iAssetsInfoView.showContent(model.attachment);
                 }
             }
-
-            @Override
-            public void onError(Throwable throwable) {
-                super.onError(throwable);
-                if (type == 1) {
-                    AssetsContract.IAssetsView view = (AssetsContract.IAssetsView) getView();
-                    view.showContentError();
-                }
-            }
         });
     }
 
