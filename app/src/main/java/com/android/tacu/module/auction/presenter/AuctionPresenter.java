@@ -11,6 +11,7 @@ import com.android.tacu.http.network.NetDisposableObserver;
 import com.android.tacu.module.auction.contract.AuctionContract;
 import com.android.tacu.module.auction.model.AuctionLogsListModel;
 import com.android.tacu.module.auction.model.AuctionModel;
+import com.android.tacu.module.main.model.OwnCenterModel;
 
 public class AuctionPresenter extends BaseMvpPresenter implements AuctionContract.IPresenter {
 
@@ -48,6 +49,17 @@ public class AuctionPresenter extends BaseMvpPresenter implements AuctionContrac
                     AuctionContract.IMyView view = (AuctionContract.IMyView) getView();
                     view.currentTime(model.attachment);
                 }
+            }
+        });
+    }
+
+    @Override
+    public void ownCenter() {
+        this.subscribeNetwork(APIServiceFactory.createAPIService(ApiHost.USER, Api.class).ownCenter(), new NetDisposableObserver<BaseModel<OwnCenterModel>>((IBaseMvpView) getView(), false, false) {
+            @Override
+            public void onNext(BaseModel<OwnCenterModel> model) {
+                AuctionContract.IDetailsView view = (AuctionContract.IDetailsView) getView();
+                view.ownCenterSuccess(model.attachment);
             }
         });
     }

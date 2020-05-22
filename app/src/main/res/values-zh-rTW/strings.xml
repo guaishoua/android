@@ -941,7 +941,7 @@
     <string name="auction_confirm_endtime">拍賣確認倒計時</string>
     <string name="auction_number">拍賣數量</string>
     <string name="bid_price_acu">競拍價(ACU)</string>
-    <string name="auction_time">競拍次數</string>
+    <string name="auction_time">當前進度</string>
     <string name="join_auction">參與競拍</string>
     <string name="auction_record">競拍紀錄</string>
     <string name="look_more">查看更多</string>
@@ -958,7 +958,7 @@
     <string name="my_shipping_address">我的收貨地址</string>
     <string name="add_address">填寫收貨地址</string>
     <string name="auction_doubt_tip">如有疑問，可以聯系客服</string>
-    <string name="my_address_tip">※ 請認真填寫並核實收貨地址，地址錯誤將導致您無法收取貨物，如有疑問可聯系客戶。</string>
+    <string name="my_address_tip">※ 請認真填寫並核實收貨地址，地址錯誤將導致您無法收取貨物，如有疑問可聯系客服。</string>
     <string name="receiver">收貨人</string>
     <string name="please_input_receiver">請填寫收貨人</string>
     <string name="tel">手機號碼</string>

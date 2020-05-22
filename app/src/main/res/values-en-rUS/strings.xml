@@ -952,7 +952,7 @@
     <string name="auction_confirm_endtime">Countdown to auction confirmation</string>
     <string name="auction_number">number of auctions</string>
     <string name="bid_price_acu">Auction price (ACU)</string>
-    <string name="auction_time">Number of auctions</string>
+    <string name="auction_time">Current progress</string>
     <string name="join_auction">Participate in auction</string>
     <string name="auction_record">Auction record</string>
     <string name="look_more">View more</string>
@@ -969,7 +969,7 @@
     <string name="my_shipping_address">My delivery address</string>
     <string name="add_address">Fill in the receiving address</string>
     <string name="auction_doubt_tip">If you have any questions, you can contact customer service</string>
-    <string name="my_address_tip">※ Please fill in and verify the delivery address carefully. The wrong address will cause you to fail to receive the goods. If you have any questions, please contact the customer.</string>
+    <string name="my_address_tip">※ Please fill in and verify the receiving address carefully. If the address is wrong, you will not be able to receive the goods. If you have any questions, please contact customer service</string>
     <string name="receiver">consignee</string>
     <string name="please_input_receiver">Please fill in the consignee</string>
     <string name="tel">mobile phone number</string>

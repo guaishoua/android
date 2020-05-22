@@ -21,12 +21,14 @@ import com.android.tacu.module.auction.contract.AuctionContract;
 import com.android.tacu.module.auction.model.AuctionLogsListModel;
 import com.android.tacu.module.auction.model.AuctionModel;
 import com.android.tacu.module.auction.presenter.AuctionPresenter;
+import com.android.tacu.module.main.model.OwnCenterModel;
 import com.android.tacu.module.my.view.SecurityCenterActivity;
 import com.android.tacu.module.webview.view.WebviewActivity;
 import com.android.tacu.utils.DateUtils;
 import com.android.tacu.utils.GlideUtils;
 import com.android.tacu.utils.Md5Utils;
 import com.android.tacu.utils.ShowToast;
+import com.android.tacu.utils.user.UserManageUtils;
 import com.android.tacu.widget.BubbleProgressView;
 import com.android.tacu.widget.dialog.DroidDialog;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundEditText;
@@ -255,6 +257,13 @@ public class AuctionDetailsActivity extends BaseActivity<AuctionPresenter> imple
     }
 
     @Override
+    public void ownCenterSuccess(OwnCenterModel model) {
+        if (model != null) {
+            UserManageUtils.setPersonInfo(model);
+        }
+    }
+
+    @Override
     public void auctionBuySuccess() {
         if (auctionModel == null) {
             return;
@@ -305,6 +314,7 @@ public class AuctionDetailsActivity extends BaseActivity<AuctionPresenter> imple
     private void upload() {
         mPresenter.auctionDetail(1, isFirst);
         mPresenter.currentTime(1, isFirst);
+        mPresenter.ownCenter();
 
         isFirst = false;
     }

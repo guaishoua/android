@@ -3,6 +3,7 @@ package com.android.tacu.module.auction.contract;
 import com.android.tacu.base.IBaseMvpView;
 import com.android.tacu.module.auction.model.AuctionLogsListModel;
 import com.android.tacu.module.auction.model.AuctionModel;
+import com.android.tacu.module.main.model.OwnCenterModel;
 
 public class AuctionContract {
 
@@ -10,6 +11,8 @@ public class AuctionContract {
         void auctionDetail(AuctionModel model);
 
         void currentTime(Long time);
+
+        void ownCenterSuccess(OwnCenterModel model);
 
         void auctionBuySuccess();
 
@@ -34,6 +37,8 @@ public class AuctionContract {
         void auctionDetail(int type, boolean isShowView);
 
         void currentTime(int type, boolean isShowView);
+
+        void ownCenter();
 
         void auctionBuy(Integer id, String fdPassword);
 
