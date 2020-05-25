@@ -170,6 +170,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             public void onRefresh(RefreshLayout refreshlayout) {
                 mPresenter.getHome(false);
                 mPresenter.getNoticeInfo();
+                mPresenter.auctionTotal();
             }
         });
 
