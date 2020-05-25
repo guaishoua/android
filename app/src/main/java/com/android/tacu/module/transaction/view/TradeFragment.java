@@ -223,7 +223,7 @@ public class TradeFragment extends BaseFragment<TradePresenter> implements View.
     private boolean isInput = true;
     private boolean isSeekProgress = true;
     //行情价标识 (type=1 限价  type =2 市价 )
-    private int limitPriceType = 2;
+    private int limitPriceType = 1;
     //手续费买
     private SpannableString buyFee;
     //手续费卖
